@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import services.EchoService;
+			private function sendMessage(message:String):void
+			{
+				var echoSer:EchoService=new EchoService();
+				echoSer.addEventListener(ResultEvent.RESULT,resultHandler);
+				echoSer.echo(message);
+			}
+			private function resultHandler(event:ResultEvent):void
+			{
+				var message:String= event.result as String;
+				Alert.show(message);
+			}
+			
+		]]>
+	</mx:Script> 
+	<mx:Button x="288" y="61" label="send" click="{sendMessage(input.text)}"/>
+	<mx:TextInput id="input" x="120" y="61"/>
+</mx:Application>
