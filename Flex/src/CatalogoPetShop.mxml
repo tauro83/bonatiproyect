@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" x="241" y="134" width="779" height="383" title="Catalogo"> 
+        <mx:Label width="100%" textAlign="center" color="0x323232"
+           text="Productos disponibles"/>
+           
+        <mx:TileList id="AppSelection" width="759" height="327" color="0x323232" maxColumns="4" direction="horizontal" x="0" y="26">
+            <mx:dataProvider>
+                <mx:Array>
+                    <mx:Object label="Alimento" icon="@Embed('../gallinas.jpg')"/>
+
+                    <mx:Object label="Pack Aseo" icon="@Embed('../shampoo-y-balsamo.jpg')"/>
+                    <mx:Object label="Posillo cachorro" icon="@Embed('../posillo.jpg')"/>
+                    <mx:Object label="Canil Perro" icon="@Embed('../canil.jpg')"/>
+                    <mx:Object label="Capucha Cachorro Roja" icon="@Embed('../capucha1b.jpg')"/>
+                    <mx:Object label="Capucha Cachorro Cafe" icon="@Embed('../capucha2b.jpg')"/>
+                    <mx:Object label="Alimento Perro" icon="@Embed('../champmix3.jpg')"/>
+                    <mx:Object label="Antiparacitario" icon="@Embed('../antiparacitario3.jpg')"/>
+                    <mx:Object label="Arena Sanitaria" icon="@Embed('../arena-sanitaria2.jpg')"/>
+                    <mx:Object label="Arena Sanitaria" icon="@Embed('../arena-sanitaria3.jpg')"/>
+                </mx:Array>
+            </mx:dataProvider>
+        </mx:TileList>
+        
+    </mx:Panel>
