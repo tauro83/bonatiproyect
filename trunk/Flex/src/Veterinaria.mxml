@@ -1,0 +1,1240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020"> 
+
+    <mx:Script>
+
+        <![CDATA[
+
+            import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			
+			public var idBotonGeneral:String;
+			public var idPanelGeneral:String;
+			public var idServicioGeneral:String;
+			public var infoGeneral:String;
+			public var texx:String;
+			public var texx2:String;
+			public var texx3:String;
+			public var texInt:int;
+			
+			
+	       
+
+	        
+            private function manejadorCreationComplete (event:FlexEvent):void
+
+            {
+            	// Escucha por el evento click event en el botón.
+                cliNewAtencion2.linkSiguiente.addEventListener(MouseEvent.CLICK,linkNewAP);            	
+				menuAgenda1.linkAtenAgenda.addEventListener(MouseEvent.CLICK,funcionLink);
+				menuAgenda1.linkAvisoAgenda.addEventListener(MouseEvent.CLICK,funcionLink2);
+				menuAgenda1.linkBloqAtenDom.addEventListener(MouseEvent.CLICK,funcionLink3);
+				menuAgenda1.linkBloqCastro.addEventListener(MouseEvent.CLICK,funcionLink3);
+				menuAgenda1.linkBloqPel.addEventListener(MouseEvent.CLICK,funcionLink3);
+				menuAgenda1.linkBloqPolBonati.addEventListener(MouseEvent.CLICK,funcionLink3);
+				menuAgenda1.linkPelAgenda.addEventListener(MouseEvent.CLICK,funcionLink);
+				menuAgenda1.linkpolBonati1.addEventListener(MouseEvent.CLICK,funcionLink);
+				menuAgenda1.linkPolCastro.addEventListener(MouseEvent.CLICK,funcionLink);
+                botonAdmin.addEventListener (MouseEvent.CLICK, manejadorClick);
+                botonAgenda.addEventListener (MouseEvent.CLICK, manejadorClick2);
+                botonClinica.addEventListener (MouseEvent.CLICK, climanejadorClick);
+                opcionesClinica1.PreOlink.addEventListener(MouseEvent.CLICK,linkPreOp);
+                opcionesClinica1.PostOLink.addEventListener(MouseEvent.CLICK,linkPosOp);
+                opcionesClinica1.cirugiaLink.addEventListener(MouseEvent.CLICK,linkCirugia);
+                opcionesClinica1.BuscaVacunLink.addEventListener(MouseEvent.CLICK,linkbuscaVD);
+                opcionesClinica1.BuscaAtenLink.addEventListener(MouseEvent.CLICK,linkbuscaAD);
+                opcionesClinica1.newAtenDomLink.addEventListener(MouseEvent.CLICK,linknuevaAD);
+                botonPeluqueria.addEventListener (MouseEvent.CLICK, pelmanejadorClick);
+				pelPanel1.PelNuevaAtencion.addEventListener(MouseEvent.CLICK,linkNuevaAtencion);
+				pelPanel1.PelNuevoCatalogo.addEventListener(MouseEvent.CLICK,linkNuevoCatalogo);
+				pelPanel1.PelVerCatalogo.addEventListener(MouseEvent.CLICK,linkVerCatalogo);
+				pelPanel1.PelEstadisitica.addEventListener(MouseEvent.CLICK,linkEstadistica);
+				AdmOpciones1.linkEditarRazasAd.addEventListener(MouseEvent.CLICK,linkeditRazasAd);
+                AdmOpciones1.linkEditarUsAd.addEventListener(MouseEvent.CLICK,linkeditUsAd);
+                AdmOpciones1.linkRegUsuarioAd.addEventListener(MouseEvent.CLICK,linkregsitroUsAd);
+                AdmOpciones1.linkFichaAdm.addEventListener(MouseEvent.CLICK,linkFichaAd);
+                AdmOpciones1.linkMascotaAdm.addEventListener(MouseEvent.CLICK,linkMascotaAd);
+                AdmOpciones1.linkClienteAdm.addEventListener(MouseEvent.CLICK,linkClienteAd);
+                botonHotel.addEventListener(MouseEvent.CLICK, hotelclimanejadorClick);
+                hotelOpciones.hotelServPellink.addEventListener(MouseEvent.CLICK,linkNuevaAtencionHotelBaño);
+                //hotelOpciones.alimentLink.addEventListener(MouseEvent.CLICK,linkNuevaAtencionHotelAlimentos);
+                //hotelOpciones.accesorVentaLink.addEventListener(MouseEvent.CLICK,linkNuevaAtencionHotelAccesorios);
+                botonPetshop.addEventListener (MouseEvent.CLICK, petmanejadorClick);
+            	petOpciones1.linkVisualVentapet.addEventListener (MouseEvent.CLICK, linkVisualizarVenta);
+				petOpciones1.linkImportDatesPet.addEventListener (MouseEvent.CLICK, linkImportarDatos);
+				petOpciones1.linkCatalogoPet.addEventListener (MouseEvent.CLICK, linkCatalogoPet);
+				petOpciones1.linkEstadisticaPet.addEventListener (MouseEvent.CLICK, linkEstadisticaPet);
+				
+				
+				pelCatalogo2.pelOAgregarItem.addEventListener(MouseEvent.CLICK, linkAgregarItem);
+            	pelNewCatalogo2.pelOAgregarItem.addEventListener(MouseEvent.CLICK, linkAgregarItem);
+            	pelNuevoItem.cancelNuevoItem.addEventListener(MouseEvent.CLICK, linkCancelAgregarItem);
+            	pelPanel1.pelVerAtenciones.addEventListener(MouseEvent.CLICK,linkVerAtencionesPel);
+				
+                
+                panel2.botonGuardar.addEventListener(MouseEvent.CLICK, enviaDat);
+                // Escucha por el evento click event en el botón.
+                
+				hotelIngreso.IdVerRegistroHotel.addEventListener (MouseEvent.CLICK,visulizarRegHot);
+                AdmIngreso2.cancelarClienteIng.addEventListener(MouseEvent.CLICK, inicial);
+                AdmMascota2.cancelarMascota.addEventListener (MouseEvent.CLICK,inicial);
+                login2.CancelarUsuario.addEventListener (MouseEvent.CLICK,inicial);
+                AdRegUsuario2.canRegUsuario.addEventListener (MouseEvent.CLICK,inicial);
+                
+                agenda2.RegAgenda.addEventListener (MouseEvent.CLICK,enviaDat1);
+                agenda2.cancAgenda.addEventListener (MouseEvent.CLICK,enviaDat2);
+                panelDesbloqueo.Aceptar1.addEventListener (MouseEvent.CLICK,enviaDat3);
+                panelDesbloqueo.Cancelar1.addEventListener (MouseEvent.CLICK,enviaDat4);
+                hotelIngreso.IdGuardarHotel.addEventListener (MouseEvent.CLICK,enviaDat5);
+               	login2.AceptarUsuario.addEventListener (MouseEvent.CLICK,enviaDat6);
+               	agAviso2.aceptarAviso.addEventListener (MouseEvent.CLICK,enviaDat7);
+                agAviso2.cancelarAviso.addEventListener (MouseEvent.CLICK,enviaDat8);
+                AdEditarUsuar2.borrarUsuario.addEventListener (MouseEvent.CLICK,enviaDat9);
+                AdEditarUsuar2.editaUsuario.addEventListener (MouseEvent.CLICK,enviaDat10);
+                AdmIngreso2.guardarClienteIng.addEventListener (MouseEvent.CLICK,enviaDat11);
+                
+                /*
+                AdmFichaMascota2.fichaAgregarRegistro.addEventListener (MouseEvent.CLICK,enviaDat12);
+                AdmFichaMascota2.fichaEliminarRegistro.addEventListener (MouseEvent.CLICK,enviaDat13);
+                AdmFichaMascota2.fichaEditarDatosMascota.addEventListener (MouseEvent.CLICK,enviaDat14);
+                */
+                
+               
+                
+               AdmMascota2.guardarMascota.addEventListener (MouseEvent.CLICK,enviaDat15);
+               //ageNewCita2.citaGuardar.addEventListener (MouseEvent.CLICK,enviaDat16);
+               pelNewAtencion2.botonNewAtAceptar.addEventListener (MouseEvent.CLICK,enviaDat17);
+               hotelIngreso.IdGuardarHotel.addEventListener (MouseEvent.CLICK,enviaDat18);
+               pelNewCatalogo2.guardar.addEventListener (MouseEvent.CLICK,enviaDat19);
+               //cliFindatencion2.buscarAtencion.addEventListener (MouseEvent.CLICK,enviaDat20);
+               //cliFindVacuna2.botonbuscarVacun.addEventListener (MouseEvent.CLICK,enviaDat21);
+               //cliNewAtention2.linkGuardar.addEventListener (MouseEvent.CLICK,enviaDat22);
+               //cliNewAtention2.linkBuscarVacuna.addEventListener (MouseEvent.CLICK,enviaDat23);
+               cliRegistro2.agregarCirugia.addEventListener (MouseEvent.CLICK,enviaDat24);
+               cliRegistroPO2.agregarPostOperatorio.addEventListener (MouseEvent.CLICK,enviaDat25);
+               cliRegistroPreO2.agregarPreOperatorio.addEventListener (MouseEvent.CLICK,enviaDat26);
+         //      AdRegUsuario2.regRegUsu.addEventListener (MouseEvent.CLICK,enviaDat27);
+                /*
+                
+                
+                .addEventListener (MouseEvent.CLICK,enviaDat28);
+                .addEventListener (MouseEvent.CLICK,enviaDat29);
+                .addEventListener (MouseEvent.CLICK,enviaDat30);
+*/
+                
+                botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
+                botonLogin.addEventListener(MouseEvent.CLICK,verLogin);
+            }
+            
+            
+            
+			////////////////////////////////////////////////////////////////////////////////
+			
+			private function enviaDat ( event:Event ):void
+            {
+            	texHelp.text = panel2.getIdServicio();
+            	texHelp2.text = panel2.getIdPanel();
+            	texHelp3.text = panel2.botonGuardar.id.toString();
+            	texHelp4.text = panel2.getInfoComp();
+            	texHelp5.text = "0";
+            	plainRpc.send();
+            }
+           
+            private function enviaDat1 ( event:Event ):void
+            {
+            	texHelp.text = agenda2.getIdServicio();
+            	texHelp2.text = agenda2.getIdPanel();
+            	texHelp3.text = agenda2.RegAgenda.id.toString();
+            	texHelp4.text = agenda2.getInfoComp();
+            	texHelp5.text = "1";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat2 ( event:Event ):void
+            {
+            	texHelp.text = agenda2.getIdServicio();
+            	texHelp2.text = agenda2.getIdPanel();
+            	texHelp3.text = agenda2.cancAgenda.id.toString();
+            	texHelp4.text = agenda2.getInfoComp();
+            	texHelp5.text = "2";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat3 ( event:Event ):void
+            {
+            	texHelp.text = panelDesbloqueo.getIdServicio();
+            	texHelp2.text = panelDesbloqueo.getIdPanel();
+            	texHelp3.text = panelDesbloqueo.Aceptar1.id.toString();
+            	texHelp4.text = panelDesbloqueo.getInfoComp();
+            	texHelp5.text = "3";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat4 ( event:Event ):void
+            {
+            	texHelp.text = panelDesbloqueo.getIdServicio();
+            	texHelp2.text = panelDesbloqueo.getIdPanel();
+            	texHelp3.text = panelDesbloqueo.Cancelar1.id.toString();
+            	texHelp4.text = panelDesbloqueo.getInfoComp();
+            	texHelp5.text = "4";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat5 ( event:Event ):void
+            {
+            	texHelp.text = hotelIngreso.getIdServicio();
+            	texHelp2.text = hotelIngreso.getIdPanel();
+            	texHelp3.text = hotelIngreso.IdGuardarHotel.id.toString();
+            	texHelp4.text = hotelIngreso.getInfoComp();
+            	texHelp5.text = "5";
+            	plainRpc.send();
+            }
+			
+            private function enviaDat6 ( event:Event ):void
+            {
+            	texHelp.text = login2.getIdServicio();
+            	texHelp2.text = login2.getIdPanel();
+            	texHelp3.text = login2.AceptarUsuario.id.toString();
+            	texHelp4.text = login2.getInfoComp();
+            	texHelp5.text = "5";
+            	plainRpc.send();
+            }
+            private function enviaDat7 ( event:Event ):void
+            {
+            	texHelp.text = agAviso2.getIdServicio();
+            	texHelp2.text = agAviso2.getIdPanel();
+            	texHelp3.text = agAviso2.aceptarAviso.id.toString();
+            	texHelp4.text = agAviso2.getInfoComp();
+            	texHelp5.text = "7";
+            	plainRpc.send();
+            }
+            
+            
+            
+            private function enviaDat8 ( event:Event ):void
+            {
+            	texHelp.text = agAviso2.getIdServicio();
+            	texHelp2.text = agAviso2.getIdPanel();
+            	texHelp3.text = agAviso2.cancelarAviso.id.toString();
+            	texHelp4.text = agAviso2.getInfoComp();
+            	texHelp5.text = "8";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat9 ( event:Event ):void
+            {
+            	texHelp.text = AdEditarUsuar2.getIdServicio();
+            	texHelp2.text = AdEditarUsuar2.getIdPanel();
+            	texHelp3.text = AdEditarUsuar2.borrarUsuario.id.toString();
+            	texHelp4.text = AdEditarUsuar2.getInfoComp();
+            	texHelp5.text = "9";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat10 ( event:Event ):void
+            {
+            	texHelp.text = AdEditarUsuar2.getIdServicio();
+            	texHelp2.text = AdEditarUsuar2.getIdPanel();
+            	texHelp3.text = AdEditarUsuar2.editaUsuario.id.toString();
+            	texHelp4.text = AdEditarUsuar2.getInfoComp();
+            	texHelp5.text = "10";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat11 ( event:Event ):void
+            {
+            	texHelp.text = AdmIngreso2.getIdServicio();
+            	texHelp2.text = AdmIngreso2.getIdPanel();
+            	texHelp3.text = AdmIngreso2.guardarClienteIng.id.toString();
+            	texHelp4.text = AdmIngreso2.getInfoComp();
+            	texHelp5.text = "11";
+            	plainRpc.send();
+            }
+             /*
+            private function enviaDat12 ( event:Event ):void
+            {
+            	texHelp.text = AdmFichaMascota2.getIdServicio();
+            	texHelp2.text = AdmFichaMascota2.getIdPanel();
+            	texHelp3.text = AdmFichaMascota2.fichaAgregarRegistro.id.toString();
+            	texHelp4.text = AdmFichaMascota2.getInfoComp();
+            	texHelp5.text = "12";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat13 ( event:Event ):void
+            {
+            	texHelp.text = AdmFichaMascota2.getIdServicio();
+            	texHelp2.text = AdmFichaMascota2.getIdPanel();
+            	texHelp3.text = AdmFichaMascota2.fichaEliminarRegistro.id.toString();
+            	texHelp4.text = AdmFichaMascota2.getInfoComp();
+            	texHelp5.text = "13";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat14 ( event:Event ):void
+            {
+            	texHelp.text = AdmFichaMascota2.getIdServicio();
+            	texHelp2.text = AdmFichaMascota2.getIdPanel();
+            	texHelp3.text = AdmFichaMascota2.fichaEditarDatosMascota.id.toString();
+            	texHelp4.text = AdmFichaMascota2.getInfoComp();
+            	texHelp5.text = "14";
+            	plainRpc.send();
+            }
+            */
+            
+            private function enviaDat15 ( event:Event ):void
+            {
+            	texHelp.text = AdmMascota2.getIdServicio();
+            	texHelp2.text = AdmMascota2.getIdPanel();
+            	texHelp3.text = AdmMascota2.guardarMascota.id.toString();
+            	texHelp4.text = AdmMascota2.getInfoComp();
+            	texHelp5.text = "15";
+            	plainRpc.send();
+            }
+            /*
+            private function enviaDat16 ( event:Event ):void
+            {
+            	texHelp.text = ageNewCita2.getIdServicio();
+            	texHelp2.text = ageNewCita2.getIdPanel();
+            	texHelp3.text = ageNewCita2.citaGuardar.id.toString();
+            	texHelp4.text = ageNewCita2.getInfoComp();
+            	texHelp5.text = "16";
+            	plainRpc.send();
+            }
+            */
+            private function enviaDat17 ( event:Event ):void
+            {
+            	texHelp.text = pelNewAtencion2.getIdServicio();
+            	texHelp2.text = pelNewAtencion2.getIdPanel();
+            	texHelp3.text = pelNewAtencion2.botonNewAtAceptar.id.toString();
+            	texHelp4.text = pelNewAtencion2.getInfoComp();
+            	texHelp5.text = "17";
+            	plainRpc.send();
+            }
+            private function enviaDat18 ( event:Event ):void
+            {
+            	texHelp.text = hotelIngreso.getIdServicio();
+            	texHelp2.text = hotelIngreso.getIdPanel();
+            	texHelp3.text = hotelIngreso.IdGuardarHotel.id.toString();
+            	texHelp4.text = hotelIngreso.getInfoComp();
+            	texHelp5.text = "18";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat19 ( event:Event ):void
+            {
+            	texHelp.text = pelNewCatalogo2.getIdServicio();
+            	texHelp2.text = pelNewCatalogo2.getIdPanel();
+            	texHelp3.text = pelNewCatalogo2.guardar.id.toString();
+            	texHelp4.text = pelNewCatalogo2.getInfoComp();
+            	texHelp5.text = "19";
+            	plainRpc.send();
+            }
+            /*
+             private function enviaDat20 ( event:Event ):void
+            {
+            	texHelp.text = cliFindatencion2.getIdServicio();
+            	texHelp2.text = cliFindatencion2.getIdPanel();
+            	texHelp3.text = cliFindatencion2.buscarAtencion.id.toString();
+            	texHelp4.text = cliFindatencion2.getInfoComp();
+            	texHelp5.text = "20";
+            	plainRpc.send();
+            }
+            */
+            /*
+            private function enviaDat21 ( event:Event ):void
+            {
+            	texHelp.text = cliFindVacuna2.getIdServicio();
+            	texHelp2.text = cliFindVacuna2.getIdPanel();
+            	texHelp3.text = cliFindVacuna2.botonbuscarVacun.id.toString();
+            	texHelp4.text = cliFindVacuna2.getInfoComp();
+            	texHelp5.text = "21";
+            	plainRpc.send();
+            }
+            */
+            /*
+            private function enviaDat22 ( event:Event ):void
+            {
+            	texHelp.text = cliNewAtention2.getIdServicio();
+            	texHelp2.text = cliNewAtention2.getIdPanel();
+            	texHelp3.text = cliNewAtention2.linkGuardar.id.toString();
+            	texHelp4.text = cliNewAtention2.getInfoComp();
+            	texHelp5.text = "22";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat23 ( event:Event ):void
+            {
+            	texHelp.text = cliNewAtention2.getIdServicio();
+            	texHelp2.text = cliNewAtention2.getIdPanel();
+            	texHelp3.text = cliNewAtention2.linkBuscarVacuna.id.toString();
+            	texHelp4.text = cliNewAtention2.getInfoComp();
+            	texHelp5.text = "23";
+            	plainRpc.send();
+            }
+            */
+            private function enviaDat24 ( event:Event ):void
+            {
+            	texHelp.text = cliRegistro2.getIdServicio();
+            	texHelp2.text = cliRegistro2.getIdPanel();
+            	texHelp3.text = cliRegistro2.agregarCirugia.id.toString();
+            	texHelp4.text = cliRegistro2.getInfoComp();
+            	texHelp5.text = "24";
+            	plainRpc.send();
+            }
+            
+            
+            private function enviaDat25 ( event:Event ):void
+            {
+            	texHelp.text = cliRegistroPO2.getIdServicio();
+            	texHelp2.text = cliRegistroPO2.getIdPanel();
+            	texHelp3.text = cliRegistroPO2.agregarPostOperatorio.id.toString();
+            	texHelp4.text = cliRegistroPO2.getInfoComp();
+            	texHelp5.text = "25";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat26 ( event:Event ):void
+            {
+            	texHelp.text = cliRegistroPreO2.getIdServicio();
+            	texHelp2.text = cliRegistroPreO2.getIdPanel();
+            	texHelp3.text = cliRegistroPreO2.agregarPreOperatorio.id.toString();
+            	texHelp4.text = cliRegistroPreO2.getInfoComp();
+            	texHelp5.text = "26";
+            	plainRpc.send();
+            }
+             private function enviaDat27 ( event:Event ):void
+            {
+            	//texHelp.text = AdRegUsuario2.getIdServicio();
+            	//texHelp2.text = AdRegUsuario2.getIdPanel();
+            	//texHelp3.text = AdRegUsuario2.regRegUsu.id.toString();
+            	//texHelp4.text = AdRegUsuario2.getInfoComp();
+            	texHelp5.text = "27";
+            	plainRpc.send();
+            }
+            
+              /*
+            
+           
+            
+            private function enviaDat28 ( event:Event ):void
+            {
+            	texHelp.text = .getIdServicio();
+            	texHelp2.text = .getIdPanel();
+            	texHelp3.text = .botonGuardar.id.toString();
+            	texHelp4.text = .getInfoComp();
+            	texHelp5.text = "28";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat29 ( event:Event ):void
+            {
+            	texHelp.text = .getIdServicio();
+            	texHelp2.text = .getIdPanel();
+            	texHelp3.text = .botonGuardar.id.toString();
+            	texHelp4.text = .getInfoComp();
+            	texHelp5.text = "29";
+            	plainRpc.send();
+            }
+            
+            private function enviaDat30 ( event:Event ):void
+            {
+            	texHelp.text = .getIdServicio();
+            	texHelp2.text = .getIdPanel();
+            	texHelp3.text = .botonGuardar.id.toString();
+            	texHelp4.text = .getInfoComp();
+            	texHelp5.text = "30";
+            	plainRpc.send();
+            }
+
+
+            */
+            
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            
+            
+            public function handlePlain(event:ResultEvent):void
+			{
+				texx = event.result.toString();
+				//panel2.textAreaOp.text=texx;
+				//panel2.setInfoComp(texx);
+				
+				switch (texHelp5.text){
+					case "0":
+						panel2.setInfoComp(texx)
+						break;
+					
+					default:
+						texx = "error";
+				}		
+						/*
+						
+					case "1":
+						agenda2.setInfo(texx)
+						break;
+					case "2":
+						agenda2.setInfo(texx)
+						break;
+					case "3":
+						panelDesbloqueo.setInfo(texx)
+						break;
+					case "4":
+						panelDesbloqueo.setInfo(texx)
+						break;
+					case "5":
+						hotelIngreso.setInfo(texx)
+						break;
+					case "6":
+						login2.setInfo(texx)
+						break;
+					case "7":
+						agAviso2.setInfo(texx)
+						break;
+					case "8":
+						agAviso2.setInfo(texx)
+						break;
+					case "9":
+						AdEditarUsuar2.setInfo(texx)
+						break;
+					case "10":
+						AdEditarUsuar2.setInfo(texx)
+						break;
+					case "11":
+						AdmIngreso2.setInfo(texx)
+						break;
+					case "12":
+						AdmFichaMascota2.setInfo(texx)
+						break;
+					case "13":
+						AdmFichaMascota2.setInfo(texx)
+						break;
+					case "14":
+						AdmFichaMascota2.setInfo(texx)
+						break;
+					case "15":
+						AdmMascota2.setInfo(texx)
+						break;
+					case "16":
+						ageNewCita2.setInfo(texx)
+						break;
+					case "17":
+						pelNewAtencion2.setInfo(texx)
+						break;
+					case "18":
+						hotelIngreso.setInfo(texx)
+						break;
+					case "19":
+						pelNewCatalogo2.setInfo(texx)
+						break;
+					case "20":
+						cliFindatencion2.setInfo(texx)
+						break;
+					case "21":
+						cliFindVacuna2.setInfo(texx)
+						break;
+					case "22":
+						cliNewAtention2.setInfo(texx)
+						break;
+					case "23":
+						cliNewAtention2.setInfo(texx)
+						break;
+					case "24":
+						cliRegistro2.setInfo(texx)
+						break;
+					case "25":
+						cliRegistroPO2.setInfo(texx)
+						break;
+					case "26":
+						cliRegistroPreO2.setInfo(texx)
+						break;
+					case "27":
+						AdRegUsuario2.setInfo(texx)
+						break;
+					case "28":
+						.setInfo(texx)
+						break;
+					case "29":
+						.setInfo(texx)
+						break;
+					case "30":
+						.setInfo(texx)
+						break;
+					case "31":
+						.setInfo(texx)
+						break;
+					case "32":
+						.setInfo(texx)
+						break;
+					case "33":
+						.setInfo(texx)
+						break;
+					case "34":
+						.setInfo(texx)
+						break;
+					case "35":
+						.setInfo(texx)
+						break;
+					case "36":
+						.setInfo(texx)
+						break;
+					case "37":
+						.setInfo(texx)
+						break;
+					case "38":
+						.setInfo(texx)
+						break;
+					case "39":
+						.setInfo(texx)
+						break;
+					case "40":
+						.setInfo(texx)
+						break;
+					default:
+						.set("error");
+				
+					*/
+									
+
+			}
+			
+			public function handleFault(event:FaultEvent):void
+			{
+				Alert.show(event.fault.faultString, "Error");
+				
+			}
+            
+            
+            
+            
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////////////////
+            
+            private function setInvisible ():void
+            {
+            	panel2.setVisible(false,false);
+                panelOpciones.setVisible(false,false);
+				atenRealizadas2.setVisible(false,false);
+                agenda2.setVisible(false,false);
+				pelCatalogo2.setVisible(false,false);
+                pelEstadistica2.setVisible(false,false);
+				pelEstaSave2.setVisible(false,false);
+                pelListaEspera2.setVisible(false,false);
+				pelNewAtencion2.setVisible(false,false);
+                ageNewCita2.setVisible(false,false);
+				pelNewCatalogo2.setVisible(false,false);
+                cliFindatencion2.setVisible(false,false);
+				cliFindVacuna2.setVisible(false,false);
+                cliNewAtencion2.setVisible(false,false);
+				cliRegistro2.setVisible(false,false);
+                cliRegistroPO2.setVisible(false,false);
+				cliRegistroPreO2.setVisible(false,false);
+				petVisualVent2.setVisible(false,false);
+                opcionesClinica1.setVisible(false,false);          
+                pelPanel1.setVisible(false,false);
+                petVisualdat2.setVisible(false,false);
+                petOpciones1.setVisible(false,false);
+                petEstadisticasg2.setVisible(false,false);
+            	petVisualVenta2.setVisible(false,false);
+            	petVisualdat2.setVisible(false,false);
+            	AdmOpciones1.setVisible(false,false);
+            	AdEditarUsuar2.setVisible(false,false);
+            	AdRegistrarRazas2.setVisible(false,false);
+            	AdRegUsuario2.setVisible(false,false);
+            	AdmFichaMascota2.setVisible(false,false);
+				AdmMascota2.setVisible(false,false);
+				AdmIngreso2.setVisible(false,false);        	
+            	hotelOpciones.setVisible(false,false);
+            	hotelIngreso.setVisible(false,false);
+            	
+            	menuAgenda1.setVisible(false,false);
+            	panelDesbloqueo.setVisible(false,false);
+            	cliNewAtention2.setVisible(false,false);
+            	agAviso2.setVisible(false,false);
+            	
+            	login2.setVisible(false,false);
+            	busqueda2.setVisible(false,false);
+            	huespedAgregado2.setVisible(false,false);
+            }
+            
+            
+			private function visulizarRegHot ( event:Event ):void
+            {
+            	setInvisible();
+            	pelNewAtencion2.setVisible(true,false);
+                hotelOpciones.setVisible(true,false);
+            	
+            }
+            
+            
+            private function verLogin ( event:Event ):void
+
+            {
+				setInvisible();
+                panelOpciones.setVisible(true,false);
+            	login2.setVisible(true,false);
+
+            }
+            
+            private function verBusqueda ( event:Event ):void
+
+            {
+            	setInvisible();
+                panelOpciones.setVisible(true,false);
+            	busqueda2.setVisible(true,false);
+
+            	
+            	
+            	
+            }
+            
+            private function inicial ( event:Event ):void
+
+            {
+            	setInvisible();
+            	panel2.setVisible(true,false);
+                panelOpciones.setVisible(true,false);
+				
+            	
+            	
+            }
+            
+            
+            private function linkCancelAgregarItem ( event:Event ):void
+            {
+            	pelNuevoItem.setVisible(false, false);	
+            }
+        	private function linkAgregarItem ( event:Event ):void
+            {
+            	pelNuevoItem.setVisible(true, false);
+            }
+            private function linkVerAtencionesPel ( event:Event ):void
+
+            {
+            	setInvisible();
+				atenRealizadas2.setVisible(true,false);         
+                pelPanel1.setVisible(true,false);
+            	
+            	
+            }
+            
+            
+            private function linkNewAP ( event:Event ):void
+
+            {        	     	
+            	setInvisible();
+                opcionesClinica1.setVisible(true,false);
+            	cliNewAtention2.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            
+            private function funcionLink (event:Event):void
+            {
+                setInvisible();
+                agenda2.setVisible(true,false);
+				menuAgenda1.setVisible(true,false);
+    
+            	
+            	
+            	
+            }
+            
+            private function funcionLink2 (event:Event):void
+            {
+            	setInvisible();       
+            	menuAgenda1.setVisible(true,false);
+            	agAviso2.setVisible(true,false);
+
+            	
+            	
+            	
+            	
+            }
+            
+            private function funcionLink3 (event:Event):void
+            {
+            	setInvisible();
+				menuAgenda1.setVisible(true,false);
+            	panelDesbloqueo.setVisible(true,false);
+
+            }
+            
+            private function manejadorClick2 ( event:Event ):void
+
+            {	
+            	setInvisible();
+            	agenda2.setVisible(true,false);
+				menuAgenda1.setVisible(true,false);
+ 
+            } 
+            
+            private function linkEstadisticaPet ( event:Event ):void
+
+            {
+    			setInvisible();
+            	petOpciones1.setVisible(true,false);
+                petEstadisticasg2.setVisible(true,false);
+            	
+            }
+            
+            
+            private function linkCatalogoPet ( event:Event ):void
+
+            {
+            	setInvisible();
+            	panel2.setVisible(true,false);
+                petOpciones1.setVisible(true,false);
+            	            	
+            	
+            }
+            
+            private function linkImportarDatos( event:Event ):void
+
+            {
+            	setInvisible();
+            	petOpciones1.setVisible(true,false);
+                petVisualdat2.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function linkVisualizarVenta ( event:Event ):void
+
+            {
+            	setInvisible();
+            	petOpciones1.setVisible(true,false);
+                petVisualVenta2.setVisible(true,false);
+            	
+            	
+            }
+            
+            
+            
+            
+            private function petmanejadorClick ( event:Event ):void
+
+            {
+            	setInvisible();
+            	panel2.setVisible(true,false);
+                petOpciones1.setVisible(true,false);
+                
+            	
+            }
+            
+            private function hotelclimanejadorClick ( event:Event ):void
+
+            {
+            	setInvisible();
+            	hotelOpciones.setVisible(true,false);
+            	hotelIngreso.setVisible(true,false);
+            	
+            	
+            }
+            
+            ///////////////////////////////////////////////////////////////////////////
+            
+
+
+           private function linkNuevaAtencionHotelBaño ( event:Event ):void
+
+            {
+            	setInvisible();
+            	pelNewAtencion2.setVisible(true,false);
+                hotelOpciones.setVisible(true,false);
+            	
+            }
+
+           
+            
+            private function linkClienteAd ( event:Event ):void
+
+            {
+            	setInvisible();
+            	AdmIngreso2.setVisible(true,false);
+                AdmOpciones1.setVisible(true,false);
+            	
+            	
+            }
+            
+            private function linkMascotaAd ( event:Event ):void
+
+            {
+            	setInvisible();
+                AdmOpciones1.setVisible(true,false);
+            	AdmMascota2.setVisible(true,false);
+				
+            	
+            }
+            
+            private function linkFichaAd ( event:Event ):void
+
+            {
+            	setInvisible();
+            	AdmFichaMascota2.setVisible(true,false);
+                AdmOpciones1.setVisible(true,false);
+            	
+            }
+            
+            private function linkregsitroUsAd ( event:Event ):void
+
+            {
+            	setInvisible();
+            	AdmOpciones1.setVisible(true,false);
+                AdRegUsuario2.setVisible(true,false);
+            	
+            }
+            
+            
+            
+            private function linkeditUsAd ( event:Event ):void
+
+            {
+            	setInvisible();
+               	AdmOpciones1.setVisible(true,false);
+            	AdEditarUsuar2.setVisible(true,false);
+            	
+            }
+            
+            
+            private function linkeditRazasAd ( event:Event ):void
+
+            {
+            	setInvisible();
+				AdmOpciones1.setVisible(true,false);
+            	AdRegistrarRazas2.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            
+            
+            private function linkEstadistica ( event:Event ):void
+
+            {
+            	setInvisible();
+                pelEstadistica2.setVisible(true,false);         
+                pelPanel1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+                private function linkVerCatalogo ( event:Event ):void
+
+            {
+            	setInvisible();
+				pelCatalogo2.setVisible(true,false);
+                pelPanel1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function linkNuevoCatalogo ( event:Event ):void
+
+            {
+            	setInvisible();
+				pelNewCatalogo2.setVisible(true,false);
+                pelPanel1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function linkNuevaAtencion ( event:Event ):void
+
+            {
+            	setInvisible();
+				pelNewAtencion2.setVisible(true,false);
+                pelPanel1.setVisible(true,false);
+            	
+            	
+            }
+            
+           private function pelmanejadorClick ( event:Event ):void
+
+            {
+            	setInvisible();
+				pelNewAtencion2.setVisible(true,false);
+                pelPanel1.setVisible(true,false);
+            	
+            	
+            	
+            }
+                
+            
+            
+            private function linknuevaAP ( event:Event ):void
+
+            {
+            	setInvisible();
+            	panel2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+                        
+            
+            private function linknuevaAD ( event:Event ):void
+
+            {
+            	setInvisible();
+                cliNewAtencion2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function linkbuscaAD ( event:Event ):void
+
+            {
+            	setInvisible();
+                cliFindatencion2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function linkbuscaVD ( event:Event ):void
+
+            {
+            	setInvisible();
+				cliFindVacuna2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            	
+            }
+            
+            private function linkCirugia ( event:Event ):void
+
+            {
+            	setInvisible();
+				cliRegistro2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function linkPosOp ( event:Event ):void
+
+            {
+            	setInvisible();
+                cliRegistroPO2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            	            	
+            }
+            
+            
+            private function linkPreOp ( event:Event ):void
+
+            {
+            	setInvisible();
+				cliRegistroPreO2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            	
+            }
+            
+            private function climanejadorClickpanel ( event:Event ):void
+
+            {
+            	setInvisible();
+            	panel2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function climanejadorClick ( event:Event ):void
+
+            {
+            	setInvisible();
+            	panel2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+				
+			
+								
+            }        
+
+            private function manejadorClick ( event:Event ):void
+
+            {
+            	setInvisible();
+            	panel2.setVisible(true,false);
+            	AdmOpciones1.setVisible(true,false);
+
+            	
+            	
+            	
+            }
+			             
+
+        ]]>
+
+    </mx:Script>
+	
+	<mx:HTTPService id="plainRpc"
+		url="http://localhost:8080/BonatiClinicaVet/PlainHttpService.jsp"
+		result="handlePlain(event)" 
+		fault="handleFault(event)" 
+		resultFormat="text">
+		<mx:request>
+			<idServicio>{texHelp.text}</idServicio>
+			<idPanel>{texHelp2.text}</idPanel>
+			<idBoton>{texHelp3.text}</idBoton>
+			<informacion>{texHelp4.text}</informacion>
+		</mx:request>
+	</mx:HTTPService>
+	
+	<mx:Image x="0" y="0" width="292" height="108" source="../veterinaria bonati.jpg"/>
+	<mx:Image x="291" y="0" width="188" height="108" source="../fotos-animales-perros-peq.jpg"/>
+	<mx:Button x="478" y="10" label="Ubicación" width="100" height="50" labelPlacement="bottom" icon="@Embed(source='../Globe.png')" alpha="1.0" fillAlphas="[0.0, 0.0, 0.0, 0.0]"/>
+	<mx:Button x="586" y="10" label="Ayuda" width="100" height="50" icon="@Embed(source='../Help.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0"/>
+	<mx:Button x="694" y="10" label="Búsqueda" width="100" height="50" icon="@Embed(source='../Search.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" id="botonBusqueda"/>
+	<mx:Button x="802" y="10" label="Veterinaria" width="100" height="50" labelPlacement="bottom" icon="@Embed(source='../Home.png')" fillAlphas="[0.0, 0.0, 0.0, 0.0]"/>
+	<mx:Button x="910" y="10" label="Login" width="100" height="50" labelPlacement="bottom" icon="@Embed(source='../Users.png')" fillAlphas="[0.0, 0.0, 0.0, 0.0]" id="botonLogin"/>
+	<mx:MenuBar x="0" y="104" width="1020" height="30"></mx:MenuBar>
+	<mx:Button x="150" y="104" label="Agenda" width="145" height="30" cornerRadius="4" id="botonAgenda"/>
+	<mx:Button x="295" y="104" label="Clínica" width="145" height="30" cornerRadius="4" id="botonClinica"/>
+	<mx:Button x="440" y="104" label="Peluquería" width="145" height="30" id="botonPeluqueria"/>
+	<mx:Button x="585" y="104" label="Pet Shop" width="145" height="30" id="botonPetshop"/>
+	<mx:Button x="730" y="104" label="Hotelería" width="145" height="30" id="botonHotel"/>
+	<mx:Button x="875" y="104" label="Cruza mascota" width="145" height="30" id="botonCruza"/>
+	<mx:Panel x="241" y="517" width="779" height="83" layout="absolute" title="Mensajes del sistema">
+	</mx:Panel>
+	<ns1:opciones x="0" y="134" id="panelOpciones" visible="true" horizontalAlign="center" height="466">
+	</ns1:opciones>
+	<mx:Button x="0" y="104" label="Administración" height="30" width="150" id="botonAdmin"/>
+	<ns1:Agenda x="241" y="134" visible="false" id="agenda2">
+	</ns1:Agenda>
+	<ns1:AtencionesRealizadas x="241" y="134" visible="false" id="atenRealizadas2">
+	</ns1:AtencionesRealizadas>
+	<ns1:Catalogos x="241" y="134" visible="false" id="pelCatalogo2">
+	</ns1:Catalogos>
+	<ns1:Estadisticas x="241" y="134" id="pelEstadistica2" visible="false">
+	</ns1:Estadisticas>
+	<ns1:EstadisticasGuardadas x="241" y="134" id="pelEstaSave2" visible="false">
+	</ns1:EstadisticasGuardadas>
+	<ns1:ListaEspera x="241" y="134" id="pelListaEspera2" visible="false">
+	</ns1:ListaEspera>
+	<ns1:NuevaAtencion x="241" y="134" id="pelNewAtencion2" visible="false">
+	</ns1:NuevaAtencion>
+	<ns1:Nueva_Cita x="241" y="134" id="ageNewCita2" visible="false">
+	</ns1:Nueva_Cita>
+	<ns1:NuevoCatalogo x="241" y="134" id="pelNewCatalogo2" visible="false">
+	</ns1:NuevoCatalogo>
+	<ns1:PanelBuscarAtencion x="241" y="134" id="cliFindatencion2" visible="false">
+	</ns1:PanelBuscarAtencion>
+	<ns1:PanelBuscarVacuna x="241" y="134" id="cliFindVacuna2" visible="false">
+	</ns1:PanelBuscarVacuna>
+	<ns1:PanelNuevaAtencion x="241" y="134" id="cliNewAtencion2" visible="false">
+	</ns1:PanelNuevaAtencion>
+	<ns1:PanelNuevaAtencion2 x="241" y="134" id="cliNewAtention2" visible="false">
+	</ns1:PanelNuevaAtencion2>
+	<ns1:RegistroCirugia x="241" y="134" id="cliRegistro2" visible="false">
+	</ns1:RegistroCirugia>
+	<ns1:RegistroPostOperatorio x="241" y="134" id="cliRegistroPO2" visible="false">
+	</ns1:RegistroPostOperatorio>
+	<ns1:RegistroPreOperatorio x="241" y="134" id="cliRegistroPreO2" visible="false">
+	</ns1:RegistroPreOperatorio>
+	<ns1:VisualizarVenta x="241" y="134" id="petVisualVent2" visible="false">
+	</ns1:VisualizarVenta>
+	<ns1:OpcionesClinica x="0" y="134" id="opcionesClinica1" visible="false">
+	</ns1:OpcionesClinica>
+	<ns1:Panel1 x="0" y="134" id="pelPanel1" visible="false">
+	</ns1:Panel1>	
+	<ns1:EstadisticasGuardadasventas x="241" y="134" id="petEstadisticasg2" visible="false">
+	</ns1:EstadisticasGuardadasventas>
+	<ns1:ImportarDatos x="241" y="134" id="petVisualdat2" visible="false">
+	</ns1:ImportarDatos>
+	<ns1:VisualizarVenta x="241" y="134" id="petVisualVenta2" visible="false">
+	</ns1:VisualizarVenta>	
+	<ns1:Panel2 x="0" y="134" id="AdmOpciones1" visible="false">
+	</ns1:Panel2>
+	<ns1:EditarUsuario2 x="241" y="134" id="AdEditarUsuar2" visible="false">
+	</ns1:EditarUsuario2>
+	<ns1:RegistroRazas2 x="241" y="134" id="AdRegistrarRazas2" visible="false">
+	</ns1:RegistroRazas2>
+	<ns1:RegistroUsuario2 x="241" y="134" id="AdRegUsuario2" visible="false">
+	</ns1:RegistroUsuario2>
+	<ns1:Ficha x="241" y="134" id="AdmFichaMascota2" visible="false">
+	</ns1:Ficha>
+	<ns1:Mascota x="241" y="134" id="AdmMascota2" visible="false">
+	</ns1:Mascota>
+	<ns1:Cliente x="241" y="134" id="AdmIngreso2" visible="false">
+	</ns1:Cliente>
+	<ns1:NuevaAtencionHotel x="241" y="134" id="hotelIngreso" visible="false">
+	</ns1:NuevaAtencionHotel>
+	<ns1:OpcionesHoteleria x="0" y="134" visible="false" id="hotelOpciones">
+	</ns1:OpcionesHoteleria>
+	<ns1:Panel1Ventas x="0" y="134" id="petOpciones1" visible="false">
+	</ns1:Panel1Ventas>
+	<ns1:datos x="241" y="134" id="panel2" visible="false">
+	</ns1:datos>
+	<mx:TextArea x="161" y="-31" id="texHelp" visible="false">
+	</mx:TextArea>
+	<mx:TextArea x="161" y="-31" id="texHelp2" visible="false">
+	</mx:TextArea>
+	<mx:TextArea x="161" y="-31" id="texHelp3" visible="false">
+	</mx:TextArea>
+	<mx:TextArea x="161" y="-31" id="texHelp4" visible="false">
+	</mx:TextArea>
+	<mx:TextArea x="161" y="-31" id="texHelp5" visible="false">
+	</mx:TextArea>
+	<ns1:MenuAgenda x="0" y="134" visible="false" id="menuAgenda1">
+	</ns1:MenuAgenda>
+	<ns1:Bloquearydesbloquear x="241" y="134" id="panelDesbloqueo" visible="false">
+	</ns1:Bloquearydesbloquear>
+	<ns1:Aviso x="241" y="134" id="agAviso2" visible="false">
+	</ns1:Aviso>
+	<ns1:NuevoItem x="440" y="205.4" id="pelNuevoItem" visible="false">
+	</ns1:NuevoItem>
+	<ns1:Login x="241" y="134" id="login2" visible="true">
+	</ns1:Login>
+	<ns1:Busqueda x="241" y="134" id="busqueda2" visible="false">
+	</ns1:Busqueda>
+	<ns1:huespedAgregado x="241" y="134" id="huespedAgregado2" visible="false">
+	</ns1:huespedAgregado>
+</mx:Application>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" x="241" y="134" width="779" height="383" title="Visualizar Datos">
+	<mx:Script>
+<![CDATA[ 			
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.collections.*;
+            import mx.collections.ArrayCollection
+            
+             private var tipoVenta:String;
+             private var fechaVenta:String;
+
+			 private var texto:String;
+             private var arreglo:Array;   
+             
+             
+             
+            private var outMontoTotal:String;
+			private var outCodigoProducto:String;
+			private var outIdVendedor:String;
+			private var outHora:String;
+			private var outfecha:String;
+			private var outNumeroVenta:String; 
+			private var outIdVenta:String;         
+             
+            private var data_provider:Array = new Array();
+
+   			public function getIdServicio():String 
+            { 
+                                return "4"; 
+            }    
+             
+            public function getInfoComp():String
+			{
+				tipoVenta = filtroTipo.text;
+				fechaVenta = filtroFecha.text;					
+				
+				texto = tipoVenta.concat(fechaVenta+"&");
+
+				
+				return texto;
+			}  
+			                  
+			private function llenaDataGrid(s1:String):void
+			{
+				arreglo = s1.split("&", null);
+
+				outMontoTotal= arreglo.pop();
+				outCodigoProducto = arreglo.pop();
+				outIdVendedor= arreglo.pop();
+				outHora= arreglo.pop();
+				outfecha= arreglo.pop();
+				outNumeroVenta = arreglo.pop();
+				outIdVenta=arreglo.pop();
+				
+        		data_provider.push({col1:outIdVenta, col2:outNumeroVenta, col3:outfecha, col4:outHora, col5:outIdVendedor , col6:outCodigoProducto,  col7:outMontoTotal});
+        		ListaVentasLink.dataProvider = data_provider;        
+
+        	} 
+        	
+        	public function setInfoComp(s1:String):void
+			{
+				s1 = "Venta001&10000&01/01/2010/&15:45&Vendedor2020&codigo98989&10000";
+				//IDMascota-Nombre-TipoAtencion-Fecha-CostoTotal-Comentario
+				llenaDataGrid(s1);
+		
+			}
+                        
+            import mx.collections.ArrayCollection;
+
+            [Bindable]
+            public var opcTipo:ArrayCollection = new ArrayCollection(
+                [ {label:"Todos", data:1}, 
+                  {label:"Vacunas", data:2}, 
+                  {label:"Alimentos", data:3},
+                  {label:"Accesorios",data:4} ]);
+                  
+            public var opcFecha:ArrayCollection = new ArrayCollection(
+                [ {label:"Todas", data:1}, 
+                  {label:"Último mes", data:2}, 
+                  {label:"Últimas 2 Semanas", data:3},
+                  {label:"Hoy",data:4} ]);
+
+        
+        // abre un popUp para editar los registros de la tabla, si se puede
+        import mx.managers.PopUpManager;
+            import mx.containers.TitleWindow;
+             import flash.geom.Point;
+
+            private var point1:Point = new Point();
+            private function showWindow():void {
+                var login:EdicionOpcVenta=EdicionOpcVenta(PopUpManager.createPopUp( this, EdicionOpcVenta , true));;
+            }
+        ]]>
+        </mx:Script>
+  
+	<mx:DataGrid id="ListaVentasLink" x="0" y="59" width="749" height="244">
+		<mx:columns>
+			<mx:DataGridColumn headerText="ID_venta" dataField="col1"/>
+			<mx:DataGridColumn headerText="Numero_venta" dataField="col2"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="col3"/>
+			<mx:DataGridColumn headerText="Hora" dataField="col4"/>
+			<mx:DataGridColumn headerText="ID_vendedor" dataField="col5"/>
+			<mx:DataGridColumn headerText="Codigo Producto" dataField="col6"/>
+			<mx:DataGridColumn headerText="Monto Total" dataField="col7"/>
+		</mx:columns>
+
+
+	</mx:DataGrid>
+        <mx:Text  width="34" color="#0B333C" text="Tipo" x="11" y="21" fontWeight="bold"/>
+		<mx:ComboBox dataProvider="{opcTipo}" width="150"  color="0x000000" x="53" y="19" visible="true" id="filtroTipo" toolTip="Seleccione tipo de venta"/>
+		<mx:Button x="360" y="311" width="120" height="25" label="Editar" id="ventaEditLink" toolTip="Editar Plantilla de Ventas" click="showWindow();"/>
+		<mx:Button x="488" y="311" width="120" height="25" label="Imprimir" id="ventaImprLink" toolTip="Imprimir Plantilla de Ventas"/>
+		<mx:Button x="616" y="311" width="120" height="25" label="Exportar" id="VentaExpLink" toolTip="Exportar Plantilla de Ventas"/>
+		<mx:ComboBox dataProvider="{opcFecha}" width="150" color="0x000000" x="268" y="19" visible="true" id="filtroFecha" toolTip="Seleccione fecha aproximada de la venta"/>
+		<mx:Text  width="44" color="#0B333C" text="Fecha" x="216" y="21" fontWeight="bold"/>	
+		<mx:Button x="535" y="17" width="120" height="25" label="Filtrar" id="ventaEditLink0" toolTip="Editar Plantilla de Ventas" click="setInfoComp('caca')"/>
+</mx:Panel>

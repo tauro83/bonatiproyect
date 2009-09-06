@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Mantencion Razas">
+	<mx:Script>
+		<![CDATA[
+           import flash.events.MouseEvent;
+           import mx.events.FlexEvent;
+
+           private var categoria:String;
+           private var raza:String;
+           private var arreglo:Array;
+           private var texto:String;
+           
+           
+                       public function getIdPanel():String
+           			   {
+            	           return "RegistroRazas2";
+                       }
+
+                       public function getIdServicio():String
+                       {
+                               return "1";
+
+                       }
+
+                       public function getInfoComp():String
+                       {
+                               categoria = Categoria1.text;
+                               raza = Raza1.text;							   
+                       
+                               texto = texto.concat(categoria+"&");
+                               texto = texto.concat(raza+"&");
+                               
+                               
+                               return texto;
+                       }
+
+                       public function setInfoComp(s1:String):void
+                       {
+                       	
+                       }
+ 		]]>
+ 	</mx:Script>	
+	
+	
+	
+	<mx:ComboBox x="77" y="95" width="124" id="Categoria1">
+	<mx:ArrayCollection>
+         	<mx:Object label="Canino" data="a"/>
+         	<mx:Object label="Felino" data="b"/>
+    </mx:ArrayCollection>		
+	</mx:ComboBox>
+	<mx:Label x="10" y="97" text="Categoria"/>
+	<mx:Label x="10" y="165" text="Raza"/>
+	<mx:ComboBox x="77" y="163" width="124" id="Raza1">
+	<mx:ArrayCollection>
+         	<mx:Object label="Setter Ingles" data="a"/>
+         	<mx:Object label="San Bernardo" data="b"/>
+            <mx:Object label="Poodle" data="c"/>
+            <mx:Object label="Cooker Spanish" data="d"/>
+    </mx:ArrayCollection>	
+	</mx:ComboBox>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="209" label="Editar" y="93" id="editMantCategoria">
+		
+	</mx:Button>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="350" label="Nueva" y="93" id="newMantCategoria">
+		
+	</mx:Button>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="209" label="Editar" y="161" id="editMantRazas">
+		
+	</mx:Button>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="350" label="Nueva" y="161" id="newMantRazas1">
+		
+	</mx:Button>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="492" label="Borrar" y="161" id="borrarMantCategoria1">
+		
+	</mx:Button>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="492" label="Borrar" y="93" id="borrarMantCategoria0">
+		
+	</mx:Button>
+</mx:Panel>
