@@ -411,43 +411,7 @@
             	texHelp5.text = "27";
             	plainRpc.send();
             }
-            
-              /*
-            
-           
-            
-            private function enviaDat28 ( event:Event ):void
-            {
-            	texHelp.text = .getIdServicio();
-            	texHelp2.text = .getIdPanel();
-            	texHelp3.text = .botonGuardar.id.toString();
-            	texHelp4.text = .getInfoComp();
-            	texHelp5.text = "28";
-            	plainRpc.send();
-            }
-            
-            private function enviaDat29 ( event:Event ):void
-            {
-            	texHelp.text = .getIdServicio();
-            	texHelp2.text = .getIdPanel();
-            	texHelp3.text = .botonGuardar.id.toString();
-            	texHelp4.text = .getInfoComp();
-            	texHelp5.text = "29";
-            	plainRpc.send();
-            }
-            
-            private function enviaDat30 ( event:Event ):void
-            {
-            	texHelp.text = .getIdServicio();
-            	texHelp2.text = .getIdPanel();
-            	texHelp3.text = .botonGuardar.id.toString();
-            	texHelp4.text = .getInfoComp();
-            	texHelp5.text = "30";
-            	plainRpc.send();
-            }
 
-
-            */
             
             /////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////////////////////////////////////////////////////
