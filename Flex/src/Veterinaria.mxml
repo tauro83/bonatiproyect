@@ -120,7 +120,7 @@
                 
                 
                 botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
-//                botonLogin.addEventListener(MouseEvent.CLICK,verLogin);
+	
             }
             
             
