@@ -117,22 +117,13 @@
                cliRegistroPO2.agregarPostOperatorio.addEventListener (MouseEvent.CLICK,enviaDat25);
                cliRegistroPreO2.agregarPreOperatorio.addEventListener (MouseEvent.CLICK,enviaDat26);
          //      AdRegUsuario2.regRegUsu.addEventListener (MouseEvent.CLICK,enviaDat27);
-                /*
                 
-                
-                .addEventListener (MouseEvent.CLICK,enviaDat28);
-                .addEventListener (MouseEvent.CLICK,enviaDat29);
-                .addEventListener (MouseEvent.CLICK,enviaDat30);
-*/
                 
                 botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
 //                botonLogin.addEventListener(MouseEvent.CLICK,verLogin);
             }
             
-            private function funca ():void
-            {
-            	//aora
-            }
+            
             
             
             
