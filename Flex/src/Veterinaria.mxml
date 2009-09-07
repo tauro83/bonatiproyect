@@ -75,7 +75,7 @@
             	pelPanel1.pelVerAtenciones.addEventListener(MouseEvent.CLICK,linkVerAtencionesPel);
 				
                 
-                panel2.botonGuardar.addEventListener(MouseEvent.CLICK, enviaDat);
+
                 // Escucha por el evento click event en el botón.
                 
 				hotelIngreso.IdVerRegistroHotel.addEventListener (MouseEvent.CLICK,visulizarRegHot);
