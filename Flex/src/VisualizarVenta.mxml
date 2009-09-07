@@ -33,7 +33,7 @@
             public function getInfoComp():String
 			{
 				tipoVenta = filtroTipo.text;
-				fechaVenta = filtroFecha.text;					
+				//fechaVenta = filtroFecha.text;					
 				
 				texto = tipoVenta.concat(fechaVenta+"&");
 
@@ -112,7 +112,7 @@
 		<mx:Button x="360" y="311" width="120" height="25" label="Editar" id="ventaEditLink" toolTip="Editar Plantilla de Ventas" click="showWindow();"/>
 		<mx:Button x="488" y="311" width="120" height="25" label="Imprimir" id="ventaImprLink" toolTip="Imprimir Plantilla de Ventas"/>
 		<mx:Button x="616" y="311" width="120" height="25" label="Exportar" id="VentaExpLink" toolTip="Exportar Plantilla de Ventas"/>
-		<mx:ComboBox dataProvider="{opcFecha}" width="150" color="0x000000" x="268" y="19" visible="true" id="filtroFecha" toolTip="Seleccione fecha aproximada de la venta"/>
+		
 		<mx:Text  width="44" color="#0B333C" text="Fecha" x="216" y="21" fontWeight="bold"/>	
 		<mx:Button x="535" y="17" width="120" height="25" label="Filtrar" id="ventaEditLink0" toolTip="Editar Plantilla de Ventas" click="setInfoComp('caca')"/>
 </mx:Panel>
