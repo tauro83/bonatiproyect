@@ -67,7 +67,7 @@
 				petOpciones1.linkImportDatesPet.addEventListener (MouseEvent.CLICK, linkImportarDatos);
 				petOpciones1.linkCatalogoPet.addEventListener (MouseEvent.CLICK, linkCatalogoPet);
 				petOpciones1.linkEstadisticaPet.addEventListener (MouseEvent.CLICK, linkEstadisticaPet);
-				
+				//asf
 				
 				pelCatalogo2.pelOAgregarItem.addEventListener(MouseEvent.CLICK, linkAgregarItem);
             	pelNewCatalogo2.pelOAgregarItem.addEventListener(MouseEvent.CLICK, linkAgregarItem);
@@ -127,6 +127,11 @@
                 
                 botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
 //                botonLogin.addEventListener(MouseEvent.CLICK,verLogin);
+            }
+            
+            private function funca ():void
+            {
+            	//aora
             }
             
             
