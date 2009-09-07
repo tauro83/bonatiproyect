@@ -578,6 +578,7 @@
 	
 	<mx:MenuBar x="0" y="104" width="1020" height="30"></mx:MenuBar>
 	<mx:Panel x="241" y="517" width="779" height="83" layout="absolute" title="Mensajes del sistema" borderColor="#15AD8F">
+		<mx:Label x="10" y="10" text="Error no funciona bien este sistema" width="274"/>
 	</mx:Panel>
 	<ns1:opciones x="0" y="134" id="panelOpciones" visible="true" horizontalAlign="center" height="466">
 	</ns1:opciones>
