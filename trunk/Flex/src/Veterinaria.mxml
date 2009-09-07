@@ -575,18 +575,7 @@
 
     </mx:Script>
 	
-	<mx:HTTPService id="plainRpc"
-		url="http://localhost:8080/BonatiClinicaVet/PlainHttpService.jsp"
-		result="handlePlain(event)" 
-		fault="handleFault(event)" 
-		resultFormat="text">
-		<mx:request>
-			<idServicio>{texHelp.text}</idServicio>
-			<idPanel>{texHelp2.text}</idPanel>
-			<idBoton>{texHelp3.text}</idBoton>
-			<informacion>{texHelp4.text}</informacion>
-		</mx:request>
-	</mx:HTTPService>
+	
 	<mx:MenuBar x="0" y="104" width="1020" height="30"></mx:MenuBar>
 	<mx:Panel x="241" y="517" width="779" height="83" layout="absolute" title="Mensajes del sistema" borderColor="#15AD8F">
 	</mx:Panel>
