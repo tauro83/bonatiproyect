@@ -84,39 +84,7 @@
                 login2.CancelarUsuario.addEventListener (MouseEvent.CLICK,inicial);
                 AdRegUsuario2.canRegUsuario.addEventListener (MouseEvent.CLICK,inicial);
                 
-                agenda2.RegAgenda.addEventListener (MouseEvent.CLICK,enviaDat1);
-                agenda2.cancAgenda.addEventListener (MouseEvent.CLICK,enviaDat2);
-                panelDesbloqueo.Aceptar1.addEventListener (MouseEvent.CLICK,enviaDat3);
-                panelDesbloqueo.Cancelar1.addEventListener (MouseEvent.CLICK,enviaDat4);
-                hotelIngreso.IdGuardarHotel.addEventListener (MouseEvent.CLICK,enviaDat5);
-               	login2.AceptarUsuario.addEventListener (MouseEvent.CLICK,enviaDat6);
-               	agAviso2.aceptarAviso.addEventListener (MouseEvent.CLICK,enviaDat7);
-                agAviso2.cancelarAviso.addEventListener (MouseEvent.CLICK,enviaDat8);
-                AdEditarUsuar2.borrarUsuario.addEventListener (MouseEvent.CLICK,enviaDat9);
-                AdEditarUsuar2.editaUsuario.addEventListener (MouseEvent.CLICK,enviaDat10);
-                AdmIngreso2.guardarClienteIng.addEventListener (MouseEvent.CLICK,enviaDat11);
-                
-                /*
-                AdmFichaMascota2.fichaAgregarRegistro.addEventListener (MouseEvent.CLICK,enviaDat12);
-                AdmFichaMascota2.fichaEliminarRegistro.addEventListener (MouseEvent.CLICK,enviaDat13);
-                AdmFichaMascota2.fichaEditarDatosMascota.addEventListener (MouseEvent.CLICK,enviaDat14);
-                */
-                
                
-                
-               AdmMascota2.guardarMascota.addEventListener (MouseEvent.CLICK,enviaDat15);
-               //ageNewCita2.citaGuardar.addEventListener (MouseEvent.CLICK,enviaDat16);
-               pelNewAtencion2.botonNewAtAceptar.addEventListener (MouseEvent.CLICK,enviaDat17);
-               hotelIngreso.IdGuardarHotel.addEventListener (MouseEvent.CLICK,enviaDat18);
-               pelNewCatalogo2.guardar.addEventListener (MouseEvent.CLICK,enviaDat19);
-               //cliFindatencion2.buscarAtencion.addEventListener (MouseEvent.CLICK,enviaDat20);
-               //cliFindVacuna2.botonbuscarVacun.addEventListener (MouseEvent.CLICK,enviaDat21);
-               //cliNewAtention2.linkGuardar.addEventListener (MouseEvent.CLICK,enviaDat22);
-               //cliNewAtention2.linkBuscarVacuna.addEventListener (MouseEvent.CLICK,enviaDat23);
-               cliRegistro2.agregarCirugia.addEventListener (MouseEvent.CLICK,enviaDat24);
-               cliRegistroPO2.agregarPostOperatorio.addEventListener (MouseEvent.CLICK,enviaDat25);
-               cliRegistroPreO2.agregarPreOperatorio.addEventListener (MouseEvent.CLICK,enviaDat26);
-         //      AdRegUsuario2.regRegUsu.addEventListener (MouseEvent.CLICK,enviaDat27);
                 
                 
                 botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
