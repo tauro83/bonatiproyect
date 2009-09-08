@@ -3,44 +3,51 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Registro de Usuario">
 	<mx:Script>
 		<![CDATA[
+			import mx.controls.Text;
 			import mx.controls.Alert;
 			import mx.rpc.events.ResultEvent;
 			import services.RegistroUsuario;
 			
-			private function sendMessage(nombre:String,contraseña:String,contraseña2:String,cargo:String,servicio:String,escritura:Boolean):void
+			public function sendMessage():String
 			{				
 				var ru:RegistroUsuario = new RegistroUsuario();
 				ru.addEventListener(ResultEvent.RESULT,resultHandler);
 				
-				//ru.echo(nombre);
+				var nombre:String = Nombre2.text;
+				var contraseña:String = pass2.text;
+				var contraseña2:String = pass3.text;
+				var cargo:String =  cargo2.text;
+				var servicio:String = Servicio2.text;
+				var escritura:Boolean = Escritura1.selected;
+				
 				
 				if(contraseña == contraseña2 && contraseña!="" && nombre!="" && contraseña.length>4)
-				{
-					
+				{					
 					if(true)
 					{// falta chequear si el usuario existe en la bd
 						ru.addUsuario(nombre,contraseña,cargo,servicio,escritura);
-					}
-											
+						return "Usuario registrado";
+					}											
 				}else{
 					if(contraseña == ""){
-						Alert.show("Ingrese una contraseña");
+						//Alert.show("Ingrese una contraseña");
+						return "Ingrese una contraseña";
 					}
 					else if(contraseña.toString().length<5 ){
-						Alert.show("Ingrese una contraseña mas larga");
+						//Alert.show("Ingrese una contraseña mas larga");
+						return "Ingrese una contraseña mas larga";
 					}					
-					else if(contraseña != contraseña2 ){
-						Alert.show("Ingrese las contraseñas nuevamente");
+					else if(contraseña != contraseña2 ){	
 						pass2.text = "";
-						pass3.text = "";					
+						pass3.text = "";		
+						return "Ingrese las contraseñas nuevamente";			
 					}
-					
-					
 					if(nombre == ""){
-						Alert.show("Ingrese el nombre de usuario");
-					}
-				
+						//Alert.show("Ingrese el nombre de usuario");
+						return "Ingrese el nombre de usuario";
+					}				
 				}
+				return "otro caso";
 			}
 			
 			private function resultHandler(event:ResultEvent):void
@@ -74,7 +81,7 @@
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="629" label="Cancelar" y="285" id="canRegUsuario">
 		
 	</mx:Button>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="501" label="Registrar" y="285" id="registrar" click="{sendMessage(Nombre2.text, pass2.text, pass3.text, cargo2.text,   Servicio2.text, Escritura1.selected)}">
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="501" label="Registrar" y="285" id="registrarUser" click="{sendMessage()}">
 		
 	</mx:Button>
 	<mx:Label x="24" y="106" text="Repetir Contraseña"/>
