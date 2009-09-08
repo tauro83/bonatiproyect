@@ -74,7 +74,7 @@
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="629" label="Cancelar" y="285" id="canRegUsuario">
 		
 	</mx:Button>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="501" label="Registrar" y="285" id="registrar" click="{sendMessage(Nombre2.text, pass2.text, pass3.text, cargo2.text,   Servicio2.text, Escritura1.selected)}">
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="629" label="Registrar" y="243" id="registrar" click="{sendMessage(Nombre2.text, pass2.text, pass3.text, cargo2.text,   Servicio2.text, Escritura1.selected)}">
 		
 	</mx:Button>
 	<mx:Label x="24" y="106" text="Repetir Contraseña"/>
