@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Opciones del modulo">
-	<mx:LinkButton x="31" y="40" label="Visualizar Datos" toolTip="Ver datos guardados" id="linkVisualVentapet"/>
-	<mx:LinkButton x="10" y="10" label="Venta"/>
-	<mx:LinkButton x="33" y="70" label="Importar Datos" toolTip="Agregar nuevos datos al sistema" id="linkImportDatesPet"/>
-	<mx:LinkButton x="10" y="126" label="Catálogo" id="linkCatalogoPet"/>
-	<mx:LinkButton x="10" y="166" label="Estadisticas" id="linkEstadisticaPet"/>
-	
-</mx:Panel>
