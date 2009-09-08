@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+	<mx:CheckBox x="188" y="130" label="Yapo"/>
+	<mx:Button x="66" y="82" label="AYUDA}"/>
+	
+</mx:Application>
