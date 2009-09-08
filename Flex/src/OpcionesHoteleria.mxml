@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Servicios adicionales">
+	<mx:LinkButton x="10" y="0" label="Peluqueria"/>
+	<mx:LinkButton x="10" y="80" label="Pet Shop"/>
+	<mx:LinkButton x="54" y="30" label="Servicios Peluqueria" width="139" textAlign="left" id="hotelServPellink"/>
+	<mx:LinkButton x="54" y="110" label="Alimentos" id="alimentLink"/>
+	<mx:LinkButton x="54" y="140" label="Accesorios" id="accesorVentaLink"/>
+	
+</mx:Panel>
