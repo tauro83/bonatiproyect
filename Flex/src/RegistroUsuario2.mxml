@@ -59,17 +59,17 @@
 		]]>
 	</mx:Script> 
 	
-	<mx:TextInput x="152" y="20" width="328" includeInLayout="true" editable="true" id="Nombre2" maxChars="10"/>
-	<mx:TextInput x="152" y="102" displayAsPassword="true" id="pass3" editable="true" maxChars="10"/>
-	<mx:TextInput x="152" y="155" id="cargo2" editable="true"/>
-	<mx:TextInput x="152" y="56" displayAsPassword="true" editable="true" id="pass2" maxChars="10"/>
-	<mx:Label x="24" y="58" text="Contraseña"/>
+	<mx:TextInput x="155" y="20" width="344" includeInLayout="true" editable="true" id="Nombre2" maxChars="10"/>
+	<mx:TextInput x="155" y="97" displayAsPassword="true" id="pass3" editable="true" maxChars="10" width="160"/>
+	<mx:TextInput x="155" y="142" id="cargo2" editable="true"/>
+	<mx:TextInput x="155" y="59" displayAsPassword="true" editable="true" id="pass2" maxChars="10" width="160"/>
+	<mx:Label x="24" y="61" text="Contraseña"/>
 	<mx:Label x="24" y="22" text="Nombre"/>
-	<mx:Label x="24" y="157" text="Cargo"/>
-	<mx:Label x="24" y="206" text="Servicio"/>
-	<mx:Label x="24" y="247" text="Permiso"/>
-	<mx:CheckBox x="152" y="245" label="Escritura" id="Escritura1"/>
-	<mx:ComboBox x="152" y="204" id="Servicio2">
+	<mx:Label x="24" y="142" text="Cargo"/>
+	<mx:Label x="24" y="187" text="Servicio"/>
+	<mx:Label x="24" y="232" text="Permiso"/>
+	<mx:CheckBox x="155" y="230" label="Escritura" id="Escritura1"/>
+	<mx:ComboBox x="155" y="185" id="Servicio2">
 	<mx:ArrayCollection>
          	<mx:Object label="Policlinico I" data="a"/>
          	<mx:Object label="Policlinoco II" data="b"/>
@@ -78,12 +78,12 @@
             <mx:Object label="Petshop" data="d"/>
     </mx:ArrayCollection>	
 	</mx:ComboBox>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="629" label="Cancelar" y="285" id="canRegUsuario">
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="629" label="Cancelar" y="308" id="canRegUsuario">
 		
 	</mx:Button>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="501" label="Registrar" y="285" id="registrarUser" click="{sendMessage()}">
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="501" label="Registrar" y="308" id="registrarUser" click="{sendMessage()}">
 		
 	</mx:Button>
-	<mx:Label x="24" y="106" text="Repetir Contraseña"/>
+	<mx:Label x="24" y="99" text="Repetir Contraseña"/>
 	
 </mx:Panel>
