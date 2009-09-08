@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Lista Espera De Peluqueria">
+	<mx:Text text=" Numero      Dueño De La Mascota            Mascota        Telefono                E-mail" width="587.85" height="18" x="65.95" y="23"/>
+	<mx:TextArea x="65.95" y="49" width="665.85" height="202.5" text="1                   Mario Fernandez               cachupin        073- 324567      M.Fernandez@gmail.com&#xa;&#xa;2                   Juan Sepulveda                 leo               09-3456987       J.Sepulveda@gmail.com  &#xa;&#xa;&#xa;3                    Orlando Aravena              bandido        08-3456789       O.Aravena@hotmail.com&#xa;&#xa;4&#xa;&#xa;5&#xa;&#xa;6&#xa;&#xa;7&#xa;&#xa;8&#xa;&#xa;9&#xa;&#xa;10"/>
+	<mx:Button x="510.95" y="375" label="Agregar" width="115" height="40" fontSize="10" icon="@Embed(source='../Agregar_cita.png')"/>
+	<mx:Button x="633.95" y="375" label="Cancelar" width="115" height="40" fontSize="10" icon="@Embed(source='../Symbol-Delete.png')"/>
+	<mx:LinkButton x="656" y="48" label="Borrar"/>
+	<mx:LinkButton x="656" y="78" label="Borrar"/>
+	<mx:LinkButton x="656" y="117" label="Borrar"/>
+</mx:Panel>
