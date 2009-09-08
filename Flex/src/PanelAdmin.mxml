@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Opciones del módulo">
-	<mx:LinkButton x="10" y="10" label="Administración"/>
-	<mx:LinkButton x="76" y="40" label="Registro" id="linkRegistroAd"/>
-	<mx:LinkButton x="102" y="70" label="Usuario" id="linkRegUsuarioAd"/>
-	<mx:LinkButton x="76" y="155" label="Edicion" id="linkEdicionAD"/>
-	<mx:LinkButton x="102" y="185" label="Usuario" id="linkEditarUsAd"/>
-	<mx:LinkButton x="102" y="247" label="Razas" id="linkEditarRazasAd"/>
-	<mx:LinkButton x="10" y="277" label="Ficha mascota" id="linkFichaAdm"/>
-	<mx:LinkButton x="102" y="130" label="Mascota" id="linkMascotaAdm"/>
-	<mx:LinkButton x="102" y="215" label="Mascota" id="linkEdicionMascotaAdm"/>
-	<mx:LinkButton x="102" y="100" label="Cliente" id="linkClienteAdm"/>
+	<mx:LinkButton x="10" y="10" label="Cliente"/>
+	<mx:LinkButton x="10" y="79" label="Mascota"/>
+	<mx:LinkButton x="10" y="169" label="Razas"/>
+	<mx:LinkButton x="34" y="262" label="Registrar" id="linkRegUsuarioAd"/>
+	<mx:LinkButton x="34" y="283" label="Editar" id="linkEditarUsAd"/>
+	<mx:LinkButton x="34" y="303" label="Eliminar"/>
+	<mx:LinkButton x="34" y="193" label="Editar" id="linkEditarRazasAd"/>
+	<mx:LinkButton x="34" y="209" label="Listar"/>
+	<mx:LinkButton x="34" y="139" label="Mostrar ficha" id="linkFichaAdm"/>
+	<mx:LinkButton x="34" y="98" label="Registrar" id="linkMascotaAdm"/>
+	<mx:LinkButton x="34" y="118" label="Editar" id="linkEdicionMascotaAdm"/>
+	<mx:LinkButton x="34" y="30" label="Registrar" id="linkClienteAdm"/>
+	<mx:LinkButton x="34" y="49" label="Editar"/>
+	<mx:LinkButton x="10" y="239" label="Usuario"/>
 	
 </mx:Panel>
