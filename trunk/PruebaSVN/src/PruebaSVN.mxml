@@ -2,5 +2,6 @@
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
 	<mx:CheckBox x="188" y="130" label="Yapo"/>
 	<mx:Button x="66" y="82" label="AYUDA}"/>
+	<mx:TextArea x="149" y="229" text="ahora si se modifica"/>
 	
 </mx:Application>
