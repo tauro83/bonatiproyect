@@ -697,7 +697,7 @@
 	<mx:Label x="10" y="10"  text="Hospital Veterinario" width="274" height="43" fontFamily="Arial" color="#0202CB" fontSize="27" fontWeight="bold" enabled="true"/>
 	<mx:Label x="30" y="47" text="Claudio Bonati" fontFamily="Arial" fontSize="27" color="#15AD8F" fontWeight="bold"/>
 	<mx:Button x="623" y="30" label="Ayuda" width="100" height="50" icon="@Embed(source='../Help.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0"/>
-	<mx:Button x="740" y="30" label="Búsqueda" width="100" height="50" icon="@Embed(source='../Search.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" id="botonBusqueda"/>
+	<mx:Button x="751" y="10" label="Búsqueda" width="100" height="50" icon="@Embed(source='../Search.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" id="botonBusqueda"/>
 	<mx:Button x="170" y="104" label="Agenda" width="171" height="30" cornerRadius="4" id="botonAgenda" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
 	<mx:Button x="340" y="104" label="Clínica" width="171" height="30" cornerRadius="4" id="botonClinica" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
 	<mx:Button x="510" y="104" label="Peluquería" width="171" height="30" id="botonPeluqueria" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>

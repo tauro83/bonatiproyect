@@ -85,6 +85,5 @@
 		
 	</mx:Button>
 	<mx:Label x="24" y="106" text="Repetir Contraseña"/>
-	<mx:TextArea x="114" y="275" text="Ya pues edita!!!"/>
 	
 </mx:Panel>
