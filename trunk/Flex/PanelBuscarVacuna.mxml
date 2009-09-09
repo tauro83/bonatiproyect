@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="43" width="779" height="383" layout="absolute" title="Buscar Vacuna">
+	<mx:ComboBox x="143" y="10"></mx:ComboBox>
+	<mx:Text x="10" y="12" text="Campo de busqueda" width="125"/>
+	<mx:Button x="609" y="308" label="Buscar" width="120" height="25" id="botonbuscarVacun"/>
+	<mx:DataGrid x="30" width="699" height="159" editable="true" enabled="true" y="38">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Column 1" dataField="col1"/>
+			<mx:DataGridColumn headerText="Column 2" dataField="col2"/>
+			<mx:DataGridColumn headerText="Column 3" dataField="col3"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:RadioButton x="10" y="60" label=" " groupName="radiogroup3"/>
+	<mx:RadioButton x="10" y="86" label=" " groupName="radiogroup3"/>
+	<mx:RadioButton x="10" y="112" label=" " groupName="radiogroup3"/>
+	<mx:RadioButton x="10" y="138" label=" " groupName="radiogroup3"/>
+	<mx:RadioButton x="10" y="164" label=" " groupName="radiogroup3"/>
+	<mx:Button x="609" y="205" label="Insertar" width="120" height="25"/>
+	
+</mx:Panel>
