@@ -6,11 +6,11 @@
 			import mx.controls.Text;
 			import mx.controls.Alert;
 			import mx.rpc.events.ResultEvent;
-			import services.RegistroUsuario;
+			import services.SRegistroUsuario;
 			
 			public function sendMessage():String
 			{				
-				var ru:RegistroUsuario = new RegistroUsuario();
+				var ru:SRegistroUsuario = new SRegistroUsuario();
 				ru.addEventListener(ResultEvent.RESULT,resultHandler);
 				
 				var nombre:String = Nombre2.text;

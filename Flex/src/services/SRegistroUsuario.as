@@ -5,10 +5,10 @@ package services
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	
-	public class RegistroUsuario extends RemoteObject
+
+	public class SRegistroUsuario extends RemoteObject
 	{
-		public function RegistroUsuario()
+		public function SRegistroUsuario()
 		{
 			super();
 			var channel:ChannelSet=new ChannelSet();
@@ -19,21 +19,14 @@ package services
 			this.destination="RegistrarUsuario";
 			this.source="bonati.RegistrarUsuario";			
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
-		}		
-		
+		}
 		private function faultHandler(event:FaultEvent):void
 		{
 			Alert.show("Error en EchoService, Detalle: "+event.fault.message);
 		}
-		
 		public function addUsuario(nombre:String,contraseña:String,cargo:String,servicio:String,escritura:Boolean):void
 		{
 			this.getOperation("toString").send(nombre,contraseña,cargo,servicio,escritura);
-		}
-		
-		public function echo(nombre:String):void
-		{
-			this.getOperation("echo").send(nombre);
 		}
 		
 	}
