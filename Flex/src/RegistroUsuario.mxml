@@ -37,14 +37,19 @@
 						//Alert.show("Ingrese una contraseña");
 						return "Ingrese una contraseña";
 					}
-					else if(contraseña.toString().length<4 ){
+					if(contraseña.toString().length<4 ){
 						//Alert.show("Ingrese una contraseña mas larga");
 						return "Ingrese una contraseña mas larga";
 					}					
-					else if(contraseña!= contraseña2){	
-						pass2.text = "";
-						pass3.text = "";		
-						return "Ingrese las contraseñas nuevamente";			
+					if(contraseña2==""){	
+						//pass2.text = "";
+						//pass3.text = "";
+						return "Ingrese la segunda contraseña";			
+					}
+					if(contraseña2!=contraseña){
+						//pass2.text = "";
+						//pass3.text = "";
+						return "Las contraseñas no coinciden ingresela nuevamente";							
 					}
 								
 				}

@@ -598,7 +598,7 @@
 	
 	<mx:MenuBar x="0" y="104" width="1020" height="30"></mx:MenuBar>
 	<mx:Panel x="241" y="517" width="779" height="83" id="panelMensaje" layout="absolute" title="Mensajes del sistema" borderColor="#15AD8F">
-		<mx:Label x="242.5" y="15" width="274" id="ltexto" fontWeight="bold" textAlign="center"/>
+		<mx:Label x="203.5" y="15" width="407" id="ltexto" fontWeight="bold" textAlign="center"/>
 	</mx:Panel>
 	<ns1:opciones x="0" y="134" id="panelOpciones" visible="true" horizontalAlign="center" height="466">
 	</ns1:opciones>
