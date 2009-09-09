@@ -80,17 +80,19 @@
 		]]>
 	</mx:Script> 
 	
-	<mx:TextInput x="155" y="20" width="344" includeInLayout="true" editable="true" id="Nombre2" maxChars="20"/>
-	<mx:TextInput x="155" y="97" displayAsPassword="true" id="pass3" editable="true" maxChars="10" width="160" enabled="true"/>
-	<mx:TextInput x="155" y="142" id="cargo2" editable="true" enabled="true"/>
-	<mx:TextInput x="155" y="59" displayAsPassword="true" editable="true" id="pass2" maxChars="10" width="160" enabled="true"/>
-	<mx:Label x="24" y="61" text="Contraseña"/>
-	<mx:Label x="24" y="22" text="Nombres" width="69"/>
-	<mx:Label x="24" y="142" text="Cargo"/>
-	<mx:Label x="24" y="187" text="Servicio"/>
-	<mx:Label x="24" y="232" text="Permiso"/>
-	<mx:CheckBox x="155" y="230" label="Escritura" id="Escritura1"/>
-	<mx:ComboBox x="155" y="185" id="Servicio2">
+	<mx:TextInput x="155" y="19" width="163" includeInLayout="true" editable="true" id="Nombre2" maxChars="20"/>
+	<mx:TextInput x="512" y="186" displayAsPassword="true" id="pass3" editable="true" maxChars="10" width="160" enabled="true"/>
+	<mx:TextInput x="155" y="186" displayAsPassword="true" editable="true" id="pass2" maxChars="10" width="160" enabled="true"/>
+	<mx:Label x="24" y="188" text="Contraseña:" textAlign="left"/>
+	<mx:Label x="24" y="107" text="Usuario:" textAlign="left"/>
+	<mx:Label x="24" y="65" text="Apellido Paterno:" height="20"/>
+	<mx:Label x="391" y="65" text="Apellido Materno:" height="20"/>
+	<mx:Label x="24" y="21" text="Nombre:" width="69"/>
+	<mx:Label x="24" y="144" text="Cargo:"/>
+	<mx:Label x="27" y="229" text="Servicio:" textAlign="left"/>
+	<mx:Label x="27" y="271" text="Permiso"/>
+	<mx:CheckBox x="155" y="269" label="Registrar" id="Escritura1"/>
+	<mx:ComboBox x="155" y="227" id="Servicio2">
 	<mx:ArrayCollection>
          	<mx:Object label="Policlinico I" data="a"/>
          	<mx:Object label="Policlinoco II" data="b"/>
@@ -105,6 +107,14 @@
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="501" label="Registrar" y="308" id="registrarUser" click="{sendMessage()}">
 		
 	</mx:Button>
-	<mx:Label x="24" y="99" text="Repetir Contraseña"/>
+	<mx:Label x="391" y="188" text="Repetir Contraseña"/>
+	<mx:TextInput x="155" y="63" width="163"/>
+	<mx:TextInput x="155" y="105"/>
+	<mx:ComboBox x="155" y="142" id="cargo2"></mx:ComboBox>
+	<mx:CheckBox x="253" y="269" label="Editar"/>
+	<mx:CheckBox x="351.5" y="269" label="Eliminar"/>
+	<mx:CheckBox x="464" y="269" label="Purgar"/>
+	<mx:CheckBox x="560" y="269" label="Todas"/>
+	<mx:TextInput x="512" y="63"/>
 	
 </mx:Panel>
