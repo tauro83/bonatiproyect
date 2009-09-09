@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  x="241" y="134" width="779" height="383" layout="absolute" title="Registro de Post-Operatorio" xmlns:ns1="*">
+	<mx:Script>
+		<![CDATA[
+
+			import flash.events.MouseEvent;
+
+            import mx.events.FlexEvent;
+            			
+            private var texto:String;
+            private var texto2:String;
+            private var texto3:String;
+            private var texto4:String;
+	    	private var texto5:String;
+            private var texto6:String;
+            private var texto7:String;
+            private var texto8:String;
+            private var texto9:String;
+            private var arreglo:Array;					
+			
+			public function getIdPanel():String
+			{
+				return "panelPostoperReg";				
+			}
+						
+			public function getIdServicio():String
+			{
+				return "3";				
+			}
+							
+			public function getInfoComp():String
+			{
+				texto2 = nombreMascota.text;
+				texto3 = idMascota.text;
+				texto4 = vetAsociado.text;
+				texto5 = ayuAsociado.text;
+				texto6 = medRecetado.text;
+				texto7 = alimentoRecetado.text;
+				texto8 = indicacionMed.text;
+				
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto3);
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto4);
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto5);
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto6);
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto7);
+				texto2 = texto2.concat("&");				
+				
+				texto = texto2.concat(texto8);
+				return texto;
+			}
+			
+			
+			public function setInfoComp(s1:String):void
+			{
+				arreglo=s1.split("&",null);
+				nombreMascota.text = arreglo.pop();
+				idMascota.text = arreglo.pop();
+				vetAsociado.text = arreglo.pop();
+				ayuAsociado.text = arreglo.pop();
+				medRecetado.text = arreglo.pop();
+				alimentoRecetado.text = arreglo.pop();
+				indicacionMed.text = arreglo.pop();
+			}
+					
+		]]>
+	</mx:Script>
+	
+	<mx:Label x="51" y="33" text="Nombre Mascota:" width="110"/>
+	<mx:TextInput x="196" y="31" width="152" height="18" id="nombreMascota"/>
+	<mx:Label x="357" y="143" text="Alimento Recetado:" width="122"/>
+	<mx:Label x="51" y="105" text="Veterinario Asociado:" width="137"/>
+	<mx:Label x="51" y="140" text="Ayudante Asociado:" width="121"/>
+	<mx:Label x="357" y="106" text="Medicamento Recetado:" width="149"/>
+	<mx:ComboBox x="196" y="141" fillAlphas="[0.0, 0.0, 0.0, 0.0]" height="20" width="142" id="ayuAsociado"></mx:ComboBox>
+	<mx:Label x="51" y="184" text="Indicacion Medica:" width="113"/>
+	<mx:Label x="357" y="33" text="ID-mascota:" width="77"/>
+	<mx:TextInput x="499" y="31" width="186" height="20" id="idMascota"/>
+	<mx:ComboBox x="196" y="105" fillAlphas="[0.0, 0.0, 0.0, 0.0]" width="142" id="vetAsociado"></mx:ComboBox>
+	<mx:TextArea x="196" y="183" width="489" height="84" id="indicacionMed"/>
+	<mx:Label x="51" y="66" text="Datos de Post-Operatorio:" fontWeight="bold"/>
+	<mx:TextArea x="499" y="142" height="19" width="186" id="alimentoRecetado"/>
+	<mx:TextArea x="499" y="105" height="19" width="186" id="medRecetado"/>
+	<ns1:botonInterno x="565" y="308" label="Agregar Ficha" id="agregarPostOperatorio"/>	
+</mx:Panel>
+
