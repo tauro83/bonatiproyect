@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="134" width="240" height="466" layout="absolute" title="Opciones del módulo">
+	<mx:LinkButton x="10" y="90" label="Policlínico" width="183" textAlign="left"/>
+	<mx:LinkButton x="10" y="0" label="Pabellón"/>
+	<mx:LinkButton x="54" y="20" label="Pre-Operatorio" width="139" textAlign="left" id="PreOlink"/>
+	<mx:LinkButton x="54" y="60" label="Post-Operatorio" width="139" textAlign="left" id="PostOLink"/>
+	<mx:LinkButton x="54" y="40" label="Cirugía" width="139" textAlign="left" id="cirugiaLink"/>
+	<mx:LinkButton x="55" y="131" label="Buscar Atención" id="BuscaAtenLink"/>
+	<mx:LinkButton x="55" y="150" label="Buscar Categoria" id="BuscaVacunLink"/>
+	<mx:LinkButton x="55" y="111" label="Nueva Atención" id="newAtenDomLink"/>
+	
+</mx:Panel>
