@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Ingreso de datos Mascota">
+	<mx:Script>
+		<![CDATA[
+			            
+			// ocupen la variable que quieran, no necesariamente estas.
+            public var texto:String;
+            public var texto2:String;
+            public var texto3:String;
+            public var texto4:String;
+            public var texto5:String;
+            public var texto6:String;
+            public var texto7:String;
+            public var texto8:String;
+            public var texto9:String;
+            
+            public function getIdPanel():String
+            {
+            	return "Mascota";
+            }
+            
+
+			///////////////////////////////////////////////////
+			//  0 Administracion
+			//	1 Agenda
+			//	2 pabellon
+			//	3 policlinico
+			//	4 petShop
+			//	5 peluqueria
+			//	6 hoteleria
+			//	7 buscar
+			//	8 usuario
+			//
+			//	si falta alguna, avisar para agregarla
+			//
+			public function getIdServicio():String
+			{
+				return "0";
+				
+			}
+			
+			//Aqui va la informacion que ustedes reciban desde el panel, que quieran enviar a la capa logica.
+				
+			public function getInfoComp():String
+			{
+				texto2 = nombreMascota.text;
+				texto3 = mascotaRutDueno.text;
+				texto4 = mascotaVerificadorCliente.text;
+				texto5 = edadMascota.text;
+				texto6 = nacMascota.text;
+				texto7 = tipoMascota.text;
+				texto8 = razaMascota.text;
+				texto9 = sexoMascota.text;
+				
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto3);
+				
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto4);
+				
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto5);
+				
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto6);
+				
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto7);
+				
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto8);
+				
+				texto2 = texto2.concat("&");
+				texto = texto2.concat(texto9);
+				
+				return texto;
+			}
+			
+			//hay q mencionar q los arreglos sacan los datos con pop(), por lo tanto sacan el ultimo dato q se ingreso
+			//ustedes deciden si colocan al ultimo el primer dato que necesiten, o lo colocan normal, y asignan desde la ultima variable a la primera.
+			public function setInfoComp(s1:String):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	
+	<mx:Label x="10" y="10" text="Nombre" width="97"/>
+	<mx:Label x="364" y="12" text="Imagen" width="63.95" fontWeight="bold"/>
+	<mx:TextInput x="123.5" y="10" width="212" id="nombreMascota"/>
+	<mx:TextInput x="123.5" y="40" width="147" id="mascotaRutDueno"/>
+	<mx:TextInput x="123.5" y="68" width="212" id="edadMascota"/>
+	<mx:Label x="10" y="40" text="Dueño" width="97"/>
+	<mx:Label x="10" y="70" text="Edad" width="97"/>
+	<mx:Label x="10" y="132" text="Tipo Mascota" width="97"/>
+	<mx:TextInput x="295.5" y="40" width="40" id="mascotaVerificadorCliente"/>
+	<mx:Label x="268.5" y="42" text="-" textAlign="center"/>
+	<mx:Label x="10" y="100" text="Fecha nacimiento" width="116"/>
+	<mx:DateField x="123.5" y="100" width="212" id="nacMascota"/>
+	<mx:Label x="10" y="166" text="Raza" width="97"/>
+	<mx:ComboBox x="123.5" y="164" width="212" id="razaMascota">
+		<mx:ArrayCollection>
+	    	<mx:Object label="" data="_"/>
+	    </mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:Label x="10" y="199" text="Sexo" width="97"/>
+	<mx:ComboBox x="123.5" y="197" width="212" id="sexoMascota">
+		<mx:ArrayCollection>
+	    	<mx:Object label="" data="_"/>
+	    </mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:ComboBox x="123.5" y="130" width="212" id="tipoMascota">
+		<mx:ArrayCollection>
+	    	<mx:Object label="" data="_"/>
+	    </mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:Button x="123.5" y="256" width="102" label="Guardar" id="guardarMascota">
+	</mx:Button>
+	<mx:Button x="233.5" y="256" width="102" label="Cancelar" id="cancelarMascota">
+	</mx:Button>
+	<mx:Canvas x="538" y="0" width="221" height="320" borderStyle="none" backgroundColor="#ADBAC1" color="#ADBAC1">
+	</mx:Canvas>
+	<mx:Button x="381" y="223" width="63.95" height="22" label="Cargar" id="cargarImagen">
+	</mx:Button>
+	<mx:Button x="452.95" y="223" label="Borrar" width="63.05" id="borrarImagen">
+	</mx:Button>
+	<mx:VRule x="353" y="40" height="175" width="19"/>
+	<mx:VRule x="509" y="40" width="21" height="175"/>
+	<mx:HRule x="364" y="38" width="152"/>
+	<mx:HRule x="364" y="213" width="152"/>
+	<mx:Image y="39" width="152" height="176" alpha="1.0" themeColor="#001EFF" x="364" id="imagenMascota">
+	</mx:Image>
+	
+</mx:Panel>
