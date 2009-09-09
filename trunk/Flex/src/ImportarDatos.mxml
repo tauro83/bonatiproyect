@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" x="241" y="134" width="779" height="383">
+	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" x="0" y="0" width="779" height="383" title="Visualizar Datos">
+	<mx:Script>
+        <![CDATA[
+            import mx.collections.ArrayCollection;
+
+            [Bindable]
+            public var cards:ArrayCollection = new ArrayCollection(
+                [ {label:"Todos", data:1}, 
+                  {label:"Biológicos", data:2}, 
+                  {label:"Alimentos", data:3}, 
+                  {label:"Accesorios", data:4}]);
+         
+        ]]>
+    </mx:Script>
+		<mx:Button x="549" y="191" label="Explorar"/>
+	        <mx:Text  width="360" color="#0B333C" text="Seleccione tipo de Importación:" x="21" y="32" fontSize="10" fontWeight="bold"/>
+	        <mx:RadioButtonGroup id="Importacion"/>
+	        <mx:RadioButton x="185" y="99" label="Archivo Local" groupName="Importacion"/>
+	        <mx:RadioButton x="443" y="74" label="Maquina Registradora" groupName="Importacion" height="71" color="#0B333C"/>
+	        <mx:TextInput x="168" y="191" width="373"/>
+		
+		
+		
+	</mx:Panel>
+</mx:Canvas>

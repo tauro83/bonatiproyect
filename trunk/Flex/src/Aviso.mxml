@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Aviso">
+   	
+   	<mx:Script>
+		<![CDATA[
+			            
+			// ocupen la variable que quieran, no necesariamente estas.
+            public var texto:String;
+            public var texto2:String;
+            public var texto3:String;
+            public var texto4:String;
+            public var texto5:String;
+            public var texto6:String;
+            public var texto7:String;
+            
+            public function getIdPanel():String
+            {
+            	return "Aviso";
+            }
+            
+
+			///////////////////////////////////////////////////
+			//  0 Administracion
+			//	1 Agenda
+			//	2 pabellon
+			//	3 policlinico
+			//	4 petShop
+			//	5 peluqueria
+			//	6 hoteleria
+			//	7 buscar
+			//	8 usuario
+			//
+			//	si falta alguna, avisar para agregarla
+			//
+			public function getIdServicio():String
+			{
+				return "0";
+			}
+			
+			//Aqui va la informacion que ustedes reciban desde el panel, que quieran enviar a la capa logica.
+				
+			public function getInfoComp():String
+			{
+				texto2 = nombreCliente.text;
+				texto3 = nombreMascota.text;
+				texto4 = raza.text;
+				texto5 = sexo.text;
+				texto6 = fechaNac.text;
+				texto7 = descripcion.text;
+				
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto3);
+				
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto4);
+				
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto5);
+				
+				texto2 = texto2.concat("&");
+				texto2 = texto2.concat(texto6);
+				
+				texto2 = texto2.concat("&");
+				texto = texto2.concat(texto7);
+				
+				return texto;
+			}
+			
+			//hay q mencionar q los arreglos sacan los datos con pop(), por lo tanto sacan el ultimo dato q se ingreso
+			//ustedes deciden si colocan al ultimo el primer dato que necesiten, o lo colocan normal, y asignan desde la ultima variable a la primera.
+			public function setInfoComp(s1:String):void
+			{
+				
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Label x="33" y="10" text="Cliente" fontWeight="bold"/>
+	<mx:Label x="379" y="10" text="Mascota" fontWeight="bold"/>
+	<mx:Text x="33" y="38" text="Nombre"/>
+	<mx:Text x="379" y="38" text="Nombre"/>
+	<mx:Text x="379" y="68" text="Raza"/>
+	<mx:ComboBox x="514" y="66" id="raza">
+	<mx:ArrayCollection>
+         	<mx:Object label="Setter Ingles" data="a"/>
+         	<mx:Object label="San Bernardo" data="b"/>
+            <mx:Object label="Poodle" data="c"/>
+            <mx:Object label="Cooker Spanish" data="d"/>
+    </mx:ArrayCollection>	
+	</mx:ComboBox>
+	<mx:Text x="379" y="98" text="Sexo"/>
+	<mx:ComboBox x="514" y="96" id="sexo">
+	<mx:ArrayCollection>
+        <mx:Object label="Masculino" data="a"/>
+        <mx:Object label="Femenino" data="b"/>
+    </mx:ArrayCollection>		
+	</mx:ComboBox>
+	<mx:Text x="33" y="154" text="Descripción" width="106" height="22" fontWeight="bold"/>
+	<mx:TextInput x="33" y="184" width="641" height="107" id="descripcion"/>
+	<mx:Text x="379" y="130" text="Fecha Nacimiento: "/>
+	<mx:DateField x="514" y="132" width="160" id="fechaNac"/>
+	<mx:Button x="473" y="311" label="Aceptar" id="aceptarAviso" width="120" height="25"/>
+	<mx:Button x="601" y="311" label="Cancelar" id="cancelarAviso" width="120" height="25"/>
+	<mx:TextInput x="152" y="36" width="175" id="nombreCliente"/>
+	<mx:TextInput x="514" y="36" id="nombreMascota"/>
+	
+</mx:Panel>

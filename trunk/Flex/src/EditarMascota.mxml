@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="883">
+	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Editar Mascota" x="0" y="0">
+		
+		<mx:Script>
+		<![CDATA[
+			            
+			// ocupen la variable que quieran, no necesariamente estas.
+            public var texto:String;
+            
+            public function getIdPanel():String
+            {
+            	return "EditarMascota";
+            }
+            
+
+			///////////////////////////////////////////////////
+			//  0 Administracion
+			//	1 Agenda
+			//	2 pabellon
+			//	3 policlinico
+			//	4 petShop
+			//	5 peluqueria
+			//	6 hoteleria
+			//	7 buscar
+			//	8 usuario
+			//
+			//	si falta alguna, avisar para agregarla
+			//
+			public function getIdServicio():String
+			{
+				return "0";
+				
+			}
+			
+			//Aqui va la informacion que ustedes reciban desde el panel, que quieran enviar a la capa logica.
+				
+			public function getInfoComp():String
+			{
+				texto = comboMascota.text;
+				return texto;
+			}
+			
+			//hay q mencionar q los arreglos sacan los datos con pop(), por lo tanto sacan el ultimo dato q se ingreso
+			//ustedes deciden si colocan al ultimo el primer dato que necesiten, o lo colocan normal, y asignan desde la ultima variable a la primera.
+			public function setInfoComp(s1:String):void
+			{
+			}
+		]]>
+	</mx:Script>
+		
+		<mx:Label x="29" y="58" text="Mascotas"/>
+		<mx:ComboBox x="104" y="56" id="comboMascota"></mx:ComboBox>
+		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="279" label="Editar" y="54" id="editaMascota">
+			
+		</mx:Button>
+		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="407" label="Borrar" y="54" id="borrarMascota">
+			
+		</mx:Button>
+		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="535" label="Purgar" y="54" id="purgarMascota">
+			
+		</mx:Button>
+		
+	</mx:Panel>
+	
+</mx:Canvas>

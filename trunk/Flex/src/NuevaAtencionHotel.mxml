@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Nueva  Atención">
+
+    <mx:Script> 
+<![CDATA[ 
+            import flash.events.MouseEvent; 
+            import mx.events.FlexEvent; 
+            private var idMascotaHotel:String; 
+            private var nombreMascotaHotel:String; 
+            private var fechaEntraHotel:String;
+            private var fechaSaleHotel:String; 
+            private var costoTotalHotel:String; 
+            private var comentarioHotel:String; 
+            private var textoHotel:String; 
+            private var arregloHotel:Array; 
+
+						public function getIdPanel():String 
+                        { 
+                                return "nuevaAtencion"; 
+                        }
+                        
+                        public function getIdServicio():String 
+                        { 
+                                return "6"; 
+                        } 
+
+
+                        public function getInfoComp():String 
+                        { 
+                        	    idMascotaHotel     = IdMascotaHotel.text;
+                        	    nombreMascotaHotel = IdNombreHotel.text;
+                                fechaEntraHotel    = IdFechaIngresoHotel.text; 
+  								fechaSaleHotel     = IdFechaSaleHotel.text;
+                                costoTotalHotel    = IdCostoHotel.text; 
+                                comentarioHotel    = IdComentarioHotel.text;
+
+                                textoHotel = comentarioHotel.concat("&"); 
+                                textoHotel = textoHotel.concat(costoTotalHotel + "&"); 
+                                textoHotel = textoHotel.concat(fechaSaleHotel + "&"); 
+                                textoHotel = textoHotel.concat(fechaEntraHotel + "&");
+                                textoHotel = textoHotel.concat(nombreMascotaHotel + "&"); 
+                                textoHotel = textoHotel.concat(idMascotaHotel + "&"); 
+
+
+                                //comentario-costo-fechaSale-FechaEntra-tipoAtencion-nombre-idMascota 
+
+
+                                return textoHotel; 
+                        } 
+
+
+                        public function setInfoComp(s1:String):void {
+                        
+                        	arregloHotel = s1.split("&", null);
+							IdMascotaHotel.text = arregloHotel.pop();
+							IdNombreHotel.text = arregloHotel.pop();
+							IdFechaIngresoHotel.text = arregloHotel.pop();
+							IdFechaSaleHotel.text = arregloHotel.pop();
+							IdCostoHotel.text = arregloHotel.pop();
+							IdComentarioHotel.text = arregloHotel.pop();
+						
+                        
+                        } 
+  ]]> 
+  </mx:Script> 
+
+
+
+
+
+	<mx:Label x="10" y="36" text="Nombre:" width="72"/>
+	<mx:TextInput x="115" y="37" width="239" editable="false" id="IdNombreHotel"/>
+	<mx:TextInput x="115" y="178" width="96" editable="false" id="IdCostoHotel"/>
+	<mx:Label x="10" y="221" text="Comentario:" width="97"/>
+	<mx:Label x="10" y="10" text="ID-mascota:" width="97"/>
+	<mx:TextInput x="115" y="8" width="239" editable="false" id="IdMascotaHotel"/>
+	<mx:TextArea x="115" y="220" width="239" height="81" id="IdComentarioHotel"/>
+	<mx:Label x="10" y="94" text="Fecha ingreso" width="86"/>
+	<mx:Label x="8" y="180" text="Costo por dia" width="99"/>
+	<mx:DateField x="115" y="92" id="IdFechaIngresoHotel"/>
+	<mx:Image x="373" y="10" width="376" height="229" source="../fotos-animales-perros-peq.jpg" alpha="1.0" scaleContent="true"/>
+	<mx:Label x="10" y="129" text="Fecha salida" width="86"/>
+	<mx:DateField x="115" y="127" id="IdFechaSaleHotel"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="382" y="276" label="Guardar" id="IdGuardarHotel">
+		
+	</mx:Button>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="525" y="276" label="Visualizar" id="IdVerRegistroHotel">
+		
+	</mx:Button>
+	
+</mx:Panel>

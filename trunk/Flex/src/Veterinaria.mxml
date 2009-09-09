@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020"> 
+
+    <mx:Script>
+
+        <![CDATA[
+
+            import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			
+			public var idBotonGeneral:String;
+			public var idPanelGeneral:String;
+			public var idServicioGeneral:String;
+			public var infoGeneral:String;
+			public var texx:String;
+			public var texx2:String;
+			public var texx3:String;
+			public var texInt:int;
+			
+			
+	       
+	        
+            private function manejadorCreationComplete (event:FlexEvent):void
+            {           	
+            	
+            	AdRegUsuario2.registrarUser.addEventListener(MouseEvent.CLICK,setMensaje);  
+            	
+            	// Escucha por el evento click event en el botón.
+                cliNewAtencion2.linkSiguiente.addEventListener(MouseEvent.CLICK,linkNewAP);            	
+				menuAgenda1.linkAtenAgenda.addEventListener(MouseEvent.CLICK,funcionLink);
+				menuAgenda1.linkAvisoAgenda.addEventListener(MouseEvent.CLICK,funcionLink2);
+				menuAgenda1.linkBloqAtenDom.addEventListener(MouseEvent.CLICK,funcionLink3);
+				menuAgenda1.linkBloqCastro.addEventListener(MouseEvent.CLICK,funcionLink3);
+				menuAgenda1.linkBloqPel.addEventListener(MouseEvent.CLICK,funcionLink3);
+				menuAgenda1.linkBloqPolBonati.addEventListener(MouseEvent.CLICK,funcionLink3);
+				menuAgenda1.linkPelAgenda.addEventListener(MouseEvent.CLICK,funcionLink);
+				menuAgenda1.linkpolBonati1.addEventListener(MouseEvent.CLICK,funcionLink);
+				menuAgenda1.linkPolCastro.addEventListener(MouseEvent.CLICK,funcionLink);
+                botonAdmin.addEventListener (MouseEvent.CLICK, manejadorClick);
+                botonAgenda.addEventListener (MouseEvent.CLICK, manejadorClick2);
+                botonClinica.addEventListener (MouseEvent.CLICK, climanejadorClick);
+                opcionesClinica1.PreOlink.addEventListener(MouseEvent.CLICK,linkPreOp);
+                opcionesClinica1.PostOLink.addEventListener(MouseEvent.CLICK,linkPosOp);
+                opcionesClinica1.cirugiaLink.addEventListener(MouseEvent.CLICK,linkCirugia);
+                opcionesClinica1.BuscaVacunLink.addEventListener(MouseEvent.CLICK,linkbuscaVD);
+                opcionesClinica1.BuscaAtenLink.addEventListener(MouseEvent.CLICK,linkbuscaAD);
+                opcionesClinica1.newAtenDomLink.addEventListener(MouseEvent.CLICK,linknuevaAD);
+                botonPeluqueria.addEventListener (MouseEvent.CLICK, pelmanejadorClick);
+				pelPanel1.PelNuevaAtencion.addEventListener(MouseEvent.CLICK,linkNuevaAtencion);
+				pelPanel1.PelNuevoCatalogo.addEventListener(MouseEvent.CLICK,linkNuevoCatalogo);
+				pelPanel1.PelVerCatalogo.addEventListener(MouseEvent.CLICK,linkVerCatalogo);
+				pelPanel1.PelEstadisitica.addEventListener(MouseEvent.CLICK,linkEstadistica);
+				AdmOpciones1.linkEditarRazasAd.addEventListener(MouseEvent.CLICK,linkeditRazasAd);
+                AdmOpciones1.linkEditarUsAd.addEventListener(MouseEvent.CLICK,linkeditUsAd);
+                AdmOpciones1.linkRegUsuarioAd.addEventListener(MouseEvent.CLICK,linkregsitroUsAd);
+                AdmOpciones1.linkFichaAdm.addEventListener(MouseEvent.CLICK,linkFichaAd);
+                AdmOpciones1.linkMascotaAdm.addEventListener(MouseEvent.CLICK,linkMascotaAd);
+                AdmOpciones1.linkClienteAdm.addEventListener(MouseEvent.CLICK,linkClienteAd);
+                botonHotel.addEventListener(MouseEvent.CLICK, hotelclimanejadorClick);
+                hotelOpciones.hotelServPellink.addEventListener(MouseEvent.CLICK,linkNuevaAtencionHotelBaño);
+                //hotelOpciones.alimentLink.addEventListener(MouseEvent.CLICK,linkNuevaAtencionHotelAlimentos);
+                //hotelOpciones.accesorVentaLink.addEventListener(MouseEvent.CLICK,linkNuevaAtencionHotelAccesorios);
+                botonPetshop.addEventListener (MouseEvent.CLICK, petmanejadorClick);
+            	petOpciones1.linkVisualVentapet.addEventListener (MouseEvent.CLICK, linkVisualizarVenta);
+				petOpciones1.linkImportDatesPet.addEventListener (MouseEvent.CLICK, linkImportarDatos);
+				petOpciones1.linkCatalogoPet.addEventListener (MouseEvent.CLICK, linkCatalogoPet);
+				petOpciones1.linkEstadisticaPet.addEventListener (MouseEvent.CLICK, linkEstadisticaPet);
+				//asf
+				
+				pelCatalogo2.pelOAgregarItem.addEventListener(MouseEvent.CLICK, linkAgregarItem);
+            	pelNewCatalogo2.pelOAgregarItem.addEventListener(MouseEvent.CLICK, linkAgregarItem);
+            	pelNuevoItem.cancelNuevoItem.addEventListener(MouseEvent.CLICK, linkCancelAgregarItem);
+            	pelPanel1.pelVerAtenciones.addEventListener(MouseEvent.CLICK,linkVerAtencionesPel);
+				
+               
+
+                // Escucha por el evento click event en el botón.
+                
+				hotelIngreso.IdVerRegistroHotel.addEventListener (MouseEvent.CLICK,visulizarRegHot);
+                AdmIngreso2.cancelarClienteIng.addEventListener(MouseEvent.CLICK, inicial);
+                AdmMascota2.cancelarMascota.addEventListener (MouseEvent.CLICK,inicial);
+                login2.CancelarUsuario.addEventListener (MouseEvent.CLICK,inicial);
+                AdRegUsuario2.canRegUsuario.addEventListener (MouseEvent.CLICK,inicial);
+                
+               
+                
+                
+                botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
+	
+            }
+            
+             private function setMensaje( event:Event):void
+            {
+            	//if ("1"=="1"){
+            	//	ltexto.text = "Asdf";
+            	//}
+            	//else{
+            	//	ltexto.text = "8==D";
+            	//}
+            	
+            	ltexto.text = AdRegUsuario2.sendMessage();
+            }
+
+            
+			////////////////////////////////////////////////////////////////////////////////
+           //////////////////////////////////////////////////////////////////////////////////////
+            
+            private function setInvisible ():void
+            {
+            	panel2.setVisible(false,false);
+                panelOpciones.setVisible(false,false);
+				atenRealizadas2.setVisible(false,false);
+                agenda2.setVisible(false,false);
+				pelCatalogo2.setVisible(false,false);
+                pelEstadistica2.setVisible(false,false);
+				pelEstaSave2.setVisible(false,false);
+                pelListaEspera2.setVisible(false,false);
+				pelNewAtencion2.setVisible(false,false);
+                ageNewCita2.setVisible(false,false);
+				pelNewCatalogo2.setVisible(false,false);
+                cliFindatencion2.setVisible(false,false);
+				cliFindVacuna2.setVisible(false,false);
+                cliNewAtencion2.setVisible(false,false);
+				cliRegistro2.setVisible(false,false);
+                cliRegistroPO2.setVisible(false,false);
+				cliRegistroPreO2.setVisible(false,false);
+				petVisualVent2.setVisible(false,false);
+                opcionesClinica1.setVisible(false,false);          
+                pelPanel1.setVisible(false,false);
+                petVisualdat2.setVisible(false,false);
+                petOpciones1.setVisible(false,false);
+                petEstadisticasg2.setVisible(false,false);
+            	petVisualVenta2.setVisible(false,false);
+            	petVisualdat2.setVisible(false,false);
+            	AdmOpciones1.setVisible(false,false);
+            	AdEditarUsuar2.setVisible(false,false);
+            	AdRegistrarRazas2.setVisible(false,false);
+            	AdRegUsuario2.setVisible(false,false);
+            	AdmFichaMascota2.setVisible(false,false);
+				AdmMascota2.setVisible(false,false);
+				AdmIngreso2.setVisible(false,false);        	
+            	hotelOpciones.setVisible(false,false);
+            	hotelIngreso.setVisible(false,false);
+            	
+            	menuAgenda1.setVisible(false,false);
+            	panelDesbloqueo.setVisible(false,false);
+            	cliNewAtention2.setVisible(false,false);
+            	agAviso2.setVisible(false,false);
+            	
+            	login2.setVisible(false,false);
+            	busqueda2.setVisible(false,false);
+            	huespedAgregado2.setVisible(false,false);
+            }
+            
+            
+           
+            
+			private function visulizarRegHot ( event:Event ):void
+            {
+            	setInvisible();
+            	pelNewAtencion2.setVisible(true,false);
+                hotelOpciones.setVisible(true,false);
+            	
+            }
+            
+            
+            private function verLogin ( event:Event ):void
+
+            {
+				setInvisible();
+                panelOpciones.setVisible(true,false);
+            	login2.setVisible(true,false);
+
+            }
+            
+            
+            
+            
+            private function verBusqueda ( event:Event ):void
+
+            {
+            	setInvisible();
+                panelOpciones.setVisible(true,false);
+            	busqueda2.setVisible(true,false);
+
+            	
+            	
+            	
+            }
+            
+            private function inicial ( event:Event ):void
+
+            {
+            	setInvisible();
+            	panel2.setVisible(true,false);
+                panelOpciones.setVisible(true,false);
+				
+            	
+            	
+            }
+            
+            
+            private function linkCancelAgregarItem ( event:Event ):void
+            {
+            	pelNuevoItem.setVisible(false, false);	
+            }
+        	private function linkAgregarItem ( event:Event ):void
+            {
+            	pelNuevoItem.setVisible(true, false);
+            }
+            private function linkVerAtencionesPel ( event:Event ):void
+
+            {
+            	setInvisible();
+				atenRealizadas2.setVisible(true,false);         
+                pelPanel1.setVisible(true,false);
+            	
+            	
+            }
+            
+            
+            private function linkNewAP ( event:Event ):void
+
+            {        	     	
+            	setInvisible();
+                opcionesClinica1.setVisible(true,false);
+            	cliNewAtention2.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            
+            private function funcionLink (event:Event):void
+            {
+                setInvisible();
+                agenda2.setVisible(true,false);
+				menuAgenda1.setVisible(true,false);
+    
+            	
+            	
+            	
+            }
+            
+            private function funcionLink2 (event:Event):void
+            {
+            	setInvisible();       
+            	menuAgenda1.setVisible(true,false);
+            	agAviso2.setVisible(true,false);
+
+            	
+            	
+            	
+            	
+            }
+            
+            private function funcionLink3 (event:Event):void
+            {
+            	setInvisible();
+				menuAgenda1.setVisible(true,false);
+            	panelDesbloqueo.setVisible(true,false);
+
+            }
+            
+            private function manejadorClick2 ( event:Event ):void
+
+            {	
+            	//setInvisible();
+            	//agenda2.setVisible(true,false);
+				//menuAgenda1.setVisible(true,false);
+ 
+            } 
+            
+            private function linkEstadisticaPet ( event:Event ):void
+
+            {
+    			setInvisible();
+            	petOpciones1.setVisible(true,false);
+                petEstadisticasg2.setVisible(true,false);
+            	
+            }
+            
+            
+            private function linkCatalogoPet ( event:Event ):void
+
+            {
+            	setInvisible();
+            	panel2.setVisible(true,false);
+                petOpciones1.setVisible(true,false);
+            	            	
+            	
+            }
+            
+            private function linkImportarDatos( event:Event ):void
+
+            {
+            	setInvisible();
+            	petOpciones1.setVisible(true,false);
+                petVisualdat2.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function linkVisualizarVenta ( event:Event ):void
+
+            {
+            	setInvisible();
+            	petOpciones1.setVisible(true,false);
+                petVisualVenta2.setVisible(true,false);
+            	
+            	
+            }
+            
+            
+            
+            
+            private function petmanejadorClick ( event:Event ):void
+
+            {
+            	//setInvisible();
+            	//panel2.setVisible(true,false);
+                //petOpciones1.setVisible(true,false);
+                
+            	
+            }
+            
+            private function hotelclimanejadorClick ( event:Event ):void
+
+            {
+            	//setInvisible();
+            	//hotelOpciones.setVisible(true,false);
+            	//hotelIngreso.setVisible(true,false);
+            	
+            	
+            }
+            
+            ///////////////////////////////////////////////////////////////////////////
+            
+
+
+           private function linkNuevaAtencionHotelBaño ( event:Event ):void
+
+            {
+            	setInvisible();
+            	pelNewAtencion2.setVisible(true,false);
+                hotelOpciones.setVisible(true,false);
+            	
+            }
+
+           
+            
+            private function linkClienteAd ( event:Event ):void
+
+            {
+            	setInvisible();
+            	AdmIngreso2.setVisible(true,false);
+                AdmOpciones1.setVisible(true,false);
+            	
+            	
+            }
+            
+            private function linkMascotaAd ( event:Event ):void
+
+            {
+            	setInvisible();
+                AdmOpciones1.setVisible(true,false);
+            	AdmMascota2.setVisible(true,false);
+				
+            	
+            }
+            
+            private function linkFichaAd ( event:Event ):void
+
+            {
+            	setInvisible();
+            	AdmFichaMascota2.setVisible(true,false);
+                AdmOpciones1.setVisible(true,false);
+            	
+            }
+            
+            private function linkregsitroUsAd ( event:Event ):void
+
+            {
+            	setInvisible();
+            	AdmOpciones1.setVisible(true,false);
+                AdRegUsuario2.setVisible(true,false);
+            	
+            }
+            
+            
+            
+            private function linkeditUsAd ( event:Event ):void
+
+            {
+            	setInvisible();
+               	AdmOpciones1.setVisible(true,false);
+            	AdEditarUsuar2.setVisible(true,false);
+            	
+            }
+            
+            
+            private function linkeditRazasAd ( event:Event ):void
+
+            {
+            	setInvisible();
+				AdmOpciones1.setVisible(true,false);
+            	AdRegistrarRazas2.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            
+            
+            private function linkEstadistica ( event:Event ):void
+
+            {
+            	setInvisible();
+                pelEstadistica2.setVisible(true,false);         
+                pelPanel1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+                private function linkVerCatalogo ( event:Event ):void
+
+            {
+            	setInvisible();
+				pelCatalogo2.setVisible(true,false);
+                pelPanel1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function linkNuevoCatalogo ( event:Event ):void
+
+            {
+            	setInvisible();
+				pelNewCatalogo2.setVisible(true,false);
+                pelPanel1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function linkNuevaAtencion ( event:Event ):void
+
+            {
+            	setInvisible();
+				pelNewAtencion2.setVisible(true,false);
+                pelPanel1.setVisible(true,false);
+            	
+            	
+            }
+            
+           private function pelmanejadorClick ( event:Event ):void
+
+            {
+            	//setInvisible();
+				//pelNewAtencion2.setVisible(true,false);
+                //pelPanel1.setVisible(true,false);
+            	
+            	
+            	
+            }
+                
+            
+            
+            private function linknuevaAP ( event:Event ):void
+
+            {
+            	setInvisible();
+            	panel2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+                        
+            
+            private function linknuevaAD ( event:Event ):void
+
+            {
+            	setInvisible();
+                cliNewAtencion2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function linkbuscaAD ( event:Event ):void
+
+            {
+            	setInvisible();
+                cliFindatencion2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function linkbuscaVD ( event:Event ):void
+
+            {
+            	setInvisible();
+				cliFindVacuna2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            	
+            }
+            
+            private function linkCirugia ( event:Event ):void
+
+            {
+            	setInvisible();
+				cliRegistro2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function linkPosOp ( event:Event ):void
+
+            {
+            	setInvisible();
+                cliRegistroPO2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            	            	
+            }
+            
+            
+            private function linkPreOp ( event:Event ):void
+
+            {
+            	setInvisible();
+				cliRegistroPreO2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            	
+            }
+            
+            private function climanejadorClickpanel ( event:Event ):void
+
+            {
+            	setInvisible();
+            	panel2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            	
+            	
+            	
+            }
+            
+            private function climanejadorClick ( event:Event ):void
+
+            {
+            	//setInvisible();
+            	//panel2.setVisible(true,false);
+                //opcionesClinica1.setVisible(true,false);
+				
+			
+								
+            }        
+
+            private function manejadorClick ( event:Event ):void
+
+            {
+            	setInvisible();
+            	panel2.setVisible(true,false);
+            	AdmOpciones1.setVisible(true,false);
+            }
+			             
+
+        ]]>
+
+    </mx:Script>
+	
+	
+	<mx:MenuBar x="0" y="104" width="1020" height="30"></mx:MenuBar>
+	<mx:Panel x="241" y="517" width="779" height="83" id="panelMensaje" layout="absolute" title="Mensajes del sistema" borderColor="#15AD8F">
+		<mx:Label x="242.5" y="15" width="274" id="ltexto" fontWeight="bold" textAlign="center"/>
+	</mx:Panel>
+	<ns1:opciones x="0" y="134" id="panelOpciones" visible="true" horizontalAlign="center" height="466">
+	</ns1:opciones>
+	<ns1:Agenda x="241" y="134" visible="false" id="agenda2">
+	</ns1:Agenda>
+	<ns1:AtencionesRealizadas x="241" y="134" visible="false" id="atenRealizadas2">
+	</ns1:AtencionesRealizadas>
+	<ns1:Catalogos x="241" y="134" visible="false" id="pelCatalogo2">
+	</ns1:Catalogos>
+	<ns1:Estadisticas x="241" y="134" id="pelEstadistica2" visible="false">
+	</ns1:Estadisticas>
+	<ns1:EstadisticasGuardadas x="241" y="134" id="pelEstaSave2" visible="false">
+	</ns1:EstadisticasGuardadas>
+	<ns1:ListaEspera x="241" y="134" id="pelListaEspera2" visible="false">
+	</ns1:ListaEspera>
+	<ns1:NuevaAtencion x="241" y="134" id="pelNewAtencion2" visible="false">
+	</ns1:NuevaAtencion>
+	<ns1:Nueva_Cita x="241" y="134" id="ageNewCita2" visible="false">
+	</ns1:Nueva_Cita>
+	<ns1:NuevoCatalogo x="241" y="134" id="pelNewCatalogo2" visible="false">
+	</ns1:NuevoCatalogo>
+	<ns1:PanelBuscarAtencion x="241" y="134" id="cliFindatencion2" visible="false">
+	</ns1:PanelBuscarAtencion>
+	<ns1:PanelBuscarVacuna x="241" y="134" id="cliFindVacuna2" visible="false">
+	</ns1:PanelBuscarVacuna>
+	<ns1:PanelNuevaAtencion x="241" y="134" id="cliNewAtencion2" visible="false">
+	</ns1:PanelNuevaAtencion>
+	<ns1:PanelNuevaAtencion2 x="241" y="134" id="cliNewAtention2" visible="false">
+	</ns1:PanelNuevaAtencion2>
+	<ns1:RegistroCirugia x="241" y="134" id="cliRegistro2" visible="false">
+	</ns1:RegistroCirugia>
+	<ns1:RegistroPostOperatorio x="241" y="134" id="cliRegistroPO2" visible="false">
+	</ns1:RegistroPostOperatorio>
+	<ns1:RegistroPreOperatorio x="241" y="134" id="cliRegistroPreO2" visible="false">
+	</ns1:RegistroPreOperatorio>
+	<ns1:VisualizarVenta x="241" y="134" id="petVisualVent2" visible="false">
+	</ns1:VisualizarVenta>
+	<ns1:OpcionesClinica x="0" y="134" id="opcionesClinica1" visible="false">
+	</ns1:OpcionesClinica>
+	<ns1:Panel1 x="0" y="134" id="pelPanel1" visible="false">
+	</ns1:Panel1>	
+	<ns1:EstadisticasGuardadasventas x="241" y="134" id="petEstadisticasg2" visible="false">
+	</ns1:EstadisticasGuardadasventas>
+	<ns1:ImportarDatos x="241" y="134" id="petVisualdat2" visible="false">
+	</ns1:ImportarDatos>
+	<ns1:VisualizarVenta x="241" y="134" id="petVisualVenta2" visible="false">
+	</ns1:VisualizarVenta>	
+	<ns1:PanelAdmin x="0" y="134" id="AdmOpciones1" visible="false">
+	</ns1:PanelAdmin>
+	<ns1:EditarUsuario2 x="241" y="134" id="AdEditarUsuar2" visible="false">
+	</ns1:EditarUsuario2>
+	<ns1:RegistroRazas2 x="241" y="134" id="AdRegistrarRazas2" visible="false">
+	</ns1:RegistroRazas2>
+	<ns1:RegistroUsuario x="241" y="134" id="AdRegUsuario2" visible="false">
+	</ns1:RegistroUsuario>
+	<ns1:Ficha x="241" y="134" id="AdmFichaMascota2" visible="false">
+	</ns1:Ficha>
+	<ns1:Mascota x="241" y="134" id="AdmMascota2" visible="false">
+	</ns1:Mascota>
+	<ns1:RegistroCliente x="241" y="134" id="AdmIngreso2" visible="false">
+	</ns1:RegistroCliente>
+	<ns1:NuevaAtencionHotel x="241" y="134" id="hotelIngreso" visible="false">
+	</ns1:NuevaAtencionHotel>
+	<ns1:OpcionesHoteleria x="0" y="134" visible="false" id="hotelOpciones">
+	</ns1:OpcionesHoteleria>
+	<ns1:Panel1Ventas x="0" y="134" id="petOpciones1" visible="false">
+	</ns1:Panel1Ventas>
+	<ns1:datos x="241" y="134" id="panel2" visible="false">
+	</ns1:datos>
+	<mx:TextArea x="161" y="-31" id="texHelp" visible="false">
+	</mx:TextArea>
+	<mx:TextArea x="161" y="-31" id="texHelp2" visible="false">
+	</mx:TextArea>
+	<mx:TextArea x="161" y="-31" id="texHelp3" visible="false">
+	</mx:TextArea>
+	<mx:TextArea x="161" y="-31" id="texHelp4" visible="false">
+	</mx:TextArea>
+	<mx:TextArea x="161" y="-31" id="texHelp5" visible="false">
+	</mx:TextArea>
+	<ns1:MenuAgenda x="0" y="134" visible="false" id="menuAgenda1">
+	</ns1:MenuAgenda>
+	<ns1:Bloquearydesbloquear x="241" y="134" id="panelDesbloqueo" visible="false">
+	</ns1:Bloquearydesbloquear>
+	<ns1:Aviso x="241" y="134" id="agAviso2" visible="false">
+	</ns1:Aviso>
+	<ns1:NuevoItem x="440" y="205.4" id="pelNuevoItem" visible="false">
+	</ns1:NuevoItem>
+	<ns1:Login x="241" y="134" id="login2" visible="true" borderColor="#15AD8F">
+	</ns1:Login>
+	<ns1:Busqueda x="241" y="134" id="busqueda2" visible="false">
+	</ns1:Busqueda>
+	<ns1:huespedAgregado x="241" y="134" id="huespedAgregado2" visible="false">
+	</ns1:huespedAgregado>
+	<mx:Image x="365" y="0" width="174" height="104" source="../fotos-animales-perros-peq.jpg" autoLoad="true"/>
+	<mx:TextArea x="0" y="0" width="366" height="104" borderStyle="none" fontFamily="Arial" editable="false" fontSize="27" fontWeight="bold" fontStyle="normal" backgroundColor="#FFFFFF" color="#0202CB" themeColor="#0060FF" borderColor="#FFFFFF" enabled="true" wordWrap="false"/>
+	<mx:Image x="275" y="10" width="76" height="70" source="../Simbolo.JPG" autoLoad="true"/>
+	<mx:Label x="10" y="10"  text="Hospital Veterinario" width="274" height="43" fontFamily="Arial" color="#0202CB" fontSize="27" fontWeight="bold" enabled="true"/>
+	<mx:Label x="30" y="47" text="Claudio Bonati" fontFamily="Arial" fontSize="27" color="#15AD8F" fontWeight="bold"/>
+	<mx:Button x="655" y="30" label="Ayuda" width="100" height="50" icon="@Embed(source='../Help.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0"/>
+	<mx:Button x="829" y="30" label="Búsqueda" width="100" height="50" icon="@Embed(source='../Search.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" id="botonBusqueda"/>
+	<mx:Button x="170" y="104" label="Agenda" width="171" height="30" cornerRadius="4" id="botonAgenda" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
+	<mx:Button x="340" y="104" label="Clínica" width="171" height="30" cornerRadius="4" id="botonClinica" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
+	<mx:Button x="510" y="104" label="Peluquería" width="171" height="30" id="botonPeluqueria" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
+	<mx:Button x="680" y="104" label="Pet Shop" width="171" height="30" id="botonPetshop" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
+	<mx:Button x="850" y="104" label="Hotelería" width="170" height="30" id="botonHotel" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
+	<mx:Button x="0" y="104" label="Administración" height="30" width="171" id="botonAdmin" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
+</mx:Application>
