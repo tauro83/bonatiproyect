@@ -94,14 +94,18 @@
             
              private function setMensaje( event:Event):void
             {
-            	//if ("1"=="1"){
-            	//	ltexto.text = "Asdf";
-            	//}
-            	//else{
-            	//	ltexto.text = "8==D";
-            	//}
+            	var retorno:String = AdRegUsuario2.sendMessage()
+            	if("El Usuario registrado correctamente"==retorno){
+            		ltexto.text = retorno;
+            		panel2.setVisible(true,false);
+            		AdmOpciones1.setVisible(true,false);
+            		AdRegUsuario2.setVisible(false,false);
+            	}
+            	else{
+            		ltexto.text = retorno;
+            	}
             	
-            	ltexto.text = AdRegUsuario2.sendMessage();
+            	
             }
 
             
@@ -196,7 +200,7 @@
             {
             	setInvisible();
             	panel2.setVisible(true,false);
-                panelOpciones.setVisible(true,false);
+            	AdmOpciones1.setVisible(true,false);
 				
             	
             	
@@ -388,6 +392,7 @@
             	setInvisible();
             	AdmOpciones1.setVisible(true,false);
                 AdRegUsuario2.setVisible(true,false);
+                ltexto.text = "";
             	
             }
             
