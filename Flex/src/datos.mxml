@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" title="Mascotas registradas recientemente" height="383" width="779" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" title="Administracion" height="383" width="779" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
 			            
@@ -64,11 +64,5 @@
 			}
 		]]>
 	</mx:Script>
-	<mx:Button x="600" y="311" label="Visualizar ficha" width="136" id="botonGuardar"/>
-	<mx:DataGrid x="152.5" y="19" width="454" editable="true" enabled="true" height="263">
-		<mx:columns>
-			<mx:DataGridColumn headerText="Nombre Dueño" dataField="col1"/>
-			<mx:DataGridColumn headerText="Nombre Mascota" dataField="col2"/>			
-		</mx:columns>
-	</mx:DataGrid>
+	<mx:Label x="287.5" y="156" text="Seleccione una opcion del menu" fontWeight="bold" textAlign="center"/>
 </mx:Panel>
