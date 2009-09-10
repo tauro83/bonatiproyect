@@ -666,8 +666,8 @@
 	</ns1:OpcionesHoteleria>
 	<ns1:Panel1Ventas x="0" y="134" id="petOpciones1" visible="false">
 	</ns1:Panel1Ventas>
-	<ns1:datos x="241" y="134" id="panel2" visible="false">
-	</ns1:datos>
+	<ns1:Admin x="241" y="134" id="panel2" visible="false">
+	</ns1:Admin>
 	<mx:TextArea x="161" y="-31" id="texHelp" visible="false">
 	</mx:TextArea>
 	<mx:TextArea x="161" y="-31" id="texHelp2" visible="false">
