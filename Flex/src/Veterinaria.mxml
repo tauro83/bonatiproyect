@@ -26,7 +26,7 @@
             private function manejadorCreationComplete (event:FlexEvent):void
             {           	
             	
-            	AdRegUsuario2.registrarUser.addEventListener(MouseEvent.CLICK,setMensaje);  
+            //	AdRegUsuario2.breg.addEventListener(MouseEvent.CLICK,setMensaje);  
             	
             	// Escucha por el evento click event en el botón.
                 cliNewAtencion2.linkSiguiente.addEventListener(MouseEvent.CLICK,linkNewAP);            	
@@ -75,7 +75,7 @@
             	pelNuevoItem.cancelNuevoItem.addEventListener(MouseEvent.CLICK, linkCancelAgregarItem);
             	pelPanel1.pelVerAtenciones.addEventListener(MouseEvent.CLICK,linkVerAtencionesPel);
 				
-               
+              
 
                 // Escucha por el evento click event en el botón.
                 
@@ -83,7 +83,7 @@
                 AdmIngreso2.cancelarClienteIng.addEventListener(MouseEvent.CLICK, inicial);
                 AdmMascota2.cancelarMascota.addEventListener (MouseEvent.CLICK,inicial);
                 login2.CancelarUsuario.addEventListener (MouseEvent.CLICK,inicial);
-                AdRegUsuario2.canRegUsuario.addEventListener (MouseEvent.CLICK,inicial);
+              // AdRegUsuario2.bcan.addEventListener (MouseEvent.CLICK,inicial);
                 
                
                 
@@ -94,16 +94,16 @@
             
              private function setMensaje( event:Event):void
             {
-            	var retorno:String = AdRegUsuario2.sendMessage()
-            	if("El Usuario registrado correctamente"==retorno){
-            		ltexto.text = retorno;
-            		panel2.setVisible(true,false);
-            		AdmOpciones1.setVisible(true,false);
-            		AdRegUsuario2.setVisible(false,false);
-            	}
-            	else{
-            		ltexto.text = retorno;
-            	}
+            	//var retorno:String = AdRegUsuario2.sendMessage()
+//            	if("El Usuario registrado correctamente"==retorno){
+//            		ltexto.text = retorno;
+//            		panel2.setVisible(true,false);
+//            		AdmOpciones1.setVisible(true,false);
+//            		AdRegUsuario2.setVisible(false,false);
+//            	}
+//            	else{
+//            		ltexto.text = retorno;
+//            	}
             	
             	
             }
@@ -393,7 +393,7 @@
             	AdmOpciones1.setVisible(true,false);
                 AdRegUsuario2.setVisible(true,false);
                 ltexto.text = "";
-            	
+               
             }
             
             
