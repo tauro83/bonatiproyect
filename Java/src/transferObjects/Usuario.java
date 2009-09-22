@@ -1,3 +1,10 @@
+//=======================================================================
+// FECHA CREACIÓN: 21 Septiembre 2009
+// AUTOR: Camilo Verdugo G.
+// Descripcion: Clase entidad Usuario de sistema, encapsula informacion de un
+//				Usuario y el privilegio de acceso al sistema.
+//=======================================================================
+
 package transferObjects;
 
 public class Usuario {
