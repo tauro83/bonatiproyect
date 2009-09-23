@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import transferObjects.Usuario;
 
 
@@ -18,8 +17,7 @@ public class MantenerUsuario {
 		this.connection = connection;
 	}
 
-	public String addUsuario(Usuario u) throws SQLException
-	{
+	public String addUsuario(Usuario u) throws SQLException{
 		String result = null;
 		PreparedStatement insert;
 		String query="";			
@@ -40,15 +38,12 @@ public class MantenerUsuario {
 		insert.setBoolean(11, u.permisoPurgar);
 		
 		
-		try 
-    	{
+		try{
 			result = "Resultado: "+insert.executeUpdate()+" ";
 		} 
-    	catch (SQLException e) 
-    	{
+    	catch (SQLException e){    	
 			e.printStackTrace();
-			result = result +" "+e.toString(); 
-			
+			result = result +" "+e.toString();			
 		}
 		
 		return result;
