@@ -10,6 +10,7 @@
             import mx.rpc.events.ResultEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
+			import services.Validacion;
 			
 			public var idBotonGeneral:String;
 			public var idPanelGeneral:String;
@@ -19,11 +20,9 @@
 			public var texx2:String;
 			public var texx3:String;
 			public var texInt:int;
+						
 			
-			
-	       
-	        
-            private function manejadorCreationComplete (event:FlexEvent):void
+		    private function manejadorCreationComplete (event:FlexEvent):void
             {           	
             	
             //	AdRegUsuario2.breg.addEventListener(MouseEvent.CLICK,setMensaje);  
@@ -60,6 +59,7 @@
                 AdmOpciones1.linkMascotaAdm.addEventListener(MouseEvent.CLICK,linkMascotaAd);
                 AdmOpciones1.linkClienteAdm.addEventListener(MouseEvent.CLICK,linkClienteAd);
                 botonHotel.addEventListener(MouseEvent.CLICK, hotelclimanejadorClick);
+              
                 hotelOpciones.hotelServPellink.addEventListener(MouseEvent.CLICK,linkNuevaAtencionHotelBaño);
                 //hotelOpciones.alimentLink.addEventListener(MouseEvent.CLICK,linkNuevaAtencionHotelAlimentos);
                 //hotelOpciones.accesorVentaLink.addEventListener(MouseEvent.CLICK,linkNuevaAtencionHotelAccesorios);
@@ -76,7 +76,7 @@
             	pelPanel1.pelVerAtenciones.addEventListener(MouseEvent.CLICK,linkVerAtencionesPel);
 				
               
-
+				
                 // Escucha por el evento click event en el botón.
                 
 				hotelIngreso.IdVerRegistroHotel.addEventListener (MouseEvent.CLICK,visulizarRegHot);
@@ -84,33 +84,81 @@
                 AdmMascota2.cancelarMascota.addEventListener (MouseEvent.CLICK,inicial);
                 login2.CancelarUsuario.addEventListener (MouseEvent.CLICK,inicial);
               // AdRegUsuario2.bcan.addEventListener (MouseEvent.CLICK,inicial);
-                
+                          
                
                 
-                
                 botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
-	
+                
+                
+                //Camilo Verdugo implemetacion
+				AdRegUsuario2.cont.addEventListener(KeyboardEvent.KEY_UP,validaContrasena);
+				AdRegUsuario2.rcon.addEventListener(KeyboardEvent.KEY_UP,validarRContrasena);
+				AdRegUsuario2.usua.addEventListener(KeyboardEvent.KEY_UP,validarUsuario);
+				AdRegUsuario2.nomb.addEventListener(KeyboardEvent.KEY_UP,validarNombre);
+				AdRegUsuario2.canc.addEventListener(MouseEvent.CLICK, cancelarUsuario);
             }
-            
-             private function setMensaje( event:Event):void
+                   
+           
+            //Camilo Verdugo implemetacion
+            private function cancelarUsuario(event:Event):void
             {
-            	//var retorno:String = AdRegUsuario2.sendMessage()
-//            	if("El Usuario registrado correctamente"==retorno){
-//            		ltexto.text = retorno;
-//            		panel2.setVisible(true,false);
-//            		AdmOpciones1.setVisible(true,false);
-//            		AdRegUsuario2.setVisible(false,false);
-//            	}
-//            	else{
-//            		ltexto.text = retorno;
-//            	}
-            	
+            	panel2.setVisible(true,true);
+            	AdRegUsuario2.setVisible(false,true);
+            	AdRegUsuario2.resetVars();
             	
             }
-
-            
-			////////////////////////////////////////////////////////////////////////////////
-           //////////////////////////////////////////////////////////////////////////////////////
+            private function validaContrasena( event:Event):void
+             {            	
+            	if(Validacion.contrasena(AdRegUsuario2.cont.text))
+				{
+					ltexto.text = "";					
+				}
+				else
+				{
+					ltexto.text = "Ingrese una contraseña mas larga y sin espacios en blanco";
+					
+				}	            	
+             }
+             //Camilo Verdugo implemetacion
+          	 private function validarRContrasena(event:Event):void
+			 {
+				if(AdRegUsuario2.cont.text == AdRegUsuario2.rcon.text){
+					ltexto.text = "";		
+				}
+				else{
+					ltexto.text = "Las contraseñas no coinciden, ingresela nuevamente";	
+				}
+			 }
+			 //Camilo Verdugo implemetacion
+             private function validarUsuario(event:Event):void
+			 {	
+				if(Validacion.longitudMinima(AdRegUsuario2.usua.text) && Validacion.espaciosEnBlanco(AdRegUsuario2.usua.text))
+				{
+					ltexto.text = "";		
+				}
+				else
+				{
+					ltexto.text = "Ingrese un nombre de usuario sin espacios en blanco y mas largo";	
+				}
+				
+			 }
+			 //Camilo Verdugo implemetacion
+           	 private function validarNombre(event:Event):void
+			 {
+				if(Validacion.longitudMinima(AdRegUsuario2.nomb.text))
+				{
+					ltexto.text = "";	
+				}
+				else
+				{
+					ltexto.text = "Ingrese un nombre mas largo";
+				}	
+			 }	
+           
+           
+           
+           
+         
             
             private function setInvisible ():void
             {
@@ -566,8 +614,7 @@
             	setInvisible();
             	panel2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
-            	
-            	
+            	          	
             	
             }
             

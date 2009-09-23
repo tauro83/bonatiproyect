@@ -1,3 +1,12 @@
+//=======================================================================
+// FECHA: CREACIÓN: 20 Septiembre
+// AUTOR: Camilo Verdugo
+// Comentarios: TransferObject que es instanciado en la el componente RegistroUsuario
+//				Luego es enviado por usuarioServices a la capa 2. Esta clase encapsula los atributos
+//				De un usuario de sistema.
+//=======================================================================
+
+
 package transferObjects
 {
 	[Bindable]
