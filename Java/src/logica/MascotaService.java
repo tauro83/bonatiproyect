@@ -41,6 +41,20 @@ public class MascotaService{
 		}
 		return result;
     }
+	public static int purgarMascota(int id) {
+		int result=0;
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			MantenerMascota mascotaDB= new MantenerMascota(connection);
+			result= mascotaDB.purgarMascota(id);		
+			connection.close();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
     public static List<Mascota> getAllMascotas(){
     	List<Mascota> mascotas=new ArrayList<Mascota>();
     	try{
@@ -57,4 +71,5 @@ public class MascotaService{
 		}
 		return mascotas;
     }
+	
 }
