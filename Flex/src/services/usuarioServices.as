@@ -1,3 +1,11 @@
+//=======================================================================
+// FECHA: CREACIÓN: 20 Septiembre
+// AUTOR: Camilo Verdugo
+// Comentarios: Clase que establece la conexion con la capa logica y
+//				realiza la accion de registrar un usuario
+//=======================================================================
+
+
 package services
 {
 	import mx.controls.Alert;
@@ -7,8 +15,23 @@ package services
 	import mx.rpc.remoting.mxml.RemoteObject;	
 	import transferObjects.Usuario;
 	
+	
+	/**
+	 * 	@author  "Camilo Verdugo"
+	 * 	@Fecha  20 Septiembre
+	 *  @Descripcion Clase que gesitiona la conexion. Mediante el constructor
+	 *  			 Se instancia la conexion con la capa logica , indicando los datos del servidor. 
+	*/
+
 	public class usuarioServices extends RemoteObject
 	{
+		/**
+		 * @author "Camilo Verdugo"
+		 * @Fecha 22 Septiembre
+		 * @param amfChannel Indica la ruta del servidor Jboss
+		 * @param destination indica el package el nombre del package en la capa logica.
+		 * @param source indica el nombre de la clase de la capa logica seguida por el package
+		 * */
 		public function usuarioServices()
 		{
 			super();
@@ -18,23 +41,24 @@ package services
 			this.channelSet=channel;
 			this.destination="Administracion";
 			this.source="logica.Administracion";			
-			this.addEventListener(FaultEvent.FAULT,faultHandler);
-		}
-		
-		private function faultHandler(event:FaultEvent):void
-		{
-			Alert.show("Error en ContactService, Detalle: "+event.fault.message);
+			//this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		
 		
-		public function nuevo(user:Usuario):void
+//		private function faultHandler(event:FaultEvent):void
+//		{
+//		}
+		
+		
+		/**
+		 * @author "Camilo Verdugo"
+		 * @Fecha 22 Septiembre
+		 * @param user es una instancia del transferObject Usuario, instanciado en la capa logica.
+		 * @param addUsuario es el metodo de la clase Administracion de la capa logica.
+		 * */
+		public function regUsuario(user:Usuario):void
 		{
-			//Alert.show("Detalle: "+user.nombre);
-			//this.getOperation("toString").send(user);
-			
 			this.getOperation("addUsuario").send(user);
-			
-			//this.getOperation("toString").send(user);
 		}
 		
 	}
