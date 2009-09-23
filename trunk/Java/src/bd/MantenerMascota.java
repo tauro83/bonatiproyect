@@ -14,6 +14,7 @@ public class MantenerMascota{
 	PreparedStatement insert;
 	PreparedStatement selectAll;
 	PreparedStatement delete;
+	PreparedStatement purgar;
 	public MantenerMascota(Connection connection){
 		try{
 			String query="";			
@@ -28,6 +29,10 @@ public class MantenerMascota{
 			query = "DELETE FROM mascota WHERE id=?";
 			
 			delete = connection.prepareStatement(query);
+			
+			query = "UPDATE mascota SET estado=0 WHERE id=?";
+			
+			purgar = connection.prepareStatement(query);
 		} 
 		catch (SQLException e){
 			e.printStackTrace();
@@ -58,7 +63,6 @@ public class MantenerMascota{
     public int deleteMascota(int id){
     	int result=0;
     	try{
-    		System.out.println(id);
     		delete.setInt(1, id);
     		result = delete.executeUpdate();
     	}
@@ -67,6 +71,17 @@ public class MantenerMascota{
     	}
     	return result;
     }
+    public int purgarMascota(int id) {
+    	int result=0;
+    	try{
+    		purgar.setInt(1, id);
+    		result = purgar.executeUpdate();
+    	}
+    	catch (SQLException e){
+    		e.printStackTrace();
+    	}
+    	return result;
+	}
     public List<Mascota> getAllMascotas(){
     	List<Mascota> mascotas=new ArrayList<Mascota>();
     	Mascota mascota;
@@ -89,4 +104,5 @@ public class MantenerMascota{
 		}
     	return mascotas;
     }
+	
 }

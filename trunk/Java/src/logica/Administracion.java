@@ -73,6 +73,9 @@ public class Administracion {
 	public int deleteMascota(int id){
 		return MascotaService.deleteMascota(id);
     }
+	public int purgarMascota(int id){
+		return MascotaService.purgarMascota(id);
+	}
 	/**
 	 * @descripcion Obtiene una lista de objetos Mascota de la 
 	 * base de datos
