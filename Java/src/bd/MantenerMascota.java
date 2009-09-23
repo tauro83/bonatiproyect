@@ -25,8 +25,8 @@ public class MantenerMascota{
 					"FROM mascota;";			
 			selectAll = connection.prepareStatement(query);
 			
-			query = "DELETE FROM mascota" +
-			"WHERE id=?";
+			query = "DELETE FROM mascota WHERE id=?";
+			
 			delete = connection.prepareStatement(query);
 		} 
 		catch (SQLException e){
@@ -55,10 +55,11 @@ public class MantenerMascota{
 		}
     	return result;
     }
-    public int deleteMascota(String id){
+    public int deleteMascota(int id){
     	int result=0;
     	try{
-    		delete.setString(1, id);
+    		System.out.println(id);
+    		delete.setInt(1, id);
     		result = delete.executeUpdate();
     	}
     	catch (SQLException e){
@@ -81,8 +82,6 @@ public class MantenerMascota{
     			mascota.setEstado(result.getInt(6));
     			mascota.setID(result.getInt(7));
     			mascotas.add(mascota);
-    			
-    			System.out.println(mascota.getNombre()+" "+mascota.getFechaNacimiento());
     		}
 		} 
     	catch (SQLException e){

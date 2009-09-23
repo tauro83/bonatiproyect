@@ -27,7 +27,7 @@ public class MascotaService{
 		}
 		return result;
     }
-	public static int deleteMascota(String id){
+	public static int deleteMascota(int id){
 		int result=0;
 		try 
 		{
@@ -43,16 +43,14 @@ public class MascotaService{
     }
     public static List<Mascota> getAllMascotas(){
     	List<Mascota> mascotas=new ArrayList<Mascota>();
-    	try 
-		{
+    	try{
 			Connection connection=DBConnectionManager.getConnection();
 			MantenerMascota mascotaDB= new MantenerMascota(connection);
 			mascotas= mascotaDB.getAllMascotas();		
 			connection.close();
 			
 		} 
-    	catch (SQLException e) 
-		{
+    	catch (SQLException e){
     		System.out.print("Error en MascotaService,getAllMascotas,Detalle:");
 			e.printStackTrace();
 			
