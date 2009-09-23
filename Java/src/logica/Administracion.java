@@ -70,7 +70,7 @@ public class Administracion {
 	 * @param id identificador de la mascota a ser eliminada
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	*/
-	public int deleteMascota(String id){
+	public int deleteMascota(int id){
 		return MascotaService.deleteMascota(id);
     }
 	/**
