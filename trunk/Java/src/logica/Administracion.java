@@ -1,7 +1,7 @@
 //=======================================================================
 // FECHA CREACIÓN: 21 Septiembre 2009
 // AUTOR: Camilo Verdugo G.
-// DESCRIPCION: Clase de control que gestiona mantener usuario,
+// DESCRIPCION: Clase de control que gestiona mantener: usuario,
 // agenda, citas, cliente, mascotas, fichas y aviso
 //=======================================================================
 
@@ -26,13 +26,11 @@ public class Administracion {
 	 * @fechaModificacion 
 	 * @autorModificacion 
 	*/
-	public String toString(Usuario u) throws SQLException{	
-		
+	public String toString(Usuario u) throws SQLException{			
 		//return u.permisoEditar.toString();
 		Connection connection=DBConnectionManager.getConnection();
 		MantenerUsuario mu = new MantenerUsuario(connection);
-		return mu.getUsuarios();
-		
+		return mu.getUsuarios();		
 	}
 	
 	/**
@@ -49,7 +47,7 @@ public class Administracion {
 	public String addUsuario(Usuario u) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		MantenerUsuario mu = new MantenerUsuario(connection);		
-		return "Retorno:"+mu.addUsuario(u);		
+		return mu.addUsuario(u);		
 	}
 	/**
 	 * @descripcion Recibe un objeto Mascota para insertarlo en la BD 
