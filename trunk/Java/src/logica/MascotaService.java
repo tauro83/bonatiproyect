@@ -5,13 +5,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import transferObjects.Mascota;
+
 
 import bd.MantenerMascota;
 
 import bd.DBConnectionManager;
 
 public class MascotaService{
-	public int insertMascota(Mascota mascota){
+	public static int insertMascota(Mascota mascota){
 		int result=0;
 		try 
 		{
@@ -25,7 +27,7 @@ public class MascotaService{
 		}
 		return result;
     }
-	public int deleteMascota(String id){
+	public static int deleteMascota(String id){
 		int result=0;
 		try 
 		{
@@ -39,8 +41,7 @@ public class MascotaService{
 		}
 		return result;
     }
-    public List<Mascota> getAllMascotas(){	
-    	System.out.println("asd getAllMacotaas");
+    public static List<Mascota> getAllMascotas(){
     	List<Mascota> mascotas=new ArrayList<Mascota>();
     	try 
 		{
@@ -54,6 +55,7 @@ public class MascotaService{
 		{
     		System.out.print("Error en MascotaService,getAllMascotas,Detalle:");
 			e.printStackTrace();
+			
 		}
 		return mascotas;
     }

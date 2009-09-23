@@ -6,8 +6,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
 
-public class DBConnectionManager
-{
+public class DBConnectionManager{
 
 	private static  String JNDINAME = "java:postgresConnection";
 	
@@ -16,20 +15,18 @@ public class DBConnectionManager
 	 * @param connectTo: nombre de la referencia al recurso JNDI que apunta al pool de conexiones deseada.
 	 * @return una conexion a una base de datos lista para utilizar. Null en caso de error.
 	 * */
-	public static Connection getConnection()
-	{			
+	public static Connection getConnection(){			
 	    Context ctx = null;
 	    DataSource ds = null;
 	    Connection conn = null; 
 		
-		try 
-		{
+		try{
 			ctx = new InitialContext();
 			ds = (DataSource) ctx.lookup(DBConnectionManager.JNDINAME);
 		} 
-		catch (NamingException e) {e.printStackTrace();	}			
-		try 
-		{
+		catch (NamingException e){e.printStackTrace();}	
+		
+		try{
 			conn= ds.getConnection();
 			//System.out.println("Conexion obtenida del POOL de conexiones a BD");
 		} 

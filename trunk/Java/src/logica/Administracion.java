@@ -9,7 +9,9 @@ package logica;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
+import transferObjects.Mascota;
 import transferObjects.Usuario;
 import bd.DBConnectionManager;
 import bd.MantenerUsuario;
@@ -49,5 +51,42 @@ public class Administracion {
 		MantenerUsuario mu = new MantenerUsuario(connection);		
 		return "Retorno:"+mu.addUsuario(u);		
 	}
+	/**
+	 * @descripcion Recibe un objeto Mascota para insertarlo en la BD 
+	 * @author Andres Garrido
+	 * @fechaCreacion 22 Septiembre
+	 * @fechaModificacion 
+	 * @autorModificacion 
+	 * @param mascota Mascota a ser insertada
+	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
+	*/
+	public int insertMascota(Mascota mascota){
+		return MascotaService.insertMascota(mascota);
+    }
+	/**
+	 * @descripcion Elimina una mascota con el id ingresado
+	 * @author Andres Garrido
+	 * @fechaCreacion 22 Septiembre
+	 * @fechaModificacion 
+	 * @autorModificacion 
+	 * @param id identificador de la mascota a ser eliminada
+	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
+	*/
+	public int deleteMascota(String id){
+		return MascotaService.deleteMascota(id);
+    }
+	/**
+	 * @descripcion Obtiene una lista de objetos Mascota de la 
+	 * base de datos
+	 * @author Andres Garrido
+	 * @fechaCreacion 22 Septiembre
+	 * @fechaModificacion 
+	 * @autorModificacion 
+	 * @param no tiene
+	 * @return una lista de Mascotas
+	*/
+    public List<Mascota> getAllMascotas(){
+		return MascotaService.getAllMascotas();
+    }
 	
 }
