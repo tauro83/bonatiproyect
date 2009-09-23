@@ -3,13 +3,13 @@ package transferObjects;
 
 public class Mascota 
 {
-    private String nombre;
-    private String raza;
-    private String fecha_nacimiento;
-    private String sexo;
-    private int edad;
-    private int estado;// 0 eliminado, 1 no eliminado 
-    private int id;
+    public String nombre;
+    public String raza;
+    public String fecha_nacimiento;
+    public String sexo;
+    public int edad;
+    public int estado;// 0 purgado, 1 no purgado 
+    public int id;
     
     public Mascota(){
     	this.estado = 1;
