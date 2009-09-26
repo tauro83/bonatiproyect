@@ -1,10 +1,10 @@
-package MantenerUsuario;
+package Administracion;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import transferObjects.Usuario;
-import MantenerUsuarioBD.AddUsuarioBD;
+import AdministracionBD.AddUsuarioBD;
 import bd.DBConnectionManager;
 
 public class AddUsuario {
