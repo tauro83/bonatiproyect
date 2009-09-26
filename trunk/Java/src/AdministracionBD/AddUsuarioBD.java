@@ -1,4 +1,4 @@
-package MantenerUsuarioBD;
+package AdministracionBD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
