@@ -3,9 +3,10 @@ package Administracion;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import transferObjects.Usuario;
+import TransferObjects.Usuario;
+
 import AdministracionBD.AddUsuarioBD;
-import bd.DBConnectionManager;
+import Bd.DBConnectionManager;
 
 public class AddUsuario {
 
