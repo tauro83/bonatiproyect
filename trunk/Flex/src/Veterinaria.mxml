@@ -89,12 +89,7 @@
                 botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
                 
                 
-                //Camilo Verdugo implemetacion
-				AdRegUsuario2.cont.addEventListener(KeyboardEvent.KEY_UP,validaContrasena);
-				AdRegUsuario2.rcon.addEventListener(KeyboardEvent.KEY_UP,validarRContrasena);
-				AdRegUsuario2.usua.addEventListener(KeyboardEvent.KEY_UP,validarUsuario);
-				AdRegUsuario2.nomb.addEventListener(KeyboardEvent.KEY_UP,validarNombre);
-				AdRegUsuario2.canc.addEventListener(MouseEvent.CLICK, cancelarUsuario);
+             
 				
 				
 				
@@ -124,63 +119,6 @@
             }
             
                    
-           
-            //Camilo Verdugo implemetacion
-            private function cancelarUsuario(event:Event):void
-            {
-            	panel2.setVisible(true,true);
-            	AdRegUsuario2.setVisible(false,true);
-            	AdRegUsuario2.resetVars();
-            	
-            }
-            private function validaContrasena( event:Event):void
-             {            	
-            	if(Validacion.contrasena(AdRegUsuario2.cont.text))
-				{
-					ltexto.text = "";					
-				}
-				else
-				{
-					ltexto.text = "Ingrese una contraseña mas larga y sin espacios en blanco";
-					
-				}	            	
-             }
-             //Camilo Verdugo implemetacion
-          	 private function validarRContrasena(event:Event):void
-			 {
-				if(AdRegUsuario2.cont.text == AdRegUsuario2.rcon.text){
-					ltexto.text = "";		
-				}
-				else{
-					ltexto.text = "Las contraseñas no coinciden, ingresela nuevamente";	
-				}
-			 }
-			 //Camilo Verdugo implemetacion
-             private function validarUsuario(event:Event):void
-			 {	
-				if(Validacion.longitudMinima(AdRegUsuario2.usua.text) && Validacion.espaciosEnBlanco(AdRegUsuario2.usua.text))
-				{
-					ltexto.text = "";		
-				}
-				else
-				{
-					ltexto.text = "Ingrese un nombre de usuario sin espacios en blanco y mas largo";	
-				}
-				
-			 }
-			 //Camilo Verdugo implemetacion
-           	 private function validarNombre(event:Event):void
-			 {
-				if(Validacion.longitudMinima(AdRegUsuario2.nomb.text))
-				{
-					ltexto.text = "";	
-				}
-				else
-				{
-					ltexto.text = "Ingrese un nombre mas largo";
-				}	
-			 }	
-           
            
            
            
@@ -467,8 +405,7 @@
             	setInvisible();
             	AdmOpciones1.setVisible(true,false);
                 AdRegUsuario2.setVisible(true,false);
-                ltexto.text = "";
-               
+              
             }
             
             
@@ -660,9 +597,6 @@
 	
 	
 	<mx:MenuBar x="0" y="104" width="1020" height="30"></mx:MenuBar>
-	<mx:Panel x="241" y="517" width="779" height="83" id="panelMensaje" layout="absolute" title="Mensajes del sistema" borderColor="#15AD8F">
-		<mx:Label x="203.5" y="15" width="407" id="ltexto" fontWeight="bold" textAlign="center"/>
-	</mx:Panel>
 	<ns1:opciones x="0" y="134" id="panelOpciones" visible="true" horizontalAlign="center" height="466">
 	</ns1:opciones>
 	<ns1:Agenda x="241" y="134" visible="false" id="agenda2">
