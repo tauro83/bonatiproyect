@@ -23,7 +23,47 @@
 			private var vRContrasena:Boolean;
 			private var ru:usuarioServices = new usuarioServices();
 			
-			
+			public function itsOk():Boolean
+			{
+				if(Validacion.longitudMinima(amat.text)){
+					if(Validacion.longitudMinima(apat.text)){
+						if(cont.text == rcon.text){
+							if(Validacion.contrasena(cont.text)){
+								if(Validacion.longitudMinima(nomb.text)){
+									if(Validacion.longitudMinima(usua.text) && Validacion.espaciosEnBlanco(usua.text)){
+										return true;
+									}
+									else{
+										labelMessage.text = "Ingrese un nombre de usuario sin espacios en blanco y mas largo";
+										return false;
+									}
+								}
+								else{
+									labelMessage.text="Ingrese un nombre mas largo";
+									return false;
+								}
+							}
+							else{
+								labelMessage.text = "Ingrese una contraseña mas larga y sin espacios en blanco";
+								return false;
+							}
+						}
+						else{
+							labelMessage.text = "Las contraseñas no coinciden, ingresela nuevamente";
+							return false;
+						}
+					}
+					else{
+						labelMessage.text="Ingrese un Apellido Paterno mas largo";
+						return false;
+					}
+				} 
+				else{
+					labelMessage.text="Ingrese un Apellido Materno mas largo";
+					return false;
+				}
+				
+			}
 			
 			/**
 		 	 * 	@author  "Jimmy Muñoz"
@@ -49,8 +89,7 @@
 				vUsuario 		= false;
 				vContrasena 	= false;
 				vRContrasena 	= false;
-					
-				
+
 			}
 			
 			/**
@@ -62,7 +101,7 @@
 			{
 				if(Validacion.longitudMinima(nomb.text))
 				{
-					labelMessage.text="";	
+					labelMessage.text="";
 				}
 				else
 				{
@@ -95,14 +134,12 @@
 			 * */
 			private function validarContrasena(event:Event):void
 			{
-				//Validacion = new Validacion();
 				if(Validacion.contrasena(cont.text)){
-					labelMessage.text = "";					
+					labelMessage.text = "";				
 				}
 				else
 				{
 					labelMessage.text = "Ingrese una contraseña mas larga y sin espacios en blanco";
-					
 				}	
 				
 			}
@@ -115,10 +152,10 @@
 			private function validarRContrasena(event:Event):void
 			{
 				if(cont.text == rcon.text){
-					labelMessage.text = "";		
+					labelMessage.text = "";	
 				}
 				else{
-					labelMessage.text = "Las contraseñas no coinciden, ingresela nuevamente";	
+					labelMessage.text = "Las contraseñas no coinciden, ingresela nuevamente";
 				}
 			}
 			
@@ -156,6 +193,42 @@
 				rcon.addEventListener(KeyboardEvent.KEY_UP,validarRContrasena);
 				usua.addEventListener(KeyboardEvent.KEY_UP,validarUsuario);		
 				ptod.addEventListener(MouseEvent.CLICK,todosLosPrivilegios);
+				apat.addEventListener(MouseEvent.CLICK,validarApaterno);
+				amat.addEventListener(MouseEvent.CLICK,validarAmaterno);
+			}
+			
+			/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Validacion del Apellido paterno del usuario	 		
+			 * */
+			private function validarApaterno(event:Event):void
+			{
+				if(Validacion.longitudMinima(apat.text))
+				{
+					labelMessage.text="";
+				}
+				else
+				{
+					labelMessage.text="Ingrese un Apellido Paterno mas largo";
+				}	
+			}
+			
+			/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Validacion del Apellido materno del usuario	 		
+			 * */
+			private function validarAmaterno(event:Event):void
+			{
+				if(Validacion.longitudMinima(amat.text))
+				{
+					labelMessage.text="";	
+				}
+				else
+				{
+					labelMessage.text="Ingrese un Apellido Materno mas largo";
+				}	
 			}
 
 			
@@ -165,8 +238,8 @@
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="647" label="Cancelar" y="393" id="cancGuardar" />
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="537" label="Guardar" y="393" id="guardarUsuario"/>
 	<mx:TextInput x="155" y="19" width="163" restrict="A-Z a-z" includeInLayout="true" id="nomb" click="iniListener()" enabled="true" maxChars="20"/>
-	<mx:TextInput x="155" y="63" width="163" restrict="A-Z a-z" id="apat" enabled="true" maxChars="20"/>
-	<mx:TextInput x="512" y="63" width="163" restrict="A-Z a-z" id="amat" enabled="true" maxChars="20"/>
+	<mx:TextInput x="155" y="63" width="163" restrict="A-Z a-z" id="apat" click="iniListener()" enabled="true" maxChars="20"/>
+	<mx:TextInput x="512" y="63" width="163" restrict="A-Z a-z" id="amat" click="iniListener()" enabled="true" maxChars="20"/>
 	<mx:TextInput x="155" y="105" id="usua" enabled="true" click="iniListener()" maxChars="20" editable="false"/>
 	<mx:ComboBox x="155" y="142" id="carg">
 		<mx:ArrayCollection>

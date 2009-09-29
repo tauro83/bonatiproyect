@@ -26,7 +26,13 @@
 			private var usuars2:ArrayCollection;
 			public var newRegUsuar:EditUsuarioUpdate;
 					
-			
+			/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que obtiene los datos del datagrid, en el cual se muestran
+			 * los datos de los usuarios, para procesar los datos del usuario seleccionado, esto 
+			 * enviandolo al panel EditUsuarioUpdate, dejandolo visible, y a este panel invisible.		 		
+			 * */
 			public function editarUser(event:Event):void
 			{
 				
@@ -47,20 +53,32 @@
 					this.setVisible(false,false);
 					var user:Usuario = usuarios.removeItemAt(Tabla.selectedIndex) as Usuario;
 					newRegUsuar.resetVars();
-					newRegUsuar.nomb.text=newUsuario.nombre;
-					newRegUsuar.apat.text=newUsuario.apellidoPaterno;
-					newRegUsuar.amat.text=newUsuario.apellidoMaterno;
-					newRegUsuar.usua.text=newUsuario.usuario;
 					newRegUsuar.serv.text=newUsuario.servicio;
 					newRegUsuar.carg.text=newUsuario.cargo;
 					newRegUsuar.preg.selected = newUsuario.permisoRegistrar;
 					newRegUsuar.pedi.selected = newUsuario.permisoEditar;
 					newRegUsuar.peli.selected = newUsuario.permisoEliminar;
-					newRegUsuar.ppur.selected = newUsuario.permisoPurgar;	
-					var listCont:Array = new Array();
-					listCont = newUsuario.contrasena.split(" ",1);
-					newRegUsuar.rcon.text = newRegUsuar.cont.text =listCont.pop();
-					//newRegUsuar.rcon.text = newUsuario.contrasena;
+					newRegUsuar.ppur.selected = newUsuario.permisoPurgar;
+					
+					var listCont2:Array = new Array();
+					listCont2 = newUsuario.usuario.split(" ",1);
+					newRegUsuar.usua.text=listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newUsuario.contrasena.split(" ",1);
+					newRegUsuar.rcon.text = newRegUsuar.cont.text = listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newUsuario.nombre.split(" ",1);
+					newRegUsuar.nomb.text = listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newUsuario.apellidoPaterno.split(" ",1);
+					newRegUsuar.apat.text= listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newUsuario.apellidoMaterno.split(" ",1);
+					newRegUsuar.amat.text=listCont2.pop();	
 					
 					newRegUsuar.setVisible(true,false);
 
@@ -68,6 +86,13 @@
 
 			}
 			
+			/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que recibe el panel EditUsuario (newRegUsuar), para almacenarlo, 
+			 * inicializa la variable personService, para poder llamar a los metodos de este
+			 * para lograr comunicarse con las clases y metodos de java.	 		
+			 * */
 			public function getAllUsuarios(regUsuarioIn:EditUsuarioUpdate):void
 			{
 				labelMessage.text="";
@@ -77,6 +102,14 @@
 				personService.getAllUsuariosE();
 				
 			}
+			
+			/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
+			 * del datagrid, para mostrar los datos de los usuarios que existen en el sistema.	 		
+			 * */
 			private function getAllUsuariosEResult(event:ResultEvent):void
 			{
 				Tabla.doubleClickEnabled=true;
@@ -85,26 +118,43 @@
 								
 			}
 			
-			
+			/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que consulta si se cumple las devidas condiciones para editar un usuario, 
+			 * llamando al metodo itsOk, si esto se cumple procesa los datos que fueron ingresados en el objeto
+			 *  person para ser eviados a los metodos de la clase person service, para enviarlos a las otras
+			 * capas, y guardar los cambios.		 		
+			 * */
 			public function insertUsuarioE():void
 			{
-				var person:Usuario= new Usuario();
-				person.nombre=newRegUsuar.nomb.text;
-				person.apellidoPaterno=newRegUsuar.apat.text;
-				person.apellidoMaterno=newRegUsuar.amat.text;
-				person.usuario=newRegUsuar.usua.text;
-				person.servicio=newRegUsuar.serv.text;
-				person.cargo=newRegUsuar.carg.text;
-				person.contrasena=newRegUsuar.cont.text;
-				person.permisoEditar=newRegUsuar.pedi.selected;
-				person.permisoEliminar=newRegUsuar.peli.selected;
-				person.permisoPurgar=newRegUsuar.ppur.selected;
-				person.permisoRegistrar=newRegUsuar.preg.selected;
+				if(newRegUsuar.itsOk()){
+					var person:Usuario= new Usuario();
+					person.nombre=newRegUsuar.nomb.text;
+					person.apellidoPaterno=newRegUsuar.apat.text;
+					person.apellidoMaterno=newRegUsuar.amat.text;
+					person.usuario=newRegUsuar.usua.text;
+					person.servicio=newRegUsuar.serv.text;
+					person.cargo=newRegUsuar.carg.text;
+					person.contrasena=newRegUsuar.cont.text;
+					person.permisoEditar=newRegUsuar.pedi.selected;
+					person.permisoEliminar=newRegUsuar.peli.selected;
+					person.permisoPurgar=newRegUsuar.ppur.selected;
+					person.permisoRegistrar=newRegUsuar.preg.selected;
 				
-				var personService:UsuarioEditService=new UsuarioEditService();
-				personService.addEventListener(ResultEvent.RESULT,insertUsuarioEResult);
-				personService.insertUsuarioE(person);
+					var personService:UsuarioEditService=new UsuarioEditService();
+					personService.addEventListener(ResultEvent.RESULT,insertUsuarioEResult);
+					personService.insertUsuarioE(person);
+				}
+				
 			}
+			
+			/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que recibe el resultado del metodo anterior, el cual actualiza los 
+			 * datos del usuario seleccionado, y verifica si se almaceno correctamente.		 		
+			 * */
 			private function insertUsuarioEResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
