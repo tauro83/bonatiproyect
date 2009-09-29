@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Usuario" x="241" y="133">
+	<mx:Script>
+		<![CDATA[
+		//=======================================================================
+			// FECHA: CREACIÓN: 21 Septiembre
+			// AUTOR: jimmy muñoz
+			// Panel de selección de usuario, para proceder a editar los datos de éste.
+			//=======================================================================
+
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Usuario;
+			import mx.rpc.events.ResultEvent;
+			import administracion.UsuarioEditService;
+			
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			
+			[Bindable]
+			private var usuarios:ArrayCollection;
+			private var usuars:ArrayCollection;
+			private var usuars2:ArrayCollection;
+			public var newRegUsuar:EditUsuarioUpdate;
+					
+			
+			public function editarUser(event:Event):void
+			{
+				
+				if(Tabla.selectedItem){					
+					var newUsuario:Usuario = new Usuario();
+					newUsuario.nombre = Tabla.selectedItem.nombre;
+					newUsuario.apellidoPaterno = Tabla.selectedItem.apellidoPaterno;
+					newUsuario.apellidoMaterno = Tabla.selectedItem.apellidoMaterno;
+					newUsuario.usuario = Tabla.selectedItem.usuario;
+					newUsuario.servicio = Tabla.selectedItem.servicio;
+					newUsuario.cargo = Tabla.selectedItem.cargo;
+					newUsuario.permisoRegistrar = Tabla.selectedItem.permisoRegistrar;
+					newUsuario.permisoEditar = Tabla.selectedItem.permisoEditar;
+					newUsuario.permisoEliminar = Tabla.selectedItem.permisoEliminar;
+					newUsuario.permisoPurgar = Tabla.selectedItem.permisoPurgar;
+					newUsuario.contrasena = Tabla.selectedItem.contrasena;
+					
+					this.setVisible(false,false);
+					var user:Usuario = usuarios.removeItemAt(Tabla.selectedIndex) as Usuario;
+					newRegUsuar.resetVars();
+					newRegUsuar.nomb.text=newUsuario.nombre;
+					newRegUsuar.apat.text=newUsuario.apellidoPaterno;
+					newRegUsuar.amat.text=newUsuario.apellidoMaterno;
+					newRegUsuar.usua.text=newUsuario.usuario;
+					newRegUsuar.serv.text=newUsuario.servicio;
+					newRegUsuar.carg.text=newUsuario.cargo;
+					newRegUsuar.preg.selected = newUsuario.permisoRegistrar;
+					newRegUsuar.pedi.selected = newUsuario.permisoEditar;
+					newRegUsuar.peli.selected = newUsuario.permisoEliminar;
+					newRegUsuar.ppur.selected = newUsuario.permisoPurgar;	
+					var listCont:Array = new Array();
+					listCont = newUsuario.contrasena.split(" ",1);
+					newRegUsuar.rcon.text = newRegUsuar.cont.text =listCont.pop();
+					//newRegUsuar.rcon.text = newUsuario.contrasena;
+					
+					newRegUsuar.setVisible(true,false);
+
+				}
+
+			}
+			
+			public function getAllUsuarios(regUsuarioIn:EditUsuarioUpdate):void
+			{
+				labelMessage.text="";
+				newRegUsuar = regUsuarioIn;
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();
+				
+			}
+			private function getAllUsuariosEResult(event:ResultEvent):void
+			{
+				Tabla.doubleClickEnabled=true;
+				usuarios = event.result as ArrayCollection;	
+							
+								
+			}
+			
+			
+			public function insertUsuarioE():void
+			{
+				var person:Usuario= new Usuario();
+				person.nombre=newRegUsuar.nomb.text;
+				person.apellidoPaterno=newRegUsuar.apat.text;
+				person.apellidoMaterno=newRegUsuar.amat.text;
+				person.usuario=newRegUsuar.usua.text;
+				person.servicio=newRegUsuar.serv.text;
+				person.cargo=newRegUsuar.carg.text;
+				person.contrasena=newRegUsuar.cont.text;
+				person.permisoEditar=newRegUsuar.pedi.selected;
+				person.permisoEliminar=newRegUsuar.peli.selected;
+				person.permisoPurgar=newRegUsuar.ppur.selected;
+				person.permisoRegistrar=newRegUsuar.preg.selected;
+				
+				var personService:UsuarioEditService=new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,insertUsuarioEResult);
+				personService.insertUsuarioE(person);
+			}
+			private function insertUsuarioEResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(result>0)
+				{
+				   this.getAllUsuarios(newRegUsuar);
+				   newRegUsuar.setVisible(false,false);
+				   this.setVisible(true,false);
+				   labelMessage.text="Ususario editado!";
+				}
+				else
+				   newRegUsuar.labelMessage.text="Ususario NO editado!";
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:DataGrid x="10" y="45" width="739" id="Tabla" enabled="true" height="303" dataProvider="{usuarios}" itemDoubleClick="editarUser(event)">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellidoPaterno"/>
+			<mx:DataGridColumn headerText="Apellido Materno" dataField="apellidoMaterno"/>
+			<mx:DataGridColumn headerText="Usuario" dataField="usuario"/>
+			<mx:DataGridColumn headerText="Cargo" dataField="cargo" width="100"/>
+			<mx:DataGridColumn headerText="Contraseña" dataField="contrasena" visible="false"/>
+			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
+			<mx:DataGridColumn headerText="Permiso Registrar" dataField="permisoRegistrar" visible="false"/>
+			<mx:DataGridColumn headerText="Permiso Editar" dataField="permisoEditar" visible="false"/>
+			<mx:DataGridColumn headerText="Permiso Eliminar" dataField="permisoEliminar" visible="false"/>
+			<mx:DataGridColumn headerText="Permiso Purgar" dataField="permisoPurgar" visible="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Button label="Editar" height="23" width="102" x="537" y="393" click="editarUser(event)" cornerRadius="6"/>
+	<mx:Label x="10" y="10" text="Seleccionar Usuario:"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center"/>
+	<mx:Button x="647" y="393" label="Cancelar" width="102" height="23" cornerRadius="6"/>
+	
+
+
+	
+</mx:Panel>
