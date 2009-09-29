@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Ficha de Mascota">
-	<mx:DataGrid x="10" y="266" width="693" height="306" id="fichaTablaRegistro">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Ficha de Mascota" borderColor="#15AD8F" >
+	<mx:DataGrid x="24.15" y="205" width="693" height="153" id="fichaTablaRegistro">
 		<mx:columns>
+			<mx:DataGridColumn width="20" headerText="" dataField="col1"/>
 			<mx:DataGridColumn width="90" headerText="Fecha" dataField="col1"/>
 			<mx:DataGridColumn headerText="Descripción" dataField="col2"/>
-			<mx:DataGridColumn width="150" headerText="Atendido por:" dataField="col3"/>
+			<mx:DataGridColumn headerText="Servicio" dataField="col3"/>
+			<mx:DataGridColumn width="150" headerText="Responsable" dataField="col4"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="550" y="238" label="Agregar" id="fichaAgregarRegistro">
+	<mx:Button x="644.15" y="366" label="Eliminar" id="fichaAgregarRegistro">
 	</mx:Button>
-	<mx:Button x="631" y="238" label="Eliminar" id="fichaEliminarRegistro">
+	<mx:Button x="555.15" y="366" label="Visualizar" id="fichaEliminarRegistro">
 	</mx:Button>
-	<mx:Label x="23.05" y="22.05" text="Nombre" width="78"/>
-	<mx:Label x="23.05" y="52.05" text="Dueño" width="78"/>
-	<mx:Label x="300.3" y="85.15" text="Sexo" width="78"/>
-	<mx:Label x="300.3" y="23.15" text="Tipo Mascota" width="89.42529" height="17.931034"/>
-	<mx:Label x="23.05" y="80.05" text="Edad" width="78"/>
-	<mx:Label x="23.05" y="110.05" text="Fecha Nac ." width="78"/>
-	<mx:Label x="300.3" y="53.15" text="Raza" width="78"/>
-	<mx:Button x="593" y="167.15" label="Editar Datos" id="fichaEditarDatosMascota"/>
-	<mx:VRule x="695" y="10" width="19" height="146.2"/>
-	<mx:Label x="485" y="240" text="Registros"/>
-	<mx:HRule x="10" y="145.15" width="693" height="25"/>
-	<mx:HRule x="10" y="5" width="693" height="10.2"/>
-	<mx:VRule x="5.65" y="10" width="10.5" height="146.2"/>
-	<mx:Label x="126" y="22" width="138.7931" height="17.988506" id="fichaNombreMascota"/>
-	<mx:Label x="126" y="52.05" width="138.7931" height="17.988506" id="fichaDuenoMascota"/>
-	<mx:Label x="126" y="80.05" width="138.7931" height="17.988506" id="fichaEdadMascota"/>
-	<mx:Label x="126" y="110.05" width="138.7931" height="17.988506" id="fichaNacMascota"/>
-	<mx:Label x="403.25" y="23.15" width="138.7931" height="17.988506" id="fichaTipoMascota"/>
-	<mx:Label x="403.25" y="53.1" width="138.7931" height="17.988506" id="fichaRazaMascota"/>
-	<mx:Label x="403.25" y="85.15" width="138.7931" height="17.988506" id="fichaSexoMascota"/>
-	<mx:HRule x="593" y="23.2" width="94" height="2"/>
-	<mx:HRule x="593" y="131.15" width="94" height="13"/>
-	<mx:VRule x="587.5" y="23.2" height="113.95" width="12.5"/>
-	<mx:VRule x="686" y="23.2" width="1" height="114"/>
-	<mx:Image y="23.15" width="94" height="114" alpha="1.0" themeColor="#000107" x="593" id="imagenMascota">
-	</mx:Image>
-	<mx:Label x="10" y="238" text="Registros de la mascota" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<mx:Label x="24.15" y="36" text="Nombre:" width="78"/>
+	<mx:Label x="24.15" y="10" text="Datos dueño" width="78" fontWeight="bold"/>
+	<mx:Label x="393.7" y="9.95" text="Datos mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="24.15" y="62" text="Rut:" width="78"/>
+	<mx:Label x="393.7" y="87.95" text="Sexo:" width="78"/>
+	<mx:Label x="393.7" y="114" text="Fecha nacimiento:" width="107"/>
+	<mx:Label x="393.7" y="35.9" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="24.15" y="88" text="Telefono:" width="78"/>
+	<mx:Label x="24.15" y="138.95" text="Direccion:" width="78" height="17.25"/>
+	<mx:Label x="24.15" y="114" text="Comuna:" width="78" height="17.25"/>
+	<mx:Label x="393.7" y="61.9" text="Raza:" width="78"/>
+	<mx:Label x="24.15" y="179" text="Atenciones" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<mx:Label x="545.15" y="179" text="&lt; Anterior" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<mx:Label x="652.15" y="179" text="Posterior &gt;" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<mx:TextInput x="127.1" y="34" width="217.75" editable="false"/>
+	<mx:TextInput x="127.1" y="60" width="111" editable="false" height="20"/>
+	<mx:TextInput x="246.1" y="60" width="19.75" editable="false" height="20"/>
+	<mx:TextInput x="127.1" y="86" width="138.75" editable="false" height="20"/>
+	<mx:TextInput x="127.1" y="112" width="138.75" editable="false" height="20"/>
+	<mx:TextInput x="127.1" y="136.95" width="217.75" editable="false" height="20"/>
+	<mx:TextInput x="517.25" y="33.9" width="138.75" editable="false" height="20"/>
+	<mx:TextInput x="517.25" y="59.9" width="92.9" editable="false" height="20"/>
+	<mx:TextInput x="517.25" y="87.9" width="92.9" editable="false" height="20"/>
+	<mx:TextInput x="517.25" y="112" width="92.9" editable="false" height="20"/>
+	<mx:Label x="165" y="396" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 	
 </mx:Panel>

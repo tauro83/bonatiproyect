@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Registro de Usuario" borderColor="#15AD8F" >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registro de Usuario" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
 		
@@ -22,6 +22,7 @@
 			private var vContrasena:Boolean;
 			private var vRContrasena:Boolean;
 			private var ru:usuarioServices = new usuarioServices();
+			private var u1:Usuario;
 			
 			/**
 		 	 * 	@author  "Camilo Verdugo"
@@ -33,7 +34,7 @@
 			{								 
 				if(vUsuario==true && vNombre==true && vContrasena==true && vRContrasena==true )
 				{
-					var u1:Usuario		= new Usuario();
+					u1					= new Usuario();
 					u1.nombre 			= nomb.text;
 					u1.apellidoMaterno 	= amat.text;
 					u1.apellidoPaterno 	= apat.text;
@@ -94,11 +95,13 @@
 			{
 				if(Validacion.longitudMinima(nomb.text))
 				{
-					vNombre		= true;	
+					vNombre		= true;
+					ltexto.text = "";
 				}
 				else
 				{
 					vNombre		= false;
+					ltexto.text = "Nombre invalido";
 				}	
 			}
 			
@@ -213,11 +216,11 @@
 			}		
 		]]>
 	</mx:Script> 
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="629" label="Cancelar" click="resetVars()" y="308" id="canc" />
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="501" label="Registrar" click="registrar()" y="308" id="registrarUsuario"/>
-	<mx:TextInput x="155" y="19" width="163" includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="629" label="Cancelar" click="resetVars()" y="317" id="canc" />
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="501" label="Registrar" click="registrar()" y="317" id="registrarUsuario"/>
+	<mx:TextInput x="155" y="19" restrict="" width="163" includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
 	<mx:TextInput x="512" y="186" displayAsPassword="true" width="160" enabled="true" id="rcon"  click="iniListener()" maxChars="20"/>
-	<mx:TextInput x="155" y="186" displayAsPassword="true" editable="true" width="160" enabled="true"  id="cont" click="iniListener()" maxChars="20"/>
+	<mx:TextInput x="155" y="186"  displayAsPassword="true" editable="true" width="160" enabled="true"  id="cont" click="iniListener()" maxChars="20"/>
 	<mx:TextInput x="155" y="105" id="usua"   enabled="true" click="iniListener()" maxChars="20"/>
 	<mx:Label x="24" y="188" text="Contraseña:" textAlign="left"/>
 	<mx:Label x="24" y="107" text="Usuario:" textAlign="left"/>
@@ -253,4 +256,5 @@
 	<mx:CheckBox x="464" y="269" label="Purgar" id="ppur"/>
 	<mx:CheckBox x="560" y="269" label="Todas" id="ptod" click="iniListener()"/>
 	<mx:TextInput x="512" y="63" id="amat" enabled="true" maxChars="20"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 </mx:Panel>
