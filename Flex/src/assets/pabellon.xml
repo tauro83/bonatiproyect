@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scores>
+	<atencion>
+		<name>Pre y Pos Operatiorio</name>
+		<sat>500</sat>
+	</atencion>
+	<atencion>
+		<name>Cirugía</name>
+		<sat>980</sat>
+	</atencion>
+</scores>
