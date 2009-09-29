@@ -39,8 +39,8 @@ package services
 			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
-			this.destination="Administracion";
-			this.source="logica.Administracion";			
+			this.destination="AddUsuario";
+			this.source="MantenerUsuario.AddUsuario";			
 			//this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		
