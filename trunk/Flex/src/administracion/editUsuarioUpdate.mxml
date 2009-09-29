@@ -162,8 +162,8 @@
 				
 		]]>
 	</mx:Script> 
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="629" label="Cancelar" y="391" id="cancGuardar" />
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="501" label="Guardar" y="391" id="guardarUsuario"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="647" label="Cancelar" y="393" id="cancGuardar" />
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="537" label="Guardar" y="393" id="guardarUsuario"/>
 	<mx:TextInput x="155" y="19" width="163" restrict="A-Z a-z" includeInLayout="true" id="nomb" click="iniListener()" enabled="true" maxChars="20"/>
 	<mx:TextInput x="155" y="63" width="163" restrict="A-Z a-z" id="apat" enabled="true" maxChars="20"/>
 	<mx:TextInput x="512" y="63" width="163" restrict="A-Z a-z" id="amat" enabled="true" maxChars="20"/>
