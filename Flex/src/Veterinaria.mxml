@@ -489,12 +489,12 @@
 	<mx:Label x="30" y="47" text="Claudio Bonati" fontFamily="Arial" fontSize="27" color="#15AD8F" fontWeight="bold"/>
 	<mx:Button x="655" y="30" label="Ayuda" width="100" height="50" icon="@Embed(source='../Help.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0"/>
 	<mx:Button x="829" y="30" label="Búsqueda" width="100" height="50" icon="@Embed(source='../Search.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" id="botonBusqueda"/>
-	<mx:Button x="170" y="104" label="Agenda" width="171" height="30" cornerRadius="4" id="botonAgenda" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
-	<mx:Button x="340" y="104" label="Clínica" width="171" height="30" cornerRadius="4" id="botonClinica" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
-	<mx:Button x="510" y="104" label="Peluquería" width="171" height="30" id="botonPeluqueria" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
-	<mx:Button x="680" y="104" label="Pet Shop" width="171" height="30" id="botonPetshop" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
-	<mx:Button x="850" y="104" label="Hotelería" width="170" height="30" id="botonHotel" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
-	<mx:Button x="0" y="104" label="Administración" height="30" width="171" id="botonAdmin" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
+	<mx:Button x="170" y="104" label="Agenda" width="171" height="30" cornerRadius="4" id="botonAgenda" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button x="340" y="104" label="Clínica" width="171" height="30" cornerRadius="4" id="botonClinica" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button x="510" y="104" label="Peluquería" width="171" height="30" id="botonPeluqueria" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button x="680" y="104" label="Pet Shop" width="171" height="30" id="botonPetshop" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button x="850" y="104" label="Hotelería" width="170" height="30" id="botonHotel" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button x="0" y="104" label="Administración" height="30" width="171" id="botonAdmin" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
 	<ns2:EditUsuarioUpdate x="241" y="134" id="AdEditarUsuar3" visible="false">
 	</ns2:EditUsuarioUpdate>
 	<ns2:EditarUsuario x="240" y="133" id="AdEditarUsuar2" visible="false">

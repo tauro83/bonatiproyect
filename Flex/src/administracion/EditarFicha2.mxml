@@ -25,7 +25,7 @@
 	<mx:Label x="393.7" y="61.9" text="Raza:" width="78"/>
 	<mx:Label x="24.15" y="179" text="Atenciones" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
 	<mx:Label x="545.15" y="179" text="&lt; Anterior" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
-	<mx:Label x="652.15" y="179" text="Posterior &gt;" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<mx:Label x="652.15" y="179" text="Siguiente &gt;" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
 	<mx:TextInput x="127.1" y="34" width="217.75" editable="false"/>
 	<mx:TextInput x="127.1" y="60" width="111" editable="false" height="20"/>
 	<mx:TextInput x="246.1" y="60" width="19.75" editable="false" height="20"/>
