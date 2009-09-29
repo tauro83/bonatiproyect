@@ -147,7 +147,7 @@
             	busqueda2.setVisible(false,false);
             	huespedAgregado2.setVisible(false,false);
             	AdEditarUsuar3.setVisible(false,false);
-            	opcionesClinica1.setVisible(false,false);
+            	graficosClinica1.setVisible(false,false);            	
             }
             
             <!--Autor:Andres G.-->
