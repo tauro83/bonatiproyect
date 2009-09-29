@@ -45,10 +45,10 @@
 	<!--Carga el archivo url y XML y luego lo envia a la funcion xmlHandler en formato E4X-->
 	<mx:HTTPService url="assets/pabellon.xml" id="testData" result="xmlHandler(event)" resultFormat="e4x"/>
 	
-	<mx:Panel horizontalAlign="center" title="Estadísticas para Clínica" height="382" width="776">
+	<mx:Panel horizontalAlign="center" title="Estadísticas a la fecha para Clínica" height="382" width="776">
 		
 		<!--The Chart -->
-		<mx:ColumnChart dataProvider="{testInfo}" id="chartEstadisticaClinica" showDataTips="true" height="254" width="540">
+		<mx:ColumnChart dataProvider="{testInfo}" id="chartEstadisticaClinica"  height="254" width="540">
 			<mx:horizontalAxis>
 				<mx:CategoryAxis dataProvider="{testInfo}" categoryField="name"/>
 			</mx:horizontalAxis>
