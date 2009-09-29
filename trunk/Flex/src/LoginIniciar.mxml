@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Iniciar Sesión">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;		
+			import services.PersonService;
+			import transferObjects.Person;
+			
+			public var bar:int;
+			
+			private function existLogin():void
+			{
+				var person:Person= new Person();
+				person.rut=pass.text;
+				person.name=nombre.text;
+				person.lastName=nombre.text;
+				
+				var personService:PersonService=new PersonService();
+				personService.addEventListener(ResultEvent.RESULT,existLoginResult);
+				personService.existLogin(person);
+			}
+			private function existLoginResult(event:ResultEvent):void
+			{
+				/*var result:int = event.result as int ;
+				if(result==1)
+				{
+					bar=1;
+				}
+				else
+				{
+					bar=0;
+				    Alert.show("Acceso denegado");
+				}*/
+			}
+ 		]]>
+ 	</mx:Script>	
+	<mx:CheckBox x="482" y="252" label="Sí" id="Recordar"/>
+	<mx:TextArea x="482" y="192" height="19" width="196" displayAsPassword="true" id="pass"/>
+	<mx:Button x="629" y="308" label="Iniciar" id="AceptarUsuario" width="120" height="25" click="existLogin()"/> 
+	<mx:Image x="-11" y="0" source="../gato.jpg" width="498" height="343"/>
+	<mx:Text x="407" y="164" text="Ingrese su contraseña&#xa;" fontWeight="bold" fontSize="12"/>
+	<mx:Text x="407" y="226" text="¿Desea recordar su cuenta?&#xa;" fontWeight="bold"/>
+	<mx:Image x="382" y="0" width="338" height="156" source="../titulo.jpg"/>
+	<mx:TextArea x="482" y="130" height="19" width="196" id="nombre" fontStyle="normal"/>
+	<mx:Text x="407" y="102" text="Ingrese su nombre&#xa;" fontWeight="bold" fontSize="12"/>
+</mx:Panel>
