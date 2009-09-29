@@ -28,12 +28,12 @@ public class UsuarioEditDB
 			   "SET nombre=?, apaterno=?, amaterno=?, usuario=?, cargo=?, contrasena=?, "+
 				       "servicio=?, pregistrar=?, peditar=?, peliminar=?, ppurgar=? "+
 				 "WHERE idUsuario = ?;";*/
+			
 			query = "UPDATE usuario "+
 			   "SET nombre=?, apaterno=?, amaterno=?, usuario=?, cargo=?, contrasena=?, "+
 				       "servicio=?, pregistrar=?, peditar=?, peliminar=?, ppurgar=? "+
 				 "WHERE usuario = ?;";
-;			
-			//query="SELECT Escuela FROM Usuarios WHERE User = '"+usuario+"'"
+
 			
 			insert = connection.prepareStatement(query);
 			
@@ -100,7 +100,6 @@ public class UsuarioEditDB
     			person.setUsuario(result.getString(4));
     			person.setCargo(result.getString(5));
     			person.setContrasena(result.getString(6));
-    			System.out.println("Cont del result: "+result.getString(6)+"Cont del person: "+person.getContrasena());
     			person.setServicio(result.getString(7));
     			person.setPermisoEditar(result.getBoolean(8));
  			    person.setPermisoRegistrar(result.getBoolean(8));
