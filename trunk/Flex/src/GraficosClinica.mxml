@@ -1,12 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="383" horizontalAlign="center">
+<!--
 //=======================================================================
 // FECHA CREACIÓN: 28-09-09
 // AUTOR: Andres Garrido
 // Componente que tiene un grafico  y muestra las estadisticas de clinica
 //=======================================================================
-
-
-<?xml version="1.0" encoding="utf-8"?>
-<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="383" horizontalAlign="center">
+-->
 	<mx:Script>
 		<![CDATA[
 		import mx.rpc.events.ResultEvent;
