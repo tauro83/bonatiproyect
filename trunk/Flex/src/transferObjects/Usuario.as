@@ -10,7 +10,7 @@
 package transferObjects
 {
 	[Bindable]
-    [RemoteClass(alias="transferObjects.Usuario")]
+    [RemoteClass(alias="TransferObjects.Usuario")]
 	public class Usuario
 	{
 		public var nombre:String;
