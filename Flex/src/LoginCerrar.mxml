@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Cerrar Sesión">
+	<mx:Image x="-10" y="0" width="490" height="343" source="../gatogris.jpg"/>
+	<mx:Image x="360" y="64" width="338" height="123" source="../cerrar sesion.jpg"/>
+	<mx:Button x="501" y="308" label="Cerrar" width="120" height="25" id="botonCerrarSesion"/>
+	<mx:Text x="322" y="163" text="Si desea cerrar su sesión presione el botón 'Cerrar'&#xa;" fontWeight="bold" fontSize="15" textAlign="center"/>
+	<mx:Button x="629" y="308" label="Cancelar" width="120" height="25" id="botonCancelar"/>
+</mx:Panel>
