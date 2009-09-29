@@ -295,15 +295,23 @@
             	setInvisible();
             	AdmOpciones1.setVisible(true,false);
                 AdRegUsuario2.setVisible(true,false);
-              
             }
             
             private function linkeditRazasAd ( event:Event ):void{
             	setInvisible();
 				AdmOpciones1.setVisible(true,false);
             	AdRegistrarRazas2.setVisible(true,false);
+<<<<<<< .mine
+=======
             	
+>>>>>>> .r252
             }
+<<<<<<< .mine
+            
+            
+            private function linkEstadistica ( event:Event ):void
+=======
+>>>>>>> .r252
 
             private function linkEstadistica ( event:Event ):void{
             	setInvisible();
