@@ -7,8 +7,7 @@
 			// AUTOR: jimmy muñoz
 			// Panel de selección de usuario, para proceder a editar los datos de éste.
 			//=======================================================================
-		
-		
+
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import transferObjects.Usuario;
@@ -30,10 +29,8 @@
 			
 			public function editarUser(event:Event):void
 			{
-				if(Tabla.selectedItem){
-					//newRegUsuar.guardarUsuario.addEventListener(MouseEvent.CLICK,insertUsuarioE);
-					//newRegUsuar.cancGuardar.addEventListener(MouseEvent.CLICK,vuelve);
-					
+				labelMessage.text="";
+				if(Tabla.selectedItem){					
 					var newUsuario:Usuario = new Usuario();
 					newUsuario.nombre = Tabla.selectedItem.nombre;
 					newUsuario.apellidoPaterno = Tabla.selectedItem.apellidoPaterno;
@@ -45,7 +42,6 @@
 					newUsuario.permisoEditar = Tabla.selectedItem.permisoEditar;
 					newUsuario.permisoEliminar = Tabla.selectedItem.permisoEliminar;
 					newUsuario.permisoPurgar = Tabla.selectedItem.permisoPurgar;
-					//newUsuario.contrasena = Tabla.selectedItem.contrasena;
 					newUsuario.contrasena = Tabla.selectedItem.contrasena;
 					
 					this.setVisible(false,false);
@@ -61,20 +57,16 @@
 					newRegUsuar.pedi.selected = newUsuario.permisoEditar;
 					newRegUsuar.peli.selected = newUsuario.permisoEliminar;
 					newRegUsuar.ppur.selected = newUsuario.permisoPurgar;	
-					newRegUsuar.cont.text = newUsuario.contrasena;
+					var listCont:Array = new Array();
+					listCont = newUsuario.contrasena.split(" ",1);
+					newRegUsuar.rcon.text = newRegUsuar.cont.text =listCont.pop();
+					//newRegUsuar.rcon.text = newUsuario.contrasena;
 					
 					newRegUsuar.setVisible(true,false);
 
 				}
 
 			}
-			/*
-			public function vuelve():void
-			{
-				newRegUsuar.setVisible(false,false);
-				this.setVisible(true,false);
-			}*/
-			
 			
 			public function getAllUsuarios(regUsuarioIn:editUsuarioUpdate):void
 			{
@@ -117,11 +109,13 @@
 				var result:int = event.result as int ;
 				if(result>0)
 				{
-				   labelMessage.text="Ususario ingresado!";
-				   getAllUsuarios(null);
+				   this.getAllUsuarios(newRegUsuar);
+				   newRegUsuar.setVisible(false,false);
+				   this.setVisible(true,false);
+				   labelMessage.text="Ususario editado!";
 				}
 				else
-				   labelMessage.text="Ususario NO ingresado!";
+				   newRegUsuar.labelMessage.text="Ususario NO editado!";
 			}
 			
 		]]>
@@ -143,7 +137,7 @@
 	</mx:DataGrid>
 	<mx:Button label="Editar" height="25" width="120" x="629" y="368" click="editarUser(event)"/>
 	<mx:Label x="10" y="10" text="Seleccionar Usuario:"/>
-	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center"/>
 	
 
 

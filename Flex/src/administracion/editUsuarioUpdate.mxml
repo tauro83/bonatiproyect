@@ -23,38 +23,6 @@
 			private var vRContrasena:Boolean;
 			private var ru:usuarioServices = new usuarioServices();
 			
-			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Metodo que crea una instancia del transferObject usuario,
-			 *  posterior a la validacion de datos  y lo envia a usuarioServices		 		
-			 * */
-			private function registrar():void
-			{								 
-				if(vUsuario==true && vNombre==true && vContrasena==true && vRContrasena==true )
-				{
-					var u1:Usuario		= new Usuario();
-					u1.nombre 			= nomb.text;
-					u1.apellidoMaterno 	= amat.text;
-					u1.apellidoPaterno 	= apat.text;
-					u1.cargo			= carg.selectedLabel;
-					u1.contrasena		= cont.text;
-					u1.nombre			= nomb.text;
-					u1.permisoEditar	= pedi.selected;
-					u1.permisoEliminar	= peli.selected;
-					u1.permisoPurgar	= ppur.selected;
-					u1.permisoRegistrar	= preg.selected;
-					u1.servicio			= serv.selectedLabel;
-					u1.usuario			= usua.text;											
-								
-					
-					ru.regUsuario(u1);				
-					ru.addEventListener(ResultEvent.RESULT,registroUsuarioResultado);																					
-				}
-				else
-				{
-				}			
-			}
 			
 			
 			/**
@@ -94,11 +62,11 @@
 			{
 				if(Validacion.longitudMinima(nomb.text))
 				{
-					vNombre		= true;	
+					labelMessage.text="";	
 				}
 				else
 				{
-					vNombre		= false;
+					labelMessage.text="Ingrese un nombre mas largo";
 				}	
 			}
 			
@@ -111,11 +79,11 @@
 			{	
 				if(Validacion.longitudMinima(usua.text) && Validacion.espaciosEnBlanco(usua.text))
 				{
-					vUsuario	= true;			
+					labelMessage.text = "";			
 				}
 				else
 				{
-					vUsuario	= false;
+					labelMessage.text = "Ingrese un nombre de usuario sin espacios en blanco y mas largo";
 				}
 				
 			}
@@ -127,13 +95,14 @@
 			 * */
 			private function validarContrasena(event:Event):void
 			{
-				if(Validacion.contrasena(cont.text))
-				{
-					vContrasena	= true;		
+				//Validacion = new Validacion();
+				if(Validacion.contrasena(cont.text)){
+					labelMessage.text = "";					
 				}
 				else
 				{
-					vContrasena	= false;
+					labelMessage.text = "Ingrese una contraseña mas larga y sin espacios en blanco";
+					
 				}	
 				
 			}
@@ -145,13 +114,11 @@
 			 * */
 			private function validarRContrasena(event:Event):void
 			{
-				if(cont.text == rcon.text)
-				{
-					vRContrasena = true;				
+				if(cont.text == rcon.text){
+					labelMessage.text = "";		
 				}
-				else
-				{
-					vRContrasena = false;				
+				else{
+					labelMessage.text = "Las contraseñas no coinciden, ingresela nuevamente";	
 				}
 			}
 			
@@ -192,25 +159,7 @@
 			}
 
 			
-			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion retorna el resultado de la accion que se realizo:Registro.		
-			 * */
-			private function registroUsuarioResultado(event:ResultEvent):void
-			{
-				var message:String= event.result as String;	
-				var msj:String = "";
-				if(message=="1"){
-					msj = nomb.text + " "+ apat.text+" fue Registrado";
-					resetVars(); 					
-    		 	}
-				else{
-					msj = "Usuario previamente registrado, elija otro nombre de usuario"; 				
-				}		
-				Alert.show(msj);	
-						
-			}		
+				
 		]]>
 	</mx:Script> 
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="629" label="Cancelar" y="391" id="cancGuardar" />
@@ -218,7 +167,7 @@
 	<mx:TextInput x="155" y="19" width="163" includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
 	<mx:TextInput x="512" y="186" displayAsPassword="true" width="160" enabled="true" id="rcon"  click="iniListener()" maxChars="20"/>
 	<mx:TextInput x="155" y="186" displayAsPassword="true" editable="true" width="160" enabled="true"  id="cont" click="iniListener()" maxChars="20"/>
-	<mx:TextInput x="155" y="105" id="usua"   enabled="true" click="iniListener()" maxChars="20"/>
+	<mx:TextInput x="155" y="105" id="usua"   enabled="true" click="iniListener()" maxChars="20" editable="false"/>
 	<mx:Label x="24" y="188" text="Contraseña:" textAlign="left"/>
 	<mx:Label x="24" y="107" text="Usuario:" textAlign="left"/>
 	<mx:Label x="24" y="65" text="Apellido Paterno:" height="20"/>
@@ -253,5 +202,5 @@
 	<mx:CheckBox x="464" y="269" label="Purgar" id="ppur"/>
 	<mx:CheckBox x="560" y="269" label="Todas" id="ptod" click="iniListener()"/>
 	<mx:TextInput x="512" y="63" id="amat" enabled="true" maxChars="20"/>
-	<mx:Label x="165" y="362" width="407" height="17" id="labelMessage"/>
+	<mx:Label x="165" y="362" width="407" height="17" id="labelMessage" textAlign="center"/>
 </mx:Panel>
