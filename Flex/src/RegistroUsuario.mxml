@@ -216,16 +216,16 @@
 			}		
 		]]>
 	</mx:Script> 
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="629" label="Cancelar" click="resetVars()" y="317" id="canc" />
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="501" label="Registrar" click="registrar()" y="317" id="registrarUsuario"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="594" label="Cancelar" click="resetVars()" y="317" id="canc" />
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="464" label="Registrar" click="registrar()" y="317" id="registrarUsuario"/>
 	<mx:TextInput x="155" y="19" width="163" includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
-	<mx:TextInput x="512" y="186" displayAsPassword="true" width="160" enabled="true" id="rcon"  click="iniListener()" maxChars="20"/>
+	<mx:TextInput x="554" y="186" displayAsPassword="true" width="160" enabled="true" id="rcon"  click="iniListener()" maxChars="20"/>
 	<mx:TextInput x="155" y="186"  displayAsPassword="true" editable="true" width="160" enabled="true"  id="cont" click="iniListener()" maxChars="20"/>
 	<mx:TextInput x="155" y="105" id="usua"   enabled="true" click="iniListener()" maxChars="20"/>
 	<mx:Label x="24" y="188" text="Contraseña:" textAlign="left"/>
 	<mx:Label x="24" y="107" text="Usuario:" textAlign="left"/>
-	<mx:Label x="24" y="65" text="Apellido Paterno:" height="20"/>
-	<mx:Label x="391" y="65" text="Apellido Materno:" height="20"/>
+	<mx:Label x="24" y="65" text="Apellido paterno:" height="20"/>
+	<mx:Label x="424" y="65" text="Apellido materno:" height="20"/>
 	<mx:Label x="24" y="21" text="Nombre:" width="69" />
 	<mx:Label x="24" y="144" text="Cargo:"/>
 	<mx:Label x="27" y="229" text="Servicio:" textAlign="left"/>
@@ -240,7 +240,7 @@
             <mx:Object label="PetShop" data="d"/>
     </mx:ArrayCollection>	
 	</mx:ComboBox>
-	<mx:Label x="391" y="188" text="Repetir Contraseña"/>
+	<mx:Label x="424" y="188" text="Repetir contraseña:"/>
 	<mx:TextInput x="155" y="63" width="163" id="apat" enabled="true" maxChars="20"/>	
 	<mx:ComboBox x="155" y="142" id="carg">
 		<mx:ArrayCollection>
@@ -255,6 +255,6 @@
 	<mx:CheckBox x="351.5" y="269" label="Eliminar" id="peli"/>
 	<mx:CheckBox x="464" y="269" label="Purgar" id="ppur"/>
 	<mx:CheckBox x="560" y="269" label="Todos" id="ptod" click="iniListener()"/>
-	<mx:TextInput x="512" y="63" id="amat" enabled="true" maxChars="20"/>
+	<mx:TextInput x="545" y="63" id="amat" enabled="true" maxChars="20"/>
 	<mx:Label x="169" y="372" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 </mx:Panel>
