@@ -231,6 +231,7 @@
             	login2.setVisible(false,false);
             	busqueda2.setVisible(false,false);
             	huespedAgregado2.setVisible(false,false);
+            	AdEditarUsuar3.setVisible(false,false);
             }
             
             

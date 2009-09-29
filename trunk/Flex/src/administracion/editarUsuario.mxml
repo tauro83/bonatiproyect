@@ -29,7 +29,7 @@
 			
 			public function editarUser(event:Event):void
 			{
-				labelMessage.text="";
+				
 				if(Tabla.selectedItem){					
 					var newUsuario:Usuario = new Usuario();
 					newUsuario.nombre = Tabla.selectedItem.nombre;
@@ -70,6 +70,7 @@
 			
 			public function getAllUsuarios(regUsuarioIn:editUsuarioUpdate):void
 			{
+				labelMessage.text="";
 				newRegUsuar = regUsuarioIn;
 				var personService:UsuarioEditService = new UsuarioEditService();
 				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
