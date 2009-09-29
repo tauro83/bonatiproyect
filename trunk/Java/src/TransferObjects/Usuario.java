@@ -12,7 +12,6 @@ public class Usuario {
 
 	public String nombre;
 	public String apellidoPaterno;
- 	
 	public String apellidoMaterno;
 	public String usuario;
 	public String cargo;
