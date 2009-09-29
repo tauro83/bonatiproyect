@@ -219,9 +219,9 @@
             }
             
             private function manejadorClick2 ( event:Event ):void{	
-            	//setInvisible();
-            	//agenda2.setVisible(true,false);
-				//menuAgenda1.setVisible(true,false);
+            	setInvisible();
+            	agenda2.setVisible(true,false);
+				menuAgenda1.setVisible(true,false);
             }
 
             private function linkEstadisticaPet ( event:Event ):void{
