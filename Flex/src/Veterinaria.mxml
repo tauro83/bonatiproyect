@@ -27,15 +27,6 @@
  
             	// Escucha por el evento click event en el botón.
                 cliNewAtencion2.linkSiguiente.addEventListener(MouseEvent.CLICK,linkNewAP);            	
-				menuAgenda1.linkAtenAgenda.addEventListener(MouseEvent.CLICK,funcionLink);
-				menuAgenda1.linkAvisoAgenda.addEventListener(MouseEvent.CLICK,funcionLink2);
-				menuAgenda1.linkBloqAtenDom.addEventListener(MouseEvent.CLICK,funcionLink3);
-				menuAgenda1.linkBloqCastro.addEventListener(MouseEvent.CLICK,funcionLink3);
-				menuAgenda1.linkBloqPel.addEventListener(MouseEvent.CLICK,funcionLink3);
-				menuAgenda1.linkBloqPolBonati.addEventListener(MouseEvent.CLICK,funcionLink3);
-				menuAgenda1.linkPelAgenda.addEventListener(MouseEvent.CLICK,funcionLink);
-				menuAgenda1.linkpolBonati1.addEventListener(MouseEvent.CLICK,funcionLink);
-				menuAgenda1.linkPolCastro.addEventListener(MouseEvent.CLICK,funcionLink);
                 botonAdmin.addEventListener (MouseEvent.CLICK, manejadorClick);
                 botonAgenda.addEventListener (MouseEvent.CLICK, manejadorClick2);
                 botonClinica.addEventListener (MouseEvent.CLICK, climanejadorClick);
