@@ -766,8 +766,8 @@
 	<mx:Button x="680" y="104" label="Pet Shop" width="171" height="30" id="botonPetshop" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
 	<mx:Button x="850" y="104" label="Hotelería" width="170" height="30" id="botonHotel" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
 	<mx:Button x="0" y="104" label="Administración" height="30" width="171" id="botonAdmin" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]"/>
-	<ns2:editUsuarioUpdate x="241" y="134" id="AdEditarUsuar3" visible="false">
-	</ns2:editUsuarioUpdate>
-	<ns2:editarUsuario x="240" y="133" id="AdEditarUsuar2" visible="false">
-	</ns2:editarUsuario>	
+	<ns2:EditUsuarioUpdate x="241" y="134" id="AdEditarUsuar3" visible="false">
+	</ns2:EditUsuarioUpdate>
+	<ns2:EditarUsuario x="240" y="133" id="AdEditarUsuar2" visible="false">
+	</ns2:EditarUsuario>	
 </mx:Application>
