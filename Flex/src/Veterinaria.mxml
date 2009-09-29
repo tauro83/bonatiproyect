@@ -390,13 +390,11 @@
             	setInvisible();
             	panel2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
-            	          	
             }
             
             private function climanejadorClick ( event:Event ):void{
-            	//setInvisible();
-            	//panel2.setVisible(true,false);
-                //opcionesClinica1.setVisible(true,false);
+            	setInvisible();
+                opcionesClinica1.setVisible(true,false);
 			}        
 
             private function manejadorClick ( event:Event ):void{
