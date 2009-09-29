@@ -35,7 +35,7 @@ public class AddUsuarioBD {
 		insert.setBoolean(8, u.permisoRegistrar);
 		insert.setBoolean(9, u.permisoEditar);
 		insert.setBoolean(10, u.permisoEliminar);
-		insert.setBoolean(11, u.permisoPurgar);		
+		insert.setBoolean(11, u.permisoPurgar);	
 		
 		try 
     	{
