@@ -301,44 +301,30 @@
             	setInvisible();
 				AdmOpciones1.setVisible(true,false);
             	AdRegistrarRazas2.setVisible(true,false);
-<<<<<<< .mine
-=======
-            	
->>>>>>> .r252
             }
-<<<<<<< .mine
-            
-            
-            private function linkEstadistica ( event:Event ):void
-=======
->>>>>>> .r252
 
             private function linkEstadistica ( event:Event ):void{
             	setInvisible();
                 pelEstadistica2.setVisible(true,false);         
                 pelPanel1.setVisible(true,false);
-            	
             }
             
             private function linkVerCatalogo ( event:Event ):void{
             	setInvisible();
 				pelCatalogo2.setVisible(true,false);
                 pelPanel1.setVisible(true,false);
-            	
             }
             
             private function linkNuevoCatalogo ( event:Event ):void{
             	setInvisible();
 				pelNewCatalogo2.setVisible(true,false);
                 pelPanel1.setVisible(true,false);
-            	
             }
             
             private function linkNuevaAtencion ( event:Event ):void{
             	setInvisible();
 				pelNewAtencion2.setVisible(true,false);
                 pelPanel1.setVisible(true,false);
-            
             }
             
 			private function pelmanejadorClick ( event:Event ):void{
@@ -351,21 +337,18 @@
             	setInvisible();
             	panel2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
-            	
             }
             
             private function linknuevaAD ( event:Event ):void{
             	setInvisible();
                 cliNewAtencion2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
-            
             }
             
             private function linkbuscaAD ( event:Event ):void{
             	setInvisible();
                 cliFindatencion2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
-            	
             }
             
             private function linkbuscaVD ( event:Event ):void{
@@ -378,14 +361,12 @@
             	setInvisible();
 				cliRegistro2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
-            	
             }
             
             private function linkPosOp ( event:Event ):void{
             	setInvisible();
                 cliRegistroPO2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
-            	
             }
             
 			private function linkPreOp ( event:Event ):void{
