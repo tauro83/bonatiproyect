@@ -25,6 +25,13 @@
 		    private function manejadorCreationComplete (event:FlexEvent):void{           	
             //	AdRegUsuario2.breg.addEventListener(MouseEvent.CLICK,setMensaje);  
  
+ 				<!--Autor: Esteban{ -->
+ 				login2.AceptarUsuario.addEventListener(MouseEvent.CLICK,iniciarSesion);
+            	botonLogin.addEventListener(MouseEvent.CLICK, linkLogin);
+            	login3.botonCerrarSesion.addEventListener(MouseEvent.CLICK,cerrarSesion);
+            	login3.botonCancelar.addEventListener(MouseEvent.CLICK,cancelarCerrado);
+            	<!--Autor: }Esteban --> 
+ 				
             	// Escucha por el evento click event en el botón.
                 cliNewAtencion2.linkSiguiente.addEventListener(MouseEvent.CLICK,linkNewAP);            	
                 botonAdmin.addEventListener (MouseEvent.CLICK, manejadorClick);
@@ -71,7 +78,6 @@
 				hotelIngreso.IdVerRegistroHotel.addEventListener (MouseEvent.CLICK,visulizarRegHot);
                 AdmIngreso2.cancelarClienteIng.addEventListener(MouseEvent.CLICK, inicial);
                 AdmMascota2.cancelarMascota.addEventListener (MouseEvent.CLICK,inicial);
-                login2.CancelarUsuario.addEventListener (MouseEvent.CLICK,inicial);
               // AdRegUsuario2.bcan.addEventListener (MouseEvent.CLICK,inicial);
                 
                 botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
@@ -138,7 +144,12 @@
             	busqueda2.setVisible(false,false);
             	huespedAgregado2.setVisible(false,false);
             	AdEditarUsuar3.setVisible(false,false);
-            	graficosClinica1.setVisible(false,false);            	
+            	graficosClinica1.setVisible(false,false);
+            	
+            	<!--Autor: Esteban{ -->
+            	login2.setVisible(false,false);
+         		login3.setVisible(false,false);
+         		<!--Autor: }Esteban -->          	
             }
             
             <!--Autor:Andres G.-->
@@ -146,7 +157,74 @@
             	setInvisible();
             	opcionesClinica1.setVisible(true,false);
             	graficosClinica1.setVisible(true,false);
-            }           
+            }
+            
+            <!--Autor: Esteban{ -->
+             private function cancelarCerrado (event:Event):void
+            {
+            	setInvisible();
+            	agenda2.setVisible(true,false);
+            	menuAgenda1.setVisible(true,false);
+            }
+            
+            private function linkLogin (event:Event):void
+            {
+            	setInvisible();
+            	panelOpciones.setVisible(true,false);
+            	if(botonLogin.label=="Iniciar Sesión"){
+            		login2.setVisible(true,false);
+            	}
+            	else{
+            		login3.setVisible(true,false);
+            	}
+            }
+            
+            private function cerrarSesion (event:Event):void
+            {
+            	setInvisible();
+            	panelOpciones.setVisible(true,false);
+            	login2.setVisible(true,false);
+            	botonLogin.enabled=true;
+            	botonClinica.enabled=false;
+            	botonAgenda.enabled=false;
+            	botonAdmin.enabled=false;
+            	botonPeluqueria.enabled=false;
+            	botonPetshop.enabled=false;
+            	botonBusqueda.enabled=false;
+            	botonHotel.enabled=false;
+            	botonAyuda.enabled=false;
+            	botonLogin.label="Iniciar Sesión";
+            	login2.bar=0;
+            }
+            
+            private function iniciarSesion (event:Event): void
+            {
+				//if(login2.bar==1){
+            		setInvisible();
+            		agenda2.setVisible(true,false);
+            		menuAgenda1.setVisible(true,false);
+            		botonClinica.enabled=true;
+            		botonAgenda.enabled=true;
+            		botonAdmin.enabled=true;
+            		botonPeluqueria.enabled=true;
+            		botonPetshop.enabled=true;
+            		botonBusqueda.enabled=true;
+            		botonHotel.enabled=true;
+            		botonAyuda.enabled=true;
+            		botonLogin.enabled=true;
+            		botonLogin.label="Cerrar Sesión";
+            	/*	if(login2.Recordar.selected==true){
+            			//tomo nombre
+            			//tomo pass
+            		}
+            		else{
+            			login2.nombre.text=null;
+            			login2.pass.text=null;
+            		}
+    			}*/
+            }
+            <!--Autor: }Esteban --> 
+                       
 			private function visulizarRegHot ( event:Event ):void{
             	setInvisible();
             	pelNewAtencion2.setVisible(true,false);
@@ -472,8 +550,6 @@
 	</ns1:Aviso>
 	<ns1:NuevoItem x="440" y="205.4" id="pelNuevoItem" visible="false">
 	</ns1:NuevoItem>
-	<ns1:Login x="241" y="134" id="login2" visible="true" borderColor="#15AD8F">
-	</ns1:Login>
 	<ns1:Busqueda x="241" y="134" id="busqueda2" visible="false">
 	</ns1:Busqueda>
 	<ns1:huespedAgregado x="241" y="134" id="huespedAgregado2" visible="false">
@@ -481,6 +557,15 @@
 	<!--Autor: andres-->
 	<ns1:GraficosClinica x="241" y="134" id="graficosClinica1" visible="false">
 	</ns1:GraficosClinica>
+	
+	<!--Autor: Esteban{ -->
+	<ns1:LoginIniciar x="241" y="134" id="login2" visible="true" borderColor="#15AD8F">
+	</ns1:LoginIniciar>
+	<ns1:LoginCerrar x="241" y="134" id="login3" visible="false" borderColor="#15AD8F">
+	</ns1:LoginCerrar>
+	<mx:Button x="580" y="30" label="Ayuda" width="110" height="50" id="botonAyuda" icon="@Embed(source='../Help.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" enabled="false"/>
+	<mx:Button x="880" y="30" label="Iniciar Sesión" width="110" height="50" icon="@Embed(source='../Users.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" id="botonLogin" enabled="true"/>
+	<!--Autor: }Esteban -->
 	
 	<mx:Image x="365" y="0" width="174" height="104" source="../fotos-animales-perros-peq.jpg" autoLoad="true"/>
 	<mx:TextArea x="0" y="0" width="366" height="104" borderStyle="none" fontFamily="Arial" editable="false" fontSize="27" fontWeight="bold" fontStyle="normal" backgroundColor="#FFFFFF" color="#0202CB" themeColor="#0060FF" borderColor="#FFFFFF" enabled="true" wordWrap="false"/>
