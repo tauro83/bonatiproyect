@@ -96,12 +96,12 @@
 				if(Validacion.longitudMinima(nomb.text))
 				{
 					vNombre		= true;
-					ltexto.text = "";
+					//ltexto.text = "";
 				}
 				else
 				{
 					vNombre		= false;
-					ltexto.text = "Nombre invalido";
+					//ltexto.text = "Nombre invalido";
 				}	
 			}
 			
@@ -218,7 +218,7 @@
 	</mx:Script> 
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="629" label="Cancelar" click="resetVars()" y="317" id="canc" />
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="501" label="Registrar" click="registrar()" y="317" id="registrarUsuario"/>
-	<mx:TextInput x="155" y="19" restrict="" width="163" includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
+	<mx:TextInput x="155" y="19" width="163" includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
 	<mx:TextInput x="512" y="186" displayAsPassword="true" width="160" enabled="true" id="rcon"  click="iniListener()" maxChars="20"/>
 	<mx:TextInput x="155" y="186"  displayAsPassword="true" editable="true" width="160" enabled="true"  id="cont" click="iniListener()" maxChars="20"/>
 	<mx:TextInput x="155" y="105" id="usua"   enabled="true" click="iniListener()" maxChars="20"/>

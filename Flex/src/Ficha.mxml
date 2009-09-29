@@ -20,8 +20,8 @@
 	<mx:Label x="393.7" y="87.95" text="Sexo:" width="78"/>
 	<mx:Label x="393.7" y="114" text="Fecha nacimiento:" width="107"/>
 	<mx:Label x="393.7" y="35.9" text="Nombre:" width="63.4" height="17.931034"/>
-	<mx:Label x="24.15" y="88" text="Telefono:" width="78"/>
-	<mx:Label x="24.15" y="138.95" text="Direccion:" width="78" height="17.25"/>
+	<mx:Label x="24.15" y="88" text="Teléfono:" width="78"/>
+	<mx:Label x="24.15" y="138.95" text="Dirección:" width="78" height="17.25"/>
 	<mx:Label x="24.15" y="114" text="Comuna:" width="78" height="17.25"/>
 	<mx:Label x="393.7" y="61.9" text="Raza:" width="78"/>
 	<mx:Label x="24.15" y="179" text="Atenciones" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
