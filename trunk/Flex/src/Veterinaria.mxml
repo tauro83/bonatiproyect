@@ -22,11 +22,9 @@
 			public var texInt:int;
 						
 			
-		    private function manejadorCreationComplete (event:FlexEvent):void
-            {           	
-            	
+		    private function manejadorCreationComplete (event:FlexEvent):void{           	
             //	AdRegUsuario2.breg.addEventListener(MouseEvent.CLICK,setMensaje);  
-            	
+ 
             	// Escucha por el evento click event en el botón.
                 cliNewAtencion2.linkSiguiente.addEventListener(MouseEvent.CLICK,linkNewAP);            	
 				menuAgenda1.linkAtenAgenda.addEventListener(MouseEvent.CLICK,funcionLink);
@@ -83,16 +81,9 @@
                 AdmMascota2.cancelarMascota.addEventListener (MouseEvent.CLICK,inicial);
                 login2.CancelarUsuario.addEventListener (MouseEvent.CLICK,inicial);
               // AdRegUsuario2.bcan.addEventListener (MouseEvent.CLICK,inicial);
-                          
-               
                 
                 botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
                 
-                
-             
-				
-				
-				
 				//Jimmy Muñoz Implementacion
 				AdmOpciones1.linkEditarUsAd.addEventListener(MouseEvent.CLICK,linkeditUsAd);
 				AdEditarUsuar3.guardarUsuario.addEventListener(MouseEvent.CLICK,editarUsuario);
@@ -100,9 +91,7 @@
             }
             
             //Jimmy Muñoz
-            private function linkeditUsAd ( event:Event ):void
-
-            {
+            private function linkeditUsAd ( event:Event ):void{
             	AdEditarUsuar2.getAllUsuarios(AdEditarUsuar3);
             	setInvisible();
                	AdmOpciones1.setVisible(true,false);
@@ -110,22 +99,11 @@
             	
             }
             //Jimmy Muñoz
-            private function editarUsuario( event:Event ):void
-
-            {
-            	AdEditarUsuar2.insertUsuarioE();
-            	
-            	
+            private function editarUsuario( event:Event ):void{
+            	AdEditarUsuar2.insertUsuarioE();    
             }
             
-                   
-           
-           
-           
-         
-            
-            private function setInvisible ():void
-            {
+            private function setInvisible ():void{
             	panel2.setVisible(false,false);
                 panelOpciones.setVisible(false,false);
 				atenRealizadas2.setVisible(false,false);
@@ -159,438 +137,266 @@
 				AdmMascota2.setVisible(false,false);
 				AdmIngreso2.setVisible(false,false);        	
             	hotelOpciones.setVisible(false,false);
-            	hotelIngreso.setVisible(false,false);
-            	
+            	hotelIngreso.setVisible(false,false);  
             	menuAgenda1.setVisible(false,false);
             	panelDesbloqueo.setVisible(false,false);
             	cliNewAtention2.setVisible(false,false);
             	agAviso2.setVisible(false,false);
-            	
             	login2.setVisible(false,false);
             	busqueda2.setVisible(false,false);
             	huespedAgregado2.setVisible(false,false);
             	AdEditarUsuar3.setVisible(false,false);
             }
-            
-            
-           
-            
-			private function visulizarRegHot ( event:Event ):void
-            {
+                        
+			private function visulizarRegHot ( event:Event ):void{
             	setInvisible();
             	pelNewAtencion2.setVisible(true,false);
                 hotelOpciones.setVisible(true,false);
-            	
             }
             
             
-            private function verLogin ( event:Event ):void
-
-            {
+            private function verLogin ( event:Event ):void{
 				setInvisible();
                 panelOpciones.setVisible(true,false);
             	login2.setVisible(true,false);
-
             }
             
-            
-            
-            
-            private function verBusqueda ( event:Event ):void
-
-            {
+            private function verBusqueda ( event:Event ):void{
             	setInvisible();
                 panelOpciones.setVisible(true,false);
             	busqueda2.setVisible(true,false);
-
-            	
-            	
-            	
             }
             
-            private function inicial ( event:Event ):void
-
-            {
+            private function inicial ( event:Event ):void{
             	setInvisible();
             	panel2.setVisible(true,false);
             	AdmOpciones1.setVisible(true,false);
-				
-            	
-            	
             }
             
-            
-            private function linkCancelAgregarItem ( event:Event ):void
-            {
+            private function linkCancelAgregarItem ( event:Event ):void{
             	pelNuevoItem.setVisible(false, false);	
             }
-        	private function linkAgregarItem ( event:Event ):void
-            {
+            
+        	private function linkAgregarItem ( event:Event ):void{
             	pelNuevoItem.setVisible(true, false);
             }
-            private function linkVerAtencionesPel ( event:Event ):void
-
-            {
+            
+            private function linkVerAtencionesPel ( event:Event ):void{
             	setInvisible();
 				atenRealizadas2.setVisible(true,false);         
                 pelPanel1.setVisible(true,false);
-            	
-            	
             }
-            
-            
-            private function linkNewAP ( event:Event ):void
-
-            {        	     	
+                      
+            private function linkNewAP ( event:Event ):void{        	     	
             	setInvisible();
                 opcionesClinica1.setVisible(true,false);
             	cliNewAtention2.setVisible(true,false);
-            	
-            	
-            	
             }
-            
-            
-            private function funcionLink (event:Event):void
-            {
+
+            private function funcionLink (event:Event):void{
                 setInvisible();
                 agenda2.setVisible(true,false);
 				menuAgenda1.setVisible(true,false);
-    
-            	
-            	
-            	
-            }
+			}
             
-            private function funcionLink2 (event:Event):void
-            {
+            private function funcionLink2 (event:Event):void{
             	setInvisible();       
             	menuAgenda1.setVisible(true,false);
             	agAviso2.setVisible(true,false);
-
-            	
-            	
-            	
-            	
             }
             
-            private function funcionLink3 (event:Event):void
-            {
+            private function funcionLink3 (event:Event):void{
             	setInvisible();
 				menuAgenda1.setVisible(true,false);
             	panelDesbloqueo.setVisible(true,false);
-
             }
             
-            private function manejadorClick2 ( event:Event ):void
-
-            {	
+            private function manejadorClick2 ( event:Event ):void{	
             	//setInvisible();
             	//agenda2.setVisible(true,false);
 				//menuAgenda1.setVisible(true,false);
- 
-            } 
-            
-            private function linkEstadisticaPet ( event:Event ):void
+            }
 
-            {
+            private function linkEstadisticaPet ( event:Event ):void{
     			setInvisible();
             	petOpciones1.setVisible(true,false);
                 petEstadisticasg2.setVisible(true,false);
-            	
             }
             
-            
-            private function linkCatalogoPet ( event:Event ):void
-
-            {
+            private function linkCatalogoPet ( event:Event ):void{
             	setInvisible();
             	panel2.setVisible(true,false);
                 petOpciones1.setVisible(true,false);
             	            	
-            	
             }
             
-            private function linkImportarDatos( event:Event ):void
-
-            {
+            private function linkImportarDatos( event:Event ):void{
             	setInvisible();
             	petOpciones1.setVisible(true,false);
                 petVisualdat2.setVisible(true,false);
             	
-            	
-            	
             }
             
-            private function linkVisualizarVenta ( event:Event ):void
-
-            {
+            private function linkVisualizarVenta ( event:Event ):void{
             	setInvisible();
             	petOpciones1.setVisible(true,false);
                 petVisualVenta2.setVisible(true,false);
-            	
-            	
+            		
             }
             
-            
-            
-            
-            private function petmanejadorClick ( event:Event ):void
-
-            {
+            private function petmanejadorClick ( event:Event ):void{
             	//setInvisible();
             	//panel2.setVisible(true,false);
                 //petOpciones1.setVisible(true,false);
-                
-            	
             }
             
-            private function hotelclimanejadorClick ( event:Event ):void
-
-            {
+			private function hotelclimanejadorClick ( event:Event ):void{
             	//setInvisible();
             	//hotelOpciones.setVisible(true,false);
             	//hotelIngreso.setVisible(true,false);
-            	
-            	
             }
             
-            ///////////////////////////////////////////////////////////////////////////
-            
-
-
-           private function linkNuevaAtencionHotelBaño ( event:Event ):void
-
-            {
+            private function linkNuevaAtencionHotelBaño ( event:Event ):void{
             	setInvisible();
             	pelNewAtencion2.setVisible(true,false);
                 hotelOpciones.setVisible(true,false);
             	
             }
 
-           
-            
-            private function linkClienteAd ( event:Event ):void
-
-            {
+            private function linkClienteAd ( event:Event ):void{
             	setInvisible();
             	AdmIngreso2.setVisible(true,false);
                 AdmOpciones1.setVisible(true,false);
-            	
-            	
+
             }
             
-            private function linkMascotaAd ( event:Event ):void
-
-            {
+            private function linkMascotaAd ( event:Event ):void{
             	setInvisible();
                 AdmOpciones1.setVisible(true,false);
             	AdmMascota2.setVisible(true,false);
 				
-            	
             }
             
-            private function linkFichaAd ( event:Event ):void
-
-            {
+            private function linkFichaAd ( event:Event ):void{
             	setInvisible();
             	AdmFichaMascota2.setVisible(true,false);
                 AdmOpciones1.setVisible(true,false);
             	
             }
             
-            private function linkregsitroUsAd ( event:Event ):void
-
-            {
+            private function linkregsitroUsAd ( event:Event ):void{
             	setInvisible();
             	AdmOpciones1.setVisible(true,false);
                 AdRegUsuario2.setVisible(true,false);
               
             }
             
-            
-            private function linkeditRazasAd ( event:Event ):void
-
-            {
+            private function linkeditRazasAd ( event:Event ):void{
             	setInvisible();
 				AdmOpciones1.setVisible(true,false);
             	AdRegistrarRazas2.setVisible(true,false);
             	
-            	
-            	
             }
-            
-            
-            
-            private function linkEstadistica ( event:Event ):void
 
-            {
+            private function linkEstadistica ( event:Event ):void{
             	setInvisible();
                 pelEstadistica2.setVisible(true,false);         
                 pelPanel1.setVisible(true,false);
             	
-            	
-            	
             }
             
-                private function linkVerCatalogo ( event:Event ):void
-
-            {
+            private function linkVerCatalogo ( event:Event ):void{
             	setInvisible();
 				pelCatalogo2.setVisible(true,false);
                 pelPanel1.setVisible(true,false);
             	
-            	
-            	
             }
             
-            private function linkNuevoCatalogo ( event:Event ):void
-
-            {
+            private function linkNuevoCatalogo ( event:Event ):void{
             	setInvisible();
 				pelNewCatalogo2.setVisible(true,false);
                 pelPanel1.setVisible(true,false);
             	
-            	
-            	
             }
             
-            private function linkNuevaAtencion ( event:Event ):void
-
-            {
+            private function linkNuevaAtencion ( event:Event ):void{
             	setInvisible();
 				pelNewAtencion2.setVisible(true,false);
                 pelPanel1.setVisible(true,false);
-            	
-            	
+            
             }
             
-           private function pelmanejadorClick ( event:Event ):void
-
-            {
+			private function pelmanejadorClick ( event:Event ):void{
             	//setInvisible();
 				//pelNewAtencion2.setVisible(true,false);
                 //pelPanel1.setVisible(true,false);
-            	
-            	
-            	
             }
-                
-            
-            
-            private function linknuevaAP ( event:Event ):void
 
-            {
+			private function linknuevaAP ( event:Event ):void{
             	setInvisible();
             	panel2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
             	
-            	
-            	
             }
             
-                        
-            
-            private function linknuevaAD ( event:Event ):void
-
-            {
+            private function linknuevaAD ( event:Event ):void{
             	setInvisible();
                 cliNewAtencion2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
-            	
-            	
-            	
+            
             }
             
-            private function linkbuscaAD ( event:Event ):void
-
-            {
+            private function linkbuscaAD ( event:Event ):void{
             	setInvisible();
                 cliFindatencion2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
             	
-            	
-            	
             }
             
-            private function linkbuscaVD ( event:Event ):void
-
-            {
+            private function linkbuscaVD ( event:Event ):void{
             	setInvisible();
 				cliFindVacuna2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
-            	
-            	
-            	
-            	
             }
             
-            private function linkCirugia ( event:Event ):void
-
-            {
+            private function linkCirugia ( event:Event ):void{
             	setInvisible();
 				cliRegistro2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
             	
-            	
-            	
             }
             
-            private function linkPosOp ( event:Event ):void
-
-            {
+            private function linkPosOp ( event:Event ):void{
             	setInvisible();
                 cliRegistroPO2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
             	
-            	
-            	
-            	            	
             }
             
-            
-            private function linkPreOp ( event:Event ):void
-
-            {
+			private function linkPreOp ( event:Event ):void{
             	setInvisible();
 				cliRegistroPreO2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
-            	
-            	
-            	
-            	
             }
             
-            private function climanejadorClickpanel ( event:Event ):void
-
-            {
+            private function climanejadorClickpanel ( event:Event ):void{
             	setInvisible();
             	panel2.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
             	          	
-            	
             }
             
-            private function climanejadorClick ( event:Event ):void
-
-            {
+            private function climanejadorClick ( event:Event ):void{
             	//setInvisible();
             	//panel2.setVisible(true,false);
                 //opcionesClinica1.setVisible(true,false);
-				
-			
-								
-            }        
+			}        
 
-            private function manejadorClick ( event:Event ):void
-
-            {
+            private function manejadorClick ( event:Event ):void{
             	setInvisible();
             	panel2.setVisible(true,false);
             	AdmOpciones1.setVisible(true,false);
             }
-			             
-
         ]]>
 
     </mx:Script>
@@ -687,6 +493,7 @@
 	</ns1:Busqueda>
 	<ns1:huespedAgregado x="241" y="134" id="huespedAgregado2" visible="false">
 	</ns1:huespedAgregado>
+	
 	<mx:Image x="365" y="0" width="174" height="104" source="../fotos-animales-perros-peq.jpg" autoLoad="true"/>
 	<mx:TextArea x="0" y="0" width="366" height="104" borderStyle="none" fontFamily="Arial" editable="false" fontSize="27" fontWeight="bold" fontStyle="normal" backgroundColor="#FFFFFF" color="#0202CB" themeColor="#0060FF" borderColor="#FFFFFF" enabled="true" wordWrap="false"/>
 	<mx:Image x="275" y="10" width="76" height="70" source="../Simbolo.JPG" autoLoad="true"/>

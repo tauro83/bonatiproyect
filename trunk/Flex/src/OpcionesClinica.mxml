@@ -4,6 +4,7 @@
 	<mx:LinkButton x="10" y="0" label="Pabellón"/>
 	<mx:LinkButton x="54" y="20" label="Pre-Operatorio" width="139" textAlign="left" id="PreOlink"/>
 	<mx:LinkButton x="54" y="60" label="Post-Operatorio" width="139" textAlign="left" id="PostOLink"/>
+	<mx:LinkButton x="10" y="180" label="Estadísticas" width="139" textAlign="left" id="estadisticaClinicaLink"/>
 	<mx:LinkButton x="54" y="40" label="Cirugía" width="139" textAlign="left" id="cirugiaLink"/>
 	<mx:LinkButton x="55" y="131" label="Buscar Atención" id="BuscaAtenLink"/>
 	<mx:LinkButton x="55" y="150" label="Buscar Categoria" id="BuscaVacunLink"/>
