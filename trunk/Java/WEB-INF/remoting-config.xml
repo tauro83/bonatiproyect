@@ -15,4 +15,10 @@
 	      <source>Administracion.AddUsuario</source>
 	    </properties>
   	</destination>
+	
+	<destination id="UsuarioEditService">
+	    <properties>
+	      <source>Administracion.UsuarioEditService</source>
+	    </properties>
+  	</destination>
 </service>
