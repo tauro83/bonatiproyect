@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Editar Ficha" initialize="Llenar2()" borderColor="#15AD8F">
+	<mx:Script>
+		<![CDATA[
+		//initialize="Llenar2()"
+		
+		import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Person;
+			import mx.rpc.events.ResultEvent;
+			import services.PersonService;
+			[Bindable]
+			private var persons:ArrayCollection;
+			private var auxiliar:ArrayCollection;
+			private function getAllPersons():void
+			{
+				var personService:PersonService=new PersonService();
+				personService.addEventListener(ResultEvent.RESULT,getAllPersonsResult);
+				personService.getAllPersons();
+			}
+			//Clientes
+			private function getAllPersonsResult(event:ResultEvent):void
+			{
+				persons = event.result as ArrayCollection;
+				auxiliar = persons;
+			}
+			/*
+			private function insertPerson():void
+			{
+				var person:Person= new Person();
+				person.rut=rutInput.text;
+				person.name=nameInput.text;
+				person.lastName=lastNameInput.text;
+				
+				var personService:PersonService=new PersonService();
+				personService.addEventListener(ResultEvent.RESULT,insertPersonResult);
+				personService.insertPerson(person);
+			}
+			*/
+			private function insertPersonResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(result>0)
+				{
+				   Alert.show("Ususario ingresado!");
+				   getAllPersons();
+				}
+				else
+				   Alert.show("Ususario NO ingresado!");
+			}
+		
+		
+		//////////////////////////////////////////////////////////////////////////
+		//////////////////////////aqui empieza lo mio//////////////////////////////
+		///////////////////////////////////////////////////////////////////////7
+			  import mx.controls.Alert;
+			  import mx.collections.ArrayCollection; 
+			  import mx.core.Application;         
+			// ocupen la variable que quieran, no necesariamente estas.
+            public var texto:String;
+            public var saveEvent:String;
+            
+           
+			
+			//hay q mencionar q los arreglos sacan los datos con pop(), por lo tanto sacan el ultimo dato q se ingreso
+			//ustedes deciden si colocan al ultimo el primer dato que necesiten, o lo colocan normal, y asignan desde la ultima variable a la primera.
+			public function setInfoComp(s1:String):void
+			{
+			}
+			
+			
+         
+         [Bindable]
+         public var Cliente:ArrayCollection;
+         
+         public function Llenar():void{
+            Cliente = new ArrayCollection();
+            Cliente.addItem({Rut:"14051773-2",Nombre:"Sapo",ApellidoPaterno:"Lopez"});
+            Cliente.addItem({Rut:"13051773-2",Nombre:"Borrego",ApellidoPaterno:"Diaz"});
+            Cliente.refresh();
+         }
+         
+         [Bindable]
+         public var Clientes:Array;     
+             
+         //////EDITANDO/////
+         
+         
+         public function Llenar3():void
+         {
+         	//[Bindable]
+            //ArrayCollection.source=array;
+			
+            //ARRAYCOLLECTION.SOURCE = NEW ARRAY().
+            
+            
+            cbx_FiltroRegistroUsuario.selectedIndex=2;
+         	Clientes = new Array();
+         	Clientes =
+         	[ 
+			{Rut:"14051746-1",Nombre:"Angelina",ApellidoPaterno:"Jolie"}, 
+			{Rut:"12001573-2",Nombre:"Angelina",ApellidoPaterno:"Parada"},
+			{Rut:"10999666-9",Nombre:"Carlos",ApellidoPaterno:"Cuevas"},
+			{Rut:"17342318-k",Nombre:"Eva",ApellidoPaterno:"Santelices"},
+			];
+         
+         }
+         
+         /////TERMINA EDITAR/////
+         public function Llenar2():void
+         {         	
+         	
+         	cbx_FiltroRegistroUsuario.selectedIndex=2;
+         	Clientes = new Array();
+         	Clientes =
+         	[ 
+			{Rut:"14051746-1",Nombre:"Angelina",ApellidoPaterno:"Jolie"}, 
+			{Rut:"12001573-2",Nombre:"Angelina",ApellidoPaterno:"Parada"},
+			{Rut:"10999666-9",Nombre:"Carlos",ApellidoPaterno:"Cuevas"},
+			{Rut:"17342318-k",Nombre:"Eva",ApellidoPaterno:"Santelices"},
+			];
+         }
+         
+         public function UnClick():void
+         {
+         	//var clienteSeleccionado: Object;
+         	//clienteSeleccionado = EdicionUsuario.selectedItem.valueOf();         	
+         	//var nom:String = clienteSeleccionado.ApellidoPaterno;
+         	
+         	var nom:String = EdicionUsuario.selectedItem.Rut;
+         	//Alert.show(nom);
+         	saveEvent ="";
+         	Application.application.AdEditarCliente.setVisible(false,false);
+         	Application.application.AdmIngreso2.setVisible(true,false);
+         	
+         	//AdmIngreso2.cancelarClienteIng.addEventListener(MouseEvent.CLICK, inicial);
+         	/////////////////
+         	///////////////////
+         	//////////////////
+         	
+         	
+         }
+         
+         private function filtrar(element:*, index:int, arr:Array):Boolean
+         {
+			var res:Boolean=true;
+			try
+			{
+		    	if(cbx_FiltroRegistroUsuario.selectedItem == 'Rut')
+		    	{
+		    		res = (element.Rut.toLocaleLowerCase().search(txi_FiltroRegistroUsuario.text.toLocaleLowerCase())>=0)&& res;
+		    	}
+		    	if(cbx_FiltroRegistroUsuario.selectedItem == 'Nombre')
+		    	{
+		    		res = (element.Nombre.toLocaleLowerCase().search(txi_FiltroRegistroUsuario.text.toLocaleLowerCase())>=0)&& res;
+		    	}
+		    	if(cbx_FiltroRegistroUsuario.selectedItem == 'Apellido Paterno')
+		    	{
+		    		res = (element.ApellidoPaterno.toLocaleLowerCase().search(txi_FiltroRegistroUsuario.text.toLocaleLowerCase())>=0)&& res;
+		    	}
+			}
+		    catch(error:Error)
+		    {
+		    }
+		    return res;
+		 }
+
+		]]>
+	</mx:Script>
+	<mx:DataGrid y="66" height="294" dataProvider="{Clientes}" id="EdicionUsuario" left="10" right="20" click="{UnClick()}">
+		<mx:columns>
+		    <mx:DataGridColumn headerText="Rut Dueño" dataField="Rut" width="120"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="Nombre" width="120"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Label x="10" y="40" text="Seleccionar  Todo"/>
+	<mx:Button label="Editar" height="23" width="102" x="527" y="368" click="editarUser(event)" cornerRadius="6"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center"/>
+	<mx:Button x="637" y="368" label="Cancelar" width="102" height="23" cornerRadius="6"/>
+	<mx:TextInput x="66" y="10" width="158" id="txi_FiltroRegistroUsuario" change="{EdicionUsuario.dataProvider = Clientes.filter(filtrar)}" />
+	<mx:ComboBox x="322" y="10" width="168" id="cbx_FiltroRegistroUsuario" close="">
+		<mx:dataProvider>
+			<mx:String>Seleccione tipo</mx:String>
+			<mx:String>Rut</mx:String>
+			<mx:String>Nombre</mx:String>
+			<mx:String>Apellido Paterno</mx:String>
+		</mx:dataProvider>				
+	</mx:ComboBox>
+	<mx:Label text="Filtrar por" fontWeight="bold" color="#0B333C" x="232" y="14"/>
+	<mx:Label text="Buscar" fontWeight="bold" color="#0B333C" x="12" y="14" width="67"/>
+
+</mx:Panel>
