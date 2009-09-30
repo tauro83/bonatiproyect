@@ -82,8 +82,7 @@
 				vUsuario 		= false;
 				vContrasena 	= false;
 				vRContrasena 	= false;
-					
-				
+				mens.text		= "";
 			}
 			
 			/**
@@ -95,11 +94,13 @@
 			{
 				if(Validacion.longitudMinima(nomb.text))
 				{
+					
 					vNombre		= true;
 					//ltexto.text = "";
 				}
 				else
 				{
+					vnomb.willTrigger("asdf");
 					vNombre		= false;
 					//ltexto.text = "Nombre invalido";
 				}	
@@ -206,42 +207,24 @@
 				var msj:String = "";
 				if(message=="1"){
 					msj = nomb.text + " "+ apat.text+" fue Registrado";
-					resetVars(); 					
+				 	resetVars(); 					
     		 	}
 				else{
 					msj = "Usuario previamente registrado, elija otro nombre de usuario"; 				
 				}		
-				Alert.show(msj);	
+				mens.text = msj;	
 						
 			}		
 		]]>
 	</mx:Script> 
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="594" label="Cancelar" click="resetVars()" y="317" id="canc" />
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="464" label="Registrar" click="registrar()" y="317" id="registrarUsuario"/>
-	<mx:TextInput x="155" y="19" width="163" includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
-	<mx:TextInput x="554" y="186" displayAsPassword="true" width="160" enabled="true" id="rcon"  click="iniListener()" maxChars="20"/>
-	<mx:TextInput x="155" y="186"  displayAsPassword="true" editable="true" width="160" enabled="true"  id="cont" click="iniListener()" maxChars="20"/>
-	<mx:TextInput x="155" y="105" id="usua"   enabled="true" click="iniListener()" maxChars="20"/>
-	<mx:Label x="24" y="188" text="Contraseña:" textAlign="left"/>
-	<mx:Label x="24" y="107" text="Usuario:" textAlign="left"/>
-	<mx:Label x="24" y="65" text="Apellido paterno:" height="20"/>
-	<mx:Label x="424" y="65" text="Apellido materno:" height="20"/>
-	<mx:Label x="24" y="21" text="Nombre:" width="69" />
-	<mx:Label x="24" y="144" text="Cargo:"/>
-	<mx:Label x="27" y="229" text="Servicio:" textAlign="left"/>
-	<mx:Label x="27" y="271" text="Permisos:"/>
-	<mx:CheckBox x="155" y="269" label="Registrar" id="preg"/>
-	<mx:ComboBox x="155" y="227" id="serv">
-	<mx:ArrayCollection>
-         	<mx:Object label="Policlinico I" data="a"/>
-         	<mx:Object label="Policlinoco II" data="b"/>
-            <mx:Object label="Hoteleria" data="c"/>
-            <mx:Object label="Peluqueria" data="d"/>
-            <mx:Object label="PetShop" data="d"/>
-    </mx:ArrayCollection>	
-	</mx:ComboBox>
-	<mx:Label x="424" y="188" text="Repetir contraseña:"/>
+	<mx:TextInput x="155" y="19" width="163" restrict="a-z A-Z" includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
+		<mx:StringValidator id="vnomb" requiredFieldError="Ingrese su nombre" source="{nomb}" property="text" />
 	<mx:TextInput x="155" y="63" width="163" id="apat" enabled="true" maxChars="20"/>	
+	<mx:TextInput x="545" y="63" id="amat" enabled="true" maxChars="20"/>
+	<mx:TextInput x="155" y="105" id="usua" restrict="a-z A-Z 0-9"  enabled="true" click="iniListener()" maxChars="20"/>
+		<mx:StringValidator id="vusua" requiredFieldError="Ingrese su nombre de usuario" source="{usua}" property="text" />
 	<mx:ComboBox x="155" y="142" id="carg">
 		<mx:ArrayCollection>
          	<mx:Object label="Ayudante" data="a"/>
@@ -249,12 +232,33 @@
          	<mx:Object label="Peluquero" data="b"/>
          	<mx:Object label="Secretaria" data="b"/>
          	<mx:Object label="Otro" data="b"/>
-    </mx:ArrayCollection>	
+    	</mx:ArrayCollection>	
 	</mx:ComboBox>
+	<mx:TextInput x="155" y="186"  displayAsPassword="true" editable="true" width="160" enabled="true"  id="cont" click="iniListener()" maxChars="20"/>
+	<mx:TextInput x="554" y="186" displayAsPassword="true" width="160" enabled="true" id="rcon"  click="iniListener()" maxChars="20"/>
+ 	<mx:ComboBox x="155" y="227" id="serv">		
+	 	<mx:ArrayCollection>
+	         	<mx:Object label="Policlinico I" data="a"/>
+	         	<mx:Object label="Policlinoco II" data="b"/>
+	            <mx:Object label="Hoteleria" data="c"/>
+	            <mx:Object label="Peluqueria" data="d"/>
+	            <mx:Object label="PetShop" data="d"/>
+	    </mx:ArrayCollection>
+    </mx:ComboBox>
+	<mx:Label x="24" y="188" text="Contraseña:" textAlign="left"/>
+		<mx:StringValidator id="vcont" requiredFieldError="Ingrese su contraseña" source="{cont}" property="text" />
+	<mx:Label x="24" y="107" text="Usuario:" textAlign="left"/>
+	<mx:Label x="24" y="65" text="Apellido paterno:" height="20"/>
+	<mx:Label x="424" y="65" text="Apellido materno:" height="20"/>
+	<mx:Label x="24" y="21" text="Nombre:" width="69" />
+	<mx:Label x="24" y="144" text="Cargo:"/>
+	<mx:Label x="27" y="229" text="Servicio:" textAlign="left"/>
+	<mx:Label x="27" y="271" text="Permisos:"/>
+	<mx:Label x="424" y="188" text="Repetir contraseña:"/>	
+	<mx:CheckBox x="155" y="269" label="Registrar" id="preg"/>
 	<mx:CheckBox x="253" y="269" label="Editar" id="pedi"/>
 	<mx:CheckBox x="351.5" y="269" label="Eliminar" id="peli"/>
 	<mx:CheckBox x="464" y="269" label="Purgar" id="ppur"/>
 	<mx:CheckBox x="560" y="269" label="Todos" id="ptod" click="iniListener()"/>
-	<mx:TextInput x="545" y="63" id="amat" enabled="true" maxChars="20"/>
-	<mx:Label x="169" y="372" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 </mx:Panel>
