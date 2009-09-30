@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Iniciar Sesión">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Iniciar Sesión">
 	<mx:Script>
 		<![CDATA[
 			import mx.controls.Alert;
@@ -37,7 +37,7 @@
  	</mx:Script>	
 	<mx:CheckBox x="482" y="252" label="Sí" id="Recordar"/>
 	<mx:TextArea x="482" y="192" height="19" width="196" displayAsPassword="true" id="pass"/>
-	<mx:Button x="629" y="308" label="Iniciar" id="AceptarUsuario" width="120" height="25" click="existLogin()"/> 
+	<mx:Button x="647" y="302" label="Iniciar" id="AceptarUsuario" width="102" height="23" click="existLogin()" cornerRadius="6"/> 
 	<mx:Image x="-11" y="0" source="../gato.jpg" width="498" height="343"/>
 	<mx:Text x="407" y="164" text="Ingrese su contraseña&#xa;" fontWeight="bold" fontSize="12"/>
 	<mx:Text x="407" y="226" text="¿Desea recordar su cuenta?&#xa;" fontWeight="bold"/>
