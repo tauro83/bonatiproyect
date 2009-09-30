@@ -86,6 +86,10 @@
             	pelNewCatalogo2.pelOAgregarItem.addEventListener(MouseEvent.CLICK, linkAgregarItem);
             	pelNuevoItem.cancelNuevoItem.addEventListener(MouseEvent.CLICK, linkCancelAgregarItem);
             	pelPanel1.pelVerAtenciones.addEventListener(MouseEvent.CLICK,linkVerAtencionesPel);
+
+
+                //raullrich
+                editarCita.setVisible(false,false);
 				
               
 				
@@ -110,6 +114,9 @@
 				AdEditarUsuar3.guardarUsuario.addEventListener(MouseEvent.CLICK,editarUsuario);
 				AdEditarUsuar3.cancGuardar.addEventListener(MouseEvent.CLICK,linkeditUsAd);
 				<!--Autor: }Jimmy Muñoz -->
+
+				//raullrich
+				agenda2.ctm.addEventListener(MouseEvent.CLICK,editCita);
             }
             
             <!--Erwin Díaz-->
@@ -204,6 +211,9 @@
             	busqueda2.setVisible(false,false);
             	huespedAgregado2.setVisible(false,false);
             	
+            	//raullrich
+            	editarCita.setVisible(false,false);
+            	
             	<!--Erwin Díaz-->
             	elimusuario.setVisible(false,false);
             	elimficha.setVisible(false,false);
@@ -212,6 +222,7 @@
             	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
             	AdEditFicha2.setVisible(false,false);
+            	AdEditFicha3.setVisible(false,false);
             	<!--Autor: }Jimmy Muñoz -->
             	
             	<!--Autor: Andres G.{-->
@@ -579,6 +590,16 @@
             	panel2.setVisible(true,false);
             	AdmOpciones1.setVisible(true,false);
             }
+
+
+            //raullrich
+
+            private function editCita(event:Event):void
+            {
+               setInvisible();
+               editarCita.setVisible(true,false);
+               menuAgenda1.setVisible(true, false);
+            }
         ]]>
 
     </mx:Script>
@@ -664,6 +685,13 @@
 	</mx:TextArea>
 	<ns1:MenuAgenda x="0" y="134" visible="false" id="menuAgenda1">
 	</ns1:MenuAgenda>
+
+
+
+        <ns1:EditarCita x="241" y="134" id="editarCita" visible="false">
+	</ns1:EditarCita>
+
+
 	<ns1:Bloquearydesbloquear x="241" y="134" id="panelDesbloqueo" visible="false">
 	</ns1:Bloquearydesbloquear>
 	<ns1:Aviso x="241" y="134" id="agAviso2" visible="false">
@@ -691,11 +719,11 @@
 	<!--Autor: }Esteban -->
 	<!--Erwin Díaz-->
 	
-	<ns1:ElimUsuario x="241" y="134" id="elimusuario" visible="true" borderColor="#15AD8F">
+	<ns1:ElimUsuario x="241" y="134" id="elimusuario" visible="false" borderColor="#15AD8F">
 	</ns1:ElimUsuario>
-	<ns1:ElimFicha x="241" y="134" id="elimficha" visible="true" borderColor="#15AD8F">
+	<ns1:ElimFicha x="241" y="134" id="elimficha" visible="false" borderColor="#15AD8F">
 	</ns1:ElimFicha>
-	<ns1:PurgFicha x="241" y="134" id="purgficha" visible="true" borderColor="#15AD8F">
+	<ns1:PurgFicha x="241" y="134" id="purgficha" visible="false" borderColor="#15AD8F">
 	</ns1:PurgFicha>
 	
 	<mx:Image x="365" y="0" width="174" height="104" source="../fotos-animales-perros-peq.jpg" autoLoad="true"/>
@@ -718,4 +746,6 @@
 	</ns1:Bitacora>
 	<ns2:EditarFicha x="241" y="133" id="AdEditFicha2" visible="false">
 	</ns2:EditarFicha>
+	<ns2:EditarFicha2 x="241" y="133" id="AdEditFicha3" visible="false">
+	</ns2:EditarFicha2>
 </mx:Application>
