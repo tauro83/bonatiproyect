@@ -10,11 +10,9 @@
 
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
-			import transferObjects.Mascota;
 			import mx.rpc.events.ResultEvent;
-			import administracion.UsuarioEditService;
 			import administracion.EditFichaService;
-			import transferObjects.Mascota;
+			import transferObjects.Mascota2;
 			
 			import flash.events.MouseEvent;
             import mx.events.FlexEvent;
