@@ -100,7 +100,7 @@
 				}
 				else
 				{
-					vnomb.willTrigger("asdf");
+					
 					vNombre		= false;
 					//ltexto.text = "Nombre invalido";
 				}	
@@ -219,12 +219,20 @@
 	</mx:Script> 
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="594" label="Cancelar" click="resetVars()" y="317" id="canc" />
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="464" label="Registrar" click="registrar()" y="317" id="registrarUsuario"/>
-	<mx:TextInput x="155" y="19" width="163" restrict="a-z A-Z" includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
+	<mx:TextInput x="155" y="19" width="163"  includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
 		<mx:StringValidator id="vnomb" requiredFieldError="Ingrese su nombre" source="{nomb}" property="text" />
 	<mx:TextInput x="155" y="63" width="163" id="apat" enabled="true" maxChars="20"/>	
 	<mx:TextInput x="545" y="63" id="amat" enabled="true" maxChars="20"/>
-	<mx:TextInput x="155" y="105" id="usua" restrict="a-z A-Z 0-9"  enabled="true" click="iniListener()" maxChars="20"/>
-		<mx:StringValidator id="vusua" requiredFieldError="Ingrese su nombre de usuario" source="{usua}" property="text" />
+	<mx:TextInput x="155" y="105" id="usua"  enabled="true" click="iniListener()" maxChars="20"/>
+		
+		  <mx:StringValidator source="{usua}" property="text" 
+       			tooShortError="Ingrese un nombre de usuario mas largo " 
+        		tooLongError="Ingrese un nombre de usuario mas corto" 
+        		minLength="4" maxLength="20"  
+       			triggerEvent="click" 
+       />
+
+
 	<mx:ComboBox x="155" y="142" id="carg">
 		<mx:ArrayCollection>
          	<mx:Object label="Ayudante" data="a"/>
