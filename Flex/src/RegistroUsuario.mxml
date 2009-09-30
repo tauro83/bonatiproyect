@@ -54,6 +54,7 @@
 				}
 				else
 				{
+					mens.text = "Corriga los datos antes de registrar";
 				}			
 			}
 			
@@ -96,13 +97,13 @@
 				{
 					
 					vNombre		= true;
-					//ltexto.text = "";
+					mens.text = "";
 				}
 				else
 				{
 					
 					vNombre		= false;
-					//ltexto.text = "Nombre invalido";
+					mens.text = "Ingrese un nombre más largo";
 				}	
 			}
 			
@@ -115,11 +116,13 @@
 			{	
 				if(Validacion.longitudMinima(usua.text) && Validacion.espaciosEnBlanco(usua.text))
 				{
-					vUsuario	= true;			
+					vUsuario	= true;		
+					mens.text = "";	
 				}
 				else
 				{
 					vUsuario	= false;
+					mens.text = "Ingrese un nombre de usuario más largo";
 				}
 				
 			}
@@ -133,11 +136,13 @@
 			{
 				if(Validacion.contrasena(cont.text))
 				{
-					vContrasena	= true;		
+					vContrasena	= true;	
+					mens.text = "";	
 				}
 				else
 				{
 					vContrasena	= false;
+					mens.text = "Ingrese una contraseña sin espacios en blanco y mas larga";
 				}	
 				
 			}
@@ -151,11 +156,13 @@
 			{
 				if(cont.text == rcon.text)
 				{
-					vRContrasena = true;				
+					vRContrasena = true;	
+					mens.text = "";			
 				}
 				else
 				{
-					vRContrasena = false;				
+					vRContrasena = false;	
+					mens.text = "Ingrese una contraseña que coincida con la anterior";			
 				}
 			}
 			
@@ -213,26 +220,15 @@
 					msj = "Usuario previamente registrado, elija otro nombre de usuario"; 				
 				}		
 				mens.text = msj;	
-						
 			}		
 		]]>
 	</mx:Script> 
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="594" label="Cancelar" click="resetVars()" y="317" id="canc" />
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="464" label="Registrar" click="registrar()" y="317" id="registrarUsuario"/>
 	<mx:TextInput x="155" y="19" width="163"  includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
-		<mx:StringValidator id="vnomb" requiredFieldError="Ingrese su nombre" source="{nomb}" property="text" />
 	<mx:TextInput x="155" y="63" width="163" id="apat" enabled="true" maxChars="20"/>	
 	<mx:TextInput x="545" y="63" id="amat" enabled="true" maxChars="20"/>
 	<mx:TextInput x="155" y="105" id="usua"  enabled="true" click="iniListener()" maxChars="20"/>
-		
-		  <mx:StringValidator source="{usua}" property="text" 
-       			tooShortError="Ingrese un nombre de usuario mas largo " 
-        		tooLongError="Ingrese un nombre de usuario mas corto" 
-        		minLength="4" maxLength="20"  
-       			triggerEvent="click" 
-       />
-
-
 	<mx:ComboBox x="155" y="142" id="carg">
 		<mx:ArrayCollection>
          	<mx:Object label="Ayudante" data="a"/>
@@ -254,7 +250,6 @@
 	    </mx:ArrayCollection>
     </mx:ComboBox>
 	<mx:Label x="24" y="188" text="Contraseña:" textAlign="left"/>
-		<mx:StringValidator id="vcont" requiredFieldError="Ingrese su contraseña" source="{cont}" property="text" />
 	<mx:Label x="24" y="107" text="Usuario:" textAlign="left"/>
 	<mx:Label x="24" y="65" text="Apellido paterno:" height="20"/>
 	<mx:Label x="424" y="65" text="Apellido materno:" height="20"/>
