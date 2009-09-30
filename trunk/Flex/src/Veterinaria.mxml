@@ -57,7 +57,8 @@
                 opcionesClinica1.estadisticaClinicaLink.addEventListener(MouseEvent.CLICK,verGraficosClinicaMes);
                 opcionesClinica1.estadisticaYear.addEventListener(MouseEvent.CLICK,verGraficosClinicaYear); 
                 opcionesClinica1.estadisticaMes.addEventListener(MouseEvent.CLICK,verGraficosClinicaMes);
-                opcionesClinica1.estadisticaSemestre.addEventListener(MouseEvent.CLICK,verGraficosClinicaSemestre);              
+                opcionesClinica1.estadisticaSemestre.addEventListener(MouseEvent.CLICK,verGraficosClinicaSemestre);  
+                opcionesClinica1.estadisticaTodas.addEventListener(MouseEvent.CLICK,verGraficosClinicaTodas);            
                 <!--Autor:Andres}-->
                 botonPeluqueria.addEventListener (MouseEvent.CLICK, pelmanejadorClick);
 				pelPanel1.PelNuevaAtencion.addEventListener(MouseEvent.CLICK,linkNuevaAtencion);
@@ -213,6 +214,12 @@
             	opcionesClinica1.setVisible(true,false);
             	graficosClinica1.setVisible(true,false);
             	graficosClinica1.setTipoDatos("year");
+            }
+            public function verGraficosClinicaTodas(event:Event):void{
+            	setInvisible();
+            	opcionesClinica1.setVisible(true,false);
+            	graficosClinica1.setVisible(true,false);
+            	graficosClinica1.setTipoDatos("todas");
             }
             public function ayudaEvento(event:Event):void{
             	setInvisible();
