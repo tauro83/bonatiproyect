@@ -137,7 +137,7 @@
             	AdEditarUsuar2.setVisible(false,false);
             	AdRegistrarRazas2.setVisible(false,false);
             	AdRegUsuario2.setVisible(false,false);
-            	AdmFichaMascota2.setVisible(false,false);
+
 				AdmMascota2.setVisible(false,false);
 				AdmIngreso2.setVisible(false,false);        	
             	hotelOpciones.setVisible(false,false);
@@ -172,11 +172,13 @@
             	setInvisible();
             	opcionesClinica1.setVisible(true,false);
             	graficosClinica1.setVisible(true,false);
+            	graficosClinica1.setTipoDatos("semestre");
             }
             public function verGraficosClinicaYear(event:Event):void{
             	setInvisible();
             	opcionesClinica1.setVisible(true,false);
             	graficosClinica1.setVisible(true,false);
+            	graficosClinica1.setTipoDatos("year");
             }
             public function ayudaEvento(event:Event):void{
             	setInvisible();
@@ -383,7 +385,7 @@
             
             private function linkFichaAd ( event:Event ):void{
             	setInvisible();
-            	AdmFichaMascota2.setVisible(true,false);
+
                 AdmOpciones1.setVisible(true,false);
             	
             }
@@ -546,8 +548,7 @@
 	</ns1:RegistroRazas2>
 	<ns1:RegistroUsuario x="241" y="134" id="AdRegUsuario2" visible="false">
 	</ns1:RegistroUsuario>
-	<ns1:VisualizarFicha x="241" y="134" id="AdmFichaMascota2" visible="false">
-	</ns1:VisualizarFicha>
+
 	<ns1:Mascota x="241" y="134" id="AdmMascota2" visible="false">
 	</ns1:Mascota>
 	<ns1:RegistroCliente x="241" y="134" id="AdmIngreso2" visible="false">
