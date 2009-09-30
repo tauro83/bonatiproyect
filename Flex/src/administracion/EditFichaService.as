@@ -6,7 +6,7 @@ package administracion
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
 	
-	import transferObjects.Mascota;
+	import transferObjects.Mascota2;
 
 	public class EditFichaService extends RemoteObject
 	{
