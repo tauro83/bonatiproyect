@@ -24,7 +24,9 @@
 			
 		    private function manejadorCreationComplete (event:FlexEvent):void{           	
             //	AdRegUsuario2.breg.addEventListener(MouseEvent.CLICK,setMensaje);  
- 
+ 				//camilo verdugo
+ 				
+ 				
  				<!--Autor: Esteban{ -->
  				login2.AceptarUsuario.addEventListener(MouseEvent.CLICK,iniciarSesion);
             	botonLogin.addEventListener(MouseEvent.CLICK, linkLogin);
@@ -117,7 +119,10 @@
             }
             
             private function setInvisible ():void{
+            	//camilo verdugo
             	visualizarFicha.setVisible(false,true);
+            	
+            	
             	panel2.setVisible(false,false);
                 panelOpciones.setVisible(false,false);
 				atenRealizadas2.setVisible(false,false);
@@ -372,6 +377,7 @@
             	
             }
             
+            //camilo Verdugo
             private function linkVisualizarVenta ( event:Event ):void{
             	setInvisible();
             	petOpciones1.setVisible(true,false);
@@ -558,7 +564,7 @@
 	<ns1:RegistroPostOperatorio x="241" y="134" id="cliRegistroPO2" visible="false">
 	</ns1:RegistroPostOperatorio>
 	<ns1:RegistroPreOperatorio x="241" y="134" id="cliRegistroPreO2" visible="false">
-	</ns1:RegistroPreOperatorio>
+	</ns1:RegistroPreOperatorio>	
 	<ns1:VisualizarVenta x="241" y="134" id="petVisualVent2" visible="false">
 	</ns1:VisualizarVenta>
 	<ns1:OpcionesClinica x="0" y="134" id="opcionesClinica1" visible="false">

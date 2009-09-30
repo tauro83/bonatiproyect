@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Ficha de Mascota" borderColor="#15AD8F" >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Visualizar Ficha" borderColor="#15AD8F" >
 	<mx:DataGrid x="24.15" y="205" width="693" height="153" id="fichaTablaRegistro">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="col1"/>
@@ -17,7 +17,7 @@
 	<mx:Button x="576.15" y="366" label="Editar" id="fichaEliminarRegistro0">
 	</mx:Button>
 	<mx:Label x="24.15" y="36" text="Nombre:" width="78"/>
-	<mx:Label x="24.15" y="10" text="Datos dueño" width="78" fontWeight="bold"/>
+	<mx:Label x="24.15" y="10" text="Datos cliente" width="97" fontWeight="bold"/>
 	<mx:Label x="393.7" y="9.95" text="Datos mascota" width="98" fontWeight="bold"/>
 	<mx:Label x="24.15" y="62" text="Rut:" width="78"/>
 	<mx:Label x="393.7" y="87.95" text="Sexo:" width="78"/>
