@@ -546,8 +546,8 @@
 	</ns1:RegistroRazas2>
 	<ns1:RegistroUsuario x="241" y="134" id="AdRegUsuario2" visible="false">
 	</ns1:RegistroUsuario>
-	<ns1:Ficha x="241" y="134" id="AdmFichaMascota2" visible="false">
-	</ns1:Ficha>
+	<ns1:VisualizarFicha x="241" y="134" id="AdmFichaMascota2" visible="false">
+	</ns1:VisualizarFicha>
 	<ns1:Mascota x="241" y="134" id="AdmMascota2" visible="false">
 	</ns1:Mascota>
 	<ns1:RegistroCliente x="241" y="134" id="AdmIngreso2" visible="false">
