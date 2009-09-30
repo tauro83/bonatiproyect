@@ -31,6 +31,13 @@
             	login3.botonCerrarSesion.addEventListener(MouseEvent.CLICK,cerrarSesion);
             	login3.botonCancelar.addEventListener(MouseEvent.CLICK,cancelarCerrado);
             	<!--Autor: }Esteban --> 
+            	
+            	
+            	<!--Autor: Sebastian{ -->
+            	menuAgenda1.linkBitacora.addEventListener(MouseEvent.CLICK, manejadorBitacora);
+            	menuAgenda1.linkAgenda.addEventListener(MouseEvent.CLICK,manejadorAgenda);
+            	<!--Autor: }Sebastian --> 
+            	
  				
  				botonAyuda.addEventListener(MouseEvent.CLICK,ayudaEvento);
             	// Escucha por el evento click event en el botón.
@@ -94,6 +101,8 @@
 				AdEditarUsuar3.cancGuardar.addEventListener(MouseEvent.CLICK,linkeditUsAd);
             }
             
+            
+         
             //Jimmy Muñoz
             private function linkeditUsAd ( event:Event ):void{
             	AdEditarUsuar2.getAllUsuarios(AdEditarUsuar3);
@@ -158,8 +167,27 @@
             	<!--Autor: Esteban{ -->
             	login2.setVisible(false,false);
          		login3.setVisible(false,false);
-         		<!--Autor: }Esteban -->          	
+         		<!--Autor: }Esteban -->   
+         		
+         		<!--Autor: Sebastian{ -->
+		    	bitacora.setVisible(false,false);
+		    	agenda2.setVisible(false, false);
+		 		<!--Autor: }Sebastian -->         	
             }
+            
+            <!--Autor: Sebastian{-->
+           	public function manejadorBitacora(event:Event):void{
+            	setInvisible();
+            	bitacora.setVisible(true,false);
+            	menuAgenda1.setVisible(true, false);
+            }
+            public function manejadorAgenda(event:Event):void{
+            	setInvisible();
+            	agenda2.setVisible(true,false);
+            	menuAgenda1.setVisible(true, false);
+            }
+            <!--Autor: }Sebastian -->
+            
             
             <!--Autor:Andres G.{-->
             public function verGraficosClinicaMes(event:Event):void{
@@ -615,4 +643,6 @@
 	</ns2:EditUsuarioUpdate>
 	<ns2:EditarUsuario x="240" y="133" id="AdEditarUsuar2" visible="false">
 	</ns2:EditarUsuario>	
+	<ns1:Bitacora id="bitacora" x="241" y="134" visible="false">
+	</ns1:Bitacora>
 </mx:Application>
