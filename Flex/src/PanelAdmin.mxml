@@ -5,7 +5,7 @@
 	<mx:LinkButton x="10" y="186" label="Razas" textAlign="left"/>
 	<mx:LinkButton x="34" y="297" label="Registrar" id="linkRegUsuarioAd" textAlign="left"/>
 	<mx:LinkButton x="34" y="318" label="Editar" id="linkEditarUsAd" width="66" textAlign="left"/>
-	<mx:LinkButton x="34" y="339" label="Eliminar" textAlign="left"/>
+	<mx:LinkButton x="34" y="339" label="Eliminar" id="linkEliminarUsAd" textAlign="left"/>
 	<mx:LinkButton x="34" y="225" label="Editar" id="linkEditarRazasAd" textAlign="left"/>
 	<mx:LinkButton x="34" y="246" label="Listar" textAlign="left"/>
 	<mx:LinkButton x="34" y="156" label="Visualizar ficha" id="linkFichaAdm" textAlign="left"/>
