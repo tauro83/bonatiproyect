@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Buscar Cita">
+	<mx:Button x="647" y="302" label="Cancelar" width="102" cornerRadius="6"/>
+	<mx:Button x="523" y="302" label="Buscar" width="102" cornerRadius="6"/>
+	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
+	<mx:ComboBox x="441" y="10" id="combobox" width="150">
+		<mx:ArrayCollection>
+			<mx:Object label="Cliente"/>
+			<mx:Object label="Fecha"/>
+			<mx:Object label="Hora"/>
+			<mx:Object label="Mascota"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:TextInput x="59" y="10" width="150" id="input"/>
+	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
+	<mx:DataGrid x="10" y="38" width="739" height="256" id="grid">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Fecha" dataField="col1"/>
+			<mx:DataGridColumn headerText="Hora inicio" dataField="col2"/>
+			<mx:DataGridColumn headerText="Cliente" dataField="col3"/>
+			<mx:DataGridColumn headerText="Rut" dataField="col4"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:DateField x="599" y="10" width="150" id="fecha"/>
+</mx:Panel>
