@@ -73,13 +73,17 @@
 										 "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 				calendario.disabledDays = [0];
 			}
-			public function seleccionarCita(event:ListEvent):void{
+			public function seleccionarCita(event:Event = null):void
+			{
 				var selectedRow:Object = event.currentTarget.selectedItem;
-			    Alert.show(selectedRow.hora);
-			    //Application.application.agenda2.setVisible(false);
+			    //Alert.show(selectedRow.hora);
+			    
+			    Application.application.agenda2.setVisible(false);
+			    Application.application.editarCita.setVisible(true);
 			    
 
 			}
+			
 			
             
  		]]>
@@ -96,7 +100,7 @@
                             <mx:DataGridColumn headerText="Cliente"/>
                             <mx:DataGridColumn headerText="Mascota"/>
                             <mx:DataGridColumn headerText="Servicio"/>
-                            <mx:DataGridColumn headerText="Encargado"/>
+                            <mx:DataGridColumn headerText="Usuario"/>
                         </mx:columns>
                     </mx:DataGrid>
                 </mx:Canvas>
@@ -125,7 +129,7 @@
 		</mx:ComboBox>
         <mx:Button x="523" y="311" label="Agendar"/>
         <mx:Button x="674" y="311" label="Eliminar"/>
-        <mx:Button x="606" y="311" label="Editar"/>
+        <mx:Button x="606" y="311" label="Editar" id="ctm"/>
         <mx:Button id="bloquear" x="200" y="311" label="Bloquear Día" click="bloquearDia()"/>
         <mx:Button id="desbloquear" x="200" y="311" label="Desbloquear Día" click="desbloquearDia()" visible="false"/>
         <mx:Text x="200" y="10" text="Fecha:" fontWeight="bold"/>
