@@ -44,7 +44,12 @@
                 opcionesClinica1.BuscaVacunLink.addEventListener(MouseEvent.CLICK,linkbuscaVD);
                 opcionesClinica1.BuscaAtenLink.addEventListener(MouseEvent.CLICK,linkbuscaAD);
                 opcionesClinica1.newAtenDomLink.addEventListener(MouseEvent.CLICK,linknuevaAD);
-                opcionesClinica1.estadisticaClinicaLink.addEventListener(MouseEvent.CLICK,verGraficosClinica);
+                <!--Autor:Andres{-->
+                opcionesClinica1.estadisticaClinicaLink.addEventListener(MouseEvent.CLICK,verGraficosClinicaMes);
+                opcionesClinica1.estadisticaYear.addEventListener(MouseEvent.CLICK,verGraficosClinicaYear); 
+                opcionesClinica1.estadisticaMes.addEventListener(MouseEvent.CLICK,verGraficosClinicaMes);
+                opcionesClinica1.estadisticaSemestre.addEventListener(MouseEvent.CLICK,verGraficosClinicaSemestre);              
+                <!--Autor:Andres}-->
                 botonPeluqueria.addEventListener (MouseEvent.CLICK, pelmanejadorClick);
 				pelPanel1.PelNuevaAtencion.addEventListener(MouseEvent.CLICK,linkNuevaAtencion);
 				pelPanel1.PelNuevoCatalogo.addEventListener(MouseEvent.CLICK,linkNuevoCatalogo);
@@ -157,7 +162,18 @@
             }
             
             <!--Autor:Andres G.{-->
-            public function verGraficosClinica(event:Event):void{
+            public function verGraficosClinicaMes(event:Event):void{
+            	setInvisible();
+            	opcionesClinica1.setVisible(true,false);
+            	graficosClinica1.setVisible(true,false);
+            	graficosClinica1.setTipoDatos("mes");
+            }
+            public function verGraficosClinicaSemestre(event:Event):void{
+            	setInvisible();
+            	opcionesClinica1.setVisible(true,false);
+            	graficosClinica1.setVisible(true,false);
+            }
+            public function verGraficosClinicaYear(event:Event):void{
             	setInvisible();
             	opcionesClinica1.setVisible(true,false);
             	graficosClinica1.setVisible(true,false);

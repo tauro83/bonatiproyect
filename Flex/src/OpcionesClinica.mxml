@@ -8,6 +8,10 @@
 	<mx:LinkButton x="54" y="40" label="Cirugía" width="139" textAlign="left" id="cirugiaLink"/>
 	<mx:LinkButton x="55" y="131" label="Buscar Atención" id="BuscaAtenLink"/>
 	<mx:LinkButton x="55" y="150" label="Buscar Categoria" id="BuscaVacunLink"/>
-	<mx:LinkButton x="55" y="111" label="Nueva Atención" id="newAtenDomLink"/>
+	<mx:LinkButton x="55" y="110" label="Nueva Atención" id="newAtenDomLink"/>
+	<mx:LinkButton x="55" y="219" label="Último semestre" id="estadisticaSemestre"/>
+	<mx:LinkButton x="55" y="238" label="Último año" id="estadisticaYear"/>
+	<mx:LinkButton x="55" y="258" label="Todas" id="estadisticaTodas"/>
+	<mx:LinkButton x="55" y="200" label="Último mes" id="estadisticaMes"/>
 	
 </mx:Panel>
