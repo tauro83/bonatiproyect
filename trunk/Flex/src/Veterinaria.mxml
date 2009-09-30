@@ -32,6 +32,7 @@
             	login3.botonCancelar.addEventListener(MouseEvent.CLICK,cancelarCerrado);
             	<!--Autor: }Esteban --> 
  				
+ 				botonAyuda.addEventListener(MouseEvent.CLICK,ayudaEvento);
             	// Escucha por el evento click event en el botón.
                 cliNewAtencion2.linkSiguiente.addEventListener(MouseEvent.CLICK,linkNewAP);            	
                 botonAdmin.addEventListener (MouseEvent.CLICK, manejadorClick);
@@ -144,20 +145,29 @@
             	busqueda2.setVisible(false,false);
             	huespedAgregado2.setVisible(false,false);
             	AdEditarUsuar3.setVisible(false,false);
-            	graficosClinica1.setVisible(false,false);
             	
+            	<!--Autor: Andres G.{-->
+            	graficosClinica1.setVisible(false,false);
+            	ayudaVeterinaria.setVisible(false,false);
+            	<!--Autor: Andres G.}-->
             	<!--Autor: Esteban{ -->
             	login2.setVisible(false,false);
          		login3.setVisible(false,false);
          		<!--Autor: }Esteban -->          	
             }
             
-            <!--Autor:Andres G.-->
+            <!--Autor:Andres G.{-->
             public function verGraficosClinica(event:Event):void{
             	setInvisible();
             	opcionesClinica1.setVisible(true,false);
             	graficosClinica1.setVisible(true,false);
             }
+            public function ayudaEvento(event:Event):void{
+            	setInvisible();
+            	panelOpciones.setVisible(true,false);
+            	ayudaVeterinaria.setVisible(true,false);
+            }
+            <!--Autor:Andres G.}-->
             
             <!--Autor: Esteban{ -->
              private function cancelarCerrado (event:Event):void
@@ -556,9 +566,12 @@
 	</ns1:Busqueda>
 	<ns1:huespedAgregado x="241" y="134" id="huespedAgregado2" visible="false">
 	</ns1:huespedAgregado>
-	<!--Autor: andres-->
+	<!--Autor: andres{-->
+	<ns1:Ayuda x="241" y="134" id="ayudaVeterinaria" visible="false">
+	</ns1:Ayuda>
 	<ns1:GraficosClinica x="241" y="134" id="graficosClinica1" visible="false">
 	</ns1:GraficosClinica>
+	<!--Autor: andres}-->
 	
 	<!--Autor: Esteban{ -->
 	<ns1:LoginIniciar x="241" y="134" id="login2" visible="true" borderColor="#15AD8F">
