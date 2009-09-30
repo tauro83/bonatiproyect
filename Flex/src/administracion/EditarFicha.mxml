@@ -10,9 +10,11 @@
 
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
-			import transferObjects.Usuario;
+			import transferObjects.Mascota;
 			import mx.rpc.events.ResultEvent;
 			import administracion.UsuarioEditService;
+			import administracion.EditFichaService;
+			import transferObjects.Mascota;
 			
 			import flash.events.MouseEvent;
             import mx.events.FlexEvent;
@@ -21,11 +23,59 @@
 			import mx.controls.Alert;
 			
 			[Bindable]
+			//private var mascRec:Mascota;
 			private var usuarios:ArrayCollection;
 			private var usuars:ArrayCollection;
 			private var usuars2:ArrayCollection;
 			public var newRegUsuar:EditUsuarioUpdate;
 			
+			
+			/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que recibe el panel EditUsuario (newRegUsuar), para almacenarlo, 
+			 * inicializa la variable personService, para poder llamar a los metodos de este
+			 * para lograr comunicarse con las clases y metodos de java.	 		
+			 * */
+			public function getFichas(regUsuarioIn:EditUsuarioUpdate):void
+			{
+				var editandoServ:EditFichaService = new EditFichaService();
+				editandoServ.addEventListener(ResultEvent.RESULT,getFichasEResult);
+				//editandoServ.getFichaE();
+				/*
+				labelMessage.text="";
+				newRegUsuar = regUsuarioIn;
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();
+				*/
+			}
+			
+			/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
+			 * del datagrid, para mostrar los datos de los usuarios que existen en el sistema.	 		
+			 * */
+			private function getFichasEResult(event:ResultEvent):void
+			{
+				/*mascRec = event.result as Mascota;
+				this.nombCli.text = mascRec.nombreDueno;
+				this.comunaCli.text = mascRec.comuna;
+				this.dirCli.text = mascRec.direccion;
+				this.fechaMas.text = mascRec.fechaNacimiento;
+				this.fonoCli.text = mascRec.telefono;
+				this.rutCli.text = mascRec.rut;
+				this.nombMas.text = mascRec.nombre;
+				this.razaMas.text = mascRec.raza;
+				this.sexoMas.text = mascRec.sexo;*/
+				
+				/*Tabla.doubleClickEnabled=true;
+				usuarios = event.result as ArrayCollection;	
+							
+					*/			
+			}
 			
 			
 			
@@ -76,8 +126,9 @@
 				   this.setVisible(true,false);
 				   labelMessage.text="Ususario editado!";*/
 				}
-				else
+				else{
 				   /*newRegUsuar.labelMessage.text="Ususario NO editado!";*/
+				}
 			}
 	
 		]]>
@@ -85,7 +136,6 @@
 	
 	<mx:DataGrid x="24.15" y="205" width="693" height="153" id="fichaTablaRegistro">
 		<mx:columns>
-			<mx:DataGridColumn width="20" headerText="" dataField="col1"/>
 			<mx:DataGridColumn width="90" headerText="Fecha" dataField="col1"/>
 			<mx:DataGridColumn headerText="Costo" dataField="col2"/>
 			<mx:DataGridColumn headerText="Servicio" dataField="col3"/>
@@ -93,11 +143,9 @@
 			<mx:DataGridColumn width="150" headerText="Responsable" dataField="col4"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="615.15" y="365" label="Eliminar" id="fichaEliminarRegistro" width="102" height="23">
+	<mx:Button x="615.15" y="365" label="Cancelar" id="fichaCancelarEdit" width="102" height="23" cornerRadius="6">
 	</mx:Button>
-	<mx:Button x="395.15" y="365" label="Visualizar" id="fichaVisualizarFicha" width="102" height="23">
-	</mx:Button>
-	<mx:Button x="505.15" y="365" label="Editar" id="fichaEditarficha" width="102" height="23">
+	<mx:Button x="505.15" y="365" label="Editar" id="fichaEditarficha" width="102" height="23" cornerRadius="6">
 	</mx:Button>
 	<mx:Label x="24.15" y="36" text="Nombre:" width="78"/>
 	<mx:Label x="24.15" y="10" text="Datos cliente" width="97" fontWeight="bold"/>
@@ -113,16 +161,16 @@
 	<mx:Label x="24.15" y="179" text="Atenciones" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
 	<mx:Label x="545.15" y="179" text="&lt; Anterior" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
 	<mx:Label x="652.15" y="179" text="Siguiente &gt;" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
-	<mx:TextInput x="127.1" y="34" width="217.75" editable="false"/>
-	<mx:TextInput x="127.1" y="60" width="111" editable="false" height="20"/>
+	<mx:TextInput x="127.1" y="34" width="217.75" editable="false" id="nombCli"/>
+	<mx:TextInput x="127.1" y="60" width="111" editable="false" height="20" id="rutCli"/>
 	<mx:TextInput x="246.1" y="60" width="19.75" editable="false" height="20"/>
-	<mx:TextInput x="127.1" y="86" width="138.75" editable="false" height="20"/>
-	<mx:TextInput x="127.1" y="112" width="138.75" editable="false" height="20"/>
-	<mx:TextInput x="127.1" y="136.95" width="217.75" editable="false" height="20"/>
-	<mx:TextInput x="517.25" y="33.9" width="138.75" editable="false" height="20"/>
-	<mx:TextInput x="517.25" y="59.9" width="92.9" editable="false" height="20"/>
-	<mx:TextInput x="517.25" y="87.9" width="92.9" editable="false" height="20"/>
-	<mx:TextInput x="517.25" y="112" width="92.9" editable="false" height="20"/>
+	<mx:TextInput x="127.1" y="86" width="138.75" editable="false" height="20" id="fonoCli"/>
+	<mx:TextInput x="127.1" y="112" width="138.75" editable="false" height="20" id="comunaCli"/>
+	<mx:TextInput x="127.1" y="136.95" width="217.75" editable="false" height="20" id="dirCli"/>
+	<mx:TextInput x="517.25" y="33.9" width="138.75" editable="false" height="20" id="nombMas"/>
+	<mx:TextInput x="517.25" y="59.9" width="92.9" editable="false" height="20" id="razaMas"/>
+	<mx:TextInput x="517.25" y="87.9" width="92.9" editable="false" height="20" id="sexoMas"/>
+	<mx:TextInput x="517.25" y="112" width="92.9" editable="false" height="20" id="fechaMas"/>
 	<mx:Label x="165" y="396" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 	
 </mx:Panel>
