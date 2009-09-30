@@ -13,7 +13,9 @@
 		
 		//XML List for loaded XML file. Must be bindable!
 		[Bindable]private var testInfo:XMLList;
-		private var periodo:String;
+		[Bindable]private var periodo:String;
+		[Bindable]private var dataSet:String = "set1";
+		[Bindable]private var titulo:String = "Estadísticas a la fecha para Clínica";
 		
 		private function xmlHandler(evt:ResultEvent):void{
 			//Sets testInfo's root as the atenciones. Everything else referenced in respect to this.
@@ -22,14 +24,15 @@
 		
 		private function changeData(dataSet:String):void{
 			//Determina que se set debe ser cargado
+			this.dataSet=dataSet;
 			switch (dataSet){
 				case ('set1'):
 					//Set URL target to pabellon
-					testData.url ="assets/"+periodo+"pabellon.xml";
+					testData.url ="assets/"+periodo+"/pabellon.xml";
 					break;
 				case ('set2'):
 					//Set URL target to policlinico
-					testData.url ="assets/"+periodo+"policlinico.xml";
+					testData.url ="assets/"+periodo+"/policlinico.xml";
 					break;
 				default:
 					break;
@@ -40,6 +43,13 @@
 		public function setTipoDatos(periodo:String):void{
 			//Determina qué periodo es el que mostraremos en el chart
 			this.periodo=periodo;
+			if(periodo=="year"){
+				this.titulo=this.titulo.substring(0,36)+"(último año)";
+			}
+			else{
+				this.titulo=this.titulo.substring(0,36)+"(último "+periodo+")";
+			}
+			changeData(dataSet);
 		}
 		
 		]]>
@@ -50,7 +60,7 @@
 	<!--Carga el archivo url y XML y luego lo envia a la funcion xmlHandler en formato E4X-->
 	<mx:HTTPService url="assets/pabellon.xml" id="testData" result="xmlHandler(event)" resultFormat="e4x"/>
 	
-	<mx:Panel horizontalAlign="center" title="Estadísticas a la fecha para Clínica" height="382" width="776">
+	<mx:Panel horizontalAlign="center" title="{titulo}" height="382" width="776">
 		
 		<!--The Chart -->
 		<mx:ColumnChart dataProvider="{testInfo}" id="chartEstadisticaClinica"  height="254" width="540">
