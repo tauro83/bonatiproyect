@@ -117,6 +117,7 @@
             }
             
             private function setInvisible ():void{
+            	visualizarFicha.setVisible(false,true);
             	panel2.setVisible(false,false);
                 panelOpciones.setVisible(false,false);
 				atenRealizadas2.setVisible(false,false);
@@ -413,7 +414,7 @@
             
             private function linkFichaAd ( event:Event ):void{
             	setInvisible();
-
+				visualizarFicha.setVisible(true,true);
                 AdmOpciones1.setVisible(true,false);
             	
             }
@@ -576,6 +577,8 @@
 	</ns1:RegistroRazas2>
 	<ns1:RegistroUsuario x="241" y="134" id="AdRegUsuario2" visible="false">
 	</ns1:RegistroUsuario>
+	<ns1:VisualizarFicha x="241" y="134" id="visualizarFicha" visible="false">
+	</ns1:VisualizarFicha>
 
 	<ns1:Mascota x="241" y="134" id="AdmMascota2" visible="false">
 	</ns1:Mascota>
