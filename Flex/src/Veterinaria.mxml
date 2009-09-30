@@ -96,6 +96,12 @@
                 AdmMascota2.cancelarMascota.addEventListener (MouseEvent.CLICK,inicial);
               // AdRegUsuario2.bcan.addEventListener (MouseEvent.CLICK,inicial);
                 
+                //Erwin Díaz
+                AdmOpciones1.linkEliminarUsAd.addEventListener(MouseEvent.CLICK,linkelimUsAd);
+				AdmOpciones1.linkEliminarFicha.addEventListener(MouseEvent.CLICK,linkelimFicha);
+				AdmOpciones1.linkPurgarFicha.addEventListener(MouseEvent.CLICK,linkpurgFicha);
+				
+				
                 botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
                 
 				<!--Autor: Jimmy Muñoz{-->
@@ -105,6 +111,27 @@
 				AdEditarUsuar3.cancGuardar.addEventListener(MouseEvent.CLICK,linkeditUsAd);
 				<!--Autor: }Jimmy Muñoz -->
             }
+            
+            <!--Erwin Díaz-->
+            private function linkelimUsAd ( event:Event ):void{
+            	setInvisible();
+               	AdmOpciones1.setVisible(true,false);
+            	elimusuario.setVisible(true,false);
+            	
+            }
+            private function linkelimFicha ( event:Event ):void{
+            	setInvisible();
+               	AdmOpciones1.setVisible(true,false);
+            	elimficha.setVisible(true,false);
+            	
+            }
+            private function linkpurgFicha ( event:Event ):void{
+            	setInvisible();
+               	AdmOpciones1.setVisible(true,false);
+            	purgficha.setVisible(true,false);
+            	
+            }
+            
             
             <!--Autor: Jimmy Muñoz{-->
             private function mostrarEditFicha ( event:Event ):void{
@@ -176,6 +203,11 @@
             	login2.setVisible(false,false);
             	busqueda2.setVisible(false,false);
             	huespedAgregado2.setVisible(false,false);
+            	
+            	<!--Erwin Díaz-->
+            	elimusuario.setVisible(false,false);
+            	elimficha.setVisible(false,false);
+            	purgficha.setVisible(false,false);
             	
             	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
@@ -657,6 +689,14 @@
 	<mx:Button x="580" y="30" label="Ayuda" width="110" height="50" id="botonAyuda" icon="@Embed(source='../Help.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" enabled="true"/>
 	<mx:Button x="880" y="30" label="Iniciar Sesión" width="110" height="50" icon="@Embed(source='../Users.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" id="botonLogin" enabled="true"/>
 	<!--Autor: }Esteban -->
+	<!--Erwin Díaz-->
+	
+	<ns1:ElimUsuario x="241" y="134" id="elimusuario" visible="true" borderColor="#15AD8F">
+	</ns1:ElimUsuario>
+	<ns1:ElimFicha x="241" y="134" id="elimficha" visible="true" borderColor="#15AD8F">
+	</ns1:ElimFicha>
+	<ns1:PurgFicha x="241" y="134" id="purgficha" visible="true" borderColor="#15AD8F">
+	</ns1:PurgFicha>
 	
 	<mx:Image x="365" y="0" width="174" height="104" source="../fotos-animales-perros-peq.jpg" autoLoad="true"/>
 	<mx:TextArea x="0" y="0" width="366" height="104" borderStyle="none" fontFamily="Arial" editable="false" fontSize="27" fontWeight="bold" fontStyle="normal" backgroundColor="#FFFFFF" color="#0202CB" themeColor="#0060FF" borderColor="#FFFFFF" enabled="true" wordWrap="false"/>
