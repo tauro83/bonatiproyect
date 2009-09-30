@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Opciones del módulo">
-	<mx:LinkButton x="10" y="10" label="Agenda"/>
-	
+	<mx:LinkButton id="linkAgenda" x="10" y="10" label="Agenda"/>
+	<mx:LinkButton id="linkBitacora" x="10" y="10" label="Bitácora"/>
 </mx:Panel>
