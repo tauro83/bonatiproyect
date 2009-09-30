@@ -1,0 +1,1 @@
+tomen las imagenes y metanlas en la carpeta del proyecto (junto con todas las otras imagenes)
