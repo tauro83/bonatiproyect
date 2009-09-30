@@ -26,7 +26,7 @@ public class AddUsuarioBD {
 		insert = connection.prepareStatement(query);
 		
 		insert.setString(1, u.nombre);
-		insert.setString(2, u.apellidoMaterno);
+		insert.setString(2, u.apellidoPaterno);
 		insert.setString(3, u.apellidoMaterno);
 		insert.setString(4, u.usuario);
 		insert.setString(5, u.cargo);
