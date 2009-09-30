@@ -1,0 +1,138 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllPersons()" layout="absolute" width="779" height="466" title="Eliminar usuario" >
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.List;
+			import mx.events.ListEvent; 			
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+			
+			import transferObjects.Person;
+			import mx.rpc.events.ResultEvent;
+			import services.PersonService;
+			[Bindable]
+			private var persons:ArrayCollection;
+			
+			private function getAllPersons():void
+			{
+				var personService:PersonService=new PersonService();
+				personService.addEventListener(ResultEvent.RESULT,getAllPersonsResult);
+				personService.getAllPersons();
+			}
+			private function getAllPersonsResult(event:ResultEvent):void
+			{
+				persons = event.result as ArrayCollection;
+			}
+			
+			
+			private function updateTable():void
+            {
+            	persons = new ArrayCollection;
+				persons.addItem({nombreUsuario:"Juan", apPaterno:"Fernandez", usuario:"jfndz", cargo:"veterinario", servicio:"clinica", registrar:"si", editar:"si", eliminar:"si", purgar:"si"});
+ 				persons.addItem({nombreUsuario:"Gonzalo", apPaterno:"Contreras", usuario:"gcontrs", cargo:"peluquero", servicio:"clinica", registrar:"si", editar:"no", eliminar:"no", purgar:"no"});
+ 				persons.addItem({nombreUsuario:"Maria", apPaterno:"Hernandez", usuario:"mfrdz", cargo:"veterinario", servicio:"clinica", registrar:"si", editar:"si", eliminar:"si", purgar:"si"});
+ 				
+ 				//actuacliza la tabla con los datos obtenidos de users
+                tablaUsuarios.dataProvider = persons;
+            }
+        
+            //elimina una fila dentro de la tabla
+           	private function deleteRow(/*nombreUsuario:String*/):void {
+			 Alert.show("Está seguro que desea eliminar usuario ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			}
+			
+			private function deletePerson(clave:String):void
+			{
+				var personService:PersonService=new PersonService();
+				personService.addEventListener(ResultEvent.RESULT,deletePersonResult);
+			//	personService.deletePerson(clave);
+			}
+			private function deletePersonResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(result>0)
+				{
+				   Alert.show("Ususario eliminado!");
+				   getAllPersons();
+				}
+				else
+				   Alert.show("Ususario NO eliminado!");
+			}
+			
+			private function removeTaskRecord():void
+            {
+                var allRows:int = persons.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (persons[i].sel)
+                	{
+                        //Alert.show(persons[i].usuario);
+                        deletePerson(persons[i].usuario);
+                        //comando para eliminar desde la base de datos debe ir aquí
+                         
+                        persons.removeItemAt(i);
+                        allRows = persons.length;
+                        tablaUsuarios.dataProvider = persons;
+                        i=-1;
+                    }   
+                }              
+            }
+			
+			//es la funcion que es llamada desde el mensaje de confirmación de la tarea
+			private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+			
+			private function selectAll():void{
+                var allRows:int = persons.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        persons[i].sel = true;
+                    else
+                        persons[i].sel = false;
+                }
+                tablaUsuarios.dataProvider = persons;
+            }
+            
+		]]> 
+  	</mx:Script>	
+	<mx:ComboBox x="251" y="10" id="filtro">
+		<mx:ArrayCollection>
+		    	<mx:Object label="Filtrar por" data="0"/>
+		    	<mx:Object label="Nombre" data="1"/>
+		    	<mx:Object label="Apellido" data="2"/>
+		    	<mx:Object label="Usuario" data="3"/>
+		    	<mx:Object label="Cargo" data="4"/>
+		</mx:ArrayCollection>	
+	</mx:ComboBox>
+	
+	<mx:DataGrid x="10" y="74" width="739" height="283" id="tablaUsuarios" dataProvider="{persons}" >
+		<mx:columns>
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>			
+			<mx:DataGridColumn width="90" headerText="Nombre" dataField="nombre" id="nombreUsuario" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Apellido" dataField="apellido" id="apPaterno" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Usuario" dataField="usuario" id="usuario" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Cargo" dataField="cargo" id="cargo" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Servicio" dataField="servicio" id="servicio" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="60" headerText="Registrar" dataField="registrar" id="registrar" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="50" headerText="Editar" dataField="editar" id="editar" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="50" headerText="Eliminar" dataField="eliminar" id="eliminar" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="50" headerText="Purgar" dataField="purgar" id="purgar" sortable="false" draggable="false"/>
+			</mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="537" y="394" label="Eliminar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados" width="102"/>
+	<mx:Button x="647" y="394" label="Cancelar" id="cancelar" toolTip="Cancela la operación" width="102"/>
+	<mx:CheckBox x="10" y="48" id="todo" click="{selectAll()}"/>
+	<mx:Label x="32" y="48" text="Seleccionar todo"/>
+	<mx:TextInput x="59" y="10" id="texImput"/>
+	<mx:Label x="10" y="12" text="Buscar"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center"/>
+</mx:Panel>
