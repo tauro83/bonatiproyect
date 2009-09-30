@@ -1,59 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383"  title="Busqueda">
-	<mx:ComboBox x="33" y="134" visible="true" text=" ">
-	<mx:ArrayCollection>
-         <mx:Object label="Id" data="a"/>
-         <mx:Object label="Nombre" data="b"/>
-         <mx:Object label="RUT" data="c"/>
-         <mx:Object label="Correo" data="d"/>
-         <mx:Object label="Telefono" data="e"/>
-         <mx:Object label="RUT" data="f"/>
-     </mx:ArrayCollection>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Buscar">
+	<mx:Button x="647" y="302" label="Cancelar" width="102" cornerRadius="6" id="idCancelar"/>
+	<mx:Button x="523" y="302" label="Buscar" width="102" cornerRadius="6" id="idBuscar"/>
+	<mx:ComboBox x="283" y="10" width="150" id="combobox" >
+		<mx:ArrayCollection>
+			<mx:Object label="Cita"/>
+			<mx:Object label="Cliente"/>
+			<mx:Object label="Ficha"/>
+			<mx:Object label="Mascota"/>
+			<mx:Object label="Producto"/>
+			<mx:Object label="Usuario"/>
+		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:ComboBox x="264" y="134">
-	<mx:ArrayCollection>
-	     <mx:Object label="Nombre" data="b"/>
-         <mx:Object label="ID" data="c"/>
-         <mx:Object label="Raza" data="d"/>
-    </mx:ArrayCollection>
-    </mx:ComboBox>
-	<mx:ComboBox x="510" y="134">
-	<mx:ArrayCollection>
-	     <mx:Object label="Nombre" data="b"/>
-         <mx:Object label="ID" data="c"/>         
-    </mx:ArrayCollection>	
+	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
+	<mx:TextInput x="59" y="10" width="150" id="input"/>
+	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
+	<mx:ComboBox x="441" y="10" id="comboboxMascota" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Cliente"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Raza"/>
+			<mx:Object label="Rut"/>
+		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:ComboBox x="33" y="218">
-	<mx:ArrayCollection>
-	     <mx:Object label="Nombre" data="b"/>
-         <mx:Object label="ID" data="c"/>         
-    </mx:ArrayCollection>		
+	<mx:ComboBox x="441" y="10" id="comboboxUsuario" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Cargo"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="1er Apellido"/>
+			<mx:Object label="2do Apellido"/>
+		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:ComboBox x="264" y="218">
-	<mx:ArrayCollection>
-	     <mx:Object label="ID" data="b"/>
-         <mx:Object label="IDMascota" data="c"/> 
-         <mx:Object label="NombreMascota" data="a"/>
-    </mx:ArrayCollection>			
+	<mx:ComboBox x="441" y="10" id="comboboxFicha" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Cliente"/>
+			<mx:Object label="Mascota"/>
+			<mx:Object label="Rut"/>
+			<mx:Object label="Servicio"/>
+		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:ComboBox x="510" y="218">
-	<mx:ArrayCollection>
-	     <mx:Object label="ID" data="b"/>
-    </mx:ArrayCollection>	
+	<mx:ComboBox x="441" y="10" id="comboboxCita" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Cliente"/>
+			<mx:Object label="Fecha"/>
+			<mx:Object label="Hora"/>
+			<mx:Object label="Mascota"/>
+		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:ComboBox x="264" y="288">
-	<mx:ArrayCollection>
-	     <mx:Object label="ID" data="b"/>
-	     <mx:Object label="tipo" data="a"/>
-    </mx:ArrayCollection>
+	<mx:ComboBox x="441" y="10" id="comboboxProducto" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Categoría"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Precio menor a"/>
+			<mx:Object label="Precio mayor a"/>
+		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:RadioButton x="33" y="92" label="Cliente"/>
-	<mx:RadioButton x="264" y="92" label="Mascota"/>
-	<mx:RadioButton x="510" y="92" label="Usuario"/>
-	<mx:RadioButton x="33" y="182" label="Producto"/>
-	<mx:RadioButton x="264" y="182" label="Ficha"/>
-	<mx:RadioButton x="510" y="182" label="Catalogo"/>
-	<mx:RadioButton x="264" y="258" label="Registro"/>
-	<mx:TextArea x="33" y="41" height="22" width="449" visible="true"/>
-	<mx:Button x="510" y="40" label="Buscar" width="158" id="botonbuscar"/>
+	
 </mx:Panel>
