@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Agenda" xmlns:ns1="*" initialize="iniciarAgenda()">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Agenda" xmlns:ns1="*" initialize="iniciarAgenda()">
 	<mx:Script>
 		<![CDATA[
 			import mx.events.ListEvent;
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.events.ListEvent;
+			import mx.core.Application;
 			
 			[Bindable]
 			public var diasBloqueados:ArrayCollection = new ArrayCollection();
 			
 			[Bindable]
             public var horas:ArrayCollection = new ArrayCollection(
-                [{hora:"08:00"}, {hora:"08:30"}, {hora:"09:00"}, {hora:"09:30"}, {hora:"10:00"}, 
-                 {hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
-                 {hora:"13:00"}, {hora:"13:30"}, {hora:"14:00"}, {hora:"14:30"}, {hora:"15:00"}, 
+                [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
                  {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
-                 {hora:"18:00"}]); 
+                 {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]); 
                  
             private function asignarAgenda(event:Event):void{
             	usuarioOutput.text = usuarioInput.text;
@@ -61,7 +60,7 @@
             	var fechaActual:Date = new Date();
             	
             	usuarioInput.dataProvider = ["Todos", "Claudio Bonati", "Patricio Castro"];
-            	servicioInput.dataProvider = ["Todos", "Pabellón", "Peluquería", "Policlínico"];
+            	servicioInput.dataProvider = ["Todos", "Pabellón", "Peluquería", "Policlínico", "Atención a domicilio"];
             	
             	usuarioOutput.text = "Todos";
             	servicioOutput.text = "Todos";
@@ -71,10 +70,13 @@
 				calendario.dayNames = ["D", "L", "M", "M", "J", "V", "S", "D"];
 				calendario.monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
 										 "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+				calendario.disabledDays = [0];
 			}
 			public function seleccionarCita(event:ListEvent):void{
 				var selectedRow:Object = event.currentTarget.selectedItem;
 			    Alert.show(selectedRow.hora);
+			    //Application.application.agenda2.setVisible(false);
+			    
 
 			}
 			
@@ -115,20 +117,20 @@
                 </mx:Canvas>
             </mx:VBox>
         </mx:ViewStack>
-        <mx:Label x="10" y="198" text="Usuario:"/>
+        <mx:Label x="10" y="198" text="Encargado:"/>
         <mx:ComboBox id="usuarioInput" x="10" y="224" width="182" close="asignarAgenda(event);">
 		</mx:ComboBox>
         <mx:Label x="10" y="254" text="Servicio:"/>
         <mx:ComboBox id="servicioInput" x="10" y="280" width="182" close="asignarAgenda(event);">
 		</mx:ComboBox>
-        <mx:Button x="662" y="311" label="Nueva Cita"/>
+        <mx:Button x="662" y="311" label="Agendar"/>
         <mx:Button id="bloquear" x="555" y="311" label="Bloquear Día" click="bloquearDia()"/>
         <mx:Button id="desbloquear" x="534" y="311" label="Desbloquear Día" click="desbloquearDia()" visible="false"/>
         <mx:Text x="200" y="10" text="Fecha:" fontWeight="bold"/>
         <mx:Label id="fechaOutput" x="248" y="10"/>
         <mx:Label id="fechaBloqueadoOutput" x="317" y="10"/>
-        <mx:Text x="10" y="10" text="Usuario:" fontWeight="bold"/>
-        <mx:Label id="usuarioOutput" x="65" y="10"/>
+        <mx:Text x="10" y="10" text="Encargado:" fontWeight="bold"/>
+        <mx:Label id="usuarioOutput" x="83" y="10"/>
         <mx:Text x="437" y="10" text="Servicio:" fontWeight="bold"/>
         <mx:Label id="servicioOutput" x="491" y="10"/>
 </mx:Panel>
