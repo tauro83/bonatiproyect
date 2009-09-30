@@ -1,123 +1,312 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Ingreso de datos Cliente">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Visualizar Cliente" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
-			            
-			// ocupen la variable que quieran, no necesariamente estas.
-            public var texto:String;
-            public var texto2:String;
-            public var texto3:String;
-            public var texto4:String;
-            public var texto5:String;
-            public var texto6:String;
-            public var texto7:String;
-            public var texto8:String;
-            public var texto9:String;
-            
-            
-            public function getIdPanel():String
-            {
-            	return "Cliente";
-            }
-            
+		
+//=======================================================================
+// FECHA CREACIÓN: Nicolas Delgado 
+// AUTOR: 20/09/09
+// Comentario: Este component van imncorporado cada uno de los elementos 
+// Que deberan contener el registro de un cliente para que sea parte de la 
+// Clinica Veterinaria.
+// 
+//=======================================================================
+		import mx.controls.Text;
+		import mx.controls.Alert;
+		import mx.rpc.events.ResultEvent;			
+		import services.ClienteServer;
+		import services.validarRut;
+        import mx.events.ValidationResultEvent; 
+        import transferObjects.ClienteTO;
 
-			///////////////////////////////////////////////////
-			//  0 Administracion
-			//	1 Agenda
-			//	2 pabellon
-			//	3 policlinico
-			//	4 petShop
-			//	5 peluqueria
-			//	6 hoteleria
-			//	7 buscar
-			//	8 usuario
-			//
-			//	si falta alguna, avisar para agregarla
-			//
-			public function getIdServicio():String
-			{
-				return "0";
+
+
+
+/**
+* Este metodo se encarga de recibir todas las acciones que tendra 
+* En su ciclo de vida la componente, esencialmente en este metodo se guardar 
+* la validacion de los datos al momento que el usuario los ingrese los datos
+* del dueño de la mascota.  
+* 
+* @langversion ActionScript 3.0
+*
+
+*/		
+
+            
+		public function sendMessage():String
+			{				
+				var cl:ClienteTO= new ClienteTO();
+				var rw:validarRut=new validarRut();
+
+            				
+				rw.addEventListener(ResultEvent.RESULT,resultHandler);				
+				
+				cl.nombre = nombre.text;
+				cl.apellido = apellido.text;
+				cl.apellido2 = apellido2.text;
+				cl.rut =  rut.text;
+				cl.rut2 = rut2.text;
+				cl.telefono = telefono.text;
+				cl.telefono2 = telefono2.text;
+				cl.celular = celular.text;
+				cl.celular2 = celular2.text;
+				cl.direccion = direccion.text;
+				cl.region = region.text;
+				cl.comuna = comuna.text;
+				cl.email = email.text;
+				cl.email2 = email2.text;  
+				var c:String;
+				var aux:int;
+				var numeroArray:Array = new Array();
+				var largo:int = numeroArray.length - 1;
+				var x:int;
+				var validarNombre:ValidationResultEvent =nombreValidator.validate(); 
+			    var validarApellido:ValidationResultEvent=ApellidoValidator.validate(); 
+				var validarApellido2:ValidationResultEvent=Apellido2Validator.validate();
+				var validarRut1:ValidationResultEvent=rutValidator.validate(); 
+				var validarRut2:ValidationResultEvent=rut2Validator.validate();
+				var validarTelefono:ValidationResultEvent=telefonoValidator.validate(); 
+				var validarTelefono2:ValidationResultEvent=telefono2Validator.validate();
+				var validarCelular:ValidationResultEvent=celularValidator.validate(); 
+				var validarCelular2:ValidationResultEvent=celular2Validator.validate();
+				var validarDireccion:ValidationResultEvent=direccionValidator.validate(); 
+				var validarEmail:ValidationResultEvent=emailValidator.validate();
+				var validarEmail2:ValidationResultEvent=email2Validator.validate();
+				
+				if(validarNombre.type != ValidationResultEvent.VALID){
+					return "Ingrese Nombre Del Cliente";
+				}
+				
+				else if(validarApellido.type != ValidationResultEvent.VALID){
+					
+					return "Ingrese Apellido Paterno Del Cliente";	
+				}
+				
+				else if(validarApellido2.type != ValidationResultEvent.VALID){
+					return "Ingrese Apellido Materno Del Cliente";	
+				}
+				
+				else if(validarRut1.type != ValidationResultEvent.VALID){
+					return "Ingrese El Rut";
+				}
+				
+				else if(validarRut2.type != ValidationResultEvent.VALID){
+					return "Ingrese El Codigo Identificador";
+				}
+				
+				else if(validarTelefono.type != ValidationResultEvent.VALID){
+					return "Ingrese El Codigo De Ciudad";
+				}
+				
+				else if(validarTelefono2.type != ValidationResultEvent.VALID){
+					return "Ingrese El Telefono";
+				}
+				
+				else if(validarCelular.type != ValidationResultEvent.VALID){
+					return "Ingrese El Codigo De Celular";
+				}
+				
+				else if(validarCelular2.type != ValidationResultEvent.VALID){
+					return "Ingrese El Celular";
+				}
+				
+				else if(validarDireccion.type != ValidationResultEvent.VALID){
+					return "Ingrese La Direccion";
+				}
+				
+				else if(validarEmail.type != ValidationResultEvent.VALID){
+					return "Ingrese El E-mail";
+				}
+				
+				else if(email.text!=email2.text){
+					limpiarEmail();
+				}
+				
+				else if(validarEmail2.type != ValidationResultEvent.VALID){
+					return "Ingrese La Confirmación De E-Mail";
+				}
+		
+				else if(rut.text!="" && rut2.text!=""){
+					c= rw.Valida_Rut(rut.text,rut2.text);
+					if(c=="TRUE"){
+						//return c;
+					}
+					
+					else{
+						limpiarRut();
+						return c;					
+					}
+									
+				}
+				
+				if(validarNombre.type == ValidationResultEvent.VALID && validarApellido.type == ValidationResultEvent.VALID && validarApellido2.type == ValidationResultEvent.VALID && validarRut1.type == ValidationResultEvent.VALID && validarRut1.type == ValidationResultEvent.VALID && validarRut2.type == ValidationResultEvent.VALID && validarTelefono.type == ValidationResultEvent.VALID && validarTelefono2.type == ValidationResultEvent.VALID && validarCelular.type == ValidationResultEvent.VALID&& validarCelular2.type == ValidationResultEvent.VALID && validarDireccion.type == ValidationResultEvent.VALID && validarEmail.type == ValidationResultEvent.VALID && validarEmail2.type == ValidationResultEvent.VALID){
+					var r:ClienteServer= new ClienteServer();
+					r.nuevoCliente(cl);
+					//Alert.show('Ingresado Los Datos Con Exito');
+					//cl.agregarCliente(nombre,apellido,apellido2,rut,rut2,telefono,telefono2,celular,celular2,direccion,region,comuna,email,email2);
+					r.addEventListener(ResultEvent.RESULT,resultHandler);	
+					Alert.show("Registro Finalizado");
+					limpiarTodo();
+					//return "new";
+					
+				}				
+						
+				return "";
+				
 			}
 			
-			//Aqui va la informacion que ustedes reciban desde el panel, que quieran enviar a la capa logica.
-				
-			public function getInfoComp():String
+			private function resultHandler(event:ResultEvent):void
 			{
-				texto2 = nombreClienteIng.text;
-				texto3 = rutClienteSinVerificador.text;
-				texto4 = verificadorCliente.text;
-				texto5 = redFijaCliente.text;
-				texto6 = celularCliente.text;
-				texto7 = calleNroCliente.text;
-				texto8 = comunaCliente.text;
-				texto9 = correoIngCliente.text;
-				
-				texto2 = texto2.concat("&");
-				texto2 = texto2.concat(texto3);
-				
-				texto2 = texto2.concat("&");
-				texto2 = texto2.concat(texto4);
-				
-				texto2 = texto2.concat("&");
-				texto2 = texto2.concat(texto5);
-				
-				texto2 = texto2.concat("&");
-				texto2 = texto2.concat(texto6);
-				
-				texto2 = texto2.concat("&");
-				texto2 = texto2.concat(texto7);
-				
-				texto2 = texto2.concat("&");
-				texto2 = texto2.concat(texto8);
-				
-				texto2 = texto2.concat("&");
-				texto = texto2.concat(texto9);
-				
-				return texto;
+				var message:String= event.result as String;
+                //Alert.show(message);
 			}
+
+/**
+* Este metodo se encarga de limpiar los campos del
+* Rut si este es incorrecto, para que el usuario pueda tener mejor
+* Manejo de lugar donde se produjo el error. 
+* 
+* @langversion ActionScript 3.0
+*
+
+*/					
+			public function limpiarRut():void
+			{
+				rut.text= "";
+				rut2.text = "";				
+			}
+
+/**
+* Este metodo se encarga de limpiar los campos de la
+* confirmacion del mailporque tiene que tener un grado de concordancia
+* al email ingresado en el textInput anterior. 
+* 
+* @langversion ActionScript 3.0
+*
+*/			
+			public function limpiarEmail():void
+			{
+				email2.text = "";				
+			}
+
+/**
+* Este metodo se encarga de limpiar todos los  campos de la
+* componente, una vez ingresados los datos  a la base de datos,
+* sin mayor problema.
+* 
+* @langversion ActionScript 3.0
+*
+*/	
 			
-			//hay q mencionar q los arreglos sacan los datos con pop(), por lo tanto sacan el ultimo dato q se ingreso
-			//ustedes deciden si colocan al ultimo el primer dato que necesiten, o lo colocan normal, y asignan desde la ultima variable a la primera.
-			public function setInfoComp(s1:String):void
+			public function limpiarTodo():void
 			{
-				
+				nombre.text="";
+				apellido.text="";
+				apellido2.text="";
+				rut.text="";
+				rut2.text="";
+				telefono.text="";
+				telefono2.text="";
+				celular.text="";
+				celular2.text="";
+				direccion.text="";
+				email.text = "";
+				email2.text = "";				
 			}
+		
 		]]>
 	</mx:Script>
 	
+	<mx:Label x="20" y="30" text="Nombre:" width="97" />
+	<mx:TextInput restrict="A-Z a-z - ´"   x="125" y="28" width="201" id="nombre"  maxChars="12"/>	
+	<mx:StringValidator id="nombreValidator" requiredFieldError="holas" source="{nombre}" property="text" />
 	
-	<mx:Label x="10" y="14" text="Nombre" width="97"/>
-	<mx:TextInput x="127" y="10" width="220" id="nombreClienteIng"/>
-	<mx:TextInput x="127" y="40" width="145" id="rutClienteSinVerificador"/>
-	<mx:Label x="10" y="44" text="Rut" width="97"/>
-	<mx:Label x="10" y="190" text="Correo electrónico" width="109"/>
-	<mx:Label x="10" y="128" text="Calle Nº" width="97"/>
-	<mx:TextInput x="307" y="40" width="40" id="verificadorCliente"/>
-	<mx:Label x="280" y="42" text="-" textAlign="center"/>
-	<mx:Label x="10" y="72" text="Telefono red fija" width="97"/>
-	<mx:TextInput x="127" y="68" width="220" id="redFijaCliente"/>
-	<mx:Label x="10" y="158" text="Comuna" width="97"/>
-	<mx:ComboBox x="127" y="156" width="220" id="comunaCliente">
-		<mx:ArrayCollection>
-	    	<mx:Object label="" data="_"/>
-	    </mx:ArrayCollection>
+	<mx:StringValidator id="ApellidoValidator" requiredFieldError="fsasad" source="{apellido}" property="text" />
+	<mx:Label x="20" y="79" text="Apellido Paterno:" width="112" />
+	<mx:TextInput restrict="A-Z a-z -" x="125" y="77" width="201" id="apellido" maxChars="12"/>
+	
+	
+	<mx:Label x="20" y="128" text="Apellido Materno:" width="112" />
+	<mx:TextInput restrict="A-Z a-z \-" x="125" y="126" width="201" id="apellido2" maxChars="12"/>
+	<mx:StringValidator id="Apellido2Validator" requiredFieldError="Ingrese El Apellido Materno " source="{apellido2}" property="text" />
+	
+	<mx:Label x="20" y="177" text="Rut:" width="97"/>
+	<mx:TextInput restrict="0-9" x="125" y="175" width="140" id="rut" maxChars="8"/>	
+	<mx:StringValidator id="rutValidator" requiredFieldError="Ingrese El Rut" source="{rut}" property="text" />
+	<mx:Label x="169" y="275" text="-" textAlign="center"/>
+	<mx:TextInput restrict="0-9 K k" x="290" y="175" width="36" id="rut2" maxChars="1"/>
+	<mx:StringValidator id="rut2Validator" requiredFieldError="Ingrese Codigo Identificador" source="{rut2}" property="text" />
+	
+	<mx:Label x="20" y="226" text="Teléfono Fijo:" width="97"/>
+	<mx:TextInput restrict="0-9" x="125" y="224" width="40" id="telefono" maxChars="3"/>
+	<mx:StringValidator id="telefonoValidator" requiredFieldError="Ingrese Codigo De Ciudad" source="{telefono}" property="text" />
+	<mx:Label x="268" y="177" text="-" textAlign="center"/>
+	<mx:TextInput restrict="0-9" x="190" y="224" width="136" id="telefono2" maxChars="10"/>
+	<mx:StringValidator id="telefono2Validator" requiredFieldError="Ingrese Telefono" source="{telefono2}" property="text" />
+	
+	<mx:Label x="20" y="275" text="Celular:" width="97"/>
+	<mx:TextInput restrict="0-9" x="125" y="273" width="40" id="celular" maxChars="2"/>
+	<mx:StringValidator id="celularValidator" requiredFieldError="Ingrese Codigo Del Celular" source="{celular}" property="text" />
+	<mx:Label x="169" y="226" text="-" textAlign="center"/>
+	<mx:TextInput restrict="0-9" x="190" y="273" width="136" id="celular2" maxChars="10"/>
+	<mx:StringValidator id="celular2Validator" requiredFieldError="Ingrese Del Celular" source="{celular2}" property="text" />
+	
+	<mx:Label x="413" y="30" text="Dirección:" width="97"/>
+	<mx:TextInput restrict="A-Z a-z 0-9 # ´"  x="540" y="28" width="201" id="direccion" maxChars="20"/>
+	<mx:StringValidator id="direccionValidator" requiredFieldError="Ingrese La Direccion" source="{direccion}" property="text" />
+	
+	<mx:Label x="413" y="79" text="Región:" width="112"/>
+	<mx:ComboBox x="540" y="77" width="201" id="region">
+	<mx:dataProvider>
+	<mx:Array>
+	<mx:String>---</mx:String>
+	<mx:String>Tarapaca</mx:String>
+	<mx:String>Antofagasta</mx:String>
+	<mx:String>Atacama</mx:String>
+	<mx:String>Coquimbo</mx:String>
+	<mx:String>Valparaiso</mx:String>
+	<mx:String>Libertador Bernardo O´higgins</mx:String>
+	<mx:String>Maule</mx:String>
+	<mx:String>Bio-Bio</mx:String>
+	<mx:String>Araucanía</mx:String>
+	<mx:String>De Los Lagos</mx:String>
+	</mx:Array>
+	</mx:dataProvider>	
 	</mx:ComboBox>
-	<mx:TextInput x="127" y="126" width="220" id="calleNroCliente"/>
-	<mx:Label x="10" y="100" text="Celular" width="97"/>
-	<mx:TextInput x="127" y="188" width="220" id="correoIngCliente"/>
-	<mx:Button x="135" y="277" width="102" label="Guardar" id="guardarClienteIng">
+	
+	<mx:Label x="413" y="128" text="Comuna:" width="112"/>
+	<mx:ComboBox x="540" y="126" width="201" id="comuna">
+	<mx:Array>
+	<mx:String>---</mx:String>
+	<mx:String>Curico</mx:String>
+	<mx:String>Talca</mx:String>
+	<mx:String>Linares</mx:String>
+	<mx:String>Teno</mx:String>
+	<mx:String>Romeral</mx:String>
+	<mx:String>Molina</mx:String>
+	</mx:Array>		
+	</mx:ComboBox>
+	
+	<mx:Label x="413" y="177" text="E-Mail:" width="97"/>
+	<mx:TextInput x="539" y="175" width="201" id="email" maxChars="20"/>	
+	
+    <mx:Label x="413" y="226" text="Confirmación E-mail:" width="132"/>
+	<mx:TextInput x="539" y="224" width="201" id="email2" maxChars="20"/>
+	<mx:StringValidator id="email2Validator" requiredFieldError="Ingrese La Confirmación De E-Mail" source="{email2}" property="text" />
+	
+    <mx:EmailValidator id="emailValidator" requiredFieldError="Complete su email" source="{email}" property="text" invalidCharError="Caracteres inválidos"
+      invalidDomainError= "El dominio no es válido"
+      missingAtSignError="Necesita una @ en su email"
+      missingPeriodInDomainError= "Necesita un nombre de dominio" />
+
+	
+	<mx:Button x="523" y="302" width="102" label="Editar" id="guardarClienteIng" click="{sendMessage()}" height="23" cornerRadius="6">
 	</mx:Button>
-	<mx:Button x="245" y="277" width="102" label="Cancelar" id="cancelarClienteIng">
-	</mx:Button>
-	<mx:TextInput x="127" y="98" width="220" id="celularCliente"/>
-	<mx:DataGrid x="389" y="37" width="360" height="171">
-		<mx:columns>
-			<mx:DataGridColumn headerText="Nombre" dataField="col1"/>
-			<mx:DataGridColumn headerText="Raza" dataField="col2"/>
-			<mx:DataGridColumn headerText="ID" dataField="col3"/>
-		</mx:columns>
-	</mx:DataGrid>
-	<mx:Label x="389" y="12" text="Mascotas del cliente" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
-	<mx:Button x="620" y="215.95" label="Registrar Mascota"/>
+	
+	<mx:Button x="647" y="302" width="102" label="Cancelar" id="cancelarClienteIng" height="23" cornerRadius="6">
+	</mx:Button>	
+	<mx:Label x="169" y="372" width="407" textAlign="center" fontWeight="bold" height="17"/>
+
 	
 </mx:Panel>
