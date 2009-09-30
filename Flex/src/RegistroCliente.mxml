@@ -14,7 +14,7 @@
 		import mx.controls.Text;
 		import mx.controls.Alert;
 		import mx.rpc.events.ResultEvent;			
-		import services.ClienteServer;
+		import services.Cliente;
 		import services.validarRut;
         import mx.events.ValidationResultEvent; 
         import transferObjects.ClienteTO;
@@ -141,11 +141,11 @@
 				}
 				
 				if(validarNombre.type == ValidationResultEvent.VALID && validarApellido.type == ValidationResultEvent.VALID && validarApellido2.type == ValidationResultEvent.VALID && validarRut1.type == ValidationResultEvent.VALID && validarRut1.type == ValidationResultEvent.VALID && validarRut2.type == ValidationResultEvent.VALID && validarTelefono.type == ValidationResultEvent.VALID && validarTelefono2.type == ValidationResultEvent.VALID && validarCelular.type == ValidationResultEvent.VALID&& validarCelular2.type == ValidationResultEvent.VALID && validarDireccion.type == ValidationResultEvent.VALID && validarEmail.type == ValidationResultEvent.VALID && validarEmail2.type == ValidationResultEvent.VALID){
-					var r:ClienteServer= new ClienteServer();
-					r.nuevoCliente(cl);
+					//var r:Cliente= new Cliente();
+					//r.nuevoCliente(cl);
 					//Alert.show('Ingresado Los Datos Con Exito');
 					//cl.agregarCliente(nombre,apellido,apellido2,rut,rut2,telefono,telefono2,celular,celular2,direccion,region,comuna,email,email2);
-					r.addEventListener(ResultEvent.RESULT,resultHandler);	
+					//r.addEventListener(ResultEvent.RESULT,resultHandler);	
 					Alert.show("Registro Finalizado");
 					limpiarTodo();
 					//return "new";
