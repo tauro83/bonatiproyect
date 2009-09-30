@@ -142,6 +142,7 @@
             
             <!--Autor: Jimmy Muñoz{-->
             private function mostrarEditFicha ( event:Event ):void{
+				AdEditFicha2.getFichas();
             	setInvisible();
                	AdmOpciones1.setVisible(true,false);
             	AdEditFicha2.setVisible(true,false);
