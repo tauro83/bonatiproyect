@@ -1,192 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Editar Ficha" initialize="Llenar2()" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Editar Ficha" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
-		//initialize="Llenar2()"
-		
-		import mx.collections.ArrayCollection;
+			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import transferObjects.Person;
 			import mx.rpc.events.ResultEvent;
 			import services.PersonService;
+			//import Application.core.application;
+			import mx.core.Application;
+
 			[Bindable]
 			private var persons:ArrayCollection;
 			private var auxiliar:ArrayCollection;
+			
+			
 			private function getAllPersons():void
 			{
 				var personService:PersonService=new PersonService();
 				personService.addEventListener(ResultEvent.RESULT,getAllPersonsResult);
 				personService.getAllPersons();
 			}
-			//Clientes
+			
 			private function getAllPersonsResult(event:ResultEvent):void
 			{
 				persons = event.result as ArrayCollection;
 				auxiliar = persons;
 			}
-			/*
-			private function insertPerson():void
-			{
-				var person:Person= new Person();
-				person.rut=rutInput.text;
-				person.name=nameInput.text;
-				person.lastName=lastNameInput.text;
-				
-				var personService:PersonService=new PersonService();
-				personService.addEventListener(ResultEvent.RESULT,insertPersonResult);
-				personService.insertPerson(person);
-			}
-			*/
-			private function insertPersonResult(event:ResultEvent):void
-			{
-				var result:int = event.result as int ;
-				if(result>0)
-				{
-				   Alert.show("Ususario ingresado!");
-				   getAllPersons();
-				}
-				else
-				   Alert.show("Ususario NO ingresado!");
-			}
-		
-		
-		//////////////////////////////////////////////////////////////////////////
-		//////////////////////////aqui empieza lo mio//////////////////////////////
-		///////////////////////////////////////////////////////////////////////7
-			  import mx.controls.Alert;
-			  import mx.collections.ArrayCollection; 
-			  import mx.core.Application;         
-			// ocupen la variable que quieran, no necesariamente estas.
-            public var texto:String;
-            public var saveEvent:String;
-            
-           
-			
-			//hay q mencionar q los arreglos sacan los datos con pop(), por lo tanto sacan el ultimo dato q se ingreso
-			//ustedes deciden si colocan al ultimo el primer dato que necesiten, o lo colocan normal, y asignan desde la ultima variable a la primera.
-			public function setInfoComp(s1:String):void
-			{
-			}
-			
-			
-         
-         [Bindable]
-         public var Cliente:ArrayCollection;
-         
-         public function Llenar():void{
-            Cliente = new ArrayCollection();
-            Cliente.addItem({Rut:"14051773-2",Nombre:"Sapo",ApellidoPaterno:"Lopez"});
-            Cliente.addItem({Rut:"13051773-2",Nombre:"Borrego",ApellidoPaterno:"Diaz"});
-            Cliente.refresh();
-         }
-         
-         [Bindable]
-         public var Clientes:Array;     
-             
-         //////EDITANDO/////
-         
-         
-         public function Llenar3():void
-         {
-         	//[Bindable]
-            //ArrayCollection.source=array;
-			
-            //ARRAYCOLLECTION.SOURCE = NEW ARRAY().
-            
-            
-            cbx_FiltroRegistroUsuario.selectedIndex=2;
-         	Clientes = new Array();
-         	Clientes =
-         	[ 
-			{Rut:"14051746-1",Nombre:"Angelina",ApellidoPaterno:"Jolie"}, 
-			{Rut:"12001573-2",Nombre:"Angelina",ApellidoPaterno:"Parada"},
-			{Rut:"10999666-9",Nombre:"Carlos",ApellidoPaterno:"Cuevas"},
-			{Rut:"17342318-k",Nombre:"Eva",ApellidoPaterno:"Santelices"},
-			];
-         
-         }
-         
-         /////TERMINA EDITAR/////
-         public function Llenar2():void
-         {         	
-         	
-         	cbx_FiltroRegistroUsuario.selectedIndex=2;
-         	Clientes = new Array();
-         	Clientes =
-         	[ 
-			{Rut:"14051746-1",Nombre:"Angelina",ApellidoPaterno:"Jolie"}, 
-			{Rut:"12001573-2",Nombre:"Angelina",ApellidoPaterno:"Parada"},
-			{Rut:"10999666-9",Nombre:"Carlos",ApellidoPaterno:"Cuevas"},
-			{Rut:"17342318-k",Nombre:"Eva",ApellidoPaterno:"Santelices"},
-			];
-         }
-         
-         public function UnClick():void
-         {
-         	//var clienteSeleccionado: Object;
-         	//clienteSeleccionado = EdicionUsuario.selectedItem.valueOf();         	
-         	//var nom:String = clienteSeleccionado.ApellidoPaterno;
-         	
-         	var nom:String = EdicionUsuario.selectedItem.Rut;
-         	//Alert.show(nom);
-         	saveEvent ="";
-         	Application.application.AdEditarCliente.setVisible(false,false);
-         	Application.application.AdmIngreso2.setVisible(true,false);
-         	
-         	//AdmIngreso2.cancelarClienteIng.addEventListener(MouseEvent.CLICK, inicial);
-         	/////////////////
-         	///////////////////
-         	//////////////////
-         	
-         	
-         }
-         
-         private function filtrar(element:*, index:int, arr:Array):Boolean
-         {
-			var res:Boolean=true;
-			try
-			{
-		    	if(cbx_FiltroRegistroUsuario.selectedItem == 'Rut')
-		    	{
-		    		res = (element.Rut.toLocaleLowerCase().search(txi_FiltroRegistroUsuario.text.toLocaleLowerCase())>=0)&& res;
-		    	}
-		    	if(cbx_FiltroRegistroUsuario.selectedItem == 'Nombre')
-		    	{
-		    		res = (element.Nombre.toLocaleLowerCase().search(txi_FiltroRegistroUsuario.text.toLocaleLowerCase())>=0)&& res;
-		    	}
-		    	if(cbx_FiltroRegistroUsuario.selectedItem == 'Apellido Paterno')
-		    	{
-		    		res = (element.ApellidoPaterno.toLocaleLowerCase().search(txi_FiltroRegistroUsuario.text.toLocaleLowerCase())>=0)&& res;
-		    	}
-			}
-		    catch(error:Error)
-		    {
-		    }
-		    return res;
-		 }
 
 		]]>
 	</mx:Script>
-	<mx:DataGrid y="66" height="294" dataProvider="{Clientes}" id="EdicionUsuario" left="10" right="20" click="{UnClick()}">
-		<mx:columns>
-		    <mx:DataGridColumn headerText="Rut Dueño" dataField="Rut" width="120"/>
-			<mx:DataGridColumn headerText="Nombre" dataField="Nombre" width="120"/>
-		</mx:columns>
-	</mx:DataGrid>
-	<mx:Label x="10" y="40" text="Seleccionar  Todo"/>
-	<mx:Button label="Editar" height="23" width="102" x="527" y="368" click="editarUser(event)" cornerRadius="6"/>
-	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center"/>
+	<mx:Button label="Editar" height="23" width="102" x="527" y="368" cornerRadius="6"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="637" y="368" label="Cancelar" width="102" height="23" cornerRadius="6"/>
-	<mx:TextInput x="66" y="10" width="158" id="txi_FiltroRegistroUsuario" change="{EdicionUsuario.dataProvider = Clientes.filter(filtrar)}" />
-	<mx:ComboBox x="322" y="10" width="168" id="cbx_FiltroRegistroUsuario" close="">
-		<mx:dataProvider>
-			<mx:String>Seleccione tipo</mx:String>
-			<mx:String>Rut</mx:String>
-			<mx:String>Nombre</mx:String>
-			<mx:String>Apellido Paterno</mx:String>
-		</mx:dataProvider>				
-	</mx:ComboBox>
-	<mx:Label text="Filtrar por" fontWeight="bold" color="#0B333C" x="232" y="14"/>
-	<mx:Label text="Buscar" fontWeight="bold" color="#0B333C" x="12" y="14" width="67"/>
-
+	<mx:Label x="10" y="202" text="Fecha: " width="93"/>
+	<mx:Label x="9.95" y="280" text="Costo: " width="93"/>
+	<mx:Label x="10" y="228" text="Servicio:" width="93"/>
+	<mx:Label x="393.7" y="202" text="Descripción: " width="93"/>
+	<mx:Label x="9.95" y="254" text="Responsable: " width="93"/>
+	<mx:Label x="24.15" y="36" text="Nombre:" width="78"/>
+	<mx:Label x="24.15" y="10" text="Datos cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="393.7" y="9.95" text="Datos mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="24.15" y="62" text="Rut:" width="78"/>
+	<mx:Label x="393.7" y="93.95" text="Sexo:" width="78"/>
+	<mx:Label x="393.7" y="119.95" text="Fecha nacimiento:" width="107"/>
+	<mx:Label x="393.7" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="24.15" y="88" text="Teléfono:" width="78"/>
+	<mx:Label x="393.7" y="66" text="Raza:" width="78"/>
+	<mx:TextInput x="127.1" y="34" width="217.75" editable="false" id="nombUs"/>
+	<mx:TextInput x="127.1" y="64" width="112" editable="false" height="20" id="rutLargo"/>
+	<mx:TextInput x="256.1" y="64" width="19.75" editable="false" height="20" id="rutIdent"/>
+	<mx:TextInput x="127.1" y="92" width="148.75" editable="false" height="20" id="fonoCli"/>
+	<mx:TextInput x="512.25" y="33.95" width="138.75" editable="false" height="20" id="nombMasc"/>
+	<mx:TextInput x="512.25" y="64" width="92.9" editable="false" height="20" id="raz"/>
+	<mx:TextInput x="512.25" y="91.95" width="92.9" editable="false" height="20" id="sexoMasc"/>
+	<mx:TextInput x="512.25" y="117.95" width="92.9" editable="false" height="20" id="fechaNac"/>
+	<mx:Label x="10" y="176" text="Datos de la atención" width="137" fontWeight="bold"/>
+	<mx:TextInput x="122.1" y="200" width="92.9" editable="false" height="20" id="fechaAtencion"/>
+	<mx:TextInput x="122.1" y="226" width="92.9" editable="false" height="20" id="servicioAtencion"/>
+	<mx:Label x="235.1" y="66" text="-" width="26" textAlign="center"/>
+	<mx:TextInput x="122.1" y="252" width="139" id="respAten" editable="false"/>
+	<mx:TextInput x="122.1" y="278" width="93.15" id="costAten" editable="false"/>
+	<mx:TextArea x="494.7" y="201" width="217.85" height="137"/>
 </mx:Panel>

@@ -188,7 +188,7 @@
 	</mx:DataGrid>
 	<mx:Button label="Editar" height="23" width="102" x="537" y="393" click="editarUser(event)" cornerRadius="6"/>
 	<mx:Label x="10" y="10" text="Seleccionar Usuario:"/>
-	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="647" y="393" label="Cancelar" width="102" height="23" cornerRadius="6"/>
 	<mx:Label x="571.95" y="19" text="&lt; Anterior" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
 	<mx:Label x="678.95" y="19" text="Siguiente &gt;" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
