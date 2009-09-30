@@ -68,7 +68,7 @@
 				<mx:CategoryAxis dataProvider="{testInfo}" categoryField="name"/>
 			</mx:horizontalAxis>
 			<mx:series>
-				<mx:ColumnSeries showDataEffect="{changeEffect}" xField="name" yField="sat" displayName="Atenciones mas solicitadas"/>
+				<mx:ColumnSeries showDataEffect="{changeEffect}" xField="name" yField="sat" displayName="N° de atenciones realizadas"/>
 			</mx:series>
 		</mx:ColumnChart>
 		
@@ -79,7 +79,7 @@
 		</mx:HBox>
 		
 		<!--Legend for Chart Data-->
-		<mx:Legend dataProvider="{chartEstadisticaClinica}" width="180"/>
+		<mx:Legend horizontalAlign="center" dataProvider="{chartEstadisticaClinica}" width="200"/>
 		
 	</mx:Panel>
 </mx:VBox>
