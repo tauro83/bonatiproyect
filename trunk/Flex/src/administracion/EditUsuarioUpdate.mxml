@@ -276,5 +276,5 @@
 	<mx:Label x="24" y="144" text="Cargo:"/>
 	<mx:Label x="27" y="229" text="Servicio:" textAlign="left"/>
 	<mx:Label x="27" y="271" text="Permiso"/>
-	<mx:Label x="165" y="362" width="407" height="17" id="labelMessage" textAlign="center"/>
+	<mx:Label x="165" y="362" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 </mx:Panel>
