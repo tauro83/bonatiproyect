@@ -17,7 +17,7 @@
 	<mx:LinkButton x="34" y="69" label="Eliminar" textAlign="left"/>
 	<mx:LinkButton x="10" y="331" label="Usuario" textAlign="left"/>
 	<mx:LinkButton x="34" y="270" label="Registrar" id="linkMascotaAdm0" textAlign="left"/>
-	<mx:LinkButton x="32" y="203" label="Editar" textAlign="left"/>
+	<mx:LinkButton x="32" y="203" label="Editar" textAlign="left" id="linkEditFicha"/>
 	<mx:LinkButton x="32" y="223" label="Eliminar" textAlign="left"/>
 	<mx:LinkButton x="32" y="223" label="Eliminar" textAlign="left" id="linkEliminarFicha"/>
 	<mx:LinkButton x="32" y="240" label="Purgar" textAlign="left" id="linkPurgarFicha"/>
