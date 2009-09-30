@@ -98,26 +98,37 @@
                 
                 botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
                 
-				//Jimmy Muñoz Implementacion
+				<!--Autor: Jimmy Muñoz{-->
 				AdmOpciones1.linkEditarUsAd.addEventListener(MouseEvent.CLICK,linkeditUsAd);
+				AdmOpciones1.linkEditFicha.addEventListener(MouseEvent.CLICK,mostrarEditFicha);
 				AdEditarUsuar3.guardarUsuario.addEventListener(MouseEvent.CLICK,editarUsuario);
 				AdEditarUsuar3.cancGuardar.addEventListener(MouseEvent.CLICK,linkeditUsAd);
+				<!--Autor: }Jimmy Muñoz -->
             }
             
-            
-         
-            //Jimmy Muñoz
+            <!--Autor: Jimmy Muñoz{-->
+            private function mostrarEditFicha ( event:Event ):void{
+            	setInvisible();
+               	AdmOpciones1.setVisible(true,false);
+            	AdEditFicha2.setVisible(true,false);
+            }
+            <!--Autor: }Jimmy Muñoz -->
+         	
+            <!--Autor: Jimmy Muñoz{-->
             private function linkeditUsAd ( event:Event ):void{
             	AdEditarUsuar2.getAllUsuarios(AdEditarUsuar3);
             	setInvisible();
                	AdmOpciones1.setVisible(true,false);
             	AdEditarUsuar2.setVisible(true,false);
-            	
             }
-            //Jimmy Muñoz
+            <!--Autor: }Jimmy Muñoz -->
+            
+            
+            <!--Autor: Jimmy Muñoz{-->
             private function editarUsuario( event:Event ):void{
             	AdEditarUsuar2.insertUsuarioE();    
             }
+            <!--Autor: }Jimmy Muñoz -->
             
             private function setInvisible ():void{
             	//camilo verdugo
@@ -165,7 +176,11 @@
             	login2.setVisible(false,false);
             	busqueda2.setVisible(false,false);
             	huespedAgregado2.setVisible(false,false);
+            	
+            	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
+            	AdEditFicha2.setVisible(false,false);
+            	<!--Autor: }Jimmy Muñoz -->
             	
             	<!--Autor: Andres G.{-->
             	graficosClinica1.setVisible(false,false);
@@ -661,4 +676,6 @@
 	</ns2:EditarUsuario>	
 	<ns1:Bitacora id="bitacora" x="241" y="134" visible="false">
 	</ns1:Bitacora>
+	<ns2:EditarFicha x="241" y="133" id="AdEditFicha2" visible="false">
+	</ns2:EditarFicha>
 </mx:Application>
