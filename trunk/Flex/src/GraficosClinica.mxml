@@ -13,6 +13,7 @@
 		
 		//XML List for loaded XML file. Must be bindable!
 		[Bindable]private var testInfo:XMLList;
+		private var periodo:String;
 		
 		private function xmlHandler(evt:ResultEvent):void{
 			//Sets testInfo's root as the atenciones. Everything else referenced in respect to this.
@@ -24,17 +25,21 @@
 			switch (dataSet){
 				case ('set1'):
 					//Set URL target to pabellon
-					testData.url ="assets/pabellon.xml";
+					testData.url ="assets/"+periodo+"pabellon.xml";
 					break;
 				case ('set2'):
 					//Set URL target to policlinico
-					testData.url ="assets/policlinico.xml";
+					testData.url ="assets/"+periodo+"policlinico.xml";
 					break;
 				default:
 					break;
 			}
 			//Envia el URL Request para actualizar el grafico
 			testData.send();
+		}
+		public function setTipoDatos(periodo:String):void{
+			//Determina qué periodo es el que mostraremos en el chart
+			this.periodo=periodo;
 		}
 		
 		]]>
@@ -53,7 +58,7 @@
 				<mx:CategoryAxis dataProvider="{testInfo}" categoryField="name"/>
 			</mx:horizontalAxis>
 			<mx:series>
-				<mx:ColumnSeries showDataEffect="{changeEffect}" xField="name" yField="sat" displayName="Frecuencia de uso"/>
+				<mx:ColumnSeries showDataEffect="{changeEffect}" xField="name" yField="sat" displayName="Atenciones mas solicitadas"/>
 			</mx:series>
 		</mx:ColumnChart>
 		
@@ -64,7 +69,7 @@
 		</mx:HBox>
 		
 		<!--Legend for Chart Data-->
-		<mx:Legend dataProvider="{chartEstadisticaClinica}" width="145"/>
+		<mx:Legend dataProvider="{chartEstadisticaClinica}" width="180"/>
 		
 	</mx:Panel>
 </mx:VBox>
