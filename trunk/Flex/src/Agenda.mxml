@@ -96,7 +96,7 @@
                             <mx:DataGridColumn headerText="Cliente"/>
                             <mx:DataGridColumn headerText="Mascota"/>
                             <mx:DataGridColumn headerText="Servicio"/>
-                            <mx:DataGridColumn headerText="Usuario"/>
+                            <mx:DataGridColumn headerText="Encargado"/>
                         </mx:columns>
                     </mx:DataGrid>
                 </mx:Canvas>
