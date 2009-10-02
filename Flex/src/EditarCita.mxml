@@ -8,7 +8,40 @@
             import mx.managers.PopUpManager;
             import mx.containers.TitleWindow;
             import flash.geom.Point;
+            import mx.core.Application;
+            import mx.controls.Alert;
             
+            
+            private function iniciarAgenda():void{
+            	var fechaActual:Date = new Date();
+            	
+            	usuarioInput.dataProvider = ["Todos", "Claudio Bonati", "Patricio Castro"];
+            	servicioInput.dataProvider = ["Todos", "Pabellón", "Peluquería", "Policlínico", "Atención a domicilio"];
+            	
+            	
+            	
+            }     
+            
+            public function guardaEditaCita(event:Event = null):void
+			{
+				
+			    //Alert.show(selectedRow.hora);
+			    Application.application.agenda2.setVisible(true);
+			    Application.application.editarCita.setVisible(false);
+			    Application.application.agenda2.labelMessage.text="Su Cita ha sido Modificada";
+			    
+			    
+			}
+			
+			public function cancelarEditaCita(event:Event = null):void
+			{
+				
+			    //Alert.show(selectedRow.hora);
+			    Application.application.agenda2.setVisible(true);
+			    Application.application.editarCita.setVisible(false);
+			    Application.application.agenda2.labelMessage.text="Usted ha cancelado la operación";
+			    
+			}
              
             
             
@@ -23,19 +56,19 @@
 	<mx:Label x="10" y="106" text="Fecha         :" width="145"/>
 	<mx:Label x="10" y="156" text="Hora          :" width="145"/>
 	<mx:DateField x="163" y="104" width="115"/>
-	<mx:ComboBox x="163" y="154">
+	<mx:ComboBox id="hora" x="163" y="154">
 	
 	</mx:ComboBox>
 	<mx:Label x="10" y="203" text="Servicio      :" width="145"/>
-	<mx:ComboBox x="163" y="201">
+	<mx:ComboBox x="163" y="201" id="servicioInput">
 	
 	</mx:ComboBox>
 	<mx:TextInput id= "dueño" x="163" y="18" text="Gaston Lazo"/>
 	<mx:LinkButton x="331" y="59" label="Buscar" />
-	<mx:Button x="601" y="312" label="Cancelar" width="112"/>
-	<mx:Button x="470" y="312" label="Guardar Cambios" width="123"/>
+	<mx:Button x="601" y="312" label="Cancelar" width="112" click="{cancelarEditaCita()}"/>
+	<mx:Button x="470" y="312" label="Guardar " width="123" click="{guardaEditaCita()}"/>
 	<mx:TextInput id= "dueño2" x="163" y="59" text="seleccione" />
-	<mx:Label x="10" y="263" text="Encargado :" width="145"/>
-	<mx:ComboBox x="163" y="261"></mx:ComboBox>
+	<mx:Label x="10" y="263" text="Responsable :" width="145"/>
+	<mx:ComboBox x="163" y="261" id="usuarioInput"></mx:ComboBox>
 	
 </mx:Panel>

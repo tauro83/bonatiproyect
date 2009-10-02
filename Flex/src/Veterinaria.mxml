@@ -142,7 +142,7 @@
             
             <!--Autor: Jimmy Muñoz{-->
             private function mostrarEditFicha ( event:Event ):void{
-				AdEditFicha2.getFichas();
+            	AdEditFicha2.getFichas();
             	setInvisible();
                	AdmOpciones1.setVisible(true,false);
             	AdEditFicha2.setVisible(true,false);
@@ -248,6 +248,7 @@
             	menuAgenda1.setVisible(true, false);
             }
             public function manejadorAgenda(event:Event):void{
+            	agenda2.labelMessage.text="";
             	setInvisible();
             	agenda2.setVisible(true,false);
             	menuAgenda1.setVisible(true, false);
@@ -418,6 +419,8 @@
             }
             
             private function manejadorClick2 ( event:Event ):void{	
+            	//raullrich borrando labelMensaje 
+            	agenda2.labelMessage.text="";
             	setInvisible();
             	agenda2.setVisible(true,false);
 				menuAgenda1.setVisible(true,false);
@@ -594,13 +597,15 @@
 
 
             //raullrich
-
+            <!--Autor: Raúl López{-->
             private function editCita(event:Event):void
             {
+               agenda2.labelMessage.text="";
                setInvisible();
                editarCita.setVisible(true,false);
                menuAgenda1.setVisible(true, false);
             }
+            <!--Autor: Raúl López{-->
         ]]>
 
     </mx:Script>
