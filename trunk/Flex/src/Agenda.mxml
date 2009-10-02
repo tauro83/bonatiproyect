@@ -18,7 +18,7 @@
                  {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]); 
                  
             private function asignarAgenda(event:Event):void{
-            	usuarioOutput.text = usuarioInput.text;
+            	
             	servicioOutput.text = servicioInput.text;
             }
             private function bloquearDia():void{
@@ -63,7 +63,7 @@
             	usuarioInput.dataProvider = ["Todos", "Claudio Bonati", "Patricio Castro"];
             	servicioInput.dataProvider = ["Todos", "Pabellón", "Peluquería", "Policlínico", "Atención a domicilio"];
             	
-            	usuarioOutput.text = "Todos";
+            	
             	servicioOutput.text = "Todos";
             	fechaOutput.text = fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" +fechaActual.getFullYear();;	
             }     
@@ -73,13 +73,20 @@
 										 "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 				calendario.disabledDays = [0];
 			}
-			public function seleccionarCita(event:Event = null):void
+			public function seleccionarCita(event:Event):void
 			{
 				var selectedRow:Object = event.currentTarget.selectedItem;
 			    //Alert.show(selectedRow.hora);
 			    
 			    Application.application.agenda2.setVisible(false);
 			    Application.application.editarCita.setVisible(true);
+			    Application.application.editarCita.hora.text = selectedRow.hora;
+			    //Application.application.editarCita.usuarioInput.selectedLabel = usuarioInput.text;
+			    
+			   //Alert.show(selectedRow.hora);
+			   //labelMessage.text="Su Cita ha sido Modificado";
+			   
+			   
 			    
 
 			}
@@ -121,7 +128,7 @@
                 </mx:Canvas>
             </mx:VBox>
         </mx:ViewStack>
-        <mx:Label x="10" y="198" text="Encargado:"/>
+        <mx:Label x="10" y="198" text="Responsable:"/>
         <mx:ComboBox id="usuarioInput" x="10" y="224" width="182" close="asignarAgenda(event);">
 		</mx:ComboBox>
         <mx:Label x="10" y="254" text="Servicio:"/>
@@ -135,8 +142,7 @@
         <mx:Text x="200" y="10" text="Fecha:" fontWeight="bold"/>
         <mx:Label id="fechaOutput" x="248" y="10"/>
         <mx:Label id="fechaBloqueadoOutput" x="317" y="10"/>
-        <mx:Text x="10" y="10" text="Encargado:" fontWeight="bold"/>
-        <mx:Label id="usuarioOutput" x="83" y="10"/>
         <mx:Text x="437" y="10" text="Servicio:" fontWeight="bold"/>
         <mx:Label id="servicioOutput" x="491" y="10"/>
+        <mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 </mx:Panel>
