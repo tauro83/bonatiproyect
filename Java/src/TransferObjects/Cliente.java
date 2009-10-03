@@ -6,7 +6,7 @@
 //======================================================================
 package TransferObjects;
 
-public class ClienteTO {
+public class Cliente {
 	
     public String nombre;
     public String apellido;
