@@ -1,4 +1,4 @@
-package Re;gistro
+package Registro;
 
 import java.util.Date;
 import java.sql.SQLException;
