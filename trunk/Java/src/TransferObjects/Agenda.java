@@ -4,6 +4,7 @@ package TransferObjects;
 public class Agenda {
 
 	public String fecha;
+	public String hora;
 	public String encargado;
 	public String servicio;
 	public String mascota;
