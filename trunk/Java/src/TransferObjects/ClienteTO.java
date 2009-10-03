@@ -4,7 +4,7 @@
 // Comentario: Esta Clase adquiere todos los datos ingresados por el cliente
 // desde teclado y son transformados a objetos.
 //======================================================================
-package transferObjects;
+package TransferObjects;
 
 public class ClienteTO {
 	

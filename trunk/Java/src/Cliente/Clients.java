@@ -9,8 +9,9 @@ package Cliente;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import transferObjects.ClienteTO;
-import bd.DBConnectionManager;
+
+import Bd.DBConnectionManager;
+import TransferObjects.ClienteTO;
 import clienteBD.ClienteDB;
 
 
