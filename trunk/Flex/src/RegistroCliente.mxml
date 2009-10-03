@@ -149,7 +149,7 @@
 					w.regCliente(cl);
 					Alert.show("Registro Finalizado");
 					w.addEventListener(ResultEvent.RESULT,registroClienteResultado);
-					limpiarTodo();
+					//limpiarTodo();
 					
 					
 				}				
