@@ -1,0 +1,24 @@
+-- Table: cliente
+
+-- DROP TABLE cliente;
+
+CREATE TABLE cliente
+(
+  nombre character(12),
+  apellido character(12),
+  apellido2 character(12),
+  rut character(8) NOT NULL,
+  rut2 character(1) NOT NULL,
+  telefono character(3),
+  telefono2 character(10),
+  celular character(2),
+  celular2 character(10),
+  direccion character(20),
+  region character(20),
+  comuna character(20),
+  email character(20),
+  email2 character(20),
+  CONSTRAINT rut PRIMARY KEY (rut, rut2)
+) 
+WITHOUT OIDS;
+ALTER TABLE cliente OWNER TO postgres;
