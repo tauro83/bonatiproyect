@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.Date;
 
-import Resgistro.Registro;
+import Registro.Registro;
 
 
 
