@@ -21,4 +21,12 @@
 	      <source>Administracion.UsuarioEditService</source>
 	    </properties>
   	</destination>
+
+        <destination id="AddCliente">
+	    <properties>
+	      <source>Administracion.AddCliente</source>
+	    </properties>
+        </destination>
+
+
 </service>
