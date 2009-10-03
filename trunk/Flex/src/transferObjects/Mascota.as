@@ -7,7 +7,7 @@
 
 package transferObjects{
 	[Bindable]
-    [RemoteClass(alias="transferObjects.Mascota")]
+    [RemoteClass(alias="TransferObjects.Mascota")]
 	
 	/**
 	 * Clase utilizada para representar el objeto Mascota
