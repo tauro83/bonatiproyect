@@ -667,8 +667,8 @@
 	<ns1:VisualizarFicha x="241" y="134" id="visualizarFicha" visible="false">
 	</ns1:VisualizarFicha>
 
-	<ns1:Mascota x="241" y="134" id="AdmMascota2" visible="false">
-	</ns1:Mascota>
+	<ns1:RegistrarMascota x="241" y="134" id="AdmMascota2" visible="false">
+	</ns1:RegistrarMascota>
 	<ns1:RegistroCliente x="241" y="134" id="AdmIngreso2" visible="false">
 	</ns1:RegistroCliente>
 	<ns1:NuevaAtencionHotel x="241" y="134" id="hotelIngreso" visible="false">
