@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registro Mascota" xmlns:ns1="components.*" borderColor="#15AD8F">     
+    <mx:Script>
+        <![CDATA[
+        	import mx.controls.DateField;
+        	import mx.controls.Alert;
+            import mx.collections.ArrayCollection;
+        	import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.ValidationResultEvent;            
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
+		    import mx.rpc.events.ResultEvent;
+//			import components.ItemRenderer;
+//			import events.FileUploaderEvent;
+			import mx.controls.Image;
+			import services.MascotaService;
+		    import transferObjects.Mascota;
+		    import services.PersonService;
+		    import transferObjects.Person;
+		   
+			
+			[Bindable]
+			private var files:ArrayCollection=new ArrayCollection();
+		    private var vResult:ValidationResultEvent;
+		    
+		    /**
+			* Lista de amscotas del cliente asociado
+			*/
+		    [Bindable] 
+		    public var mascotas:ArrayCollection = new ArrayCollection();
+		    
+		    [Bindable] 
+		    public var cliente:Person;
+		    
+		    /**
+			* Opciones de seleccion para sexo de la mascota
+			*/
+		    [Bindable]
+            public var sexos:ArrayCollection = new ArrayCollection(
+                [ {label:" ", data:0},
+                  {label:"Macho", data:1}, 
+                  {label:"Hembra", data:2} ]);    
+
+			/**
+			* Funcion que busca un cliente
+			* @param event Evento
+			*/
+        	private function buscarCliente(event:Event):void{
+        		var Numero:String = rutClienteInput.text;
+        		var Dv:String = rutClienteDVInput.text;
+				var suma:int = 0;
+				var rut:String = Numero;
+				var NumMag:int = 2;
+				var Resto:int = 0;
+				var j:int ;
+				var i:int;
+				var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
+				var ParteNumerica:Array = new Array();
+				
+				if (rut.length == 0) { 
+					//return false; 
+					}
+				for ( j =0, i =0; j < rut.length; j++){
+					if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
+						ParteNumerica[i] = rut.charAt(i);
+						++i;
+					}
+				}
+				
+				for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
+					suma += ParteNumerica[i] * NumMag;
+					trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
+					if (NumMag>6){
+						NumMag =1;	
+					}	
+				}
+				
+				Resto = 11-(suma%11);
+				if(DigVer[Resto] != Dv.toUpperCase()){
+					rutClienteInput.errorString = "Rut Incorrecto";
+					datosMascota.visible = false;
+				}
+				else{
+					rutClienteInput.errorString = "";
+					getPerson(rutClienteInput.text);
+				}		
+        	}
+        	
+			/**
+			* Funcion que llena la tabla de mascotas asociadas al cliente
+			* @param event Evento
+			*/
+	        private function ini(event:Event):void{
+	        	datosMascota.visible = true;
+	        	selClaseAnimal(event);
+	        	
+	           	mascotas.removeAll();
+	           	getMascotas();
+				mascotas.refresh();
+	         }
+
+        	private function alertClickHandler(event:CloseEvent):void {
+            	if (event.detail==Alert.YES)
+                	rutClienteInput.visible=false;
+            	else
+                	rutClienteInput.visible=true;
+        	}
+        	
+        	/**
+			* Funcion que llena las opciones de razas segun la clase de animal seleccionada
+			* @param event Evento
+			*/
+        	private function selRazas(event:Event):void {
+        		var razas:ArrayCollection = new ArrayCollection();
+    			if(ComboBox(event.target).text.localeCompare("Gato") == 0){
+    				razas.addItem({label:" "});
+    				razas.addItem({label:"Ragdoll"});
+    				razas.addItem({label:"Rex"});
+    				razas.addItem({label:"Sagrado de Birmania"});
+    			}
+    			else if(ComboBox(event.target).text.localeCompare("Perro") == 0){
+    				razas.addItem({label:" "});
+    				razas.addItem({label:"Beagle"});
+    				razas.addItem({label:"Bobtail"});
+    				razas.addItem({label:"Boxer"});
+				}
+				razaInput.dataProvider = razas;
+			}
+			
+			/**
+			* Funcion que llena las opciones de razas segun la clase de animal seleccionada
+			* @param event Evento
+			*/
+        	private function selClaseAnimal(event:Event):void {
+        		var clasesAnimal:ArrayCollection = new ArrayCollection();
+        		
+        		clasesAnimal.addItem({label:" "});
+        		clasesAnimal.addItem({label:"Perro"});
+        		clasesAnimal.addItem({label:"Gato"});
+        		clasesAnimal.addItem({label:"Otro"});
+        		
+        		claseAnimalInput.dataProvider = clasesAnimal;			
+			}
+			
+			/**
+			* Funcion escucha para agregar mascota
+			* @param event Evento
+			*/
+			private function resultHandler(event:ResultEvent):void{
+				var message:String= event.result as String;
+				Alert.show(message);
+			}
+			
+			/**
+			* Funcion que comienza con el registro de mascota (validando datos)
+			* @param event Evento
+			*/
+			private function registrarMascota(event:Event):void{
+				insertMascota();
+				ini(event);
+			}
+			
+			/*private function uploadedHandler(event:FileUploaderEvent):void{
+				var object:Object=new Object();
+				object.filename=event.fileUploaded;				
+				files.addItem(object);
+			}*/
+			
+			/**
+			* Funcion que llama  a retornar todas las mascotas 
+			* 
+			*/
+			private function getAllMascotas():void{
+				var mascotaService:MascotaService = new MascotaService();
+				mascotaService.addEventListener(ResultEvent.RESULT,getAllMascotasResult);
+				mascotaService.getAllMascotas();
+			}
+			
+			/**
+			* Funcion que obtiene todas las mascotas anteriormente llamadas
+			* @param event Evento
+			*/
+			private function getAllMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+				mascotas.refresh();
+			}
+			
+			/**
+			* Funcion que llama a retornar todas las mascotas de un cliente
+			*/
+			private function getMascotas():void{
+				var mascotaService:MascotaService = new MascotaService();
+				mascotaService.addEventListener(ResultEvent.RESULT,getMascotasResult);
+				mascotaService.getMascotas(rutClienteInput.text);
+			}
+			
+			/**
+			* Funcion que obtiene todas las mascotas de un cliente
+			* @param event Evento
+			*/
+			private function getMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+				mascotas.refresh();
+			}
+			
+			/**
+			* Funcion que llama para retornar todos los clientes
+			* @param event Evento
+			*/
+			private function getPerson(rutCliente:String):void{
+				var personService:PersonService = new PersonService();
+				personService.addEventListener(ResultEvent.RESULT,getPersonResult);
+//				personService.getPerson(rutCliente);
+			}
+			
+			/**
+			* Aquí van los comentarios del método
+			* @param event Evento
+			*/
+			private function getPersonResult(event:ResultEvent):void{
+				cliente = event.result as Person;
+				
+				if(cliente == null){
+        			Alert.show("Cliente no registrado!");
+        			datosMascota.visible = false;
+        		}
+        		else{
+        			datosMascota.visible = true;
+        			rutClienteOutput.text = cliente.rut;
+        			nombreClienteOutput.text = cliente.name;
+        			apellidoClienteOutput.text = cliente.lastName;
+        			ini(event);
+        		}
+			}
+			
+			/**
+			* Funcion que inserta una mascota
+			*/
+			private function insertMascota():void{
+				var mascota:Mascota = new Mascota();
+				mascota.id = rutClienteInput.text + nombreInput.text;
+				mascota.rutCliente = rutClienteInput.text;
+				mascota.nombre = nombreInput.text;
+				mascota.fechaNacimiento = fechaNacimientoInput.text;
+				mascota.claseAnimal = claseAnimalInput.text;
+				mascota.raza = razaInput.text;
+				mascota.sexo = sexoInput.text
+				
+				var mascotaService:MascotaService=new MascotaService();
+				mascotaService.addEventListener(ResultEvent.RESULT,insertMascotaResult);
+				mascotaService.insertMascota(mascota);
+			}
+			
+			/**
+			* Funcion que responde a la insercion de la mascota anterior
+			* @param event Evento
+			*/
+			private function insertMascotaResult(event:ResultEvent):void{
+				var result:int = event.result as int ;
+				if(!result>0)
+					Alert.show("Mascota NO registrada!");
+				else{
+					getMascotas();
+					mascotas.refresh();
+					nombreInput.text = "";
+					fechaNacimientoInput.text = "";
+					claseAnimalInput.text = "";
+					razaInput.text = "";
+				}
+			}	
+        ]]>
+    </mx:Script>
+ 
+ 
+	<!-- DATOS BUSQUEDA DE CLIENTE PARA REGISTRO DE MASCOTA --> 
+	
+	<mx:Label x="38.75" y="12" text="Rut:" width="84"/>
+	<mx:Label x="38.75" y="40" text="Nombre:" width="84" height="22"/>
+	<mx:Label x="38.75" y="70" text="Fecha Nacimiento:" width="108.75" height="22"/>
+	<mx:Label x="38.75" y="100" text="Clase Animal:" width="108.75" height="22"/>
+	<mx:Label x="38.75" y="130" text="Raza:" width="108.75" height="22"/>
+	<mx:Label x="38.75" y="160" text="Sexo:" width="51.75" height="22"/>
+	<mx:Label x="242" y="12" text="-" width="14.75" textAlign="center"/>
+	<mx:TextInput  restrict="0-9" x="153.5" y="10" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
+	<mx:TextInput x="253.5" y="10" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" enabled="false" focusOut="buscarCliente(event)"/>
+	
+	<!-- BOTON QUE DA ACCION A BUSQUEDA DE CLIENTE -->
+
+	<!-- FICHA DE MASCOTA SELECCIONADA --> 
+	<mx:Panel x="121.5" y="-12" width="585" height="323" layout="absolute"  visible="false" id="ficha">
+			<mx:Label x="10" y="63" text="Nombre:" width="97"/>
+			<mx:Label x="10" y="125" text="Tipo Animal:" width="97"/>
+			<mx:Label x="10" y="95" text="Fecha Nacimiento:" width="114.5"/>
+			<mx:Label x="10" y="155" text="Raza:" width="97"/>
+			<mx:Label x="10" y="181" text="Sexo:" width="97"/>
+			<mx:Label x="172" y="10" width="211" text="{dg.selectedItem.rut}" textAlign="center" id="rutClienteSeleccionado"/>
+			<mx:Label x="172" y="23" width="211" text="{dg.selectedItem.nombre}" textAlign="center"/>
+			<mx:Image x="343" y="61" source="{dg.selectedItem.imagenMascota}" width="209" height="157" id="fichaImagen"/>
+			<mx:Button x="501" y="245" label="Salir" click="ficha.visible=false"/>
+			<mx:Label x="129" y="63" width="165" text="{dg.selectedItem.nombreMascota}"/>
+			<mx:Label x="129" y="95" width="165" text="{dg.selectedItem.fechaNacimiento}"/>
+			<mx:Label x="129" y="125" width="165" text="{dg.selectedItem.tipoAnimal}"/>
+			<mx:Label x="129" y="155" width="165" text="{dg.selectedItem.raza}"/>
+			<mx:Label x="129" y="181" width="165" text="{dg.selectedItem.sexo}"/>
+	</mx:Panel>	
+			
+	<mx:Canvas x="38.75" y="188" width="681.5" height="106" id="datosMascota" visible="true">
+		
+		<!-- DATOS DE REGISTRO DE MASCOTA --> 
+		<!-- DATOS DE CLIENTE SELECCIONADO --> 
+		
+		 <!-- TABLA DE MASCOTAS DEL CLIENTE --> 
+		<mx:DataGrid id="dg" color="0x323232" width="681" rowCount="3" y="44" x="0" variableRowHeight="true" dataProvider="{mascotas}"  visible="true" height="62">
+		    <mx:columns>
+		        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
+		        <mx:DataGridColumn dataField="fechaNacimiento" headerText="F. Nacimiento" width="100"/>
+		        <mx:DataGridColumn dataField="claseAnimal" headerText="Clase Animal" width="100"/>
+		        <mx:DataGridColumn dataField="raza" headerText="Raza" width="150"/>
+		        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="95"/>
+		        <mx:DataGridColumn dataField="imagen" headerText="Imagen">
+		        	<mx:itemRenderer>
+	        			<mx:Component>
+	        		    	<mx:Image width="15" height="15" horizontalAlign="center"/>
+	        			</mx:Component>
+		        	</mx:itemRenderer>
+		        </mx:DataGridColumn> 
+		    </mx:columns>
+		</mx:DataGrid>
+		<mx:Label x="120" y="0" width="111.5" id="nombreClienteOutput" textAlign="center" visible="true"/>
+		<mx:Label x="239.5" y="0" width="111.5" id="apellidoClienteOutput" textAlign="center" visible="true"/>
+		<mx:Label y="0" width="111.5" id="rutClienteOutput" textAlign="center" visible="true" x="0.5"/>
+		
+		<!-- BOTONES --> 
+		
+		<!-- OPCIONES PARA SUBIR IMAGEN -->
+	</mx:Canvas>
+	<mx:TextInput restrict="A-Z a-z -" x="153.5" y="38" width="169" id="nombreInput" maxChars="50"/>
+	<mx:DateField x="153.5" y="68" width="186" id="fechaNacimientoInput"/>
+	<mx:ComboBox x="153.5" y="98" width="169" id="claseAnimalInput" close="selRazas(event);">
+	</mx:ComboBox>
+	<mx:ComboBox x="153.5" y="128" width="169" id="razaInput">
+	</mx:ComboBox>
+	<mx:ComboBox x="153.5" y="158" width="169" id="sexoInput" dataProvider="{sexos}">
+	</mx:ComboBox>
+	<!--
+	<ns1:FileUploader x="465.75" y="152" uploaded="uploadedHandler(event)" width="200.5">
+	</ns1:FileUploader>
+	-->
+	<mx:Button x="535.5" y="302" label="Registrar" visible="true" click="registrarMascota(event)" id="registrar"/>
+	<mx:Button x="625.5" y="302" label="Cancelar" width="84" id="cancelar" click="datosMascota.visible=false" visible="true"/>
+	<!--
+	<mx:TileList x="465.75" y="9" width="200.5" height="135" dataProvider="{files}" itemRenderer="components.ItemRenderer"></mx:TileList>
+	-->
+</mx:Panel>
+
+
+
+
