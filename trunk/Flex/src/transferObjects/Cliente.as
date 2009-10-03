@@ -10,18 +10,8 @@ package transferObjects
 {
 	
 	[Bindable]
-    [RemoteClass(alias="transferObjects.ClienteTO")]
- 
- /**
-* En esta clase van incorporados cada uno de los datos que posee el cliente 
-* para hacer la transformacion a un objeto sin problemas. 
-*
-* @langversion ActionScript 3.0
-*
-* @author "Nicolas Delgado"
-*/
-
-	public class ClienteTO
+    [RemoteClass(alias="TransferObjects.Cliente")]
+	public class Cliente
 	{
 			 public var nombre:String;
 			 public	var apellido:String;

@@ -14,11 +14,14 @@
 		import mx.controls.Text;
 		import mx.controls.Alert;
 		import mx.rpc.events.ResultEvent;			
-		import services.Cliente;
+		import services.ClienteService;
 		import services.validarRut;
         import mx.events.ValidationResultEvent; 
-        import transferObjects.ClienteTO;
-
+        import transferObjects.Cliente;
+        
+        private var w:ClienteService= new ClienteService();
+        private var rw:validarRut=new validarRut();
+		private	var cl:Cliente;
 
 
 
@@ -34,28 +37,13 @@
 */		
 
             
-		public function sendMessage():String
+		public function sendMessage():void
 			{				
-				var cl:ClienteTO= new ClienteTO();
-				var rw:validarRut=new validarRut();
+	
 
             				
 				rw.addEventListener(ResultEvent.RESULT,resultHandler);				
 				
-				cl.nombre = nombre.text;
-				cl.apellido = apellido.text;
-				cl.apellido2 = apellido2.text;
-				cl.rut =  rut.text;
-				cl.rut2 = rut2.text;
-				cl.telefono = telefono.text;
-				cl.telefono2 = telefono2.text;
-				cl.celular = celular.text;
-				cl.celular2 = celular2.text;
-				cl.direccion = direccion.text;
-				cl.region = region.text;
-				cl.comuna = comuna.text;
-				cl.email = email.text;
-				cl.email2 = email2.text;  
 				var c:String;
 				var aux:int;
 				var numeroArray:Array = new Array();
@@ -74,7 +62,7 @@
 				var validarEmail:ValidationResultEvent=emailValidator.validate();
 				var validarEmail2:ValidationResultEvent=email2Validator.validate();
 				
-				if(validarNombre.type != ValidationResultEvent.VALID){
+				/*if(validarNombre.type != ValidationResultEvent.VALID){
 					return "Ingrese Nombre Del Cliente";
 				}
 				
@@ -138,21 +126,34 @@
 						return c;					
 					}
 									
-				}
+				}*/
 				
 				if(validarNombre.type == ValidationResultEvent.VALID && validarApellido.type == ValidationResultEvent.VALID && validarApellido2.type == ValidationResultEvent.VALID && validarRut1.type == ValidationResultEvent.VALID && validarRut1.type == ValidationResultEvent.VALID && validarRut2.type == ValidationResultEvent.VALID && validarTelefono.type == ValidationResultEvent.VALID && validarTelefono2.type == ValidationResultEvent.VALID && validarCelular.type == ValidationResultEvent.VALID&& validarCelular2.type == ValidationResultEvent.VALID && validarDireccion.type == ValidationResultEvent.VALID && validarEmail.type == ValidationResultEvent.VALID && validarEmail2.type == ValidationResultEvent.VALID){
-					//var r:Cliente= new Cliente();
-					//r.nuevoCliente(cl);
-					//Alert.show('Ingresado Los Datos Con Exito');
-					//cl.agregarCliente(nombre,apellido,apellido2,rut,rut2,telefono,telefono2,celular,celular2,direccion,region,comuna,email,email2);
-					//r.addEventListener(ResultEvent.RESULT,resultHandler);	
+				
+					cl=new Cliente();
+					cl.nombre = nombre.text;
+					cl.apellido = apellido.text;
+					cl.apellido2 = apellido2.text;
+					cl.rut =  rut.text;
+					cl.rut2 = rut2.text;
+					cl.telefono = telefono.text;
+					cl.telefono2 = telefono2.text;
+					cl.celular = celular.text;
+					cl.celular2 = celular2.text;
+					cl.direccion = direccion.text;
+					cl.region = region.text;
+					cl.comuna = comuna.text;
+					cl.email = email.text;
+					cl.email2 = email2.text;  
+
+					w.regCliente(cl);
 					Alert.show("Registro Finalizado");
+					w.addEventListener(ResultEvent.RESULT,registroClienteResultado);
 					limpiarTodo();
-					//return "new";
+					
 					
 				}				
 						
-				return "";
 				
 			}
 			
@@ -160,6 +161,20 @@
 			{
 				var message:String= event.result as String;
                 //Alert.show(message);
+			}
+			
+			private function registroClienteResultado(event:ResultEvent):void
+			{
+				var message:String= event.result as String;	
+				var msj:String = "";
+				if(message=="1"){
+					msj = nombre.text + " "+ apellido2.text+" fue Registrado";
+				 	//resetVars(); 					
+    		 	}
+				else{
+					msj = "Usuario previamente registrado, elija otro nombre de usuario"; 				
+				}		
+					
 			}
 
 /**
@@ -301,7 +316,7 @@
       missingPeriodInDomainError= "Necesita un nombre de dominio" />
 
 	
-	<mx:Button x="523" y="302" width="102" label="Editar" id="guardarClienteIng" click="{sendMessage()}" height="23" cornerRadius="6">
+	<mx:Button x="523" y="302" width="102" label="Registrar" id="guardarClienteIng" click="{sendMessage()}" height="23" cornerRadius="6">
 	</mx:Button>
 	
 	<mx:Button x="647" y="302" width="102" label="Cancelar" id="cancelarClienteIng" height="23" cornerRadius="6">
