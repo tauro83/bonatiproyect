@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //import AdministracionBD.UsuarioEditDB;
-import TransferObjects.Bitacora;
+import Agenda.Bitacora;
 import Bd.DBConnectionManager;
 
 public class BitacoraService 

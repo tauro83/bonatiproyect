@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //import AdministracionBD.UsuarioEditDB;
-import TransferObjects.Agenda;
+import Agenda.Agenda;
 import Bd.DBConnectionManager;
 
 public class AgendaService 
