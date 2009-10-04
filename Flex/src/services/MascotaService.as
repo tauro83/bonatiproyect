@@ -20,17 +20,17 @@ package services{
 			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/DBConnectionServer/messagebroker/amf");
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
-			this.destination="MascotaService";
-			this.source="services.MascotaService";	
+			this.destination="AddMascota";
+			this.source="MantenerMascota.AddMascota";	
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		
 		private function faultHandler(event:FaultEvent):void{
-			Alert.show("Error en MascotaService, Detalle: "+event.fault.message);
+			Alert.show("Error en AddMascota, Detalle: "+event.fault.message);
 		}
 		
-		public function insertMascota(mascota:Mascota):void{
-			this.getOperation("insertMascota").send(mascota);
+		public function addMascota(mascota:Mascota):void{
+			this.getOperation("addMascota").send(mascota);
 		}
 		
 		public function getAllMascotas():void{
