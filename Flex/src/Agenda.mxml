@@ -8,6 +8,34 @@
 			import mx.events.ListEvent;
 			import mx.core.Application;
 			
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Usuario;
+			import mx.rpc.events.ResultEvent;
+			import administracion.UsuarioEditService;
+			
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			
+			[Bindable]
+			private var usuarios:ArrayCollection;
+			private var usuars:ArrayCollection;
+			private var usuars2:ArrayCollection;
+			
+			
+			
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			
+			import administracion.UsuarioEditService;
+			import transferObjects.Usuario;
+			
 			[Bindable]
 			public var diasBloqueados:ArrayCollection = new ArrayCollection();
 			
@@ -57,10 +85,43 @@
             	diasBloqueados.removeItemAt(index);
             	cambioFecha();
             }
+            
+            public function getAllUsuarios():void{
+				//labelMessage.text="";
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();
+				
+				
+			}
+			private function getAllUsuariosEResult(event:ResultEvent):void{
+				usuarios = event.result as ArrayCollection;
+				var responsables:Array;
+				var i:int;
+				for(i=0; i < usuarios.length; i++){
+            		Alert.show(usuarios.getItemAt(i).usuario);
+            		responsables.push(usuarios.getItemAt(i).usuario.split(" ", 1));
+            		//usuarioInput.addChild(usuarios.getItemAt(i).usuario.split(" ",1));
+            	}
+            	usuarioInput.dataProvider = responsables;			
+			}  
+            
             private function iniciarAgenda():void{
             	var fechaActual:Date = new Date();
             	
-            	usuarioInput.dataProvider = ["Todos", "Claudio Bonati", "Patricio Castro"];
+            	//usuarioInput.dataProvider = ["Todos", "Claudio Bonati", "Patricio Castro"];
+            	//metodo de jimmy
+            	getAllUsuarios();
+            	var responsables:ArrayCollection;
+            	var i:int;
+            	for(i=0; i < usuarios.length; i++){
+            		//nombre.split(" ",1) + usuario.apellidoPaterno.split(" ",1)
+            		Alert.show(usuarios.getItemAt(i).usuario);
+            		responsables.addItem(usuarios.getItemAt(i).usuario);
+            	}
+            	
+            	
+            	//servicioInput.dataProvider = responsables;
             	servicioInput.dataProvider = ["Todos", "Pabellón", "Peluquería", "Policlínico", "Atención a domicilio"];
             	
             	
