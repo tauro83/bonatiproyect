@@ -49,6 +49,7 @@
 			* @param event Evento
 			*/
         	private function buscarCliente(event:Event):void{
+        		ini(event);
         		var Numero:String = rutClienteInput.text;
         		var Dv:String = rutClienteDVInput.text;
 				var suma:int = 0;
@@ -85,7 +86,8 @@
 				}
 				else{
 					rutClienteInput.errorString = "";
-					getPerson(rutClienteInput.text);
+					//getPerson(rutClienteInput.text);
+//					getCliente(rutClienteInput.text);
 				}		
         	}
         	
@@ -159,7 +161,7 @@
 			* @param event Evento
 			*/
 			private function registrarMascota(event:Event):void{
-				insertMascota();
+				addMascota();
 				ini(event);
 			}
 			
@@ -239,8 +241,9 @@
 			/**
 			* Funcion que inserta una mascota
 			*/
-			private function insertMascota():void{
+			private function addMascota():void{
 				var mascota:Mascota = new Mascota();
+				
 				mascota.id = rutClienteInput.text + nombreInput.text;
 				mascota.rutCliente = rutClienteInput.text;
 				mascota.nombre = nombreInput.text;
@@ -251,7 +254,7 @@
 				
 				var mascotaService:MascotaService=new MascotaService();
 				mascotaService.addEventListener(ResultEvent.RESULT,insertMascotaResult);
-				mascotaService.insertMascota(mascota);
+				mascotaService.addMascota(mascota);
 			}
 			
 			/**
