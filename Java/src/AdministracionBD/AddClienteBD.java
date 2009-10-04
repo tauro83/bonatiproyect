@@ -31,8 +31,8 @@ public class AddClienteBD {
 		String result = null;
 		PreparedStatement insert;
 		String query="";			
-		query = "INSERT INTO Usuario (nombre,aPaterno,aMaterno,rut,rut2,telefono,telefono2,celular,celular2,direccion,region,comuna,email,email2) "+
-				"VALUES (?, ?, ?, ?,?,? ,?,?,? ,?,?,?,?,?);";			
+		query = "INSERT INTO Cliente (nombre,apellido,apellido2,rut,rut2,telefono,telefono2,celular,celular2,direccion,region,comuna,email,email2) "+
+				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";			
 		insert = connection.prepareStatement(query);
 		
 		insert.setString(1, c.nombre);
