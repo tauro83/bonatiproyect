@@ -1,11 +1,14 @@
 create table Mascota(
-	clienteRut int not null references ClientePresencial(rut) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
-	nombre CHAR(20),
-	fechaNacimiento date ,
-	sexo CHAR(20),
+	rut character(8 ),
+	nombre character(50),
+	fechanacimiento character(10),
+	claseanimal character(50),
+	raza character(50),
+	sexo character(10),
 	estado bool,
-	raza CHAR(20),
-    primary key (nombre,clienteRut)
+	imagen bytea NOT NULL,
+	CONSTRAINT pk_mascota PRIMARY KEY (rut, nombre),
+	CONSTRAINT fk_mascota_reference_ClientePresencial FOREIGN KEY (rut)
+	REFERENCES ClientePresencial(rut) MATCH SIMPLE ON UPDATE RESTRICT ON DELETE RESTRICT
 )
-
 
