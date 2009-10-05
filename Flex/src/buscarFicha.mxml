@@ -1,0 +1,84 @@
+<!-- @autor Camilo Verdugo
+-->
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="{getAllFichas()}" layout="absolute" borderColor="#15AD8F" width="779" height="466" title="Visualizar Ficha" >
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.List;
+			import mx.events.ListEvent; 			
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+            import services.ListarFichasService;
+	
+			private var listFichas:ListarFichasService;
+			public var viFicha:VisualizarFicha;
+			
+			
+			[Bindable]
+			private var mascotas:ArrayCollection;
+			//private var atenciones:ArrayCollection;
+			private var clientes:ArrayCollection;
+			
+			
+			
+			
+			
+			public function getAllFichas():void
+			{
+				
+				//mascotas = this.getAllMascotasResult();
+				listFichas = new ListarFichasService();
+				listFichas.addEventListener(ResultEvent.RESULT,getAllMascotasResult);
+				listFichas.getMascotas();				
+			}
+			
+            public function getAllFichasResult():void
+            {
+            	
+            }
+            
+            public function getAllMascotasResult(event:ResultEvent):void
+            {
+				mascotas = event.result as ArrayCollection;	
+            }
+            public function getAllAtencionesResult():void
+            {
+            	
+            }
+            public function getAllClientesResult():void
+            {
+            	
+            }
+            
+            public function viewFicha(event:Event):void{
+            	  viFicha.setDatos();
+//
+            }
+            
+            
+		]]> 
+  	</mx:Script>	
+	<mx:ComboBox x="251" y="10" id="filtro" toolTip="Seleccione parámetro">
+		<mx:ArrayCollection>
+		    	<mx:Object label="Filtrar por" data="0"/>
+		    	<mx:Object label="Nombre" data="1"/>
+		    	<mx:Object label="Rut Dueño" data="2"/>
+		</mx:ArrayCollection>	
+	</mx:ComboBox>
+	
+	<mx:DataGrid x="10" y="74" width="739" height="283" id="fichas" dataProvider="{mascotas}" itemDoubleClick="viewFicha(event)" >
+		<mx:columns>
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">			 	
+            </mx:DataGridColumn>			
+			<mx:DataGridColumn headerText="Nombre Mascota" id="nombre" sortable="false" draggable="false" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Rut Cliente"  id="rut" sortable="false" draggable="false" dataField="rutCliente"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="537" y="394" label="Visualizar" id="visualizar"  toolTip=""  click="viewFicha(event)" width="102"/>
+	<mx:Button x="647" y="394" label="Cancelar" id="cancelar" toolTip="Cancela la operación" width="102"/>
+	<mx:TextInput x="59" y="10" id="texImput" toolTip="Ingrese lo que quiere buscar"/>
+	<mx:Label x="10" y="12" text="Buscar"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center"/>
+</mx:Panel>

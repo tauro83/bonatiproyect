@@ -6,6 +6,8 @@
 
 
 package transferObjects{
+	import flash.utils.ByteArray;
+	
 	[Bindable]
     [RemoteClass(alias="TransferObjects.Mascota")]
 	
@@ -16,12 +18,13 @@ package transferObjects{
 	 * @version 0.1, 22/09/09
 	 */
 	public class Mascota{
-		public var id:String;
 		public var rutCliente:String;
 		public var nombre:String;
 		public var fechaNacimiento:String;
 		public var claseAnimal:String;
 		public var raza:String;
 		public var sexo:String;
+		public var estado:Boolean;
+		public var imagen:ByteArray;
 	}
 }

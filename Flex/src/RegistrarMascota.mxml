@@ -244,7 +244,7 @@
 			private function addMascota():void{
 				var mascota:Mascota = new Mascota();
 				
-				mascota.id = rutClienteInput.text + nombreInput.text;
+				//mascota.id = rutClienteInput.text + nombreInput.text;
 				mascota.rutCliente = rutClienteInput.text;
 				mascota.nombre = nombreInput.text;
 				mascota.fechaNacimiento = fechaNacimientoInput.text;

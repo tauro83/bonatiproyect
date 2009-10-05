@@ -6,7 +6,6 @@
 //				De un usuario de sistema.
 //=======================================================================
 
-
 package transferObjects
 {
 	[Bindable]

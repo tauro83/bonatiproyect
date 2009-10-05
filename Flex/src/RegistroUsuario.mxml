@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- @autor Camilo Verdugo
+-->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registrar Usuario" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
@@ -13,7 +14,7 @@
 			import mx.controls.Text;
 			import mx.controls.Alert;
 			import mx.rpc.events.ResultEvent;
-			import services.usuarioServices;
+			import services.UsuarioService;
 			import services.Validacion;
 			import transferObjects.Usuario;
 		
@@ -21,7 +22,7 @@
 			private var vNombre:Boolean;
 			private var vContrasena:Boolean;
 			private var vRContrasena:Boolean;
-			private var ru:usuarioServices = new usuarioServices();
+			private var ru:UsuarioService = new UsuarioService();
 			private var u1:Usuario;
 			
 			/**
