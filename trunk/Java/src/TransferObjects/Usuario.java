@@ -1,4 +1,3 @@
-
 //=======================================================================
 // AUTOR: Camilo Verdugo G.
 // Descripcion: Clase entidad Usuario de sistema, encapsula informacion de un
