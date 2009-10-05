@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registro Mascota" xmlns:ns1="components.*" borderColor="#15AD8F">     
     <mx:Script>
         <![CDATA[
@@ -261,6 +261,7 @@
         			Application.application.AdmIngreso2.rut.text = rutClienteInput.text;
         			Application.application.AdmIngreso2.rut2.text = rutClienteDVInput.text;
         			this.setVisible(false);
+        			dg.visible = true;
         			
         			ini(event);
         		}
@@ -268,6 +269,7 @@
         			datosMascota.visible = true;
         			labelMessage.text = "Se ha accedido al cliente " + nombreCliente + " satisfactoriamente.";
         			ini(event);
+        			dg.visible = true;
         			//mascotas.removeAll();
 	           		//getMascotas();
 					//mascotas.refresh();
@@ -286,20 +288,22 @@
 				mascota.claseAnimal = claseAnimalInput.text;
 				mascota.raza = razaInput.text;
 				mascota.sexo = sexoInput.text
+				mascota.estado = true;
 				
-				var mascotaService:MascotaService=new MascotaService();
-				mascotaService.addEventListener(ResultEvent.RESULT,insertMascotaResult);
-				mascotaService.addMascota(mascota);
+				var addMascotaService:AddMascotaService=new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,addMascotaServiceResult);
+				addMascotaService.addMascota(mascota);
 			}
 			
 			/**
 			* Funcion que responde a la insercion de la mascota anterior
 			* @param event Evento
 			*/
-			private function insertMascotaResult(event:ResultEvent):void{
+			private function addMascotaServiceResult(event:ResultEvent):void{
 				var result:int = event.result as int ;
 				if(!result>0)
-					Alert.show("Mascota NO registrada!");
+					labelMessage.text = "Cliente no registrado."
+					//Alert.show("Mascota NO registrada!");
 				else{
 					getMascotas();
 					mascotas.refresh();
