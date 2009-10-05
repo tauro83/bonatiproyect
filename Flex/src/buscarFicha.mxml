@@ -13,7 +13,7 @@
             import services.ListarFichasService;
 	
 			private var listFichas:ListarFichasService;
-			public var viFicha:VisualizarFicha;
+			public var verFicha:VisualizarFicha;
 			
 			
 			[Bindable]
@@ -53,8 +53,17 @@
             }
             
             public function viewFicha(event:Event):void{
-            	  viFicha.setDatos();
-//
+            	this.setVisible(false,false);
+            	if(fichas.selectedItem){
+            		verFicha.mNom.text = fichas.selectedItem.nombre;
+            		verFicha.cRut.text = fichas.selectedItem.rutCliente;
+            	}
+            	verFicha.setVisible(true,false);
+            }
+            
+            public function setVisualizarFicha(verFicha:VisualizarFicha):void{
+            	this.verFicha = verFicha;
+            	verFicha.setVisible(true,true);
             }
             
             
@@ -69,11 +78,9 @@
 	</mx:ComboBox>
 	
 	<mx:DataGrid x="10" y="74" width="739" height="283" id="fichas" dataProvider="{mascotas}" itemDoubleClick="viewFicha(event)" >
-		<mx:columns>
-			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">			 	
-            </mx:DataGridColumn>			
-			<mx:DataGridColumn headerText="Nombre Mascota" id="nombre" sortable="false" draggable="false" dataField="nombre"/>
-			<mx:DataGridColumn headerText="Rut Cliente"  id="rut" sortable="false" draggable="false" dataField="rutCliente"/>
+		<mx:columns>			
+			<mx:DataGridColumn headerText="Nombre mascota" id="nombre" sortable="false" draggable="false" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Rut cliente"  id="rut" sortable="false" draggable="false" dataField="rutCliente"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="537" y="394" label="Visualizar" id="visualizar"  toolTip=""  click="viewFicha(event)" width="102"/>
