@@ -91,7 +91,7 @@ public abstract class Registro {
 	 */
 	
 	
-    public Registro(int costoAtención,String responsable, Date fecha2,String nombreMascota,Time hora,int idServicio,java.util.Date mascotaFechaNacimiento2, int rutCliente){
+        protetct Registro(int costoAtención,String responsable, Date fecha2,String nombreMascota,Time hora,int idServicio,java.util.Date mascotaFechaNacimiento2, int rutCliente){
 		
 	}
 	
@@ -221,20 +221,7 @@ public abstract class Registro {
 	 */
 	
 	protected String addRegistro() throws SQLException{
-	  		/*Connection connection=DBConnectionManager.getConnection();
-	  		this.costoAtención=costoAtención;
-	  		this.fecha=fecha;
-	  		this.hora=hora;
-	  		this.idServicio=idServicio;
-	  		this.mascotaFechaNacimiento=mascotaFechaNacimiento;
-	  		this.nombreMascota=nombreMascota;
-	  		this.responsable=responsable;
-	  		this.rutCliente=rutCliente;
-
-	  		RegistroBd r = new RegistroBd(connection, costoAtención, fecha, hora, idServicio, mascotaFechaNacimiento,nombreMascota, responsable, rutCliente);
-	  		*/
-	  		return "Retorno:";
-	  		
+	  		  		
 	  		
 	  	}
 	 
