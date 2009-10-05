@@ -22,15 +22,27 @@ public class Cliente {
     public String comuna;
     public String email;   
     public String email2;
+    public boolean estado;
     
-    /**
+    
+	/**
      * Este metodo agrega cada uno de los metodos de los set y get de
      * cada uno de los datos ingresados por el usuario.  
      * 
      * @langversion ActionScript 3.0
      *
 
-     */		
+     */
+    
+    public boolean isEstado() {
+		return estado;
+	}
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
 	public void setApellidoPaterno(String apellido) {
 		this.apellido = apellido;
 	}
