@@ -5,6 +5,7 @@
 
         <![CDATA[
 
+			import mx.events.DropdownEvent;
             import flash.events.MouseEvent;
             import mx.events.FlexEvent;
             import mx.rpc.events.ResultEvent;
@@ -32,6 +33,12 @@
             	botonLogin.addEventListener(MouseEvent.CLICK, linkLogin);
             	login3.botonCerrarSesion.addEventListener(MouseEvent.CLICK,cerrarSesion);
             	login3.botonCancelar.addEventListener(MouseEvent.CLICK,cancelarCerrado);
+            	busqueda2.combobox.addEventListener(DropdownEvent.CLOSE,seleccionarBusqueda);
+            	busqueda2.comboboxMascota.addEventListener(DropdownEvent.CLOSE,seleccionarMascota);
+            	busqueda2.comboboxProducto.addEventListener(DropdownEvent.CLOSE,seleccionarProducto);
+            	busqueda2.comboboxUsuario.addEventListener(DropdownEvent.CLOSE,seleccionarUsuario);
+            	busqueda2.comboboxAviso.addEventListener(DropdownEvent.CLOSE,seleccionarAviso);
+            	busqueda2.comboboxCita.addEventListener(DropdownEvent.CLOSE,seleccionarCita);
             	<!--Autor: }Esteban --> 
             	
             	
@@ -230,6 +237,7 @@
             	graficosClinica1.setVisible(false,false);
             	ayudaVeterinaria.setVisible(false,false);
             	<!--Autor: Andres G.}-->
+            	
             	<!--Autor: Esteban{ -->
             	login2.setVisible(false,false);
          		login3.setVisible(false,false);
@@ -289,7 +297,76 @@
             <!--Autor:Andres G.}-->
             
             <!--Autor: Esteban{ -->
-             private function cancelarCerrado (event:Event):void
+             private function seleccionarMascota (event:DropdownEvent):void
+            {
+ 
+            }
+            
+            private function seleccionarCita (event:DropdownEvent):void
+            {
+
+            }
+            
+            private function seleccionarAviso (event:DropdownEvent):void
+            {
+
+            }
+            
+             private function seleccionarUsuario (event:DropdownEvent):void
+            {
+
+            }
+            
+            private function seleccionarProducto (event:DropdownEvent):void
+            {
+
+            }
+            
+            private function seleccionarBusqueda (event:DropdownEvent):void
+            {   	
+            	busqueda2.removeAllChildren();
+            	busqueda2.addChild(busqueda2.textBuscar);
+            	busqueda2.addChild(busqueda2.textFiltrar);
+            	busqueda2.addChild(busqueda2.input);
+            	busqueda2.addChild(busqueda2.combobox);
+            	busqueda2.addChild(busqueda2.idBuscar);
+            	busqueda2.addChild(busqueda2.idCancelar);
+            	switch (busqueda2.combobox.selectedLabel)
+				{
+				case 'Cita':
+					busqueda2.addChild(busqueda2.comboboxCita);
+					busqueda2.comboboxCita.setVisible(true,false);
+					busqueda2.addChild(busquedaCita.grid);
+				break; 
+				case 'Cliente':
+					busqueda2.addChild(busqueda2.comboboxCliente);
+					busqueda2.comboboxCliente.setVisible(true,false);
+					busqueda2.addChild(busquedaCliente.grid);
+				break;
+				case 'Aviso':
+					busqueda2.addChild(busqueda2.comboboxAviso);
+					busqueda2.comboboxAviso.setVisible(true,false);
+					busqueda2.addChild(busquedaAviso.grid);
+				break;
+				case 'Mascota':
+					busqueda2.addChild(busqueda2.comboboxMascota);
+					busqueda2.comboboxMascota.setVisible(true,false);
+					busqueda2.addChild(busquedaMascota.grid);
+				break;
+				case 'Producto':
+					busqueda2.addChild(busqueda2.comboboxProducto);
+					busqueda2.comboboxProducto.setVisible(true,false);
+					busqueda2.addChild(busquedaProducto.grid);
+				break;
+				case 'Usuario':
+					busqueda2.addChild(busqueda2.comboboxUsuario);
+					busqueda2.comboboxUsuario.setVisible(true,false);
+					busqueda2.addChild(busquedaUsuario.grid);
+				break;
+				}
+            }
+            
+            private function cancelarCerrado (event:Event):void
             {
             	setInvisible();
             	agenda2.setVisible(true,false);
@@ -322,7 +399,6 @@
             	botonBusqueda.enabled=false;
             	botonHotel.enabled=false;
             	botonAyuda.enabled=false;
-            	botonBusqueda.enabled=false;
             	botonLogin.label="Iniciar Sesión";
             	login2.bar=0;
             }
@@ -342,7 +418,6 @@
             		botonHotel.enabled=true;
             		botonAyuda.enabled=true;
             		botonLogin.enabled=true;
-            		botonBusqueda.enabled=true;
             		botonLogin.label="Cerrar Sesión";
             	/*	if(login2.Recordar.selected==true){
             			//tomo nombre
@@ -720,9 +795,22 @@
 	</ns1:LoginIniciar>
 	<ns1:LoginCerrar x="241" y="134" id="login3" visible="false" borderColor="#15AD8F">
 	</ns1:LoginCerrar>
+	<ns1:BusquedaCita x="241" y="134" id="busquedaCita" visible="false">
+	</ns1:BusquedaCita>
+	<ns1:BusquedaCliente x="241" y="134" id="busquedaCliente" visible="false"> 
+	</ns1:BusquedaCliente> 
+	<ns1:BusquedaAviso x="241" y="134" id="busquedaAviso" visible="false"> 
+	</ns1:BusquedaAviso> 
+	<ns1:BusquedaMascota x="241" y="134" id="busquedaMascota" visible="false"> 
+	</ns1:BusquedaMascota>
+	<ns1:BusquedaProducto x="241" y="134" id="busquedaProducto" visible="false"> 
+	</ns1:BusquedaProducto>
+	<ns1:BusquedaUsuario x="241" y="134" id="busquedaUsuario" visible="false">
+	</ns1:BusquedaUsuario>  
 	<mx:Button x="580" y="30" label="Ayuda" width="110" height="50" id="botonAyuda" icon="@Embed(source='../Help.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" enabled="true"/>
 	<mx:Button x="880" y="30" label="Iniciar Sesión" width="110" height="50" icon="@Embed(source='../Users.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" id="botonLogin" enabled="true"/>
 	<!--Autor: }Esteban -->
+	
 	<!--Erwin Díaz-->
 	
 	<ns1:ElimUsuario x="241" y="134" id="elimusuario" visible="false" borderColor="#15AD8F">
@@ -738,12 +826,12 @@
 	<mx:Label x="10" y="10"  text="Hospital Veterinario" width="274" height="43" fontFamily="Arial" color="#0202CB" fontSize="27" fontWeight="bold" enabled="true"/>
 	<mx:Label x="30" y="47" text="Claudio Bonati" fontFamily="Arial" fontSize="27" color="#15AD8F" fontWeight="bold"/>
 	<mx:Button x="738" y="30" label="Búsqueda" width="100" height="50" icon="@Embed(source='../Search.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" id="botonBusqueda" enabled="false"/>
-	<mx:Button x="170" y="104" label="Agenda" width="171" height="30" cornerRadius="4" id="botonAgenda" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
-	<mx:Button x="340" y="104" label="Clínica" width="171" height="30" cornerRadius="4" id="botonClinica" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
-	<mx:Button x="510" y="104" label="Peluquería" width="171" height="30" id="botonPeluqueria" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
-	<mx:Button x="680" y="104" label="Pet Shop" width="171" height="30" id="botonPetshop" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
-	<mx:Button x="850" y="104" label="Hotelería" width="170" height="30" id="botonHotel" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
-	<mx:Button x="0" y="104" label="Administración" height="30" width="171" id="botonAdmin" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="170" y="104" label="Agenda" width="171" height="30" cornerRadius="4" id="botonAgenda" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="340" y="104" label="Clínica" width="171" height="30" cornerRadius="4" id="botonClinica" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="510" y="104" label="Peluquería" width="171" height="30" id="botonPeluqueria" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="680" y="104" label="Pet Shop" width="171" height="30" id="botonPetshop" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="850" y="104" label="Hotelería" width="170" height="30" id="botonHotel" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="0" y="104" label="Administración" height="30" width="171" id="botonAdmin" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
 	<ns2:EditUsuarioUpdate x="241" y="134" id="AdEditarUsuar3" visible="false">
 	</ns2:EditUsuarioUpdate>
 	<ns2:EditarUsuario x="240" y="133" id="AdEditarUsuar2" visible="false">

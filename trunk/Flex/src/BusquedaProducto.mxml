@@ -21,12 +21,4 @@
 			<mx:DataGridColumn headerText="Codigo barra" dataField="col4"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:ComboBox x="599" y="10" width="150" id="productos">
-		<mx:ArrayCollection>
-			<mx:Object label="Producto 1"/>
-			<mx:Object label="Producto 2"/>
-			<mx:Object label="Producto 3"/>
-			<mx:Object label="Producto 4"/>
-		</mx:ArrayCollection>
-	</mx:ComboBox>
 </mx:Panel>
