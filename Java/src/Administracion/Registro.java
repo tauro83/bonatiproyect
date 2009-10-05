@@ -1,10 +1,11 @@
-package Registro;
+package Administracion;
 
-import java.util.Date;
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Time;
+import AdministracionBD.AddRegistroBd;
+import Bd.DBConnectionManager;
 
-public abstract class Registro {
+public class Registro {
 	
 	/**
 	 * Corresponde a un atributo que solamente podran ser accedido desde la misma clase o desde
@@ -12,7 +13,7 @@ public abstract class Registro {
 	 * servicio de la clinica veterinaria.
 	 */
 	
-	protected int costoAtención; 
+	public int costoAtención; 
 	
 	/**
 	 * Corresponde a un atributo que solamente podran ser accedido desde la misma clase o desde
@@ -20,7 +21,7 @@ public abstract class Registro {
 	 * al interior  de los  servicio que presta la clinica veterinaria para sus mascotas.
 	 */
 	
-	protected String responsable;
+	public String responsable;
 	
 	/**
 	 * Corresponde a un atributo que solamente podran ser accedido desde la misma clase o desde
@@ -28,7 +29,7 @@ public abstract class Registro {
 	 * interior de uno de los servicios.
 	 */
 	
-	protected Date fecha;
+	public String fecha;
 	
 	/**
 	 * Corresponde a un atributo que solamente podran ser accedido desde la misma clase o desde
@@ -36,7 +37,7 @@ public abstract class Registro {
 	 * atendiendo al interior de un servicio.
 	 */
 	
-	protected String nombreMascota;
+	public String nombreMascota;
 	
 	/**
 	 * Corresponde a un atributo que solamente podran ser accedido desde la misma clase o desde
@@ -46,7 +47,7 @@ public abstract class Registro {
 	 * de este sistema.
 	 */
 	
-	protected Time hora;
+	public String hora;
 	
 	
 	/**
@@ -56,7 +57,7 @@ public abstract class Registro {
 	 * 1.-Pabellon, 2.-Policlinico, 3.-PetShop, 4.-Hoteleria, 5.-peluqueria
 	 */
 	
-	protected int idServicio;
+	public int idServicio;
 	
 	/**
 	 * Corresponde a un atributo que solamente podran ser accedido desde la misma clase o desde
@@ -64,7 +65,7 @@ public abstract class Registro {
 	 * datos de la mascota.
 	 */
 	
-	protected Date mascotaFechaNacimiento;
+	public String mascotaFechaNacimiento;
 	
 	/**
 	 * Corresponde a un atributo que solamente podran ser accedido desde la misma clase o desde
@@ -72,7 +73,7 @@ public abstract class Registro {
 	 * que nos permite el nexo entre la mascota y el cliente .
 	 */
 	
-	protected int rutCliente;
+	public int rutCliente;
 	
 	/**
 	 * Este metodo nos permitira poder obtener la hora en que se esta efectuado el 
@@ -81,30 +82,34 @@ public abstract class Registro {
 	 */
 	
 
-	protected Time getHora() {
+	public String getHora() {
 		return hora;
 	}
 	
 	/**
 	 * Este metodo corresponde al constructor de la clase. 
+	 * @throws SQLException 
 	 * 
 	 */
 	
 	
-        protetct Registro(int costoAtención,String responsable, Date fecha2,String nombreMascota,Time hora,int idServicio,java.util.Date mascotaFechaNacimiento2, int rutCliente){
+    protected Registro(int costoAtención,String responsable, String fecha,String nombreMascota,String hora,int idServicio,String mascotaFechaNacimiento, int rutCliente) throws SQLException{
+		
+    	Registro r= new Registro(1234,"Mario","","boby","",1,"",12);
+    	r.addRegistro(r);
 		
 	}
 	
 	
 	
-	
+
 	/**
 	 * Este metodo nos permitira poder modificar la hora en que será efectuado el 
 	 * registro al interior de un servicio de la clinica veterinaria. 
 	 * @param  hora Este metodo recibe como entrada variable Time Hora, que corresponde a la libreria de "java.sql". 
 	 */
 
-	protected void setHora(Time hora) {
+	protected void setHora(String hora) {
 		this.hora = hora;
 	}
 
@@ -136,7 +141,7 @@ public abstract class Registro {
 	 */
 
 
-	protected Date getFecha() {
+	protected String getFecha() {
 		return fecha;
 	}
 	
@@ -148,7 +153,7 @@ public abstract class Registro {
 	 */
 
 
-	protected void setFecha(Date fecha) {
+	protected void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	
@@ -218,12 +223,16 @@ public abstract class Registro {
 	/**
 	 * Este metodo nos permitira poder poder agregar una atencion realizada al interior de una 
 	 * servicio el cual se podran obtener los datos y enviarlos a la clase de base de datos RegistroDB.
+	 * @throws SQLException 
 	 */
 	
-	protected String addRegistro() throws SQLException{
-	  		  		
-	  		
-	  	}
+	protected String addRegistro(Registro r) throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		AddRegistroBd acbd = new AddRegistroBd(connection);		
+		return acbd.addRegistroBD(r);
+		
+	}
+		
 	 
 		/**
 		 * Este metodo nos permitira  poder editar una atencion realizada al interior de una 
@@ -232,69 +241,31 @@ public abstract class Registro {
 		 */
 	 
 	 
-	 protected String setRegistro() throws SQLException{
-	  		/*Connection connection=DBConnectionManager.getConnection();
-	  		this.costoAtención=costoAtención;
-	  		this.fecha=fecha;
-	  		this.hora=hora;
-	  		this.idServicio=idServicio;
-	  		this.mascotaFechaNacimiento=mascotaFechaNacimiento;
-	  		this.nombreMascota=nombreMascota;
-	  		this.responsable=responsable;
-	  		this.rutCliente=rutCliente;
-
-	  		RegistroBd r = new RegistroBd(connection, costoAtención, fecha, hora, idServicio, mascotaFechaNacimiento,nombreMascota, responsable, rutCliente);
-	  		*/
-	  		return "Retorno:";
-	  		
-	  		
-	  	}
+	 protected String setRegistro()throws SQLException{
+		return nombreMascota;
+	 }
 	 
 		/**
 		 * Este metodo nos permitira  poder eliminar una atencion realizada al interior de una 
 		 * servicio el cual se podran obtener los datos, para luego ser modificados de la base de datos.
 		 */
 	 
-	 protected String deteleRegistro() throws SQLException{
-	  		/*Connection connection=DBConnectionManager.getConnection();
-	  		this.costoAtención=costoAtención;
-	  		this.fecha=fecha;
-	  		this.hora=hora;
-	  		this.idServicio=idServicio;
-	  		this.mascotaFechaNacimiento=mascotaFechaNacimiento;
-	  		this.nombreMascota=nombreMascota;
-	  		this.responsable=responsable;
-	  		this.rutCliente=rutCliente;
-
-	  		RegistroBd r = new RegistroBd(connection, costoAtención, fecha, hora, idServicio, mascotaFechaNacimiento,nombreMascota, responsable, rutCliente);
-	  		*/
-	  		return "Retorno:";
-	  		
-	  		
-	  	}
+	 protected  String deteleRegistro()throws SQLException{
+		return nombreMascota;
+		 
+	 }
+	 
 	 
 		/**
 		 * Este metodo nos permitira  poder obtener una atencion realizada al interior de una 
 		 * servicio.
 		 */
 	 
-	 protected String getRegistro() throws SQLException{
-	  		/*Connection connection=DBConnectionManager.getConnection();
-	  		this.costoAtención=costoAtención;
-	  		this.fecha=fecha;
-	  		this.hora=hora;
-	  		this.idServicio=idServicio;
-	  		this.mascotaFechaNacimiento=mascotaFechaNacimiento;
-	  		this.nombreMascota=nombreMascota;
-	  		this.responsable=responsable;
-	  		this.rutCliente=rutCliente;
+	 protected  String getRegistro()throws SQLException{
+		return nombreMascota;
+		 
 
-	  		RegistroBd r = new RegistroBd(connection, costoAtención, fecha, hora, idServicio, mascotaFechaNacimiento,nombreMascota, responsable, rutCliente);
-	  		*/
-	  		return "Retorno:";
-	  		
-	  		
-	  	}
-	 
+	
+		}
 
 }
