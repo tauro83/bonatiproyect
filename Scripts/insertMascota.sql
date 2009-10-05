@@ -1,14 +1,14 @@
-INSERT INTO Mascota (clienteRut,nombre,fechaNacimiento,sexo,estado,raza)
-VALUES 	('162989246', 'Larry','15 Jan 2000','Macho','false','Pastor Aleman');
+INSERT INTO Mascota (rut,nombre,fechaNacimiento,claseanimal,raza,sexo,estado,imagen)
+VALUES 	('16298925', 'Larry2','10/05/2001','Perro','Pastor Aleman','Macho','true','');
 
-INSERT INTO Mascota (clienteRut,nombre,fechaNacimiento,sexo,estado,raza)
-VALUES 	('162989245', 'Calcetin','21 Feb 2000','Macho','true','Siberiano');
+INSERT INTO Mascota (rut,nombre,fechaNacimiento,claseanimal,raza,sexo,estado,imagen)
+VALUES 	('16298923', 'Aguja','10/05/2001','Perro','Salchicha','Macho','true','');
 
-INSERT INTO Mascota (clienteRut,nombre,fechaNacimiento,sexo,estado,raza)
-VALUES 	('162989243', 'Cachupin','05 Dec 2000','Hembra','true','San Bernardo');
+INSERT INTO Mascota (rut,nombre,fechaNacimiento,claseanimal,raza,sexo,estado,imagen)
+VALUES 	('16298923', 'Laica','10/05/2001','Perro','Pastor Aleman','Macho','false','');
 
-INSERT INTO Mascota (clienteRut,nombre,fechaNacimiento,sexo,estado,raza)
-VALUES 	('162989243', 'Cosita','15 Jan 2000','Macho','true','Pudul');
+INSERT INTO Mascota (rut,nombre,fechaNacimiento,claseanimal,raza,sexo,estado,imagen)
+VALUES 	('16298923', 'Boby','10/05/2001','Perro','Kiltro','Macho','true','');
 
-INSERT INTO Mascota (clienteRut,nombre,fechaNacimiento,sexo,estado,raza)
-VALUES 	('162989243', 'Aguja','07 Mar 2000','Hembra','true','Mezcla');
+INSERT INTO Mascota (rut,nombre,fechaNacimiento,claseanimal,raza,sexo,estado,imagen)
+VALUES 	('16298923', 'patitas','10/05/2001','Perro','Pastor Aleman','Macho','true','');
