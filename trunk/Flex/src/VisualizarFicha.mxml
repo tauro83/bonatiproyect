@@ -1,6 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- @autor Camilo Verdugo
+-->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Visualizar Ficha" borderColor="#15AD8F" >
-	<mx:DataGrid x="24.15" y="205" width="693" height="153" id="fichaTablaRegistro">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.List;
+			import mx.events.ListEvent; 			
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+         	
+         	public function setDatos():void
+            {
+            	this.mNom.text = "asdsd";
+            }
+	
+			
+			
+			]]> 
+ 	</mx:Script>
+	
+	
+	<mx:DataGrid x="24.15" y="205" width="693" height="183" id="fichaTablaRegistro">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="col1"/>
 			<mx:DataGridColumn width="90" headerText="Fecha" dataField="col1"/>
@@ -10,12 +32,6 @@
 			<mx:DataGridColumn width="150" headerText="Responsable" dataField="col4"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="644.15" y="366" label="Eliminar" id="fichaAgregarRegistro">
-	</mx:Button>
-	<mx:Button x="487.15" y="366" label="Visualizar" id="fichaEliminarRegistro">
-	</mx:Button>
-	<mx:Button x="576.15" y="366" label="Editar" id="fichaEliminarRegistro0">
-	</mx:Button>
 	<mx:Label x="24.15" y="36" text="Nombre:" width="78"/>
 	<mx:Label x="24.15" y="10" text="Datos cliente" width="97" fontWeight="bold"/>
 	<mx:Label x="393.7" y="9.95" text="Datos mascota" width="98" fontWeight="bold"/>
@@ -28,15 +44,13 @@
 	<mx:Label x="24.15" y="114" text="Comuna:" width="78" height="17.25"/>
 	<mx:Label x="393.7" y="61.9" text="Raza:" width="78"/>
 	<mx:Label x="24.15" y="179" text="Atenciones" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
-	<mx:Label x="545.15" y="179" text="&lt; Anterior" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
-	<mx:Label x="652.15" y="179" text="Siguiente &gt;" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
 	<mx:TextInput x="127.1" y="34" width="217.75" editable="false"/>
 	<mx:TextInput x="127.1" y="60" width="111" editable="false" height="20"/>
 	<mx:TextInput x="246.1" y="60" width="19.75" editable="false" height="20"/>
 	<mx:TextInput x="127.1" y="86" width="138.75" editable="false" height="20"/>
 	<mx:TextInput x="127.1" y="112" width="138.75" editable="false" height="20"/>
 	<mx:TextInput x="127.1" y="136.95" width="217.75" editable="false" height="20"/>
-	<mx:TextInput x="517.25" y="33.9" width="138.75" editable="false" height="20"/>
+	<mx:TextInput x="517.25" y="33.9" width="138.75" editable="false" height="20" id="mNom"/>
 	<mx:TextInput x="517.25" y="59.9" width="92.9" editable="false" height="20"/>
 	<mx:TextInput x="517.25" y="87.9" width="92.9" editable="false" height="20"/>
 	<mx:TextInput x="517.25" y="112" width="92.9" editable="false" height="20"/>

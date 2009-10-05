@@ -1,3 +1,4 @@
+// ActionScript file
 //=======================================================================
 // FECHA: CREACIÓN: 20 Septiembre
 // AUTOR: Camilo Verdugo
@@ -23,7 +24,7 @@ package services
 	 *  			 Se instancia la conexion con la capa logica , indicando los datos del servidor. 
 	*/
 
-	public class usuarioServices extends RemoteObject
+	public class UsuarioService extends RemoteObject
 	{
 		/**
 		 * @author "Camilo Verdugo"
@@ -32,7 +33,7 @@ package services
 		 * @param destination indica el package el nombre del package en la capa logica.
 		 * @param source indica el nombre de la clase de la capa logica seguida por el package
 		 * */
-		public function usuarioServices()
+		public function UsuarioService()
 		{
 			super();
 			var channel:ChannelSet=new ChannelSet();http:
@@ -40,7 +41,7 @@ package services
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="AddUsuario";
-			this.source="MantenerUsuario.AddUsuario";			
+			this.source="Administracion.AddUsuario";			
 			//this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		

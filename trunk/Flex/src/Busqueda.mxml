@@ -27,10 +27,12 @@
 		
 		   public function Seleccionar(event:Event = null):void
 			{
-			    if(input.selectedIndex==0)
-			    {
-			    input.text=input.selectedLabel;
-			    }
+				//CORREGIR
+			    //if(input.selectedIndex==0)
+			    //{
+			    //input.text=input.selectedLabel;
+			    //}
+			    
 			}
 		]]>
 	</mx:Script>
@@ -48,9 +50,9 @@
 		</mx:ArrayCollection>
 	</mx:ComboBox>
 	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
-
+	<!-- CORREGIR
 	<fc:AutoComplete id="input" x="59" y="10" width="150" dataProvider="{Clientes}" labelField="name" close="Seleccionar()"/>
-	
+	-->
 	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
 	<mx:ComboBox x="441" y="10" id="comboboxMascota" width="150" visible="false">
 		<mx:ArrayCollection>

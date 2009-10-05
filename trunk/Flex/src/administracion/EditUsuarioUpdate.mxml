@@ -13,7 +13,7 @@
 			import mx.controls.Text;
 			import mx.controls.Alert;
 			import mx.rpc.events.ResultEvent;
-			import services.usuarioServices;
+			import services.UsuarioService
 			import services.Validacion;
 			import transferObjects.Usuario;
 		
@@ -21,7 +21,7 @@
 			private var vNombre:Boolean;
 			private var vContrasena:Boolean;
 			private var vRContrasena:Boolean;
-			private var ru:usuarioServices = new usuarioServices();
+			private var ru:UsuarioService= new UsuarioService();
 			
 			public function itsOk():Boolean
 			{
