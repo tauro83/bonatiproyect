@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registro Mascota" xmlns:ns1="components.*" borderColor="#15AD8F">     
     <mx:Script>
         <![CDATA[
+        	import services.AddMascotaService;
         	import mx.controls.DateField;
         	import mx.controls.Alert;
             import mx.collections.ArrayCollection;
@@ -20,6 +21,7 @@
 		    import transferObjects.Mascota;
 		    import services.PersonService;
 		    import transferObjects.Person;
+		    import mx.core.Application;
 		   
 			
 			[Bindable]
@@ -81,13 +83,16 @@
 				
 				Resto = 11-(suma%11);
 				if(DigVer[Resto] != Dv.toUpperCase()){
-					rutClienteInput.errorString = "Rut Incorrecto";
+					//rutClienteInput.errorString = "Rut Incorrecto";
+					labelMessage.text = "El Rut que ha ingresado es incorrecto.";
 					datosMascota.visible = false;
 				}
 				else{
+					labelMessage.text = "";
+					//Alert.show("Busco "+rutClienteInput.text);
 					rutClienteInput.errorString = "";
 					//getPerson(rutClienteInput.text);
-//					getCliente(rutClienteInput.text);
+					getCliente(rutClienteInput.text);
 				}		
         	}
         	
@@ -194,16 +199,16 @@
 			* Funcion que llama a retornar todas las mascotas de un cliente
 			*/
 			private function getMascotas():void{
-				var mascotaService:MascotaService = new MascotaService();
-				mascotaService.addEventListener(ResultEvent.RESULT,getMascotasResult);
-				mascotaService.getMascotas(rutClienteInput.text);
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(rutClienteInput.text);
 			}
 			
 			/**
 			* Funcion que obtiene todas las mascotas de un cliente
 			* @param event Evento
 			*/
-			private function getMascotasResult(event:ResultEvent):void{
+			private function getAddMascotasResult(event:ResultEvent):void{
 				mascotas = event.result as ArrayCollection;
 				mascotas.refresh();
 			}
@@ -212,17 +217,23 @@
 			* Funcion que llama para retornar todos los clientes
 			* @param event Evento
 			*/
-			private function getPerson(rutCliente:String):void{
+			/*private function getPerson(rutCliente:String):void{
 				var personService:PersonService = new PersonService();
 				personService.addEventListener(ResultEvent.RESULT,getPersonResult);
 //				personService.getPerson(rutCliente);
+			}*/
+			
+			private function getCliente(rutCliente:String):void{
+				var addMascotaService: AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
+				addMascotaService.getCliente(rutCliente);
 			}
 			
 			/**
 			* Aquí van los comentarios del método
 			* @param event Evento
 			*/
-			private function getPersonResult(event:ResultEvent):void{
+			/*private function getPersonResult(event:ResultEvent):void{
 				cliente = event.result as Person;
 				
 				if(cliente == null){
@@ -230,11 +241,36 @@
         			datosMascota.visible = false;
         		}
         		else{
-        			datosMascota.visible = true;
-        			rutClienteOutput.text = cliente.rut;
-        			nombreClienteOutput.text = cliente.name;
-        			apellidoClienteOutput.text = cliente.lastName;
+        			//datosMascota.visible = true;
+        			//rutClienteOutput.text = cliente.rut;
+        			//nombreClienteOutput.text = cliente.name;
+        			//apellidoClienteOutput.text = cliente.lastName;
         			ini(event);
+        		}
+			}*/
+
+			private function getClienteResult(event:ResultEvent):void{
+				var nombreCliente:String = event.result as String;
+				
+				if(nombreCliente == null){
+        			//Alert.show("Cliente no registrado!");
+        			labelMessage.text = "Cliente no registrado."
+        			datosMascota.visible = false;
+        			Application.application.AdmIngreso2.setVisible(true);
+        			Application.application.AdmIngreso2.labelMessage.text = "El cliente ingresado no esta registrado."
+        			Application.application.AdmIngreso2.rut.text = rutClienteInput.text;
+        			Application.application.AdmIngreso2.rut2.text = rutClienteDVInput.text;
+        			this.setVisible(false);
+        			
+        			ini(event);
+        		}
+        		else{
+        			datosMascota.visible = true;
+        			labelMessage.text = "Se ha accedido al cliente " + nombreCliente + " satisfactoriamente.";
+        			ini(event);
+        			//mascotas.removeAll();
+	           		//getMascotas();
+					//mascotas.refresh();
         		}
 			}
 			
@@ -244,7 +280,6 @@
 			private function addMascota():void{
 				var mascota:Mascota = new Mascota();
 				
-				//mascota.id = rutClienteInput.text + nombreInput.text;
 				mascota.rutCliente = rutClienteInput.text;
 				mascota.nombre = nombreInput.text;
 				mascota.fechaNacimiento = fechaNacimientoInput.text;
@@ -288,7 +323,7 @@
 	<mx:Label x="38.75" y="160" text="Sexo:" width="51.75" height="22"/>
 	<mx:Label x="242" y="12" text="-" width="14.75" textAlign="center"/>
 	<mx:TextInput  restrict="0-9" x="153.5" y="10" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="253.5" y="10" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" enabled="false" focusOut="buscarCliente(event)"/>
+	<mx:TextInput x="253.5" y="10" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	
 	<!-- BOTON QUE DA ACCION A BUSQUEDA DE CLIENTE -->
 
@@ -310,13 +345,13 @@
 			<mx:Label x="129" y="181" width="165" text="{dg.selectedItem.sexo}"/>
 	</mx:Panel>	
 			
-	<mx:Canvas x="38.75" y="188" width="681.5" height="106" id="datosMascota" visible="true">
+	<mx:Canvas x="38.75" y="188" width="681.5" height="123" id="datosMascota" visible="true">
 		
 		<!-- DATOS DE REGISTRO DE MASCOTA --> 
 		<!-- DATOS DE CLIENTE SELECCIONADO --> 
 		
 		 <!-- TABLA DE MASCOTAS DEL CLIENTE --> 
-		<mx:DataGrid id="dg" color="0x323232" width="681" rowCount="3" y="44" x="0" variableRowHeight="true" dataProvider="{mascotas}"  visible="true" height="62">
+		<mx:DataGrid id="dg" color="0x323232" width="681" rowCount="3" y="10" x="0" variableRowHeight="true" dataProvider="{mascotas}"  visible="false" height="103">
 		    <mx:columns>
 		        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 		        <mx:DataGridColumn dataField="fechaNacimiento" headerText="F. Nacimiento" width="100"/>
@@ -332,9 +367,6 @@
 		        </mx:DataGridColumn> 
 		    </mx:columns>
 		</mx:DataGrid>
-		<mx:Label x="120" y="0" width="111.5" id="nombreClienteOutput" textAlign="center" visible="true"/>
-		<mx:Label x="239.5" y="0" width="111.5" id="apellidoClienteOutput" textAlign="center" visible="true"/>
-		<mx:Label y="0" width="111.5" id="rutClienteOutput" textAlign="center" visible="true" x="0.5"/>
 		
 		<!-- BOTONES --> 
 		
@@ -352,8 +384,9 @@
 	<ns1:FileUploader x="465.75" y="152" uploaded="uploadedHandler(event)" width="200.5">
 	</ns1:FileUploader>
 	-->
-	<mx:Button x="535.5" y="302" label="Registrar" visible="true" click="registrarMascota(event)" id="registrar"/>
-	<mx:Button x="625.5" y="302" label="Cancelar" width="84" id="cancelar" click="datosMascota.visible=false" visible="true"/>
+	<mx:Button x="546.25" y="328" label="Registrar" visible="true" click="registrarMascota(event)" id="registrar"/>
+	<mx:Button x="636.25" y="328" label="Cancelar" width="84" id="cancelar" click="datosMascota.visible=false" visible="true"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<!--
 	<mx:TileList x="465.75" y="9" width="200.5" height="135" dataProvider="{files}" itemRenderer="components.ItemRenderer"></mx:TileList>
 	-->
