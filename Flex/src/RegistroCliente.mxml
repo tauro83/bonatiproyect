@@ -321,7 +321,7 @@
 	
 	<mx:Button x="647" y="302" width="102" label="Cancelar" id="cancelarClienteIng" height="23" cornerRadius="6">
 	</mx:Button>	
-	<mx:Label x="169" y="372" width="407" textAlign="center" fontWeight="bold" height="17"/>
+	<mx:Label id="labelMessage" x="169" y="372" width="407" textAlign="center" fontWeight="bold" height="17"/>
 
 	
 </mx:Panel>
