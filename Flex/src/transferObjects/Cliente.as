@@ -27,6 +27,7 @@ package transferObjects
 			 public	var comuna:String;
 			 public	var email:String;
 			 public	var email2:String;  
+			 public var estado:Boolean;
 				
 	}
 }

@@ -1,8 +1,9 @@
 <!-- @autor Camilo Verdugo
 -->
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="{setDatos()}" width="779" height="466" title="Visualizar Ficha" borderColor="#15AD8F" >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779" height="466" title="Visualizar Ficha" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
+			import transferObjects.Cliente;
 			import mx.controls.List;
 			import mx.events.ListEvent; 			
 			import mx.controls.Alert;
@@ -10,19 +11,35 @@
             import mx.controls.CheckBox;    
             import mx.events.CloseEvent;
             import mx.rpc.events.ResultEvent;
+            import services.ListarFichasService;
+            import transferObjects.Cliente;
+         	private var lf:ListarFichasService;
          	
-         	private function setDatos():void{
+         	
+         	
+         	public function setDatos():void{
+         		lf = new ListarFichasService();
+         		lf.getCliente(cRut.text);
          		
+         		lf.addEventListener(ResultEvent.RESULT,getClienteR);	
          		
          	}
 	
+			public function getClienteR(event:ResultEvent):void{
+				var cliente:Cliente = event.result as Cliente;
+				this.cNom.text = cliente.nombre;
+				this.cDir.text = cliente.direccion;
+				this.cRut.text = cliente.rut;
+				this.cTel.text = cliente.telefono;
+				
+			}
 			
 			
 			]]> 
  	</mx:Script>
 	
 	
-	<mx:DataGrid x="24.15" y="205" width="693" height="183" id="fichaTablaRegistro">
+	<mx:DataGrid x="24.15" y="189.25" width="693" height="169" id="fichaTablaRegistro">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="col1"/>
 			<mx:DataGridColumn width="90" headerText="Fecha" dataField="col1"/>
@@ -40,19 +57,18 @@
 	<mx:Label x="393.7" y="114" text="Fecha nacimiento:" width="107"/>
 	<mx:Label x="393.7" y="35.9" text="Nombre:" width="63.4" height="17.931034"/>
 	<mx:Label x="24.15" y="88" text="Teléfono:" width="78"/>
-	<mx:Label x="24.15" y="138.95" text="Dirección:" width="78" height="17.25"/>
-	<mx:Label x="24.15" y="114" text="Comuna:" width="78" height="17.25"/>
+	<mx:Label x="24.15" y="114" text="Dirección:" width="78" height="17.25"/>
 	<mx:Label x="393.7" y="61.9" text="Raza:" width="78"/>
-	<mx:Label x="24.15" y="179" text="Atenciones" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
-	<mx:TextInput x="127.1" y="34" width="217.75" editable="false"/>
+	<mx:Label x="24.15" y="152.25" text="Atenciones" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<mx:TextInput x="127.1" y="34" width="217.75" editable="false" id="cNom"/>
 	<mx:TextInput x="127.1" y="60" width="138.75" editable="false" height="20" id="cRut"/>
-	<mx:TextInput x="127.1" y="86" width="138.75" editable="false" height="20"/>
-	<mx:TextInput x="127.1" y="112" width="138.75" editable="false" height="20"/>
-	<mx:TextInput x="127.1" y="136.95" width="217.75" editable="false" height="20"/>
+	<mx:TextInput x="127.1" y="86" width="138.75" editable="false" height="20" id="cTel"/>
+	<mx:TextInput x="127.1" y="112" width="217.75" editable="false" height="19.25" id="cDir"/>
 	<mx:TextInput x="517.25" y="33.9" width="138.75" editable="false" height="20" id="mNom"/>
-	<mx:TextInput x="517.25" y="59.9" width="92.9" editable="false" height="20"/>
-	<mx:TextInput x="517.25" y="87.9" width="92.9" editable="false" height="20"/>
-	<mx:TextInput x="517.25" y="112" width="92.9" editable="false" height="20"/>
-	<mx:Label x="165" y="396" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:TextInput x="517.25" y="59.9" width="92.9" editable="false" height="20" id="mRaz"/>
+	<mx:TextInput x="517.25" y="87.9" width="92.9" editable="false" height="20" id="mSex"/>
+	<mx:TextInput x="517.25" y="112" width="92.9" editable="false" height="20" id="mFNa"/>
+	<mx:Label x="187" y="383" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="615.15" label="Cancelar" y="366.25" id="cancVerFicha" />
 	
 </mx:Panel>

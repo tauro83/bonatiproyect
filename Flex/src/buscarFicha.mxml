@@ -57,6 +57,9 @@
             	if(fichas.selectedItem){
             		verFicha.mNom.text = fichas.selectedItem.nombre;
             		verFicha.cRut.text = fichas.selectedItem.rutCliente;
+            		verFicha.mFNa.text = fichas.selectedItem.fechaNacimiento;
+            		verFicha.mRaz.text = fichas.selectedItem.raza;
+            		verFicha.mSex.text = fichas.selectedItem.sexo;
             	}
             	verFicha.setVisible(true,false);
             }
@@ -64,6 +67,7 @@
             public function setVisualizarFicha(verFicha:VisualizarFicha):void{
             	this.verFicha = verFicha;
             	verFicha.setVisible(true,true);
+            	verFicha.setDatos();
             }
             
             
@@ -79,8 +83,11 @@
 	
 	<mx:DataGrid x="10" y="74" width="739" height="283" id="fichas" dataProvider="{mascotas}" itemDoubleClick="viewFicha(event)" >
 		<mx:columns>			
-			<mx:DataGridColumn headerText="Nombre mascota" id="nombre" sortable="false" draggable="false" dataField="nombre"/>
-			<mx:DataGridColumn headerText="Rut cliente"  id="rut" sortable="false" draggable="false" dataField="rutCliente"/>
+			<mx:DataGridColumn headerText="Nombre mascota" 			sortable="false" draggable="false" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Rut cliente"   			sortable="false" draggable="false" dataField="rutCliente"/>
+			<mx:DataGridColumn headerText="Raza" visible="true"   sortable="false" draggable="false" dataField="raza"/>
+			<mx:DataGridColumn headerText="Raza" visible="true"   sortable="false" draggable="false" dataField="sexo"/>
+			<mx:DataGridColumn headerText="Raza" visible="true"   sortable="false" draggable="false" dataField="fechaNacimiento"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="537" y="394" label="Visualizar" id="visualizar"  toolTip=""  click="viewFicha(event)" width="102"/>
