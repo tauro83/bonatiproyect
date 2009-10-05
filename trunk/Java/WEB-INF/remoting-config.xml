@@ -28,5 +28,11 @@
 	    </properties>
         </destination>
 
+        <destination id="DiaAgendaServices">
+	    <properties>
+	      <source>Agenda.DiaAgendaServices</source>
+	    </properties>
+        </destination>
+
 
 </service>
