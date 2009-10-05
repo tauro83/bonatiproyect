@@ -179,7 +179,6 @@
             private function setInvisible ():void{
             	//camilo verdugo
             	verFicha.setVisible(false,false);
-            	//camilo verdugo
             	visualizarFicha.setVisible(false,false);
             	
             	
@@ -463,7 +462,7 @@
             	
             }
             
-            //camilo Verdugo
+          
             private function linkVisualizarVenta ( event:Event ):void{
             	setInvisible();
             	petOpciones1.setVisible(true,false);
