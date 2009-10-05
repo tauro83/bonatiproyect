@@ -34,5 +34,10 @@
 	    </properties>
         </destination>
 
+        <destination id="AddMascotaService">
+	    <properties>
+	      <source>Administracion.AddMascotaService</source>
+	    </properties>
+        </destination>
 
 </service>
