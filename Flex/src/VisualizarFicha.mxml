@@ -3,6 +3,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779" height="466" title="Visualizar Ficha" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
+			import transferObjects.Mascota;
 			import transferObjects.Cliente;
 			import mx.controls.List;
 			import mx.events.ListEvent; 			
@@ -13,15 +14,18 @@
             import mx.rpc.events.ResultEvent;
             import services.ListarFichasService;
             import transferObjects.Cliente;
+            
+            private var mascota:Mascota;
          	private var lf:ListarFichasService;
          	
          	
          	
-         	public function setDatos():void{
+         	public function setDatos(mascota:Mascota):void{
+         		this.mascota = mascota;
          		lf = new ListarFichasService();
          		lf.getCliente(cRut.text);
+         		lf.addEventListener(ResultEvent.RESULT,getClienteR);
          		
-         		lf.addEventListener(ResultEvent.RESULT,getClienteR);	
          		
          	}
 	
@@ -32,6 +36,11 @@
 				this.cRut.text = cliente.rut;
 				this.cTel.text = cliente.telefono;
 				
+				this.mNom.text = mascota.nombre;
+            	this.cRut.text = mascota.rutCliente;
+            	this.mFNa.text = mascota.fechaNacimiento;
+            	this.mRaz.text = mascota.raza;
+            	this.mSex.text = mascota.sexo;
 			}
 			
 			

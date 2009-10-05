@@ -1,8 +1,9 @@
 <!-- @autor Camilo Verdugo
 -->
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="{getAllFichas()}" layout="absolute" borderColor="#15AD8F" width="779" height="466" title="Visualizar Ficha" >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllFichas()" layout="absolute" borderColor="#15AD8F" width="779" height="466" title="Visualizar Ficha" >
 	<mx:Script>
 		<![CDATA[
+			import transferObjects.Mascota;
 			import mx.controls.List;
 			import mx.events.ListEvent; 			
 			import mx.controls.Alert;
@@ -12,14 +13,15 @@
             import mx.rpc.events.ResultEvent;
             import services.ListarFichasService;
 	
+			[Bindable]
 			private var listFichas:ListarFichasService;
-			public var verFicha:VisualizarFicha;
+			private var verFicha:VisualizarFicha;
 			
 			
 			[Bindable]
 			private var mascotas:ArrayCollection;
 			//private var atenciones:ArrayCollection;
-			private var clientes:ArrayCollection;
+			
 			
 			
 			
@@ -30,8 +32,9 @@
 				
 				//mascotas = this.getAllMascotasResult();
 				listFichas = new ListarFichasService();
-				listFichas.addEventListener(ResultEvent.RESULT,getAllMascotasResult);
-				listFichas.getMascotas();				
+				listFichas.getMascotas();	
+				listFichas.addEventListener(ResultEvent.RESULT,getAllMascotasR);
+							
 			}
 			
             public function getAllFichasResult():void
@@ -39,7 +42,7 @@
             	
             }
             
-            public function getAllMascotasResult(event:ResultEvent):void
+            public function getAllMascotasR(event:ResultEvent):void
             {
 				mascotas = event.result as ArrayCollection;	
             }
@@ -52,22 +55,20 @@
             	
             }
             
-            public function viewFicha(event:Event):void{
-            	this.setVisible(false,false);
+            public function viewFicha(event:Event):void
+            {
             	
-            		verFicha.mNom.text = fichas.selectedItem.nombre;
-            		verFicha.cRut.text = fichas.selectedItem.rutCliente;
-            		verFicha.mFNa.text = fichas.selectedItem.fechaNacimiento;
-            		verFicha.mRaz.text = fichas.selectedItem.raza;
-            		verFicha.mSex.text = fichas.selectedItem.sexo;
+            	//Alert.show(fichas.selectedItem.nombre);
+            	if(fichas.selectedItem){
+            		this.setVisible(false,false);            	 	
+            		verFicha.setDatos(fichas.selectedItem as Mascota);
+            		verFicha.setVisible(true,false);
+            	}
             
-            	verFicha.setVisible(true,false);
             }
             
             public function setVisualizarFicha(verFicha:VisualizarFicha):void{
-            	this.verFicha = verFicha;
-            	verFicha.setVisible(true,true);
-            	verFicha.setDatos();
+            	this.verFicha = verFicha;               	
             }
             
             
@@ -81,7 +82,7 @@
 		</mx:ArrayCollection>	
 	</mx:ComboBox>
 	
-	<mx:DataGrid x="10" y="74" width="739" height="283" id="fichas" dataProvider="{mascotas}" itemDoubleClick="viewFicha(event)" >
+	<mx:DataGrid x="10" y="74" width="739" height="283" id="fichas" dataProvider="{mascotas}" >
 		<mx:columns>			
 			<mx:DataGridColumn headerText="Nombre mascota" 			sortable="false" draggable="false" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Rut cliente"   			sortable="false" draggable="false" dataField="rutCliente"/>
@@ -90,7 +91,7 @@
 			<mx:DataGridColumn headerText="Raza" visible="false"   sortable="false" draggable="false" dataField="fechaNacimiento"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="537" y="394" label="Visualizar" id="botonVerficha"  toolTip=""  click="viewFicha(event)" width="102"/>
+	<mx:Button x="537" y="394" label="Visualizar" id="botonVerficha"  click="viewFicha(event)" width="102"/>
 	<mx:Button x="647" y="394" label="Cancelar"  toolTip="Cancela la operación" width="102"/>
 	<mx:TextInput x="59" y="10" id="texImput" toolTip="Ingrese lo que quiere buscar"/>
 	<mx:Label x="10" y="12" text="Buscar"/>
