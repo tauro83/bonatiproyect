@@ -54,13 +54,13 @@
             
             public function viewFicha(event:Event):void{
             	this.setVisible(false,false);
-            	if(fichas.selectedItem){
+            	
             		verFicha.mNom.text = fichas.selectedItem.nombre;
             		verFicha.cRut.text = fichas.selectedItem.rutCliente;
             		verFicha.mFNa.text = fichas.selectedItem.fechaNacimiento;
             		verFicha.mRaz.text = fichas.selectedItem.raza;
             		verFicha.mSex.text = fichas.selectedItem.sexo;
-            	}
+            
             	verFicha.setVisible(true,false);
             }
             
@@ -86,12 +86,12 @@
 			<mx:DataGridColumn headerText="Nombre mascota" 			sortable="false" draggable="false" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Rut cliente"   			sortable="false" draggable="false" dataField="rutCliente"/>
 			<mx:DataGridColumn headerText="Raza" visible="true"   sortable="false" draggable="false" dataField="raza"/>
-			<mx:DataGridColumn headerText="Raza" visible="true"   sortable="false" draggable="false" dataField="sexo"/>
-			<mx:DataGridColumn headerText="Raza" visible="true"   sortable="false" draggable="false" dataField="fechaNacimiento"/>
+			<mx:DataGridColumn headerText="Raza" visible="false"   sortable="false" draggable="false" dataField="sexo"/>
+			<mx:DataGridColumn headerText="Raza" visible="false"   sortable="false" draggable="false" dataField="fechaNacimiento"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="537" y="394" label="Visualizar" id="visualizar"  toolTip=""  click="viewFicha(event)" width="102"/>
-	<mx:Button x="647" y="394" label="Cancelar" id="cancelar" toolTip="Cancela la operación" width="102"/>
+	<mx:Button x="537" y="394" label="Visualizar" id="botonVerficha"  toolTip=""  click="viewFicha(event)" width="102"/>
+	<mx:Button x="647" y="394" label="Cancelar"  toolTip="Cancela la operación" width="102"/>
 	<mx:TextInput x="59" y="10" id="texImput" toolTip="Ingrese lo que quiere buscar"/>
 	<mx:Label x="10" y="12" text="Buscar"/>
 	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center"/>

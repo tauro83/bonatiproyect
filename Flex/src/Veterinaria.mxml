@@ -25,7 +25,7 @@
 		    private function manejadorCreationComplete (event:FlexEvent):void{           	
             //	AdRegUsuario2.breg.addEventListener(MouseEvent.CLICK,setMensaje);  
  				<!--Autor: Camilo{ -->
- 				visualizarFicha.visualizar.addEventListener(MouseEvent.CLICK,manejadorFicha);
+ 				visualizarFicha.botonVerficha.addEventListener(MouseEvent.CLICK,manejadorFicha);
  				<!--Autor: Camilo{ -->
  				
  				
@@ -124,7 +124,7 @@
            	public function manejadorFicha(event:Event):void{
            		//setInvisible();
            		visualizarFicha.setVisualizarFicha(verFicha);    	
-            	visualizarFicha.setVisible(false,true);            	
+            	//visualizarFicha.setVisible(false,true);            	
             }
             <!--Autor: camilo{-->
             
