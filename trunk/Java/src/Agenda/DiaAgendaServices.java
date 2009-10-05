@@ -14,7 +14,7 @@ import Agenda.DiaAgenda;
 public class DiaAgendaServices 
 {
     public List <DiaAgenda> getDiaAgenda(String fecha){
-    	System.out.println("Recibo: "+ fecha);
+    	//System.out.println("Recibo: "+ fecha);
     	List<DiaAgenda> citas=new ArrayList<DiaAgenda>();
     	try 
 		{
