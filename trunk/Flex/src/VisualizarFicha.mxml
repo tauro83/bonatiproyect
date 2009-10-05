@@ -1,6 +1,6 @@
 <!-- @autor Camilo Verdugo
 -->
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Visualizar Ficha" borderColor="#15AD8F" >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="{setDatos()}" width="779" height="466" title="Visualizar Ficha" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
 			import mx.controls.List;
@@ -11,10 +11,10 @@
             import mx.events.CloseEvent;
             import mx.rpc.events.ResultEvent;
          	
-         	public function setDatos():void
-            {
-            	this.mNom.text = "asdsd";
-            }
+         	private function setDatos():void{
+         		
+         		
+         	}
 	
 			
 			
@@ -45,8 +45,7 @@
 	<mx:Label x="393.7" y="61.9" text="Raza:" width="78"/>
 	<mx:Label x="24.15" y="179" text="Atenciones" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
 	<mx:TextInput x="127.1" y="34" width="217.75" editable="false"/>
-	<mx:TextInput x="127.1" y="60" width="111" editable="false" height="20"/>
-	<mx:TextInput x="246.1" y="60" width="19.75" editable="false" height="20"/>
+	<mx:TextInput x="127.1" y="60" width="138.75" editable="false" height="20" id="cRut"/>
 	<mx:TextInput x="127.1" y="86" width="138.75" editable="false" height="20"/>
 	<mx:TextInput x="127.1" y="112" width="138.75" editable="false" height="20"/>
 	<mx:TextInput x="127.1" y="136.95" width="217.75" editable="false" height="20"/>

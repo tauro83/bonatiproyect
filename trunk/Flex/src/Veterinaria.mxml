@@ -123,8 +123,8 @@
              <!--Autor: camilo{-->
            	public function manejadorFicha(event:Event):void{
            		//setInvisible();
-            	visFicha.setVisible(true,false);
-            	visualizarFicha.setVisible(false,true);
+           		visualizarFicha.setVisualizarFicha(verFicha);    	
+            	visualizarFicha.setVisible(false,true);            	
             }
             <!--Autor: camilo{-->
             
@@ -178,7 +178,8 @@
             
             private function setInvisible ():void{
             	//camilo verdugo
-            	visFicha.setVisible(false,false);
+            	verFicha.setVisible(false,false);
+            	//camilo verdugo
             	visualizarFicha.setVisible(false,false);
             	
             	
@@ -681,7 +682,7 @@
 	<ns1:RegistroUsuario x="241" y="134" id="AdRegUsuario2" visible="false">
 	</ns1:RegistroUsuario>
 	<!--Autor: camilo}-->
-	<ns1:VisualizarFicha x="241" y="134" id="visFicha" visible="false">
+	<ns1:VisualizarFicha x="241" y="134" id="verFicha" visible="false">
 	</ns1:VisualizarFicha>
 	<ns1:buscarFicha x="241" y="134" id="visualizarFicha" visible="false">
 	</ns1:buscarFicha>
