@@ -21,7 +21,7 @@ public class GetFichasBD {
 		String query="";	
 		
 		try{
-			query = "SELECT clienterut, nombre, fechanacimiento,sexo,estado,raza FROM mascota";
+			query = "SELECT rut, nombre, fechanacimiento,claseanimal,raza,sexo,estado FROM mascota";
 					
 			selectAll = connection.prepareStatement(query);
 		} 
