@@ -43,7 +43,7 @@ public class AddMascotaBD{
 			String query="";	
 			
 			query = "INSERT INTO mascota(rut, nombre, fechanacimiento, claseanimal, raza, sexo, estado) "+
-					"VALUES (?, ?, ?, ?, ?, ?);";			
+					"VALUES (?, ?, ?, ?, ?, ?, ?);";			
 			add = connection.prepareStatement(query);
 			
 			query = "SELECT rut, nombre, fechanacimiento, claseanimal, raza, sexo, estado " +
