@@ -1,5 +1,5 @@
 create table ClientePresencial (
-	rut int not null,
+	rut CHAR(8) not null,
 	telefono1 int ,
 	telefono2 int ,
 	nombre CHAR(20),
