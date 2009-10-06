@@ -115,8 +115,21 @@
 
 				//raullrich
 				agenda2.ctm.addEventListener(MouseEvent.CLICK,editCita);
+				
+				//camilo verdugo
+				verFicha.cancVerFicha.addEventListener(MouseEvent.CLICK,cancelarVerFicha);
+				visualizarFicha.cancVisFicha.addEventListener(MouseEvent.CLICK, inicial);
+				AdRegUsuario2.cancRegUsua.addEventListener(MouseEvent.CLICK, inicial);
             }
           
+           <!-- Camilo Verdugo-->
+           private function cancelarVerFicha(event:Event):void
+           {           		
+           		verFicha.setVisible(false,false);
+            	visualizarFicha.setVisible(true,false);
+           }
+           
+           <!-- Camilo Verdugo-->
             
             <!--Erwin Díaz-->
             private function linkelimUsAd ( event:Event ):void{
@@ -667,10 +680,10 @@
 	<ns1:PanelAdmin x="0" y="134" id="AdmOpciones1" visible="false">
 	</ns1:PanelAdmin>
 	<ns1:RegistroRazas2 x="241" y="134" id="AdRegistrarRazas2" visible="false">
-	</ns1:RegistroRazas2>
+	</ns1:RegistroRazas2>	
+	<!--Autor: camilo}-->
 	<ns1:RegistroUsuario x="241" y="134" id="AdRegUsuario2" visible="false">
 	</ns1:RegistroUsuario>
-	<!--Autor: camilo}-->
 	<ns1:VisualizarFicha x="241" y="134" id="verFicha" visible="false">
 	</ns1:VisualizarFicha>
 	<ns1:buscarFicha x="241" y="134" id="visualizarFicha" visible="false">
