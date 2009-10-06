@@ -1,16 +1,17 @@
-INSERT INTO Atencion (clienteRut,mascotaNombre,servicio,hora,fecha)
-VALUES 		('162989243','Peluza','Peluqueria','23:53:30','13 Dec 2009');
-
-INSERT INTO Atencion (clienteRut,mascotaNombre,servicio,hora,fecha)
-VALUES 		('162989245','Cachupin','Hoteleria','12:52:30','19 Feb 2009');
-
-INSERT INTO Atencion (clienteRut,mascotaNombre,servicio,hora,fecha)
-VALUES 		('162989246','Larry','Policlinico I','18:53:30','13 Jan 2009');
-
-INSERT INTO Atencion (clienteRut,mascotaNombre,servicio,hora,fecha)
-VALUES 		('162989245','Cachupin','Peluqueria','08:53:30','13 Jun 2009');
-
-INSERT INTO Atencion (clienteRut,mascotaNombre,servicio,hora,fecha)
-VALUES 		('162989244','Cachupin','Policlinico II','13:53:30','13 Dec 2009');
+select * from atencion;
 
 
+INSERT INTO Atencion (clienteRut,mascotaNombre,servicio,hora,fecha,costo)
+VALUES 		('16298923','Larry','Hoteleria','12:52:30','20/10/09','3600');
+
+INSERT INTO Atencion (clienteRut,mascotaNombre,servicio,hora,fecha,costo)
+VALUES 		('16298923','Larry','Policlinico I','18:53:30','08/04/09','8200');
+
+INSERT INTO Atencion (clienteRut,mascotaNombre,servicio,hora,fecha,costo)
+VALUES 		('16298923','Cachupin','Peluqueria','08:53:30','10/10/09','9500');
+
+INSERT INTO Atencion (clienteRut,mascotaNombre,servicio,hora,fecha,costo)
+VALUES 		('16298925','Laica','Policlinico II','13:53:30','07/02/09','12600');
+
+INSERT INTO Atencion (clienteRut,mascotaNombre,servicio,hora,fecha,costo)
+VALUES 		('16298923','Larry','Peluqueria','23:53:30','03/03/09','2000');
