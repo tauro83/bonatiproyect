@@ -5,6 +5,7 @@
 
         <![CDATA[
 
+			import mx.events.DropdownEvent;
             import flash.events.MouseEvent;
             import mx.events.FlexEvent;
             import mx.rpc.events.ResultEvent;
@@ -39,6 +40,13 @@
             	botonLogin.addEventListener(MouseEvent.CLICK, linkLogin);
             	login3.botonCerrarSesion.addEventListener(MouseEvent.CLICK,cerrarSesion);
             	login3.botonCancelar.addEventListener(MouseEvent.CLICK,cancelarCerrado);
+            	busqueda2.combobox.addEventListener(DropdownEvent.CLOSE,seleccionarBusqueda);
+            	busqueda2.comboboxMascota.addEventListener(DropdownEvent.CLOSE,seleccionarMascota);
+            	busqueda2.comboboxProducto.addEventListener(DropdownEvent.CLOSE,seleccionarProducto);
+            	busqueda2.comboboxUsuario.addEventListener(DropdownEvent.CLOSE,seleccionarUsuario);
+            	busqueda2.comboboxAviso.addEventListener(DropdownEvent.CLOSE,seleccionarAviso);
+            	busqueda2.comboboxCita.addEventListener(DropdownEvent.CLOSE,seleccionarCita);
+            	busqueda2.comboboxCliente.addEventListener(DropdownEvent.CLOSE,seleccionarCliente);
             	<!--Autor: }Esteban --> 
             	
             	
@@ -303,7 +311,133 @@
             <!--Autor:Andres G.}-->
             
             <!--Autor: Esteban{ -->
-             private function cancelarCerrado (event:Event):void
+            private function setInvisibleInput ():void
+            {
+            	busqueda2.inputUsuarioCargo.setVisible(false,false);
+            	busqueda2.inputUsuarioNombre.setVisible(false,false);
+            	busqueda2.inputUsuarioAp.setVisible(false,false);
+            	busqueda2.inputUsuarioAm.setVisible(false,false);
+            	busqueda2.inputClienteEmail.setVisible(false,false);
+            	busqueda2.inputClienteNombre.setVisible(false,false);
+            	busqueda2.inputClienteTel.setVisible(false,false);
+            	busqueda2.inputClienteRut.setVisible(false,false);
+            	busqueda2.inputUsuarioServicio.setVisible(false,false);
+            	busqueda2.inputClienteApellido.setVisible(false,false);
+            	busqueda2.inputClienteApellido2.setVisible(false,false);
+            }
+            
+            private function seleccionarMascota (event:DropdownEvent):void
+            {
+ 
+            }
+            
+            private function seleccionarCita (event:DropdownEvent):void
+            {
+
+            }
+            
+            private function seleccionarAviso (event:DropdownEvent):void
+            {
+
+            }
+            
+            private function seleccionarCliente (event:DropdownEvent):void
+            {
+            	setInvisibleInput();
+            	switch (busqueda2.comboboxCliente.selectedLabel){
+				case 'E-mail':		
+					busqueda2.inputClienteEmail.setVisible(true,false);
+				break; 
+				case 'Nombre':		
+					busqueda2.inputClienteNombre.setVisible(true,false);
+				break; 
+				case 'Teléfono':		
+					busqueda2.inputClienteTel.setVisible(true,false);
+				break; 
+				case 'Rut':		
+					busqueda2.inputClienteRut.setVisible(true,false);
+				break; 	
+				case 'Apellido materno':		
+					busqueda2.inputClienteApellido2.setVisible(true,false);
+				break; 	
+				case 'Apellido paterno':		
+					busqueda2.inputClienteApellido.setVisible(true,false);
+				break; 	
+				}
+            }
+            
+             private function seleccionarUsuario (event:DropdownEvent):void
+            {
+            	setInvisibleInput();
+				switch (busqueda2.comboboxUsuario.selectedLabel){
+				case 'Cargo':		
+					busqueda2.inputUsuarioCargo.setVisible(true,false);
+				break; 
+				case 'Nombre':		
+					busqueda2.inputUsuarioNombre.setVisible(true,false);
+				break; 
+				case 'Apellido paterno':		
+					busqueda2.inputUsuarioAp.setVisible(true,false);
+				break; 
+				case 'Apellido materno':		
+					busqueda2.inputUsuarioAm.setVisible(true,false);
+				break;
+				case 'Servicio':
+					busqueda2.inputUsuarioServicio.setVisible(true,false); 	
+				}
+            }
+            
+            private function seleccionarProducto (event:DropdownEvent):void
+            {
+
+            }
+            
+            private function seleccionarBusqueda (event:DropdownEvent):void
+            {   
+            	busqueda2.comboboxCita.setVisible(false,false);
+				busqueda2.gridCita.setVisible(false,false);
+				busqueda2.comboboxCliente.setVisible(false,false);
+				busqueda2.gridCliente.setVisible(false,false);
+				busqueda2.comboboxAviso.setVisible(false,false);
+				busqueda2.gridAviso.setVisible(false,false);
+				busqueda2.comboboxMascota.setVisible(false,false);
+				busqueda2.gridMascota.setVisible(false,false);
+				busqueda2.comboboxProducto.setVisible(false,false);
+				busqueda2.gridProducto.setVisible(false,false);
+				busqueda2.comboboxUsuario.setVisible(false,false);
+				busqueda2.gridUsuario.setVisible(false,false);
+            	switch (busqueda2.combobox.selectedLabel)
+				{
+				case 'Cita':		
+					busqueda2.comboboxCita.setVisible(true,false);
+					busqueda2.gridCita.setVisible(true,false);
+				break; 
+				case 'Cliente':
+					busqueda2.comboboxCliente.setVisible(true,false);
+					busqueda2.gridCliente.setVisible(true,false);
+					busqueda2.getAllClientes();
+				break;
+				case 'Aviso':
+					busqueda2.comboboxAviso.setVisible(true,false);
+					busqueda2.gridAviso.setVisible(true,false);
+				break;
+				case 'Mascota':
+					busqueda2.comboboxMascota.setVisible(true,false);
+					busqueda2.gridMascota.setVisible(true,false);
+				break;
+				case 'Producto':
+					busqueda2.comboboxProducto.setVisible(true,false);
+					busqueda2.gridProducto.setVisible(true,false);
+				break;
+				case 'Usuario':
+					busqueda2.comboboxUsuario.setVisible(true,false);
+					busqueda2.gridUsuario.setVisible(true,false);
+					busqueda2.getAllUsuarios();
+				break;
+				}
+            }
+            
+            private function cancelarCerrado (event:Event):void
             {
             	setInvisible();
             	agenda2.setVisible(true,false);
@@ -336,7 +470,6 @@
             	botonBusqueda.enabled=false;
             	botonHotel.enabled=false;
             	botonAyuda.enabled=false;
-            	botonBusqueda.enabled=false;
             	botonLogin.label="Iniciar Sesión";
             	login2.bar=0;
             }
@@ -356,7 +489,6 @@
             		botonHotel.enabled=true;
             		botonAyuda.enabled=true;
             		botonLogin.enabled=true;
-            		botonBusqueda.enabled=true;
             		botonLogin.label="Cerrar Sesión";
             	/*	if(login2.Recordar.selected==true){
             			//tomo nombre
@@ -724,8 +856,8 @@
 	</ns1:Aviso>
 	<ns1:NuevoItem x="440" y="205.4" id="pelNuevoItem" visible="false">
 	</ns1:NuevoItem>
-	<ns1:Busqueda x="241" y="134" id="busqueda2" visible="false">
-	</ns1:Busqueda>
+	<ns1:BusquedaGeneral x="241" y="134" id="busqueda2" visible="false">
+	</ns1:BusquedaGeneral>
 	<ns1:huespedAgregado x="241" y="134" id="huespedAgregado2" visible="false">
 	</ns1:huespedAgregado>
 	<!--Autor: andres{-->
