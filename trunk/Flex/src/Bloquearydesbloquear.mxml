@@ -2,8 +2,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" x="779" y="360" layout="absolute" width="779" height="383" title="Bloqueo Fecha">
 <mx:Script>
 <![CDATA[
-          
-	   import flash.events.MouseEvent;
+           import flash.events.MouseEvent;
            import mx.events.FlexEvent;
 
            public var fecha:String;
