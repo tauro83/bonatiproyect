@@ -1,6 +1,7 @@
 package Administracion;
 
 import java.util.Date;
+import java.util.List;
 
 
 
@@ -55,31 +56,17 @@ public class Preoperatorio extends Registro {
 
 
 	@Override
-	protected String deteleRegistro() {
+	public String deteleRegistro() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 
 	@Override
-	protected String getRegistro() {
+	public List<Registro> getRegistro() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-	@Override
-	protected String setRegistro() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	/*protected String addRegistro(Registro r) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}*/
-
 
 
 }
