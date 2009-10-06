@@ -1,4 +1,4 @@
-package dao.postgres;
+package AdministracionBD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import transferObjects.Cliente;
-import transferObjects.Usuario;
+import TransferObjects.Cliente;
+import TransferObjects.Usuario;
 
 public class BusquedaBD 
 {

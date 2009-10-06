@@ -1,15 +1,15 @@
-package services;
+package Administracion;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dao.DBConnectionManager;
-import dao.postgres.BusquedaBD;
+import Bd.DBConnectionManager;
+import AdministracionBD.BusquedaBD;
 
-import transferObjects.Usuario;
-import transferObjects.Cliente;
+import TransferObjects.Usuario;
+import TransferObjects.Cliente;
 
 public class BusquedaService 
 {
