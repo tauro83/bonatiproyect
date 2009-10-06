@@ -45,6 +45,12 @@
   			<source>services.BusquedaService</source>
   		</properties>
   	</destination>
+	
+	<destination id="AddCita">
+	    <properties>
+	      <source>Administracion.AddCita</source>
+	    </properties>
+  	</destination>
 
 	
 
