@@ -1,8 +1,7 @@
-// @autor Camilo Verdugo
-//
 package services
-
 {
+	// @autor Camilo Verdugo
+
 	import mx.controls.Alert;
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
@@ -17,7 +16,7 @@ package services
 	 *  			 Se instancia la conexion con la capa logica , indicando los datos del servidor. 
 	*/
 
-	public class ListarFichasService extends RemoteObject
+	public class GetCliente extends RemoteObject
 	{
 		/**
 		 * @author "Camilo Verdugo"
@@ -26,7 +25,7 @@ package services
 		 * @param destination indica el package el nombre del package en la capa logica.
 		 * @param source indica el nombre de la clase de la capa logica seguida por el package
 		 * */
-		public function ListarFichasService()
+		public function GetCliente()
 		{
 			super();
 			var channel:ChannelSet=new ChannelSet();http:
@@ -44,21 +43,13 @@ package services
 			Alert.show("Error en getFichas, Detalle: "+event.fault.message);
 		}
 		
-		//metodo que solicta los datos de UNA ficha
-		public function getCliente(rut:String):void
-		{
-			this.getOperation("getCliente").send(rut);
-		}
 		
 		public function getAtenciones(rut:String,nombre:String):void
 		{
 			this.getOperation("getAtenciones").send(rut,nombre);
 		}
 		
-		public function getMascotas():void
-		{
-			this.getOperation("getMascotas").send();
-		}
+		
 		
 	}
 }

@@ -3,6 +3,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779" height="466" title="Visualizar Ficha" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
+			import services.GetCliente;
 			import transferObjects.Mascota;
 			import transferObjects.Cliente;
 			import mx.controls.List;
@@ -14,19 +15,31 @@
             import mx.rpc.events.ResultEvent;
             import services.ListarFichasService;
             import transferObjects.Cliente;
+            import transferObjects.Usuario;
+            import transferObjects.Atencion;
             
             private var mascota:Mascota;
          	private var lf:ListarFichasService;
+         	private var gcliente:GetCliente;
+         	private var cliente:Cliente;
+         	[Bindable]
+         	private var atenciones:ArrayCollection;
          	
          	
          	
          	public function setDatos(mascota:Mascota):void{
          		this.mascota = mascota;
+         		
          		lf = new ListarFichasService();
+         		gcliente = new GetCliente();
+         		
          		lf.getCliente(mascota.rutCliente);
-         		lf.addEventListener(ResultEvent.RESULT,getClienteR);
+         		lf.addEventListener(ResultEvent.RESULT,getClienteR);   
+         		      		
+         		gcliente.getAtenciones(mascota.rutCliente,mascota.nombre);  
+         		gcliente.addEventListener(ResultEvent.RESULT,getAtencionesR);
          		
-         		
+         		this.getMascota();
          	}
 	
 			public function getClienteR(event:ResultEvent):void{
@@ -36,26 +49,29 @@
 				this.cRut.text = cliente.rut;
 				this.cTel.text = cliente.telefono;
 				
+				
+			}
+			public function getAtencionesR(event:ResultEvent):void{
+				atenciones = event.result as ArrayCollection;	
+						
+			}
+			public function getMascota():void{
 				this.mNom.text = mascota.nombre;
             	this.cRut.text = mascota.rutCliente;
             	this.mFNa.text = mascota.fechaNacimiento;
             	this.mRaz.text = mascota.raza;
             	this.mSex.text = mascota.sexo;
 			}
-			
-			
 			]]> 
  	</mx:Script>
 	
 	
-	<mx:DataGrid x="24.15" y="189.25" width="693" height="169" id="fichaTablaRegistro">
+	<mx:DataGrid x="24.15" y="189.25" width="693" height="169" dataProvider="{atenciones}">
 		<mx:columns>
-			<mx:DataGridColumn width="20" headerText="" dataField="col1"/>
-			<mx:DataGridColumn width="90" headerText="Fecha" dataField="col1"/>
-			<mx:DataGridColumn headerText="Costo" dataField="col2"/>
-			<mx:DataGridColumn headerText="Servicio" dataField="col3"/>
-			<mx:DataGridColumn headerText="Descripción" dataField="col3"/>
-			<mx:DataGridColumn width="150" headerText="Responsable" dataField="col4"/>
+			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="fecha"/>
+			<mx:DataGridColumn headerText="Hora" dataField="hora"/>
+			<mx:DataGridColumn headerText="Costo" dataField="costo"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="24.15" y="36" text="Nombre:" width="78"/>
