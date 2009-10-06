@@ -2,6 +2,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" title="Administracion" height="466" width="779" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
+
 			            
 			// ocupen la variable que quieran, no necesariamente estas.
             public var texto:String;
