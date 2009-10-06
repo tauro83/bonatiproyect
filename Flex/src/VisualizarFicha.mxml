@@ -5,7 +5,7 @@
 		<![CDATA[
 			import services.GetCliente;
 			import transferObjects.Mascota;
-			import transferObjects.Cliente;
+			import transferObjects.Cliente; 
 			import mx.controls.List;
 			import mx.events.ListEvent; 			
 			import mx.controls.Alert;
