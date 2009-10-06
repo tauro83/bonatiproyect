@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="839" height="485" title="Ayuda">
+
 
 <mx:Text width="100%" color="#0B0A0A" textAlign="center"
             text="Bienvenido a la ayuda del sistema de administracion veterinaria Claudio Bonati" fontSize="16" fontFamily="Arial" x="10" y="10"/>

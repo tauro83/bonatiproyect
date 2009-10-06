@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Aviso">
    	
    	<mx:Script>
 		<![CDATA[
+
 			            
 			// ocupen la variable que quieran, no necesariamente estas.
             public var texto:String;
