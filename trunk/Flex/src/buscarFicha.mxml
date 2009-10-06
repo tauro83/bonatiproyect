@@ -56,15 +56,14 @@
             
             public function viewFicha(event:Event):void
             {
-            		if(fichas.selectedItem){
+            	if(fichas.selectedItem){
             		this.setVisible(false,false);            	 	
             		verFicha.setDatos(fichas.selectedItem as Mascota);
-            		verFicha.setVisible(true,false);
             		verFicha.setVisible(true,false);
             	}
             
             }
-            
+          
             public function setVisualizarFicha(verFicha:VisualizarFicha):void
             {
             	this.verFicha = verFicha;               	
@@ -73,26 +72,18 @@
             
 		]]> 
   	</mx:Script>	
-	<mx:ComboBox x="251" y="10" id="filtro" toolTip="Seleccione parámetro">
-		<mx:ArrayCollection>
-		    	<mx:Object label="Filtrar por" data="0"/>
-		    	<mx:Object label="Nombre" data="1"/>
-		    	<mx:Object label="Rut Dueño" data="2"/>
-		</mx:ArrayCollection>	
-	</mx:ComboBox>
 	
-	<mx:DataGrid x="10" y="74" width="739" height="269" id="fichas" dataProvider="{mascotas}" >
+	<mx:DataGrid x="10" y="38" width="739" height="305" id="fichas" dataProvider="{mascotas}" itemClick="viewFicha(event)">
 		<mx:columns>			
-			<mx:DataGridColumn headerText="Nombre mascota" 			sortable="false" draggable="false" dataField="nombre"/>
-			<mx:DataGridColumn headerText="Rut cliente"   			sortable="false" draggable="false" dataField="rutCliente"/>
-			<mx:DataGridColumn headerText="Raza" visible="true"   sortable="false" draggable="false" dataField="raza"/>
-			<mx:DataGridColumn headerText="Raza" visible="false"   sortable="false" draggable="false" dataField="sexo"/>
-			<mx:DataGridColumn headerText="Raza" visible="false"   sortable="false" draggable="false" dataField="fechaNacimiento"/>
+			<mx:DataGridColumn headerText="Nombre mascota" 	dataField="nombre"/>
+			<mx:DataGridColumn headerText="Rut cliente"   		dataField="rutCliente"/>
+			<mx:DataGridColumn headerText="Raza" visible="true"   dataField="raza"/>
+			<mx:DataGridColumn headerText="Raza" visible="false"    dataField="sexo"/>
+			<mx:DataGridColumn headerText="Raza" visible="false"   dataField="fechaNacimiento"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="534" y="364" label="Visualizar" id="botonVerficha"  click="viewFicha(event)" width="102"/>
 	<mx:Button x="644" y="364" label="Cancelar"  toolTip="Cancela la operación" width="102"/>
-	<mx:TextInput x="59" y="10" id="texImput" toolTip="Ingrese lo que quiere buscar"/>
-	<mx:Label x="10" y="12" text="Buscar"/>
+	<mx:Label x="10" y="12" text="Seleccione la mascota" fontWeight="bold"/>
 	<mx:Label x="158" y="394" width="407" height="17" id="labelMessage" textAlign="center"/>
 </mx:Panel>
