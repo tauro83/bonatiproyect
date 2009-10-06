@@ -23,11 +23,7 @@
 						
 			
 		    private function manejadorCreationComplete (event:FlexEvent):void{           	
-            //	AdRegUsuario2.breg.addEventListener(MouseEvent.CLICK,setMensaje);  
- 				<!--Autor: Camilo{ -->
- 				visualizarFicha.botonVerficha.addEventListener(MouseEvent.CLICK,manejadorFicha);
- 				<!--Autor: Camilo{ -->
- 				
+            //	AdRegUsuario2.breg.addEventListener(MouseEvent.CLICK,setMensaje);
  				
  				<!--Autor: Esteban{ -->
  				login2.AceptarUsuario.addEventListener(MouseEvent.CLICK,iniciarSesion);
@@ -120,15 +116,7 @@
 				//raullrich
 				agenda2.ctm.addEventListener(MouseEvent.CLICK,editCita);
             }
-             <!--Autor: camilo{-->
-           	public function manejadorFicha(event:Event):void{
-           		//setInvisible();
-           		visualizarFicha.setVisualizarFicha(verFicha);    	
-            	//visualizarFicha.setVisible(false,true);            	
-            }
-            <!--Autor: camilo{-->
-            
-            
+          
             
             <!--Erwin Díaz-->
             private function linkelimUsAd ( event:Event ):void{
@@ -507,7 +495,9 @@
             	setInvisible();
 				visualizarFicha.setVisible(true,true);
                 AdmOpciones1.setVisible(true,false);
-            	
+                  <!--Autor: camilo{-->
+                visualizarFicha.setVisualizarFicha(verFicha); 
+                  <!--Autor: camilo{--> 
             }
             
             private function linkregsitroUsAd ( event:Event ):void{

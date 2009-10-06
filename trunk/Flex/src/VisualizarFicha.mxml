@@ -23,7 +23,7 @@
          	public function setDatos(mascota:Mascota):void{
          		this.mascota = mascota;
          		lf = new ListarFichasService();
-         		lf.getCliente(cRut.text);
+         		lf.getCliente(mascota.rutCliente);
          		lf.addEventListener(ResultEvent.RESULT,getClienteR);
          		
          		
