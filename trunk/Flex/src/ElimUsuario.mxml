@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllPersons()" layout="absolute" width="779" height="466" title="Eliminar usuario" >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Eliminar usuario" id="panel">
 	<mx:Script>
 		<![CDATA[
 			import mx.controls.List;
@@ -9,19 +9,24 @@
             import mx.events.CloseEvent;
             import mx.rpc.events.ResultEvent;
 			
-			import transferObjects.Person;
+			import transferObjects.UsuarioElim;
 			import mx.rpc.events.ResultEvent;
-			import services.PersonService;
+			import administracion.UsuarioElimService;
 			[Bindable]
 			private var persons:ArrayCollection;
 			
-			private function getAllPersons():void
+			<!--
+			 * se obtienen todas los usuarios que están registrados en la
+			 * base de datos para ser mostrados dentro del datagrid
+			 -->
+			
+			private function getAllUsuarios():void
 			{
-				var personService:PersonService=new PersonService();
-				personService.addEventListener(ResultEvent.RESULT,getAllPersonsResult);
-				personService.getAllPersons();
+				var usuarioElimService:UsuarioElimService = new UsuarioElimService();
+				usuarioElimService.addEventListener(ResultEvent.RESULT,getAllUsuariosResult);
+				usuarioElimService.getAllUsuarios();
 			}
-			private function getAllPersonsResult(event:ResultEvent):void
+			private function getAllUsuariosResult(event:ResultEvent):void
 			{
 				persons = event.result as ArrayCollection;
 			}
@@ -43,22 +48,25 @@
 			 Alert.show("Está seguro que desea eliminar usuario ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
 			}
 			
-			private function deletePerson(clave:String):void
+			
+			<!-- Purga un usuario que está en la base de datos-->
+			private function deleteUsuario(clave:String):void
 			{
-				var personService:PersonService=new PersonService();
-				personService.addEventListener(ResultEvent.RESULT,deletePersonResult);
-			//	personService.deletePerson(clave);
+				var usuarioElimService:UsuarioElimService=new UsuarioElimService();
+				usuarioElimService.addEventListener(ResultEvent.RESULT,deleteUsuarioResult);
+				usuarioElimService.deleteUser(clave);
 			}
-			private function deletePersonResult(event:ResultEvent):void
+			private function deleteUsuarioResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
 				if(result>0)
 				{
-				   Alert.show("Ususario eliminado!");
-				   getAllPersons();
+				   //Alert.show("Ususario eliminado!");
+				   getAllUsuarios();
 				}
 				else
-				   Alert.show("Ususario NO eliminado!");
+				   getAllUsuarios();
+				   //Alert.show("Ususario NO eliminado!");
 			}
 			
 			private function removeTaskRecord():void
@@ -68,7 +76,7 @@
                     if (persons[i].sel)
                 	{
                         //Alert.show(persons[i].usuario);
-                        deletePerson(persons[i].usuario);
+                        deleteUsuario(persons[i].usuario);
                         //comando para eliminar desde la base de datos debe ir aquí
                          
                         persons.removeItemAt(i);
@@ -98,17 +106,8 @@
             
 		]]> 
   	</mx:Script>	
-	<mx:ComboBox x="251" y="10" id="filtro">
-		<mx:ArrayCollection>
-		    	<mx:Object label="Filtrar por" data="0"/>
-		    	<mx:Object label="Nombre" data="1"/>
-		    	<mx:Object label="Apellido" data="2"/>
-		    	<mx:Object label="Usuario" data="3"/>
-		    	<mx:Object label="Cargo" data="4"/>
-		</mx:ArrayCollection>	
-	</mx:ComboBox>
 	
-	<mx:DataGrid x="10" y="74" width="739" height="283" id="tablaUsuarios" dataProvider="{persons}" >
+	<mx:DataGrid x="10" y="74" width="739" height="303" id="tablaUsuarios" dataProvider="{persons}" >
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
 			 	<mx:itemRenderer>
@@ -128,11 +127,10 @@
 			<mx:DataGridColumn width="50" headerText="Purgar" dataField="purgar" id="purgar" sortable="false" draggable="false"/>
 			</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="537" y="394" label="Eliminar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados" width="102"/>
-	<mx:Button x="647" y="394" label="Cancelar" id="cancelar" toolTip="Cancela la operación" width="102"/>
+	<mx:Button x="577" y="394" label="Eliminar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados"/>
+	<mx:Button x="674" y="394" label="Cancelar" id="cancelar" toolTip="Cancela la operación"/>
 	<mx:CheckBox x="10" y="48" id="todo" click="{selectAll()}"/>
 	<mx:Label x="32" y="48" text="Seleccionar todo"/>
 	<mx:TextInput x="59" y="10" id="texImput"/>
 	<mx:Label x="10" y="12" text="Buscar"/>
-	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center"/>
 </mx:Panel>
