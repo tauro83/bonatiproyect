@@ -1,59 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Ayuda">
-	
-	<mx:Script>
-		<![CDATA[
-		import mx.controls.Alert;
-		
-		[Bindable]private var textoAyuda:String="Ayuda para el componente...";
-			
-			private function changeAcordeon():void{
-				//Aca insertan en dentro de un if su texto de ayuda para cada componente
-				
-				if(mainMenuAcordeon.selectedIndex==2 && subMenuAcordeon2.selectedIndex ==2){
-					textoAyuda="1.- Para acceder a las estadísticas de la clínica, primero que todo en nuestro menú superior presionamos el botón 'Clínica'.\n\n" + 
-							"2.- Con esto el menú lateral hizquierdo cambiará mostrándonos las opciones dentro de este módulo.\n\n" + 
-							"3.- A continuación presionamos sobre 'Estadísticas' o cualquiera de sus sub-menus, lo que nos mostrará distinta información referente a las atenciones.\n\n" + 
-							"4.- Alternando entre los botones 'Policlínico' y 'Pabellón', el grafico cambiará para tener estadísticas específicas del período elejido. \n";
-				}
-				
-			}
-		]]>
-	</mx:Script>
-	<mx:Accordion x="-1" y="0" width="182" height="343" id="mainMenuAcordeon" change="changeAcordeon()">
-		<mx:Canvas label="Administracion" width="100%" height="100%">
-			<mx:Accordion x="10" y="0" width="100%" height="100%" id="subMenuAcordeon0" change="changeAcordeon()">
-				<mx:Canvas label="Visualizar Ficha" width="100%" height="100%">
-				</mx:Canvas>
-				<mx:Canvas label="Registrar" width="100%" height="100%">
-				</mx:Canvas>
-				<mx:Canvas label="Editar" width="100%" height="100%">
-				</mx:Canvas>
-				<mx:Canvas width="100%" height="100%" label="Eliminar">
-				</mx:Canvas>
-				<mx:Canvas label="Purgar" width="100%" height="100%">
-				</mx:Canvas>
-			</mx:Accordion>
-		</mx:Canvas>
-		<mx:Canvas label="Agenda" width="100%" height="100%">
-		</mx:Canvas>
-		<mx:Canvas label="Clinica" width="100%" height="100%">
-			<mx:Accordion x="10" y="0" width="100%" height="100%" id="subMenuAcordeon2" change="changeAcordeon()">
-				<mx:Canvas label="Pabellon" width="100%" height="100%">
-				</mx:Canvas>
-				<mx:Canvas label="Policlinico" width="100%" height="100%">
-				</mx:Canvas>
-				<mx:Canvas label="Estadisticas" width="100%" height="100%">
-				</mx:Canvas>
-			</mx:Accordion>
-		</mx:Canvas>
-		<mx:Canvas label="Peluquería" width="100%" height="100%">
-		</mx:Canvas>
-		<mx:Canvas label="Pet Shop" width="100%" height="100%">
-		</mx:Canvas>
-		<mx:Canvas label="Hotelería" width="100%" height="100%">
-		</mx:Canvas>
-	</mx:Accordion>
-	<mx:TextArea x="181" y="0" width="578" height="343" editable="false" text="{textoAyuda}"/>
-	
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="839" height="485" title="Ayuda">
+
+<mx:Text width="100%" color="#0B0A0A" textAlign="center"
+            text="Bienvenido a la ayuda del sistema de administracion veterinaria Claudio Bonati" fontSize="16" fontFamily="Arial" x="10" y="10"/>
+
+        <mx:LinkBar color="0x0050AA" horizontalAlign="center" width="100%" fontWeight="bold" dataProvider="{myViewStack}" borderColor="0xACACAC" borderStyle="solid" x="10" y="40"/>
+
+        <!-- Define the ViewStack and the three child containers -->
+    <mx:ViewStack id="myViewStack" borderStyle="outset" width="800" height="368" color="0x323232" verticalCenter="32" horizontalCenter="-3">
+        
+            <mx:VBox id="search" label="General" backgroundColor="0xDCDCDC" width="100%" height="100%">
+                <mx:Label text="Informacion general" width="100%" textAlign="center" paddingTop="10"  fontWeight="bold"/>
+               
+               <mx:HBox width="219" horizontalAlign="rigth"   height="27">
+                    <mx:TextInput id="buscador" width="122" />
+                    <mx:Button label="Buscar" />
+      				
+                </mx:HBox>
+                <mx:HDividedBox  width="795" height="290">
+                
+               <!-- MENU PARA ADMINISTRACION-->
+                
+                 <mx:Canvas label="Canvas 1" width="187" height="283" color="0x323232" backgroundColor="#ACACAC" verticalCenter="true">
+                  
+                  <mx:LinkButton x="10" y="10" label="Cliente" textAlign="left"/>
+                  <mx:LinkButton x="34" y="30" label="Registrar" id="linkClienteAdm0" textAlign="left"/>
+                  <mx:LinkButton x="34" y="49" label="Editar" textAlign="left"/>
+                  <mx:LinkButton x="34" y="69" label="Eliminar" id="linkEliminarUsAd0" textAlign="left"/>
+                  
+                  <mx:LinkButton x="10" y="96" label="Mascota" textAlign="left"/>
+                  <mx:LinkButton x="34" y="115" label="Registrar" id="linkMascotaAdm1" textAlign="left"/>
+                  <mx:LinkButton x="34" y="135" label="Editar" id="linkEdicionMascotaAdm0" textAlign="left"/>
+                  <mx:LinkButton x="34" y="156" label="Visualizar ficha" id="linkFichaAdm0" textAlign="left"/>
+                  
+                  
+                  <mx:LinkButton x="10" y="186" label="Razas" textAlign="left"/>
+                  <mx:LinkButton x="34" y="203" label="Registrar" id="linkMascotaAdm2" textAlign="left"/>
+                  <mx:LinkButton x="34" y="225" label="Editar" id="linkEditarRazasAd0" textAlign="left"/>
+                  <mx:LinkButton x="34" y="246" label="Listar" textAlign="left"/>
+                  
+                  <mx:LinkButton x="10" y="276" label="Usuario" textAlign="left"/>
+                  <mx:LinkButton x="34" y="297" label="Registrar" id="linkRegUsuarioAd0" textAlign="left"/>
+                  <mx:LinkButton x="34" y="318" label="Editar" id="linkEditarUsAd0" width="66" textAlign="left"/>
+                  <mx:LinkButton x="34" y="339" label="Eliminar" textAlign="left"/>
+                  
+                  <mx:LinkButton x="10" y="366" label="Cita" textAlign="left"/>
+                   <mx:LinkButton x="34" y="390" label="Registrar" id="linkRegCitaAd0" textAlign="left" click="citaText.visible=true"/>
+                  <mx:LinkButton x="34" y="410" label="Editar" id="linkEditarCitad0" width="66" textAlign="left"/>
+                  <mx:LinkButton x="34" y="430" label="Eliminar" textAlign="left"/>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                 
+                 </mx:Canvas>
+                
+                <mx:Canvas label="Canvas 2" width="596" height="283" backgroundColor="#FCFBFB" >
+                	
+       
+       
+       <mx:Text id= "citaText"  visible="false" width="598" color="0x323232">
+     <mx:htmlText>
+ <![CDATA[
+=============================================================
+			<p><b> Registro de citas:</b>
+
+    <b>* Objetivo:</b>
+    
+<p> El objetivo es crear una cita  y guardarla en
+ una posición especifica del calendario, en una 
+ fecha y hora, determinada, así también como 
+ relacionada con un usuario y servicio. 
+La información principal de la cita es sobre 
+la mascota por la que esta registrada y el dueño 
+de esta.</p>
+
+
+    <b>* Pasos para registrar una cita: </b>
+
+<p>Se ingresa  a la opción agenda, se selecciona
+ servicio y profesional deseado,se selecciona 
+ le fecha y hora que se desee reservar y presionando
+  crear cita o solamente haciendo doble clic. Luego 
+  en la siguiente pantalla se busca y selecciona 
+ el cliente dueño de la mascota, luego se busca 
+ y selecciona la mascota. Finalmente se presiona 
+ aceptar.</p>
+===================================================================		
+
+
+
+
+</div>  ]]>
+            </mx:htmlText>
+        </mx:Text>
+                </mx:Canvas>
+                
+                </mx:HDividedBox>
+                
+               
+            </mx:VBox>
+            
+            <mx:VBox id="custInfo" label="Administracion" backgroundColor="0xDCDCDC" width="100%" height="100%" fontWeight="bold" horizontalAlign="left" >
+                <mx:Label text="Administración" width="100%" textAlign="center" paddingTop="10" />
+                <mx:HBox width="219" horizontalAlign="rigth"   height="27">
+                    <mx:TextInput id="buscador1" width="122" />
+                    <mx:Button label="Buscar"  />
+      				
+                </mx:HBox>
+                <mx:HDividedBox  width="795" height="290">
+                 <mx:Canvas label="Canvas 1" width="187" height="289" color="0x323232" backgroundColor="#ACACAC" verticalCenter="true">
+                  <mx:LinkButton x="10" y="10" label="Cliente" textAlign="left"/>
+                  <mx:LinkButton x="10" y="96" label="Mascota" textAlign="left"/>
+                  <mx:LinkButton x="10" y="186" label="Razas" textAlign="left"/>
+                  <mx:LinkButton x="34" y="297" label="Registrar" id="linkRegUsuarioAd1" textAlign="left"/>
+                  <mx:LinkButton x="34" y="318" label="Editar" id="linkEditarUsAd1" width="66" textAlign="left"/>
+                  <mx:LinkButton x="34" y="339" label="Eliminar" textAlign="left"/>
+                  <mx:LinkButton x="34" y="225" label="Editar" id="linkEditarRazasAd1" textAlign="left"/>
+                  <mx:LinkButton x="34" y="246" label="Listar" textAlign="left"/>
+                  <mx:LinkButton x="34" y="156" label="Visualizar ficha" id="linkFichaAdm1" textAlign="left"/>
+                  <mx:LinkButton x="34" y="115" label="Registrar" id="linkMascotaAdm4" textAlign="left"/>
+                  <mx:LinkButton x="34" y="135" label="Editar" id="linkEdicionMascotaAdm1" textAlign="left"/>
+                  <mx:LinkButton x="34" y="30" label="Registrar" id="linkClienteAdm1" textAlign="left"/>
+                  <mx:LinkButton x="34" y="49" label="Editar" textAlign="left"/>
+                  <mx:LinkButton x="34" y="69" label="Eliminar" id="linkEliminarUsAd1" textAlign="left"/>
+                  <mx:LinkButton x="10" y="276" label="Usuario" textAlign="left"/>
+                  <mx:LinkButton x="34" y="203" label="Registrar" id="linkMascotaAdm3" textAlign="left"/>
+                 </mx:Canvas>
+                
+                <mx:Canvas label="Canvas 2" width="541" height="290" backgroundColor="#FCFBFB" >
+                	
+                	  <mx:Text id= "texto3" width="598" color="0x323232">
+            <mx:htmlText>
+           
+            <![CDATA[
+            
+			</div>  ]]>
+            </mx:htmlText>
+        </mx:Text>
+                </mx:Canvas>
+                
+                </mx:HDividedBox>
+                
+               
+            </mx:VBox>
+            
+            <mx:VBox id="accountInfo1" label="Clinica" backgroundColor="0xDCDCDC" width="100%" height="100%" fontWeight="bold" >
+            </mx:VBox>
+            
+            <mx:VBox id="accountInfo2" label="Peluquería" backgroundColor="0xDCDCDC" width="100%" height="100%" fontWeight="bold" >
+            </mx:VBox>
+            
+             <mx:VBox id="accountInfo3" label="Pet Shop" backgroundColor="0xDCDCDC" width="100%" height="100%" fontWeight="bold" >
+            </mx:VBox>
+            
+            <mx:VBox id="accountInfo4" label="Hoteleria" backgroundColor="0xDCDCDC" width="100%" height="100%" fontWeight="bold" >
+                <mx:HBox width="100%" horizontalAlign="center">
+                </mx:HBox>
+            </mx:VBox>
+        </mx:ViewStack>
+        
+        
+   
 </mx:Panel>

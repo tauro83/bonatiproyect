@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="com.adobe.flex.extras.controls.*">
+	
+	<mx:Script>
+        <![CDATA[
+    
+    	//=======================================================================
+			// FECHA: CREACIÓN: 03 Octubre
+			// AUTOR: Victor Silva
+			// Comentarios: Formulario y validacion del registro de una cita en el sistema
+			//=======================================================================
+    
+    
+            import mx.events.FlexMouseEvent;
+			import mx.controls.Text;
+			import mx.rpc.events.ResultEvent;
+            public var selectedItem:Object;
+            import mx.core.Application;
+            import mx.controls.Alert;
+            import mx.collections.ArrayCollection;
+            import services.citaServices;
+			import transferObjects.Cita;
+			
+			private var ct:citaServices = new citaServices();
+			private var c1:Cita;
+            
+            
+             //Datos para Editar las ociones sin tener que volver a agenda
+
+           [Bindable]
+            public var servicios:ArrayCollection = new ArrayCollection(
+                [  {label:"Pabellón"}, 
+                  {label:"Peluquería"},
+                  {label:"Policlínico"},
+                  {label:"Atención a domicilio"} ]);
+          
+          [Bindable]
+            public var usuarios:ArrayCollection = new ArrayCollection(
+                [ {label:"Claudio Bonati"}, 
+                  {label:"Patricio Castro"} ]);
+          
+            
+            [Bindable]
+            public var horas:ArrayCollection = new ArrayCollection(
+                [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
+                 {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
+                 {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]);
+                 
+            
+            
+            /**
+		 	 * 	@author  "Victor SIlva"
+			 * 	@Fecha  03 Octubre
+			 *  @Descripcion Metodo que crea una instancia del transferObject cita,
+			 *  posterior a la validacion de datos  y lo envia a citaServices		 		
+			 * */
+			private function registrarCita():void
+			{								 
+	
+					
+					c1					= new Cita();
+					c1.cliente 			= autoClientes.text
+					c1.mascota      	= autoMascotas.text;
+					c1.fecha        	= fecha.text
+					c1.hora				= hora.text
+					c1.servicio			= servicio.text;
+					c1.usuario			= usuario.text;
+					
+					ct.addCita(c1);				
+					ct.addEventListener(ResultEvent.RESULT,registroCitaResultado);																					
+				}			
+			
+			/**
+		 	 * 	@author  "Victor Silva"
+			 * 	@Fecha  03 Octubre
+			 *  @Descripcion retorna el resultado de la accion que se realizo:Registro.		
+			 * */
+			private function registroCitaResultado(event:ResultEvent):void
+			{
+				var message:String= event.result as String;	
+				var msj:String = "";
+				if(message=="1"){
+					msj = "Cita para   " +autoMascotas.text + "fue Registrada"; 					
+    		 	}
+				else{
+					msj = "Cita ya esta registrada con la hora, dia y Encargado, Cambie los parametros"; 				
+				}		
+				mens.text = msj;	
+			}		
+            
+            public function guardaEditaCita(event:Event = null):void
+			{
+				
+			    //Alert.show(selectedRow.hora);
+			    Application.application.agenda2.setVisible(true);
+			    Application.application.editarCita.setVisible(false);
+			    Application.application.agenda2.labelMessage.text="Ha registrado una nueva cita";
+			    
+			    
+			}
+			
+			public function cancelarRegistroCita(event:Event = null):void
+			{
+				
+			    //Alert.show(selectedRow.hora);
+			    Application.application.agenda2.setVisible(true);
+			    Application.application.registrarCita.setVisible(false);
+			    Application.application.agenda2.labelMessage.text="Usted ha cancelado la operación";
+			    
+			}
+			
+			 
+             
+             [Bindable]
+		public var Clientes:Array= [
+		{rut:"16298921"},
+		{rut:"16298923"},
+		{rut:"16298925"},
+		{rut:"16298926"},
+		{rut:"16198927"},
+		{rut:"16298928"},
+		{rut:"16198929"},
+		{rut:"16298930"},
+		{rut:"16298931"},
+		{rut:"16168932"},
+		{rut:"15298921"},
+		{rut:"15298922"},
+		{rut:"16166068"},
+		{rut:"15298924"},
+		{rut:"15298925"},
+		{rut:"15298926"},
+		{rut:"15298927"},
+		{rut:"15298928"},
+		{rut:"15298929"},];	 
+         
+               [Bindable]
+		public var mascotas:Array= [
+		{name:"juanito"},
+		{name:"pollito"},
+		{name:"willy"},
+		{name:"Angdo"},
+		{name:"Ave"},
+		{name:"Aristo"},
+		{name:"Avestrus"},
+		{name:"Alarez"},
+		{name:"Armas"},
+		{name:"Adanara"},
+		{name:"Aroreno"},
+		{name:"jitano"},
+		{name:"jios"},
+		{name:"jodriguez"},
+		{ name:"Brocoli"},
+		{name:"Bravo"},
+		{name:"Burbuja"},
+		{name:"Banhueza"},
+		{name:"Barbacho"},];   
+            
+            
+             public function Seleccionar(event:Event = null):void
+			{
+			    if(Application.application.registrarCita.autoClientes.selectedIndex == "0")
+			    {
+			   Application.application.registrarCita.autoClientes.text=autoClientes.selectedLabel;
+			    }
+			    
+			}
+			
+			     public function Seleccionar2(event:Event = null):void
+			{
+			    if(Application.application.registrarCita.autoMascotas.selectedIndex == "0")
+			    {
+			    Application.application.registrarCita.autoMascotas.text=autoMascotas.selectedLabel;
+			    }
+			    
+			}
+       ]]>
+       
+    </mx:Script>
+	
+	<mx:Label x="10" y="20" text="Rut Cliente:" width="145"/>
+	<mx:Label x="10" y="100" text="Nombre Mascota:" width="145"/>
+	<mx:Label x="10" y="146" text="Fecha         :" width="145"/>
+	<mx:Label x="10" y="196" text="Hora          :" width="145"/>
+	<mx:DateField id="fecha" x="163" y="144" width="115"/>
+	<mx:ComboBox id="hora" x="163" y="194" dataProvider="{horas}" labelField="hora" width="160">
+	
+	</mx:ComboBox>
+	<mx:Label  x="10" y="243" text="Servicio         :" width="145"/>
+	<mx:ComboBox x="163" y="241" id="servicio" dataProvider="{servicios}" width="160"></mx:ComboBox>
+	
+	
+	<mx:Button x="601" y="312" label="Cancelar" width="112" click="{cancelarRegistroCita()}"/>
+	<mx:Button x="470" y="312" label="Guardar " width="123" click="registrarCita()"/>
+	<mx:Label id="encargado" x="10" y="303" text="Responsable :" width="145"/>
+	<mx:ComboBox x="163" y="301" id="usuario" dataProvider="{usuarios}" width="160"></mx:ComboBox>
+	<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+	
+	<ns1:AutoComplete x="163" y="18"  id="autoClientes" dataProvider="{Clientes}" labelField="rut" close="Seleccionar()"/>
+	<ns1:AutoComplete x="163" y="100"  id="autoMascotas" dataProvider="{mascotas}" labelField="name" close="Seleccionar2()"/>
+	<mx:Label x="10" y="61" text="Nombre Cliente:" width="145"/>
+	<ns1:AutoComplete x="163" y="59"/>
+
+</mx:Panel>

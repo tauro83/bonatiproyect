@@ -5,7 +5,6 @@
 
         <![CDATA[
 
-			import mx.events.DropdownEvent;
             import flash.events.MouseEvent;
             import mx.events.FlexEvent;
             import mx.rpc.events.ResultEvent;
@@ -23,30 +22,26 @@
 			public var texInt:int;
 			
 			
-				///AYUDA EN FORMA DE POP_UP	
+			
+		///AYUDA EN FORMA DE POP_UP	
 			
             import mx.managers.PopUpManager;
             import mx.containers.TitleWindow;
             private function showWindow():void {
                 var login:A=A(PopUpManager.createPopUp( this, A , true));
 
-            }		
+            }
 			
 		    private function manejadorCreationComplete (event:FlexEvent):void{           	
-            //	AdRegUsuario2.breg.addEventListener(MouseEvent.CLICK,setMensaje);
+            //	AdRegUsuario2.breg.addEventListener(MouseEvent.CLICK,setMensaje);  
+ 				//camilo verdugo
+ 				
  				
  				<!--Autor: Esteban{ -->
  				login2.AceptarUsuario.addEventListener(MouseEvent.CLICK,iniciarSesion);
             	botonLogin.addEventListener(MouseEvent.CLICK, linkLogin);
             	login3.botonCerrarSesion.addEventListener(MouseEvent.CLICK,cerrarSesion);
             	login3.botonCancelar.addEventListener(MouseEvent.CLICK,cancelarCerrado);
-            	busqueda2.combobox.addEventListener(DropdownEvent.CLOSE,seleccionarBusqueda);
-            	busqueda2.comboboxMascota.addEventListener(DropdownEvent.CLOSE,seleccionarMascota);
-            	busqueda2.comboboxProducto.addEventListener(DropdownEvent.CLOSE,seleccionarProducto);
-            	busqueda2.comboboxUsuario.addEventListener(DropdownEvent.CLOSE,seleccionarUsuario);
-            	busqueda2.comboboxAviso.addEventListener(DropdownEvent.CLOSE,seleccionarAviso);
-            	busqueda2.comboboxCita.addEventListener(DropdownEvent.CLOSE,seleccionarCita);
-            	busqueda2.comboboxCliente.addEventListener(DropdownEvent.CLOSE,seleccionarCliente);
             	<!--Autor: }Esteban --> 
             	
             	
@@ -106,13 +101,15 @@
                 //raullrich
                 editarCita.setVisible(false,false);
 				
-              
+              //vitoxone
+				registrarCita.setVisible(false,false);
+				eliminarCliente.setVisible(false,false);
 				
                 // Escucha por el evento click event en el botón.
                 
 				hotelIngreso.IdVerRegistroHotel.addEventListener (MouseEvent.CLICK,visulizarRegHot);
                 AdmIngreso2.cancelarClienteIng.addEventListener(MouseEvent.CLICK, inicial);
-             //   AdmMascota2.cancelarMascota.addEventListener (MouseEvent.CLICK,inicial);
+                AdmMascota2.cancelarMascota.addEventListener (MouseEvent.CLICK,inicial);
               // AdRegUsuario2.bcan.addEventListener (MouseEvent.CLICK,inicial);
                 
                 //Erwin Díaz
@@ -125,6 +122,7 @@
                 
 				<!--Autor: Jimmy Muñoz{-->
 				AdmOpciones1.linkEditarUsAd.addEventListener(MouseEvent.CLICK,linkeditUsAd);
+				AdmOpciones1.linkEditFicha.addEventListener(MouseEvent.CLICK,mostrarEditFicha);
 				AdEditarUsuar3.guardarUsuario.addEventListener(MouseEvent.CLICK,editarUsuario);
 				AdEditarUsuar3.cancGuardar.addEventListener(MouseEvent.CLICK,linkeditUsAd);
 				<!--Autor: }Jimmy Muñoz -->
@@ -132,20 +130,11 @@
 				//raullrich
 				agenda2.ctm.addEventListener(MouseEvent.CLICK,editCita);
 				
-				//camilo verdugo
-				verFicha.cancVerFicha.addEventListener(MouseEvent.CLICK,cancelarVerFicha);
-				visualizarFicha.cancVisFicha.addEventListener(MouseEvent.CLICK, inicial);
-				AdRegUsuario2.cancRegUsua.addEventListener(MouseEvent.CLICK, inicial);
+				//vitoxone
+				agenda2.agen.addEventListener(MouseEvent.CLICK,registraCita);
+				AdmOpciones1.linkEliminarClnte.addEventListener(MouseEvent.CLICK, eliminaCliente);
+				
             }
-          
-           <!-- Camilo Verdugo-->
-           private function cancelarVerFicha(event:Event):void
-           {           		
-           		verFicha.setVisible(false,false);
-            	visualizarFicha.setVisible(true,false);
-           }
-           
-           <!-- Camilo Verdugo-->
             
             <!--Erwin Díaz-->
             private function linkelimUsAd ( event:Event ):void{
@@ -167,15 +156,25 @@
             	
             }
             
-                  	
+            
+            <!--Autor: Jimmy Muñoz{-->
+            private function mostrarEditFicha ( event:Event ):void{
+           // 	AdEditFicha2.getFichas();
+            	setInvisible();
+               	AdmOpciones1.setVisible(true,false);
+            	AdEditFicha2.setVisible(true,false);
+            }
+            <!--Autor: }Jimmy Muñoz -->
+         	
             <!--Autor: Jimmy Muñoz{-->
             private function linkeditUsAd ( event:Event ):void{
-            	AdEditarUsuar2.getAllUsuarios(AdEditarUsuar3);
+            	AdEditarUsuar2.getAllUsuarios(AdEditarUsuar3);   //AKIIIIIIIIIII
             	setInvisible();
                	AdmOpciones1.setVisible(true,false);
             	AdEditarUsuar2.setVisible(true,false);
             }
             <!--Autor: }Jimmy Muñoz -->
+            
             
             
             <!--Autor: Jimmy Muñoz{-->
@@ -186,8 +185,7 @@
             
             private function setInvisible ():void{
             	//camilo verdugo
-            	verFicha.setVisible(false,false);
-            	visualizarFicha.setVisible(false,false);
+            	visualizarFicha.setVisible(false,true);
             	
             	
             	panel2.setVisible(false,false);
@@ -235,6 +233,10 @@
             	//raullrich
             	editarCita.setVisible(false,false);
             	
+            	<!--Autor: }Vitoxone {-->
+		 		registrarCita.setVisible(false,false); 
+		 		eliminarCliente.setVisible(false,false);
+            	
             	<!--Erwin Díaz-->
             	elimusuario.setVisible(false,false);
             	elimficha.setVisible(false,false);
@@ -242,6 +244,8 @@
             	
             	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
+            	AdEditFicha2.setVisible(false,false);
+            	AdEditFicha3.setVisible(false,false);
             	<!--Autor: }Jimmy Muñoz -->
             	
             	<!--Autor: Andres G.{-->
@@ -256,12 +260,8 @@
          		<!--Autor: Sebastian{ -->
 		    	bitacora.setVisible(false,false);
 		    	agenda2.setVisible(false, false);
-		 		<!--Autor: }Sebastian -->      
-		 		
-		 		
+		 		<!--Autor: }Sebastian -->         	
             }
-            
-           
             
             <!--Autor: Sebastian{-->
            	public function manejadorBitacora(event:Event):void{
@@ -269,8 +269,8 @@
             	bitacora.setVisible(true,false);
             	menuAgenda1.setVisible(true, false);
             }
-            public function manejadorAgenda(event:Event):void{
-            	agenda2.labelMessage.text="";
+            public function manejadorAgenda(event:Event):void{  // AGWNDA WILLY 
+            	//agenda2.getAllUsuarios(AdEditarUsuar3); 
             	setInvisible();
             	agenda2.setVisible(true,false);
             	menuAgenda1.setVisible(true, false);
@@ -311,133 +311,7 @@
             <!--Autor:Andres G.}-->
             
             <!--Autor: Esteban{ -->
-            private function setInvisibleInput ():void
-            {
-            	busqueda2.inputUsuarioCargo.setVisible(false,false);
-            	busqueda2.inputUsuarioNombre.setVisible(false,false);
-            	busqueda2.inputUsuarioAp.setVisible(false,false);
-            	busqueda2.inputUsuarioAm.setVisible(false,false);
-            	busqueda2.inputClienteEmail.setVisible(false,false);
-            	busqueda2.inputClienteNombre.setVisible(false,false);
-            	busqueda2.inputClienteTel.setVisible(false,false);
-            	busqueda2.inputClienteRut.setVisible(false,false);
-            	busqueda2.inputUsuarioServicio.setVisible(false,false);
-            	busqueda2.inputClienteApellido.setVisible(false,false);
-            	busqueda2.inputClienteApellido2.setVisible(false,false);
-            }
-            
-            private function seleccionarMascota (event:DropdownEvent):void
-            {
- 
-            }
-            
-            private function seleccionarCita (event:DropdownEvent):void
-            {
-
-            }
-            
-            private function seleccionarAviso (event:DropdownEvent):void
-            {
-
-            }
-            
-            private function seleccionarCliente (event:DropdownEvent):void
-            {
-            	setInvisibleInput();
-            	switch (busqueda2.comboboxCliente.selectedLabel){
-				case 'E-mail':		
-					busqueda2.inputClienteEmail.setVisible(true,false);
-				break; 
-				case 'Nombre':		
-					busqueda2.inputClienteNombre.setVisible(true,false);
-				break; 
-				case 'Teléfono':		
-					busqueda2.inputClienteTel.setVisible(true,false);
-				break; 
-				case 'Rut':		
-					busqueda2.inputClienteRut.setVisible(true,false);
-				break; 	
-				case 'Apellido materno':		
-					busqueda2.inputClienteApellido2.setVisible(true,false);
-				break; 	
-				case 'Apellido paterno':		
-					busqueda2.inputClienteApellido.setVisible(true,false);
-				break; 	
-				}
-            }
-            
-             private function seleccionarUsuario (event:DropdownEvent):void
-            {
-            	setInvisibleInput();
-				switch (busqueda2.comboboxUsuario.selectedLabel){
-				case 'Cargo':		
-					busqueda2.inputUsuarioCargo.setVisible(true,false);
-				break; 
-				case 'Nombre':		
-					busqueda2.inputUsuarioNombre.setVisible(true,false);
-				break; 
-				case 'Apellido paterno':		
-					busqueda2.inputUsuarioAp.setVisible(true,false);
-				break; 
-				case 'Apellido materno':		
-					busqueda2.inputUsuarioAm.setVisible(true,false);
-				break;
-				case 'Servicio':
-					busqueda2.inputUsuarioServicio.setVisible(true,false); 	
-				}
-            }
-            
-            private function seleccionarProducto (event:DropdownEvent):void
-            {
-
-            }
-            
-            private function seleccionarBusqueda (event:DropdownEvent):void
-            {   
-            	busqueda2.comboboxCita.setVisible(false,false);
-				busqueda2.gridCita.setVisible(false,false);
-				busqueda2.comboboxCliente.setVisible(false,false);
-				busqueda2.gridCliente.setVisible(false,false);
-				busqueda2.comboboxAviso.setVisible(false,false);
-				busqueda2.gridAviso.setVisible(false,false);
-				busqueda2.comboboxMascota.setVisible(false,false);
-				busqueda2.gridMascota.setVisible(false,false);
-				busqueda2.comboboxProducto.setVisible(false,false);
-				busqueda2.gridProducto.setVisible(false,false);
-				busqueda2.comboboxUsuario.setVisible(false,false);
-				busqueda2.gridUsuario.setVisible(false,false);
-            	switch (busqueda2.combobox.selectedLabel)
-				{
-				case 'Cita':		
-					busqueda2.comboboxCita.setVisible(true,false);
-					busqueda2.gridCita.setVisible(true,false);
-				break; 
-				case 'Cliente':
-					busqueda2.comboboxCliente.setVisible(true,false);
-					busqueda2.gridCliente.setVisible(true,false);
-					busqueda2.getAllClientes();
-				break;
-				case 'Aviso':
-					busqueda2.comboboxAviso.setVisible(true,false);
-					busqueda2.gridAviso.setVisible(true,false);
-				break;
-				case 'Mascota':
-					busqueda2.comboboxMascota.setVisible(true,false);
-					busqueda2.gridMascota.setVisible(true,false);
-				break;
-				case 'Producto':
-					busqueda2.comboboxProducto.setVisible(true,false);
-					busqueda2.gridProducto.setVisible(true,false);
-				break;
-				case 'Usuario':
-					busqueda2.comboboxUsuario.setVisible(true,false);
-					busqueda2.gridUsuario.setVisible(true,false);
-					busqueda2.getAllUsuarios();
-				break;
-				}
-            }
-            
-            private function cancelarCerrado (event:Event):void
+             private function cancelarCerrado (event:Event):void
             {
             	setInvisible();
             	agenda2.setVisible(true,false);
@@ -470,6 +344,7 @@
             	botonBusqueda.enabled=false;
             	botonHotel.enabled=false;
             	botonAyuda.enabled=false;
+            	botonBusqueda.enabled=false;
             	botonLogin.label="Iniciar Sesión";
             	login2.bar=0;
             }
@@ -489,6 +364,7 @@
             		botonHotel.enabled=true;
             		botonAyuda.enabled=true;
             		botonLogin.enabled=true;
+            		botonBusqueda.enabled=true;
             		botonLogin.label="Cerrar Sesión";
             	/*	if(login2.Recordar.selected==true){
             			//tomo nombre
@@ -565,8 +441,6 @@
             }
             
             private function manejadorClick2 ( event:Event ):void{	
-            	//raullrich borrando labelMensaje 
-            	agenda2.labelMessage.text="";
             	setInvisible();
             	agenda2.setVisible(true,false);
 				menuAgenda1.setVisible(true,false);
@@ -592,7 +466,7 @@
             	
             }
             
-          
+            //camilo Verdugo
             private function linkVisualizarVenta ( event:Event ):void{
             	setInvisible();
             	petOpciones1.setVisible(true,false);
@@ -637,9 +511,7 @@
             	setInvisible();
 				visualizarFicha.setVisible(true,true);
                 AdmOpciones1.setVisible(true,false);
-                  <!--Autor: camilo{-->
-                visualizarFicha.setVisualizarFicha(verFicha); 
-                  <!--Autor: camilo{--> 
+            	
             }
             
             private function linkregsitroUsAd ( event:Event ):void{
@@ -745,15 +617,28 @@
 
 
             //raullrich
-            <!--Autor: Raúl López{-->
+
             private function editCita(event:Event):void
             {
-               agenda2.labelMessage.text="";
                setInvisible();
                editarCita.setVisible(true,false);
                menuAgenda1.setVisible(true, false);
             }
-            <!--Autor: Raúl López{-->
+            
+             <!--Autor: Victor{--> 
+            private function registraCita(event:Event):void
+            {
+            	setInvisible();
+            	registrarCita.setVisible(true,false);
+            	menuAgenda1.setVisible(true,false);
+            }
+            <!--Autor: Victor{--> 
+           private function eliminaCliente (event:Event):void
+           {
+           	setInvisible();
+           	eliminarCliente.setVisible(true,false);
+           	AdmOpciones1.setVisible(true,false);
+           }
         ]]>
 
     </mx:Script>
@@ -809,18 +694,14 @@
 	<ns1:PanelAdmin x="0" y="134" id="AdmOpciones1" visible="false">
 	</ns1:PanelAdmin>
 	<ns1:RegistroRazas2 x="241" y="134" id="AdRegistrarRazas2" visible="false">
-	</ns1:RegistroRazas2>	
-	<!--Autor: camilo}-->
+	</ns1:RegistroRazas2>
 	<ns1:RegistroUsuario x="241" y="134" id="AdRegUsuario2" visible="false">
 	</ns1:RegistroUsuario>
-	<ns1:VisualizarFicha x="241" y="134" id="verFicha" visible="false">
+	<ns1:VisualizarFicha x="241" y="134" id="visualizarFicha" visible="false">
 	</ns1:VisualizarFicha>
-	<ns1:buscarFicha x="241" y="134" id="visualizarFicha" visible="false">
-	</ns1:buscarFicha>
-		<!--Autor:camilo}-->
 
-	<ns1:RegistrarMascota x="241" y="134" id="AdmMascota2" visible="false">
-	</ns1:RegistrarMascota>
+	<ns1:Mascota x="241" y="134" id="AdmMascota2" visible="false">
+	</ns1:Mascota>
 	<ns1:RegistroCliente x="241" y="134" id="AdmIngreso2" visible="false">
 	</ns1:RegistroCliente>
 	<ns1:NuevaAtencionHotel x="241" y="134" id="hotelIngreso" visible="false">
@@ -849,19 +730,24 @@
         <ns1:EditarCita x="241" y="134" id="editarCita" visible="false">
 	</ns1:EditarCita>
 
-
+<!--Autor: Vitoxone}--> 
+	<ns1:RegistraCita x="241" y="134" id="registrarCita" visible="false">
+	</ns1:RegistraCita>
+	<ns1:EliminarCliente x="241" y="134" id="eliminarCliente" visible="false">
+	</ns1:EliminarCliente>
+	
 	<ns1:Bloquearydesbloquear x="241" y="134" id="panelDesbloqueo" visible="false">
 	</ns1:Bloquearydesbloquear>
 	<ns1:Aviso x="241" y="134" id="agAviso2" visible="false">
 	</ns1:Aviso>
 	<ns1:NuevoItem x="440" y="205.4" id="pelNuevoItem" visible="false">
 	</ns1:NuevoItem>
-	<ns1:BusquedaGeneral x="241" y="134" id="busqueda2" visible="false">
-	</ns1:BusquedaGeneral>
+	<ns1:Busqueda x="241" y="134" id="busqueda2" visible="false">
+	</ns1:Busqueda>
 	<ns1:huespedAgregado x="241" y="134" id="huespedAgregado2" visible="false">
 	</ns1:huespedAgregado>
 	<!--Autor: andres{-->
-	<ns1:Ayuda x="241" y="134" id="ayudaVeterinaria" visible="false">
+	<ns1:Ayuda x="0" y="134" id="ayudaVeterinaria" visible="false">               
 	</ns1:Ayuda>
 	<ns1:GraficosClinica x="241" y="134" id="graficosClinica1" visible="false">
 	</ns1:GraficosClinica>
@@ -902,4 +788,8 @@
 	</ns2:EditarUsuario>	
 	<ns1:Bitacora id="bitacora" x="241" y="134" visible="false">
 	</ns1:Bitacora>
+	<ns2:EditarFicha x="241" y="133" id="AdEditFicha2" visible="false">
+	</ns2:EditarFicha>
+	<ns2:EditarFicha2 x="241" y="133" id="AdEditFicha3" visible="false">
+	</ns2:EditarFicha2>
 </mx:Application>

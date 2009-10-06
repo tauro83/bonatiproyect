@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="com.adobe.flex.extras.controls.*">
 
     <mx:Script>
         <![CDATA[
@@ -43,7 +43,7 @@
 			    
 			}
              
-            
+          
             
             
        ]]>
@@ -63,12 +63,12 @@
 	<mx:ComboBox x="163" y="201" id="servicioInput">
 	
 	</mx:ComboBox>
-	<mx:TextInput id= "dueño" x="163" y="18" text="Gaston Lazo"/>
 	<mx:LinkButton x="331" y="59" label="Buscar" />
 	<mx:Button x="601" y="312" label="Cancelar" width="112" click="{cancelarEditaCita()}"/>
 	<mx:Button x="470" y="312" label="Guardar " width="123" click="{guardaEditaCita()}"/>
 	<mx:TextInput id= "dueño2" x="163" y="59" text="seleccione" />
 	<mx:Label x="10" y="263" text="Responsable :" width="145"/>
 	<mx:ComboBox x="163" y="261" id="usuarioInput"></mx:ComboBox>
+	
 	
 </mx:Panel>
