@@ -40,4 +40,12 @@
 	    </properties>
         </destination>
 
+	 <destination id="BusquedaService"> 
+  	 	<properties>
+  			<source>services.BusquedaService</source>
+  		</properties>
+  	</destination>
+
+	
+
 </service>
