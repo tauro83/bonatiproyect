@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Agenda" xmlns:ns1="*" initialize="iniciarAgenda()" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
@@ -7,66 +7,59 @@
 			import mx.controls.Alert;
 			import mx.events.ListEvent;
 			import mx.core.Application;
-			import mx.collections.ArrayCollection;
-			import mx.controls.Alert;
-			import transferObjects.Usuario;
-			import mx.rpc.events.ResultEvent;
-			import administracion.UsuarioEditService;
-			import flash.events.MouseEvent;
-            import mx.events.FlexEvent;
-            import mx.rpc.events.ResultEvent;
-			import mx.rpc.events.FaultEvent;
-			import mx.controls.Alert;
-			
-			[Bindable]
-			private var usuarios:ArrayCollection;
-			private var usuars:ArrayCollection;
-			private var usuars2:ArrayCollection;
-			private var datosUsuarios:ArrayCollection;
-			
-			[Bindable]
-			private var citas:ArrayCollection;
-			
-			
-			
-			import flash.events.MouseEvent;
-            import mx.events.FlexEvent;
-            import mx.rpc.events.ResultEvent;
-			import mx.rpc.events.FaultEvent;
-			
-			import services.DiaAgendaServices;
-			import administracion.UsuarioEditService;
-			import transferObjects.Usuario;
 			
 			[Bindable]
 			public var diasBloqueados:ArrayCollection = new ArrayCollection();
 			
 			[Bindable]
-            public var diaAgenda:ArrayCollection = new ArrayCollection(
+            public var horas:ArrayCollection = new ArrayCollection(
                 [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
                  {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
                  {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]); 
                  
-            [Bindable]
-            public var semanaAgenda:ArrayCollection = new ArrayCollection(
-                [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
-                 {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
-                 {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]); 
-                 
-                 
+           	/**
+		 	 * 	@author  "Victor Silva"
+			 * 	@Fecha  03 Octubre
+			 *  @Descripcion Metodo que recibe el panel EditUsuario (newRegUsuar), para almacenarlo, 
+			 * inicializa la variable personService, para poder llamar a los metodos de este
+			 * para lograr comunicarse con las clases y metodos de java.	 		
+			 * */
+		/* 	public function getAllUsuarios(regUsuarioIn:EditUsuarioUpdate):void
+			{
+				labelMessage.text="";
+				newRegUsuar = regUsuarioIn;
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();
+				
+			} */
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
             private function asignarAgenda(event:Event):void{
+            	usuarioOutput.text = usuarioInput.text;
             	servicioOutput.text = servicioInput.text;
-            	cambioFecha();
             }
             private function bloquearDia():void{
             	diasBloqueados.addItem(fechaOutput.text);
             	this.agendaDia.selectedItem = null;
-            	labelMessage.text = "El día " + fechaOutput.text + " ha sido bloqueado."
+            	//agendaDia.visible = false;
             	cambioFecha();
             	
             }
             private function cambioFecha():void{
             	var date:Date = calendario.selectedDate;
+            	
             	fechaOutput.text = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
             	
             	if(diasBloqueados.contains(fechaOutput.text)){
@@ -75,219 +68,31 @@
             		
             		bloquear.visible = false;
             		desbloquear.visible = true;
+            		
+            		//agendaDia.visible = false;
             	}
             	else{
+            		//agendaDia.visible = true;
             		agendaDia.selectable = true;
-            		fechaBloqueadoOutput.text = "";		
+            		fechaBloqueadoOutput.text = "";
+            		
             		bloquear.visible = true;
             		desbloquear.visible = false;
-            		
-            		getDiaAgenda();
-            		
-            		//semanaAgenda = new ArrayCollection();
-            		//getSemanaAgenda();
-            		//agendaSemana.dataProvider = semanaAgenda;
             	}
             
             }
             private function desbloquearDia():void{
             	var index:int = diasBloqueados.getItemIndex(fechaOutput.text);
             	diasBloqueados.removeItemAt(index);
-            	labelMessage.text = "El día " + fechaOutput.text + " ha sido desbloqueado."
             	cambioFecha();
             }
-            
-            public function getDiaAgenda():void{
-				var diaAgenda:DiaAgendaServices = new DiaAgendaServices();
-				diaAgenda.addEventListener(ResultEvent.RESULT,getDiaAgendaResult);
-				diaAgenda.getDiaAgenda(fechaOutput.text);
-			}
-			
-			private function getDiaAgendaResult(event:ResultEvent):void{
-				citas = event.result as ArrayCollection;
-            	llenarAgendaDia(citas);   
-			}
-			
-			/*[Bindable]
-			var day:int;
-			
-			public function getSemanaAgenda():void{
-				var date:Date = calendario.selectedDate;
-            	//fechaOutput.text = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
-				var i:int;
-				for(i=1; i<7; i++){
-					day = i;
-					var semanaAgenda:DiaAgendaServices = new DiaAgendaServices();
-					semanaAgenda.addEventListener(ResultEvent.RESULT,getSemanaAgendaResult);
-					//Alert.show("Mando: "+ (date.getDate()-date.getDay()+i)+"/"+(date.getMonth()+1)+"/"+date.getFullYear());
-					semanaAgenda.getDiaAgenda((date.getDate()-date.getDay()+i)+"/"+(date.getMonth()+1)+"/"+date.getFullYear());
-				}
-			}
-			
-			private function getSemanaAgendaResult(event:ResultEvent):void{
-				citas = event.result as ArrayCollection;
-            	llenarAgendaSemana(citas, day);       
-			}
-			
-			public function llenarAgendaSemana(citass:ArrayCollection, day:int):void{
-				llenarItemSemana(citass, "10:30", day);
-                llenarItemSemana(citass, "11:00", day);
-                llenarItemSemana(citass, "11:30", day);
-                llenarItemSemana(citass, "12:00", day);
-                llenarItemSemana(citass, "12:30", day);
-                llenarItemSemana(citass, "15:30", day);
-                llenarItemSemana(citass, "16:00", day);
-                llenarItemSemana(citass, "16:30", day);
-                llenarItemSemana(citass, "17:00", day);
-                llenarItemSemana(citass, "17:30", day);
-                llenarItemSemana(citass, "18:00", day);
-                llenarItemSemana(citass, "18:30", day);
-                llenarItemSemana(citass, "19:00", day);
-                llenarItemSemana(citass, "19:30", day);
-			}
-			
-			public function llenarItemSemana(citass:ArrayCollection, hora:String, day:int):void{
-				var copado:Boolean;
-				var i:int;
-				
-				copado = false;
-				for(i=0; i < citass.length; i++){
-                	if(citass.getItemAt(i).hora == hora){
-                		semanaAgenda.addItem({day:"No Disponible"})
-                		copado = true;
-                	}
-                }
-				if(!copado){
-					semanaAgenda.addItem({hora:hora});
-				}
-			}*/
-			
-			public function llenarItemDia(citass:ArrayCollection, hora:String):void{
-				var copado:Boolean;
-				var i:int;
-				
-				copado = false;
-				for(i=0; i < citass.length; i++){
-                	if(citass.getItemAt(i).hora == hora){
-                		var b:Boolean = false;
-                		var j:int;
-                	
-                		if(servicioInput.text == "Todos"){
-	                		if(usuarioInput.text == "Todos"){
-	                			var item:Object = citass.getItemAt(i);
-	        					var k:int;
-	        					for(k=0; k< datosUsuarios.length; k++){
-	        						if(datosUsuarios.getItemAt(k).usuario == item.responsable){
-	        							item.responsable = datosUsuarios.getItemAt(k).nombre + " " + datosUsuarios.getItemAt(k).apellido;
-	        						}
-	        					}
-		    				    diaAgenda.addItem(item);
-		        				copado = true;
-	                		}
-	                		else{
-		                		for(j=0; j < datosUsuarios.length; j++){
-		                			if(datosUsuarios.getItemAt(j).usuario == citass.getItemAt(i).responsable && 
-		                				datosUsuarios.getItemAt(j).nombre + " " + datosUsuarios.getItemAt(j).apellido == usuarioInput.text){
-		                				
-		                				item = citass.getItemAt(i);
-				        				for(k=0; k< datosUsuarios.length; k++){
-				        					if(datosUsuarios.getItemAt(k).usuario == item.responsable){
-	        									item.responsable = datosUsuarios.getItemAt(k).nombre + " " + datosUsuarios.getItemAt(k).apellido;
-	        								}
-	        							}
-		                				diaAgenda.addItem(item);
-		                				copado = true;
-		                			   }
-		                		}
-	                		}
-                		}
-                		else{
-                			if(usuarioInput.text == "Todos" && citass.getItemAt(i).servicio == servicioInput.text){
-	                			item = citass.getItemAt(i);
-	
-	        					for(k=0; k< datosUsuarios.length; k++){
-	        						if(datosUsuarios.getItemAt(k).usuario == item.responsable){
-	        							item.responsable = datosUsuarios.getItemAt(k).nombre + " " + datosUsuarios.getItemAt(k).apellido;
-	        						}
-	        					}
-		    				    diaAgenda.addItem(item);
-		        				copado = true;
-	                		}
-	                		else{
-		                		for(j=0; j < datosUsuarios.length; j++){
-		                			if(datosUsuarios.getItemAt(j).usuario == citass.getItemAt(i).responsable && 
-		                				datosUsuarios.getItemAt(j).nombre + " " + datosUsuarios.getItemAt(j).apellido == usuarioInput.text &&
-		                				citass.getItemAt(i).servicio == servicioInput.text){
-		                				
-		                				item = citass.getItemAt(i);
-				        				for(k=0; k< datosUsuarios.length; k++){
-				        					if(datosUsuarios.getItemAt(k).usuario == item.responsable){
-	        									item.responsable = datosUsuarios.getItemAt(k).nombre + " " + datosUsuarios.getItemAt(k).apellido;
-	        								}
-	        							}
-		                				diaAgenda.addItem(item);
-		                				copado = true;
-		                			   }
-		                		}
-	                		}
-                		}
-                	}
-                }
-				if(!copado){
-					diaAgenda.addItem({hora:hora});
-				}
-			}
-			
-			public function llenarAgendaDia(citass:ArrayCollection):void{
-				diaAgenda = new ArrayCollection();
-
-                llenarItemDia(citass, "10:30");
-                llenarItemDia(citass, "11:00");
-                llenarItemDia(citass, "11:30");
-                llenarItemDia(citass, "12:00");
-                llenarItemDia(citass, "12:30");
-                llenarItemDia(citass, "15:30");
-                llenarItemDia(citass, "16:00");
-                llenarItemDia(citass, "16:30");
-                llenarItemDia(citass, "17:00");
-                llenarItemDia(citass, "17:30");
-                llenarItemDia(citass, "18:00");
-                llenarItemDia(citass, "18:30");
-                llenarItemDia(citass, "19:00");
-                llenarItemDia(citass, "19:30");
-                
-                agendaDia.dataProvider = diaAgenda;
-			} 
-            
-            public function getAllUsuarios():void{
-				var personService:UsuarioEditService = new UsuarioEditService();
-				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
-				personService.getAllUsuariosE();	
-			}
-			
-			private function getAllUsuariosEResult(event:ResultEvent):void{
-				usuarios = event.result as ArrayCollection;
-				var responsables:ArrayCollection;
-				responsables = new ArrayCollection();
-				datosUsuarios = new ArrayCollection();
-				
-				var i:int;
-				responsables.addItem({label:"Todos"});
-				for(i=0; i < usuarios.length; i++){
-            		var nombre:String = usuarios.getItemAt(i).nombre.split(" ",1);
-            		var apellido:String = usuarios.getItemAt(i).apellidoPaterno.split(" ",1);
-            		datosUsuarios.addItem({usuario:usuarios.getItemAt(i).usuario.split(" ",1), nombre:nombre, apellido:apellido});
-            		responsables.addItem({label:(nombre + " " + apellido)});
-            	}
-            	usuarioInput.dataProvider = responsables;
-			}  
-            
             private function iniciarAgenda():void{
             	var fechaActual:Date = new Date();
             	
-            	getAllUsuarios();
-
-            	servicioInput.dataProvider = ["Todos", "Pabellon", "Peluquería", "Policlinico", "Atencion a domicilio"];
+            	usuarioInput.dataProvider = ["Todos", "Claudio Bonati", "Patricio Castro"];
+            	servicioInput.dataProvider = ["Todos", "Pabellón", "Peluquería", "Policlínico", "Atención a domicilio"];
+            	
+            	usuarioOutput.text = "Todos";
             	servicioOutput.text = "Todos";
             	fechaOutput.text = fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" +fechaActual.getFullYear();;	
             }     
@@ -297,15 +102,41 @@
 										 "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 				calendario.disabledDays = [0];
 			}
-			public function seleccionarCita(event:Event):void
+			public function seleccionarCita(event:Event = null):void
 			{
 				var selectedRow:Object = event.currentTarget.selectedItem;
+			    //Alert.show(selectedRow.hora);
 			    
+			    if(Application.application.agenda2.agendaDia.selectedItem.cliente != null)
+			    {
 			    Application.application.agenda2.setVisible(false);
 			    Application.application.editarCita.setVisible(true);
-			    Application.application.editarCita.hora.text = selectedRow.hora;
+			    }
+			    else
+			     Application.application.agenda2.setVisible(false);
+			     Application.application.registrarCita.setVisible(true);
+			     Application.application.registrarCita.hora.text = selectedRow.hora; 
+			   	 Application.application.registrarCita.servicio.text = servicioInput.selectedLabel;
+			     Application.application.registrarCita.fecha.selectedDate = calendario.selectedDate;
+			     Application.application.registrarCita.usuario.text = usuarioInput.selectedLabel;
 
 			}
+			
+			public function registrarCita(event:Event):void
+			{
+				var selectedRow:Object = event.currentTarget.selectedItem;
+
+			    
+			    Application.application.agenda2.setVisible(false);
+			    Application.application.registrarCita.setVisible(true);
+			    Application.application.registrarCita.hora.text = selectedRow.hora; 
+			    Application.application.registrarCita.servicioInput.text = servicioInput.selectedLabel;
+			  	Application.application.registrarCita.fechaInput.data = calendario.selectedDate;
+			  	Application.application.registrarCita.usuarioInput.text = usuarioInput.selectedLabel;
+			    Application.application.registrarCita.usuarioInput.text = usuarioInput.text;
+			
+			}
+            
  		]]>
  	</mx:Script>		
 	<mx:DateChooser id="calendario" x="10" y="37" width="182" height="153" yearNavigationEnabled="true"
@@ -314,48 +145,49 @@
         <mx:ViewStack id="tiposCalendario" width="550" height="268" x="200" y="35">
             <mx:VBox id="dia" label="Día" width="100%" height="100%">
                 <mx:Canvas width="550" height="266">
-                    <mx:DataGrid id="agendaDia" x="0" y="0" width="550" height="266" dataProvider="{semanaAgenda}" doubleClickEnabled="true" itemDoubleClick="seleccionarCita(event)">
+                    <mx:DataGrid id="agendaDia" x="0" y="0" width="550" height="266" dataProvider="{horas}" fontWeight="bold" doubleClickEnabled="true" itemDoubleClick="seleccionarCita(event)">
                         <mx:columns>
-                            <mx:DataGridColumn headerText="Hora" dataField="hora"  fontWeight="bold" width="45"/>
-                            <mx:DataGridColumn headerText="Cliente" dataField="cliente"/>
-                            <mx:DataGridColumn headerText="Mascota" dataField="mascota"/>
-                            <mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
-                            <mx:DataGridColumn headerText="Responsable" dataField="responsable"/>
+                            <mx:DataGridColumn headerText="Hora" dataField="hora" width="45"/>
+                            <mx:DataGridColumn headerText="Cliente"/>
+                            <mx:DataGridColumn headerText="Mascota"/>
+                            <mx:DataGridColumn headerText="Servicio"/>
+                            <mx:DataGridColumn headerText="Usuario"/>
                         </mx:columns>
                     </mx:DataGrid>
                 </mx:Canvas>
             </mx:VBox>
             <mx:VBox id="semana" label="Semana" width="100%" height="100%">
                 <mx:Canvas width="550" height="266">
-                    <mx:DataGrid id="agendaSemana" x="0" y="0" width="550" height="266"  textAlign="center" dataProvider="{diaAgenda}" selectable="false">
+                    <mx:DataGrid x="0" y="0" width="550" height="266"  textAlign="center" dataProvider="{horas}" selectable="false">
                         <mx:columns>
                         	<mx:DataGridColumn headerText="Hora" dataField="hora" textAlign="left" width="45" fontWeight="bold"/>
-                            <mx:DataGridColumn headerText="Lunes" dataField="1"/>
-                            <mx:DataGridColumn headerText="Martes" dataField="2"/>
-                            <mx:DataGridColumn headerText="Miercoles" dataField="3"/>
-                            <mx:DataGridColumn headerText="Jueves" dataField="4"/>
-                            <mx:DataGridColumn headerText="Viernes" dataField="5"/>
-                            <mx:DataGridColumn headerText="Sabado" dataField="6"/>
+                            <mx:DataGridColumn headerText="Lunes" dataField="lunes"/>
+                            <mx:DataGridColumn headerText="Martes" dataField="martes"/>
+                            <mx:DataGridColumn headerText="Miercoles" dataField="miercoles"/>
+                            <mx:DataGridColumn headerText="Jueves" dataField="jueves"/>
+                            <mx:DataGridColumn headerText="Viernes" dataField="viernes"/>
+                            <mx:DataGridColumn headerText="Sabado" dataField="sabado"/>
                         </mx:columns>
                     </mx:DataGrid>
                 </mx:Canvas>
             </mx:VBox>
         </mx:ViewStack>
-        <mx:Label x="10" y="198" text="Responsable:"/>
+        <mx:Label x="10" y="198" text="Encargado:"/>
         <mx:ComboBox id="usuarioInput" x="10" y="224" width="182" close="asignarAgenda(event);">
 		</mx:ComboBox>
         <mx:Label x="10" y="254" text="Servicio:"/>
         <mx:ComboBox id="servicioInput" x="10" y="280" width="182" close="asignarAgenda(event);">
 		</mx:ComboBox>
-        <mx:Button x="523" y="311" label="Agendar"/>
+        <mx:Button x="523" y="311" label="Agendar" id="agen"/>
         <mx:Button x="674" y="311" label="Eliminar"/>
         <mx:Button x="606" y="311" label="Editar" id="ctm"/>
         <mx:Button id="bloquear" x="200" y="311" label="Bloquear Día" click="bloquearDia()"/>
         <mx:Button id="desbloquear" x="200" y="311" label="Desbloquear Día" click="desbloquearDia()" visible="false"/>
-        <mx:Text x="200" y="10" text="Fecha:" fontWeight="bold" visible="false"/>
-        <mx:Label id="fechaOutput" x="248" y="10" visible="false"/>
-        <mx:Label id="fechaBloqueadoOutput" x="200" y="14" visible="true"/>
-        <mx:Text x="437" y="10" text="Servicio:" fontWeight="bold" visible="false"/>
-        <mx:Label id="servicioOutput" x="491" y="10" visible="false"/>
-        <mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+        <mx:Text x="200" y="10" text="Fecha:" fontWeight="bold"/>
+        <mx:Label id="fechaOutput" x="248" y="10"/>
+        <mx:Label id="fechaBloqueadoOutput" x="317" y="10"/>
+        <mx:Text x="10" y="10" text="Encargado:" fontWeight="bold"/>
+        <mx:Label id="usuarioOutput" x="83" y="10"/>
+        <mx:Text x="437" y="10" text="Servicio:" fontWeight="bold"/>
+        <mx:Label id="servicioOutput" x="491" y="10"/>
 </mx:Panel>
