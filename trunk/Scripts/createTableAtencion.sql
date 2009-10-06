@@ -3,8 +3,9 @@ create table Atencion(
 	mascotaNombre CHAR(20) not null,
 	servicio CHAR(20),
 	hora time,
-	fecha date,
-	constraint PK_mascotaNombre primary key (mascotaNombre)
+	fecha CHAR(20),
+	costo char(20),
+	constraint PK_mascotaNombre primary key (mascotaNombre,hora,servicio)
 )
 
 
