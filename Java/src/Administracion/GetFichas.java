@@ -14,8 +14,10 @@ import java.util.List;
 
 import TransferObjects.Mascota;
 import TransferObjects.Cliente;
+import TransferObjects.Atencion;
 import AdministracionBD.GetFichasBD;
 import Bd.DBConnectionManager;
+
 
 public class GetFichas {
 	
@@ -57,6 +59,24 @@ public class GetFichas {
 			}
 			return c;
 	    }
+		
+		public List<Atencion> getAtenciones(String rut,String nombre)
+		{
+			List<Atencion> atenciones = new ArrayList<Atencion>();
+	    	try 
+			{
+	    		connection=DBConnectionManager.getConnection();
+				GetFichasBD gfi= new GetFichasBD(connection);
+				atenciones	= gfi.getAllAtenciones(rut,nombre);		
+				connection.close();
+			} 
+	    	catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+			return atenciones;
+	    }
+		
 }
 
 

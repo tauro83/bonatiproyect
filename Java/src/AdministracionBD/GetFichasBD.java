@@ -9,9 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import TransferObjects.Atencion;
 import TransferObjects.Mascota;
 import TransferObjects.Cliente;
+
 
 public class GetFichasBD {
 	
@@ -88,5 +89,44 @@ public class GetFichasBD {
     	
     	return mascotas;
     }
+	
+	
+	
+	public List<Atencion> getAllAtenciones(String rut, String nombre)
+    {
+    	List<Atencion> atenciones = new ArrayList<Atencion>();
+    	Atencion at;
+    	//String query = "SELECT clienterut, mascotaNombre,servicio,hora,fecha,costo FROM atencion";
+    	String query = "SELECT clienterut, mascotaNombre,servicio,hora,fecha,costo FROM atencion" +
+    			" WHERE mascotaNombre='"+nombre.trim()+"'";
+    	//String query = "SELECT clienterut, mascotaNombre,servicio,hora,fecha,costo FROM atencion" +
+    	//		" WHERE clienterut='"+rut.trim()+"' AND mascotaNombre='"+nombre.trim()+"';";
+		
+    	try 
+    	{
+    		selectAll = connection.prepareStatement(query);
+			ResultSet result = selectAll.executeQuery();
+    		while(result.next())
+    		{
+    			at = new Atencion();
+    			//at.setCosto("1111");
+    			//at.setHora("sss");
+    			at.setClienteRut(result.getString(1));
+    			at.setMascotaNombre(result.getString(2));
+    			at.setServicio(result.getString(3));
+    			at.setHora(result.getString(4));
+    			at.setFecha(result.getString(5));
+    			at.setCosto("$"+result.getString(6));
+    			atenciones.add(at);
+    		}
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	
+    	return atenciones;
+    }
+	
 
 }
