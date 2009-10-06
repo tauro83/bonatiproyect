@@ -20,7 +20,16 @@
 			public var texx2:String;
 			public var texx3:String;
 			public var texInt:int;
-						
+			
+			
+				///AYUDA EN FORMA DE POP_UP	
+			
+            import mx.managers.PopUpManager;
+            import mx.containers.TitleWindow;
+            private function showWindow():void {
+                var login:A=A(PopUpManager.createPopUp( this, A , true));
+
+            }		
 			
 		    private function manejadorCreationComplete (event:FlexEvent):void{           	
             //	AdRegUsuario2.breg.addEventListener(MouseEvent.CLICK,setMensaje);
@@ -743,7 +752,7 @@
 	</ns1:LoginIniciar>
 	<ns1:LoginCerrar x="241" y="134" id="login3" visible="false" borderColor="#15AD8F">
 	</ns1:LoginCerrar>
-	<mx:Button x="580" y="30" label="Ayuda" width="110" height="50" id="botonAyuda" icon="@Embed(source='../Help.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" enabled="true"/>
+	<mx:Button x="580" y="30" label="Ayuda" width="110" height="50" id="botonAyuda" icon="@Embed(source='../Help.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" enabled="true" click="showWindow();"/>
 	<mx:Button x="880" y="30" label="Iniciar Sesión" width="110" height="50" icon="@Embed(source='../Users.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" id="botonLogin" enabled="true"/>
 	<!--Autor: }Esteban -->
 	<!--Erwin Díaz-->
