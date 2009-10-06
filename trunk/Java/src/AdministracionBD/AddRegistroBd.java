@@ -2,9 +2,12 @@ package AdministracionBD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
+
+import TransferObjects.Usuario;
 
 import Administracion.Registro;
 
@@ -16,22 +19,20 @@ public class AddRegistroBd{
 	
 	
 	public AddRegistroBd(Connection connection)
-	{
-		
+	{		
 		this.connection = connection;	
-		
 	}
 	
 
-	public String addRegistroBD(Registro r) throws SQLException
+	public String addRegistro(Registro r) throws SQLException
 	{
 	
 		String result = null;
 		PreparedStatement insert;
 		String query="";
 		
-		query="INSERT INTO Registro (costoAtencion,responsable,fecha,nombreMascota,hora,idServicio,mascotaFechaNacimiento,rutCliente) "+
-		"VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+		query="INSERT INTO Registro (costoAtención,responsable,fecha,nombreMascota,hora,idServicio,mascotaFechaNacimiento,rutCliente) "+
+		      "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 		insert = connection.prepareStatement(query);
 		
 		
@@ -67,16 +68,35 @@ public class AddRegistroBd{
 	}
 
 
-	protected String getRegistro() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<Registro> getRegistro() throws SQLException {
+		List<Registro> register=new ArrayList<Registro>();
+    	Registro r;
+    	try 
+    	{
+    		PreparedStatement selectAll = null;
+			ResultSet result = selectAll.executeQuery();
+    		while(result.next())
+    		{
+    			r= new Registro(0, null, null, null, null, 0, null, 0);
+   
+    			r.setCostoAtención(result.getInt(1));
+    			r.setResponsable(result.getString(2));
+                r.setFecha(result.getString(3));
+    			r.setNombreMascota(result.getString(4));
+    			r.setHora(result.getString(5));
+    			r.setIdServicio(result.getInt(6));
+    			r.setMascotaFechaNacimiento(result.getString(7));
+    			r.setRutCliente(result.getInt(8));
+    			
+    			register.add(r);
+    		}
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	return register;
+    }
 
-
-	protected String setRegistro() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	
 }

@@ -2,7 +2,12 @@ package Administracion;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import TransferObjects.Usuario;
 import AdministracionBD.AddRegistroBd;
+import AdministracionBD.UsuarioEditDB;
 import Bd.DBConnectionManager;
 
 public class Registro {
@@ -93,11 +98,9 @@ public class Registro {
 	 */
 	
 	
-    protected Registro(int costoAtención,String responsable, String fecha,String nombreMascota,String hora,int idServicio,String mascotaFechaNacimiento, int rutCliente) throws SQLException{
-		
-    	Registro r= new Registro(1234,"Mario","","boby","",1,"",12);
-    	r.addRegistro(r);
-		
+    public Registro(int costoAtención,String responsable,String fecha,String nombreMascota,String hora,int idServicio,String mascotaFechaNacimiento,int rutCliente) throws SQLException{
+       	Registro r1=new Registro(14213, "as", "da", "das", "das", 3, "sa", 1243243);
+		Registro.addRegistro(r1);
 	}
 	
 	
@@ -109,7 +112,7 @@ public class Registro {
 	 * @param  hora Este metodo recibe como entrada variable Time Hora, que corresponde a la libreria de "java.sql". 
 	 */
 
-	protected void setHora(String hora) {
+	public void setHora(String hora) {
 		this.hora = hora;
 	}
 
@@ -120,7 +123,7 @@ public class Registro {
 	 * 
 	 */
 
-	protected int getIdServicio() {
+	public int getIdServicio() {
 		return idServicio;
 	}
 	
@@ -131,7 +134,7 @@ public class Registro {
 	 * servicio descripto anteriormente. 
 	 */
 
-	protected void setIdServicio(int idServicio) {
+	public void setIdServicio(int idServicio) {
 		this.idServicio = idServicio;
 	}
 	
@@ -141,7 +144,7 @@ public class Registro {
 	 */
 
 
-	protected String getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 	
@@ -153,7 +156,7 @@ public class Registro {
 	 */
 
 
-	protected void setFecha(String fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	
@@ -162,7 +165,7 @@ public class Registro {
 	 * al interior de la clinica veterinaria. 
 	 */
 
-	protected String getNombreMascota() {
+	public String getNombreMascota() {
 		return nombreMascota;
 	}
 	
@@ -173,7 +176,7 @@ public class Registro {
 	 * mascota. 
 	 */
 
-	protected void setNombreMascota(String nombreMascota) {
+	public void setNombreMascota(String nombreMascota) {
 		this.nombreMascota = nombreMascota;
 	}
 	
@@ -182,7 +185,7 @@ public class Registro {
 	 * la atención de una mascota. 
 	 */
 
-	protected String getResponsable() {
+	public String getResponsable() {
 		return responsable;
 	}
 	
@@ -194,7 +197,7 @@ public class Registro {
 	 */
 	
 
-	protected void setResponsable(String responsable) {
+	public void setResponsable(String responsable) {
 		this.responsable = responsable;
 	}
 	
@@ -205,7 +208,7 @@ public class Registro {
 	 * 
 	 */
 
-	protected int getCostoAtención() {
+	public int getCostoAtención() {
 		return costoAtención;
 	}
 	
@@ -216,7 +219,7 @@ public class Registro {
 	 * modificada a medida que a la mascota se le preste un servicio. 
 	 */
 
-	protected void setCostoAtención(int costoAtención) {
+	public void setCostoAtención(int costoAtención) {
 		this.costoAtención = costoAtención;
 	}
 
@@ -226,31 +229,21 @@ public class Registro {
 	 * @throws SQLException 
 	 */
 	
-	protected String addRegistro(Registro r) throws SQLException{
+	public static String addRegistro(Registro r) throws SQLException{
+ 
+		
 		Connection connection=DBConnectionManager.getConnection();
 		AddRegistroBd acbd = new AddRegistroBd(connection);		
-		return acbd.addRegistroBD(r);
+		return acbd.addRegistro(r);
 		
 	}
-		
-	 
-		/**
-		 * Este metodo nos permitira  poder editar una atencion realizada al interior de una 
-		 * servicio el cual se podran obtener los datos, para luego ser modificados y enviados a la 
-		 * clase de base de datos RegistroDB.
-		 */
-	 
-	 
-	 protected String setRegistro()throws SQLException{
-		return nombreMascota;
-	 }
-	 
+			 
 		/**
 		 * Este metodo nos permitira  poder eliminar una atencion realizada al interior de una 
 		 * servicio el cual se podran obtener los datos, para luego ser modificados de la base de datos.
 		 */
 	 
-	 protected  String deteleRegistro()throws SQLException{
+	public  String deteleRegistro()throws SQLException{
 		return nombreMascota;
 		 
 	 }
@@ -261,11 +254,39 @@ public class Registro {
 		 * servicio.
 		 */
 	 
-	 protected  String getRegistro()throws SQLException{
-		return nombreMascota;
+	public List<Registro> getRegistro()throws SQLException{
+	   	List<Registro> register=new ArrayList<Registro>();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			AddRegistroBd acbd = new AddRegistroBd(connection);
+			register= acbd.getRegistro();		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return register;
+    }
 		 
 
-	
+		public String getMascotaFechaNacimiento() {
+			return mascotaFechaNacimiento;
 		}
+
+		public void setMascotaFechaNacimiento(String mascotaFechaNacimiento) {
+			this.mascotaFechaNacimiento = mascotaFechaNacimiento;
+		}
+
+		public int getRutCliente() {
+			return rutCliente;
+		}
+
+		public void setRutCliente(int rutCliente) {
+			this.rutCliente = rutCliente;
+		}
+	
+	
 
 }
