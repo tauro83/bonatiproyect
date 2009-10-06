@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
     <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" x="241" y="134" width="779" height="383" title="Catalogo"> 
+
         <mx:Label width="100%" textAlign="center" color="0x323232"
            text="Productos disponibles"/>
            
