@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import TransferObjects.UsuarioElim;
-import AdministracionDB.UsuarioElimDB;
+import AdministracionBD.UsuarioElimBD;
 import Bd.DBConnectionManager;
 
 /**
@@ -38,7 +38,7 @@ public class UsuarioElimService
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
-			UsuarioElimDB userDB= new UsuarioElimDB(connection);
+			UsuarioElimBD userDB= new UsuarioElimBD(connection);
 			
 			System.out.println("Clave: "+clave+" entra al try");
 			
@@ -63,7 +63,7 @@ public class UsuarioElimService
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
-			UsuarioElimDB personDB= new UsuarioElimDB(connection);
+			UsuarioElimBD personDB= new UsuarioElimBD(connection);
 			persons= personDB.getAllUsers();		
 			connection.close();
 		} 

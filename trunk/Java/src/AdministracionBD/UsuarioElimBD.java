@@ -5,7 +5,7 @@
 // ejecutados en la base de datos
 //=======================================================================
 
-package AdministracionDB;
+package AdministracionBD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +22,7 @@ import TransferObjects.UsuarioElim;
  * @author Erwin Díaz
  *
  */
-public class UsuarioElimDB 
+public class UsuarioElimBD 
 {
 	PreparedStatement insert;
 	PreparedStatement selectAll;
@@ -31,7 +31,7 @@ public class UsuarioElimDB
 	 * Se declaran las consultas hacia la base de datos
 	 * @param connection Conexión obtenida con la base de datos
 	 */
-	public UsuarioElimDB(Connection connection)
+	public UsuarioElimBD(Connection connection)
 	{
 		try 
 		{
@@ -41,7 +41,7 @@ public class UsuarioElimDB
 			insert = connection.prepareStatement(query);
 			
 			query = "DELETE FROM usuario " +
-					"WHERE usuario = '?';";
+					"WHERE usuario =?;";
 			deleteUsuario = connection.prepareStatement(query);
 			
 			query = "SELECT nombre, apaterno, usuario, cargo, servicio, pregistrar, peditar, peliminar, ppurgar " +
@@ -63,9 +63,11 @@ public class UsuarioElimDB
     	int result=0;
     	try 
     	{
-    		System.out.println("clave: "+clave);
+    		System.out.println("clave: "+clave+" antes de execute query");
+			deleteUsuario.executeQuery();
+			deleteUsuario.setString(1,clave);
+			System.out.println("clave: "+clave+" despues de execute query");
 			
-    		deleteUsuario.executeQuery();
 			//clave.trim();
 			//deleteUsuario.setString(1, clave);
 			/*insert.setString(2, person.getName());
