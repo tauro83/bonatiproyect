@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Buscar" themeColor="#15ad8f" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import services.BusquedaService;
+			import mx.events.CloseEvent;
+			import mx.events.DropdownEvent;
+			
+			import transferObjects.Usuario;
+			import transferObjects.Cliente;
+
+		[Bindable]
+		private var usuarios:ArrayCollection;
+		[Bindable]
+		private var clientes:ArrayCollection;
+		
+		   //Usuario ---------------------------
+		   public function getAllUsuarios():void
+		   {
+		   		var busquedaService:BusquedaService = new BusquedaService();
+		   		busquedaService.addEventListener(ResultEvent.RESULT,getAllUsuariosResult);
+				busquedaService.getAllUsuarios();
+		   }
+		   
+		   public function getAllUsuariosResult(event:ResultEvent):void
+		   {
+		   		usuarios = event.result as ArrayCollection;
+		   }
+		   
+		   //Cliente ---------------------------
+		   public function getAllClientes():void
+		   {
+		   		var busquedaService:BusquedaService = new BusquedaService();
+		   		busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
+				busquedaService.getAllClientes();
+		   }
+		   
+		   public function getAllClientesResult(event:ResultEvent):void
+		   {
+		   		clientes = event.result as ArrayCollection;
+		   }
+		   
+		   
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Button x="647" y="302" label="Cancelar" width="102" cornerRadius="6" id="idCancelar"/>
+	<mx:ComboBox x="283" y="10" width="150" id="combobox">
+		<mx:ArrayCollection>
+			<mx:Object label="Aviso"/>
+			<mx:Object label="Cita"/> 
+			<mx:Object label="Cliente"/> 
+			<mx:Object label="Mascota"/> 
+			<mx:Object label="Producto"/> 
+			<mx:Object label="Usuario"/>  
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
+	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
+
+	<!-- AutoComplete para cada parametro -->
+	<fc:AutoComplete id="inputUsuarioNombre" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputUsuarioCargo" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="cargo" visible="false"/>
+	<fc:AutoComplete id="inputUsuarioAp" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="apellidoPaterno" visible="false"/>
+	<fc:AutoComplete id="inputUsuarioAm" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="apellidoMaterno" visible="false"/>
+	<fc:AutoComplete id="inputUsuarioServicio" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="servicio" visible="false"/>
+	
+	<fc:AutoComplete id="inputClienteNombre" x="59" y="10" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputClienteRut" x="59" y="10" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
+	<fc:AutoComplete id="inputClienteTel" x="59" y="10" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
+	<fc:AutoComplete id="inputClienteEmail" x="59" y="10" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido" x="59" y="10" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido2" x="59" y="10" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
+	
+	<!-- Mascota -->
+	<mx:ComboBox x="441" y="10" id="comboboxMascota" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Cliente"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Raza"/>
+			<mx:Object label="Rut"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridMascota" visible="false">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre" dataField="col1"/>
+			<mx:DataGridColumn headerText="Raza" dataField="col2"/>
+			<mx:DataGridColumn headerText="Cliente" dataField="col3"/>
+			<mx:DataGridColumn headerText="Rut" dataField="col4"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- Usuario -->
+	<mx:ComboBox x="441" y="10" id="comboboxUsuario" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Apellido materno"/>
+			<mx:Object label="Apellido paterno"/>
+			<mx:Object label="Cargo"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Servicio"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridUsuario" visible="false" dataProvider="{usuarios}">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Apellido paterno" dataField="apellidoPaterno"/>
+			<mx:DataGridColumn headerText="Apellido materno" dataField="apellidoMaterno"/>
+			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
+			<mx:DataGridColumn headerText="Cargo" dataField="cargo"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- Aviso -->
+	<mx:ComboBox x="441" y="10" id="comboboxAviso" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Cliente"/>
+			<mx:Object label="Mascota"/>
+			<mx:Object label="Rut"/>
+			<mx:Object label="Servicio"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridAviso" visible="false">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Servicio" dataField="col1"/>
+			<mx:DataGridColumn headerText="Cliente" dataField="col2"/>
+			<mx:DataGridColumn headerText="Rut" dataField="col3"/>
+			<mx:DataGridColumn headerText="Mascota" dataField="col4"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- Cita -->
+	<mx:ComboBox x="441" y="10" id="comboboxCita" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Cliente"/>
+			<mx:Object label="Fecha"/>
+			<mx:Object label="Hora"/>
+			<mx:Object label="Mascota"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridCita" visible="false">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Fecha" dataField="col1"/>
+			<mx:DataGridColumn headerText="Hora inicio" dataField="col2"/>
+			<mx:DataGridColumn headerText="Cliente" dataField="col3"/>
+			<mx:DataGridColumn headerText="Rut" dataField="col4"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- Producto -->
+	<mx:ComboBox x="441" y="10" id="comboboxProducto" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Categoría"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Precio menor a"/>
+			<mx:Object label="Precio mayor a"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridProducto" visible="false">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre" dataField="col1"/>
+			<mx:DataGridColumn headerText="Precio" dataField="col2"/>
+			<mx:DataGridColumn headerText="Categoria" dataField="col3"/>
+			<mx:DataGridColumn headerText="Codigo barra" dataField="col4"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- Cliente -->
+	<mx:ComboBox x="441" y="10" id="comboboxCliente" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Apellido materno"/>
+			<mx:Object label="Apellido paterno"/>
+			<mx:Object label="E-mail"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Rut"/>
+			<mx:Object label="Teléfono"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridCliente" visible="false" dataProvider="{clientes}">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Apellido paterno" dataField="apellido"/>
+			<mx:DataGridColumn headerText="Apellido materno" dataField="apellido2"/>
+			<mx:DataGridColumn headerText="Rut" dataField="rut"/>
+			<mx:DataGridColumn headerText="E-mail" dataField="email"/>
+			<mx:DataGridColumn headerText="Teléfono" dataField="telefono2"/>
+		</mx:columns>
+	</mx:DataGrid>
+</mx:Panel>
