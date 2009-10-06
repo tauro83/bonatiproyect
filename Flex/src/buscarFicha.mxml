@@ -1,7 +1,8 @@
-<!-- @autor Camilo Verdugo
+﻿<!-- @autor Camilo Verdugo
 -->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllFichas()" layout="absolute" borderColor="#15AD8F" width="779" height="466" title="Visualizar Ficha" >
 	<mx:Script>
+
 		<![CDATA[
 			import transferObjects.Mascota;
 			import mx.controls.List;

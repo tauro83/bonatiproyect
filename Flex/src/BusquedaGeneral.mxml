@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Buscar" themeColor="#15ad8f" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
+
 			import mx.collections.ArrayCollection;
 			import mx.rpc.events.ResultEvent;
 			import services.BusquedaService;
