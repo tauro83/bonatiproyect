@@ -11,7 +11,10 @@
 				//Aca insertan en dentro de un if su texto de ayuda para cada componente
 				
 				if(mainMenuAcordeon.selectedIndex==2 && subMenuAcordeon2.selectedIndex ==2){
-					textoAyuda="AYUDA PARA ESTADISTICAS ASDASDASDSADASD\nAASDASD";
+					textoAyuda="1.- Para acceder a las estadísticas de la clínica, primero que todo en nuestro menú superior presionamos el botón 'Clínica'.\n\n" + 
+							"2.- Con esto el menú lateral hizquierdo cambiará mostrándonos las opciones dentro de este módulo.\n\n" + 
+							"3.- A continuación presionamos sobre 'Estadísticas' o cualquiera de sus sub-menus, lo que nos mostrará distinta información referente a las atenciones.\n\n" + 
+							"4.- Alternando entre los botones 'Policlínico' y 'Pabellón', el grafico cambiará para tener estadísticas específicas del período elejido. \n";
 				}
 				
 			}

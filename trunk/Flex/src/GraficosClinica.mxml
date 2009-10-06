@@ -18,7 +18,7 @@
 		[Bindable]private var titulo:String = "Estadísticas a la fecha para Clínica";
 		
 		private function xmlHandler(evt:ResultEvent):void{
-			//Sets testInfo's root as the atenciones. Everything else referenced in respect to this.
+			//obtiene los objetos atencion desde el xml
 			testInfo = evt.result.atencion;
 		}
 		
@@ -43,12 +43,18 @@
 		public function setTipoDatos(periodo:String):void{
 			//Determina qué periodo es el que mostraremos en el chart
 			this.periodo=periodo;
-			if(periodo=="year"){
-				this.titulo=this.titulo.substring(0,36)+"(último año)";
+			if(periodo=="todas"){
+				this.titulo=this.titulo.substring(0,36)+"(todas)";
 			}
 			else{
-				this.titulo=this.titulo.substring(0,36)+"(último "+periodo+")";
+				if(periodo=="year"){
+					this.titulo=this.titulo.substring(0,36)+"(último año)";
+				}
+				else{
+					this.titulo=this.titulo.substring(0,36)+"(último "+periodo+")";
+				}
 			}
+			
 			changeData(dataSet);
 		}
 		
@@ -58,7 +64,7 @@
 	<mx:SeriesInterpolate id="changeEffect" duration="2000"/>
 	
 	<!--Carga el archivo url y XML y luego lo envia a la funcion xmlHandler en formato E4X-->
-	<mx:HTTPService url="assets/pabellon.xml" id="testData" result="xmlHandler(event)" resultFormat="e4x"/>
+	<mx:HTTPService url="assets/mes/pabellon.xml" id="testData" result="xmlHandler(event)" resultFormat="e4x"/>
 	
 	<mx:Panel horizontalAlign="center" title="{titulo}" height="382" width="776">
 		
@@ -71,6 +77,7 @@
 				<mx:ColumnSeries showDataEffect="{changeEffect}" xField="name" yField="sat" displayName="N° de atenciones realizadas"/>
 			</mx:series>
 		</mx:ColumnChart>
+		<mx:Legend horizontalAlign="center" dataProvider="{chartEstadisticaClinica}" width="200"/>
 		
 		<!--Display Controls-->
 		<mx:HBox height="30" horizontalAlign="center">
@@ -79,7 +86,6 @@
 		</mx:HBox>
 		
 		<!--Legend for Chart Data-->
-		<mx:Legend horizontalAlign="center" dataProvider="{chartEstadisticaClinica}" width="200"/>
 		
 	</mx:Panel>
 </mx:VBox>
