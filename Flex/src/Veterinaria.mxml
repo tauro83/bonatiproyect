@@ -117,7 +117,6 @@
                 
 				<!--Autor: Jimmy Muñoz{-->
 				AdmOpciones1.linkEditarUsAd.addEventListener(MouseEvent.CLICK,linkeditUsAd);
-				AdmOpciones1.linkEditFicha.addEventListener(MouseEvent.CLICK,mostrarEditFicha);
 				AdEditarUsuar3.guardarUsuario.addEventListener(MouseEvent.CLICK,editarUsuario);
 				AdEditarUsuar3.cancGuardar.addEventListener(MouseEvent.CLICK,linkeditUsAd);
 				<!--Autor: }Jimmy Muñoz -->
@@ -160,16 +159,7 @@
             	
             }
             
-            
-            <!--Autor: Jimmy Muñoz{-->
-            private function mostrarEditFicha ( event:Event ):void{
-            	//AdEditFicha2.getFichas();
-            	setInvisible();
-               	AdmOpciones1.setVisible(true,false);
-            	AdEditFicha2.setVisible(true,false);
-            }
-            <!--Autor: }Jimmy Muñoz -->
-         	
+                  	
             <!--Autor: Jimmy Muñoz{-->
             private function linkeditUsAd ( event:Event ):void{
             	AdEditarUsuar2.getAllUsuarios(AdEditarUsuar3);
@@ -244,8 +234,6 @@
             	
             	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
-            	AdEditFicha2.setVisible(false,false);
-            	AdEditFicha3.setVisible(false,false);
             	<!--Autor: }Jimmy Muñoz -->
             	
             	<!--Autor: Andres G.{-->
@@ -782,8 +770,4 @@
 	</ns2:EditarUsuario>	
 	<ns1:Bitacora id="bitacora" x="241" y="134" visible="false">
 	</ns1:Bitacora>
-	<ns2:EditarFicha x="241" y="133" id="AdEditFicha2" visible="false">
-	</ns2:EditarFicha>
-	<ns2:EditarFicha2 x="241" y="133" id="AdEditFicha3" visible="false">
-	</ns2:EditarFicha2>
 </mx:Application>
