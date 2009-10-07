@@ -19,9 +19,6 @@ package services
 			this.channelSet=channel;
 			this.destination="AddCliente";
 			this.source="Administracion.AddCliente";	
-			
-			
-			
 		}
 		
 		public function regCliente(user:Cliente):void
