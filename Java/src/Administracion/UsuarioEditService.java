@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import AdministracionBD.UsuarioEditBD;
+import AdministracionBD.UsuarioElimBD;
 import TransferObjects.Usuario;
 import Bd.DBConnectionManager;
 
