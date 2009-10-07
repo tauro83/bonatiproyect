@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Buscar" themeColor="#15ad8f" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc">
+	<mx:Script>
+		<![CDATA[
+					
+		[Bindable]
+		public var Clientes:Array= [
+		{name:"Victor Silva"},
+		{name:"Sebastian Arancibia"},
+		{name:"Cristian Bravo"},
+		{name:"Andres Garrido"},
+		{name:"Nicolas Delgado"},
+		{name:"Raul Lopez"},
+		{name:"Rafael Caroca"},
+		{name:"Alejandro Alvarez"},
+		{name:"Armando Sillas"},
+		{name:"Adan Vergara"},
+		{name:"Arturo Moreno"},
+		{name:"Sergio Freire"},
+		{name:"Cristina Rios"},
+		{name:"Vicente Rodriguez"},
+		{name:"Victor Perez"},
+		{name:"Michel Perez Jakson"},
+		{name:"Mauricio Copano"},
+		{name:"Arturo Sanhueza"},
+		{name:"Nicolas Carbacho"},];
+		
+		   public function Seleccionar(event:Event = null):void
+			{
+				//CORREGIR
+			    //if(input.selectedIndex==0)
+			    //{
+			    //input.text=input.selectedLabel;
+			    //}
+			    
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Button x="647" y="302" label="Cancelar" width="102" cornerRadius="6" id="idCancelar"/>
+	<mx:Button x="523" y="302" label="Buscar" width="102" cornerRadius="6" id="idBuscar"/>
+	<mx:ComboBox x="283" y="10" width="150" id="combobox" >
+		<mx:ArrayCollection>
+			<mx:Object label="Aviso"/>
+			<mx:Object label="Cita"/> 
+			<mx:Object label="Cliente"/> 
+			<mx:Object label="Mascota"/> 
+			<mx:Object label="Producto"/> 
+			<mx:Object label="Usuario"/>  
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
+	<!-- CORREGIR
+	<fc:AutoComplete id="input" x="59" y="10" width="150" dataProvider="{Clientes}" labelField="name" close="Seleccionar()"/>
+	-->
+	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
+	<mx:ComboBox x="441" y="10" id="comboboxMascota" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Cliente"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Raza"/>
+			<mx:Object label="Rut"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:ComboBox x="441" y="10" id="comboboxUsuario" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Cargo"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="1er Apellido"/>
+			<mx:Object label="2do Apellido"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:ComboBox x="441" y="10" id="comboboxAviso" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Cliente"/>
+			<mx:Object label="Mascota"/>
+			<mx:Object label="Rut"/>
+			<mx:Object label="Servicio"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:ComboBox x="441" y="10" id="comboboxCita" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Cliente"/>
+			<mx:Object label="Fecha"/>
+			<mx:Object label="Hora"/>
+			<mx:Object label="Mascota"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:ComboBox x="441" y="10" id="comboboxProducto" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="Categoría"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Precio menor a"/>
+			<mx:Object label="Precio mayor a"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:ComboBox x="441" y="10" id="comboboxCliente" width="150" visible="false">
+		<mx:ArrayCollection>
+			<mx:Object label="E-mail"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Rut"/>
+			<mx:Object label="Teléfono"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+</mx:Panel>
