@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*"> 
 
     <mx:Script>
@@ -168,7 +168,6 @@
             	//AdEditFicha2.getFichas();
             	setInvisible();
                	AdmOpciones1.setVisible(true,false);
-            	AdEditFicha2.setVisible(true,false);
             }
             <!--Autor: }Jimmy Muñoz -->
          	
@@ -246,8 +245,6 @@
             	
             	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
-            	AdEditFicha2.setVisible(false,false);
-            	AdEditFicha3.setVisible(false,false);
             	<!--Autor: }Jimmy Muñoz -->
             	
             	<!--Autor: Andres G.{-->
@@ -786,8 +783,4 @@
 	</ns2:EditarUsuario>	
 	<ns1:Bitacora id="bitacora" x="241" y="134" visible="false">
 	</ns1:Bitacora> 
-	<ns2:EditarFicha x="241" y="133" id="AdEditFicha2" visible="false">
-	</ns2:EditarFicha>
-	<ns2:EditarFicha2 x="241" y="133" id="AdEditFicha3" visible="false">
-	</ns2:EditarFicha2>
 </mx:Application>
