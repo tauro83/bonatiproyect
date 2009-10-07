@@ -1,8 +1,11 @@
-//Camilo verdugo
 package TransferObjects;
-
-import java.util.Date;
-
+/**
+ * @author Camilo Verdugo
+ * @version 1
+ * Clase que encapsula los datos de una atencion.
+ * Los metodos que posee solo se encargan de get y set los parametros que esta poseea
+ * Ademas cuenta con un equivalente en la capa I. Para hacer el mapeo entre capas.
+ */
 public class Atencion {
 
 	private String clienteRut;
