@@ -1,6 +1,3 @@
-//=======================================================================
-// AUTOR: Camilo Verdugo G.
-//
 package AdministracionBD;
 
 import java.sql.Connection;
@@ -13,18 +10,32 @@ import TransferObjects.Atencion;
 import TransferObjects.Mascota;
 import TransferObjects.Cliente;
 
-
+/**
+ * @author cavg
+ * @version 2
+ * Clase que gestiona la obtencion de las fichas, esta clase es llamada por la capa dos, retornando 
+ * las mascotas, el cliente y las atenciones
+ */
 public class GetFichasBD {
 	
 	PreparedStatement selectAll;
 	Connection connection;
 		
+	/**
+	 * 
+	 * @param connection establece la conexion con la base de datos.
+	 */
 	public GetFichasBD(Connection connection)
 	{
 		this.connection = connection;
 		
 	}
-	
+	/**
+	 * 
+	 * @param rut Parametro que permite identificar a un cliente en particular
+	 * @return Un transfer Object Cliente, el cual fue recuperado desde la BD
+	 * @throws SQLException Permite manejar errores en la sentencia sql
+	 */
 	public Cliente getCliente(String rut) throws SQLException{
 		Cliente c = new Cliente();
 		String query = "select rut,telefono1,telefono2,nombre,correo,estado,domicilioNumero," +
@@ -49,6 +60,12 @@ public class GetFichasBD {
 		return c;
 	}
 	
+	/**
+	 * 
+	 * @return retorna un listad de mascotas, las cuales seran mostradas en la capa de presencion
+	 * Este metodo es llamado desde la capa 2
+	 * 
+	 */
 	public List<Mascota> getAllMascotas()
     {
     	List<Mascota> mascotas=new ArrayList<Mascota>();
@@ -91,7 +108,12 @@ public class GetFichasBD {
     }
 	
 	
-	
+	/**
+	 * 
+	 * @param rut Parametro que permite identificar las atenciones de una mascota en particular
+	 * @param nombre Segundo parametro necesario para identificar las atenciones
+	 * @return una lista de atenciones, las cuales seran mostradas en la ficha.
+	 */
 	public List<Atencion> getAllAtenciones(String rut, String nombre)
     {
     	List<Atencion> atenciones = new ArrayList<Atencion>();

@@ -1,10 +1,3 @@
-//=======================================================================
-// AUTOR: Camilo Verdugo G.
-// Descripcion: Clase entidad Usuario de sistema, encapsula informacion de un
-//					Usuario y el privilegio de acceso al sistema.
-//					Solo contiene los metodos para hacer get/set de los atributos.
-//=======================================================================
-
 package Administracion;
 
 import java.sql.Connection;
@@ -19,11 +12,21 @@ import AdministracionBD.GetFichasBD;
 import Bd.DBConnectionManager;
 
 
+/**
+ * @author Camilo Verdugo
+ * @version 2
+ * Clase que es llamada desde la capa de presentacion, en particular del action Script
+ */
 public class GetFichas {
 	
 	
 		Connection connection;
 		
+		/**
+		 * 
+		 * @return Listado de mascotas, las cuales seran mostradas para su seleccion y 
+		 * posterior visualizacion de la ficha
+		 */
 		public List<Mascota> getMascotas()
 	    {
 	    	List<Mascota> mascotas=new ArrayList<Mascota>();
@@ -41,6 +44,11 @@ public class GetFichas {
 			return mascotas;
 	    }
 		
+		/**
+		 * 
+		 * @param rut mediante este parametro de identifica a un cliente en particular
+		 * @return Cliente dueño de la mascota dado el parametro pasado
+		 */
 		public Cliente getCliente(String rut)
 		{
 			Cliente c = new Cliente();
@@ -60,6 +68,12 @@ public class GetFichas {
 			return c;
 	    }
 		
+		/**
+		 * 
+		 * @param rut Parametro de identificacion de las atenciones de una mascota
+		 * @param nombre Segundo parametro necesario de la identidicacion de  una mascota
+		 * @return Retona un lista de atenciones, desde la capa de BD
+		 */
 		public List<Atencion> getAtenciones(String rut,String nombre)
 		{
 			List<Atencion> atenciones = new ArrayList<Atencion>();
