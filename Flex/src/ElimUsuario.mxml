@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllUsuarios()" layout="absolute" width="779" height="466" title="Eliminar usuario" >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllUsuarios()" layout="absolute" width="779" height="466" title="Purgar usuario" >
 	<mx:Script>
 		<![CDATA[
 			import mx.controls.List;
@@ -45,7 +45,7 @@
         
             //elimina una fila dentro de la tabla
            	private function deleteRow(/*nombreUsuario:String*/):void {
-			 Alert.show("Está seguro que desea eliminar usuario ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			 Alert.show("Está seguro que desea purgar usuario ","Confirme purgar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
 			}
 			
 			
@@ -61,7 +61,7 @@
 				var result:int = event.result as int ;
 				if(result>0)
 				{
-				   labelMessage.text = "Usuario eliminado";
+				   labelMessage.text = "Usuario purgado";
 				   getAllUsuarios();
 				}
 				else
@@ -128,7 +128,7 @@
 			<mx:DataGridColumn width="50" headerText="Purgar" dataField="permisoPurgar" id="permisoPurgar" sortable="false" draggable="false"/>
 			</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="523" y="302" label="Eliminar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="523" y="302" label="Purgar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados" width="102" height="23" cornerRadius="6"/>
 	<mx:Button x="647" y="302" label="Cancelar" id="cancelar" toolTip="Cancela la operación" width="102" height="23" cornerRadius="6"/>
 	<mx:CheckBox x="10" y="48" id="todo" click="{selectAll()}">
 		<mx:toolTip>Seleccione todos los usuarios, en caso contrario ninguno</mx:toolTip>
