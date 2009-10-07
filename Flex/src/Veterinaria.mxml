@@ -100,15 +100,15 @@
                 
                 //Erwin Díaz
                 AdmOpciones1.linkEliminarUsAd.addEventListener(MouseEvent.CLICK,linkelimUsAd);
-				AdmOpciones1.linkEliminarFicha.addEventListener(MouseEvent.CLICK,linkelimFicha);
-				AdmOpciones1.linkPurgarFicha.addEventListener(MouseEvent.CLICK,linkpurgFicha);
+				<!--AdmOpciones1.linkEliminarFicha.addEventListener(MouseEvent.CLICK,linkelimFicha);-->
+				<!--AdmOpciones1.linkPurgarFicha.addEventListener(MouseEvent.CLICK,linkpurgFicha);-->
 				
 				
                 botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
                 
 				<!--Autor: Jimmy Muñoz{-->
 				AdmOpciones1.linkEditarUsAd.addEventListener(MouseEvent.CLICK,linkeditUsAd);
-				AdmOpciones1.linkEditFicha.addEventListener(MouseEvent.CLICK,mostrarEditFicha);
+				<!--AdmOpciones1.linkEditFicha.addEventListener(MouseEvent.CLICK,mostrarEditFicha);-->
 				AdEditarUsuar3.guardarUsuario.addEventListener(MouseEvent.CLICK,editarUsuario);
 				AdEditarUsuar3.cancGuardar.addEventListener(MouseEvent.CLICK,linkeditUsAd);
 				<!--Autor: }Jimmy Muñoz -->
