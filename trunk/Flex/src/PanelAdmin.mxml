@@ -3,20 +3,21 @@
 	<mx:LinkButton x="10" y="10" label="Cliente" textAlign="left"/>
 	<mx:LinkButton x="10" y="96" label="Mascota" textAlign="left"/>
 	<mx:LinkButton x="10" y="165" label="Ficha" textAlign="left"/>
-	<mx:LinkButton x="10" y="214" label="Razas" textAlign="left"/>
-	<mx:LinkButton x="34" y="313" label="Registrar" id="linkRegUsuarioAd" textAlign="left"/>
-	<mx:LinkButton x="34" y="334" label="Editar" id="linkEditarUsAd" width="66" textAlign="left"/>
-	<mx:LinkButton x="34" y="355" label="Eliminar" id="linkEliminarUsAd" textAlign="left"/>
-	<mx:LinkButton x="34" y="253" label="Editar" id="linkEditarRazasAd" textAlign="left"/>
-	<mx:LinkButton x="34" y="274" label="Listar" textAlign="left"/>
+	<mx:LinkButton x="10" y="233" label="Razas" textAlign="left"/>
+	<mx:LinkButton x="34" y="332" label="Registrar" id="linkRegUsuarioAd" textAlign="left"/>
+	<mx:LinkButton x="34" y="353" label="Editar" id="linkEditarUsAd" width="66" textAlign="left"/>
+	<mx:LinkButton x="34" y="374" label="Eliminar" id="linkEliminarUsAd" textAlign="left"/>
+	<mx:LinkButton x="34" y="394" label="Purgar" textAlign="left" id="linkPurgarUsAd"/>
+	<mx:LinkButton x="34" y="272" label="Editar" id="linkEditarRazasAd" textAlign="left"/>
+	<mx:LinkButton x="34" y="293" label="Listar" textAlign="left"/>
 	<mx:LinkButton x="32" y="184" label="Visualizar" id="linkFichaAdm" textAlign="left"/>
+	<mx:LinkButton x="32" y="203" label="Bitácora" textAlign="left" id="linkBitacoraAd"/>
 	<mx:LinkButton x="34" y="115" label="Registrar" id="linkMascotaAdm" textAlign="left"/>
 	<mx:LinkButton x="34" y="135" label="Editar" id="linkEdicionMascotaAdm" textAlign="left"/>
 	<mx:LinkButton x="34" y="30" label="Registrar" id="linkClienteAdm" textAlign="left"/>
 	<mx:LinkButton x="34" y="49" label="Editar" textAlign="left"/>
 	<mx:LinkButton x="34" y="69" label="Eliminar" textAlign="left"/>
-	<mx:LinkButton x="10" y="292" label="Usuario" textAlign="left"/>
-	<mx:LinkButton x="34" y="375" label="Purgar" textAlign="left" id="linkPurgarUsAd"/>
-	<mx:LinkButton x="34" y="231" label="Registrar" id="linkMascotaAdm0" textAlign="left"/>
+	<mx:LinkButton x="10" y="311" label="Usuario" textAlign="left"/>
+	<mx:LinkButton x="34" y="250" label="Registrar" id="linkMascotaAdm0" textAlign="left"/>
 	
 </mx:Panel>
