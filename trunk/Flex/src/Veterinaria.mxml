@@ -119,6 +119,7 @@
                 
                 //Erwin Díaz
                 AdmOpciones1.linkEliminarUsAd.addEventListener(MouseEvent.CLICK,linkelimUsAd);
+                AdmOpciones1.linkPurgarUsAd.addEventListener(MouseEvent.CLICK,linkpurgUsAd);
 				<!--AdmOpciones1.linkEliminarFicha.addEventListener(MouseEvent.CLICK,linkelimFicha);-->
 				<!--AdmOpciones1.linkPurgarFicha.addEventListener(MouseEvent.CLICK,linkpurgFicha);-->
 				
@@ -149,6 +150,12 @@
            <!-- Camilo Verdugo-->
             
             <!--Erwin Díaz-->
+            private function linkpurgUsAd ( event:Event ):void{
+            	setInvisible();
+               	AdmOpciones1.setVisible(true,false);
+            	purgusuario.setVisible(true,false);
+            	
+            }
             private function linkelimUsAd ( event:Event ):void{
             	setInvisible();
                	AdmOpciones1.setVisible(true,false);
@@ -240,6 +247,7 @@
             	login2.setVisible(false,false);
             	busqueda2.setVisible(false,false);
             	huespedAgregado2.setVisible(false,false);
+            	purgusuario.setVisible(false,false);
             	
             	//raullrich
             	editarCita.setVisible(false,false);
@@ -888,7 +896,8 @@
 	<mx:Button x="880" y="30" label="Iniciar Sesión" width="110" height="50" icon="@Embed(source='../Users.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" id="botonLogin" enabled="true"/>
 	<!--Autor: }Esteban -->
 	<!--Erwin Díaz-->
-	
+	<ns1:ElimUsuario x="241" y="134" id="elimusuario" visible="false" borderColor="#15AD8F">
+	</ns1:ElimUsuario>
 	<ns1:ElimUsuario x="241" y="134" id="elimusuario" visible="false" borderColor="#15AD8F">
 	</ns1:ElimUsuario>
 	<ns1:ElimFicha x="241" y="134" id="elimficha" visible="false" borderColor="#15AD8F">
