@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!--@Author Jimmy Muñoz
+	@Version	3
+-->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registro de Usuario" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
@@ -24,6 +26,14 @@
 			private var vRContrasena:Boolean;
 			private var ru:UsuarioService= new UsuarioService();
 			
+			
+			/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que verifica si cada dato ingresado esta correcto,
+			 * para que en el caso de tener algun error, se informe al usuario, para que corrija dichos
+			 * errores.	 		
+			 * */
 			public function itsOk():Boolean
 			{
 				if(Validacion.longitudMinima(amat.text)){
@@ -251,9 +261,9 @@
 	</mx:Script> 
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="647" label="Cancelar" y="393" click="cancelando()" id="cancGuardar" />
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="537" label="Guardar" y="393" id="guardarUsuario"/>
-	<mx:TextInput x="155" y="19" width="163" restrict="A-Z a-z" includeInLayout="true" id="nomb" click="iniListener()" enabled="true" maxChars="20"/>
-	<mx:TextInput x="155" y="63" width="163" restrict="A-Z a-z" id="apat" click="iniListener()" enabled="true" maxChars="20"/>
-	<mx:TextInput x="512" y="63" width="163" restrict="A-Z a-z" id="amat" click="iniListener()" enabled="true" maxChars="20"/>
+	<mx:TextInput x="155" y="19" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="nomb" click="iniListener()" enabled="true" maxChars="20"/>
+	<mx:TextInput x="155" y="63" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" id="apat" click="iniListener()" enabled="true" maxChars="20"/>
+	<mx:TextInput x="512" y="63" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" id="amat" click="iniListener()" enabled="true" maxChars="20"/>
 	<mx:TextInput x="155" y="105" id="usua" enabled="true" click="iniListener()" maxChars="20" editable="false"/>
 	<mx:ComboBox x="155" y="142" id="carg">
 		<mx:ArrayCollection>
