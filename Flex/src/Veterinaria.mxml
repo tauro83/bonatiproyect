@@ -119,9 +119,7 @@
                 
 				<!--Autor: Jimmy Muñoz{-->
 				AdmOpciones1.linkEditarUsAd.addEventListener(MouseEvent.CLICK,linkeditUsAd);
-				<!--AdmOpciones1.linkEditFicha.addEventListener(MouseEvent.CLICK,mostrarEditFicha);-->
 				AdEditarUsuar3.guardarUsuario.addEventListener(MouseEvent.CLICK,editarUsuario);
-				AdEditarUsuar3.cancGuardar.addEventListener(MouseEvent.CLICK,linkeditUsAd);
 				<!--Autor: }Jimmy Muñoz -->
 
 				//raullrich
@@ -173,7 +171,7 @@
          	
             <!--Autor: Jimmy Muñoz{-->
             private function linkeditUsAd ( event:Event ):void{
-            	AdEditarUsuar2.getAllUsuarios(AdEditarUsuar3);
+            	AdEditarUsuar2.getAllUsuarios();
             	setInvisible();
                	AdmOpciones1.setVisible(true,false);
             	AdEditarUsuar2.setVisible(true,false);

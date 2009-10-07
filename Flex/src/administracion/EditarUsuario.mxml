@@ -19,6 +19,7 @@
             import mx.rpc.events.ResultEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
+			import mx.core.Application;
 			
 			[Bindable]
 			private var usuarios:ArrayCollection;
@@ -93,10 +94,10 @@
 			 * inicializa la variable personService, para poder llamar a los metodos de este
 			 * para lograr comunicarse con las clases y metodos de java.	 		
 			 * */
-			public function getAllUsuarios(regUsuarioIn:EditUsuarioUpdate):void
+			public function getAllUsuarios():void
 			{
 				labelMessage.text="";
-				newRegUsuar = regUsuarioIn;
+				newRegUsuar = Application.application.AdEditarUsuar3;
 				var personService:UsuarioEditService = new UsuarioEditService();
 				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
 				personService.getAllUsuariosE();
@@ -160,13 +161,25 @@
 				var result:int = event.result as int ;
 				if(result>0)
 				{
-				   this.getAllUsuarios(newRegUsuar);
+				   this.getAllUsuarios();
 				   newRegUsuar.setVisible(false,false);
 				   this.setVisible(true,false);
 				   labelMessage.text="Ususario editado!";
 				}
 				else
 				   newRegUsuar.labelMessage.text="Ususario NO editado!";
+			}
+			
+			/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que recibe el resultado del metodo anterior, el cual actualiza los 
+			 * datos del usuario seleccionado, y verifica si se almaceno correctamente.		 		
+			 * */
+			private function cancelando():void
+			{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
 			}
 			
 		]]>
@@ -187,11 +200,9 @@
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Button label="Editar" height="23" width="102" x="537" y="393" click="editarUser(event)" cornerRadius="6"/>
-	<mx:Label x="10" y="10" text="Seleccionar Usuario:"/>
+	<mx:Label x="10" y="10" text="Seleccionar Usuario:" fontWeight="bold"/>
 	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Button x="647" y="393" label="Cancelar" width="102" height="23" cornerRadius="6"/>
-	<mx:Label x="571.95" y="19" text="&lt; Anterior" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
-	<mx:Label x="678.95" y="19" text="Siguiente &gt;" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<mx:Button x="647" y="393" label="Cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
 	
 
 

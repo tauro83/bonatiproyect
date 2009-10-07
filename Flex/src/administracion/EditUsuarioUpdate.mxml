@@ -16,6 +16,7 @@
 			import services.UsuarioService
 			import services.Validacion;
 			import transferObjects.Usuario;
+			import mx.core.Application;
 		
 			private var vUsuario:Boolean;
 			private var vNombre:Boolean;
@@ -230,12 +231,24 @@
 					labelMessage.text="Ingrese un Apellido Materno mas largo";
 				}	
 			}
+			
+			/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Validacion del Apellido materno del usuario	 		
+			 * */
+			private function cancelando():void
+			{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+				
+			}
 
 			
 				
 		]]>
 	</mx:Script> 
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="647" label="Cancelar" y="393" id="cancGuardar" />
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="647" label="Cancelar" y="393" click="cancelando()" id="cancGuardar" />
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="537" label="Guardar" y="393" id="guardarUsuario"/>
 	<mx:TextInput x="155" y="19" width="163" restrict="A-Z a-z" includeInLayout="true" id="nomb" click="iniListener()" enabled="true" maxChars="20"/>
 	<mx:TextInput x="155" y="63" width="163" restrict="A-Z a-z" id="apat" click="iniListener()" enabled="true" maxChars="20"/>
