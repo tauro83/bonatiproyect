@@ -41,7 +41,7 @@ public class UsuarioElimBD
 			insert = connection.prepareStatement(query);
 			
 			query = "DELETE FROM usuario " +
-					"WHERE usuario =?;";
+					"WHERE usuario = ?;";
 			deleteUsuario = connection.prepareStatement(query);
 			
 			query = "SELECT nombre, apaterno, usuario, cargo, servicio, pregistrar, peditar, peliminar, ppurgar " +
@@ -63,15 +63,8 @@ public class UsuarioElimBD
     	int result=0;
     	try 
     	{
-    		System.out.println("clave: "+clave+" antes de execute query");
+    		deleteUsuario.setString(1, clave);
 			deleteUsuario.executeQuery();
-			deleteUsuario.setString(1,clave);
-			System.out.println("clave: "+clave+" despues de execute query");
-			
-			//clave.trim();
-			//deleteUsuario.setString(1, clave);
-			/*insert.setString(2, person.getName());
-			insert.setString(3, person.getLastName());*/
 			result= deleteUsuario.executeUpdate();
 		} 
     	catch (SQLException e) 
