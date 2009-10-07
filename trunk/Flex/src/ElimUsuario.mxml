@@ -130,8 +130,10 @@
 	</mx:DataGrid>
 	<mx:Button x="523" y="302" label="Eliminar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados" width="102" height="23" cornerRadius="6"/>
 	<mx:Button x="647" y="302" label="Cancelar" id="cancelar" toolTip="Cancela la operación" width="102" height="23" cornerRadius="6"/>
-	<mx:CheckBox x="10" y="48" id="todo" click="{selectAll()}"/>
+	<mx:CheckBox x="10" y="48" id="todo" click="{selectAll()}">
+		<mx:toolTip>Seleccione todos los usuarios, en caso contrario ninguno</mx:toolTip>
+	</mx:CheckBox>
 	<mx:Label x="32" y="48" text="Seleccionar todo"/>
-	<mx:TextInput x="59" y="10" id="texImput"/>
+	<mx:TextInput x="59" y="10" id="texImput" toolTip="ingrese texto para búsqueda"/>
 	<mx:Label x="10" y="12" text="Buscar"/>
 </mx:Panel>
