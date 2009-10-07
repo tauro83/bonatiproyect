@@ -16,6 +16,7 @@
 	<mx:LinkButton x="34" y="49" label="Editar" textAlign="left"/>
 	<mx:LinkButton x="34" y="69" label="Eliminar" textAlign="left"/>
 	<mx:LinkButton x="10" y="292" label="Usuario" textAlign="left"/>
+	<mx:LinkButton x="34" y="375" label="Purgar" textAlign="left" id="linkPurgarUsAd"/>
 	<mx:LinkButton x="34" y="231" label="Registrar" id="linkMascotaAdm0" textAlign="left"/>
 	
 </mx:Panel>
