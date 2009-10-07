@@ -326,11 +326,11 @@
             	busqueda2.inputUsuarioNombre.setVisible(false,false);
             	busqueda2.inputUsuarioAp.setVisible(false,false);
             	busqueda2.inputUsuarioAm.setVisible(false,false);
+            	busqueda2.inputUsuarioServicio.setVisible(false,false);
             	busqueda2.inputClienteEmail.setVisible(false,false);
             	busqueda2.inputClienteNombre.setVisible(false,false);
             	busqueda2.inputClienteTel.setVisible(false,false);
             	busqueda2.inputClienteRut.setVisible(false,false);
-            	busqueda2.inputUsuarioServicio.setVisible(false,false);
             	busqueda2.inputClienteApellido.setVisible(false,false);
             	busqueda2.inputClienteApellido2.setVisible(false,false);
             }
@@ -353,6 +353,7 @@
             private function seleccionarCliente (event:DropdownEvent):void
             {
             	setInvisibleInput();
+            	busqueda2.getAllClientes();
             	switch (busqueda2.comboboxCliente.selectedLabel){
 				case 'E-mail':		
 					busqueda2.inputClienteEmail.setVisible(true,false);
@@ -378,6 +379,7 @@
              private function seleccionarUsuario (event:DropdownEvent):void
             {
             	setInvisibleInput();
+            	busqueda2.getAllUsuarios();
 				switch (busqueda2.comboboxUsuario.selectedLabel){
 				case 'Cargo':		
 					busqueda2.inputUsuarioCargo.setVisible(true,false);
@@ -424,7 +426,6 @@
 				case 'Cliente':
 					busqueda2.comboboxCliente.setVisible(true,false);
 					busqueda2.gridCliente.setVisible(true,false);
-					busqueda2.getAllClientes();
 				break;
 				case 'Aviso':
 					busqueda2.comboboxAviso.setVisible(true,false);
@@ -441,7 +442,6 @@
 				case 'Usuario':
 					busqueda2.comboboxUsuario.setVisible(true,false);
 					busqueda2.gridUsuario.setVisible(true,false);
-					busqueda2.getAllUsuarios();
 				break;
 				}
             }
