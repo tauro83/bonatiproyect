@@ -11,14 +11,14 @@ import TransferObjects.Usuario;
 
 
 
-public class UsuarioEditDB 
+public class UsuarioEditBD 
 {
 	PreparedStatement insert;
 	PreparedStatement selectAll;
 	Connection conn;
 	
 	
-	public UsuarioEditDB(Connection connection)
+	public UsuarioEditBD(Connection connection)
 	{
 		conn = connection;
 		try 

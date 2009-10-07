@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import AdministracionBD.UsuarioEditDB;
+import AdministracionBD.UsuarioEditBD;
 import TransferObjects.Usuario;
 import Bd.DBConnectionManager;
 
@@ -18,7 +18,7 @@ public class UsuarioEditService
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
-			UsuarioEditDB personDB= new UsuarioEditDB(connection);
+			UsuarioEditBD personDB= new UsuarioEditBD(connection);
 			result= personDB.insertUsuarioE(person);		
 			connection.close();
 		} catch (SQLException e) 
@@ -34,7 +34,7 @@ public class UsuarioEditService
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
-			UsuarioEditDB personDB= new UsuarioEditDB(connection);
+			UsuarioEditBD personDB= new UsuarioEditBD(connection);
 			persons= personDB.getAllUsuariosE();		
 			connection.close();
 		} 
