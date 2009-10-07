@@ -55,11 +55,11 @@ public class Preoperatorio extends Registro {
 	}
 
 
-	@Override
-	public String deteleRegistro() {
+	//@Override
+	/*public String deteleRegistro() {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 
 	@Override
