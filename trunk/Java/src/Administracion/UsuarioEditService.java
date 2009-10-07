@@ -28,6 +28,29 @@ public class UsuarioEditService
 		return result;
     }
 
+	public int deleteUser(String clave)
+    {
+		//System.out.println("Clave: "+clave);
+		int result=0;
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			UsuarioElimBD userDB= new UsuarioElimBD(connection);
+			
+			//System.out.println("Clave: "+clave+" entra al try");
+			
+			result= userDB.deleteUser(clave);
+			
+			//System.out.println("Clave: "+clave+" despues de la consulta");
+			
+			connection.close();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
+    }
+	
     public List<Usuario> getAllUsuariosE()
     {
     	List<Usuario> persons=new ArrayList<Usuario>();
