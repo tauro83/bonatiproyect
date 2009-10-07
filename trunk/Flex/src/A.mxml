@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="839" height="485" x="100" y="100" title="Ayuda" status="active"   showCloseButton="true" close="PopUpManager.removePopUp(this)" borderColor="#15AD8F" verticalAlign="top" horizontalAlign="left" borderStyle="solid" borderThickness="6">
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="893" height="485" x="100" y="100" title="Ayuda" status="active"   showCloseButton="true" close="PopUpManager.removePopUp(this)" borderColor="#15AD8F" verticalAlign="top" horizontalAlign="left" borderStyle="solid" borderThickness="6">
 
 
     <mx:Script>
@@ -15,13 +15,13 @@
          <mx:Text width="100%" color="#0B0A0A" textAlign="center"
             text="Bienvenido a la ayuda del sistema de administracion veterinaria Claudio Bonati" fontSize="16" fontFamily="Arial" x="10" y="10"/>
 
-        <mx:LinkBar color="0x0050AA" horizontalAlign="center" width="100%" fontWeight="bold" dataProvider="{myViewStack}" borderColor="0xACACAC" borderStyle="solid" x="10" y="40"/>
+        <mx:LinkBar color="0x0050AA" horizontalAlign="center" width="841" fontWeight="bold" dataProvider="{myViewStack}" borderColor="0xACACAC" borderStyle="solid" x="10" y="40"/>
 
         <!-- Define the ViewStack and the three child containers -->
-    <mx:ViewStack id="myViewStack" borderStyle="outset" width="800" height="368" color="0x323232" verticalCenter="32" horizontalCenter="-3">
+    <mx:ViewStack id="myViewStack" borderStyle="outset" width="838" height="365" color="0x323232" verticalCenter="34" horizontalCenter="0">
         
             <mx:VBox id="search" label="General" backgroundColor="0xDCDCDC" width="100%" height="100%">
-                <mx:Label text="Informacion general" width="100%" textAlign="center" paddingTop="10"  fontWeight="bold"/>
+                <mx:Label text="Informacion general" width="793" textAlign="center" paddingTop="10"  fontWeight="bold"/>
                
                <mx:HBox width="219" horizontalAlign="rigth"   height="27">
                     <mx:TextInput id="buscador" width="122" />
@@ -42,7 +42,7 @@
                   <mx:LinkButton x="10" y="96" label="Mascota" textAlign="left"/>
                   <mx:LinkButton x="34" y="115" label="Registrar" id="linkMascotaAdm1" textAlign="left"/>
                   <mx:LinkButton x="34" y="135" label="Editar" id="linkEdicionMascotaAdm0" textAlign="left"/>
-                  <mx:LinkButton x="34" y="156" label="Visualizar ficha" id="linkFichaAdm0" textAlign="left"/>
+                  <mx:LinkButton x="34" y="156" label="Visualizar ficha" id="linkFichaAdm0" textAlign="left" click="visualizarFichaText.visible=true"/>
                   
                   
                   <mx:LinkButton x="10" y="186" label="Razas" textAlign="left"/>
@@ -71,8 +71,23 @@
                  
                  </mx:Canvas>
                 
-                <mx:Canvas label="Canvas 2" width="596" height="283" backgroundColor="#FCFBFB" >
+                <mx:Canvas label="Canvas 2" width="558" height="261" backgroundColor="#FCFBFB" >
                 	
+       			<mx:Text id= "visualizarFichaText"  visible="false" width="598" color="0x323232">
+					<mx:htmlText>
+				 	<![CDATA[
+						<b>Ayuda para Visualizar Ficha<b></br>
+						    <ul>
+								<li>Ir al menú Administración</li>
+								<li>Seleccionar la opción del modulo panel izquierdo llamada Visualizar bajo el menú de Ficha.</li>
+								<li>En el panel derecho se cargaran todas las mascotas que se encuentran registradas en el sistema.</li>
+								<li>Para ver la ficha de alguna, deberá hacer click sobre alguna o bien hacer click sobre el botón Visualizar.</li>
+								<li>Luego se desplegara la ficha.</li>
+							</ul>	
+				 	 ]]>
+				     </mx:htmlText>
+				 </mx:Text>
+       
        
        
        <mx:Text id= "citaText"  visible="false" width="598" color="0x323232">
