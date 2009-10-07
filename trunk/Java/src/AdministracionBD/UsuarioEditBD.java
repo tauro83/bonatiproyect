@@ -17,17 +17,18 @@ public class UsuarioEditBD
 	PreparedStatement selectAll;
 	Connection conn;
 	
-	
+	/**
+	 * Autor: Jimmy Muñoz
+	 * Realiza las Querys para comunicarse con la base de datos.
+	 * @param Connection, que permite conectarse con la base de datos.
+	 * @return void. Solo captura algun error si es que hubiera en la base de datos.
+	 */
 	public UsuarioEditBD(Connection connection)
 	{
 		conn = connection;
 		try 
 		{
 			String query="";			
-			/*query = "UPDATE usuario "+
-			   "SET nombre=?, apaterno=?, amaterno=?, usuario=?, cargo=?, contrasena=?, "+
-				       "servicio=?, pregistrar=?, peditar=?, peliminar=?, ppurgar=? "+
-				 "WHERE idUsuario = ?;";*/
 			
 			query = "UPDATE usuario "+
 			   "SET nombre=?, apaterno=?, amaterno=?, usuario=?, cargo=?, contrasena=?, "+
@@ -40,9 +41,7 @@ public class UsuarioEditBD
 			
 			query = "SELECT nombre, apaterno, amaterno, usuario, cargo, contrasena, servicio, pregistrar, peditar, peliminar, ppurgar "+
 			"FROM usuario;";
-			
-			/*query = "SELECT nombre, apaterno, amatrno, usuario, cargo, contrasena, servicio, pregistrar, peditar, peliminar, ppurgar" +
-					"FROM usuario;";*/			
+				
 			selectAll = connection.prepareStatement(query);
 		} 
 		catch (SQLException e) 
@@ -53,6 +52,7 @@ public class UsuarioEditBD
 	
 		
 	/**
+	 * Autor: Jimmy Muñoz
 	 * Ingresa a una nueva persona a la base de datos
 	 * @param person contiene los datos de la persona que se quiere ingresar
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
@@ -83,6 +83,13 @@ public class UsuarioEditBD
 		}
     	return result;
     }
+	
+	/**
+	 * Procesa los datos obtenidos de la base de datos para ser retornados a la capa 1
+	 * con los datos de cada usuario en el sistema.
+	 * @param 
+	 * @return Una lista de objetos de la clase Usuario.
+	 */
     public List<Usuario> getAllUsuariosE()
     {
     	List<Usuario> persons=new ArrayList<Usuario>();
