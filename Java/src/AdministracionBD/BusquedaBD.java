@@ -1,3 +1,11 @@
+//=======================================================================
+// FECHA: CREACIÓN: 6 Octubre
+// AUTOR: Esteban Cruz
+// Clase de busqueda del sistema, dentro de esta se pueden realizar 
+// busquedas para: Mascota, Cliente, Atencion, Producto, Aviso, Usuario
+// Hace la conexion con la BD
+//=======================================================================
+
 package AdministracionBD;
 
 import java.sql.Connection;
@@ -7,14 +15,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import TransferObjects.Producto;
 import TransferObjects.Cliente;
+import TransferObjects.Mascota;
 import TransferObjects.Usuario;
+import TransferObjects.Atencion;
 
 public class BusquedaBD 
 {
 	PreparedStatement selectAllUsuarios;
 	PreparedStatement selectAllClientes;
-	
+	PreparedStatement selectAllMascotas;
+	PreparedStatement selectAllAtenciones;
+	PreparedStatement selectAllProductos;
+	/**
+	 * Se declaran las consultas hacia la base de datos
+	 * @param connection Conexión obtenida con la base de datos
+	 */
 	public BusquedaBD(Connection connection)
 	{
 		try 
@@ -29,6 +46,17 @@ public class BusquedaBD
 					"FROM cliente;";
 			selectAllClientes = connection.prepareStatement(query);
 			
+			query = "SELECT rut, nombre, claseanimal, raza, sexo " +
+					"FROM mascota;";
+			selectAllMascotas = connection.prepareStatement(query);
+			
+			query = "SELECT clienteRut, mascotaNombre, servicio, hora, fecha " +
+					"FROM atencion;";
+			selectAllAtenciones = connection.prepareStatement(query);
+			
+			query = "SELECT nombre, precio, categoria, codigo " +
+					"FROM producto;";
+			selectAllProductos = connection.prepareStatement(query);
 		} 
 		catch (SQLException e) 
 		{
@@ -36,6 +64,10 @@ public class BusquedaBD
 		}
 	}
     
+	/**
+	 * Trata de obtener todos los usuarios registrados en la base de datos
+	 * @return Lista con todos los usuarios registrados
+	 */
     public List<Usuario> getAllUsuarios()
     {	
     	List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -62,8 +94,12 @@ public class BusquedaBD
 			e.printStackTrace();
 		}
     	return usuarios;
-    }List<Cliente> clientes = new ArrayList<Cliente>();
+    }
     
+    /**
+	 * Trata de obtener todos los clientes registrados en la base de datos
+	 * @return Lista con todos los clientes registrados
+	 */
     public List<Cliente> getAllClientes()
     {	
     	List<Cliente> clientes = new ArrayList<Cliente>();
@@ -91,5 +127,100 @@ public class BusquedaBD
 			e.printStackTrace();
 		}
     	return clientes;
+    }
+    
+    /**
+	 * Trata de obtener todos las mascotas registrados en la base de datos
+	 * @return Lista con todos las moscotas registrados
+	 */
+    public List<Mascota> getAllMascotas()
+    {	
+    	List<Mascota> mascotas = new ArrayList<Mascota>();
+    	Mascota mascota;
+    
+    	try 
+    	{
+    		ResultSet result = selectAllMascotas.executeQuery();
+    		while(result.next())
+    		{  
+    			mascota = new Mascota();
+    			
+    			mascota.setRutCliente(result.getString(1));
+    			mascota.setNombre(result.getString(2));
+    			mascota.setClaseAnimal(result.getString(3));
+    			mascota.setRaza(result.getString(4));
+    			mascota.setSexo(result.getString(5));
+    			
+    			mascotas.add(mascota);
+    		}
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	return mascotas;
+    }
+    
+    /**
+	 * Trata de obtener todos las atenciones registrados en la base de datos
+	 * @return Lista con todos las atenciones registrados
+	 */
+    public List<Atencion> getAllAtenciones()
+    {	
+    	List<Atencion> atenciones = new ArrayList<Atencion>();
+    	Atencion atencion;
+    
+    	try 
+    	{
+    		ResultSet result = selectAllAtenciones.executeQuery();
+    		while(result.next())
+    		{  
+    			atencion = new Atencion();
+    			
+    			atencion.setClienteRut(result.getString(1));
+    			atencion.setMascotaNombre(result.getString(2));
+    			atencion.setServicio(result.getString(3));
+    			atencion.setHora(result.getString(4));
+    			atencion.setFecha(result.getString(5));
+    			
+    			atenciones.add(atencion);
+    		}
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	return atenciones;
+    }
+    
+    /**
+	 * Trata de obtener todos los productos registrados en la base de datos
+	 * @return Lista con todos los productos registrados
+	 */
+    public List<Producto> getAllProductos()
+    {	
+    	List<Producto> productos = new ArrayList<Producto>();
+    	Producto producto;
+        
+    	try 
+    	{
+    		ResultSet result = selectAllProductos.executeQuery();
+    		while(result.next())
+    		{  
+    			producto = new Producto();
+    			
+    			producto.setNombre(result.getString(1));
+    			producto.setPrecio(result.getString(2));
+    			producto.setCategoria(result.getString(3));
+    			producto.setCodigo(result.getString(4));
+    			
+    			productos.add(producto);
+    		}
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	return productos;
     }
 }
