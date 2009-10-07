@@ -8,10 +8,18 @@
 
 package transferObjects
 {
+	import mx.controls.CheckBox;
+	
 	[Bindable]
     [RemoteClass(alias="TransferObjects.Usuario")]
 	public class Usuario
 	{
+		
+	//****************************
+	public var checkbox:CheckBox = new CheckBox;
+		public var sel:Boolean;
+	//****************************
+
 		public var nombre:String;
 		public var apellidoPaterno:String;
 		public var apellidoMaterno:String;

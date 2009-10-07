@@ -27,8 +27,8 @@ package administracion
 			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
-			this.destination="PersonService";
-			this.source="Administracion.PersonService";
+			this.destination="UsuarioEditService";
+			this.source="Administracion.UsuarioEditService";
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		/**
@@ -36,7 +36,7 @@ package administracion
 		 */ 
 		private function faultHandler(event:FaultEvent):void
 		{
-			Alert.show("Error en PersonService, Detalle: "+event.fault.message);
+			Alert.show("Error en UsuarioElimService, Detalle: "+event.fault.message);
 		}
 		/**
 		 * @param clave String que se le entrega a la acapa lógica para eliminar un usuario
@@ -51,7 +51,7 @@ package administracion
 		 */ 
 		public function getAllUsuarios():void
 		{
-			this.getOperation("getAllUsers").send();
+			this.getOperation("getAllUsuariosE").send();
 		}
 		
 	}
