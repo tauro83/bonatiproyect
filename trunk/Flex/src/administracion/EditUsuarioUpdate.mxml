@@ -240,7 +240,8 @@
 			private function cancelando():void
 			{
 				this.setVisible(false,false);
-				Application.application.panel2.setVisible(true,false);
+				Application.application.AdEditarUsuar2.getAllUsuarios();
+				Application.application.AdEditarUsuar2.setVisible(true,false);
 				
 			}
 
