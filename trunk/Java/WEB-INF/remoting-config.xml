@@ -52,6 +52,11 @@
 	    </properties>
   	</destination>
 
+	<destination id="GetFichas">
+	    <properties>
+	      <source>Administracion.GetFichas</source>
+	    </properties>
+  	</destination>
 	
 
 </service>
