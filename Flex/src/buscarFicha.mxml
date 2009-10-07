@@ -1,7 +1,8 @@
-<!-- @autor Camilo Verdugo
+<!--@Author Camilo Verdugo
+	@Version	2
 -->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllFichas()" layout="absolute" borderColor="#15AD8F" width="779" height="466" title="Visualizar Ficha" >
-	<mx:Script>
+	<mx:Script>		
 		<![CDATA[
 			import transferObjects.Mascota;
 			import mx.controls.List;
@@ -11,24 +12,19 @@
             import mx.controls.CheckBox;    
             import mx.events.CloseEvent;
             import mx.rpc.events.ResultEvent;
-            import services.ListarFichasService;
-	
+            import services.ListarFichasService;	
 			[Bindable]
 			private var listFichas:ListarFichasService;
 			private var verFicha:VisualizarFicha;
-					
-			[Bindable]
+			[Bindable]		
 			private var mascotas:ArrayCollection;
 			//private var atenciones:ArrayCollection;
 			
 			
-			
-			
-			
-			
+			//Metodo que es llamdo al iniciar el componente. Se encarga de solicitar al as las mascotas
+			//que estan registradas en el sistema, de tal forma que permita su seleccion posterior				
 			public function getAllFichas():void
-			{
-				
+			{				
 				//mascotas = this.getAllMascotasResult();
 				listFichas = new ListarFichasService();
 				listFichas.getMascotas();	
@@ -36,24 +32,16 @@
 							
 			}
 			
-            public function getAllFichasResult():void
-            {
-            	
-            }
-            
+			//El resultado del metodo anterior y del retorno de as es recibido por este metodo
+			//El cual asigna la lista de mascotas obtenidas                        
             public function getAllMascotasR(event:ResultEvent):void
             {
 				mascotas = event.result as ArrayCollection;	
             }
-            public function getAllAtencionesResult():void
-            {
-            	
-            }
-            public function getAllClientesResult():void
-            {
-            	
-            }
-            
+           
+            //Metodo que es llamado por la accion del boton visualizar y mediante la selccion directa
+            // se encarga de hacer el llamado al otro panel de tal forma que se muestren los datos
+            //de la mascota nueva
             public function viewFicha(event:Event):void
             {
             	if(fichas.selectedItem){
@@ -63,7 +51,8 @@
             	}
             
             }
-          
+          	//Metodo que es llamado desde Veterinaria.mxml el cual obtiene el componente en el cual
+          	//Se cargan los datos de la ficha
             public function setVisualizarFicha(verFicha:VisualizarFicha):void
             {
             	this.verFicha = verFicha;               	

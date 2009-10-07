@@ -1,4 +1,5 @@
-<!-- @autor Camilo Verdugo
+<!--@Author Camilo Verdugo
+	@Version	3
 -->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779" height="466" title="Visualizar Ficha" borderColor="#15AD8F" >
 	<mx:Script>
@@ -26,7 +27,8 @@
          	private var atenciones:ArrayCollection;
          	
          	
-         	
+         	//Metodo que asigna la mascota obtenida del listado de mascotas
+         	// Ademas se encarga de solicitar los datos de su dueño y las atenciones realizadas
          	public function setDatos(mascota:Mascota):void{
          		this.mascota = mascota;
          		
@@ -42,19 +44,23 @@
          		this.getMascota();
          	}
 	
+			//Metodo que asigna los valores del cliente retornado del as
+			//Los valores son asignados directamente en el componente luego de su retorno
 			public function getClienteR(event:ResultEvent):void{
 				var cliente:Cliente = event.result as Cliente;
 				this.cNom.text = cliente.nombre;
 				this.cDir.text = cliente.direccion;
 				this.cRut.text = cliente.rut;
-				this.cTel.text = cliente.telefono;
-				
+				this.cTel.text = cliente.telefono;			
 				
 			}
+			//Metodo que recibe las atenciones que fueron enviadas del as
+			//Estas son asignadas a la lista de atenciones.
 			public function getAtencionesR(event:ResultEvent):void{
 				atenciones = event.result as ArrayCollection;	
 						
 			}
+			//Asigna los datos de la mascota seleccionada a los campos de la ficha
 			public function getMascota():void{
 				this.mNom.text = mascota.nombre;
             	this.cRut.text = mascota.rutCliente;

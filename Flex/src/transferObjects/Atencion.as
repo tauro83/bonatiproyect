@@ -1,9 +1,17 @@
-//@author Camilo Verdugo
+/**
+ * @Author Camilo Verdugo
+ * @Version 1
+*/
 package transferObjects
-{
-	
+{	
 	[Bindable]
     [RemoteClass(alias="TransferObjects.Atencion")]
+	/**
+	 * 
+	 * Clase que encapsula los datos de una atencion, esta clase posee una equivalente en la capa 2
+	 * De tal forma que se pueda hacer una mapeo directo desde las capas.
+	 * 
+	 */    
 	public class Atencion
 	{
 		public var clienteRut:String;
@@ -13,4 +21,4 @@ package transferObjects
 		public var fecha:String;
 		public var costo:String;
 	}
-
+}
