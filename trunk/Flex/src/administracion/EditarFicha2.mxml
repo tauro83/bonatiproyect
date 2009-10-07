@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Editar Ficha" borderColor="#15AD8F">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Person;
+			import mx.rpc.events.ResultEvent;
+			import services.PersonService;
+			//import Application.core.application;
+			import mx.core.Application;
+
+			[Bindable]
+			private var persons:ArrayCollection;
+			private var auxiliar:ArrayCollection;
+			
+			public function cargarDatos():void
+			{
+				Application.application.visualizarFicha.setVisible(false,false);
+				this.setVisible(true,false);
+			}
+			
+			private function getAllPersons():void
+			{
+				var personService:PersonService=new PersonService();
+				personService.addEventListener(ResultEvent.RESULT,getAllPersonsResult);
+				personService.getAllPersons();
+			}
+			
+			private function getAllPersonsResult(event:ResultEvent):void
+			{
+				persons = event.result as ArrayCollection;
+				auxiliar = persons;
+			}
+
+		]]>
+	</mx:Script>
+	<mx:Button label="Editar" height="23" width="102" x="527" y="368" cornerRadius="6"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="637" y="368" label="Cancelar" width="102" height="23" cornerRadius="6"/>
+	<mx:Label x="24.15" y="202" text="Fecha: " width="93"/>
+	<mx:Label x="24.15" y="280" text="Costo: " width="93"/>
+	<mx:Label x="24.15" y="228" text="Servicio:" width="93"/>
+	<mx:Label x="371.7" y="202" text="Descripción: " width="93"/>
+	<mx:Label x="24.15" y="254" text="Responsable: " width="93"/>
+	<mx:Label x="24.15" y="36" text="Nombre:" width="78"/>
+	<mx:Label x="24.15" y="10" text="Datos cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="371.7" y="10" text="Datos mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="24.15" y="62" text="Rut:" width="78"/>
+	<mx:Label x="371.7" y="94" text="Sexo:" width="78"/>
+	<mx:Label x="371.7" y="120" text="Fecha nacimiento:" width="107"/>
+	<mx:Label x="371.7" y="36" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="24.15" y="88" text="Teléfono:" width="78"/>
+	<mx:Label x="371.7" y="66.05" text="Raza:" width="78"/>
+	<mx:TextInput x="127.1" y="34" width="217.75" editable="false" id="nombUs"/>
+	<mx:TextInput x="127.1" y="64" width="112" editable="false" height="20" id="rutLargo"/>
+	<mx:TextInput x="256.1" y="64" width="19.75" editable="false" height="20" id="rutIdent"/>
+	<mx:TextInput x="127.1" y="92" width="148.75" editable="false" height="20" id="fonoCli"/>
+	<mx:TextInput x="490.25" y="34" width="155.75" editable="false" height="20" id="nombMasc"/>
+	<mx:TextInput x="490.25" y="64.05" width="101.9" editable="false" height="20" id="raz"/>
+	<mx:TextInput x="490.25" y="92" width="101.9" editable="false" height="20" id="sexoMasc"/>
+	<mx:TextInput x="490.25" y="118" width="101.9" editable="false" height="20" id="fechaNac"/>
+	<mx:Label x="24.15" y="164" text="Datos de la atención" width="137" fontWeight="bold"/>
+	<mx:TextInput x="127.1" y="200" width="112" editable="false" height="20" id="fechaAtencion"/>
+	<mx:TextInput x="127.1" y="226" width="112" editable="false" height="20" id="servicioAtencion"/>
+	<mx:Label x="235.1" y="66" text="-" width="26" textAlign="center"/>
+	<mx:TextInput x="127.1" y="252" width="157" id="respAten" editable="false"/>
+	<mx:TextInput x="127.1" y="278" width="112" id="costAten" editable="false"/>
+	<mx:TextArea x="490.25" y="201" width="248.75" height="137" id="descText"/>
+</mx:Panel>
