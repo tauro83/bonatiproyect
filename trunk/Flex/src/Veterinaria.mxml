@@ -772,7 +772,7 @@
 	<ns2:EditarUsuario x="240" y="133" id="AdEditarUsuar2" visible="false">
 	</ns2:EditarUsuario>	
 	<ns1:Bitacora id="bitacora" x="241" y="134" visible="false">
-	</ns1:Bitacora>
+	</ns1:Bitacora> 
 	<ns2:EditarFicha x="241" y="133" id="AdEditFicha2" visible="false">
 	</ns2:EditarFicha>
 	<ns2:EditarFicha2 x="241" y="133" id="AdEditFicha3" visible="false">
