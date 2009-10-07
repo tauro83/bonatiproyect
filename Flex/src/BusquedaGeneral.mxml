@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Buscar" themeColor="#15ad8f" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
@@ -73,8 +73,8 @@
 	<fc:AutoComplete id="inputClienteRut" x="59" y="10" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
 	<fc:AutoComplete id="inputClienteTel" x="59" y="10" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
 	<fc:AutoComplete id="inputClienteEmail" x="59" y="10" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
-	<fc:AutoComplete id="inputClienteApellido" x="59" y="10" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
-	<fc:AutoComplete id="inputClienteApellido2" x="59" y="10" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido2" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
 	
 	<!-- Mascota -->
 	<mx:ComboBox x="441" y="10" id="comboboxMascota" width="150" visible="false">
