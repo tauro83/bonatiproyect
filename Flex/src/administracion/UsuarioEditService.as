@@ -10,6 +10,12 @@ package administracion
 
 	public class UsuarioEditService extends RemoteObject
 	{
+		/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo Declara el canal, y los servicios a los cuales se estan enviando los datos.
+			 * Y la direccion en la cual esta levantado la capa 2.		 		
+			 * */
 		public function UsuarioEditService()
 		{
 			super();
@@ -22,15 +28,37 @@ package administracion
 			
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
+		
+		/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que en caso de error, muestra en a traves de 
+			 * un popup, esto se debe a que estos son errores de sistema, por lo 
+			 * tanto es necesario informarlo de otra forma.		 		
+			 * */
 		private function faultHandler(event:FaultEvent):void
 		{
 			Alert.show("Error en UsuarioEditService, Detalle: "+event.fault.message);
 		}
 		
+		
+		/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que envia a la capa 2, el usuario que fue editado, 
+			 * para almacenarlo en la base de datos. Llamando al metodo correspondiente.
+			 * 	@Param Recibe como parametro un objeto de la clase Usuario, para enviarlo a la capa2. 		
+			 * */
 		public function insertUsuarioE(person:Usuario):void
 		{
 			this.getOperation("insertUsuarioE").send(person);
 		}
+		
+		/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que solicita a la capa 2 los datos de todos los usuarios del sistema.	 		
+			 * */
 		public function getAllUsuariosE():void
 		{
 			this.getOperation("getAllUsuariosE").send();

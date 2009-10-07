@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!--@Author Jimmy Muñoz
+	@Version	4
+-->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Usuario" x="241" y="133">
 	<mx:Script>
 		<![CDATA[
