@@ -12,11 +12,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import AdministracionBD.AddRegistroBd;
+
+
 import Bd.DBConnectionManager;
 
 public class Registro {
+	
 	
 	/**
 	 * Corresponde a un atributo que solamente podran ser accedido desde la misma clase o desde
@@ -24,7 +26,7 @@ public class Registro {
 	 * servicio de la clinica veterinaria.
 	 */
 	
-	protected int costoAtencion; 
+	public int costoAtencion; 
 	
 	/**
 	 * Corresponde a un atributo que solamente podran ser accedido desde la misma clase o desde
@@ -32,7 +34,7 @@ public class Registro {
 	 * al interior  de los  servicio que presta la clinica veterinaria para sus mascotas.
 	 */
 	
-	protected String responsable;
+	public String responsable;
 	
 	/**
 	 * Corresponde a un atributo que solamente podran ser accedido desde la misma clase o desde
@@ -86,16 +88,29 @@ public class Registro {
 	
 	/**
 	 * Este metodo corresponde al constructor de la clase. 
+	 * @throws Exception 
 	 * @throws SQLException 
 	 * 
 	 */
 	
 	
-    protected Registro(int costoAtencion,String responsable,String fecha,String nombreMascota,String hora,int idServicio,String mascotaFechaNacimiento,int rutCliente) throws SQLException{
-       	
-	}
+    public Registro(int costoAtencion,String responsable,String fecha,String nombreMascota,String hora,int idServicio,String mascotaFechaNacimiento,int rutCliente) throws SQLException{
+       Registro r=new Registro(4000,"maria","12/09/09","cuky","12:30",3,"12/04/08",1234567);
+    	
+       this.costoAtencion=costoAtencion;
+       this.responsable=responsable;
+       this.fecha=fecha;
+       this.nombreMascota=nombreMascota;
+       this.hora=hora;
+       this.idServicio=idServicio;
+       this.mascotaFechaNacimiento=mascotaFechaNacimiento;
+       this.rutCliente=rutCliente;
+       
+       
+       Registro.addRegistro(r);
+       
 	
-	
+    }
 	
 	
 	/**
@@ -105,7 +120,7 @@ public class Registro {
 	 */
 	
 
-	protected String getHora() {
+	public String getHora() {
 		return hora;
 	}
 	
@@ -127,7 +142,7 @@ public class Registro {
 	 * 
 	 */
 
-	protected int getIdServicio() {
+	public int getIdServicio() {
 		return idServicio;
 	}
 	
@@ -138,7 +153,7 @@ public class Registro {
 	 * servicio descripto anteriormente. 
 	 */
 
-	protected void setIdServicio(int idServicio) {
+	public void setIdServicio(int idServicio) {
 		this.idServicio = idServicio;
 	}
 	
@@ -148,7 +163,7 @@ public class Registro {
 	 */
 
 
-	protected String getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 	
@@ -169,7 +184,7 @@ public class Registro {
 	 * al interior de la clinica veterinaria. 
 	 */
 
-	protected String getNombreMascota() {
+	public String getNombreMascota() {
 		return nombreMascota;
 	}
 	
@@ -189,7 +204,7 @@ public class Registro {
 	 * la atención de una mascota. 
 	 */
 
-	protected String getResponsable() {
+	public String getResponsable() {
 		return responsable;
 	}
 	
@@ -212,7 +227,7 @@ public class Registro {
 	 * 
 	 */
 
-	protected int getCostoAtencion() {
+	public int getCostoAtencion() {
 		return costoAtencion;
 	}
 	
@@ -232,7 +247,7 @@ public class Registro {
 	 * permitira poder obtener la edad de la mascota para la recetacion de medicamentos y vacunas.
 	 */
 	
-	protected String getMascotaFechaNacimiento() {
+	public String getMascotaFechaNacimiento() {
 		return mascotaFechaNacimiento;
 	}
 	
@@ -244,7 +259,7 @@ public class Registro {
 	 * ejemplo: dd/mm/aaaa
 	 */
 
-	protected void setMascotaFechaNacimiento(String mascotaFechaNacimiento) {
+	public void setMascotaFechaNacimiento(String mascotaFechaNacimiento) {
 		this.mascotaFechaNacimiento = mascotaFechaNacimiento;
 	}
 
@@ -253,7 +268,7 @@ public class Registro {
 	 * la clinica veterinaria.
 	 */
 	
-	protected int getRutCliente() {
+	public int getRutCliente() {
 		return rutCliente;
 	}
 	
@@ -274,11 +289,11 @@ public class Registro {
 		 * @throws SQLException 
 		 */
 		
-		protected static String addRegistro(int costoAtencion,String responsable,String fecha,String nombreMascota,String hora,int idServicio,String mascotaFechaNacimiento,int rutCliente) throws SQLException{
+		protected static String addRegistro(Registro r) throws SQLException{
 			
 			Connection connection=DBConnectionManager.getConnection();
-			AddRegistroBd acbd = new AddRegistroBd(connection,costoAtencion,responsable,fecha,nombreMascota,hora,idServicio,mascotaFechaNacimiento,rutCliente);	
-			return acbd.addRegistro(costoAtencion,responsable,fecha,nombreMascota,hora,idServicio,mascotaFechaNacimiento,rutCliente);
+			AddRegistroBd acbd = new AddRegistroBd(connection);	
+			return acbd.addRegistro(r);
 		
 			
 		}
@@ -299,12 +314,12 @@ public class Registro {
 			 * servicio que se encuentre almacenada en la base de datos.
 			 */
 		 
-		protected List<Registro> getRegistro()throws SQLException{
+		/*protected List<Registro> getRegistro()throws SQLException{
 		   	List<Registro> register=new ArrayList<Registro>();
 	    	try 
 			{
 				Connection connection=DBConnectionManager.getConnection();
-				AddRegistroBd acbd = new AddRegistroBd(connection, costoAtencion,responsable,fecha,nombreMascota,hora,idServicio,mascotaFechaNacimiento,rutCliente);
+				AddRegistroBd acbd = new AddRegistroBd(connection);
 				register= acbd.getRegistro();		
 				connection.close();
 			} 
@@ -313,7 +328,7 @@ public class Registro {
 				e.printStackTrace();
 			}
 			return register;
-	    }
+	    }*/
 			
 
 
