@@ -17,7 +17,7 @@ import java.util.List;
 import Administracion.Registro;
 
 
-public class AddRegistroBd extends Registro{
+public class AddRegistroBd {
 	Connection connection;	
 	
 	/**
@@ -25,20 +25,23 @@ public class AddRegistroBd extends Registro{
 	 * @param connection Este atributo hace la conexión a la base de datos para poder guardar los datos al interior de ella.
 	 */
 	
-	public AddRegistroBd(Connection connection,int costoAtencion,String responsable,String fecha,String nombreMascota,String hora,int idServicio,String mascotaFechaNacimiento,int rutCliente) throws SQLException
+	public AddRegistroBd(Connection connection) throws SQLException
 	{		 
-		super(costoAtencion,responsable,fecha,nombreMascota,hora,idServicio,mascotaFechaNacimiento,rutCliente);
+		
 		this.connection = connection;
+		
 				
 	}
 	
 	/**
 	 * Este metodo nos permite poder guardar los objetos al interior de la base de datos para que sean 
 	 * almacenados ahi.
+	 * @return 
 	 * 
 	 */
 
-	public String addRegistro() throws SQLException
+	
+	public String addRegistro(Registro r) throws SQLException
 	{
 		String result = null;
 		PreparedStatement insert;
@@ -49,16 +52,16 @@ public class AddRegistroBd extends Registro{
 		      "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 		insert = connection.prepareStatement(query);
 
-
 		
-		insert.setInt(1,super.costoAtencion);
-		insert.setString(2, super.responsable);
-		insert.setString(3, super.fecha);
-		insert.setString(4, super.nombreMascota);
-		insert.setString(5, super.hora);
-		insert.setInt(6, super.idServicio);
-		insert.setString(7, super.mascotaFechaNacimiento);
-		insert.setInt(8, super.rutCliente);
+		
+		insert.setInt(1,r.getCostoAtencion());
+		insert.setString(2, r.getResponsable());
+		insert.setString(3, r.getFecha());
+		insert.setString(4, r.getNombreMascota());
+		insert.setString(5, r.getHora());
+		insert.setInt(6, r.getIdServicio());
+		insert.setString(7, r.getMascotaFechaNacimiento());
+		insert.setInt(8, r.getRutCliente());
 		
 		
 		try 
@@ -82,7 +85,7 @@ public class AddRegistroBd extends Registro{
 	 * 
 	 */
 
-	@SuppressWarnings("null")
+	/*@SuppressWarnings("null")
 	public List<Registro> getRegistro() throws SQLException {
 		List<Registro> register=new ArrayList<Registro>();
     	try 
@@ -108,7 +111,7 @@ public class AddRegistroBd extends Registro{
 			e.printStackTrace();
 		}
     	return register;
-    }
+    }*/
 
 	
 }
