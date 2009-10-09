@@ -47,8 +47,9 @@
             	busqueda2.comboboxProducto.addEventListener(DropdownEvent.CLOSE,seleccionarProducto);
             	busqueda2.comboboxUsuario.addEventListener(DropdownEvent.CLOSE,seleccionarUsuario);
             	busqueda2.comboboxAviso.addEventListener(DropdownEvent.CLOSE,seleccionarAviso);
-            	busqueda2.comboboxCita.addEventListener(DropdownEvent.CLOSE,seleccionarCita);
+            	busqueda2.comboboxAtencion.addEventListener(DropdownEvent.CLOSE,seleccionarAtencion);
             	busqueda2.comboboxCliente.addEventListener(DropdownEvent.CLOSE,seleccionarCliente);
+            	busqueda2.idCancelar.addEventListener(MouseEvent.CLICK,cerrarBusqueda);
             	<!--Autor: }Esteban --> 
             	
             	
@@ -335,6 +336,13 @@
             <!--Autor:Andres G.}-->
             
             <!--Autor: Esteban{ -->
+             private function cerrarBusqueda (event:Event):void
+            {
+            	setInvisible();
+            	agenda2.setVisible(true,false);
+            	menuAgenda1.setVisible(true,false);
+            }
+            
              private function setInvisibleInput ():void
             {
             	busqueda2.inputUsuarioCargo.setVisible(false,false);
@@ -348,16 +356,66 @@
             	busqueda2.inputClienteRut.setVisible(false,false);
             	busqueda2.inputClienteApellido.setVisible(false,false);
             	busqueda2.inputClienteApellido2.setVisible(false,false);
+            	busqueda2.inputMascotaNombre.setVisible(false,false);
+            	busqueda2.inputMascotaRut.setVisible(false,false);
+            	busqueda2.inputMascotaRaza.setVisible(false,false);
+            	busqueda2.inputMascotaClase.setVisible(false,false);
+            	busqueda2.inputMascotaSexo.setVisible(false,false);
+            	busqueda2.inputAtencionCliente.setVisible(false,false);
+            	busqueda2.inputAtencionMascota.setVisible(false,false);
+            	busqueda2.inputAtencionFecha.setVisible(false,false);
+            	busqueda2.inputAtencionHora.setVisible(false,false);
+            	busqueda2.inputAtencionServico.setVisible(false,false);
+            	busqueda2.inputProductoNombre.setVisible(false,false);
+            	busqueda2.inputProductoCodigo.setVisible(false,false);
+            	busqueda2.inputProductoPrecio.setVisible(false,false);
+            	busqueda2.inputProductoCategoria.setVisible(false,false);
             }
             
             private function seleccionarMascota (event:DropdownEvent):void
             {
- 
+ 				setInvisibleInput();
+            	busqueda2.getAllMascotas();
+				switch (busqueda2.comboboxMascota.selectedLabel){
+				case 'Nombre':		
+					busqueda2.inputMascotaNombre.setVisible(true,false);
+				break; 
+				case 'Rut Cliente':		
+					busqueda2.inputMascotaRut.setVisible(true,false);
+				break; 
+				case 'Raza':		
+					busqueda2.inputMascotaRaza.setVisible(true,false);
+				break; 
+				case 'Sexo':		
+					busqueda2.inputMascotaSexo.setVisible(true,false);
+				break;
+				case 'Clase':
+					busqueda2.inputMascotaClase.setVisible(true,false); 
+				break;	
+				}
             }
             
-            private function seleccionarCita (event:DropdownEvent):void
+            private function seleccionarAtencion (event:DropdownEvent):void
             {
-
+				setInvisibleInput();
+            	busqueda2.getAllAtenciones();
+            	switch (busqueda2.comboboxAtencion.selectedLabel){
+				case 'Rut Cliente':		
+					busqueda2.inputAtencionCliente.setVisible(true,false);
+				break; 
+				case 'Fecha':		
+					busqueda2.inputAtencionFecha.setVisible(true,false);
+				break; 
+				case 'Hora':		
+					busqueda2.inputAtencionHora.setVisible(true,false);
+				break; 
+				case 'Servicio':		
+					busqueda2.inputAtencionServico.setVisible(true,false);
+				break; 	
+				case 'Nombre Mascota':		
+					busqueda2.inputAtencionMascota.setVisible(true,false);
+				break; 	
+				}
             }
             
             private function seleccionarAviso (event:DropdownEvent):void
@@ -410,18 +468,34 @@
 				break;
 				case 'Servicio':
 					busqueda2.inputUsuarioServicio.setVisible(true,false); 	
+				break;
 				}
             }
             
             private function seleccionarProducto (event:DropdownEvent):void
             {
-
+				setInvisibleInput();
+            	busqueda2.getAllProductos();
+				switch (busqueda2.comboboxProducto.selectedLabel){
+				case 'Nombre':		
+					busqueda2.inputProductoNombre.setVisible(true,false);
+				break; 
+				case 'Codigo':		
+					busqueda2.inputProductoCodigo.setVisible(true,false);
+				break; 
+				case 'Precio':		
+					busqueda2.inputProductoPrecio.setVisible(true,false);
+				break; 
+				case 'Categoria':		
+					busqueda2.inputProductoCategoria.setVisible(true,false);
+				break;	
+				}
             }
             
             private function seleccionarBusqueda (event:DropdownEvent):void
             {   
-            	busqueda2.comboboxCita.setVisible(false,false);
-				busqueda2.gridCita.setVisible(false,false);
+            	busqueda2.comboboxAtencion.setVisible(false,false);
+				busqueda2.gridAtencion.setVisible(false,false);
 				busqueda2.comboboxCliente.setVisible(false,false);
 				busqueda2.gridCliente.setVisible(false,false);
 				busqueda2.comboboxAviso.setVisible(false,false);
@@ -434,9 +508,9 @@
 				busqueda2.gridUsuario.setVisible(false,false);
             	switch (busqueda2.combobox.selectedLabel)
 				{
-				case 'Cita':		
-					busqueda2.comboboxCita.setVisible(true,false);
-					busqueda2.gridCita.setVisible(true,false);
+				case 'Atencion':		
+					busqueda2.comboboxAtencion.setVisible(true,false);
+					busqueda2.gridAtencion.setVisible(true,false);
 				break; 
 				case 'Cliente':
 					busqueda2.comboboxCliente.setVisible(true,false);
