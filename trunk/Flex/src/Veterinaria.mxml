@@ -161,7 +161,7 @@
             private function linkpurgUsAd ( event:Event ):void{
             	setInvisible();
                	AdmOpciones1.setVisible(true,false);
-            	purgusuario.setVisible(true,false);
+            	//purgusuario.setVisible(true,false);
             	
             }
             private function linkelimUsAd ( event:Event ):void{
@@ -255,7 +255,7 @@
             	login2.setVisible(false,false);
             	busqueda2.setVisible(false,false);
             	huespedAgregado2.setVisible(false,false);
-            	purgusuario.setVisible(false,false);
+            	//purgusuario.setVisible(false,false);
             	bitacoraEventos.setVisible(false,false);    
             	//raullrich
             	editarCita.setVisible(false,false);
@@ -336,7 +336,8 @@
             <!--Autor:Andres G.}-->
             
             <!--Autor: Esteban{ -->
-             private function cerrarBusqueda (event:Event):void
+
+            private function cerrarBusqueda (event:Event):void
             {
             	setInvisible();
             	agenda2.setVisible(true,false);
@@ -980,8 +981,6 @@
 	<!--Erwin Díaz-->
 	<ns1:BitacoraEventos x="241" y="134" id="bitacoraEventos" visible="false" borderColor="#15AD8F">
 	</ns1:BitacoraEventos>
-	<ns1:ElimUsuario x="241" y="134" id="elimusuario" visible="false" borderColor="#15AD8F">
-	</ns1:ElimUsuario>
 	<ns1:ElimUsuario x="241" y="134" id="elimusuario" visible="false" borderColor="#15AD8F">
 	</ns1:ElimUsuario>
 	<ns1:ElimFicha x="241" y="134" id="elimficha" visible="false" borderColor="#15AD8F">
