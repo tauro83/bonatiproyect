@@ -2,7 +2,14 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Buscar" themeColor="#15ad8f" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
-
+		
+			//=======================================================================
+			// FECHA: CREACIÓN: 6 Octubre
+			// AUTOR: Esteban Cruz
+			// Panel de busqueda del sistema, dentro de esta se pueden realizar 
+			// busquedas para: Mascota, Cliente, Atencion, Producto, Aviso, Usuario
+			//=======================================================================
+			
 			import mx.collections.ArrayCollection;
 			import mx.rpc.events.ResultEvent;
 			import services.BusquedaService;
@@ -11,13 +18,23 @@
 			
 			import transferObjects.Usuario;
 			import transferObjects.Cliente;
+			import transferObjects.Mascota;
+			import transferObjects.Atencion;
+			import transferObjects.Producto;
 
-		[Bindable]
-		private var usuarios:ArrayCollection;
-		[Bindable]
-		private var clientes:ArrayCollection;
+			[Bindable]
+			private var usuarios:ArrayCollection;
+			[Bindable]
+			private var clientes:ArrayCollection;
+			[Bindable]
+			private var mascotas:ArrayCollection;
+			[Bindable]
+			private var atenciones:ArrayCollection;
+			[Bindable]
+			private var productos:ArrayCollection;
 		
 		   //Usuario ---------------------------
+		   //funciona que busca todos los usuarios
 		   public function getAllUsuarios():void
 		   {
 		   		var busquedaService:BusquedaService = new BusquedaService();
@@ -31,6 +48,7 @@
 		   }
 		   
 		   //Cliente ---------------------------
+		   //funciona que busca todos los clientes
 		   public function getAllClientes():void
 		   {
 		   		var busquedaService:BusquedaService = new BusquedaService();
@@ -43,7 +61,47 @@
 		   		clientes = event.result as ArrayCollection;
 		   }
 		   
+		   //Mascota --------------------------
+		   //funciona que busca todos las mascotas
+		   public function getAllMascotas():void
+		   {
+		   		var busquedaService:BusquedaService = new BusquedaService();
+		   		busquedaService.addEventListener(ResultEvent.RESULT,getAllMascotasResult);
+				busquedaService.getAllMascotas();
+		   }
 		   
+		   public function getAllMascotasResult(event:ResultEvent):void
+		   {
+		   		mascotas = event.result as ArrayCollection;
+		   }
+		   
+		   //Atencion --------------------------
+		   //funciona que busca todos las atenciones
+		   public function getAllAtenciones():void
+		   {
+		   		var busquedaService:BusquedaService = new BusquedaService();
+		   		busquedaService.addEventListener(ResultEvent.RESULT,getAllAtencionesResult);
+				busquedaService.getAllAtenciones();
+		   }
+		   
+		   public function getAllAtencionesResult(event:ResultEvent):void
+		   {
+		   		atenciones = event.result as ArrayCollection;
+		   }
+		   
+		   //Producto --------------------------
+		   //funciona que busca todos los productos
+		   public function getAllProductos():void
+		   {
+		   		var busquedaService:BusquedaService = new BusquedaService();
+		   		busquedaService.addEventListener(ResultEvent.RESULT,getAllProductosResult);
+				busquedaService.getAllProductos();
+		   }
+		   
+		   public function getAllProductosResult(event:ResultEvent):void
+		   {
+		   		productos = event.result as ArrayCollection;
+		   }
 			
 		]]>
 	</mx:Script>
@@ -51,8 +109,9 @@
 	<mx:Button x="647" y="302" label="Cancelar" width="102" cornerRadius="6" id="idCancelar"/>
 	<mx:ComboBox x="283" y="10" width="150" id="combobox">
 		<mx:ArrayCollection>
-			<mx:Object label="Aviso"/>
-			<mx:Object label="Cita"/> 
+			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="Atencion"/>
+			<!-- <mx:Object label="Aviso"/> -->
 			<mx:Object label="Cliente"/> 
 			<mx:Object label="Mascota"/> 
 			<mx:Object label="Producto"/> 
@@ -63,12 +122,14 @@
 	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
 
 	<!-- AutoComplete para cada parametro -->
+	<!-- input Usuario -->
 	<fc:AutoComplete id="inputUsuarioNombre" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="nombre" visible="false"/>
 	<fc:AutoComplete id="inputUsuarioCargo" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="cargo" visible="false"/>
 	<fc:AutoComplete id="inputUsuarioAp" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="apellidoPaterno" visible="false"/>
 	<fc:AutoComplete id="inputUsuarioAm" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="apellidoMaterno" visible="false"/>
 	<fc:AutoComplete id="inputUsuarioServicio" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="servicio" visible="false"/>
 	
+	<!-- input Cliente -->
 	<fc:AutoComplete id="inputClienteNombre" x="59" y="10" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
 	<fc:AutoComplete id="inputClienteRut" x="59" y="10" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
 	<fc:AutoComplete id="inputClienteTel" x="59" y="10" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
@@ -76,27 +137,51 @@
 	<fc:AutoComplete id="inputClienteApellido" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
 	<fc:AutoComplete id="inputClienteApellido2" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
 	
-	<!-- Mascota -->
+	<!-- input Mascota -->
+	<fc:AutoComplete id="inputMascotaNombre" x="59" y="10" width="150" dataProvider="{mascotas}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputMascotaRut" x="59" y="10" width="150" dataProvider="{mascotas}" labelField="rutCliente" visible="false"/>
+	<fc:AutoComplete id="inputMascotaRaza" x="59" y="10" width="150" dataProvider="{mascotas}" labelField="raza" visible="false"/>
+	<fc:AutoComplete id="inputMascotaClase" x="59" y="10" width="150" dataProvider="{mascotas}" labelField="claseAnimal" visible="false"/>
+	<fc:AutoComplete id="inputMascotaSexo" x="59" y="10" width="150" dataProvider="{mascotas}" labelField="sexo" visible="false"/>
+	
+	<!-- input Atencion -->
+	<fc:AutoComplete id="inputAtencionCliente" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="clienteRut" visible="false"/>
+	<fc:AutoComplete id="inputAtencionMascota" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="mascotaNombre" visible="false"/>
+	<fc:AutoComplete id="inputAtencionFecha" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="fecha" visible="false"/>
+	<fc:AutoComplete id="inputAtencionHora" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="hora" visible="false"/>
+	<fc:AutoComplete id="inputAtencionServico" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="servicio" visible="false"/>
+	
+	<!-- input Producto -->
+	<fc:AutoComplete id="inputProductoNombre" x="59" y="10" width="150" dataProvider="{productos}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputProductoCodigo" x="59" y="10" width="150" dataProvider="{productos}" labelField="codigo" visible="false"/>
+	<fc:AutoComplete id="inputProductoPrecio" x="59" y="10" width="150" dataProvider="{productos}" labelField="precio" visible="false"/>
+	<fc:AutoComplete id="inputProductoCategoria" x="59" y="10" width="150" dataProvider="{productos}" labelField="categoria" visible="false"/>
+	
+	<!-- Mascota: combobox y grid -->
 	<mx:ComboBox x="441" y="10" id="comboboxMascota" width="150" visible="false">
 		<mx:ArrayCollection>
-			<mx:Object label="Cliente"/>
+			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Nombre"/>
+			<mx:Object label="Rut Cliente"/>
 			<mx:Object label="Raza"/>
-			<mx:Object label="Rut"/>
+			<mx:Object label="Sexo"/>
+			<mx:Object label="Clase"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridMascota" visible="false">
+	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridMascota" visible="false" dataProvider="{mascotas}">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Nombre" dataField="col1"/>
-			<mx:DataGridColumn headerText="Raza" dataField="col2"/>
-			<mx:DataGridColumn headerText="Cliente" dataField="col3"/>
-			<mx:DataGridColumn headerText="Rut" dataField="col4"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Rut cliente" dataField="rutCliente"/>
+			<mx:DataGridColumn headerText="Clase animal" dataField="claseAnimal"/>
+			<mx:DataGridColumn headerText="Raza" dataField="raza"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="sexo"/>
 		</mx:columns>
 	</mx:DataGrid>
 	
-	<!-- Usuario -->
+	<!-- Usuario: combobox y grid -->
 	<mx:ComboBox x="441" y="10" id="comboboxUsuario" width="150" visible="false">
 		<mx:ArrayCollection>
+			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Apellido materno"/>
 			<mx:Object label="Apellido paterno"/>
 			<mx:Object label="Cargo"/>
@@ -114,9 +199,10 @@
 		</mx:columns>
 	</mx:DataGrid>
 	
-	<!-- Aviso -->
+	<!-- Aviso: combobox y grid -->
 	<mx:ComboBox x="441" y="10" id="comboboxAviso" width="150" visible="false">
 		<mx:ArrayCollection>
+			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Cliente"/>
 			<mx:Object label="Mascota"/>
 			<mx:Object label="Rut"/>
@@ -132,45 +218,50 @@
 		</mx:columns>
 	</mx:DataGrid>
 	
-	<!-- Cita -->
-	<mx:ComboBox x="441" y="10" id="comboboxCita" width="150" visible="false">
+	<!-- Atencion: combobox y grid -->
+	<mx:ComboBox x="441" y="10" id="comboboxAtencion" width="150" visible="false">
 		<mx:ArrayCollection>
-			<mx:Object label="Cliente"/>
+			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="Rut Cliente"/>
 			<mx:Object label="Fecha"/>
 			<mx:Object label="Hora"/>
-			<mx:Object label="Mascota"/>
+			<mx:Object label="Nombre Mascota"/>
+			<mx:Object label="Servicio"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridCita" visible="false">
+	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridAtencion" visible="false" dataProvider="{atenciones}">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Fecha" dataField="col1"/>
-			<mx:DataGridColumn headerText="Hora inicio" dataField="col2"/>
-			<mx:DataGridColumn headerText="Cliente" dataField="col3"/>
-			<mx:DataGridColumn headerText="Rut" dataField="col4"/>
+			<mx:DataGridColumn headerText="Rut cliente" dataField="clienteRut"/>
+			<mx:DataGridColumn headerText="Nombre mascota" dataField="mascotaNombre"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="fecha"/>
+			<mx:DataGridColumn headerText="Hora" dataField="hora"/>
+			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
 		</mx:columns>
 	</mx:DataGrid>
 	
-	<!-- Producto -->
+	<!-- Producto: combobox y grid -->
 	<mx:ComboBox x="441" y="10" id="comboboxProducto" width="150" visible="false">
 		<mx:ArrayCollection>
-			<mx:Object label="Categoría"/>
+			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="Categoria"/>
 			<mx:Object label="Nombre"/>
-			<mx:Object label="Precio menor a"/>
-			<mx:Object label="Precio mayor a"/>
+			<mx:Object label="Precio"/>
+			<mx:Object label="Codigo"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridProducto" visible="false">
+	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridProducto" visible="false" dataProvider="{productos}">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Nombre" dataField="col1"/>
-			<mx:DataGridColumn headerText="Precio" dataField="col2"/>
-			<mx:DataGridColumn headerText="Categoria" dataField="col3"/>
-			<mx:DataGridColumn headerText="Codigo barra" dataField="col4"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Precio" dataField="precio"/>
+			<mx:DataGridColumn headerText="Categoria" dataField="categoria"/>
+			<mx:DataGridColumn headerText="Codigo barra" dataField="codigo"/>
 		</mx:columns>
 	</mx:DataGrid>
 	
-	<!-- Cliente -->
+	<!-- Cliente: combobox y grid -->
 	<mx:ComboBox x="441" y="10" id="comboboxCliente" width="150" visible="false">
 		<mx:ArrayCollection>
+			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Apellido materno"/>
 			<mx:Object label="Apellido paterno"/>
 			<mx:Object label="E-mail"/>
