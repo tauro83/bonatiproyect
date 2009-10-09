@@ -1,3 +1,10 @@
+//=======================================================================
+// FECHA: CREACIÓN: 6 Octubre
+// AUTOR: Esteban Cruz
+// Script de busqueda del sistema, dentro de esta se pueden realizar 
+// busquedas para: Mascota, Cliente, Atencion, Producto, Aviso, Usuario
+//=======================================================================
+
 package services
 {
 	import mx.controls.Alert;
@@ -20,19 +27,57 @@ package services
 			
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
+		/**
+		 * @param event Evento recogido en caso de una falla en la llamada hacia la capa lógica
+		 */ 
 		private function faultHandler(event:FaultEvent):void
 		{
 			Alert.show("Error en BusquedaService, Detalle: "+event.fault.message);
 		}
 		
+		/**
+	 	* Trata de obtener todos los usuarios registrados en la base de datos
+	 	* @return Lista con todos los usuarios registrados
+	 	*/
 		public function getAllUsuarios():void
 		{
 			this.getOperation("getAllUsuarios").send();
 		}
 		
+		/**
+	 	* Trata de obtener todos los clientes registrados en la base de datos
+	 	* @return Lista con todos los clientes registrados
+	 	*/
 		public function getAllClientes():void
 		{
 			this.getOperation("getAllClientes").send();
+		}
+		
+		/**
+	 	* Trata de obtener todos las mascotas registrados en la base de datos
+	 	* @return Lista con todos las mascotas registrados
+	 	*/
+		public function getAllMascotas():void
+		{
+			this.getOperation("getAllMascotas").send();
+		}
+		
+		/**
+	 	* Trata de obtener todos las atenciones registrados en la base de datos
+	 	* @return Lista con todos las atenciones registrados
+	 	*/
+		public function getAllAtenciones():void
+		{
+			this.getOperation("getAllAtenciones").send();
+		}
+		
+		/**
+	 	* Trata de obtener todos los productos registrados en la base de datos
+	 	* @return Lista con todos los productos registrados
+	 	*/
+		public function getAllProductos():void
+		{
+			this.getOperation("getAllProductos").send();
 		}
 		
 	}
