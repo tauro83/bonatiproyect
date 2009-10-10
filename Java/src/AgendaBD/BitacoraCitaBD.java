@@ -12,33 +12,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import Agenda.DiaAgenda;
+import Agenda.BitacoraCita;
 /**
- * Clase para la conexion entre la base de datos y la capa logica
  * @langversion Java
  * @author Sebastian Arancibia
  * @version 1 05/10/2009
  */
-public class DiaAgendaDB
+public class BitacoraCitaBD
 {
 
 	PreparedStatement selectAll;
 	Connection conn;
 	
+	
 	/**
-	 * Clase para la conexion entre la base de datos y la capa logica
+	 * 
 	 * @langversion Java
 	 * @author Sebastian Arancibia
 	 * @version 1 05/10/2009
 	 */
-	public DiaAgendaDB(Connection connection)
+	public BitacoraCitaBD(Connection connection)
 	{
 		conn = connection;
 		try 
 		{	//Declaraciones de consultas para la base de datos
 			String query="";			
-			query = "SELECT fecha, rutcliente, nombremascota, hora, servicio, responsable "+
-					"FROM cita;";
+			query = "SELECT usuario, accion, fechaaccion, horaaccion, fechacita, horacita, cliente, mascota, servicio "+
+					"FROM bitacora;";
 			selectAll = connection.prepareStatement(query);
 		} 
 		catch (SQLException e) 
@@ -48,37 +48,37 @@ public class DiaAgendaDB
 	}
 	/**
 	 * @param fecha
-	 * @return Lista de DiaAgenda correspondiente a la fecha
+	 * @return Lista de DiaAgenda pertenecientes a la fecha
 	 */
-    public List <DiaAgenda> getDiaAgenda(String fecha)
+    public List <BitacoraCita> getBitacoraCitaBD()
     {
-    	List<DiaAgenda> citas=new ArrayList<DiaAgenda>();
-    	DiaAgenda cita;
+    	List<BitacoraCita> bitacoras=new ArrayList<BitacoraCita>();
+    	BitacoraCita bitacora;
     	try 
     	{
     		ResultSet result = selectAll.executeQuery();
     		while(result.next())
     		{
-    			cita= new DiaAgenda();
-    			//Selecciona solamente los que pertenecen a la fecha indicada
-    			if(fecha.equals(result.getString(1).trim())){
-	    			cita = new DiaAgenda();
-	    			cita.setFecha((result.getString(1).trim()));
-    				cita.setCliente(result.getString(2).trim());
-	    			cita.setMascota((result.getString(3).trim()));
-	    			cita.setHora((result.getString(4).trim()));
-	    			cita.setServicio((result.getString(5).trim()));
-	    			cita.setResponsable((result.getString(6).trim()));
+    			bitacora= new BitacoraCita();
+    			
+    			bitacora.usuario = result.getString(1).trim();
+    			bitacora.accion = result.getString(2).trim();
+    			bitacora.fechaAccion = result.getString(3).trim();
+    			bitacora.horaAccion = result.getString(4).trim();
+    			bitacora.fechaCita = result.getString(5).trim();
+    			bitacora.horaCita = result.getString(6).trim();
+    			bitacora.cliente = result.getString(7).trim();
+    			bitacora.mascota = result.getString(8).trim();
+    			bitacora.servicio = result.getString(9).trim();
+    			
+    			bitacoras.add(bitacora);
 
-	    			
-	    			citas.add(cita);
-    			}
     		}
 		} 
     	catch (SQLException e) 
     	{
 			e.printStackTrace();
 		}
-    	return citas;
+    	return bitacoras;
     }
 }
