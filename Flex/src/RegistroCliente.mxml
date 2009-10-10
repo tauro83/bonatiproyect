@@ -116,7 +116,7 @@
 									
 				}*/
 				
-				if(vNombre==true && vApellido==true && vApellido2==true && vCelular==true &&  validarRut1.type == ValidationResultEvent.VALID && validarRut1.type == ValidationResultEvent.VALID && validarRut2.type == ValidationResultEvent.VALID && validarEmail.type == ValidationResultEvent.VALID && validarEmail2.type == ValidationResultEvent.VALID){
+				if(vNombre==true && vApellido==true && vApellido2==true && vCelular==true && vCelular2==true && vTelefono==true && vTelefono2==true && validarRut1.type == ValidationResultEvent.VALID && validarRut1.type == ValidationResultEvent.VALID && validarRut2.type == ValidationResultEvent.VALID && validarEmail.type == ValidationResultEvent.VALID && validarEmail2.type == ValidationResultEvent.VALID){
 				
 					cl=new Cliente();
 					cl.nombre = nombre.text;
@@ -129,69 +129,69 @@
 					cl.celular = celular.text;
 					cl.celular2 = celular2.text;
 					cl.direccion = direccion.text;
-					cl.region = region.text;
+					cl.region = region.selectedLabel;
 					cl.email = email.text;
 					cl.email2 = email2.text;
 					
 					if(cl.region=="Región De Tarapaca"){
-						cl.comuna=comunas.text;
+						cl.comuna=comunas.selectedLabel;
 					}  
 					
 					else if(cl.region=="Región De Antofagasta"){
-						cl.comuna=comunaAntofagasta.text;
+						cl.comuna=comunaAntofagasta.selectedLabel;
 					}
 					
 					
 					else if(cl.region=="Región De Atacama"){
-						cl.comuna=comunaAtacama.text;
+						cl.comuna=comunaAtacama.selectedLabel;
 					}
 					
 					else if(cl.region=="Región De Coquimbo"){
-						cl.comuna=comunaCoquimbo.text;
+						cl.comuna=comunaCoquimbo.selectedLabel;
 					}
 					
 					else if(cl.region=="Región De Valparaíso"){
-						cl.comuna=comunaValparaíso.text;
+						cl.comuna=comunaValparaiso.selectedLabel;
 					}
 					
 					else if(cl.region=="Región Del Libertador Bernardo O´higgins"){
-						cl.comuna=comunaLibertador.text;
+						cl.comuna=comunaLibertador.selectedLabel;
 					}	
 					
 					else if(cl.region=="Región Del Maule"){
-						cl.comuna=comunaMaule.text;
+						cl.comuna=comunaMaule.selectedLabel;
 					}	
 					
 					else if(cl.region=="Región Del Bio-Bio"){
-						cl.comuna=comunaBio.text;
+						cl.comuna=comunaBio.selectedLabel;
 					}	
 					
 					else if(cl.region=="Región De La Araucanía"){
-						cl.comuna=comunaAraucania.text;
+						cl.comuna=comunaAraucania.selectedLabel;
 					}	
 					
 					else if(cl.region=="Región De Los Lagos"){
-						cl.comuna=comunaLagos.text;
+						cl.comuna=comunaLagos.selectedLabel;
 					}	
 					
 					else if(cl.region=="Región Aysén del General Carlos Ibáñes del Campo"){
-						cl.comuna=comunaAysen.text;
+						cl.comuna=comunaAysen.selectedLabel;
 					}	
 					
 					else if(cl.region=="Región de Magallanes y Antártica Chilena"){
-						cl.comuna=comunaMagallanes.text;
+						cl.comuna=comunaMagallanes.selectedLabel;
 					}		
 					
 					else if(cl.region=="Región Metropolitana"){
-						cl.comuna=comunaMetro.text;
+						cl.comuna=comunaMetro.selectedLabel;
 					}	
 					
 					else if(cl.region=="Región de los Ríos"){
-						cl.comuna=comunaRio.text;
+						cl.comuna=comunaRio.selectedLabel;
 					}	
 					
 					else if(cl.region=="Región de Arica y Parinacota"){
-						cl.comuna=comunaArica.text;
+						cl.comuna=comunaArica.selectedLabel;
 					}	
 							
 
@@ -200,7 +200,12 @@
 					
 					
 					
-				}				
+				}
+				
+				else
+				{
+					labelMessage.text = "Corriga los datos antes de registrar";
+				}					
 						
 				
 			}
@@ -230,7 +235,9 @@
             	apellido.addEventListener(KeyboardEvent.KEY_UP,validarSoloString1);
             	apellido2.addEventListener(KeyboardEvent.KEY_UP,validarSoloString2);
             	celular.addEventListener(KeyboardEvent.KEY_UP,validarNumero);
-            	celular2.addEventListener(KeyboardEvent.KEY_UP,validarNumero);
+            	celular2.addEventListener(KeyboardEvent.KEY_UP,validarNumero2);
+            	telefono.addEventListener(KeyboardEvent.KEY_UP,validarNumero3);
+            	telefono2.addEventListener(KeyboardEvent.KEY_UP,validarNumero4);
             }
             
             private function validarSoloString(event:Event):void{
@@ -393,11 +400,11 @@
 	
 	<!-- Apellido Materno -->
 	<mx:Label x="20" y="128" text="Apellido Materno:" width="112" />
-	<mx:TextInput x="125" y="126" width="201" id="apellido2" maxChars="12"/>
+	<mx:TextInput x="125" y="126" width="201" id="apellido2" click="validaciones()" maxChars="12"/>
 	
 		
 	<mx:Label x="20" y="177" text="Rut:" width="97"/>
-	<mx:TextInput restrict="0-9" x="125" y="175" width="140" id="rut" maxChars="8"/>	
+	<mx:TextInput restrict="0-9" x="125" y="175" width="140" id="rut"  maxChars="8"/>	
 	<mx:StringValidator id="rutValidator" requiredFieldError="Ingrese El Rut" source="{rut}" property="text" />
 	<mx:Label x="169" y="275" text="-" textAlign="center"/>
 	<mx:TextInput restrict="0-9 K k" x="290" y="175" width="36" id="rut2" maxChars="1"/>
@@ -405,16 +412,16 @@
 	
 	<!-- Telefono -->
 	<mx:Label x="20" y="226" text="Teléfono Fijo:" width="97"/>
-	<mx:TextInput x="125" y="224" width="40" id="telefono" maxChars="3"/>
+	<mx:TextInput x="125" y="224" width="40" id="telefono" click="validaciones()" maxChars="3"/>
 	<mx:Label x="268" y="177" text="-" textAlign="center"/>
-	<mx:TextInput x="190" y="224" width="136" id="telefono2" maxChars="10"/>
+	<mx:TextInput x="190" y="224" width="136" id="telefono2" click="validaciones()" maxChars="10"/>
 	
 		
     <!-- Celular -->
-	<mx:Label x="20" y="275" text="Celular:" width="97"/>
+	<mx:Label x="20" y="275" text="Celular:" click="validaciones()" width="97"/>
 	<mx:TextInput x="125" y="273" width="40" id="celular" maxChars="2"/>
 	<mx:Label x="169" y="226" text="-" textAlign="center"/>
-	<mx:TextInput x="190" y="273" width="136" id="celular2" maxChars="10"/>
+	<mx:TextInput x="190" y="273" width="136" id="celular2" click="validaciones()" maxChars="10"/>
 	
 	<!-- Direccion -->	
 	<mx:Label x="413" y="30" text="Dirección:" width="97"/>
@@ -508,7 +515,7 @@
 	</mx:ComboBox>	
 	
 	<!-- Region Valparaíso-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaValparaíso" visible="false">
+	<mx:ComboBox x="540" y="126" width="201" id="comunaValparaiso" visible="false">
 	<mx:ArrayCollection>
 			<mx:Object label="Los Andes"/>
 			<mx:Object label="San Esteban"/>
