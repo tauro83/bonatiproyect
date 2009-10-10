@@ -1,11 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Bitácora" borderColor="#15AD8F">
-	<mx:DataGrid x="10" y="10" width="739" height="406">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Bitácora" borderColor="#15AD8F" initialize="getAllBitacoras()">
+	<mx:Script>
+		<![CDATA[
+		import mx.events.ListEvent;
+		import mx.collections.ArrayCollection;
+		import mx.rpc.events.ResultEvent;
+		import transferObjects.BitacoraCita;
+		import services.BitacoraCitaService;
+		
+		 [Bindable] 
+		 public var bitacoras:ArrayCollection = new ArrayCollection();
+		 
+		 private function getAllBitacoras():void{
+			var bitacoraCitaService:BitacoraCitaService = new BitacoraCitaService();
+			bitacoraCitaService.addEventListener(ResultEvent.RESULT,getAllBitacoraCitaResult);
+			bitacoraCitaService.getAllBitacoraCita();
+		}
+			
+		/**
+		* Funcion que obtiene todas las mascotas anteriormente llamadas
+		* @param event Evento
+		*/
+		private function getAllBitacoraCitaResult(event:ResultEvent):void{
+			bitacoras = event.result as ArrayCollection;
+			bitacoras.refresh();
+			
+		}
+		
+		
+		 ]]>
+ 	</mx:Script>	
+	<mx:DataGrid id="bs" x="10" y="10" width="739" height="406" dataProvider="{bitacoras}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Usuario" dataField="usuario"/>
 			<mx:DataGridColumn headerText="Acción" dataField="accion"/>
-			<mx:DataGridColumn headerText="Fecha" dataField="fecha"/>
-			<mx:DataGridColumn headerText="Hora" dataField="hora"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="fechaAccion"/>
+			<mx:DataGridColumn headerText="Hora" dataField="horaAccion"/>
 			<mx:DataGridColumn headerText="Fecha Cita" dataField="fechaCita"/>
 			<mx:DataGridColumn headerText="Hora Cita" dataField="horaCita"/>
 			<mx:DataGridColumn headerText="Cliente" dataField="cliente"/>
