@@ -57,6 +57,12 @@
 	      <source>Administracion.GetFichas</source>
 	    </properties>
   	</destination>
+
+        <destination id="BitacoraCitaService">
+	    <properties>
+	      <source>Agenda.BitacoraCitaService</source>
+	    </properties>
+        </destination>
 	
 
 </service>
