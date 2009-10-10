@@ -19,7 +19,7 @@ package services
 		{
 			super();
 			var channel:ChannelSet=new ChannelSet();
-			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/DBConnectionServer/messagebroker/amf");
+			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="BusquedaService";
