@@ -1,8 +1,8 @@
 package transferObjects
 {
 	[Bindable]
-    [RemoteClass(alias="transferObjects.Person")]
-	public class Bitacora
+    [RemoteClass(alias="transferObjects.BitacoraCita")]
+	public class BitacoraCita
 	{
 		public var usuario:String;
 		public var accion:String;
@@ -12,5 +12,6 @@ package transferObjects
 		public var horaCita:String;
 		public var cliente:String;
 		public var mascota:String;
+		public var servicio:String;
 	}
 }
