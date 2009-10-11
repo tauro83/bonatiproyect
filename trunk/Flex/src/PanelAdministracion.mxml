@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Opciones del módulo" borderColor="#15AD8F">
+	<mx:Accordion x="0" y="0" width="100%" height="100%">
+		<mx:Canvas label="Cliente" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
+				<mx:LinkButton x="26" y="23" label="Registrar" id="regCliente" textAlign="left"/>
+				<mx:LinkButton x="25" y="43" label="Editar" textAlign="left"/>
+				<mx:LinkButton x="25" y="63" label="Eliminar" textAlign="left"/>	
+				
+				<mx:LinkButton x="10" y="152" label="Mascota" textAlign="left"/>
+			<mx:LinkButton x="34" y="171" label="Registrar" id="linkMascotaAdm" textAlign="left"/>
+			<mx:LinkButton x="34" y="191" label="Editar" id="linkEdicionMascotaAdm" textAlign="left"/>
+				
+				<mx:LinkButton x="3" y="93" label="Ficha" textAlign="left"/>
+				<mx:LinkButton x="0" y="0" label="Cliente" textAlign="left"/>
+			<mx:LinkButton x="24" y="111" label="Visualizar" id="linkFichaAdm" textAlign="left"/>
+			<mx:LinkButton x="22" y="127" label="Bitácora" textAlign="left" id="linkBitacoraAd" height="17"/>
+			<mx:LinkButton x="10" y="221" label="Usuario" textAlign="left"/>
+			<mx:LinkButton x="50" y="251" label="Registrar" id="linkRegUsuarioAd" textAlign="left"/>
+			<mx:LinkButton x="50" y="268" label="Editar" id="linkEditarUsAd" width="66" textAlign="left"/>
+			<mx:LinkButton x="50" y="289" label="Eliminar" id="linkEliminarUsAd" textAlign="left"/>
+			<mx:LinkButton x="50" y="309" label="Purgar" textAlign="left" id="linkPurgarUsAd"/>
+		</mx:Canvas>
+		<mx:Canvas label="Mascota" width="100%" height="100%">
+		</mx:Canvas>
+		<mx:Canvas label="Ficha" width="100%" height="100%">
+			
+		</mx:Canvas>
+		<mx:Canvas label="Usuario" width="100%" height="100%">
+		</mx:Canvas>
+	</mx:Accordion>
+	
+	
+	
+	
+</mx:Panel>
