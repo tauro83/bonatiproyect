@@ -39,7 +39,7 @@
 
  		<!--Autor: Nicolas{ -->
  				
-// 			AdmIngreso2.region.addEventListener(DropdownEvent.CLOSE,regiones);
+			AdmIngreso2.region.addEventListener(DropdownEvent.CLOSE,regiones);
  			//AdmIngreso2.comunas.addEventListener(DropdownEvent.CLOSE,comunas);
  			//AdmIngreso2.comunaAntofagasta.addEventListener(DropdownEvent.CLOSE,comunaAntofagasta);
  			//AdmIngreso2.comunaAtacama.addEventListener(DropdownEvent.CLOSE,comunaAtacama);
@@ -151,7 +151,6 @@
             }
 
            <!-- Nicolas-->
-
             private function regiones(event:DropdownEvent):void
            {           		
            		AdmIngreso2.region.setVisible(true,false);
@@ -173,168 +172,77 @@
             	
             	switch (AdmIngreso2.region.selectedLabel)
 				{
-				case 'Regiï¿½n De Tarapaca':		
+				case 'Region De Tarapaca':		
 					AdmIngreso2.comunas.setVisible(true,false);
 					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
 					//AdmIngreso2.comunaAtacama.setVisible(false,false);
 					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					//AdmIngreso2.comunaValparaï¿½so.setVisible(false,false);
+					//AdmIngreso2.comunaValparao.setVisible(false,false);
 				break; 
-				case 'Regiï¿½n De Antofagasta':
+				case 'Region De Antofagasta':
 					AdmIngreso2.comunaAntofagasta.setVisible(true,false);
 					//AdmIngreso2.comunas.setVisible(false,false);
 					//AdmIngreso2.comunaAtacama.setVisible(false,false);
 					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					//AdmIngreso2.comunaValparaï¿½so.setVisible(false,false);
+					//AdmIngreso2.comunaValparao.setVisible(false,false);
 				break;
-				case 'Regiï¿½n De Atacama':
+				case 'Region De Atacama':
 					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
 					//AdmIngreso2.comunas.setVisible(false,false);
 					AdmIngreso2.comunaAtacama.setVisible(true,false);
 					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					//AdmIngreso2.comunaValparaï¿½so.setVisible(false,false);
+					//AdmIngreso2.comunaValparao.setVisible(false,false);
 				break;
-				case 'Regiï¿½n De Coquimbo':
+				case 'Region De Coquimbo':
 					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
 					//AdmIngreso2.comunas.setVisible(false,false);
 					//AdmIngreso2.comunaAtacama.setVisible(false,false);
 					AdmIngreso2.comunaCoquimbo.setVisible(true,false);
-					//AdmIngreso2.comunaValparaï¿½so.setVisible(false,false);
+					//AdmIngreso2.comunaValparao.setVisible(false,false);
 				break;
-				case 'Regiï¿½n De Valparaï¿½so':
+				case 'Region De Valparaiso':
 					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
 					//AdmIngreso2.comunas.setVisible(false,false);
 					//AdmIngreso2.comunaAtacama.setVisible(false,false);
 					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
 					AdmIngreso2.comunaValparaiso.setVisible(true,false);
 				break;
-				case 'Regiï¿½n Del Libertador Bernardo Oï¿½higgins':
+				case 'Region Del Libertador Bernardo O´higgins':
 					AdmIngreso2.comunaLibertador.setVisible(true,false);
 				break;
-				case 'Regiï¿½n Del Maule':
+				case 'Region Del Maule':
 					AdmIngreso2.comunaMaule.setVisible(true,false);
 				break;
-				case 'Regiï¿½n Del Bio-Bio':
+				case 'Region Del Bio-Bio':
 					AdmIngreso2.comunaBio.setVisible(true,false);
 				break;
-				case 'Regiï¿½n De La Araucanï¿½a':
+				case 'Region De La Araucanía':
 					AdmIngreso2.comunaAraucania.setVisible(true,false);
 				break;
-				case 'Regiï¿½n De Los Lagos':
+				case 'Region De Los Lagos':
 					AdmIngreso2.comunaLagos.setVisible(true,false);
 				break;
-				case 'Regiï¿½n Aysï¿½n del General Carlos Ibï¿½ï¿½es del Campo"':
+				case 'Region Aysen del General Carlos Ibanes del Campo"':
 					AdmIngreso2.comunaAysen.setVisible(true,false);
 				break;
-				case 'Regiï¿½n de Magallanes y Antï¿½rtica Chilena':
+				case 'Region de Magallanes y Antartica Chilena':
 					AdmIngreso2.comunaMagallanes.setVisible(true,false);
 				break;
-				case 'Regiï¿½n Metropolitana':
+				case 'Region Metropolitana':
 					AdmIngreso2.comunaMetro.setVisible(true,false);
 				break;
-				case 'Regiï¿½n de los Rï¿½os':
+				case 'Region de los Rios':
 					AdmIngreso2.comunaRio.setVisible(true,false);
 				break;
-				case 'Regiï¿½n de Arica y Parinacota':
+				case 'Region de Arica y Parinacota':
 					AdmIngreso2.comunaArica.setVisible(true,false);
 				break;
 				}
 				
            }
+
+
            <!-- Nicolas-->
-
-//            private function regiones(event:DropdownEvent):void
-//           {           		
-//           		AdmIngreso2.region.setVisible(true,false);
-//           		AdmIngreso2.comunas.setVisible(false,false);
-//           		AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-//           		AdmIngreso2.comunaAtacama.setVisible(false,false);
-//           		AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-//           		AdmIngreso2.comunaValparaiso.setVisible(false,false);
-//            	AdmIngreso2.comunaLibertador.setVisible(false,false)
-//            	AdmIngreso2.comunaMaule.setVisible(false,false);
-//            	AdmIngreso2.comunaBio.setVisible(false,false);
-//            	AdmIngreso2.comunaAraucania.setVisible(false,false);
-//            	AdmIngreso2.comunaLagos.setVisible(false,false);
-//            	AdmIngreso2.comunaMagallanes.setVisible(false,false);
-//            	AdmIngreso2.comunaAysen.setVisible(false,false);
-//            	AdmIngreso2.comunaMetro.setVisible(false,false);
-//            	AdmIngreso2.comunaRio.setVisible(false,false);
-//            	AdmIngreso2.comunaArica.setVisible(false,false);
-//            	
-//            	switch (AdmIngreso2.region.selectedLabel)
-//				{
-//				case 'Regiï¿½n De Tarapaca':		
-//					AdmIngreso2.comunas.setVisible(true,false);
-//					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-//					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-//					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-//					//AdmIngreso2.comunaValparaï¿½so.setVisible(false,false);
-//				break; 
-//				case 'Regiï¿½n De Antofagasta':
-//					AdmIngreso2.comunaAntofagasta.setVisible(true,false);
-//					//AdmIngreso2.comunas.setVisible(false,false);
-//					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-//					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-//					//AdmIngreso2.comunaValparaï¿½so.setVisible(false,false);
-//				break;
-//				case 'Regiï¿½n De Atacama':
-//					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-//					//AdmIngreso2.comunas.setVisible(false,false);
-//					AdmIngreso2.comunaAtacama.setVisible(true,false);
-//					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-//					//AdmIngreso2.comunaValparaï¿½so.setVisible(false,false);
-//				break;
-//				case 'Regiï¿½n De Coquimbo':
-//					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-//					//AdmIngreso2.comunas.setVisible(false,false);
-//					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-//					AdmIngreso2.comunaCoquimbo.setVisible(true,false);
-//					//AdmIngreso2.comunaValparaï¿½so.setVisible(false,false);
-//				break;
-//				case 'Regiï¿½n De Valparaï¿½so':
-//					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-//					//AdmIngreso2.comunas.setVisible(false,false);
-//					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-//					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-//					AdmIngreso2.comunaValparaiso.setVisible(true,false);
-//				break;
-//				case 'Regiï¿½n Del Libertador Bernardo Oï¿½higgins':
-//					AdmIngreso2.comunaLibertador.setVisible(true,false);
-//				break;
-//				case 'Regiï¿½n Del Maule':
-//					AdmIngreso2.comunaMaule.setVisible(true,false);
-//				break;
-//				case 'Regiï¿½n Del Bio-Bio':
-//					AdmIngreso2.comunaBio.setVisible(true,false);
-//				break;
-//				case 'Regiï¿½n De La Araucanï¿½a':
-//					AdmIngreso2.comunaAraucania.setVisible(true,false);
-//				break;
-//				case 'Regiï¿½n De Los Lagos':
-//					AdmIngreso2.comunaLagos.setVisible(true,false);
-//				break;
-//				case 'Regiï¿½n Aysï¿½n del General Carlos Ibï¿½ï¿½es del Campo"':
-//					AdmIngreso2.comunaAysen.setVisible(true,false);
-//				break;
-//				case 'Regiï¿½n de Magallanes y Antï¿½rtica Chilena':
-//					AdmIngreso2.comunaMagallanes.setVisible(true,false);
-//				break;
-//				case 'Regiï¿½n Metropolitana':
-//					AdmIngreso2.comunaMetro.setVisible(true,false);
-//				break;
-//				case 'Regiï¿½n de los Rï¿½os':
-//					AdmIngreso2.comunaRio.setVisible(true,false);
-//				break;
-//				case 'Regiï¿½n de Arica y Parinacota':
-//					AdmIngreso2.comunaArica.setVisible(true,false);
-//				break;
-//				}
-//				
-//           }
-//           <!-- Nicolas-->
-
-
 
           
            <!-- Camilo Verdugo-->
