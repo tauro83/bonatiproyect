@@ -63,6 +63,13 @@
 	      <source>Agenda.BitacoraCitaService</source>
 	    </properties>
         </destination>
+
+	<destination id="LoginService"> 
+  	 	<properties>
+  			<source>Administracion.LoginService</source>
+  		</properties>
+  	</destination>
+
 	
 
 </service>
