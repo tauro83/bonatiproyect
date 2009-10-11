@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+ï»¿<?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*"> 
 
     <mx:Script>
@@ -39,7 +39,7 @@
 
  		<!--Autor: Nicolas{ -->
  				
- 			AdmIngreso2.region.addEventListener(DropdownEvent.CLOSE,regiones);
+// 			AdmIngreso2.region.addEventListener(DropdownEvent.CLOSE,regiones);
  			//AdmIngreso2.comunas.addEventListener(DropdownEvent.CLOSE,comunas);
  			//AdmIngreso2.comunaAntofagasta.addEventListener(DropdownEvent.CLOSE,comunaAntofagasta);
  			//AdmIngreso2.comunaAtacama.addEventListener(DropdownEvent.CLOSE,comunaAtacama);
@@ -67,7 +67,7 @@
             	<!--Autor: }Sebastian --> 
             	
  				
- 				botonAyuda.addEventListener(MouseEvent.CLICK,ayudaEvento);
+ 				//botonAyuda.addEventListener(MouseEvent.CLICK,ayudaEvento);
             	// Escucha por el evento click event en el botÃ³n.
                 cliNewAtencion2.linkSiguiente.addEventListener(MouseEvent.CLICK,linkNewAP);            	
                 botonAdmin.addEventListener (MouseEvent.CLICK, manejadorClick);
@@ -91,11 +91,11 @@
 				pelPanel1.PelNuevoCatalogo.addEventListener(MouseEvent.CLICK,linkNuevoCatalogo);
 				pelPanel1.PelVerCatalogo.addEventListener(MouseEvent.CLICK,linkVerCatalogo);
 				pelPanel1.PelEstadisitica.addEventListener(MouseEvent.CLICK,linkEstadistica);
-				AdmOpciones1.linkEditarRazasAd.addEventListener(MouseEvent.CLICK,linkeditRazasAd);
+				//AdmOpciones1.linkEditarRazasAd.addEventListener(MouseEvent.CLICK,linkeditRazasAd);
                 AdmOpciones1.linkRegUsuarioAd.addEventListener(MouseEvent.CLICK,linkregsitroUsAd);
                 AdmOpciones1.linkFichaAdm.addEventListener(MouseEvent.CLICK,linkFichaAd);
                 AdmOpciones1.linkMascotaAdm.addEventListener(MouseEvent.CLICK,linkMascotaAd);
-                AdmOpciones1.linkClienteAdm.addEventListener(MouseEvent.CLICK,linkClienteAd);
+                AdmOpciones1.regCliente.addEventListener(MouseEvent.CLICK,linkClienteAd);
                 botonHotel.addEventListener(MouseEvent.CLICK, hotelclimanejadorClick);
               
                 hotelOpciones.hotelServPellink.addEventListener(MouseEvent.CLICK,linkNuevaAtencionHotelBaÃ±o);
@@ -151,96 +151,96 @@
             }
 
            <!-- Nicolas-->
-            private function regiones(event:DropdownEvent):void
-           {           		
-           		AdmIngreso2.region.setVisible(true,false);
-           		AdmIngreso2.comunas.setVisible(false,false);
-           		AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-           		AdmIngreso2.comunaAtacama.setVisible(false,false);
-           		AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-           		AdmIngreso2.comunaValparaiso.setVisible(false,false);
-            	AdmIngreso2.comunaLibertador.setVisible(false,false)
-            	AdmIngreso2.comunaMaule.setVisible(false,false);
-            	AdmIngreso2.comunaBio.setVisible(false,false);
-            	AdmIngreso2.comunaAraucania.setVisible(false,false);
-            	AdmIngreso2.comunaLagos.setVisible(false,false);
-            	AdmIngreso2.comunaMagallanes.setVisible(false,false);
-            	AdmIngreso2.comunaAysen.setVisible(false,false);
-            	AdmIngreso2.comunaMetro.setVisible(false,false);
-            	AdmIngreso2.comunaRio.setVisible(false,false);
-            	AdmIngreso2.comunaArica.setVisible(false,false);
-            	
-            	switch (AdmIngreso2.region.selectedLabel)
-				{
-				case 'Región De Tarapaca':		
-					AdmIngreso2.comunas.setVisible(true,false);
-					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					//AdmIngreso2.comunaValparaíso.setVisible(false,false);
-				break; 
-				case 'Región De Antofagasta':
-					AdmIngreso2.comunaAntofagasta.setVisible(true,false);
-					//AdmIngreso2.comunas.setVisible(false,false);
-					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					//AdmIngreso2.comunaValparaíso.setVisible(false,false);
-				break;
-				case 'Región De Atacama':
-					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-					//AdmIngreso2.comunas.setVisible(false,false);
-					AdmIngreso2.comunaAtacama.setVisible(true,false);
-					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					//AdmIngreso2.comunaValparaíso.setVisible(false,false);
-				break;
-				case 'Región De Coquimbo':
-					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-					//AdmIngreso2.comunas.setVisible(false,false);
-					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-					AdmIngreso2.comunaCoquimbo.setVisible(true,false);
-					//AdmIngreso2.comunaValparaíso.setVisible(false,false);
-				break;
-				case 'Región De Valparaíso':
-					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-					//AdmIngreso2.comunas.setVisible(false,false);
-					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					AdmIngreso2.comunaValparaiso.setVisible(true,false);
-				break;
-				case 'Región Del Libertador Bernardo O´higgins':
-					AdmIngreso2.comunaLibertador.setVisible(true,false);
-				break;
-				case 'Región Del Maule':
-					AdmIngreso2.comunaMaule.setVisible(true,false);
-				break;
-				case 'Región Del Bio-Bio':
-					AdmIngreso2.comunaBio.setVisible(true,false);
-				break;
-				case 'Región De La Araucanía':
-					AdmIngreso2.comunaAraucania.setVisible(true,false);
-				break;
-				case 'Región De Los Lagos':
-					AdmIngreso2.comunaLagos.setVisible(true,false);
-				break;
-				case 'Región Aysén del General Carlos Ibáñes del Campo"':
-					AdmIngreso2.comunaAysen.setVisible(true,false);
-				break;
-				case 'Región de Magallanes y Antártica Chilena':
-					AdmIngreso2.comunaMagallanes.setVisible(true,false);
-				break;
-				case 'Región Metropolitana':
-					AdmIngreso2.comunaMetro.setVisible(true,false);
-				break;
-				case 'Región de los Ríos':
-					AdmIngreso2.comunaRio.setVisible(true,false);
-				break;
-				case 'Región de Arica y Parinacota':
-					AdmIngreso2.comunaArica.setVisible(true,false);
-				break;
-				}
-				
-           }
-           <!-- Nicolas-->
+//            private function regiones(event:DropdownEvent):void
+//           {           		
+//           		AdmIngreso2.region.setVisible(true,false);
+//           		AdmIngreso2.comunas.setVisible(false,false);
+//           		AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+//           		AdmIngreso2.comunaAtacama.setVisible(false,false);
+//           		AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+//           		AdmIngreso2.comunaValparaiso.setVisible(false,false);
+//            	AdmIngreso2.comunaLibertador.setVisible(false,false)
+//            	AdmIngreso2.comunaMaule.setVisible(false,false);
+//            	AdmIngreso2.comunaBio.setVisible(false,false);
+//            	AdmIngreso2.comunaAraucania.setVisible(false,false);
+//            	AdmIngreso2.comunaLagos.setVisible(false,false);
+//            	AdmIngreso2.comunaMagallanes.setVisible(false,false);
+//            	AdmIngreso2.comunaAysen.setVisible(false,false);
+//            	AdmIngreso2.comunaMetro.setVisible(false,false);
+//            	AdmIngreso2.comunaRio.setVisible(false,false);
+//            	AdmIngreso2.comunaArica.setVisible(false,false);
+//            	
+//            	switch (AdmIngreso2.region.selectedLabel)
+//				{
+//				case 'Regiï¿½n De Tarapaca':		
+//					AdmIngreso2.comunas.setVisible(true,false);
+//					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+//					//AdmIngreso2.comunaAtacama.setVisible(false,false);
+//					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+//					//AdmIngreso2.comunaValparaï¿½so.setVisible(false,false);
+//				break; 
+//				case 'Regiï¿½n De Antofagasta':
+//					AdmIngreso2.comunaAntofagasta.setVisible(true,false);
+//					//AdmIngreso2.comunas.setVisible(false,false);
+//					//AdmIngreso2.comunaAtacama.setVisible(false,false);
+//					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+//					//AdmIngreso2.comunaValparaï¿½so.setVisible(false,false);
+//				break;
+//				case 'Regiï¿½n De Atacama':
+//					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+//					//AdmIngreso2.comunas.setVisible(false,false);
+//					AdmIngreso2.comunaAtacama.setVisible(true,false);
+//					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+//					//AdmIngreso2.comunaValparaï¿½so.setVisible(false,false);
+//				break;
+//				case 'Regiï¿½n De Coquimbo':
+//					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+//					//AdmIngreso2.comunas.setVisible(false,false);
+//					//AdmIngreso2.comunaAtacama.setVisible(false,false);
+//					AdmIngreso2.comunaCoquimbo.setVisible(true,false);
+//					//AdmIngreso2.comunaValparaï¿½so.setVisible(false,false);
+//				break;
+//				case 'Regiï¿½n De Valparaï¿½so':
+//					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+//					//AdmIngreso2.comunas.setVisible(false,false);
+//					//AdmIngreso2.comunaAtacama.setVisible(false,false);
+//					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+//					AdmIngreso2.comunaValparaiso.setVisible(true,false);
+//				break;
+//				case 'Regiï¿½n Del Libertador Bernardo Oï¿½higgins':
+//					AdmIngreso2.comunaLibertador.setVisible(true,false);
+//				break;
+//				case 'Regiï¿½n Del Maule':
+//					AdmIngreso2.comunaMaule.setVisible(true,false);
+//				break;
+//				case 'Regiï¿½n Del Bio-Bio':
+//					AdmIngreso2.comunaBio.setVisible(true,false);
+//				break;
+//				case 'Regiï¿½n De La Araucanï¿½a':
+//					AdmIngreso2.comunaAraucania.setVisible(true,false);
+//				break;
+//				case 'Regiï¿½n De Los Lagos':
+//					AdmIngreso2.comunaLagos.setVisible(true,false);
+//				break;
+//				case 'Regiï¿½n Aysï¿½n del General Carlos Ibï¿½ï¿½es del Campo"':
+//					AdmIngreso2.comunaAysen.setVisible(true,false);
+//				break;
+//				case 'Regiï¿½n de Magallanes y Antï¿½rtica Chilena':
+//					AdmIngreso2.comunaMagallanes.setVisible(true,false);
+//				break;
+//				case 'Regiï¿½n Metropolitana':
+//					AdmIngreso2.comunaMetro.setVisible(true,false);
+//				break;
+//				case 'Regiï¿½n de los Rï¿½os':
+//					AdmIngreso2.comunaRio.setVisible(true,false);
+//				break;
+//				case 'Regiï¿½n de Arica y Parinacota':
+//					AdmIngreso2.comunaArica.setVisible(true,false);
+//				break;
+//				}
+//				
+//           }
+//           <!-- Nicolas-->
 
 
           
@@ -432,8 +432,8 @@
             }
             public function ayudaEvento(event:Event):void{
             	setInvisible();
-            	panelOpciones.setVisible(true,false);
-            	ayudaVeterinaria.setVisible(true,false);
+            	//panelOpciones.setVisible(true,false);
+            	//ayudaVeterinaria.setVisible(true,false);
             }
             <!--Autor:Andres G.}-->
             
@@ -844,7 +844,7 @@
                   <!--Autor: camilo{--> 
             }
             
-            private function linkregsitroUsAd ( event:Event ):void{
+            private function linkregsitroUsAd (event:Event ):void{
             	setInvisible();
             	AdmOpciones1.setVisible(true,false);
                 AdRegUsuario2.setVisible(true,false);
@@ -1008,8 +1008,8 @@
 	</ns1:ImportarDatos>
 	<ns1:VisualizarVenta x="241" y="134" id="petVisualVenta2" visible="false">
 	</ns1:VisualizarVenta>	
-	<ns1:PanelAdmin x="0" y="134" id="AdmOpciones1" visible="false">
-	</ns1:PanelAdmin>
+	<ns1:PanelAdministracion x="0" y="134" id="AdmOpciones1" visible="false">
+	</ns1:PanelAdministracion>
 	<ns1:RegistroRazas2 x="241" y="134" id="AdRegistrarRazas2" visible="false">
 	</ns1:RegistroRazas2>	
 	<!--Autor: camilo}-->
@@ -1074,10 +1074,13 @@
 	</ns1:LoginIniciar>
 	<ns1:LoginCerrar x="241" y="134" id="login3" visible="false" borderColor="#15AD8F">
 	</ns1:LoginCerrar>
-	<mx:Button x="580" y="30" label="Ayuda" width="110" height="50" id="botonAyuda" icon="@Embed(source='../Help.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" enabled="true" click="showWindow();"/>
-
-
-	<mx:Button x="880" y="30" label="Iniciar SesiÃ³n" width="110" height="50" icon="@Embed(source='../Users.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" id="botonLogin" enabled="true"/>
+	<!--<mx:Button x="580" y="30" label="Ayuda" width="110" height="50" id="botonAyuda" icon="@Embed(source='../Help.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" enabled="true" click="showWindow();"/>
+	-->
+	<mx:Button x="580" y="30" label="Ayuda" width="110" height="50" id="botonAyuda" icon="@Embed(source='../Help.png')" enabled="true" click="showWindow();" labelPlacement="bottom"/>
+	<mx:Button x="880" y="30" label="Iniciar SesiÃ³n" width="110" height="50" icon="@Embed(source='../Users.png')" id="botonLogin" enabled="true" labelPlacement="bottom"/>
+	
+	<!--<mx:Button x="880" y="30" label="Iniciar SesiÃ³n" width="110" height="50" icon="@Embed(source='../Users.png')" labelPlacement="bottom" fillAlphas="[0.0, 0.0, 0.0, 0.0]" alpha="1.0" id="botonLogin" enabled="true"/>
+	-->
 	<!--Autor: }Esteban -->
 	
 	<!--Erwin DÃ­az-->
