@@ -46,7 +46,6 @@
 *
 
 */		
-
             
 		public function sendMessage():void
 			{						
@@ -88,64 +87,64 @@
 					cl.email = email.text;
 					cl.email2 = email2.text;
 					
-					if(cl.region=="Región De Tarapaca"){
+					if(cl.region=="Region De Tarapaca"){
 						cl.comuna=comunas.selectedLabel;
 					}  
 					
-					else if(cl.region=="Región De Antofagasta"){
+					else if(cl.region=="Region De Antofagasta"){
 						cl.comuna=comunaAntofagasta.selectedLabel;
 					}
 					
 					
-					else if(cl.region=="Región De Atacama"){
+					else if(cl.region=="Region De Atacama"){
 						cl.comuna=comunaAtacama.selectedLabel;
 					}
 					
-					else if(cl.region=="Región De Coquimbo"){
+					else if(cl.region=="Region De Coquimbo"){
 						cl.comuna=comunaCoquimbo.selectedLabel;
 					}
 					
-					else if(cl.region=="Región De Valparaíso"){
+					else if(cl.region=="Region De Valparaiso"){
 						cl.comuna=comunaValparaiso.selectedLabel;
 					}
 					
-					else if(cl.region=="Región Del Libertador Bernardo O´higgins"){
+					else if(cl.region=="Region Del Libertador Bernardo O´higgins"){
 						cl.comuna=comunaLibertador.selectedLabel;
 					}	
 					
-					else if(cl.region=="Región Del Maule"){
+					else if(cl.region=="Region Del Maule"){
 						cl.comuna=comunaMaule.selectedLabel;
 					}	
 					
-					else if(cl.region=="Región Del Bio-Bio"){
+					else if(cl.region=="Region Del Bio-Bio"){
 						cl.comuna=comunaBio.selectedLabel;
 					}	
 					
-					else if(cl.region=="Región De La Araucanía"){
+					else if(cl.region=="Region De La Araucanía"){
 						cl.comuna=comunaAraucania.selectedLabel;
 					}	
 					
-					else if(cl.region=="Región De Los Lagos"){
+					else if(cl.region=="Region De Los Lagos"){
 						cl.comuna=comunaLagos.selectedLabel;
 					}	
 					
-					else if(cl.region=="Región Aysén del General Carlos Ibáñes del Campo"){
+					else if(cl.region=="Region Aysen del General Carlos Ibanes del Campo"){
 						cl.comuna=comunaAysen.selectedLabel;
 					}	
 					
-					else if(cl.region=="Región de Magallanes y Antártica Chilena"){
+					else if(cl.region=="Region de Magallanes y Antartica Chilena"){
 						cl.comuna=comunaMagallanes.selectedLabel;
 					}		
 					
-					else if(cl.region=="Región Metropolitana"){
+					else if(cl.region=="Region Metropolitana"){
 						cl.comuna=comunaMetro.selectedLabel;
 					}	
 					
-					else if(cl.region=="Región de los Ríos"){
+					else if(cl.region=="Region de los Rios"){
 						cl.comuna=comunaRio.selectedLabel;
 					}	
 					
-					else if(cl.region=="Región de Arica y Parinacota"){
+					else if(cl.region=="Region de Arica y Parinacota"){
 						cl.comuna=comunaArica.selectedLabel;
 					}	
 							
@@ -412,23 +411,23 @@
 	
 	<!-- Regiones -->	
 	<mx:Label x="413" y="79" text="Región:" width="112"/>
-	<mx:ComboBox x="540" y="77" width="201" id="region" visible="true">	
+	<mx:ComboBox x="540" y="77" width="201" id="region"  visible="true">	
 	<mx:ArrayCollection>
-			<mx:Object label="Región De Tarapaca"/>
-			<mx:Object label="Región De Antofagasta"/>
-			<mx:Object label="Región De Atacama"/>
-			<mx:Object label="Región De Coquimbo"/>
-			<mx:Object label="Región De Valparaíso"/>
-			<mx:Object label="Región Del Libertador Bernardo O´higgins"/>
-			<mx:Object label="Región Del Maule"/>
-			<mx:Object label="Región Del Bio-Bio"/>
-			<mx:Object label="Región De La Araucanía"/>
-			<mx:Object label="Región De Los Lagos"/>
-			<mx:Object label="Región Aysén del General Carlos Ibáñes del Campo"/>
-			<mx:Object label="Región de Magallanes y Antártica Chilena"/>
-			<mx:Object label="Región Metropolitana"/>
-			<mx:Object label="Región de los Ríos"/>
-			<mx:Object label="Región de Arica y Parinacota"/>			
+			<mx:Object label="Region De Tarapaca"/>
+			<mx:Object label="Region De Antofagasta"/>
+			<mx:Object label="Region De Atacama"/>
+			<mx:Object label="Region De Coquimbo"/>
+			<mx:Object label="Region De Valparaíso"/>
+			<mx:Object label="Region Del Libertador Bernardo O´higgins"/>
+			<mx:Object label="Region Del Maule"/>
+			<mx:Object label="Region Del Bio-Bio"/>
+			<mx:Object label="Region De La Araucania"/>
+			<mx:Object label="Region De Los Lagos"/>
+			<mx:Object label="Region Aysen del General Carlos Ibanes del Campo"/>
+			<mx:Object label="Region de Magallanes y Antartica Chilena"/>
+			<mx:Object label="Region Metropolitana"/>
+			<mx:Object label="Region de los Rios"/>
+			<mx:Object label="Region de Arica y Parinacota"/>			
 		</mx:ArrayCollection>
 	</mx:ComboBox>	
 	
