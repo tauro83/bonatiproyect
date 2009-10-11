@@ -33,6 +33,8 @@
         private var vCelular2:Boolean;
         private var vTelefono:Boolean;
         private var vTelefono2:Boolean;
+        private var vEmail:Boolean;
+        private var vEmail2:Boolean;
         
 /** 
 * Este metodo se encarga de recibir todas las acciones que tendra 
@@ -55,68 +57,21 @@
 				var numeroArray:Array = new Array();
 				var largo:int = numeroArray.length - 1;
 				var x:int;
-				var validarRut1:ValidationResultEvent=rutValidator.validate(); 
-				var validarRut2:ValidationResultEvent=rut2Validator.validate();
-				//var validarTelefono:ValidationResultEvent=telefonoValidator.validate(); 
-				//var validarTelefono2:ValidationResultEvent=telefono2Validator.validate();
-				//var validarDireccion:ValidationResultEvent=direccionValidator.validate(); 
-				var validarEmail:ValidationResultEvent=emailValidator.validate();
-				var validarEmail2:ValidationResultEvent=email2Validator.validate();
-				/*				
-				else if(validarRut1.type != ValidationResultEvent.VALID){
-					return "Ingrese El Rut";
-				}
-				
-				else if(validarRut2.type != ValidationResultEvent.VALID){
-					return "Ingrese El Codigo Identificador";
-				}
-				
-				else if(validarTelefono.type != ValidationResultEvent.VALID){
-					return "Ingrese El Codigo De Ciudad";
-				}
-				
-				else if(validarTelefono2.type != ValidationResultEvent.VALID){
-					return "Ingrese El Telefono";
-				}
-				
-				else if(validarCelular.type != ValidationResultEvent.VALID){
-					return "Ingrese El Codigo De Celular";
-				}
-				
-				else if(validarCelular2.type != ValidationResultEvent.VALID){
-					return "Ingrese El Celular";
-				}
-				
-				else if(validarDireccion.type != ValidationResultEvent.VALID){
-					return "Ingrese La Direccion";
-				}
-				
-				else if(validarEmail.type != ValidationResultEvent.VALID){
-					return "Ingrese El E-mail";
-				}
-				
-				else if(email.text!=email2.text){
-					limpiarEmail();
-				}
-				
-				else if(validarEmail2.type != ValidationResultEvent.VALID){
-					return "Ingrese La Confirmación De E-Mail";
-				}
 		
-				else if(rut.text!="" && rut2.text!=""){
+				if(rut.text!="" && rut2.text!="" || rut.text=="" && rut2.text==""){
 					c= rw.Valida_Rut(rut.text,rut2.text);
 					if(c=="TRUE"){
-						//return c;
+						labelMessage.text = " ";
 					}
 					
 					else{
 						limpiarRut();
-						return c;				adsadfdasewqeqweq
+						labelMessage.text = "Ingrese el Rut";
 					}
 									
-				}*/
+				}
 				
-				if(vNombre==true && vApellido==true && vApellido2==true && vCelular==true && vCelular2==true && vTelefono==true && vTelefono2==true && validarRut1.type == ValidationResultEvent.VALID && validarRut1.type == ValidationResultEvent.VALID && validarRut2.type == ValidationResultEvent.VALID && validarEmail.type == ValidationResultEvent.VALID && validarEmail2.type == ValidationResultEvent.VALID){
+				if(vNombre==true && vApellido==true && vApellido2==true && vCelular==true && vCelular2==true && vTelefono==true && vTelefono2==true && c=="TRUE"){
 				
 					cl=new Cliente();
 					cl.nombre = nombre.text;
@@ -222,10 +177,10 @@
 				var msj:String = "";
 				if(message=="1"){
 					msj = nombre.text + " "+ apellido.text+" fue Registrado";
-				 	//resetVars(); 					
+				 	limpiarTodo(); 					
     		 	}
 				else{
-					 msj= "Usuario previamente registrado, elija otro nombre de usuario"; 				
+					 msj= "Cliente previamente registrado, elija otro rut de cliente"; 				
 				}		
 					labelMessage.text=msj;
 			}
@@ -238,6 +193,8 @@
             	celular2.addEventListener(KeyboardEvent.KEY_UP,validarNumero2);
             	telefono.addEventListener(KeyboardEvent.KEY_UP,validarNumero3);
             	telefono2.addEventListener(KeyboardEvent.KEY_UP,validarNumero4);
+            	email.addEventListener(KeyboardEvent.KEY_UP,validarEmail);
+            	email2.addEventListener(KeyboardEvent.KEY_UP,validarEmail2);
             }
             
             private function validarSoloString(event:Event):void{
@@ -332,6 +289,34 @@
 					labelMessage.text = "Ingrese Solamente Numeros";
 				}	
             }
+            
+             private function validarEmail(event:Event):void{
+            	/*if(Validacion.Email(email.text)==true)
+				{
+					
+					vEmail		= true;
+					labelMessage.text = "";
+				}
+				else
+				{
+					
+					vEmail		= false;
+					labelMessage.text = "Ingrese Email Correctamente";
+				}*/	
+            }
+            
+            private function validarEmail2(event:Event):void{
+            	if(email.text == email2.text)
+				{
+					vEmail2 = true;	
+					labelMessage.text = "";			
+				}
+				else
+				{
+					vEmail2 = false;	
+					labelMessage.text = "Ingrese un email que coincida con el anterior";			
+				}
+            }
 
 /**
 * Este metodo se encarga de limpiar los campos del
@@ -402,13 +387,11 @@
 	<mx:Label x="20" y="128" text="Apellido Materno:" width="112" />
 	<mx:TextInput x="125" y="126" width="201" id="apellido2" click="validaciones()" maxChars="12"/>
 	
-		
+	<!-- Rut -->	
 	<mx:Label x="20" y="177" text="Rut:" width="97"/>
-	<mx:TextInput restrict="0-9" x="125" y="175" width="140" id="rut"  maxChars="8"/>	
-	<mx:StringValidator id="rutValidator" requiredFieldError="Ingrese El Rut" source="{rut}" property="text" />
+	<mx:TextInput x="125" y="175" width="140" id="rut"  maxChars="8"/>	
 	<mx:Label x="169" y="275" text="-" textAlign="center"/>
-	<mx:TextInput restrict="0-9 K k" x="290" y="175" width="36" id="rut2" maxChars="1"/>
-	<mx:StringValidator id="rut2Validator" requiredFieldError="Ingrese Codigo Identificador" source="{rut2}" property="text" />
+	<mx:TextInput x="290" y="175" width="36" id="rut2" maxChars="1"/>
 	
 	<!-- Telefono -->
 	<mx:Label x="20" y="226" text="Teléfono Fijo:" width="97"/>
@@ -859,18 +842,11 @@
 	</mx:ComboBox>
 	
 	<mx:Label x="413" y="177" text="E-Mail:" width="97"/>
-	<mx:TextInput x="539" y="175" width="201" id="email" maxChars="20"/>	
+	<mx:TextInput x="539" y="175" width="201" id="email" click="validaciones()" maxChars="20"/>	
 	
     <mx:Label x="413" y="226" text="Confirmación E-mail:" width="132"/>
 	<mx:TextInput x="539" y="224" width="201" id="email2" maxChars="20"/>
-	<mx:StringValidator id="email2Validator" requiredFieldError="Ingrese La Confirmación De E-Mail" source="{email2}" property="text" />
-	
-    <mx:EmailValidator id="emailValidator" requiredFieldError="Complete su email" source="{email}" property="text" invalidCharError="Caracteres inválidos"
-      invalidDomainError= "El dominio no es válido"
-      missingAtSignError="Necesita una @ en su email"
-      missingPeriodInDomainError= "Necesita un nombre de dominio" />
 
-	
 	<mx:Button x="523" y="302" width="102" label="Registrar" id="guardarClienteIng" click="{sendMessage()}" height="23" cornerRadius="6">
 	</mx:Button>
 	
