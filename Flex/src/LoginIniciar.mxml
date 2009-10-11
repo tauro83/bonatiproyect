@@ -2,27 +2,35 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Iniciar Sesión">
 	<mx:Script>
 		<![CDATA[
+		
+			//=======================================================================
+			// FECHA: CREACIÓN: 
+			// AUTOR: Esteban Cruz
+			// Dentro de este componente se realiza la comprobacion del login 
+			// de ser correcto se podra ingresar, de lo contrario no
+			//=======================================================================
+
+			import services.LoginService;
 			import mx.controls.Alert;
 			import mx.rpc.events.ResultEvent;		
-			import services.PersonService;
-			import transferObjects.Person;
+			import services.LoginService;
+			import transferObjects.Usuario;
 			
 			public var bar:int;
 			
 			private function existLogin():void
 			{
-				var person:Person= new Person();
-				person.rut=pass.text;
-				person.name=nombre.text;
-				person.lastName=nombre.text;
+				var usuario:Usuario = new Usuario();
+				usuario.contrasena=pass.text;
+				usuario.usuario=nombre.text;
 				
-				var personService:PersonService=new PersonService();
-				personService.addEventListener(ResultEvent.RESULT,existLoginResult);
-				personService.existLogin(person);
+				var loginService:LoginService = new LoginService();
+				loginService.addEventListener(ResultEvent.RESULT,existLoginResult);
+				loginService.existLogin(usuario);
 			}
 			private function existLoginResult(event:ResultEvent):void
 			{
-				/*var result:int = event.result as int ;
+				var result:int = event.result as int ;
 				if(result==1)
 				{
 					bar=1;
@@ -31,7 +39,7 @@
 				{
 					bar=0;
 				    Alert.show("Acceso denegado");
-				}*/
+				}
 			}
  		]]>
  	</mx:Script>	
