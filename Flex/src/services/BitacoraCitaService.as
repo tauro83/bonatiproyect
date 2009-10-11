@@ -18,12 +18,13 @@ package services
 			this.destination="BitacoraCitaService";
 			this.source="Agenda.BitacoraCitaService";
 			
-			this.addEventListener(FaultEvent.FAULT,faultHandler);
+			//this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		private function faultHandler(event:FaultEvent):void{
 			Alert.show("Error en BitacoraCitaService, Detalle: "+event.fault.message);
 		}
 		public function getAllBitacoraCita():void{
+			Alert.show("* GetAllBitacoraCita");
 			this.getOperation("getAllBitacoraCita").send();
 		}	
 	}
