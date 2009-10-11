@@ -20,8 +20,7 @@ import Agenda.BitacoraCita;
  * @author Sebastian Arancibia
  * @version 1 05/10/2009
  */
-public class BitacoraCitaService 
-{
+public class BitacoraCitaService{
 	/**
 	 * Clase para la conexion entre la capa 2 y la capa de 1
 	 * @param fecha
