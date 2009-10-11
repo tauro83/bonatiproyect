@@ -42,7 +42,7 @@
 
 	 <destination id="BusquedaService"> 
   	 	<properties>
-  			<source>services.BusquedaService</source>
+  			<source>Administracion.BusquedaService</source>
   		</properties>
   	</destination>
 	
