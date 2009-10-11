@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*"> 
 
     <mx:Script>
-
         <![CDATA[
+        
 			import mx.events.DropdownEvent;
 
             import flash.events.MouseEvent;
@@ -151,6 +151,98 @@
             }
 
            <!-- Nicolas-->
+
+            private function regiones(event:DropdownEvent):void
+           {           		
+           		AdmIngreso2.region.setVisible(true,false);
+           		AdmIngreso2.comunas.setVisible(false,false);
+           		AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+           		AdmIngreso2.comunaAtacama.setVisible(false,false);
+           		AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+           		AdmIngreso2.comunaValparaiso.setVisible(false,false);
+            	AdmIngreso2.comunaLibertador.setVisible(false,false)
+            	AdmIngreso2.comunaMaule.setVisible(false,false);
+            	AdmIngreso2.comunaBio.setVisible(false,false);
+            	AdmIngreso2.comunaAraucania.setVisible(false,false);
+            	AdmIngreso2.comunaLagos.setVisible(false,false);
+            	AdmIngreso2.comunaMagallanes.setVisible(false,false);
+            	AdmIngreso2.comunaAysen.setVisible(false,false);
+            	AdmIngreso2.comunaMetro.setVisible(false,false);
+            	AdmIngreso2.comunaRio.setVisible(false,false);
+            	AdmIngreso2.comunaArica.setVisible(false,false);
+            	
+            	switch (AdmIngreso2.region.selectedLabel)
+				{
+				case 'Regi�n De Tarapaca':		
+					AdmIngreso2.comunas.setVisible(true,false);
+					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+					//AdmIngreso2.comunaAtacama.setVisible(false,false);
+					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+					//AdmIngreso2.comunaValpara�so.setVisible(false,false);
+				break; 
+				case 'Regi�n De Antofagasta':
+					AdmIngreso2.comunaAntofagasta.setVisible(true,false);
+					//AdmIngreso2.comunas.setVisible(false,false);
+					//AdmIngreso2.comunaAtacama.setVisible(false,false);
+					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+					//AdmIngreso2.comunaValpara�so.setVisible(false,false);
+				break;
+				case 'Regi�n De Atacama':
+					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+					//AdmIngreso2.comunas.setVisible(false,false);
+					AdmIngreso2.comunaAtacama.setVisible(true,false);
+					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+					//AdmIngreso2.comunaValpara�so.setVisible(false,false);
+				break;
+				case 'Regi�n De Coquimbo':
+					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+					//AdmIngreso2.comunas.setVisible(false,false);
+					//AdmIngreso2.comunaAtacama.setVisible(false,false);
+					AdmIngreso2.comunaCoquimbo.setVisible(true,false);
+					//AdmIngreso2.comunaValpara�so.setVisible(false,false);
+				break;
+				case 'Regi�n De Valpara�so':
+					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+					//AdmIngreso2.comunas.setVisible(false,false);
+					//AdmIngreso2.comunaAtacama.setVisible(false,false);
+					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+					AdmIngreso2.comunaValparaiso.setVisible(true,false);
+				break;
+				case 'Regi�n Del Libertador Bernardo O�higgins':
+					AdmIngreso2.comunaLibertador.setVisible(true,false);
+				break;
+				case 'Regi�n Del Maule':
+					AdmIngreso2.comunaMaule.setVisible(true,false);
+				break;
+				case 'Regi�n Del Bio-Bio':
+					AdmIngreso2.comunaBio.setVisible(true,false);
+				break;
+				case 'Regi�n De La Araucan�a':
+					AdmIngreso2.comunaAraucania.setVisible(true,false);
+				break;
+				case 'Regi�n De Los Lagos':
+					AdmIngreso2.comunaLagos.setVisible(true,false);
+				break;
+				case 'Regi�n Ays�n del General Carlos Ib��es del Campo"':
+					AdmIngreso2.comunaAysen.setVisible(true,false);
+				break;
+				case 'Regi�n de Magallanes y Ant�rtica Chilena':
+					AdmIngreso2.comunaMagallanes.setVisible(true,false);
+				break;
+				case 'Regi�n Metropolitana':
+					AdmIngreso2.comunaMetro.setVisible(true,false);
+				break;
+				case 'Regi�n de los R�os':
+					AdmIngreso2.comunaRio.setVisible(true,false);
+				break;
+				case 'Regi�n de Arica y Parinacota':
+					AdmIngreso2.comunaArica.setVisible(true,false);
+				break;
+				}
+				
+           }
+           <!-- Nicolas-->
+
 //            private function regiones(event:DropdownEvent):void
 //           {           		
 //           		AdmIngreso2.region.setVisible(true,false);
@@ -241,6 +333,7 @@
 //				
 //           }
 //           <!-- Nicolas-->
+
 
 
           
@@ -677,7 +770,7 @@
             
             private function iniciarSesion (event:Event): void
             {
-				//if(login2.bar==1){
+				if(login2.bar==1){
             		setInvisible();
             		agenda2.setVisible(true,false);
             		menuAgenda1.setVisible(true,false);
@@ -691,7 +784,7 @@
             		botonAyuda.enabled=true;
             		botonLogin.enabled=true;
             		botonLogin.label="Cerrar Sesión";
-            	/*	if(login2.Recordar.selected==true){
+            		if(login2.Recordar.selected==true){
             			//tomo nombre
             			//tomo pass
             		}
@@ -699,7 +792,7 @@
             			login2.nombre.text=null;
             			login2.pass.text=null;
             		}
-    			}*/
+    			}
             }
 
             <!--Autor: }Esteban --> 
