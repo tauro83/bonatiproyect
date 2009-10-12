@@ -1,17 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="134" width="240" height="466" layout="absolute" title="Opciones del módulo">
-	<mx:LinkButton x="10" y="90" label="Policlínico" width="183" textAlign="left"/>
-	<mx:LinkButton x="10" y="0" label="Pabellón"/>
-	<mx:LinkButton x="54" y="20" label="Pre-Operatorio" width="139" textAlign="left" id="PreOlink"/>
-	<mx:LinkButton x="54" y="60" label="Post-Operatorio" width="139" textAlign="left" id="PostOLink"/>
-	<mx:LinkButton x="10" y="180" label="Estadísticas" width="139" textAlign="left" id="estadisticaClinicaLink"/>
-	<mx:LinkButton x="54" y="40" label="Cirugía" width="139" textAlign="left" id="cirugiaLink"/>
-	<mx:LinkButton x="55" y="131" label="Buscar Atención" id="BuscaAtenLink"/>
-	<mx:LinkButton x="55" y="150" label="Buscar Categoria" id="BuscaVacunLink"/>
-	<mx:LinkButton x="55" y="110" label="Nueva Atención" id="newAtenDomLink"/>
-	<mx:LinkButton x="55" y="219" label="Último semestre" id="estadisticaSemestre"/>
-	<mx:LinkButton x="55" y="238" label="Último año" id="estadisticaYear"/>
-	<mx:LinkButton x="55" y="258" label="Todas" id="estadisticaTodas"/>
-	<mx:LinkButton x="55" y="200" label="Último mes" id="estadisticaMes"/>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="134" width="240" height="466" layout="absolute" title="Opciones del módulo" borderColor="#15AD8F">
+	<mx:Script>
+		<![CDATA[
+			import mx.core.Application;
+		
+			public function verRegistrarCirugia():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.cliRegistro2.visible = true;	
+			}
+			public function verRegistrarPreOperatorio():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.cliRegistroPreO2.visible = true;	
+			}
+			public function verRegistrarPostOperatorio():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.cliRegistroPO2.visible = true;	
+			}
+			public function verNuevaAtencion():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.cliNewAtencion2.visible = true;	
+			}
+			public function verBuscarAtencion():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.cliFindatencion2.visible = true;	
+			}
+			public function verBuscarCategoria():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.cliFindVacuna2.visible = true;	
+			}
+			public function verEstadisticaMes():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.graficosClinica1.visible = true;
+				Application.application.graficosClinica1.setTipoDatos("mes");
+			}
+			public function verEstadisticaSemestre():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.graficosClinica1.visible = true;	
+				Application.application.graficosClinica1.setTipoDatos("semestre");
+			}
+			public function verEstadisticaAno():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.graficosClinica1.visible = true;
+				Application.application.graficosClinica1.setTipoDatos("year");	
+			}
+			public function verEstadisticaTodas():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.graficosClinica1.visible = true;
+				Application.application.graficosClinica1.setTipoDatos("todas");	
+			}
+		]]>
+	</mx:Script>
 	
+	<mx:Accordion x="0" y="0" width="100%" height="100%">
+		<mx:Canvas width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" label="Pabellón" backgroundColor="#FFFFFF">
+			<mx:Accordion width="100%" height="100%"  y="0" x="10">
+				<mx:Canvas label="Pre-Operatorio" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
+					<mx:LinkButton x="10" y="10" label="Registrar" width="139" textAlign="left" id="PreOlink" click="verRegistrarPreOperatorio()"/>
+				</mx:Canvas>
+				<mx:Canvas label="Cirugía" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
+					<mx:LinkButton x="10" y="10" label="Registrar" width="139" textAlign="left" id="cirugiaLink" click="verRegistrarCirugia()"/>
+				</mx:Canvas>
+				<mx:Canvas label="Post-Operatorio" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
+					<mx:LinkButton x="10" y="10" label="Registrar" width="139" textAlign="left" id="PostOLink" click="verRegistrarPostOperatorio()"/>
+				</mx:Canvas>
+			</mx:Accordion>
+		</mx:Canvas>
+		<mx:Canvas label="Policlínico" width="100%" height="100%">
+			<mx:LinkButton x="10" y="40" label="Buscar Atención" id="BuscaAtenLink" click= "verBuscarAtencion()"/>
+			<mx:LinkButton x="10" y="70" label="Buscar Categoria" id="BuscaVacunLink" click="verBuscarCategoria()"/>
+			<mx:LinkButton x="10" y="10" label="Nueva Atención" id="newAtenDomLink" click="verNuevaAtencion()"/>
+		</mx:Canvas>
+		<mx:Canvas label="Estadística" width="100%" height="100%">
+		    <mx:LinkButton x="10" y="10" label="Estadistica" id="estadisticaClinicaLink"/>
+			<mx:LinkButton x="10" y="70" label="Último semestre" id="estadisticaSemestre" click="verEstadisticaSemestre()"/>
+			<mx:LinkButton x="13" y="100" label="Último año" id="estadisticaYear" click="verEstadisticaAno()"/>
+			<mx:LinkButton x="13" y="130" label="Todas" id="estadisticaTodas" click="verEstadisticaTodas()"/>
+			<mx:LinkButton x="10" y="40" label="Último mes" id="estadisticaMes" click="verEstadisticaMes()"/>
+		</mx:Canvas>
+	    </mx:Accordion>
+		
 </mx:Panel>
