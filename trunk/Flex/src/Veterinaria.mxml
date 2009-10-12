@@ -649,14 +649,14 @@
             		botonAyuda.enabled=true;
             		botonLogin.enabled=true;
             		botonLogin.label="Cerrar Sesión";
-            		if(login2.Recordar.selected==true){
-            			//tomo nombre
-            			//tomo pass
-            		}
-            		else{
-            			login2.nombre.text=null;
-            			login2.pass.text=null;
-            		}
+//            		if(login2.Recordar.selected==true){
+//            			//tomo nombre
+//            			//tomo pass
+//            		}
+//            		else{
+//            			login2.nombre.text=null;
+//            			login2.pass.text=null;
+//            		}
     			}
             }
 
