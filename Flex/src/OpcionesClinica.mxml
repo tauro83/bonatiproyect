@@ -58,6 +58,11 @@
 				Application.application.graficosClinica1.visible = true;
 				Application.application.graficosClinica1.setTipoDatos("todas");	
 			}
+			public function verEditarCirugia():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.editarCirugia.visible = true;
+			}
 		]]>
 	</mx:Script>
 	
@@ -69,6 +74,7 @@
 				</mx:Canvas>
 				<mx:Canvas label="Cirugía" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
 					<mx:LinkButton x="10" y="10" label="Registrar" width="139" textAlign="left" id="cirugiaLink" click="verRegistrarCirugia()"/>
+					<mx:LinkButton x="10" y="40" label="Editar" width="139" textAlign="left" id="cirugiaLink0" click="verEditarCirugia()"/>
 				</mx:Canvas>
 				<mx:Canvas label="Post-Operatorio" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
 					<mx:LinkButton x="10" y="10" label="Registrar" width="139" textAlign="left" id="PostOLink" click="verRegistrarPostOperatorio()"/>
