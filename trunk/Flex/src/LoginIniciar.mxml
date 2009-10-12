@@ -16,6 +16,8 @@
 			import services.LoginService;
 			import transferObjects.Usuario;
 			
+			import mx.core.Application;
+			
 			public var bar:int;
 			
 			private function existLogin():void
@@ -31,9 +33,30 @@
 			private function existLoginResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
+				
 				if(result==1)
 				{
-					bar=1;
+            		Application.application.setInvisible();
+            		Application.application.agenda2.setVisible(true,false);
+            		Application.application.menuAgenda1.setVisible(true,false);
+            		Application.application.botonClinica.enabled=true;
+            		Application.application.botonAgenda.enabled=true;
+            		Application.application.botonAdmin.enabled=true;
+           		 	Application.application.botonPeluqueria.enabled=true;
+            	 	Application.application.botonPetshop.enabled=true;
+           		 	Application.application.botonBusqueda.enabled=true;
+            		Application.application.botonHotel.enabled=true;
+            		Application.application.botonAyuda.enabled=true;
+            		Application.application.botonLogin.enabled=true;
+            		Application.application.botonLogin.label="Cerrar Sesión";
+            		if(recordar.selected==true){
+            			//tomo nombre
+            			//tomo pass
+            		}
+            		else{
+            			nombre.text=null;
+            			pass.text=null;
+            		}
 				}
 				else
 				{
@@ -43,7 +66,7 @@
 			}
  		]]>
  	</mx:Script>	
-	<mx:CheckBox x="482" y="252" label="Sí" id="Recordar"/>
+	<mx:CheckBox x="482" y="252" label="Sí" id="recordar"/>
 	<mx:TextArea x="482" y="192" height="19" width="196" displayAsPassword="true" id="pass"/>
 	<mx:Button x="647" y="302" label="Iniciar" id="AceptarUsuario" width="102" height="23" click="existLogin()" cornerRadius="6"/> 
 	<mx:Image x="-11" y="0" source="../gato.jpg" width="498" height="343"/>
