@@ -12,19 +12,18 @@ package services
 		public function BitacoraCitaService(){
 			super();
 			var channel:ChannelSet=new ChannelSet();
-			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/DBConnectionServer/messagebroker/amf");
+			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="BitacoraCitaService";
 			this.source="Agenda.BitacoraCitaService";
 			
-			//this.addEventListener(FaultEvent.FAULT,faultHandler);
+			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		private function faultHandler(event:FaultEvent):void{
 			Alert.show("Error en BitacoraCitaService, Detalle: "+event.fault.message);
 		}
 		public function getAllBitacoraCita():void{
-			Alert.show("* GetAllBitacoraCita");
 			this.getOperation("getAllBitacoraCita").send();
 		}	
 	}
