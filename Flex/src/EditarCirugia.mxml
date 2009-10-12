@@ -1,0 +1,51 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Cirugia" x="241" y="133">
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA CREACIÓN: 10 de Octubre de 2009
+			// AUTOR: Sebastian Arancibia
+			// Panel de selección de cirugia, para proceder a editar los datos de éste.
+			//=======================================================================
+
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Usuario;
+			import mx.rpc.events.ResultEvent;
+			import administracion.UsuarioEditService;
+			
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import mx.core.Application;
+			
+			[Bindable]
+			private var cirugias:ArrayCollection;
+					
+		]]>
+	</mx:Script>
+	<mx:DataGrid x="10" y="45" width="739" id="Tabla" enabled="true" height="303" dataProvider="{cirugias}">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Tipo Cirugía" dataField="tipoCirugia"/>
+			<mx:DataGridColumn headerText="Responsable" dataField="responsable"/>
+			<mx:DataGridColumn headerText="Ayudante" dataField="ayudante"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="fecha" width="100"/>
+			<mx:DataGridColumn headerText="Hora" dataField="hora"/>
+			<mx:DataGridColumn headerText="Costo" dataField="costo" visible="false"/>
+			<mx:DataGridColumn headerText="Diagnostico" dataField="diagnostico"/>
+			<mx:DataGridColumn headerText="Cliente" dataField="cliente" visible="false"/>
+			<mx:DataGridColumn headerText="Mascota" dataField="mascota" visible="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Button label="Editar" height="23" width="102" x="537" y="393" cornerRadius="6"/>
+	<mx:Label x="10" y="10" text="Seleccionar Cirugía:" fontWeight="bold"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="647" y="393" label="Cancelar" width="102" height="23" cornerRadius="6"/>
+	<mx:LinkButton x="582" y="8" label="&lt; Anterior"/>
+	<mx:LinkButton x="669" y="8" label="Posterior &gt;"/>
+	
+
+
+	
+</mx:Panel>
