@@ -626,15 +626,15 @@
  
 	<!-- DATOS BUSQUEDA DE CLIENTE PARA REGISTRO DE MASCOTA --> 
 	
-	<mx:Label x="38.75" y="12" text="Rut:" width="84"/>
-	<mx:Label x="38.75" y="57" text="Nombre:" width="84" height="22"/>
-	<mx:Label x="419.5" y="55" text="Fecha Nacimiento:" width="108.75" height="22"/>
-	<mx:Label x="38.75" y="100" text="Clase Animal:" width="108.75" height="22"/>
-	<mx:Label x="419.5" y="100" text="Raza:" width="108.75" height="22"/>
-	<mx:Label x="38.75" y="145" text="Sexo:" width="51.75" height="22"/>
-	<mx:Label x="242" y="12" text="-" width="14.75" textAlign="center"/>
-	<mx:TextInput  restrict="0-9" x="153.5" y="10" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="253.5" y="10" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
+	<mx:Label x="38.75" y="25" text="Rut:" width="84"/>
+	<mx:Label x="38.75" y="70" text="Nombre:" width="84" height="22"/>
+	<mx:Label x="419.5" y="68" text="Fecha Nacimiento:" width="108.75" height="22"/>
+	<mx:Label x="38.75" y="113" text="Clase Animal:" width="108.75" height="22"/>
+	<mx:Label x="419.5" y="113" text="Raza:" width="108.75" height="22"/>
+	<mx:Label x="38.75" y="158" text="Sexo:" width="51.75" height="22"/>
+	<mx:Label x="242" y="25" text="-" width="14.75" textAlign="center"/>
+	<mx:TextInput  restrict="0-9" x="153.5" y="23" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
+	<mx:TextInput x="253.5" y="23" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	
 	<!-- BOTON QUE DA ACCION A BUSQUEDA DE CLIENTE -->
 
@@ -683,13 +683,13 @@
 		
 		<!-- OPCIONES PARA SUBIR IMAGEN -->
 	</mx:Canvas>
-	<mx:TextInput restrict="A-Z a-z -" x="153.5" y="55" width="169" id="nombreInput" maxChars="50"/>
-	<mx:DateField x="534.25" y="53" width="186" id="fechaNacimientoInput"/>
-	<mx:ComboBox x="153.5" y="98" width="169" id="claseAnimalInput" close="selRazas(event);">
+	<mx:TextInput restrict="A-Z a-z -" x="153.5" y="68" width="169" id="nombreInput" maxChars="50"/>
+	<mx:DateField x="534.25" y="66" width="186" id="fechaNacimientoInput"/>
+	<mx:ComboBox x="153.5" y="111" width="169" id="claseAnimalInput" close="selRazas(event);">
 	</mx:ComboBox>
-	<mx:ComboBox x="536.25" y="98" width="169" id="razaInput">
+	<mx:ComboBox x="536.25" y="111" width="169" id="razaInput">
 	</mx:ComboBox>
-	<mx:ComboBox x="153.5" y="143" width="169" id="sexoInput" dataProvider="{sexos}">
+	<mx:ComboBox x="153.5" y="156" width="169" id="sexoInput" dataProvider="{sexos}">
 	</mx:ComboBox>
 	<!--
 	<ns1:FileUploader x="465.75" y="152" uploaded="uploadedHandler(event)" width="200.5">
