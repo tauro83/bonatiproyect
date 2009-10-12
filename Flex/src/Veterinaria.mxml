@@ -89,11 +89,8 @@
 				pelPanel1.PelNuevoCatalogo.addEventListener(MouseEvent.CLICK,linkNuevoCatalogo);
 				pelPanel1.PelVerCatalogo.addEventListener(MouseEvent.CLICK,linkVerCatalogo);
 				pelPanel1.PelEstadisitica.addEventListener(MouseEvent.CLICK,linkEstadistica);
-				//AdmOpciones1.linkEditarRazasAd.addEventListener(MouseEvent.CLICK,linkeditRazasAd);
-                AdmOpciones1.linkRegUsuarioAd.addEventListener(MouseEvent.CLICK,linkregsitroUsAd);
-                AdmOpciones1.linkFichaAdm.addEventListener(MouseEvent.CLICK,linkFichaAd);
-                AdmOpciones1.linkMascotaAdm.addEventListener(MouseEvent.CLICK,linkMascotaAd);
-                AdmOpciones1.regCliente.addEventListener(MouseEvent.CLICK,linkClienteAd);
+               
+              
                 botonHotel.addEventListener(MouseEvent.CLICK, hotelclimanejadorClick);
               
                 hotelOpciones.hotelServPellink.addEventListener(MouseEvent.CLICK,linkNuevaAtencionHotelBaño);
@@ -121,31 +118,24 @@
                 
 				hotelIngreso.IdVerRegistroHotel.addEventListener (MouseEvent.CLICK,visulizarRegHot);
                 AdmIngreso2.cancelarClienteIng.addEventListener(MouseEvent.CLICK, inicial);
-             //   AdmMascota2.cancelarMascota.addEventListener (MouseEvent.CLICK,inicial);
-              // AdRegUsuario2.bcan.addEventListener (MouseEvent.CLICK,inicial);
-                
-                //Erwin Díaz
-                AdmOpciones1.linkEliminarUsAd.addEventListener(MouseEvent.CLICK,linkelimUsAd);
-                AdmOpciones1.linkPurgarUsAd.addEventListener(MouseEvent.CLICK,linkpurgUsAd);
+         
+               
 				<!--AdmOpciones1.linkEliminarFicha.addEventListener(MouseEvent.CLICK,linkelimFicha);-->
 				<!--AdmOpciones1.linkPurgarFicha.addEventListener(MouseEvent.CLICK,linkpurgFicha);-->
-				AdmOpciones1.linkBitacoraAd.addEventListener(MouseEvent.CLICK,linkbit);
+			
 
 				
                 botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
                 
 				<!--Autor: Jimmy Muñoz{-->
-				AdmOpciones1.linkEditarUsAd.addEventListener(MouseEvent.CLICK,linkeditUsAd);
+			
 				AdEditarUsuar3.guardarUsuario.addEventListener(MouseEvent.CLICK,editarUsuario);
 				<!--Autor: }Jimmy Muñoz -->
 
 				//raullrich
 				agenda2.ctm.addEventListener(MouseEvent.CLICK,editCita);
 				
-				//camilo verdugo
-				verFicha.cancVerFicha.addEventListener(MouseEvent.CLICK,cancelarVerFicha);
-				visualizarFicha.cancVisFicha.addEventListener(MouseEvent.CLICK, inicial);
-				AdRegUsuario2.cancRegUsua.addEventListener(MouseEvent.CLICK, inicial);
+				
             }
 
            <!-- Nicolas-->
@@ -243,34 +233,11 @@
            <!-- Nicolas-->
 
           
-           <!-- Camilo Verdugo-->
-           private function cancelarVerFicha(event:Event):void
-           {           		
-           		verFicha.setVisible(false,false);
-            	visualizarFicha.setVisible(true,false);
-           }
-           
-           <!-- Camilo Verdugo-->
+          
             
-            <!--Erwin Díaz-->
-             private function linkbit ( event:Event ):void{
-            	setInvisible();
-               	AdmOpciones1.setVisible(true,false);
-            	bitacoraEventos.setVisible(true,false);
-            	
-            }
-            private function linkpurgUsAd ( event:Event ):void{
-            	setInvisible();
-               	AdmOpciones1.setVisible(true,false);
-            	//purgusuario.setVisible(true,false);
-            	
-            }
-            private function linkelimUsAd ( event:Event ):void{
-            	setInvisible();
-               	AdmOpciones1.setVisible(true,false);
-            	elimusuario.setVisible(true,false);
-            	
-            }
+            
+           
+           
             private function linkelimFicha ( event:Event ):void{
             	setInvisible();
                	AdmOpciones1.setVisible(true,false);
@@ -293,14 +260,6 @@
             }
             <!--Autor: }Jimmy Muñoz -->
          	
-            <!--Autor: Jimmy Muñoz{-->
-            private function linkeditUsAd ( event:Event ):void{
-            	AdEditarUsuar2.getAllUsuarios();
-            	setInvisible();
-               	AdmOpciones1.setVisible(true,false);
-            	AdEditarUsuar2.setVisible(true,false);
-            }
-            <!--Autor: }Jimmy Muñoz -->
             
             
             <!--Autor: Jimmy Muñoz{-->
@@ -309,7 +268,7 @@
             }
             <!--Autor: }Jimmy Muñoz -->
             
-            private function setInvisible ():void{
+            public function setInvisible ():void{
             	//camilo verdugo
             	verFicha.setVisible(false,false);
             	visualizarFicha.setVisible(false,false);
@@ -372,7 +331,7 @@
             	
             	<!--Autor: Andres G.{-->
             	graficosClinica1.setVisible(false,false);
-            	ayudaVeterinaria.setVisible(false,false);
+            	
             	<!--Autor: Andres G.}-->
             	<!--Autor: Esteban{ -->
             	login2.setVisible(false,false);
@@ -721,7 +680,7 @@
             	busqueda2.setVisible(true,false);
             }
             
-            private function inicial ( event:Event ):void{
+            public  function inicial ( event:Event ):void{
             	setInvisible();
             	panel2.setVisible(true,false);
             	AdmOpciones1.setVisible(true,false);
@@ -820,35 +779,10 @@
             	
             }
 
-            private function linkClienteAd ( event:Event ):void{
-            	setInvisible();
-            	AdmIngreso2.setVisible(true,false);
-                AdmOpciones1.setVisible(true,false);
-
-            }
+                    
             
-            private function linkMascotaAd ( event:Event ):void{
-            	setInvisible();
-                AdmOpciones1.setVisible(true,false);
-            	AdmMascota2.setVisible(true,false);
-				
-            }
-            
-            private function linkFichaAd ( event:Event ):void{
-            	setInvisible();
-				visualizarFicha.setVisible(true,true);
-                AdmOpciones1.setVisible(true,false);
-                  <!--Autor: camilo{-->
-                visualizarFicha.setVisualizarFicha(verFicha); 
-                  <!--Autor: camilo{--> 
-            }
-            
-            private function linkregsitroUsAd (event:Event ):void{
-            	setInvisible();
-            	AdmOpciones1.setVisible(true,false);
-                AdRegUsuario2.setVisible(true,false);
-            }
-            
+                     
+                     
             private function linkeditRazasAd ( event:Event ):void{
             	setInvisible();
 				AdmOpciones1.setVisible(true,false);
@@ -1062,8 +996,7 @@
 	<ns1:huespedAgregado x="241" y="134" id="huespedAgregado2" visible="false">
 	</ns1:huespedAgregado>
 	<!--Autor: andres{-->
-	<ns1:Ayuda x="241" y="134" id="ayudaVeterinaria" visible="false">
-	</ns1:Ayuda>
+	
 	<ns1:GraficosClinica x="241" y="134" id="graficosClinica1" visible="false">
 	</ns1:GraficosClinica>
 	<!--Autor: andres}-->
