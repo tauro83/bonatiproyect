@@ -16,6 +16,7 @@
 			import services.BusquedaService;
 			import mx.events.CloseEvent;
 			import mx.events.DropdownEvent;
+			import mx.core.Application;
 			
 			import transferObjects.Usuario;
 			import transferObjects.Cliente;
@@ -34,6 +35,14 @@
 			[Bindable]
 			private var productos:ArrayCollection;
 		
+			//salir de busqueda
+			private function cerrarBusqueda (event:Event):void
+            {
+            	Application.application.setInvisible();
+            	Application.application.agenda2.setVisible(true,false);
+            	Application.application.menuAgenda1.setVisible(true,false);
+            }
+            		
 			//hace invisible a todos los elementos del componente
 			private function setInvisibleInput ():void
             {
@@ -302,7 +311,7 @@
 		]]>
 	</mx:Script>
 	
-	<mx:Button x="647" y="302" label="Cancelar" width="102" cornerRadius="6" id="idCancelar"/>
+	<mx:Button x="647" y="302" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="Application.application()"/>
 	<mx:ComboBox x="283" y="10" width="150" id="combobox" change="seleccionarBusqueda(event)" >
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccione-"/>
