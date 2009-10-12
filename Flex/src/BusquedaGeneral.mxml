@@ -2,6 +2,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Buscar" themeColor="#15ad8f" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
+			import mx.binding.utils.ChangeWatcher;
 		
 			//=======================================================================
 			// FECHA: CREACIÓN: 6 Octubre
@@ -33,6 +34,81 @@
 			[Bindable]
 			private var productos:ArrayCollection;
 		
+			//hace invisible a todos los elementos del componente
+			private function setInvisibleInput ():void
+            {
+            	inputUsuarioCargo.setVisible(false,false);
+            	inputUsuarioNombre.setVisible(false,false);
+            	inputUsuarioAp.setVisible(false,false);
+            	inputUsuarioAm.setVisible(false,false);
+            	inputUsuarioServicio.setVisible(false,false);
+            	inputClienteEmail.setVisible(false,false);
+            	inputClienteNombre.setVisible(false,false);
+            	inputClienteTel.setVisible(false,false);
+            	inputClienteRut.setVisible(false,false);
+            	inputClienteApellido.setVisible(false,false);
+            	inputClienteApellido2.setVisible(false,false);
+            	inputMascotaNombre.setVisible(false,false);
+            	inputMascotaRut.setVisible(false,false);
+            	inputMascotaRaza.setVisible(false,false);
+            	inputMascotaClase.setVisible(false,false);
+            	inputMascotaSexo.setVisible(false,false);
+            	inputAtencionCliente.setVisible(false,false);
+            	inputAtencionMascota.setVisible(false,false);
+            	inputAtencionFecha.setVisible(false,false);
+            	inputAtencionHora.setVisible(false,false);
+            	inputAtencionServico.setVisible(false,false);
+            	inputProductoNombre.setVisible(false,false);
+            	inputProductoCodigo.setVisible(false,false);
+            	inputProductoPrecio.setVisible(false,false);
+            	inputProductoCategoria.setVisible(false,false);
+            }
+            
+			//hace visible los elementos correspondientes al objeto
+			//que se selecciono desde el 1er combobox
+			private function seleccionarBusqueda (event:Event):void
+            {   
+            	comboboxAtencion.setVisible(false,false);
+				gridAtencion.setVisible(false,false);
+				comboboxCliente.setVisible(false,false);
+				gridCliente.setVisible(false,false);
+				comboboxAviso.setVisible(false,false);
+				gridAviso.setVisible(false,false);
+				comboboxMascota.setVisible(false,false);
+				gridMascota.setVisible(false,false);
+				comboboxProducto.setVisible(false,false);
+				gridProducto.setVisible(false,false);
+				comboboxUsuario.setVisible(false,false);
+				gridUsuario.setVisible(false,false);
+            	switch (combobox.selectedLabel)
+				{
+				case 'Atencion':		
+					comboboxAtencion.setVisible(true,false);
+					gridAtencion.setVisible(true,false);
+				break; 
+				case 'Cliente':
+					comboboxCliente.setVisible(true,false);
+					gridCliente.setVisible(true,false);
+				break;
+				case 'Aviso':
+					comboboxAviso.setVisible(true,false);
+					gridAviso.setVisible(true,false);
+				break;
+				case 'Mascota':
+					comboboxMascota.setVisible(true,false);
+					gridMascota.setVisible(true,false);
+				break;
+				case 'Producto':
+					comboboxProducto.setVisible(true,false);
+					gridProducto.setVisible(true,false);
+				break;
+				case 'Usuario':
+					comboboxUsuario.setVisible(true,false);
+					gridUsuario.setVisible(true,false);
+				break;
+				}
+            }
+			
 		   //Usuario ---------------------------
 		   //funciona que busca todos los usuarios
 		   public function getAllUsuarios():void
@@ -46,6 +122,30 @@
 		   {
 		   		usuarios = event.result as ArrayCollection;
 		   }
+		   
+		   //combobox de usuario
+		    private function seleccionarUsuario (event:Event):void
+            {
+            	setInvisibleInput();
+            	getAllUsuarios();
+				switch (comboboxUsuario.selectedLabel){
+				case 'Cargo':		
+					inputUsuarioCargo.setVisible(true,false);
+				break; 
+				case 'Nombre':		
+					inputUsuarioNombre.setVisible(true,false);
+				break; 
+				case 'Apellido paterno':		
+					inputUsuarioAp.setVisible(true,false);
+				break; 
+				case 'Apellido materno':		
+					inputUsuarioAm.setVisible(true,false);
+				break;
+				case 'Servicio':
+					inputUsuarioServicio.setVisible(true,false); 	
+				break;
+				}
+            }
 		   
 		   //Cliente ---------------------------
 		   //funciona que busca todos los clientes
@@ -61,6 +161,33 @@
 		   		clientes = event.result as ArrayCollection;
 		   }
 		   
+		   //combobox de cliente
+		   private function seleccionarCliente (event:Event):void
+            {
+            	setInvisibleInput();
+            	getAllClientes();
+            	switch (comboboxCliente.selectedLabel){
+				case 'E-mail':		
+					inputClienteEmail.setVisible(true,false);
+				break; 
+				case 'Nombre':		
+					inputClienteNombre.setVisible(true,false);
+				break; 
+				case 'Teléfono':		
+					inputClienteTel.setVisible(true,false);
+				break; 
+				case 'Rut':		
+					inputClienteRut.setVisible(true,false);
+				break; 	
+				case 'Apellido materno':		
+					inputClienteApellido2.setVisible(true,false);
+				break; 	
+				case 'Apellido paterno':		
+					inputClienteApellido.setVisible(true,false);
+				break; 	
+				}
+            }
+		   
 		   //Mascota --------------------------
 		   //funciona que busca todos las mascotas
 		   public function getAllMascotas():void
@@ -74,6 +201,30 @@
 		   {
 		   		mascotas = event.result as ArrayCollection;
 		   }
+		   
+		   //combobox de mascota
+		   private function seleccionarMascota (event:Event):void
+            {
+ 				setInvisibleInput();
+            	getAllMascotas();
+				switch (comboboxMascota.selectedLabel){
+				case 'Nombre':		
+					inputMascotaNombre.setVisible(true,false);
+				break; 
+				case 'Rut Cliente':		
+					inputMascotaRut.setVisible(true,false);
+				break; 
+				case 'Raza':		
+					inputMascotaRaza.setVisible(true,false);
+				break; 
+				case 'Sexo':		
+					inputMascotaSexo.setVisible(true,false);
+				break;
+				case 'Clase':
+					inputMascotaClase.setVisible(true,false); 
+				break;	
+				}
+            }
 		   
 		   //Atencion --------------------------
 		   //funciona que busca todos las atenciones
@@ -89,6 +240,30 @@
 		   		atenciones = event.result as ArrayCollection;
 		   }
 		   
+		   //combobox de atencion
+		   private function seleccionarAtencion (event:Event):void
+            {
+				setInvisibleInput();
+            	getAllAtenciones();
+            	switch (comboboxAtencion.selectedLabel){
+				case 'Rut Cliente':		
+					inputAtencionCliente.setVisible(true,false);
+				break; 
+				case 'Fecha':		
+					inputAtencionFecha.setVisible(true,false);
+				break; 
+				case 'Hora':		
+					inputAtencionHora.setVisible(true,false);
+				break; 
+				case 'Servicio':		
+					inputAtencionServico.setVisible(true,false);
+				break; 	
+				case 'Nombre Mascota':		
+					inputAtencionMascota.setVisible(true,false);
+				break; 	
+				}
+            }
+		   
 		   //Producto --------------------------
 		   //funciona que busca todos los productos
 		   public function getAllProductos():void
@@ -102,12 +277,33 @@
 		   {
 		   		productos = event.result as ArrayCollection;
 		   }
+		   
+		   //combobox de producto
+		   private function seleccionarProducto (event:Event):void
+            {
+				setInvisibleInput();
+            	getAllProductos();
+				switch (comboboxProducto.selectedLabel){
+				case 'Nombre':		
+					inputProductoNombre.setVisible(true,false);
+				break; 
+				case 'Codigo':		
+					inputProductoCodigo.setVisible(true,false);
+				break; 
+				case 'Precio':		
+					inputProductoPrecio.setVisible(true,false);
+				break; 
+				case 'Categoria':		
+					inputProductoCategoria.setVisible(true,false);
+				break;	
+				}
+            }
 			
 		]]>
 	</mx:Script>
 	
 	<mx:Button x="647" y="302" label="Cancelar" width="102" cornerRadius="6" id="idCancelar"/>
-	<mx:ComboBox x="283" y="10" width="150" id="combobox">
+	<mx:ComboBox x="283" y="10" width="150" id="combobox" change="seleccionarBusqueda(event)" >
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Atencion"/>
@@ -158,7 +354,7 @@
 	<fc:AutoComplete id="inputProductoCategoria" x="59" y="10" width="150" dataProvider="{productos}" labelField="categoria" visible="false"/>
 	
 	<!-- Mascota: combobox y grid -->
-	<mx:ComboBox x="441" y="10" id="comboboxMascota" width="150" visible="false">
+	<mx:ComboBox x="441" y="10" id="comboboxMascota" width="150" visible="false" change="seleccionarMascota(event)">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Nombre"/>
@@ -179,7 +375,7 @@
 	</mx:DataGrid>
 	
 	<!-- Usuario: combobox y grid -->
-	<mx:ComboBox x="441" y="10" id="comboboxUsuario" width="150" visible="false">
+	<mx:ComboBox x="441" y="10" id="comboboxUsuario" width="150" visible="false" change="seleccionarUsuario(event)">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Apellido materno"/>
@@ -219,7 +415,7 @@
 	</mx:DataGrid>
 	
 	<!-- Atencion: combobox y grid -->
-	<mx:ComboBox x="441" y="10" id="comboboxAtencion" width="150" visible="false">
+	<mx:ComboBox x="441" y="10" id="comboboxAtencion" width="150" visible="false" change="seleccionarAtencion(event)">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Rut Cliente"/>
@@ -240,7 +436,7 @@
 	</mx:DataGrid>
 	
 	<!-- Producto: combobox y grid -->
-	<mx:ComboBox x="441" y="10" id="comboboxProducto" width="150" visible="false">
+	<mx:ComboBox x="441" y="10" id="comboboxProducto" width="150" visible="false" change="seleccionarProducto(event)">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Categoria"/>
@@ -259,7 +455,7 @@
 	</mx:DataGrid>
 	
 	<!-- Cliente: combobox y grid -->
-	<mx:ComboBox x="441" y="10" id="comboboxCliente" width="150" visible="false">
+	<mx:ComboBox x="441" y="10" id="comboboxCliente" width="150" visible="false" change="seleccionarCliente(event)">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Apellido materno"/>
