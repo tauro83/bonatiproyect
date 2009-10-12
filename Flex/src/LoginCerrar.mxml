@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Cerrar Sesión">
+<mx:Script>
+	<![CDATA[
+		
+		import mx.core.Application;
+		
+		private function cerrar():void
+		{
+			Application.application.setInvisible();
+            Application.application.panelOpciones.setVisible(true,false);
+            Application.application.login2.setVisible(true,false);
+           	Application.application.botonLogin.enabled=true;
+           	Application.application.botonClinica.enabled=false;
+           	Application.application.botonAgenda.enabled=false;
+           	Application.application.botonAdmin.enabled=false;
+           	Application.application.botonPeluqueria.enabled=false;
+           	Application.application.botonPetshop.enabled=false;
+           	Application.application.botonBusqueda.enabled=false;
+           	Application.application.botonHotel.enabled=false;
+           	Application.application.botonAyuda.enabled=false;
+           	Application.application.botonLogin.label="Iniciar Sesión";
+   		}
+   			
+   		private function cancelar():void
+   		{
+   			Application.application.setInvisible();
+            Application.application.agenda2.setVisible(true,false);
+            Application.application.menuAgenda1.setVisible(true,false);
+   		}
+   			
+	]]>
+</mx:Script>
 	<mx:Image x="-10" y="0" width="490" height="343" source="../gatogris.jpg"/>
 	<mx:Image x="360" y="64" width="338" height="123" source="../cerrar sesion.jpg"/>
-	<mx:Button x="523" y="302" label="Cerrar" width="102" height="23" id="botonCerrarSesion" cornerRadius="6"/>
+	<mx:Button x="523" y="302" label="Cerrar" width="102" height="23" id="botonCerrarSesion" cornerRadius="6" click="cerrar()"/>
 	<mx:Text x="322" y="163" text="Si desea cerrar su sesión presione el botón 'Cerrar'&#xa;" fontWeight="bold" fontSize="15" textAlign="center"/>
-	<mx:Button x="647" y="302" label="Cancelar" width="102" height="23" id="botonCancelar" cornerRadius="6"/>
+	<mx:Button x="647" y="302" label="Cancelar" width="102" height="23" id="botonCancelar" cornerRadius="6" click="cancelar()"/>
 </mx:Panel>
