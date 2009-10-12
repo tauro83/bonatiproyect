@@ -25,7 +25,7 @@ package services
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="LoginService";
-			this.source="services.LoginService";
+			this.source="Administracion.LoginService";
 			
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}

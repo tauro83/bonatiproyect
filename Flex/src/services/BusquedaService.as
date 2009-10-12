@@ -23,7 +23,7 @@ package services
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="BusquedaService";
-			this.source="services.BusquedaService";
+			this.source="Administracion.BusquedaService";
 			
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
