@@ -9,9 +9,7 @@
 
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
-			import transferObjects.Usuario;
 			import mx.rpc.events.ResultEvent;
-			import administracion.UsuarioEditService;
 			
 			import flash.events.MouseEvent;
             import mx.events.FlexEvent;
@@ -21,31 +19,77 @@
 			import mx.core.Application;
 			
 			[Bindable]
-			private var cirugias:ArrayCollection;
+			private var cirugias:ArrayCollection = new ArrayCollection();
+			private var responsables:ArrayCollection = new ArrayCollection(["Claudio Bonati", "Patricio Castro"]);
+			
+			public function buscarCirugias():void{
+				cirugias.addItem({tipoCirugia:"Fractura", responsable:"Claudio Bonati", ayudante:"Patricio Castro", fecha: "09/09/2006", hora:"14:30", costo:"25000", diagnostico:"Reposo por 2 semanas", cliente:"16358963-K", mascota:"Martin"});
+				Tabla.dataProvider = cirugias;
+			}
+			
+			public function editarCirugia(event:Event):void{
+				var selectedRow:Object = event.currentTarget.selectedItem;
+				if(selectedRow.fecha != null){
+					Application.application.cliRegistro2.visible = true;
+					Application.application.cliRegistro2.nomMascota.text = selectedRow.mascota;
+					this.visible = false;
+					
+				}
+				else{
+					labelMessage.text = "Debe seleccionar un item de cirugía";
+				}
+			}
+			
+			public function consultarAccion(event:Event):void{
+				var selectedRow:Object = event.currentTarget.selectedItem;
+				
+				if(selectedRow.fecha != null){
+					editar.visible = true;
+				}
+				else{
+					editar.visible = false;
+				}
+			}
+			public function buscarCliente():void{
+			}
+			public function editarCirugiaB():void{
+				var selectedRow:Object = Tabla.selectedItem;
+				Application.application.cliRegistro2.visible = true;
+				Application.application.cliRegistro2.nomMascota.text = selectedRow.mascota;
+				this.visible = false;	
+			}
 					
 		]]>
 	</mx:Script>
-	<mx:DataGrid x="10" y="45" width="739" id="Tabla" enabled="true" height="303" dataProvider="{cirugias}">
+	<mx:DataGrid x="10" y="168" width="739" id="Tabla" enabled="true" height="183" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="editarCirugia(event)" itemClick="consultarAccion(event)" click="consultarAccion(event)">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Tipo Cirugía" dataField="tipoCirugia"/>
-			<mx:DataGridColumn headerText="Responsable" dataField="responsable"/>
-			<mx:DataGridColumn headerText="Ayudante" dataField="ayudante"/>
-			<mx:DataGridColumn headerText="Fecha" dataField="fecha" width="100"/>
-			<mx:DataGridColumn headerText="Hora" dataField="hora"/>
-			<mx:DataGridColumn headerText="Costo" dataField="costo" visible="false"/>
+			<mx:DataGridColumn headerText="Tipo Cirugía" dataField="tipoCirugia" width="80"/>
+			<mx:DataGridColumn headerText="Responsable" dataField="responsable" width="95"/>
+			<mx:DataGridColumn headerText="Ayudante" dataField="ayudante" width="95"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="fecha" width="75"/>
+			<mx:DataGridColumn headerText="Hora" dataField="hora" width="45"/>
+			<mx:DataGridColumn headerText="Costo" dataField="costo" width="55"/>
+			<mx:DataGridColumn headerText="Cliente" dataField="cliente" width="80"/>
+			<mx:DataGridColumn headerText="Mascota" dataField="mascota" width="60"/>
 			<mx:DataGridColumn headerText="Diagnostico" dataField="diagnostico"/>
-			<mx:DataGridColumn headerText="Cliente" dataField="cliente" visible="false"/>
-			<mx:DataGridColumn headerText="Mascota" dataField="mascota" visible="false"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Button label="Editar" height="23" width="102" x="537" y="393" cornerRadius="6"/>
-	<mx:Label x="10" y="10" text="Seleccionar Cirugía:" fontWeight="bold"/>
-	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button label="Editar" height="23" width="102" x="537" y="393" cornerRadius="6" visible="false" id="editar" click="editarCirugiaB()"/>
+	<mx:Button label="Buscar" height="23" width="102" x="647" y="115" cornerRadius="6" click="buscarCirugias()"/>
+	<mx:Label x="10" y="142" text="Seleccionar Cirugía:" fontWeight="bold"/>
+	<mx:Label x="10" y="10" text="Buscar Cirugía:" fontWeight="bold"/>
+	<mx:Label x="167" y="368" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="647" y="393" label="Cancelar" width="102" height="23" cornerRadius="6"/>
-	<mx:LinkButton x="582" y="8" label="&lt; Anterior"/>
-	<mx:LinkButton x="669" y="8" label="Posterior &gt;"/>
-	
+	<mx:Label x="78" y="38" text="Rut Cliente:" width="84"/>
+	<mx:Label x="281.25" y="38" text="-" width="14.75" textAlign="center"/>
+	<mx:TextInput  restrict="0-9" x="192.75" y="36" width="90.5" id="rutClienteInput" maxChars="9"/>
+	<mx:TextInput x="292.75" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente()"/>
+	<mx:Label x="78" y="66" text="Nombre Mascota:" width="106.75" height="22"/>
+	<mx:TextInput restrict="A-Z a-z -" x="192.75" y="64" width="119.5" id="nombreInput" maxChars="50"/>
+	<mx:Label x="428.25" y="36" text="Responsable:" width="106.75" height="22"/>
+	<mx:Label x="428.25" y="64" text="Fecha:" width="106.75" height="22"/>
+	<mx:DateField x="543" y="64" width="110"/>
+	<mx:ComboBox x="543" y="34" dataProvider="{responsables}">
+	</mx:ComboBox>
 
-
-	
 </mx:Panel>
