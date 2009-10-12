@@ -114,7 +114,7 @@
 			
 
 				
-                botonBusqueda.addEventListener(MouseEvent.CLICK,verBusqueda);
+              
                 
 				<!--Autor: Jimmy Muñoz{-->
 			
@@ -410,7 +410,10 @@
             	login2.setVisible(true,false);
             }
             
-            private function verBusqueda ( event:Event ):void{
+           
+            
+            private function mostrarBusqueda():void
+            {
             	setInvisible();
                 panelOpciones.setVisible(true,false);
             	busqueda2.setVisible(true,false);
@@ -766,7 +769,7 @@
 	<mx:Image x="275" y="10" width="76" height="70" source="../Simbolo.JPG" autoLoad="true"/>
 	<mx:Label x="10" y="10"  text="Hospital Veterinario" width="274" height="43" fontFamily="Arial" color="#0202CB" fontSize="27" fontWeight="bold" enabled="true"/>
 	<mx:Label x="30" y="47" text="Claudio Bonati" fontFamily="Arial" fontSize="27" color="#15AD8F" fontWeight="bold"/>
-	<mx:Button x="738" y="30" label="Búsqueda" width="100" height="50" icon="@Embed(source='../Search.png')" labelPlacement="bottom" fillAlphas="[0.6, 0.4, 0.75, 0.65]" id="botonBusqueda" enabled="false"/>
+	<mx:Button x="738" y="30" label="Búsqueda" width="100" height="50" icon="@Embed(source='../Search.png')" labelPlacement="bottom" fillAlphas="[0.6, 0.4, 0.75, 0.65]" enabled="false" click="mostrarBusqueda()" id="botonBusqueda"/>
 	<mx:Button enabled="false" x="170" y="104" label="Agenda" width="171" height="30" cornerRadius="4" id="botonAgenda" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
 	<mx:Button enabled="false" x="340" y="104" label="Clínica" width="171" height="30" cornerRadius="4" id="botonClinica" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
 	<mx:Button enabled="false" x="510" y="104" label="Peluquería" width="171" height="30" id="botonPeluqueria" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
