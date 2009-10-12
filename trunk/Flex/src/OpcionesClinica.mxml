@@ -3,7 +3,7 @@
 	<mx:Script>
 		<![CDATA[
 			import mx.core.Application;
-		
+
 			public function verRegistrarCirugia():void{
 				Application.application.setInvisible();
 				this.visible = true;
