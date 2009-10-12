@@ -44,7 +44,7 @@
  			<!--Autor: }Nicolas --> 
  				
  			<!--Autor: Esteban{ -->
- 			login2.AceptarUsuario.addEventListener(MouseEvent.CLICK,iniciarSesion);
+ 				login2.AceptarUsuario.addEventListener(MouseEvent.CLICK,iniciarSesion);
             	botonLogin.addEventListener(MouseEvent.CLICK, linkLogin);
             	login3.botonCerrarSesion.addEventListener(MouseEvent.CLICK,cerrarSesion);
             	login3.botonCancelar.addEventListener(MouseEvent.CLICK,cancelarCerrado);
