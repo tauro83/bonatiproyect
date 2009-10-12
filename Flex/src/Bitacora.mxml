@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Bitácora" borderColor="#15AD8F" initialize="getAllBitacoras()">
 	<mx:Script>
 		<![CDATA[
@@ -30,7 +30,7 @@
 		
 		 ]]>
  	</mx:Script>	
-	<mx:DataGrid id="bs" x="10" y="10" width="739" height="406" dataProvider="{bitacoras}">
+	<mx:DataGrid id="bs" x="10" y="10" width="739" height="406" dataProvider="{bitacoras}" selectable="false">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Usuario" dataField="usuario"/>
 			<mx:DataGridColumn headerText="Acción" dataField="accion"/>
