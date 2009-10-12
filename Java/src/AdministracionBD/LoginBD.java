@@ -48,16 +48,14 @@ public class LoginBD {
 	    	while(result.next())
 	    	{
 	    		usuario = new Usuario();
-	    		usuario.setContrasena(result.getString(1));
-	    		usuario.setUsuario(result.getString(2));
+	    		usuario.setContrasena(result.getString(2));
+	    		usuario.setUsuario(result.getString(1));
 	    	
 	    		String name = usuario.getUsuario();
 	    		String pass = usuario.getContrasena();
-	    		String passNew;
-	    		String nameNew;
-	    		passNew = pass.trim();
-	    		nameNew = name.trim();
-	    		if(passNew.equals(passLogin) && nameNew.equals(nameLogin)){
+	    		pass = pass.trim();
+	    		name = name.trim();
+	    		if(pass.equals(passLogin) && name.equals(nameLogin)){
 	    			return 1;
 	    		}
 	    	}
