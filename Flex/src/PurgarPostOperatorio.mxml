@@ -56,7 +56,7 @@
                 for (var i:int = 0; i < allRows; i++){
                     if (atenciones[i].sel)
                 	{
-                        deleteUsuario(atenciones[i].usuario);
+                        //deleteUsuario(atenciones[i].usuario);
                         atenciones.removeItemAt(i);
                         allRows = atenciones.length;
                         tablaAtenciones.dataProvider = atenciones;
