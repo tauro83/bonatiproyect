@@ -56,6 +56,11 @@
                 botonAgenda.addEventListener (MouseEvent.CLICK, manejadorClick2);
                 botonClinica.addEventListener (MouseEvent.CLICK, climanejadorClick);
 
+				<!--Autor:Camilo{-->
+				botonPeluqueria.addEventListener (MouseEvent.CLICK, verPanelPeluqueria);				
+				<!--Autor:Camilo}-->
+				
+				
                 <!--Autor:Andres{-->
                 /*opcionesClinica1.estadisticaClinicaLink.addEventListener(MouseEvent.CLICK,verGraficosClinicaMes);
                 opcionesClinica1.estadisticaYear.addEventListener(MouseEvent.CLICK,verGraficosClinicaYear); 
@@ -63,8 +68,7 @@
                 opcionesClinica1.estadisticaSemestre.addEventListener(MouseEvent.CLICK,verGraficosClinicaSemestre);  
                 opcionesClinica1.estadisticaTodas.addEventListener(MouseEvent.CLICK,verGraficosClinicaTodas);*/            
                 <!--Autor:Andres}-->
-                botonPeluqueria.addEventListener (MouseEvent.CLICK, pelmanejadorClick);
-				/*pelPanel1.PelNuevaAtencion.addEventListener(MouseEvent.CLICK,linkNuevaAtencion);
+               /*pelPanel1.PelNuevaAtencion.addEventListener(MouseEvent.CLICK,linkNuevaAtencion);
 				pelPanel1.PelNuevoCatalogo.addEventListener(MouseEvent.CLICK,linkNuevoCatalogo);
 				pelPanel1.PelVerCatalogo.addEventListener(MouseEvent.CLICK,linkVerCatalogo);
 				pelPanel1.PelEstadisitica.addEventListener(MouseEvent.CLICK,linkEstadistica);
@@ -215,12 +219,13 @@
             	
             }
 
-            public function setInvisible ():void{
-            	//camilo verdugo
+            public function setInvisible ():void
+            {
+            	peluqueria.setVisible(false,false);
             	verFicha.setVisible(false,false);
             	visualizarFicha.setVisible(false,false);
-            	
-            	
+            	panelPeluqueria.setVisible(false,false);
+            	graficosPeluqueria.setVisible(false,false);            	
             	panel2.setVisible(false,false);
                 panelOpciones.setVisible(false,false);
 				atenRealizadas2.setVisible(false,false);
@@ -379,13 +384,7 @@
             }
 
             
-            private function pelmanejadorClick ( event:Event ):void{
-            	//setInvisible();
-				//pelNewAtencion2.setVisible(true,false);
-                //pelPanel1.setVisible(true,false);
-            }
-            
-            private function manejadorClick2 ( event:Event ):void{	
+           private function manejadorClick2 ( event:Event ):void{	
             	//raullrich borrando labelMensaje 
             	agenda2.labelMessage.text="";
             	setInvisible();
@@ -421,6 +420,14 @@
             	panel2.setVisible(true,false);
             	AdmOpciones1.setVisible(true,false);
             }
+            //Camilo
+            private function verPanelPeluqueria( event:Event ):void
+            {
+            	setInvisible();
+            	peluqueria.setVisible(true,false);
+            	panelPeluqueria.setVisible(true,false);
+            }
+            
 
             //raullrich
             <!--Autor: Raúl López{-->
@@ -592,5 +599,15 @@
 	<ns1:EditarCirugia x="241" y="134" id="editarCirugia" visible="false">
 	</ns1:EditarCirugia>
 	<!--Autor: }Jimmy -->
+	
+	<!--Autor: Camilo{ -->
+	<ns1:PanelPeluqueria x="0" y="134" id="panelPeluqueria" visible="false">
+	</ns1:PanelPeluqueria>
+	<ns1:GraficosPeluqueria x="241" y="134" id="graficosPeluqueria" visible="false">
+	</ns1:GraficosPeluqueria>
+	<ns1:Peluqueria x="241" y="134" id="peluqueria" visible="false">
+	</ns1:Peluqueria>
+	<!--Autor: } Camilo -->
+	
 	
 </mx:Application>
