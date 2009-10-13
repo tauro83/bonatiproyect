@@ -272,7 +272,10 @@
             	//purgusuario.setVisible(false,false);
             	bitacoraEventos.setVisible(false,false);    
             	//raullrich
-            	editarCita.setVisible(false,false);
+				<!--Autor: Raul Lopez{-->
+				editarCita.setVisible(false,false);
+				panelEditaCLi.setVisible(false,false);
+				<!--Autor: }Raul Lopez -->
             	
             	<!--Erwin Díaz-->
             	elimusuario.setVisible(false,false);
