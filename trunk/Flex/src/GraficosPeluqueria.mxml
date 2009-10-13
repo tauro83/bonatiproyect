@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466" borderColor="#15AD8F">
+<!--
+//=======================================================================
+// FECHA CREACIÓN: 12 Octubre
+// AUTOR: Camilo Verdugo
+// Componente que tiene un grafico  y muestra las estadisticas de Peluqueria
+//=======================================================================
+-->
+	<mx:Script>
+		<![CDATA[
+		import mx.rpc.events.ResultEvent;
+	
+		[Bindable]private var testInfo:XMLList;
+		[Bindable]private var periodo:String;
+		[Bindable]private var dataSet:String = "set1";
+		[Bindable]private var titulo:String = "Estadísticas a la fecha para Clínica";
+		
+		private function xmlHandler(evt:ResultEvent):void{
+			//obtiene los objetos atencion desde el xml
+			testInfo = evt.result.atencion;
+		}
+		
+		private function changeData(dataSet:String):void{
+			//Determina que se set debe ser cargado
+			this.dataSet=dataSet;
+			switch (dataSet){
+				case ('set1'):
+					//Set URL target to pabellon
+					testData.url ="assets/"+periodo+"/pabellon.xml";
+					break;
+				case ('set2'):
+					//Set URL target to policlinico
+					testData.url ="assets/"+periodo+"/policlinico.xml";
+					break;
+				default:
+					break;
+			}
+			//Envia el URL Request para actualizar el grafico
+			testData.send();
+		}
+		public function setTipoDatos(periodo:String):void{
+			//Determina qué periodo es el que mostraremos en el chart
+			this.periodo=periodo;
+			if(periodo=="todas"){
+				this.titulo=this.titulo.substring(0,36)+"(todas)";
+			}
+			else{
+				if(periodo=="year"){
+					this.titulo=this.titulo.substring(0,36)+"(último año)";
+				}
+				else{
+					this.titulo=this.titulo.substring(0,36)+"(último "+periodo+")";
+				}
+			}
+			
+			changeData(dataSet);
+		}
+		
+		]]>
+	</mx:Script>
+	<!--Efectos para cuando un dato del grafico cambia-->
+	<mx:SeriesInterpolate id="changeEffect" duration="2000"/>
+	
+	<!--Carga el archivo url y XML y luego lo envia a la funcion xmlHandler en formato E4X-->
+	<mx:HTTPService url="assets/mes/pabellon.xml" id="testData" result="xmlHandler(event)" resultFormat="e4x"/>
+	
+	<mx:Panel horizontalAlign="center" title="{titulo}" width="779" height="466" borderColor="#15AD8F">
+		
+		<!--The Chart -->
+		<mx:ColumnChart dataProvider="{testInfo}" id="chartEstadisticaClinica"  height="254" width="540">
+			<mx:horizontalAxis>
+				<mx:CategoryAxis dataProvider="{testInfo}" categoryField="name"/>
+			</mx:horizontalAxis>
+			<mx:series>
+				<mx:ColumnSeries showDataEffect="{changeEffect}" xField="name" yField="sat" displayName="N° de atenciones realizadas"/>
+			</mx:series>
+		</mx:ColumnChart>
+		<mx:Legend horizontalAlign="center" dataProvider="{chartEstadisticaClinica}" width="200"/>
+		
+		<!--Display Controls-->
+		<mx:HBox height="30" horizontalAlign="center">
+			<mx:Button  label="Pabellón" click="changeData('set1')" toolTip="Presione para obtener estadísticas de pabellón"/>
+			<mx:Button label="Policlínico" click="changeData('set2')" toolTip="Presione para obtener estadísticas de policlínico"/>
+		</mx:HBox>
+		
+		<!--Legend for Chart Data-->
+		
+	</mx:Panel>
+</mx:VBox>

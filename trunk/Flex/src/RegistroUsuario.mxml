@@ -256,7 +256,7 @@
 				
 		]]>
 	</mx:Script> 
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="594" label="Volver" click="resetVars()" y="317"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="594" label="Cancelar" click="resetVars()" y="317"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="464" label="Registrar" click="registrar()" y="317" id="registrarUsuario"/>
 	<mx:TextInput x="155" y="19" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
 	<mx:TextInput x="155" y="63" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" id="apat" enabled="true" maxChars="20"/>	
