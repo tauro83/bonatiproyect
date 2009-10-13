@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" initialize="resetVars()" borderColor="#15AD8F"  >
+	
+		<mx:Script>
+		<![CDATA[
+			import administracion.UsuarioEditService;
+			import mx.events.ListEvent;
+		/*
+			import administracion.UsuarioEditService;
+			import mx.rpc.events.ResultEvent;
+			import services.usuarioServices;
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;   
+	    */
+	    	import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Usuario;
+			import transferObjects.Cliente;
+			import mx.rpc.events.ResultEvent;
+			import administracion.UsuarioEditService;
+			import administracion.ClienteEditService;
+			import administracion.EditClienteUpdate;
+			
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import mx.core.Application;
+			
+			[Bindable]
+			private var clientes:ArrayCollection;
+			//private var clientillo:ClienteService;
+			private var clienteAux:Cliente;
+			private var clienteAuxEditado:Cliente;
+			public var newCli2:EditClienteUpdate;
+			//var newCli2:EditClienteUpdate = Application.application.ediCliUp;
+		
+			public function editClientillo(clientillo:Cliente):void
+			
+			{
+					
+					var newCli2:EditClienteUpdate = Application.application.ediCliUp; 		
+				    var list1:Array= new Array();
+				    
+				    list1 = clientillo.nombre.split(" ",1);
+				 
+				    newCli2.nombre.text = list1.pop();
+				    
+				    list1 = clientillo.apellido.split(" ",1);
+				    newCli2.apellido.text = list1.pop();
+				    
+				    list1 = clientillo.apellido2.split(" ",1);
+				    newCli2.apellido2.text = list1.pop();
+				    
+				    list1 = clientillo.rut.split(" ",1);
+				    newCli2.rut.text = list1.pop();
+				    
+				    list1 = clientillo.rut2.split(" ",1);
+				    newCli2.rut2.text = list1.pop();
+				    
+				    list1 = clientillo.telefono.split(" ",1);
+				    newCli2.telefono.text= list1.pop();
+				    
+				    list1 = clientillo.telefono2.split(" ",1);
+				    newCli2.telefono2.text = list1.pop();
+				    
+				    list1 = clientillo.celular.split(" ",1);
+				    newCli2.celular.text = list1.pop();
+				    
+				    list1 = clientillo.celular2.split(" ",1);
+				    newCli2.celular2.text  = list1.pop();
+				    
+				    list1 = clientillo.direccion.split(" ",1);
+				    newCli2.direccion.text = list1.pop();
+				    
+				    list1 = clientillo.region.split(" ",1);
+				    newCli2.region.text = list1.pop();
+				    
+				    list1 = clientillo.comuna.split(" ",1);
+				    newCli2.comuna.text = list1.pop();
+				    
+				    list1 = clientillo.email.split(" ",1);
+				    newCli2.email.text = list1.pop();
+				    
+				    list1 = clientillo.email2.split(" ",1);
+				    newCli2.email2.text = list1.pop();
+
+					newCli2.carga(clientillo);
+					
+					this.setVisible(false,false);
+					newCli2.setVisible(true,false);
+
+			}
+	    
+		 public function getAllClientes():void
+			{
+				var personService:ClienteEditService = new ClienteEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllClientesEResult);
+				personService.getAllClientesE();
+				
+			}
+			
+			private function getAllClientesEResult(event:ResultEvent):void
+			{
+				clientes = event.result as ArrayCollection;
+				
+			}
+	    
+
+		
+		
+		private function ctm():void
+		{
+			var i:int;
+			var res:int=0;
+			var aux:int=0;
+			var ouput:String;
+			var list:Array  = new Array();
+			var list2:Array = new Array();
+			var nuevaRut:String;
+			var nuevaRut2:String;
+			getAllClientes();
+			//Alert.show("hola1 .."+clientes.length+"...");
+			for(i=0;i<clientes.length;i++)
+			{
+				list = clientes[i].rut.split(" ",1);
+				nuevaRut  = list.pop();
+				if(nuevaRut == rut.text.toString())
+				{
+					clienteAux = clientes[i] as Cliente;
+					res=1;
+					break;
+				}
+			}
+			if(res==1){
+				this.editClientillo(clienteAux);
+			}
+			else{
+				Alert.show("Cliente no se encuentra en Base de Datos");
+			}
+		 }
+		 
+		 public function resetVars():void
+			{
+				rut.text  = "";
+				rut2.text = "";
+				mensaje2.text = "";
+				
+
+			}
+		public function linkEditarCli2():void
+		{
+		   Application.application.setVisible();
+		   Application.application.panelEditaCLi.setVisible(true,false);
+		}
+
+		]]>
+	</mx:Script>
+	
+	<mx:Canvas y="35" height="46" cornerRadius="6" borderStyle="solid" borderColor="#FEFEFE" id="canvas2" width="738" x="11">
+	</mx:Canvas>
+	<mx:Label x="10" y="100" text="Rut:" width="97"/>
+	<mx:TextInput x="115" y="98" width="140" id="rut" enabled="true" maxChars="8"/>
+	<mx:TextInput x="280" y="98" width="36" id="rut2" enabled="true" enter="{ctm()}" maxChars="1"/>
+	<mx:Label x="258" y="100" text="-" textAlign="center"/>
+	<mx:Button x="403" y="98" label="Buscar" width="77" click="{ctm(),resetVars()}"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="mensaje2" textAlign="center" fontWeight="bold"/>
+	
+	
+</mx:Panel>
