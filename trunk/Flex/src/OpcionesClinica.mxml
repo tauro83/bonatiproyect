@@ -7,7 +7,7 @@
 			public function verRegistrarCirugia():void{
 				Application.application.setInvisible();
 				this.visible = true;
-				Application.application.cliRegistro2.visible = true;	
+				Application.application.addCirug.visible = true;	
 			}
 			public function verRegistrarPreOperatorio():void{
 				Application.application.setInvisible();
