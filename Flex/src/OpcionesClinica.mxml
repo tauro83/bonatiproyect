@@ -81,35 +81,35 @@
 	
 	<mx:Accordion x="0" y="0" width="100%" height="100%">
 		<mx:Canvas width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" label="Pabellón" backgroundColor="#FFFFFF">
-			<mx:Accordion width="100%" height="100%"  y="0" x="10">
+			<mx:Accordion width="192" height="100%"  y="0" x="27">
 				<mx:Canvas label="Pre-Operatorio" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
-					<mx:LinkButton x="10" y="10" label="Registrar" width="139" textAlign="left" id="PreOlink" click="verRegistrarPreOperatorio()"/>
-					<mx:LinkButton x="10" y="40" label="Editar"/>
-					<mx:LinkButton x="10" y="70" label="Eliminar" click="verEliminarPreoperatorio()"/>
-					<mx:LinkButton x="10" y="100" label="Purgar"/>
+					<mx:LinkButton x="50" y="10" label="Registrar" width="139" textAlign="left" id="PreOlink" click="verRegistrarPreOperatorio()"/>
+					<mx:LinkButton x="50" y="40" label="Editar"/>
+					<mx:LinkButton x="50" y="70" label="Eliminar" click="verEliminarPreoperatorio()"/>
+					<mx:LinkButton x="50" y="100" label="Purgar"/>
 				</mx:Canvas>
 				<mx:Canvas label="Cirugía" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
-					<mx:LinkButton x="10" y="10" label="Registrar" width="139" textAlign="left" id="cirugiaLink" click="verRegistrarCirugia()"/>
-					<mx:LinkButton x="10" y="40" label="Editar" width="139" textAlign="left" id="cirugiaLink0" click="verEditarCirugia()"/>
+					<mx:LinkButton x="50" y="10" label="Registrar" width="109" textAlign="left" id="cirugiaLink" click="verRegistrarCirugia()"/>
+					<mx:LinkButton x="50" y="40" label="Editar" width="109" textAlign="left" id="cirugiaLink0" click="verEditarCirugia()"/>
 				</mx:Canvas>
 				<mx:Canvas label="Post-Operatorio" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
-					<mx:LinkButton x="10" y="10" label="Registrar" width="139" textAlign="left" id="PostOLink" click="verRegistrarPostOperatorio()"/>
-					<mx:LinkButton x="10" y="40" label="Purgar" width="139" textAlign="left" id="purgarPostO" click="verPurgarPostOperatorio()"/>
+					<mx:LinkButton x="50" y="10" label="Registrar" width="114" textAlign="left" id="PostOLink" click="verRegistrarPostOperatorio()"/>
+					<mx:LinkButton x="50" y="40" label="Purgar" width="114" textAlign="left" id="purgarPostO" click="verPurgarPostOperatorio()"/>
 				
 				</mx:Canvas>
 			</mx:Accordion>
 		</mx:Canvas>
 		<mx:Canvas label="Policlínico" width="100%" height="100%">
-			<mx:LinkButton x="10" y="40" label="Buscar Atención" id="BuscaAtenLink" click= "verBuscarAtencion()"/>
-			<mx:LinkButton x="10" y="70" label="Buscar Categoria" id="BuscaVacunLink" click="verBuscarCategoria()"/>
-			<mx:LinkButton x="10" y="10" label="Nueva Atención" id="newAtenDomLink" click="verNuevaAtencion()"/>
+			<mx:LinkButton x="50" y="40" label="Buscar Atención" id="BuscaAtenLink" click= "verBuscarAtencion()"/>
+			<mx:LinkButton x="50" y="70" label="Buscar Categoria" id="BuscaVacunLink" click="verBuscarCategoria()"/>
+			<mx:LinkButton x="50" y="10" label="Nueva Atención" id="newAtenDomLink" click="verNuevaAtencion()"/>
 		</mx:Canvas>
 		<mx:Canvas label="Estadística" width="100%" height="100%">
-		    <mx:LinkButton x="10" y="10" label="Estadistica" id="estadisticaClinicaLink"/>
-			<mx:LinkButton x="10" y="70" label="Último semestre" id="estadisticaSemestre" click="verEstadisticaSemestre()"/>
-			<mx:LinkButton x="13" y="100" label="Último año" id="estadisticaYear" click="verEstadisticaAno()"/>
-			<mx:LinkButton x="13" y="130" label="Todas" id="estadisticaTodas" click="verEstadisticaTodas()"/>
-			<mx:LinkButton x="10" y="40" label="Último mes" id="estadisticaMes" click="verEstadisticaMes()"/>
+		    <mx:LinkButton x="50" y="10" label="Estadistica" id="estadisticaClinicaLink"/>
+			<mx:LinkButton x="50" y="70" label="Último semestre" id="estadisticaSemestre" click="verEstadisticaSemestre()"/>
+			<mx:LinkButton x="50" y="100" label="Último año" id="estadisticaYear" click="verEstadisticaAno()"/>
+			<mx:LinkButton x="50" y="130" label="Todas" id="estadisticaTodas" click="verEstadisticaTodas()"/>
+			<mx:LinkButton x="50" y="40" label="Último mes" id="estadisticaMes" click="verEstadisticaMes()"/>
 		</mx:Canvas>
 	    </mx:Accordion>
 		
