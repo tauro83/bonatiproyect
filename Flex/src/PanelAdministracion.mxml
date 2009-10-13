@@ -2,24 +2,24 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Opciones del módulo" borderColor="#15AD8F">
 	<mx:Accordion x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Cliente" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
-				<mx:LinkButton x="0" y="10" label="Registrar" textAlign="left" click="registrarCliente()"/>
-				<mx:LinkButton x="0" y="40" label="Editar" id="edCliente" textAlign="left"/>
-				<mx:LinkButton x="0" y="70" label="Eliminar" textAlign="left"/>	
+				<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="registrarCliente()" fontWeight="bold"/>
+				<mx:LinkButton x="50" y="40" label="Editar" id="edCliente" textAlign="left"/>
+				<mx:LinkButton x="50" y="70" label="Eliminar" textAlign="left"/>	
 		</mx:Canvas>
 		<mx:Canvas label="Mascota" width="100%" height="100%">
-			<mx:LinkButton x="0" y="10" label="Registrar" textAlign="left" click="registrarMascota()"/>
-			<mx:LinkButton x="0" y="40" label="Editar" id="linkEdicionMascotaAdm" textAlign="left"/>
+			<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="registrarMascota()"/>
+			<mx:LinkButton x="50" y="40" label="Editar" id="linkEdicionMascotaAdm" textAlign="left"/>
 		</mx:Canvas>
 		<mx:Canvas label="Ficha" width="100%" height="100%">
-			<mx:LinkButton x="0" y="10" label="Visualizar" textAlign="left" click="visualizarFicha()"/>
-			<mx:LinkButton x="0" y="40" label="Bitácora" textAlign="left" height="17" click="bitacoraFicha()"/>
+			<mx:LinkButton x="50" y="10" label="Visualizar" textAlign="left" click="visualizarFicha()"/>
+			<mx:LinkButton x="50" y="40" label="Bitácora" textAlign="left" height="17" click="bitacoraFicha()"/>
 			
 		</mx:Canvas>
 		<mx:Canvas label="Usuario" width="100%" height="100%">
-			<mx:LinkButton x="0" y="10" label="Registrar" textAlign="left" click="registrarUsuario()"/>
-			<mx:LinkButton x="0" y="40" label="Editar" id="linkEditarUsAd" click="editarUsuario()" width="66" textAlign="left"/>
-			<mx:LinkButton x="0" y="70" label="Eliminar" textAlign="left" click="eliminarUsuario()"/>
-			<mx:LinkButton x="0" y="100" label="Purgar" textAlign="left" id="linkPurgarUsAd" click="purgarUsuario()"/>
+			<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="registrarUsuario()"/>
+			<mx:LinkButton x="50" y="40" label="Editar" id="linkEditarUsAd" click="editarUsuario()" width="66" textAlign="left"/>
+			<mx:LinkButton x="50" y="70" label="Eliminar" textAlign="left" click="eliminarUsuario()"/>
+			<mx:LinkButton x="50" y="100" label="Purgar" textAlign="left" id="linkPurgarUsAd" click="purgarUsuario()"/>
 		</mx:Canvas>
 	</mx:Accordion>
 	 <mx:Script>
