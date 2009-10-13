@@ -75,7 +75,11 @@
            <source>Administracion.ClienteEditService</source>
         </properties>
 	</destination>
-
 	
+	<destination id="AddCirugiaService"> 
+  	 	<properties>
+  			<source>Pabellon.AddCirugiaService</source>
+  		</properties>
+  	</destination>
 
 </service>
