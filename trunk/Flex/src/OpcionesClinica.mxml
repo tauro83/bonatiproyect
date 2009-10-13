@@ -81,6 +81,8 @@
 				</mx:Canvas>
 				<mx:Canvas label="Post-Operatorio" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
 					<mx:LinkButton x="10" y="10" label="Registrar" width="139" textAlign="left" id="PostOLink" click="verRegistrarPostOperatorio()"/>
+					<mx:LinkButton x="10" y="40" label="Purgar" width="139" textAlign="left" id="purgarPostO" click="verRegistrarPostOperatorio()"/>
+				
 				</mx:Canvas>
 			</mx:Accordion>
 		</mx:Canvas>
