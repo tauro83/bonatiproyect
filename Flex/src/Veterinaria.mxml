@@ -90,6 +90,12 @@
             	pelPanel1.pelVerAtenciones.addEventListener(MouseEvent.CLICK,linkVerAtencionesPel);
 				*/
 
+				<!--Autor: Erwin -->
+				
+                opcionesClinica1.purgarPostO.addEventListener(MouseEvent.CLICK,purgarpostO);            
+				purgPost.cancelar.addEventListener(MouseEvent.CLICK,cancelarPost);
+
+                
                 <!--Autor: Raul Lopez{ -->
 				agenda2.ctm.addEventListener(MouseEvent.CLICK,editCita);
 				AdmOpciones1.edCliente.addEventListener(MouseEvent.CLICK,editarCliente);
@@ -198,8 +204,17 @@
 
            <!-- Nicolas-->
 
-          
-          
+          	<!-- Erwin-->
+          	private function cancelarPost ( event:Event ):void{
+            	setInvisible();
+               	opcionesClinica1.setVisible(true,false);
+            	PurgarPostOperatorio1.setVisible(true,false);
+            }
+            private function purgarpostO ( event:Event ):void{
+            	setInvisible();
+               	opcionesClinica1.setVisible(true,false);
+            	PurgarPostOperatorio1.setVisible(true,false);
+            }
             
             
            
@@ -273,6 +288,8 @@
             	elimusuario.setVisible(false,false);
             	elimficha.setVisible(false,false);
             	purgficha.setVisible(false,false);
+            	PurgarPostOperatorio1.setVisible(false,false);
+            	purgPost.setVisible(false,false);
             	
             	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
@@ -579,6 +596,11 @@
 	</ns1:ElimFicha>
 	<ns1:PurgFicha x="241" y="134" id="purgficha" visible="false" borderColor="#15AD8F">
 	</ns1:PurgFicha>
+	<ns1:PurgarPostOLista x="241" y="134" id="PurgarPostOperatorio1" visible="false" borderColor="#15AD8F">
+	</ns1:PurgarPostOLista>
+	<ns1:PurgarPostOperatorio x="241" y="134" id="purgPost" visible="false" borderColor="#15AD8F">
+	</ns1:PurgarPostOperatorio>
+	
 	
 	<mx:Image x="365" y="0" width="174" height="104" source="../fotos-animales-perros-peq.jpg" autoLoad="true"/>
 	<mx:TextArea x="0" y="0" width="366" height="104" borderStyle="none" fontFamily="Arial" editable="false" fontSize="27" fontWeight="bold" fontStyle="normal" backgroundColor="#FFFFFF" color="#0202CB" themeColor="#0060FF" borderColor="#FFFFFF" enabled="true" wordWrap="false"/>
