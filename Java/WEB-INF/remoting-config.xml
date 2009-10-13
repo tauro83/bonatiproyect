@@ -69,6 +69,12 @@
   			<source>Administracion.LoginService</source>
   		</properties>
   	</destination>
+	
+	<destination id="ClienteEditService">
+        <properties>
+           <source>Administracion.ClienteEditService</source>
+        </properties>
+	</destination>
 
 	
 
