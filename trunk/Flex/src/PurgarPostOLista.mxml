@@ -1,0 +1,109 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="updateTable()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Atención Post-Operatorio" x="241" y="133">
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 11 Octubre
+			// AUTOR: Erwin Díaz
+			// Comentarios: Muestra datos de la mascota con sus respectivas atenciones
+			// en post-operatorio
+			//=======================================================================
+		
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Mascota2;
+			import mx.rpc.events.ResultEvent;
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.core.Application;
+			
+			[Bindable]
+			private var atenciones:ArrayCollection;
+			
+			/**
+         	 * Función de prueba que llena el datagrgis sin necesidad de ir a la base de datos
+         	 * 
+         	 */	
+		    private function updateTable():void
+            {
+            	atenciones = new ArrayCollection;
+				atenciones.addItem({nomMascota:"lassie", razaMascota:"Pastor Collie", sexoMascota:"hembra", rut:"1234325", nombre:"Carlos", apellidoPaterno:"Moreno"});
+            	atenciones.addItem({nomMascota:"Bengie", razaMascota:"Golden Retriver", sexoMascota:"macho", rut:"83323122", nombre:"Jose", apellidoPaterno:"Errazuriz"});
+            	atenciones.addItem({nomMascota:"Balto", razaMascota:"Pastor Alemán", sexoMascota:"macho", rut:"93420012", nombre:"Miguel", apellidoPaterno:"Ponce"});
+            	atenciones.addItem({nomMascota:"Fabi", razaMascota:"Maltes", sexoMascota:"hembra", rut:"102231001", nombre:"Cristian", apellidoPaterno:"Arce"});
+            	Tabla.doubleClickEnabled=true;
+            	Tabla.dataProvider = atenciones;
+            	
+            }
+			/**
+			 * Es llamada al hacer doble click en el data grid o al presionar el 
+			 * botón visualizar, esta función llega al panel PurgarPostOperatorio de manera interna
+			 * sin necesidad de pasar por el panel Veterinaria
+			 * 
+			 */
+			public function editarAtencion():void
+			{
+				//Alert.show(Tabla.selectedItem);
+				
+				if(Tabla.selectedItem){					
+					var newPurgarPost:PurgarPostOperatorio = Application.application.purgPost;
+					var newMascota:Mascota2 = new Mascota2();
+					newMascota.nombre = Tabla.selectedItem.nomMascota;
+					newMascota.raza = Tabla.selectedItem.razaMascota
+					newMascota.sexo = Tabla.selectedItem.sexoMascota
+					newMascota.rut = Tabla.selectedItem.rut
+					newMascota.nombreDueno = Tabla.selectedItem.nombre
+					newMascota.apellidoPaterno = Tabla.selectedItem.apellidoPaterno
+					
+					
+					this.setVisible(false,false);
+					//var mascota:Mascota2 = atenciones.removeItemAt(Tabla.selectedIndex) as Mascota2;
+					newPurgarPost.resetVars();
+					newPurgarPost.nomMascota.text = newMascota.nombre;
+					newPurgarPost.razaMascota.text = newMascota.raza;
+					newPurgarPost.sexoMascota.text = newMascota.sexo;
+					newPurgarPost.rut.text = newMascota.rut;
+					newPurgarPost.nombre.text = newMascota.nombreDueno;
+					newPurgarPost.apellidoPaterno.text = newMascota.apellidoPaterno;
+					
+					newPurgarPost.setVisible(true,false);
+
+				}
+
+			}
+			/**
+			 * Al cancelar la operación se muestra un panel que solo tiene el 
+			 * mensaje "seleccione una opcion del menú"
+			 * 
+			 */
+			private function cancelando():void
+			{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:DataGrid x="10" y="45" width="739" id="Tabla" enabled="true" height="275" dataProvider="{atenciones}" itemDoubleClick="editarAtencion()">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre Mascota" dataField="nomMascota"/>
+			<mx:DataGridColumn headerText="Raza mascota" dataField="razaMascota" width="100"/>
+			<mx:DataGridColumn headerText="Sexo mascota" dataField="sexoMascota" width="100"/>
+			<mx:DataGridColumn headerText="Rut dueño" dataField="rut" width="80"/>
+			<mx:DataGridColumn headerText="Nombre dueño" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Apellido Paterno dueño" dataField="apellidoPaterno"/>
+			
+			
+	     </mx:columns>
+	</mx:DataGrid>
+	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="328" click="editarAtencion()" cornerRadius="6"/>
+	<mx:Label x="10" y="10" text="Seleccionar Mascota" fontWeight="bold"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="647" y="328" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
+	
+
+
+	
+</mx:Panel>
