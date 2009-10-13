@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*"> 
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*"> 
 
     <mx:Script>
         <![CDATA[        
@@ -662,8 +662,7 @@
 	</ns1:PanelNuevaAtencion>
 	<ns1:PanelNuevaAtencion2 x="241" y="134" id="cliNewAtention2" visible="false">
 	</ns1:PanelNuevaAtencion2>
-	<ns1:RegistroCirugia x="241" y="134" id="cliRegistro2" visible="false">
-	</ns1:RegistroCirugia>
+	
 	<ns1:RegistroPostOperatorio x="241" y="134" id="cliRegistroPO2" visible="false">
 	</ns1:RegistroPostOperatorio>
 	<ns1:RegistroPreOperatorio x="241" y="134" id="cliRegistroPreO2" visible="false">
@@ -782,4 +781,12 @@
 	</ns2:EditarUsuario>	
 	<ns1:Bitacora id="bitacora" x="241" y="134" visible="false">
 	</ns1:Bitacora> 
+	
+	<!--Autor: jimmy{ -->
+	<ns3:addCirugia x="240" y="133" visible="false" id="cliRegistro2">
+	</ns3:addCirugia>
+	<ns3:addCirugia1 x="240" y="133" id="addCirug" visible="false">
+	</ns3:addCirugia1>
+	<!--Autor: }Jimmy -->
+	
 </mx:Application>
