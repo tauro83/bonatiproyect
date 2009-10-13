@@ -289,6 +289,7 @@
          		<!--Autor: Sebastian{ -->
 		    	bitacora.setVisible(false,false);
 		    	agenda2.setVisible(false, false);
+		    	editarCirugia.setVisible(false, false);
 		 		<!--Autor: }Sebastian -->      
 		 		
 		 		
@@ -588,6 +589,8 @@
 	</ns3:addCirugia>
 	<ns3:addCirugia1 x="240" y="133" id="addCirug" visible="false">
 	</ns3:addCirugia1>
+	<ns1:EditarCirugia x="241" y="134" id="editarCirugia" visible="false">
+	</ns1:EditarCirugia>
 	<!--Autor: }Jimmy -->
 	
 </mx:Application>
