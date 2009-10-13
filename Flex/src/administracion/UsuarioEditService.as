@@ -1,3 +1,10 @@
+//=======================================================================
+// FECHA CREACIÓN:  28/09/2009
+// AUTOR: Jimmy Muñoz
+// …. Clase que conecta con capa 2
+//=======================================================================
+
+
 package administracion
 {
 	import mx.controls.Alert;
@@ -5,7 +12,7 @@ package administracion
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	
+		
 	import transferObjects.Usuario;
 
 	public class UsuarioEditService extends RemoteObject
