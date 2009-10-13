@@ -275,6 +275,7 @@
 				<!--Autor: Raul Lopez{-->
 				editarCita.setVisible(false,false);
 				panelEditaCLi.setVisible(false,false);
+				ediCliUp.setVisible(false,false);
 				<!--Autor: }Raul Lopez -->
             	
             	<!--Erwin Díaz-->
