@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Cirugía">
+	<mx:Label x="393.7" y="36" text="Nombre:" width="78"/>
+	<mx:Label x="393.7" y="10" text="Datos cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="9.95" y="10" text="Datos mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="393.7" y="62" text="Rut:" width="78"/>
+	<mx:Label x="9.95" y="88" text="Sexo:" width="78"/>
+	<mx:Label x="9.95" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="9.95" y="61.95" text="Raza:" width="78"/>
+	<mx:TextInput x="496.65" y="34" width="217.75" editable="false" id="cNom"/>
+	<mx:TextInput x="496.65" y="60" width="138.75" editable="false" height="20" id="cRut"/>
+	<mx:TextInput x="133.5" y="33.95" width="138.75" editable="false" height="20" id="mNom"/>
+	<mx:TextInput x="133.5" y="59.95" width="92.9" editable="false" height="20" id="mRaza"/>
+	<mx:TextInput x="133.5" y="87.95" width="92.9" editable="false" height="20" id="mSex"/>
+	<mx:Label x="10" y="141" text="Datos de Cirugía" width="110" fontWeight="bold"/>
+	<mx:Label x="10" y="219.05" text="Ayudante: " width="78"/>
+	<mx:Label x="10" y="167" text="Tipo:" width="63.4" height="17.931034"/>
+	<mx:Label x="10" y="193" text="Veterinario:" width="128"/>
+	<mx:Label x="10" y="245.05" text="Diagnostico:" width="97.95"/>
 	
 </mx:Panel>
