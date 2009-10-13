@@ -3,7 +3,7 @@
 	<mx:Accordion x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Cliente" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
 				<mx:LinkButton x="0" y="10" label="Registrar" textAlign="left" click="registrarCliente()"/>
-				<mx:LinkButton x="0" y="40" label="Editar" textAlign="left"/>
+				<mx:LinkButton x="0" y="40" label="Editar" id="edCliente" textAlign="left"/>
 				<mx:LinkButton x="0" y="70" label="Eliminar" textAlign="left"/>	
 		</mx:Canvas>
 		<mx:Canvas label="Mascota" width="100%" height="100%">

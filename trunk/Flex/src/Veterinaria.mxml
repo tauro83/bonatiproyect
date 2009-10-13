@@ -90,19 +90,17 @@
             	pelPanel1.pelVerAtenciones.addEventListener(MouseEvent.CLICK,linkVerAtencionesPel);
 				*/
 
-                //raullrich
-                editarCita.setVisible(false,false);
-				
-              
+                <!--Autor: Raul Lopez{ -->
+				agenda2.ctm.addEventListener(MouseEvent.CLICK,editCita);
+				AdmOpciones1.edCliente.addEventListener(MouseEvent.CLICK,editarCliente);
+				<!--Autor: }Raul Lopez --> 
 				
                 // Escucha por el evento click event en el botón.
                 
 				//hotelIngreso.IdVerRegistroHotel.addEventListener (MouseEvent.CLICK,visulizarRegHot);
                 AdmIngreso2.cancelarClienteIng.addEventListener(MouseEvent.CLICK, inicial);
 
-				//raullrich
-				agenda2.ctm.addEventListener(MouseEvent.CLICK,editCita);
-				
+
 				
             }
 
@@ -430,14 +428,24 @@
             
 
             //raullrich
-            <!--Autor: Raúl López{-->
-            private function editCita(event:Event):void
-            {
-               agenda2.labelMessage.text="";
-               setInvisible();
-               editarCita.setVisible(true,false);
-               menuAgenda1.setVisible(true, false);
-            }
+ 			<!--Autor: Raúl López{-->
+ 			private function editCita(event:Event):void
+ 			{
+   				 agenda2.labelMessage.text="";
+   				 setInvisible();
+    		     editarCita.setVisible(true,false);
+    		     menuAgenda1.setVisible(true, false);
+ 			}
+ 			<!--Autor: Raúl López{-->
+            
+ 			private function editarCliente(event:Event):void
+ 			{
+   				setInvisible();
+   				panelEditaCLi.mensaje2.text="";
+   				AdmOpciones1.setVisible(true,false);
+   				panelEditaCLi.setVisible(true,false);
+              
+ 			}
             <!--Autor: Raúl López{-->
         ]]>
 
@@ -599,6 +607,13 @@
 	<ns1:EditarCirugia x="241" y="134" id="editarCirugia" visible="false">
 	</ns1:EditarCirugia>
 	<!--Autor: }Jimmy -->
+	
+	<!--Autor: Raul Lopez{ -->
+	<ns2:EditarCliente x="241" y="134" id="panelEditaCLi" visible="false">
+	</ns2:EditarCliente>
+	<ns2:EditClienteUpdate x="241" y="134" id="ediCliUp" visible="false">
+	</ns2:EditClienteUpdate>
+	<!--Autor: }Raul Lopez -->
 	
 	<!--Autor: Camilo{ -->
 	<ns1:PanelPeluqueria x="0" y="134" id="panelPeluqueria" visible="false">

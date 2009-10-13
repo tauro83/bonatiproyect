@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F">
+	
+	<mx:Script>
+		<![CDATA[
+		
+			//=======================================================================
+			// FECHA: CREACIÓN: 28 Septiembre
+			// AUTOR: Raul Lopez
+			// Comentarios: Formulario y validacion de la edicion de un cliente en el sistema.
+			//=======================================================================
+		
+			import mx.events.FlexMouseEvent;
+			import mx.controls.Text;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import services.ClienteService;
+			import services.Validacion;
+			import transferObjects.Cliente;
+		  
+			private var vUsuario:Boolean;
+			private var vNombre:Boolean;
+			private var vContrasena:Boolean;
+			private var vRContrasena:Boolean;
+			
+			private var u1:Cliente;
+			private var clienteAuxEditado:Cliente;
+			private var verdadero:Boolean=false;
+            import mx.core.Application;
+			
+			public function resetVars():void
+			{
+				nombre.text	    = "";
+				apellido.text	= "";
+				apellido2.text	= "";					
+				rut.text 		= "";
+				rut2.text 		= "";
+				telefono.text 	= "";	
+				telefono2.text 	= "";	
+				celular.text    = "";
+				celular2.text   = "";
+				direccion.text  = "";
+				region.text     = "";
+				comuna.text     = "";		
+				email.text      = "";
+				email2.text     = "";
+				//mens.text		= "";
+
+			}
+			
+			public function carga(clienteSelec:Cliente):void
+			{       //asigno el cliente entregado desde panel EditarCliente
+				    clienteAuxEditado = clienteSelec;
+					var person:Cliente= new Cliente();
+					
+					person.nombre    = clienteSelec.nombre;
+					person.apellido  = clienteSelec.apellido;
+					person.apellido2 = clienteSelec.apellido2;
+					person.rut       = clienteSelec.rut;
+					person.rut2 	 = clienteSelec.rut2;
+					person.telefono  = clienteSelec.telefono;
+					person.telefono2 = clienteSelec.telefono2;
+					person.celular   = clienteSelec.celular;
+					person.celular2  = clienteSelec.celular2;
+					person.direccion = clienteSelec.direccion;
+					person.region    = clienteSelec.region;
+					person.comuna    = clienteSelec.comuna;
+					person.email     = clienteSelec.email;
+					person.email2    = clienteSelec.email2;	
+			}
+			
+			public function verificaEdicion():void
+			{
+			   if(iniListener2()==true){
+			      clienteModificado();
+			      carga1();
+			   }
+			   else{
+			     mensaje.text = "No ha ingresado información en todos los campos";
+			   }
+			}
+			public function clienteModificado():void
+			{
+					//Alert.show("CREANDO OBJECT");
+					clienteAuxEditado.nombre    = nombre.text;
+					clienteAuxEditado.apellido  = apellido.text;
+					clienteAuxEditado.apellido2 = apellido2.text;
+					clienteAuxEditado.rut       = rut.text;
+					clienteAuxEditado.rut2 	 	= rut2.text;
+					clienteAuxEditado.telefono  = telefono.text;
+					clienteAuxEditado.telefono2 = telefono2.text;
+					clienteAuxEditado.celular   = celular.text;
+					clienteAuxEditado.celular2  = celular2.text;
+					clienteAuxEditado.direccion = direccion.text;
+					clienteAuxEditado.region    = region.text;
+					clienteAuxEditado.comuna    = comuna.text;
+					clienteAuxEditado.email     = email.text;
+					clienteAuxEditado.email2    = email2.text;	
+			}
+			
+			public function carga1():void
+			{
+			  var auxiliar:ClienteEditService = new ClienteEditService();
+			  auxiliar.addEventListener(ResultEvent.RESULT,carga1Result);
+			  auxiliar.insertClienteE(clienteAuxEditado);
+			  resetVars();
+			  //mensaje.text = "Sus cambios se realziaron con éxito";
+			  Application.application.ediCliUp.setVisible(false,false);
+			  Application.application.panelEditaCLi.mensaje2.text="Sus cambios se realizaron con éxito";
+			  Application.application.panelEditaCLi.setVisible(true,false);
+			 
+			}
+			public function carga1Result(event:ResultEvent):void
+			{
+			   var res:int;
+			   res = event.result as int;
+			   if(res > 0)
+			   {
+			      //Alert.show("ok");
+			   }
+			   else
+			   {
+			     // Alert.show("no");
+			   }
+			}
+		 	 private function iniListener():void
+			{
+				nombre.addEventListener(KeyboardEvent.KEY_UP,validarNombre);
+				email2.addEventListener(KeyboardEvent.KEY_UP,validarEmail);
+				apellido.addEventListener(KeyboardEvent.KEY_UP,validarApaterno);
+				apellido2.addEventListener(KeyboardEvent.KEY_UP,validarAmaterno);
+				direccion.addEventListener(KeyboardEvent.KEY_UP,validarDirec);
+				
+				
+			}
+			private function iniListener2():Boolean
+			{
+				var aux:Boolean=false;
+				if(nombre.text== "" || apellido.text== "" || apellido2.text== "" || rut.text== "" || rut2.text== "" || telefono.text== "" ||
+				   telefono2.text== "" || celular.text== "" || celular2.text== "" || direccion.text== "" || region.text== "" ||
+				   comuna.text == "" || email.text== "" || email2.text== ""){
+				   if(Validacion.longitudMinima(nombre.text)&& Validacion.longitudMinima(apellido.text) && Validacion.longitudMinima(apellido2.text) &&
+				      Validacion.longitudMinima(apellido2.text) && Validacion.longitudMinima(direccion.text)){
+				     aux=false;
+				   }
+				   
+				}
+				
+				else{
+				  aux = true;
+				}
+				return aux;
+				
+			}
+		
+		  	private function validarNombre(event:Event):void
+			{
+				if(Validacion.longitudMinima(nombre.text))
+				{
+					mensaje.text="";
+					
+				}
+				else
+				{
+					mensaje.text="Ingrese un nombre mas largo";
+					
+				}	
+		  	}
+		  
+		  	private function validarEmail(event:Event):void
+		  	{
+				if(email.text == email2.text){
+					mensaje.text = "";	
+					
+				}
+				else{
+					mensaje.text = "Los email no coinciden, ingreselos nuevamente";
+				}
+			}
+		
+			private function validarApaterno(event:Event):void
+			{
+				if(Validacion.longitudMinima(apellido.text))
+				{
+					mensaje.text="";
+					
+				}
+				else
+				{
+					mensaje.text="Ingrese un Apellido mas largo";
+				}	
+			}//clienteModificado(), carga1()
+			private function validarAmaterno(event:Event):void
+			{
+				if(Validacion.longitudMinima(apellido2.text))
+				{
+					mensaje.text="";
+					
+				}
+				else
+				{
+					mensaje.text="Ingrese un Apellido mas largo";
+				}	
+			}
+			private function validarDirec(event:Event):void
+			{
+				if(Validacion.longitudMinima(direccion.text))
+				{
+					mensaje.text="";
+					
+				}
+				else
+				{
+					mensaje.text="Ingrese una Dirección más larga";
+				}	
+			}
+			public function cancela():void
+			{
+			    
+			  Application.application.ediCliUp.setVisible(false,false);
+			  Application.application.panelEditaCLi.mensaje2.text="Usted ha cancelado la edición de datos";
+			  Application.application.panelEditaCLi.setVisible(true,false);
+			}
+			
+		]]>
+	</mx:Script> 
+	
+	
+	<mx:Label x="20" y="30" text="Nombre:" width="97" />
+	<mx:TextInput restrict="A-Z a-z - ´"   x="125" y="28" width="201" id="nombre"  click="{iniListener()}" enabled="true"  maxChars="12"/>
+	<mx:Label x="20" y="79" text="Apellido Paterno:" width="112" />
+	<mx:TextInput  x="125" y="77" width="201" id="apellido" click="{iniListener()}" enabled="true" maxChars="12"/>
+	<mx:Label x="20" y="128" text="Apellido Materno:" width="112" />
+	<mx:TextInput  x="125" y="126" width="201" id="apellido2" click="{iniListener()}" enabled="true" maxChars="12"/>
+	<mx:Label x="20" y="177" text="Rut:" width="97"/>
+	<mx:TextInput x="125" y="175" width="140" id="rut" enabled="false" maxChars="8"/>
+	<mx:Label x="169" y="275" text="-" textAlign="center"/>
+	<mx:TextInput x="290" y="175" width="36" id="rut2" enabled="false" maxChars="1"/>
+	<mx:Label x="20" y="226" text="Teléfono Fijo:" width="97"/>
+	<mx:TextInput  x="125" y="224" width="40" id="telefono" enabled="true" maxChars="3"/>
+	<mx:Label x="268" y="177" text="-" textAlign="center"/>
+	<mx:TextInput  x="190" y="224" width="136" id="telefono2" enabled="true" maxChars="10"/>
+	<mx:Label x="20" y="275" text="Celular:" width="97"/>
+	<mx:TextInput  x="125" y="273" width="40" id="celular" enabled="true" maxChars="2"/>
+	<mx:Label x="169" y="226" text="-" textAlign="center"/>
+	<mx:TextInput  x="190" y="273" width="136" id="celular2" enabled="true" maxChars="10"/>
+	<mx:Label x="413" y="30" text="Dirección:" width="97"/>
+	<mx:TextInput x="540" y="28" width="201" id="direccion" click="{iniListener()}" enabled="true" maxChars="20"/>
+	<mx:Label x="413" y="79" text="Región:" width="112"/>
+	<mx:ComboBox x="540" y="77" width="201" id="region">
+	<mx:dataProvider>
+	<mx:Array>
+	<mx:String>---</mx:String>
+	<mx:String>Tarapaca</mx:String>
+	<mx:String>Antofagasta</mx:String>
+	<mx:String>Atacama</mx:String>
+	<mx:String>Coquimbo</mx:String>
+	<mx:String>Valparaiso</mx:String>
+	<mx:String>Libertador Bernardo O´higgins</mx:String>
+	<mx:String>Maule</mx:String>
+	<mx:String>Bio-Bio</mx:String>
+	<mx:String>Araucanía</mx:String>
+	<mx:String>De Los Lagos</mx:String>
+	</mx:Array>
+	</mx:dataProvider>	
+	</mx:ComboBox>
+	<mx:Label x="413" y="128" text="Comuna:" width="112"/>
+	<mx:ComboBox x="540" y="126" width="201" id="comuna">
+	<mx:Array>
+	<mx:String>---</mx:String>
+	<mx:String>Curico</mx:String>
+	<mx:String>Talca</mx:String>
+	<mx:String>Linares</mx:String>
+	<mx:String>Teno</mx:String>
+	<mx:String>Romeral</mx:String>
+	<mx:String>Molina</mx:String>
+	</mx:Array>		
+	</mx:ComboBox>
+	<mx:Label x="413" y="177" text="E-Mail:" width="97"/>
+	<mx:TextInput x="539" y="175" width="201" id="email" enabled="true" maxChars="20"/>
+	<mx:Label x="413" y="226" text="Confirmación E-mail:" width="132"/>
+	<mx:TextInput x="539" y="224" width="201" id="email2" click="{iniListener()}" enabled="true" maxChars="20"/>
+	<mx:Button x="557" y="302" width="102" label="Cancelar" id="cancelarClienteIng" click="cancela()" height="23" cornerRadius="6">
+	</mx:Button>
+	<mx:Button x="413" y="302" width="102" label="Guardar" id="guardaEditCliente" click="{verificaEdicion()}" height="23" cornerRadius="6">
+	</mx:Button>
+	<mx:Label x="165" y="362" width="407" height="17" id="mensaje" textAlign="center" fontWeight="bold"/>
+	
+	
+</mx:Panel>
