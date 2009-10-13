@@ -553,7 +553,7 @@
 
 
 
-        <ns1:EditarCita x="241" y="134" id="editarCita" visible="false">
+       <ns1:EditarCita x="241" y="134" id="editarCita" visible="false">
 	</ns1:EditarCita>
 
 
@@ -572,6 +572,13 @@
 	<ns1:GraficosClinica x="241" y="134" id="graficosClinica1" visible="false">
 	</ns1:GraficosClinica>
 	<!--Autor: andres}-->
+
+	<!--Autor: nicolas}-->
+
+      <ns1:EliminarPreoperatorio x="241" y="134" visible="false" id="eliminarPreO">
+	</ns1:EliminarPreoperatorio>
+	
+	<!--Autor: }nicolas-->
 	
 	<!--Autor: Esteban{ -->
 	<ns1:LoginIniciar x="241" y="134" id="login2" visible="true" borderColor="#15AD8F">
