@@ -42,14 +42,7 @@ package services
 			this.channelSet=channel;
 			this.destination="AddUsuario";
 			this.source="Administracion.AddUsuario";			
-			//this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
-		
-		
-//		private function faultHandler(event:FaultEvent):void
-//		{
-//		}
-		
 		
 		/**
 		 * @author "Camilo Verdugo"

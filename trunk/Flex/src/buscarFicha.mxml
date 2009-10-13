@@ -4,6 +4,11 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllFichas()" layout="absolute" borderColor="#15AD8F" width="779" height="466" title="Visualizar Ficha" >
 	<mx:Script>		
 		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 5 Octubre
+			// AUTOR: Camilo Verdugo
+			// Muestra los datos de todas las fichas del sistema
+			//=======================================================================
 			import transferObjects.Mascota;
 			import mx.controls.List;
 			import mx.events.ListEvent; 			
@@ -19,30 +24,40 @@
 			private var verFicha:VisualizarFicha;
 			[Bindable]		
 			private var mascotas:ArrayCollection;
-			//private var atenciones:ArrayCollection;
 			
-			
-			//Metodo que es llamdo al iniciar el componente. Se encarga de solicitar al as las mascotas
-			//que estan registradas en el sistema, de tal forma que permita su seleccion posterior				
+						
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  5 Octubre
+			 *  @Descripcion Metodo que es llamdo al iniciar el componente. Se encarga de solicitar 
+			 *  al as las mascotas que estan registradas en el sistema, de tal forma que permita su seleccion posterior
+			 * */
 			public function getAllFichas():void
 			{				
-				//mascotas = this.getAllMascotasResult();
 				listFichas = new ListarFichasService();
 				listFichas.getMascotas();	
 				listFichas.addEventListener(ResultEvent.RESULT,getAllMascotasR);
 							
 			}
 			
-			//El resultado del metodo anterior y del retorno de as es recibido por este metodo
-			//El cual asigna la lista de mascotas obtenidas                        
+			
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  5 Octubre
+			 *  @Descripcion El resultado del metodo anterior y del retorno de as es recibido por este metodo
+			 *  El cual asigna la lista de mascotas obtenidas.
+			 * */                   
             public function getAllMascotasR(event:ResultEvent):void
             {
 				mascotas = event.result as ArrayCollection;	
             }
            
-            //Metodo que es llamado por la accion del boton visualizar y mediante la selccion directa
-            // se encarga de hacer el llamado al otro panel de tal forma que se muestren los datos
-            //de la mascota nueva
+            /**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  5 Octubre
+			 *  @Descripcion Metodo que es llamado por la accion del boton visualizar y mediante la selccion directa
+			 *  se encarga de hacer el llamado al otro panel de tal forma que se muestren los datos de la mascota nueva
+			 * */ 
             public function viewFicha(event:Event):void
             {
             	if(fichas.selectedItem){
@@ -52,13 +67,23 @@
             	}
             
             }
-          	//Metodo que es llamado desde Veterinaria.mxml el cual obtiene el componente en el cual
-          	//Se cargan los datos de la ficha
+          	
+          	 /**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  5 Octubre
+			 *  @Descripcion Metodo que es llamado desde Veterinaria.mxml el cual obtiene el componente en el cual
+			 *  Se cargan los datos de la ficha
+			 * */ 
             public function setVisualizarFicha(verFicha:VisualizarFicha):void
             {
             	this.verFicha = verFicha;               	
             }
             
+            /**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  5 Octubre
+			 *  @Descripcion Metodo que retorna al panel anterior
+			 * */
             private function cancelarBuscar():void
             {
             	Application.application.setInvisible();
@@ -79,7 +104,7 @@
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="534" y="364" label="Visualizar" id="botonVerficha"  click="viewFicha(event)" width="102"/>
-	<mx:Button x="644" y="364" label="Cancelar"  toolTip="Cancela la operación" width="102" click="cancelarBuscar()"/>
+	<mx:Button x="644" y="364" label="Volver"  toolTip="Cancela la operación" width="102" click="cancelarBuscar()"/>
 	<mx:Label x="10" y="12" text="Seleccione la mascota" fontWeight="bold"/>
 	<mx:Label x="158" y="394" width="407" height="17" id="labelMessage" textAlign="center"/>
 </mx:Panel>

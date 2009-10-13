@@ -4,6 +4,11 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779" height="466" title="Visualizar Ficha" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 5 Octubre
+			// AUTOR: Camilo Verdugo
+			// Muestra los datos de una ficha su dueño y las atenciones
+			//=======================================================================
 			import services.GetCliente;
 			import transferObjects.Mascota;
 			import transferObjects.Cliente; 
@@ -26,9 +31,12 @@
          	[Bindable]
          	private var atenciones:ArrayCollection;
          	
-         	
-         	//Metodo que asigna la mascota obtenida del listado de mascotas
-         	// Ademas se encarga de solicitar los datos de su dueño y las atenciones realizadas
+         	/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  5 Octubre
+			 *  @Descripcion Metodo que asigna la mascota obtenida del listado de mascotas
+			 *  ademas se encarga de solicitar los datos de su dueño y las atenciones realizadas
+			 * */
          	public function setDatos(mascota:Mascota):void{
          		this.mascota = mascota;
          		
@@ -44,8 +52,12 @@
          		this.getMascota();
          	}
 	
-			//Metodo que asigna los valores del cliente retornado del as
-			//Los valores son asignados directamente en el componente luego de su retorno
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  5 Octubre
+			 *  @Descripcion Metodo que asigna los valores del cliente retornado del as
+			 *  Los valores son asignados directamente en el componente luego de su retorno
+			 * */		
 			public function getClienteR(event:ResultEvent):void{
 				var cliente:Cliente = event.result as Cliente;
 				this.cNom.text = cliente.nombre;
@@ -54,13 +66,21 @@
 				this.cTel.text = cliente.telefono;			
 				
 			}
-			//Metodo que recibe las atenciones que fueron enviadas del as
-			//Estas son asignadas a la lista de atenciones.
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  5 Octubre
+			 *  @Descripcion Metodo que recibe las atenciones que fueron enviadas del as
+			 *  Estas son asignadas a la lista de atenciones.
+			 * */	
 			public function getAtencionesR(event:ResultEvent):void{
 				atenciones = event.result as ArrayCollection;	
 						
 			}
-			//Asigna los datos de la mascota seleccionada a los campos de la ficha
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  5 Octubre
+			 *  @Descripcion Asigna los datos de la mascota seleccionada a los campos de la ficha
+			 * */
 			public function getMascota():void
 			{
 				this.mNom.text = mascota.nombre;
@@ -70,6 +90,11 @@
             	this.mSex.text = mascota.sexo;
 			}
 			
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  5 Octubre
+			 *  @Descripcion Retorna el panel anterior
+			 * */
 			public function cancelarVisulizar():void
 			{
 				Application.application.verFicha.setVisible(false,false);
@@ -108,6 +133,6 @@
 	<mx:TextInput x="517.25" y="87.9" width="92.9" editable="false" height="20" id="mSex"/>
 	<mx:TextInput x="517.25" y="112" width="92.9" editable="false" height="20" id="mFNa"/>
 	<mx:Label x="187" y="383" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="615.15" label="Cancelar" y="366.25" click="cancelarVisulizar()"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="615.15" label="Volver" y="366.25" click="cancelarVisulizar()"/>
 	
 </mx:Panel>
