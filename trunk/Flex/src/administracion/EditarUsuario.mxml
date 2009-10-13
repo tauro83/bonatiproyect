@@ -54,7 +54,7 @@
 					newUsuario.contrasena = Tabla.selectedItem.contrasena;
 					
 					this.setVisible(false,false);
-					var user:Usuario = usuarios.removeItemAt(Tabla.selectedIndex) as Usuario;
+					//var user:Usuario = usuarios.removeItemAt(Tabla.selectedIndex) as Usuario;
 					newRegUsuar.resetVars();
 					newRegUsuar.serv.text=newUsuario.servicio;
 					newRegUsuar.carg.text=newUsuario.cargo;
@@ -85,6 +85,9 @@
 					
 					newRegUsuar.setVisible(true,false);
 
+				}
+				else{
+					this.labelMessage.text="Seleccione un Usuario para editar.";
 				}
 
 			}
