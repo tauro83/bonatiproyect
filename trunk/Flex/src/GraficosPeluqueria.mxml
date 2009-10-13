@@ -12,51 +12,49 @@
 		import mx.rpc.events.ResultEvent;
 	
 		[Bindable]private var testInfo:XMLList;
-		[Bindable]private var periodo:String;
+		[Bindable]private var periodo:String = "mes";
 		[Bindable]private var dataSet:String = "set1";
-		[Bindable]private var titulo:String = "Estadísticas a la fecha para Clínica";
+		[Bindable]private var titulo:String = "Estadísticas a la fecha para Peluqueria";
 		
 		private function xmlHandler(evt:ResultEvent):void{
-			//obtiene los objetos atencion desde el xml
 			testInfo = evt.result.atencion;
 		}
 		
-		private function changeData(dataSet:String):void{
+		public function changeData(dataSet:String):void{
 			//Determina que se set debe ser cargado
 			this.dataSet=dataSet;
 			switch (dataSet){
 				case ('set1'):
-					//Set URL target to pabellon
-					testData.url ="assets/"+periodo+"/pabellon.xml";
+					testData.url ="assets/"+"mes"+"/peluqueria.xml";
 					break;
 				case ('set2'):
-					//Set URL target to policlinico
-					testData.url ="assets/"+periodo+"/policlinico.xml";
+					testData.url ="assets/"+"semestre"+"/peluqueria.xml";
+					break;
+				case ('set3'):
+					testData.url ="assets/"+"year"+"/peluqueria.xml";
 					break;
 				default:
 					break;
 			}
-			//Envia el URL Request para actualizar el grafico
 			testData.send();
 		}
-		public function setTipoDatos(periodo:String):void{
-			//Determina qué periodo es el que mostraremos en el chart
-			this.periodo=periodo;
-			if(periodo=="todas"){
-				this.titulo=this.titulo.substring(0,36)+"(todas)";
-			}
-			else{
-				if(periodo=="year"){
-					this.titulo=this.titulo.substring(0,36)+"(último año)";
-				}
-				else{
-					this.titulo=this.titulo.substring(0,36)+"(último "+periodo+")";
-				}
-			}
-			
-			changeData(dataSet);
-		}
-		
+//		public function setTipoDatos(periodo:String):void{
+//			this.periodo=periodo;
+//			if(periodo=="todas"){
+//				this.titulo=this.titulo.substring(0,36)+"(todas)";
+//			}
+//			else{
+//				if(periodo=="year"){
+//					this.titulo=this.titulo.substring(0,36)+"(último año)";
+//				}
+//				else{
+//					this.titulo=this.titulo.substring(0,36)+"(último "+periodo+")";
+//				}
+//			}
+//			
+//			changeData(dataSet);
+//		}
+//		
 		]]>
 	</mx:Script>
 	<!--Efectos para cuando un dato del grafico cambia-->
@@ -66,7 +64,6 @@
 	<mx:HTTPService url="assets/mes/pabellon.xml" id="testData" result="xmlHandler(event)" resultFormat="e4x"/>
 	
 	<mx:Panel horizontalAlign="center" title="{titulo}" width="779" height="466" borderColor="#15AD8F">
-		
 		<!--The Chart -->
 		<mx:ColumnChart dataProvider="{testInfo}" id="chartEstadisticaClinica"  height="254" width="540">
 			<mx:horizontalAxis>
@@ -77,14 +74,11 @@
 			</mx:series>
 		</mx:ColumnChart>
 		<mx:Legend horizontalAlign="center" dataProvider="{chartEstadisticaClinica}" width="200"/>
-		
-		<!--Display Controls-->
 		<mx:HBox height="30" horizontalAlign="center">
-			<mx:Button  label="Pabellón" click="changeData('set1')" toolTip="Presione para obtener estadísticas de pabellón"/>
-			<mx:Button label="Policlínico" click="changeData('set2')" toolTip="Presione para obtener estadísticas de policlínico"/>
+			<!--<mx:Button label="Corte" click="changeData('set1')"/>		
+			<mx:Button label="Baño" click="changeData('set2')" />
+			<mx:Button label="Pedicura" click="changeData('set3')" /> -->
 		</mx:HBox>
-		
-		<!--Legend for Chart Data-->
 		
 	</mx:Panel>
 </mx:VBox>
