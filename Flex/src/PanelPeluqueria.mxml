@@ -3,8 +3,8 @@
 	<mx:Accordion x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Estadísticas" width="100%" height="100%">
 			<mx:LinkButton x="0" y="10" label="Último mes" click="estadisticasMes()" textAlign="left"/>
-			<mx:LinkButton x="0" y="40" label="Último semestre" width="147" textAlign="left"/>
-			<mx:LinkButton x="0" y="70" label="Último año" textAlign="left"/>
+			<mx:LinkButton x="0" y="40" label="Último semestre" click="estadisticasSemestre()" width="147" textAlign="left"/>
+			<mx:LinkButton x="0" y="70" label="Último año" click="estadisticasAnio()" textAlign="left"/>
 		</mx:Canvas>
 	</mx:Accordion>
 	 <mx:Script>
@@ -16,6 +16,21 @@
          	Application.application.setInvisible();
          	this.visible = true;
          	Application.application.graficosPeluqueria.visible = true;
+         	Application.application.graficosPeluqueria.changeData('set1');
+         }
+         private function estadisticasSemestre():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.graficosPeluqueria.visible = true;
+         	Application.application.graficosPeluqueria.changeData('set2');
+         }
+         private function estadisticasAnio():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.graficosPeluqueria.visible = true;
+         	Application.application.graficosPeluqueria.changeData('set3');
          }
          
 

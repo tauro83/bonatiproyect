@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scores>
+	<atencion>
+		<name>Corte</name>
+		<sat>100</sat>
+	</atencion>
+	<atencion>
+		<name>Baño</name>
+		<sat>200</sat>
+	</atencion>
+	<atencion>
+		<name>Pedicura</name>
+		<sat>300</sat>
+	</atencion>
+</scores>
