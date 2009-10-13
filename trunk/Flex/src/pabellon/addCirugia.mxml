@@ -1,21 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Cirugía">
-	<mx:Label x="393.7" y="36" text="Nombre:" width="78"/>
-	<mx:Label x="393.7" y="10" text="Datos cliente" width="97" fontWeight="bold"/>
-	<mx:Label x="9.95" y="10" text="Datos mascota" width="98" fontWeight="bold"/>
-	<mx:Label x="393.7" y="62" text="Rut:" width="78"/>
-	<mx:Label x="9.95" y="88" text="Sexo:" width="78"/>
-	<mx:Label x="9.95" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
-	<mx:Label x="9.95" y="61.95" text="Raza:" width="78"/>
-	<mx:TextInput x="496.65" y="34" width="217.75" editable="false" id="cNom"/>
-	<mx:TextInput x="496.65" y="60" width="138.75" editable="false" height="20" id="cRut"/>
-	<mx:TextInput x="133.5" y="33.95" width="138.75" editable="false" height="20" id="mNom"/>
-	<mx:TextInput x="133.5" y="59.95" width="92.9" editable="false" height="20" id="mRaza"/>
-	<mx:TextInput x="133.5" y="87.95" width="92.9" editable="false" height="20" id="mSex"/>
-	<mx:Label x="10" y="141" text="Datos de Cirugía" width="110" fontWeight="bold"/>
-	<mx:Label x="10" y="219.05" text="Ayudante: " width="78"/>
-	<mx:Label x="10" y="167" text="Tipo:" width="63.4" height="17.931034"/>
-	<mx:Label x="10" y="193" text="Veterinario:" width="128"/>
-	<mx:Label x="10" y="245.05" text="Diagnostico:" width="97.95"/>
+	<mx:Script>
+        <![CDATA[
+        	import services.AddMascotaService;
+        	import mx.controls.DateField;
+        	import mx.controls.Alert;
+            import mx.collections.ArrayCollection;
+        	import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.ValidationResultEvent;            
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
+		    import mx.rpc.events.ResultEvent;
+
+			import mx.controls.Image;
+			import services.MascotaService;
+		    import transferObjects.Mascota;
+		    import services.PersonService;
+		    import transferObjects.Person;
+		    import transferObjects.Cirugia;
+		    import mx.core.Application;
+		   
+			
+			[Bindable]
+			public var veterinarios2:ArrayCollection;
+			[Bindable]
+			public var ayudantes2:ArrayCollection;
+		    
+		    
+		    public function vuelve():void
+		    {
+		    	this.setVisible(false,false);
+		    	Application.application.addCirug.labelMessage.text="";
+		    	Application.application.addCirug.setVisible(true,false);
+		    }
+		    
+		    public function registrarCiru():void{
+		    	
+		    }
+				
+        ]]>
+    </mx:Script>
+	
+	
+	
+	
+	<mx:Label x="330.5" y="36" text="Nombre:" width="78"/>
+	<mx:Label x="330.5" y="10" text="Cliente:" width="109" fontWeight="bold"/>
+	<mx:Label x="9.95" y="10" text="Mascota:" width="127" fontWeight="bold"/>
+	<mx:Label x="330.5" y="62" text="Rut:" width="78"/>
+	<mx:Label x="24.55" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="24.55" y="117.85" text="Raza:" width="78"/>
+	<mx:TextInput x="433.45" y="34" width="142.6" editable="false" id="CliNomC"/>
+	<mx:TextInput x="433.45" y="64" width="90.35" editable="false" height="20" id="cliRutC"/>
+	<mx:TextInput x="133.5" y="33.95" width="138.75" editable="false" height="20" id="mascNomC"/>
+	<mx:TextInput x="133.55" y="115.85" width="92.9" editable="false" height="20" id="MascRazaC"/>
+	<mx:Label x="10" y="141" text="Cirugía:" width="110" fontWeight="bold"/>
+	<mx:Label x="24.55" y="230" text="Ayudante: " width="78"/>
+	<mx:Label x="24.55" y="167" text="Tipo:" width="63.4" height="17.931034"/>
+	<mx:Label x="24.55" y="199" text="Veterinario:" width="100.45"/>
+	<mx:Label x="330.5" y="167" text="Diagnostico:" width="97.95"/>
+	<mx:Label x="24.55" y="260" text="Fecha: " width="78"/>
+	<mx:Label x="24.55" y="290" text="Hora:" width="78"/>
+	<mx:Label x="24.55" y="318" text="Costo:" width="63.4"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="550.25" y="369" label="Registrar" visible="true" id="registrar" click="registrarCiru()"/>
+	<mx:Button x="640.25" y="369" label="Cancelar" width="84" id="cancelar" visible="true" click="vuelve()"/>
+	<mx:TextInput x="133" y="165" width="120.25" id="tipoC"/>
+	<mx:ComboBox x="133" y="197" id="veterinariosC" dataProvider="{veterinarios2}" width="120.25"></mx:ComboBox>
+	<mx:DateField x="133" y="258" width="120.25" id="fechaC"/>
+	<mx:TextInput x="133" y="288" width="104" id="horaC" restrict="0-9 : 0-9" maxChars="5"/>
+	<mx:TextInput x="133" y="316" width="104" id="costoC" restrict="0-9"/>
+	<mx:TextArea x="436.45" y="166" width="287.80002" height="195" id="diagC"/>
+	<mx:Label x="526.8" y="66" text="-" width="12.25"/>
+	<mx:TextInput x="539.05" y="64" width="19.5" id="cliRut2" restrict="K k 0-9" editable="false"/>
+	<mx:ComboBox x="133" y="228" dataProvider="{ayudantes2}" width="120.25" id="ayudantesC"></mx:ComboBox>
+	<mx:Label x="24.55" y="91.8" text="Sexo:" width="78"/>
+	<mx:Label x="24.55" y="63.85" text="Tipo:" width="87.4"/>
+	<mx:TextInput x="133.55" y="89.8" width="92.9" editable="false" height="20" id="mascSexC"/>
+	<mx:TextInput x="133.55" y="61.85" width="93.4" id="mascClase" editable="false"/>
 	
 </mx:Panel>
+	
+	
+
