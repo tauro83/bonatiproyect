@@ -164,7 +164,7 @@
 				if(result>0)
 				{
 				   this.getAllUsuarios();
-				   newRegUsuar.setVisible(false,false);
+				   Application.application.AdEditarUsuar3.setVisible(false,false);//newRegUsuar.
 				   this.setVisible(true,false);
 				   labelMessage.text="Ususario editado!";
 				}
