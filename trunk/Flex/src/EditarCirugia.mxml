@@ -127,39 +127,41 @@
 	</mx:Canvas>
 	
 	<mx:Canvas x="0" y="0" width="759" height="426" visible="false" id="edicion">
-		<mx:Label x="330.5" y="36" text="Nombre:" width="78"/>
-		<mx:Label x="330.5" y="10" text="Cliente:" width="109" fontWeight="bold"/>
 		<mx:Label x="9.95" y="10" text="Mascota:" width="127" fontWeight="bold"/>
-		<mx:Label x="330.5" y="62" text="Rut:" width="78"/>
 		<mx:Label x="24.55" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
-		<mx:Label x="24.55" y="117.85" text="Raza:" width="78"/>
-		<mx:TextInput x="433.45" y="34" width="142.6" editable="false" id="CliNomC" enabled="false"/>
-		<mx:TextInput x="433.45" y="64" width="90.35" editable="false" height="20" id="cliRutC" enabled="false"/>
 		<mx:TextInput x="133.5" y="33.95" width="138.75" editable="false" height="20" id="mascNomC" enabled="false"/>
-		<mx:TextInput x="133.55" y="115.85" width="92.9" editable="false" height="20" id="MascRazaC" enabled="false"/>
-		<mx:Label x="526.8" y="66" text="-" width="12.25"/>
-		<mx:TextInput x="539.05" y="64" width="19.5" id="cliRut2" restrict="K k 0-9" editable="false" enabled="false"/>
-		<mx:Label x="24.55" y="91.8" text="Sexo:" width="78"/>
-		<mx:Label x="24.55" y="63.85" text="Tipo:" width="87.4"/>
-		<mx:TextInput x="133.55" y="89.8" width="92.9" editable="false" height="20" id="mascSexC" enabled="false"/>
+		<mx:Button x="585" y="394" label="Guardar" visible="true" id="registrar" click="volver(0)"/>
+		<mx:Button x="665" y="394" label="Cancelar" width="84" id="cancelar" visible="true" click="volver(1)"/>
+		<mx:Label x="376.5" y="166" text="Diagnóstico:" width="81.9"/>
+			<mx:Label x="24.55" y="63.85" text="Especie:" width="87.4"/>
 		<mx:TextInput x="133.55" y="61.85" width="93.4" id="mascClase" editable="false" enabled="false"/>
-		<mx:Label x="10" y="141" text="Cirugía:" width="110" fontWeight="bold"/>
-		<mx:Label x="330.5" y="141" text="Nuevo Diagnóstico:" width="123" fontWeight="bold"/>
-		<mx:Label x="24.55" y="230" text="Ayudante: " width="78"/>
-		<mx:Label x="24.55" y="167" text="Tipo:" width="63.4" height="17.931034"/>
-		<mx:Label x="24.55" y="199" text="Veterinario:" width="100.45"/>
-		<mx:Label x="330.5" y="167" text="Diagnostico:" width="97.95"/>
-		<mx:Label x="24.55" y="260" text="Fecha: " width="78"/>
-		<mx:Label x="24.55" y="290" text="Hora:" width="78"/>
-		<mx:Label x="24.55" y="318" text="Costo:" width="63.4"/>
-		<mx:Button x="560.25" y="369" label="Guardar" visible="true" id="registrar" click="volver(0)"/>
-		<mx:Button x="640.25" y="369" label="Cancelar" width="84" id="cancelar" visible="true" click="volver(1)"/>
-		<mx:TextInput x="133" y="165" width="120.25" id="tipoC" enabled="false"/>
-		<mx:ComboBox x="133" y="197" id="veterinariosC" width="120.25"></mx:ComboBox>
-		<mx:DateField x="133" y="258" width="120.25" id="fechaC"/>
-		<mx:TextInput x="133" y="288" width="104" id="horaC" restrict="0-9 : 0-9" maxChars="5"/>
-		<mx:TextInput x="133" y="316" width="104" id="costoC" restrict="0-9" enabled="false"/>
-		<mx:TextArea x="436.45" y="166" width="287.80002" height="195" id="diagC"/>
-		<mx:ComboBox x="133" y="228" width="120.25" id="ayudantesC"></mx:ComboBox>
+		<mx:Label x="373.5" y="36" text="Nombre:" width="71.95"/>
+		<mx:Label x="359.45" y="10" text="Cliente:" width="109" fontWeight="bold"/>
+		<mx:Label x="373.5" y="66" text="Rut:" width="71.95"/>
+		<mx:TextInput x="459.6" y="36" width="165.6" editable="false" id="CliNomC" enabled="false"/>
+		<mx:TextInput x="459.6" y="66" width="113.35" editable="false" height="20" id="cliRutC" enabled="false"/>
+		<mx:Label x="575.95" y="68" text="-" width="12.25"/>
+		<mx:TextInput x="588.2" y="66" width="19.5" id="cliRut2" restrict="K k 0-9" editable="false" enabled="false"/>
+		<mx:Label x="10" y="102" text="Cirugía:" width="110" fontWeight="bold"/>
+		<mx:Label x="24.55" y="161" text="Ayudante: " width="78"/>
+		<mx:Label x="24.55" y="217" text="Cirugía:" width="63.4" height="17.931034"/>
+		<mx:Label x="24.55" y="130" text="Responsable:" width="100.45"/>
+		<mx:Label x="24.55" y="191" text="Fecha: " width="78"/>
+		<mx:ComboBox x="133" y="128" id="veterinariosC" width="139.25" enabled="false"></mx:ComboBox>
+		<mx:DateField x="133" y="189" width="120.25" id="fechaC"/>
+		<mx:ComboBox x="133" y="159" width="139.25" id="ayudantesC" editable="false" enabled="false"></mx:ComboBox>
+		<mx:DataGrid x="133" y="249" height="112" width="220.25" id="tabCirs">
+			<mx:columns>
+				<mx:DataGridColumn headerText="Cirugías" dataField="cirugias"/>
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:ComboBox x="133" y="219" width="158.25" id="cirugiasBox"></mx:ComboBox>
+		<mx:Label x="373.5" y="130" text="Costo:" width="63.4"/>
+		<mx:TextInput x="459.45" y="128" width="104" id="costoC" restrict="0-9" enabled="false"/>
+		<mx:TextArea x="459.45" y="166" width="289.55" height="195" id="diagC"/>
+		<mx:Label x="9.95" y="10" text="Mascota:" width="127" fontWeight="bold"/>
+		<mx:Label x="24.55" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
+		<mx:TextInput x="133.5" y="33.95" width="138.75" editable="false" height="20" id="mascNomC0" enabled="false"/>
 	</mx:Canvas>
+
 </mx:Panel>
