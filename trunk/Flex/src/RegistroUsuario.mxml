@@ -18,6 +18,7 @@
 			import services.Validacion;
 			import transferObjects.Usuario;
 			import mx.core.Application;
+			import services.Mensajes;
 			private var vUsuario:Boolean;
 			private var vNombre:Boolean;
 			private var vContrasena:Boolean;
@@ -57,7 +58,7 @@
 				}
 				else
 				{
-					mens.text = "Corrija los datos antes de registrar";
+					mens.text = Mensajes.getMensajeError(0);
 				}			
 			}
 			
@@ -69,7 +70,7 @@
 			 * 	o regitrar satisfactoriamente a un usuario.		 		
 			 * */
 			public function resetVars():void
-			{
+			{				
 				nomb.text 		= "";
 				amat.text 		= "";
 				apat.text		= "";					
@@ -108,7 +109,7 @@
 				{
 					
 					vNombre		= false;
-					mens.text = "Ingrese un nombre más largo";
+					mens.text = Mensajes.getMensajeError(1);
 				}	
 			}
 			
@@ -127,7 +128,7 @@
 				else
 				{
 					vUsuario	= false;
-					mens.text = "Ingrese un nombre de usuario más largo";
+					mens.text = Mensajes.getMensajeError(2);
 				}
 				
 			}
@@ -147,7 +148,7 @@
 				else
 				{
 					vContrasena	= false;
-					mens.text = "Ingrese una contraseña sin espacios en blanco y más larga";
+					mens.text =Mensajes.getMensajeError(3);
 				}	
 				
 			}
@@ -167,7 +168,7 @@
 				else
 				{
 					vRContrasena = false;	
-					mens.text = "Ingrese una contraseña que coincida con la anterior";			
+					mens.text = Mensajes.getMensajeError(4);		
 				}
 			}
 			
@@ -219,7 +220,7 @@
 				else
 				{
 					vApaterno = false;	
-					mens.text = "Ingrese un apellido paterno más largo";			
+					mens.text =Mensajes.getMensajeError(5);			
 				}
 			}
 			
@@ -238,7 +239,7 @@
 				 	resetVars(); 					
     		 	}
 				else{
-					msj = "Usuario previamente registrado, elija otro nombre de usuario"; 				
+					msj = Mensajes.getMensajeError(6);				
 				}		
 				mens.text = msj;	
 			}	
