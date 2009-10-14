@@ -82,4 +82,10 @@
   		</properties>
   	</destination>
 
+  	<destination id="ClienteElimPurgService"> 
+  	 	<properties>
+  			<source>Administracion.ClienteElimPurgService</source>
+  		</properties>
+  	</destination>
+
 </service>
