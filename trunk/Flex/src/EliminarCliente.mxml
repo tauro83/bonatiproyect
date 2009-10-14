@@ -17,6 +17,7 @@
 			import transferObjects.Cliente; 
 			import mx.rpc.events.ResultEvent;
 			import mx.events.CloseEvent;
+			import mx.core.Application;
 			 
 			import flash.events.MouseEvent;
             import mx.events.FlexEvent;
@@ -36,7 +37,7 @@
 	 *  @Descripcion Metodo que consulta todos los registros de clientes en la base de datos
 	 
 	 	**/ 
-			private function cargarClientes():void
+			public function cargarClientes():void
 			{
 			    var clienteEliminadoService: ClienteEliminadoService = new ClienteEliminadoService();
 				clienteEliminadoService.addEventListener(ResultEvent.RESULT,getClientesResult);
@@ -69,6 +70,8 @@
 				{
 				   labelMessage.text = "Cliente eliminado";
 				}
+				Application.application.purgarCliente.cargarClientesEliminados();
+				Activar();
 			}
 				
 			
@@ -100,7 +103,7 @@
              *@Descripcion Borra columna de la tabla
              * */
            	private function deleteRow():void {
-			 Alert.show("Está seguro que desea eliminar usuario ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			 Alert.show("Está seguro que desea eliminar Cliente ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
 			}
             
           /**
@@ -177,9 +180,9 @@
 		]]> 
   	</mx:Script>	
 	
-	<mx:DataGrid x="10" y="74" width="739" height="206" id="tablaClientes" dataProvider="{clientes}" click="Activar()">
+	<mx:DataGrid x="10" y="74" width="739" height="245" id="tablaClientes" dataProvider="{clientes}" click="Activar()">
 		<mx:columns>
-			<mx:DataGridColumn width="20" headerText="" dataField="checkBox" id="checkBox" >
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" >
 			 	<mx:itemRenderer>
                         <mx:Component>
                             <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
@@ -198,12 +201,11 @@
 			</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Button x="577" y="301" enabled="false" label="Eliminar" id="eliminarCliente" click="{deleteRow()}"  toolTip="Elimina el o los clientes seleccionados"/>
-	<mx:Button x="674" y="301" label="Cancelar" id="cancelar" toolTip="Cancela la operación"/>
+	<mx:Button x="577" y="342" enabled="false" label="Eliminar" id="eliminarCliente" click="{deleteRow()}"  toolTip="Elimina el o los clientes seleccionados"/>
+	<mx:Button x="674" y="342" label="Cancelar" id="cancelar" toolTip="Cancela la operación"/>
 	<mx:CheckBox x="10" y="48" id="todo" click="{seleccionarTodo()}"/>
 	<mx:Label x="32" y="48" text="Seleccionar todo"/>
 	<mx:TextInput x="59" y="10" id="texImput"/>
 
 	<mx:Label x="10" y="12" text="Buscar"/>
-	<mx:Button x="59" y="316" label="Actualizar" click="cargarClientes()"/>
 </mx:Panel>
