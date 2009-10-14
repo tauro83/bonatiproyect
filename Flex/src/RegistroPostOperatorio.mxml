@@ -99,7 +99,7 @@
 	<mx:TextArea x="196" y="150" width="496" height="155" id="indicacionMed"/>
 	<mx:TextArea x="499" y="107" height="19" width="186" id="alimentoRecetado"/>
 	<mx:TextArea x="499" y="70" height="19" width="186" id="medRecetado"/>
-	<ns1:botonInterno x="572" y="374" label="Agregar Ficha" id="agregarPostOperatorio"/>	
+	<ns1:botonInterno x="572" y="374" label="Registrar Ficha" id="agregarPostOperatorio"/>	
 	<mx:DateField x="499" y="31" width="142"/>
 </mx:Panel>
 
