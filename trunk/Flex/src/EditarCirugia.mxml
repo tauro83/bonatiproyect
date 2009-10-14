@@ -10,7 +10,6 @@
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.rpc.events.ResultEvent;
-			
 			import flash.events.MouseEvent;
             import mx.events.FlexEvent;
             import mx.rpc.events.ResultEvent;
@@ -22,17 +21,23 @@
 			private var cirugias:ArrayCollection = new ArrayCollection();
 			private var responsables:ArrayCollection = new ArrayCollection(["Claudio Bonati", "Patricio Castro"]);
 			
+			//Funcion que busca las cirugias para retornarlas a la tabla
 			public function buscarCirugias():void{
 				cirugias.addItem({tipoCirugia:"Fractura", responsable:"Claudio Bonati", ayudante:"Patricio Castro", fecha: "09/09/2006", hora:"14:30", costo:"25000", diagnostico:"Reposo por 2 semanas", cliente:"16358963-K", mascota:"Martin"});
 				Tabla.dataProvider = cirugias;
 			}
 			
+			// Funcion que llena datos del componente registro para luego editarlo
 			public function editarCirugia(event:Event):void{
 				var selectedRow:Object = event.currentTarget.selectedItem;
+				var sakdm:String = new String();
 				if(selectedRow.fecha != null){
-					Application.application.cliRegistro2.visible = true;
-					Application.application.cliRegistro2.nomMascota.text = selectedRow.mascota;
-					this.visible = false;
+					//Application.application.addCirug.visible = true;
+					//Application.application.addCirug.rutClienteInput.text = selectedRow.cliente.split("-",1);
+					//this.visible = false;
+					busqueda.visible = false;
+					edicion.visible = true;
+					labelMessage.text = "Ingrese el nuevo diagnóstico";
 					
 				}
 				else{
@@ -40,6 +45,7 @@
 				}
 			}
 			
+			// Funcion que consulta si el item de la tabla seleccionada contiene un objeto
 			public function consultarAccion(event:Event):void{
 				var selectedRow:Object = event.currentTarget.selectedItem;
 				
@@ -50,46 +56,110 @@
 					editar.visible = false;
 				}
 			}
+			public function volver(i:int):void{
+				busqueda.visible = true;
+				edicion.visible = false;
+				if(i==0){
+					labelMessage.text = "Se ha agregado el nuevo diagnóstico";
+				}
+				else{
+					labelMessage.text = "";
+				}
+			}
+			// Funcion que busca cliente
 			public function buscarCliente():void{
 			}
+			
+			// Funcion que edita cirugia a traves del boton 
 			public function editarCirugiaB():void{
 				var selectedRow:Object = Tabla.selectedItem;
-				Application.application.cliRegistro2.visible = true;
-				Application.application.cliRegistro2.nomMascota.text = selectedRow.mascota;
-				this.visible = false;	
+				//Application.application.addCirug.visible = true;
+				//Application.application.addCirug.rutClienteInput.text = selectedRow.cliente.split("-",1);
+				//this.visible = false;	
+				busqueda.visible = false;
+				edicion.visible = true;
+				labelMessage.text = "Ingrese el nuevo diagnóstico";
 			}
 					
 		]]>
 	</mx:Script>
+	<mx:Label x="167" y="368" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	
+	<!-- Tabla de Cirugias encontradas -->
+	<mx:Canvas x="0" y="0" width="759" height="426" visible="true" id="busqueda">
 	<mx:DataGrid x="10" y="168" width="739" id="Tabla" enabled="true" height="183" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="editarCirugia(event)" itemClick="consultarAccion(event)" click="consultarAccion(event)">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Tipo Cirugía" dataField="tipoCirugia" width="80"/>
+			<mx:DataGridColumn headerText="Cirugía" dataField="tipoCirugia" width="80"/>
 			<mx:DataGridColumn headerText="Responsable" dataField="responsable" width="95"/>
-			<mx:DataGridColumn headerText="Ayudante" dataField="ayudante" width="95"/>
+			<mx:DataGridColumn headerText="Ayudante" dataField="ayudante" width="95" visible="false"/>
 			<mx:DataGridColumn headerText="Fecha" dataField="fecha" width="75"/>
 			<mx:DataGridColumn headerText="Hora" dataField="hora" width="45"/>
-			<mx:DataGridColumn headerText="Costo" dataField="costo" width="55"/>
+			<mx:DataGridColumn headerText="Costo" dataField="costo" width="55" visible="false"/>
 			<mx:DataGridColumn headerText="Cliente" dataField="cliente" width="80"/>
 			<mx:DataGridColumn headerText="Mascota" dataField="mascota" width="60"/>
-			<mx:DataGridColumn headerText="Diagnostico" dataField="diagnostico"/>
+			<mx:DataGridColumn headerText="Diagnóstico" dataField="diagnostico" visible="false"/>
 		</mx:columns>
 	</mx:DataGrid>
+	
+	<!-- Botones -->
+	
 	<mx:Button label="Editar" height="23" width="102" x="537" y="393" cornerRadius="6" visible="false" id="editar" click="editarCirugiaB()"/>
 	<mx:Button label="Buscar" height="23" width="102" x="647" y="115" cornerRadius="6" click="buscarCirugias()"/>
-	<mx:Label x="10" y="142" text="Seleccionar Cirugía:" fontWeight="bold"/>
-	<mx:Label x="10" y="10" text="Buscar Cirugía:" fontWeight="bold"/>
-	<mx:Label x="167" y="368" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Button x="647" y="393" label="Cancelar" width="102" height="23" cornerRadius="6"/>
-	<mx:Label x="78" y="38" text="Rut Cliente:" width="84"/>
-	<mx:Label x="281.25" y="38" text="-" width="14.75" textAlign="center"/>
-	<mx:TextInput  restrict="0-9" x="192.75" y="36" width="90.5" id="rutClienteInput" maxChars="9"/>
-	<mx:TextInput x="292.75" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente()"/>
-	<mx:Label x="78" y="66" text="Nombre Mascota:" width="106.75" height="22"/>
-	<mx:TextInput restrict="A-Z a-z -" x="192.75" y="64" width="119.5" id="nombreInput" maxChars="50"/>
-	<mx:Label x="428.25" y="36" text="Responsable:" width="106.75" height="22"/>
-	<mx:Label x="428.25" y="64" text="Fecha:" width="106.75" height="22"/>
-	<mx:DateField x="543" y="64" width="110"/>
-	<mx:ComboBox x="543" y="34" dataProvider="{responsables}">
-	</mx:ComboBox>
 
+	<!-- Datos de Busqueda -->
+	
+	<mx:Label x="10" y="142" text="Seleccionar Cirugía:" fontWeight="bold"/>
+	<mx:Label x="10" y="10" text="Cliente:" fontWeight="bold"/>
+	<mx:Label x="335" y="12" text="Otros datos:" fontWeight="bold"/>
+	<mx:Label x="10" y="68" text="Mascota:" fontWeight="bold"/>
+	<mx:Button x="647" y="393" label="Cancelar" width="102" height="23" cornerRadius="6"/>
+	<mx:Label x="42" y="38" text="Rut:" width="55.75"/>
+	<mx:Label x="224.25" y="40" text="-" width="14.75" textAlign="center"/>
+	<mx:TextInput  restrict="0-9" x="135.75" y="38" width="90.5" id="rutClienteInput" maxChars="9"/>
+	<mx:TextInput x="235.75" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente()"/>
+	<mx:Label x="43.25" y="96" text="Nombre:" width="55.75" height="22"/>
+	<mx:TextInput restrict="A-Z a-z -" x="135" y="94" width="119.5" id="nombreInput" maxChars="50"/>
+	<mx:Label x="358" y="38" text="Responsable:" width="93" height="22"/>
+	<mx:Label x="358" y="94" text="Fecha:" width="55.75" height="22"/>
+	<mx:DateField x="459" y="92" width="139"/>
+	<mx:ComboBox x="459" y="36" dataProvider="{responsables}" width="139">
+	</mx:ComboBox>
+	</mx:Canvas>
+	
+	<mx:Canvas x="0" y="0" width="759" height="426" visible="false" id="edicion">
+		<mx:Label x="330.5" y="36" text="Nombre:" width="78"/>
+		<mx:Label x="330.5" y="10" text="Cliente:" width="109" fontWeight="bold"/>
+		<mx:Label x="9.95" y="10" text="Mascota:" width="127" fontWeight="bold"/>
+		<mx:Label x="330.5" y="62" text="Rut:" width="78"/>
+		<mx:Label x="24.55" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
+		<mx:Label x="24.55" y="117.85" text="Raza:" width="78"/>
+		<mx:TextInput x="433.45" y="34" width="142.6" editable="false" id="CliNomC" enabled="false"/>
+		<mx:TextInput x="433.45" y="64" width="90.35" editable="false" height="20" id="cliRutC" enabled="false"/>
+		<mx:TextInput x="133.5" y="33.95" width="138.75" editable="false" height="20" id="mascNomC" enabled="false"/>
+		<mx:TextInput x="133.55" y="115.85" width="92.9" editable="false" height="20" id="MascRazaC" enabled="false"/>
+		<mx:Label x="526.8" y="66" text="-" width="12.25"/>
+		<mx:TextInput x="539.05" y="64" width="19.5" id="cliRut2" restrict="K k 0-9" editable="false" enabled="false"/>
+		<mx:Label x="24.55" y="91.8" text="Sexo:" width="78"/>
+		<mx:Label x="24.55" y="63.85" text="Tipo:" width="87.4"/>
+		<mx:TextInput x="133.55" y="89.8" width="92.9" editable="false" height="20" id="mascSexC" enabled="false"/>
+		<mx:TextInput x="133.55" y="61.85" width="93.4" id="mascClase" editable="false" enabled="false"/>
+		<mx:Label x="10" y="141" text="Cirugía:" width="110" fontWeight="bold"/>
+		<mx:Label x="330.5" y="141" text="Nuevo Diagnóstico:" width="123" fontWeight="bold"/>
+		<mx:Label x="24.55" y="230" text="Ayudante: " width="78"/>
+		<mx:Label x="24.55" y="167" text="Tipo:" width="63.4" height="17.931034"/>
+		<mx:Label x="24.55" y="199" text="Veterinario:" width="100.45"/>
+		<mx:Label x="330.5" y="167" text="Diagnostico:" width="97.95"/>
+		<mx:Label x="24.55" y="260" text="Fecha: " width="78"/>
+		<mx:Label x="24.55" y="290" text="Hora:" width="78"/>
+		<mx:Label x="24.55" y="318" text="Costo:" width="63.4"/>
+		<mx:Button x="560.25" y="369" label="Guardar" visible="true" id="registrar" click="volver(0)"/>
+		<mx:Button x="640.25" y="369" label="Cancelar" width="84" id="cancelar" visible="true" click="volver(1)"/>
+		<mx:TextInput x="133" y="165" width="120.25" id="tipoC" enabled="false"/>
+		<mx:ComboBox x="133" y="197" id="veterinariosC" width="120.25"></mx:ComboBox>
+		<mx:DateField x="133" y="258" width="120.25" id="fechaC"/>
+		<mx:TextInput x="133" y="288" width="104" id="horaC" restrict="0-9 : 0-9" maxChars="5"/>
+		<mx:TextInput x="133" y="316" width="104" id="costoC" restrict="0-9" enabled="false"/>
+		<mx:TextArea x="436.45" y="166" width="287.80002" height="195" id="diagC"/>
+		<mx:ComboBox x="133" y="228" width="120.25" id="ayudantesC"></mx:ComboBox>
+	</mx:Canvas>
 </mx:Panel>
