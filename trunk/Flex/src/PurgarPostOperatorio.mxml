@@ -96,12 +96,12 @@
          	private function updateTable():void
             {
             	atenciones = new ArrayCollection;
-            	nomMascota.text="lassie";
-            	razaMascota.text="Pastor Collie";
-            	sexoMascota.text="hembra";
-            	rut.text="1234325";
-            	nombre.text="Carlos";
-            	apellidoPaterno.text="Moreno";
+            	nomMascota.text="";
+            	razaMascota.text="";
+            	sexoMascota.text="";
+            	rut.text="";
+            	nombre.text="";
+            	apellidoPaterno.text="";
             	
 				atenciones.addItem({medicamento:"Medicamento1", alimento:"Alimento1", indicaciones:"Reposo y medicamentos cada 1 hora", servicio:"Pabellón", hora:"16:30", fecha:"02/10/09"});
  				atenciones.addItem({medicamento:"Medicamento2", alimento:"Alimento2", indicaciones:"Reposo por 2 semanas", servicio:"Pabellón", hora:"18:50", fecha:"07/10/09"});
@@ -138,6 +138,7 @@
 	<mx:Label x="393.7" y="61.9" text="Raza:" width="78"/>
 	<mx:Label x="187" y="383" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 	<mx:DataGrid x="10" y="176.95" width="739" height="143.05" id="tablaAtenciones" dataProvider="{atenciones}" >
+		<mx:toolTip>Se muestran todas las atenciones que no han sido bloquedas</mx:toolTip>
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
 			 	<mx:itemRenderer>
@@ -158,8 +159,8 @@
 		<mx:toolTip>Seleccione todas las atenciones, en caso contrario ninguna</mx:toolTip>
 	</mx:CheckBox>
 	<mx:Label x="10" y="150.95" text="Seleccionar todo"/>
-	<mx:Button x="523" y="328" label="Purgar" id="purgarAtenciones" click="{deleteRow()}" toolTip="Elimina la o las Atenciones seleccionados" width="102" height="23" cornerRadius="6"/>
-	<mx:Button x="647" y="328" label="Cancelar" id="cancelar" toolTip="Cancela la operación" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="523" y="328" label="Purgar" id="purgarAtenciones" click="{deleteRow()}" toolTip="Elimina la o las Atenciones Purga el o los elementos seleccionados" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="647" y="328" label="Cancelar" id="cancelar" toolTip="Cnacela la operación y regresa al panel anterior" width="102" height="23" cornerRadius="6"/>
 	<mx:Label x="24.15" y="62" text="Apellido:" width="78"/>
 	<mx:Label x="24.15" y="124.95" text="Atenciones Post-Operatorio" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
 	<mx:Text x="110" y="36" id="nombre" width="156"/>
