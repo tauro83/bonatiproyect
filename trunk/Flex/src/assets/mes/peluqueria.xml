@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <scores>
 	<atencion>
-		<name>Corte</name>
+		<name>Cortes</name>
 		<sat>100</sat>
 	</atencion>
 	<atencion>
-		<name>Baño</name>
+		<name>Baños</name>
 		<sat>200</sat>
 	</atencion>
 	<atencion>
-		<name>Pedicura</name>
+		<name>Pedicuras</name>
 		<sat>300</sat>
 	</atencion>
 </scores>
