@@ -2,70 +2,74 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466" borderColor="#15AD8F">
 <!--
 //=======================================================================
-// FECHA CREACIÓN: 12 Octubre
+// FECHA CREACIÓN: 13 Octubre
 // AUTOR: Camilo Verdugo
 // Componente que tiene un grafico  y muestra las estadisticas de Peluqueria
 //=======================================================================
 -->
 	<mx:Script>
 		<![CDATA[
+		
 		import mx.rpc.events.ResultEvent;
-	
+		import mx.controls.Alert;
+		import mx.events.CalendarLayoutChangeEvent;
+		
 		[Bindable]private var testInfo:XMLList;
 		[Bindable]private var periodo:String = "mes";
 		[Bindable]private var dataSet:String = "set1";
 		[Bindable]private var titulo:String = "Estadísticas a la fecha para Peluqueria";
 		
+		/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion retorna el resultado del llamado a la capa logica, el cual es tratado
+			 *  como archivo .xml	
+			 * */
 		private function xmlHandler(evt:ResultEvent):void{
 			testInfo = evt.result.atencion;
 		}
 		
-		public function changeData(dataSet:String):void{
-			//Determina que se set debe ser cargado
-			this.dataSet=dataSet;
-			switch (dataSet){
-				case ('set1'):
-					testData.url ="assets/"+"mes"+"/peluqueria.xml";
-					break;
-				case ('set2'):
-					testData.url ="assets/"+"semestre"+"/peluqueria.xml";
-					break;
-				case ('set3'):
-					testData.url ="assets/"+"year"+"/peluqueria.xml";
-					break;
-				default:
-					break;
+		/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion realiza los set de fechas. Este metodo es llamado tras la accion
+			 *  de los cambios de rangos en las opciones de visualizar la estadistica.	
+			 * */
+		private function changeData(eventObj:CalendarLayoutChangeEvent):void
+		{
+			if(fechaIni.selectedDate!=null && fechaFin.selectedDate!=null){
+				if(fechaIni.selectedDate.getTime()<=fechaFin.selectedDate.getTime()){
+					this.dataSet="set2";
+					switch (dataSet){
+						case ('set1'):
+							testData.url ="assets/"+"mes"+"/peluqueria.xml";
+							break;
+						case ('set2'):
+							testData.url ="assets/"+"semestre"+"/peluqueria.xml";
+							break;
+						case ('set3'):
+							testData.url ="assets/"+"year"+"/peluqueria.xml";
+							break;
+						default:
+							break;
+					}
+					testData.send();
+					mens.text = "";
+				}
+				else{
+					mens.text = "La fecha de inicio, debe ser anterior a la fecha fin";
+				}
 			}
-			testData.send();
+		
 		}
-//		public function setTipoDatos(periodo:String):void{
-//			this.periodo=periodo;
-//			if(periodo=="todas"){
-//				this.titulo=this.titulo.substring(0,36)+"(todas)";
-//			}
-//			else{
-//				if(periodo=="year"){
-//					this.titulo=this.titulo.substring(0,36)+"(último año)";
-//				}
-//				else{
-//					this.titulo=this.titulo.substring(0,36)+"(último "+periodo+")";
-//				}
-//			}
-//			
-//			changeData(dataSet);
-//		}
-//		
 		]]>
 	</mx:Script>
-	<!--Efectos para cuando un dato del grafico cambia-->
+
+
 	<mx:SeriesInterpolate id="changeEffect" duration="2000"/>
-	
-	<!--Carga el archivo url y XML y luego lo envia a la funcion xmlHandler en formato E4X-->
-	<mx:HTTPService url="assets/mes/pabellon.xml" id="testData" result="xmlHandler(event)" resultFormat="e4x"/>
-	
-	<mx:Panel horizontalAlign="center" title="{titulo}" width="779" height="466" borderColor="#15AD8F">
-		<!--The Chart -->
-		<mx:ColumnChart dataProvider="{testInfo}" id="chartEstadisticaClinica"  height="254" width="540">
+	<mx:HTTPService url="assets/mes/pabellon.xml" id="testData" result="xmlHandler(event)" resultFormat="e4x"/>	
+		<mx:Panel horizontalAlign="center" layout="absolute" title="{titulo}" width="779" height="466" borderColor="#15AD8F">
+		<mx:ColumnChart dataProvider="{testInfo}" id="chartEstadisticaClinica"  height="288" width="513" x="209" y="10">
 			<mx:horizontalAxis>
 				<mx:CategoryAxis dataProvider="{testInfo}" categoryField="name"/>
 			</mx:horizontalAxis>
@@ -73,12 +77,12 @@
 				<mx:ColumnSeries showDataEffect="{changeEffect}" xField="name" yField="sat" displayName="N° de atenciones realizadas"/>
 			</mx:series>
 		</mx:ColumnChart>
-		<mx:Legend horizontalAlign="center" dataProvider="{chartEstadisticaClinica}" width="200"/>
-		<mx:HBox height="30" horizontalAlign="center">
-			<!--<mx:Button label="Corte" click="changeData('set1')"/>		
-			<mx:Button label="Baño" click="changeData('set2')" />
-			<mx:Button label="Pedicura" click="changeData('set3')" /> -->
-		</mx:HBox>
-		
+		<mx:Legend horizontalAlign="right" dataProvider="{chartEstadisticaClinica}" width="188" x="397" y="306"/>
+		<mx:DateField id="fechaIni"  x="89" y="36" width="112" change="changeData(event)"/>
+		<mx:Label x="10" y="38" text="Inicio:" width="58"/>
+		<mx:DateField id="fechaFin"   x="89" y="67" width="112" change="changeData(event)"/>
+		<mx:Label x="10" y="69" text="Fin:" width="45"/>
+		<mx:Label x="10" y="10" text="Rango de fechas:"/>
+		<mx:Label x="176" y="377" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	</mx:Panel>
 </mx:VBox>
