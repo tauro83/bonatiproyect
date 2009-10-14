@@ -86,22 +86,25 @@
 			
 		]]>
 	</mx:Script>
-	<mx:DataGrid x="10" y="45" width="739" id="Tabla" enabled="true" height="275" dataProvider="{atenciones}" itemDoubleClick="editarAtencion()">
+	<mx:DataGrid x="10" y="62" width="739" id="Tabla" enabled="true" height="258" dataProvider="{atenciones}" itemDoubleClick="editarAtencion()">
+		<mx:toolTip>Muestra las mascotas registradas en el sistema que tienen atenciones de post-operatorio no bloqueadas</mx:toolTip>
 		<mx:columns>
-			<mx:DataGridColumn headerText="Nombre Mascota" dataField="nomMascota"/>
-			<mx:DataGridColumn headerText="Raza mascota" dataField="razaMascota" width="100"/>
-			<mx:DataGridColumn headerText="Sexo mascota" dataField="sexoMascota" width="100"/>
-			<mx:DataGridColumn headerText="Rut dueño" dataField="rut" width="80"/>
-			<mx:DataGridColumn headerText="Nombre dueño" dataField="nombre"/>
-			<mx:DataGridColumn headerText="Apellido Paterno dueño" dataField="apellidoPaterno"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nomMascota"/>
+			<mx:DataGridColumn headerText="Raza" dataField="razaMascota" width="100"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="sexoMascota" width="100"/>
+			<mx:DataGridColumn headerText="Rut" dataField="rut" width="80"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellidoPaterno"/>
 			
 			
 	     </mx:columns>
 	</mx:DataGrid>
-	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="328" click="editarAtencion()" cornerRadius="6"/>
+	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="328" click="editarAtencion()" cornerRadius="6" toolTip="Visualizar mascota seleccionada"/>
 	<mx:Label x="10" y="10" text="Seleccionar Mascota" fontWeight="bold"/>
+	<mx:Label x="26" y="36" text="Datos mascota" fontWeight="bold"/>
+	<mx:Label x="357.5" y="36" text="Datos cliente" fontWeight="bold"/>
 	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Button x="647" y="328" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
+	<mx:Button x="647" y="328" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6" toolTip="Regresa al panel anterior"/>
 	
 
 
