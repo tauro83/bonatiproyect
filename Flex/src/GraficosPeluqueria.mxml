@@ -9,11 +9,12 @@
 -->
 	<mx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
 		
 		import mx.rpc.events.ResultEvent;
 		import mx.controls.Alert;
 		import mx.events.CalendarLayoutChangeEvent;
-		
+			
 		[Bindable]private var testInfo:XMLList;
 		[Bindable]private var periodo:String = "mes";
 		[Bindable]private var dataSet:String = "set1";
