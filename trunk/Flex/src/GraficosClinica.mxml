@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:VBox initialize="ini()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="383" horizontalAlign="center">
+<mx:VBox initialize="ini()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466" horizontalAlign="center">
 <!--
 //=======================================================================
 // FECHA CREACIÓN: 28-09-09
@@ -89,7 +89,7 @@
 	<mx:Panel width="779" height="466" borderColor="#15AD8F" horizontalAlign="center" layout="absolute" title="{titulo}">
 		
 		<!--The Chart -->
-		<mx:ColumnChart dataProvider="{testInfo}" id="chartEstadisticaClinica"  height="323" width="540" x="209" y="10">
+		<mx:ColumnChart dataProvider="{testInfo}" id="chartEstadisticaClinica"  height="380" width="540" x="209" y="36">
 			<mx:horizontalAxis>
 				<mx:CategoryAxis dataProvider="{testInfo}" categoryField="name"/>
 			</mx:horizontalAxis>
@@ -99,7 +99,7 @@
 		</mx:ColumnChart>
 		
 		<mx:RadioButton click="changeData('set1')" label="Pabellón" groupName="radiogroup1" x="10" y="132" selected="true"/>
-		<mx:Legend horizontalAlign="right" dataProvider="{chartEstadisticaClinica}" width="188" x="561" y="10"/>
+		<mx:Legend horizontalAlign="right" dataProvider="{chartEstadisticaClinica}" width="199" x="550" y="10"/>
 		<mx:RadioButton click="changeData('set2')" label="Policlínico" groupName="radiogroup1" x="10" y="162"/>
 		<mx:RadioButtonGroup id="radiogroup1"/>
 		<mx:DateField id="fechaIni" change="changeDate(event)" x="89" y="36" width="112"/>
