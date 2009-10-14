@@ -29,6 +29,12 @@
 			private var files:ArrayCollection=new ArrayCollection();
 		    private var vResult:ValidationResultEvent;
 		    public var nombreCliente:String;
+		    [Bindable]
+		    public var tiposC:ArrayCollection;
+		    [Bindable]
+		    public var vetesC:ArrayCollection;
+		    [Bindable]
+		    public var ayudantesC:ArrayCollection;
 		    
 		    /**
 			* Lista de amscotas del cliente asociado
@@ -193,31 +199,62 @@
         			ini(event);
         		}
 			}
+			
+			
+					
+			public function getTiposCirugias():void
+			{
+				var addMascotaService:AddCirugiaService = new AddCirugiaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getTiposC);
+				addMascotaService.getTiposCirugias();
+			}
+			
+			public function getTiposC(event:ResultEvent):void
+			{
+				tiposC = event.result as ArrayCollection;
+			}
+			
+			public function getTiposVeterinarios():void
+			{
+				var addMascotaService:AddCirugiaService = new AddCirugiaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getTiposV);
+				addMascotaService.getTiposVeterinarios();
+			}
+			
+			public function getTiposV(event:ResultEvent):void
+			{
+				vetesC = event.result as ArrayCollection;
+			}
+			
+			public function getTiposAyudantes():void
+			{
+				var addMascotaService:AddCirugiaService = new AddCirugiaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getTiposA);
+				addMascotaService.getTiposAyudantes();
+			}
+			
+			public function getTiposA(event:ResultEvent):void
+			{
+				ayudantesC = event.result as ArrayCollection;
+			}
+			
 			public function regCiru():void
 			{
+				
 				if(dg.selectedItem){
 					var nuevacir:addCirugia = Application.application.cliRegistro2;
-					
+					nuevacir.iniciarPanel();
 					nuevacir.mascNomC.text = dg.selectedItem.nombre.split(" ",1).pop();
 					nuevacir.CliNomC.text = this.nombreCliente.split(" ",1).pop();
 					nuevacir.cliRutC.text=this.rutClienteInput.text.split(" ",1).pop();
 					nuevacir.cliRut2.text=this.rutClienteDVInput.text.split(" ",1).pop();
-					nuevacir.MascRazaC.text = this.dg.selectedItem.raza.split(" ",1).pop();
-					nuevacir.mascSexC.text=this.dg.selectedItem.sexo.split(" ",1).pop();
 					nuevacir.mascClase.text=this.dg.selectedItem.claseAnimal.split(" ",1).pop();
 					
-					var vetes2:ArrayCollection = new ArrayCollection();
-					vetes2.addItem(" ");					
-					vetes2.addItem("Claudio Bonati");
-					vetes2.addItem("Patricio Perez");
-					vetes2.addItem("Jimmy Muñoz");
-					nuevacir.ayudantes2=vetes2;
-					
-					var vetes:ArrayCollection = new ArrayCollection();
-					vetes.addItem(" ");					
-					vetes.addItem("Claudio Bonati");
-					vetes.addItem("Patricio Perez");
-					nuevacir.veterinarios2=vetes;
+					nuevacir.veterinarios2=this.vetesC;
+					nuevacir.ayudantes2=this.ayudantesC;
+					nuevacir.ayudantes3=this.ayudantesC;
+					nuevacir.tiposCir = this.tiposC;
+					nuevacir.tiposCir2 = this.tiposC;
 					
 					this.setVisible(false,false);
 					nuevacir.setVisible(true,false);
@@ -230,11 +267,21 @@
 			
 			public function iniciarPanel():void
 			{
+				this.getTiposCirugias();
+				this.getTiposVeterinarios();
+				this.getTiposAyudantes();
 				this.mascotas=new ArrayCollection();
 				this.dg.doubleClickEnabled=true;
 				this.labelMessage.text="";
 				this.rutClienteInput.text="";
 				this.rutClienteDVInput.text="";
+			}
+			
+			public function iniciarPanel1():void
+			{
+				this.getTiposCirugias();
+				this.getTiposVeterinarios();
+				this.getTiposAyudantes();
 			}
 			
 				

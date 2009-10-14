@@ -28,16 +28,105 @@
 			public var veterinarios2:ArrayCollection;
 			[Bindable]
 			public var ayudantes2:ArrayCollection;
+			[Bindable]
+			public var ayudantes3:ArrayCollection;
+			[Bindable]
+			public var tiposCir:ArrayCollection;
+			[Bindable]
+			public var tiposCir2:ArrayCollection;
+			[Bindable]
+			public var cirugsAdds:ArrayCollection = new ArrayCollection();
 		    
 		    
 		    public function vuelve():void
 		    {
 		    	this.setVisible(false,false);
 		    	Application.application.addCirug.labelMessage.text="";
+		    	Application.application.addCirug.iniciarPanel1();
 		    	Application.application.addCirug.setVisible(true,false);
 		    }
 		    
 		    public function registrarCiru():void{
+		    	
+		    }
+		    
+		    public function guardaCir():void
+		    {
+		    	cirugsAdds.addItem(cirugiasBox.selectedLabel);
+		    	/*var n:int=tiposCir.getItemIndex(cirugiasBox.selectedLabel);
+				tiposCir.removeItemAt(n);
+				tiposCir.refresh();*/
+				renombrarCir(cirugiasBox.selectedLabel);
+				
+		    }
+		    
+		    public function renombrarCir(texto:String):void{
+		    	var newAr:ArrayCollection = this.tiposCir;
+		    	tiposCir = new ArrayCollection();
+		    	var i:int;
+		    	var j:int = newAr.length;
+		    	for(i=0;i<j;i++){
+		    		var s:String = newAr.removeItemAt(0).toString();
+		    		if(s!=texto){
+		    			tiposCir.addItem(s);
+		    		}
+		    	}
+		    	ocultaOk();
+		    }
+		    public function mostrarOk():void{
+		    	if(cirugiasBox.selectedLabel!=""){
+		    		this.addCir.setVisible(true,false);
+		    	}
+		    }
+		    public function ocultaOk():void{
+		    	this.addCir.setVisible(false,false);
+		    }
+		    public function mostrarDel():void{
+		    	this.delCir.setVisible(true,false);
+		    }
+		    
+		    public function ocultaDel():void
+		    {
+		    	this.delCir.setVisible(false,false);
+		    }
+		    
+		    
+		    public function renombrarAyu():void
+		    {
+		    	var texto:String=veterinariosC.selectedLabel;
+		    	if(texto!=""){
+		    		ayudantes2 = new ArrayCollection();
+		    		var i:int;
+		    		var j:int = ayudantes3.length;
+		    		for(i=0;i<j;i++){
+		    			var s:String = ayudantes3.getItemAt(i,0).toString();
+		    			if(s!=texto){
+		    				ayudantes2.addItem(s);
+		    			}
+		    		}
+		    	}
+
+		    }
+		    
+		    
+		    public function renomCirAdd():void{
+		    	tiposCir.addItem(tabCirs.selectedItem.cirugias);
+		    	var n:int=cirugsAdds.getItemIndex(tabCirs.selectedItem.cirugias);
+		    	cirugsAdds.removeItemAt(n);
+		    	cirugsAdds.refresh();
+		    	
+		    }
+		    
+		    public function iniciarPanel():void
+		    {
+		    	this.tiposCir2 = new ArrayCollection();
+		    	this.tiposCir = new ArrayCollection();
+		    	this.ayudantes2= new ArrayCollection();
+		    	this.ayudantes3= new ArrayCollection();
+		    	this.veterinarios2=new ArrayCollection();
+		    	this.cirugsAdds=new ArrayCollection();
+		    	this.addCir.setVisible(false,false);
+		    	this.delCir.setVisible(false,false);
 		    	
 		    }
 				
@@ -47,40 +136,41 @@
 	
 	
 	
-	<mx:Label x="330.5" y="36" text="Nombre:" width="78"/>
-	<mx:Label x="330.5" y="10" text="Cliente:" width="109" fontWeight="bold"/>
+	<mx:Label x="373.5" y="36" text="Nombre:" width="71.95"/>
+	<mx:Label x="359.45" y="10" text="Cliente:" width="109" fontWeight="bold"/>
 	<mx:Label x="9.95" y="10" text="Mascota:" width="127" fontWeight="bold"/>
-	<mx:Label x="330.5" y="62" text="Rut:" width="78"/>
+	<mx:Label x="373.5" y="66" text="Rut:" width="71.95"/>
 	<mx:Label x="24.55" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
-	<mx:Label x="24.55" y="117.85" text="Raza:" width="78"/>
-	<mx:TextInput x="433.45" y="34" width="142.6" editable="false" id="CliNomC"/>
-	<mx:TextInput x="433.45" y="64" width="90.35" editable="false" height="20" id="cliRutC"/>
+	<mx:TextInput x="459.6" y="36" width="165.6" editable="false" id="CliNomC"/>
+	<mx:TextInput x="459.6" y="66" width="113.35" editable="false" height="20" id="cliRutC"/>
 	<mx:TextInput x="133.5" y="33.95" width="138.75" editable="false" height="20" id="mascNomC"/>
-	<mx:TextInput x="133.55" y="115.85" width="92.9" editable="false" height="20" id="MascRazaC"/>
-	<mx:Label x="10" y="141" text="Cirugía:" width="110" fontWeight="bold"/>
-	<mx:Label x="24.55" y="230" text="Ayudante: " width="78"/>
-	<mx:Label x="24.55" y="167" text="Tipo:" width="63.4" height="17.931034"/>
-	<mx:Label x="24.55" y="199" text="Veterinario:" width="100.45"/>
-	<mx:Label x="330.5" y="167" text="Diagnostico:" width="97.95"/>
-	<mx:Label x="24.55" y="260" text="Fecha: " width="78"/>
-	<mx:Label x="24.55" y="290" text="Hora:" width="78"/>
-	<mx:Label x="24.55" y="318" text="Costo:" width="63.4"/>
+	<mx:Label x="10" y="102" text="Cirugía:" width="110" fontWeight="bold"/>
+	<mx:Label x="24.55" y="161" text="Ayudante: " width="78"/>
+	<mx:Label x="24.55" y="217" text="Cirugía:" width="63.4" height="17.931034"/>
+	<mx:Label x="24.55" y="130" text="Responsable:" width="100.45"/>
+	<mx:Label x="373.5" y="167" text="Diagnostico:" width="77.95"/>
+	<mx:Label x="24.55" y="191" text="Fecha: " width="78"/>
+	<mx:Label x="373.5" y="130" text="Costo:" width="63.4"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="550.25" y="369" label="Registrar" visible="true" id="registrar" click="registrarCiru()"/>
 	<mx:Button x="640.25" y="369" label="Cancelar" width="84" id="cancelar" visible="true" click="vuelve()"/>
-	<mx:TextInput x="133" y="165" width="120.25" id="tipoC"/>
-	<mx:ComboBox x="133" y="197" id="veterinariosC" dataProvider="{veterinarios2}" width="120.25"></mx:ComboBox>
-	<mx:DateField x="133" y="258" width="120.25" id="fechaC"/>
-	<mx:TextInput x="133" y="288" width="104" id="horaC" restrict="0-9 : 0-9" maxChars="5"/>
-	<mx:TextInput x="133" y="316" width="104" id="costoC" restrict="0-9"/>
-	<mx:TextArea x="436.45" y="166" width="287.80002" height="195" id="diagC"/>
-	<mx:Label x="526.8" y="66" text="-" width="12.25"/>
-	<mx:TextInput x="539.05" y="64" width="19.5" id="cliRut2" restrict="K k 0-9" editable="false"/>
-	<mx:ComboBox x="133" y="228" dataProvider="{ayudantes2}" width="120.25" id="ayudantesC"></mx:ComboBox>
-	<mx:Label x="24.55" y="91.8" text="Sexo:" width="78"/>
-	<mx:Label x="24.55" y="63.85" text="Tipo:" width="87.4"/>
-	<mx:TextInput x="133.55" y="89.8" width="92.9" editable="false" height="20" id="mascSexC"/>
+	<mx:ComboBox x="133" y="128" id="veterinariosC" dataProvider="{veterinarios2}" width="139.25" close="renombrarAyu()"></mx:ComboBox>
+	<mx:DateField x="133" y="189" width="120.25" id="fechaC"/>
+	<mx:TextInput x="459.45" y="128" width="104" id="costoC" restrict="0-9"/>
+	<mx:TextArea x="459.45" y="166" width="289.55" height="195" id="diagC"/>
+	<mx:Label x="575.95" y="68" text="-" width="12.25"/>
+	<mx:TextInput x="588.2" y="66" width="19.5" id="cliRut2" restrict="K k 0-9" editable="false"/>
+	<mx:ComboBox x="133" y="159" dataProvider="{ayudantes2}" width="139.25" id="ayudantesC"></mx:ComboBox>
+	<mx:Label x="24.55" y="63.85" text="Especie:" width="87.4"/>
 	<mx:TextInput x="133.55" y="61.85" width="93.4" id="mascClase" editable="false"/>
+	<mx:DataGrid x="133" y="249" height="112" width="220.25" id="tabCirs" dataProvider="{cirugsAdds}" click="mostrarDel()" focusOut="ocultaDel()">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Cirugías" dataField="cirugias"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:ComboBox x="133" y="219" width="158.25" id="cirugiasBox" dataProvider="{tiposCir}" close="mostrarOk()"></mx:ComboBox>
+	<mx:LinkButton x="299.25" y="219" label="Agregar" width="69" textAlign="left" click="guardaCir()" id="addCir" visible="false"/>
+	<mx:LinkButton x="133" y="369" label="Quitar" id="delCir" visible="false" click="renomCirAdd()"/>
 	
 </mx:Panel>
 	

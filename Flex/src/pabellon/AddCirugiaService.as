@@ -6,6 +6,7 @@
 
 package pabellon
 {
+	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
@@ -70,6 +71,18 @@ package pabellon
 		
 		public function getMascotas(rutCliente:String):void{
 			this.getOperation("getMascotas").send(rutCliente);
+		}
+		
+		public function getTiposCirugias():void{
+			this.getOperation("getTiposCirugias").send();
+		}
+		
+		public function getTiposVeterinarios():void{
+			this.getOperation("getTiposVeterinarios").send();
+		}
+		
+		public function getTiposAyudantes():void{
+			this.getOperation("getTiposAyudantes").send();
 		}
 
 	}
