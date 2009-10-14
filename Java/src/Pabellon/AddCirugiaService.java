@@ -90,4 +90,51 @@ public class AddCirugiaService {
 		return mascotas;
     }
 	
+	public List<String> getTiposCirugias(){
+		List<String> cirus=new ArrayList<String>();
+		
+		cirus.add("");
+		cirus.add("Amputación");
+		cirus.add("De Apéndice");
+		cirus.add("De los aparatos respiratorio");
+		cirus.add("De los aparatos cardiovascular");
+		cirus.add("De ojo");
+		cirus.add("De todo tipo de fractura");
+		cirus.add("Del sistema digestivo");
+		cirus.add("Del sistema tegumentario");
+		cirus.add("Del sistema reproductor");
+		cirus.add("Del sistema urinario");
+		cirus.add("Dental");
+		cirus.add("Estenosis traqueal");
+		cirus.add("Ortopédica");
+		cirus.add("Partos y cesaria");
+		cirus.add("Tiroidectomía (por tumores)");
+		cirus.add("De tumor");
+
+		return cirus;	
+	}
+	
+	
+	public List<String> getTiposVeterinarios(){
+		List<String> cirus=new ArrayList<String>();
+		
+		cirus.add("");
+		cirus.add("Claudio Bonati");
+		cirus.add("Patricio Castro");
+
+		return cirus;	
+	}
+	
+	public List<String> getTiposAyudantes(){
+		List<String> cirus=new ArrayList<String>();
+		
+		cirus.add("");
+		cirus.add("Claudio Bonati");
+		cirus.add("Patricio Castro");
+		cirus.add("Sebastian Lopez");
+		cirus.add("Juan Bravo");
+		cirus.add("Esteban Rodriguez");
+
+		return cirus;	
+	}
 }
