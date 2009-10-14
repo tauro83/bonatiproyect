@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*"> 
 
     <mx:Script>
@@ -105,8 +105,11 @@
 				//hotelIngreso.IdVerRegistroHotel.addEventListener (MouseEvent.CLICK,visulizarRegHot);
                 AdmIngreso2.cancelarClienteIng.addEventListener(MouseEvent.CLICK, inicial);
 
-
-				
+				<!--Autor: Vitoxone --> 
+				eliminarCliente.setVisible(false,false);
+				purgarCliente.setVisible(false,false);
+				AdmOpciones1.linkEliminarClnte.addEventListener(MouseEvent.CLICK, eliminaCliente);
+				AdmOpciones1.linkPurgarClnte.addEventListener(MouseEvent.CLICK, purgaCliente);
             }
 
            <!-- Nicolas-->
@@ -277,6 +280,10 @@
 				panelEditaCLi.setVisible(false,false);
 				ediCliUp.setVisible(false,false);
 				<!--Autor: }Raul Lopez -->
+				
+				<!--Autor: }Vitoxone {-->
+				eliminarCliente.setVisible(false,false);  
+                purgarCliente.setVisible(false,false);
             	
             	<!--Erwin Díaz-->
             	elimusuario.setVisible(false,false);
@@ -458,6 +465,23 @@
               
  			}
             <!--Autor: Raúl López{-->
+            
+                              <!--Autor: Victor{--> 
+           private function eliminaCliente (event:Event):void
+           {
+           	setInvisible();
+           	eliminarCliente.setVisible(true,false);
+           	AdmOpciones1.setVisible(true,false);
+           }
+           
+            <!--Autor: Victor{--> 
+            private function purgaCliente (event:Event):void
+           {
+           	setInvisible();
+           	purgarCliente.setVisible(true,false);
+           	AdmOpciones1.setVisible(true,false);
+           }
+            
         ]]>
 
     </mx:Script>
@@ -637,6 +661,13 @@
 	<ns2:EditClienteUpdate x="241" y="134" id="ediCliUp" visible="false">
 	</ns2:EditClienteUpdate>
 	<!--Autor: }Raul Lopez -->
+	
+	 <!--Autor: Vitoxone}--> 
+	<ns1:EliminarCliente x="241" y="134" id="eliminarCliente" visible="false">
+	</ns1:EliminarCliente>
+	<ns1:PurgarCliente x="241" y="134" id="purgarCliente" visible="false">
+	</ns1:PurgarCliente>
+	 <!--Autor: Vitoxone}--> 
 	
 	<!--Autor: Camilo{ -->
 	<ns1:PanelPeluqueria x="0" y="134" id="panelPeluqueria" visible="false">
