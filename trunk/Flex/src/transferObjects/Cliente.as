@@ -1,4 +1,4 @@
-//=======================================================================
+﻿//=======================================================================
 // FECHA CREACIÓN: Nicolas Delgado 
 // AUTOR: 20/09/09
 // Comentario: Este action Script contempla todos los paso para la creación 
@@ -8,11 +8,16 @@
 
 package transferObjects
 {
-	
+	import mx.controls.CheckBox;
+		
 	[Bindable]
     [RemoteClass(alias="TransferObjects.Cliente")]
 	public class Cliente
 	{
+		//****************************
+	public var checkbox:CheckBox = new CheckBox;
+		public var sel:Boolean;
+	//****************************
 			 public var nombre:String;
 			 public	var apellido:String;
 			 public	var apellido2:String;
