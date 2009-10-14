@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="134" width="240" height="466" layout="absolute" title="Opciones del módulo" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="134" width="240" height="422" layout="absolute" title="Opciones del módulo" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
 			import mx.core.Application;
@@ -105,11 +105,7 @@
 			<mx:LinkButton x="50" y="10" label="Nueva Atención" id="newAtenDomLink" click="verNuevaAtencion()"/>
 		</mx:Canvas>
 		<mx:Canvas label="Estadística" width="100%" height="100%">
-		    <mx:LinkButton x="50" y="10" label="Estadistica" id="estadisticaClinicaLink"/>
-			<mx:LinkButton x="50" y="70" label="Último semestre" id="estadisticaSemestre" click="verEstadisticaSemestre()"/>
-			<mx:LinkButton x="50" y="100" label="Último año" id="estadisticaYear" click="verEstadisticaAno()"/>
-			<mx:LinkButton x="50" y="130" label="Todas" id="estadisticaTodas" click="verEstadisticaTodas()"/>
-			<mx:LinkButton x="50" y="40" label="Último mes" id="estadisticaMes" click="verEstadisticaMes()"/>
+			<mx:LinkButton x="51" y="10" label="Todas" id="estadisticaTodas" click="verEstadisticaTodas()"/>
 		</mx:Canvas>
 	    </mx:Accordion>
 		
