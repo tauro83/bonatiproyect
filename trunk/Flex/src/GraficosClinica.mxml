@@ -86,7 +86,7 @@
 	<!--Carga el archivo url y XML y luego lo envia a la funcion xmlHandler en formato E4X-->
 	<mx:HTTPService url="" id="testData" result="xmlHandler(event)" resultFormat="e4x"/>
 	
-	<mx:Panel horizontalAlign="center" layout="absolute" title="{titulo}" height="383" width="779">
+	<mx:Panel width="779" height="466" borderColor="#15AD8F" horizontalAlign="center" layout="absolute" title="{titulo}">
 		
 		<!--The Chart -->
 		<mx:ColumnChart dataProvider="{testInfo}" id="chartEstadisticaClinica"  height="323" width="540" x="209" y="10">
@@ -105,7 +105,7 @@
 		<mx:DateField id="fechaIni" change="changeDate(event)" x="89" y="36" width="112"/>
 		<mx:Label x="10" y="38" text="Inicio:" width="58"/>
 		<mx:DateField id="fechaFin" change="changeDate(event)" x="89" y="67" width="112"/>
-		<mx:Label x="10" y="69" text="Fin:" width="45"/>
+		<mx:Label x="10" y="69" text="Fin:" width="58"/>
 		<mx:Label x="17" y="10" text="Rango de fechas:"/>
 		<mx:Label x="17" y="106" text="Servicio:"/>
 		
