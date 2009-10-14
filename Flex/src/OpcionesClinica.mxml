@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="134" width="240" height="422" layout="absolute" title="Opciones del módulo" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="134" width="240" height="466" layout="absolute" title="Opciones del módulo" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
 			import mx.core.Application;
@@ -35,24 +35,6 @@
 				this.visible = true;
 				Application.application.cliFindVacuna2.visible = true;	
 			}
-			public function verEstadisticaMes():void{
-				Application.application.setInvisible();
-				this.visible = true;
-				Application.application.graficosClinica1.visible = true;
-				Application.application.graficosClinica1.setTipoDatos("mes");
-			}
-			public function verEstadisticaSemestre():void{
-				Application.application.setInvisible();
-				this.visible = true;
-				Application.application.graficosClinica1.visible = true;	
-				Application.application.graficosClinica1.setTipoDatos("semestre");
-			}
-			public function verEstadisticaAno():void{
-				Application.application.setInvisible();
-				this.visible = true;
-				Application.application.graficosClinica1.visible = true;
-				Application.application.graficosClinica1.setTipoDatos("year");	
-			}
 			public function verEstadisticaTodas():void{
 				Application.application.setInvisible();
 				this.visible = true;
@@ -83,14 +65,14 @@
 		<mx:Canvas width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" label="Pabellón" backgroundColor="#FFFFFF">
 			<mx:Accordion width="192" height="362"  y="0" x="25">
 				<mx:Canvas label="Pre-Operatorio" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
-					<mx:LinkButton x="50" y="10" label="Registrar" width="139" textAlign="left" id="PreOlink" click="verRegistrarPreOperatorio()"/>
+					<mx:LinkButton x="50" y="10" label="Registrar" width="100%" textAlign="left" id="PreOlink" click="verRegistrarPreOperatorio()"/>
 					<mx:LinkButton x="50" y="40" label="Editar"/>
 					<mx:LinkButton x="50" y="70" label="Eliminar" click="verEliminarPreoperatorio()"/>
 					<mx:LinkButton x="50" y="100" label="Purgar"/>
 				</mx:Canvas>
 				<mx:Canvas label="Cirugía" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
-					<mx:LinkButton x="50" y="10" label="Registrar" width="109" textAlign="left" id="cirugiaLink" click="verRegistrarCirugia()"/>
-					<mx:LinkButton x="50" y="40" label="Editar" width="109" textAlign="left" id="cirugiaLink0" click="verEditarCirugia()"/>
+					<mx:LinkButton x="50" y="10" label="Registrar" width="100%" textAlign="left" id="cirugiaLink" click="verRegistrarCirugia()"/>
+					<mx:LinkButton x="50" y="40" label="Editar" width="100%" textAlign="left" id="cirugiaLink0" click="verEditarCirugia()"/>
 				</mx:Canvas>
 				<mx:Canvas label="Post-Operatorio" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
 					<mx:LinkButton x="50" y="10" label="Registrar" width="114" textAlign="left" id="PostOLink" click="verRegistrarPostOperatorio()"/>
@@ -104,8 +86,7 @@
 			<mx:LinkButton x="50" y="70" label="Buscar Categoria" id="BuscaVacunLink" click="verBuscarCategoria()"/>
 			<mx:LinkButton x="50" y="10" label="Nueva Atención" id="newAtenDomLink" click="verNuevaAtencion()"/>
 		</mx:Canvas>
-		<mx:Canvas label="Estadística" width="100%" height="100%">
-			<mx:LinkButton x="51" y="10" label="Todas" id="estadisticaTodas" click="verEstadisticaTodas()"/>
+		<mx:Canvas label="Estadística" width="100%" height="100%" initialize="verEstadisticaTodas()" show="verEstadisticaTodas()">
 		</mx:Canvas>
 	    </mx:Accordion>
 		

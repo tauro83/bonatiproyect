@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  x="241" y="134" width="779" height="466" layout="absolute" title="Registro de Post-Operatorio" xmlns:ns1="*" xmlns:ns2="com.adobe.flex.extras.controls.*">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  x="241" y="134" width="779" height="466" borderColor="#15AD8F" layout="absolute" title="Registro de Post-Operatorio" xmlns:ns1="*" xmlns:ns2="com.adobe.flex.extras.controls.*">
 	<mx:Script>
 		<![CDATA[
 
@@ -45,44 +45,10 @@
 			public function getIdServicio():String{
 				return "3";				
 			}
-			/*				
-			public function getInfoComp():String{
-				texto2 = nombreMascota.text;
-				texto3 = idMascota.text;
-				texto4 = vetAsociado.text;
-				texto5 = ayuAsociado.text;
-				texto6 = medRecetado.text;
-				texto7 = alimentoRecetado.text;
-				texto8 = indicacionMed.text;
-				
-				texto2 = texto2.concat("&");
-				texto2 = texto2.concat(texto3);
-				texto2 = texto2.concat("&");
-				texto2 = texto2.concat(texto4);
-				texto2 = texto2.concat("&");
-				texto2 = texto2.concat(texto5);
-				texto2 = texto2.concat("&");
-				texto2 = texto2.concat(texto6);
-				texto2 = texto2.concat("&");
-				texto2 = texto2.concat(texto7);
-				texto2 = texto2.concat("&");				
-				
-				texto = texto2.concat(texto8);
-				return texto;
-			}
 			
 			
-			public function setInfoComp(s1:String):void{
-				arreglo=s1.split("&",null);
-				nombreMascota.text = arreglo.pop();
-				idMascota.text = arreglo.pop();
-				vetAsociado.text = arreglo.pop();
-				ayuAsociado.text = arreglo.pop();
-				medRecetado.text = arreglo.pop();
-				alimentoRecetado.text = arreglo.pop();
-				indicacionMed.text = arreglo.pop();
-			}
-			*/		
+			
+				
 		]]>
 	</mx:Script>
 	
