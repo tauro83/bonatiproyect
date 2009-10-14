@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="cargarClientesEliminados()" width="779"  height="466" borderColor="#15AD8F" title="Purgar Cliente" x="241" y="133" xmlns:ns1="com.adobe.flex.extras.controls.*">
 		<mx:Script>
 		<![CDATA[
@@ -17,6 +17,7 @@
 			import transferObjects.Cliente; 
 			import mx.rpc.events.ResultEvent;
 			import mx.events.CloseEvent;
+			import mx.core.Application;
 			 
 			import flash.events.MouseEvent;
             import mx.events.FlexEvent;
@@ -35,7 +36,7 @@
 	 *  @Descripcion Metodo que consulta todos los registros de clientes en la base de datos
 	 
 	 	**/ 
-			private function cargarClientesEliminados():void
+			public function cargarClientesEliminados():void
 			{
 			    var clientePurgadoService: ClientePurgadoService = new ClientePurgadoService();
 				clientePurgadoService.addEventListener(ResultEvent.RESULT,getClientesResult);
@@ -75,6 +76,8 @@
 				{
 				   labelMessage.text = "Cliente purgado";
 				}
+				Application.application.eliminarCliente.cargarClientes();
+				Activar();
 			}
 				
 			
@@ -203,7 +206,7 @@
 	
 	<mx:DataGrid x="10" y="74" width="739" height="206" id="tablaClientes" dataProvider="{clientes}" click="Activar()" >
 		<mx:columns>
-			<mx:DataGridColumn width="20" headerText="" dataField="checkBox" id="checkBox" >
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" >
 			 	<mx:itemRenderer>
                         <mx:Component>
                             <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
@@ -229,6 +232,5 @@
 	<mx:TextInput x="59" y="10" id="texImput"/>
 
 	<mx:Label x="10" y="12" text="Buscar"/>
-	<mx:Button x="59" y="316" label="Actualizar" click="cargarClientesEliminados()"/>
 	<mx:Button x="501" y="301" enabled="false" id="reactivarCliente" label="Reactivar" click="{Reactivar()}" width="82"/>
 </mx:Panel>
