@@ -1,4 +1,4 @@
-//=======================================================================
+﻿//=======================================================================
 // FECHA CREACIÓN: 20/09/09
 // AUTOR: Victor Silva
 // Comentario: Clase que realiza la  conexion con la capa 2, para esto mapea
@@ -23,8 +23,8 @@ package administracion
 			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
-			this.destination="ClienteEditService";
-			this.source="Administracion.ClienteEditService";
+			this.destination="ClienteElimPurgService";
+			this.source="Administracion.ClienteElimPurgService";
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		
