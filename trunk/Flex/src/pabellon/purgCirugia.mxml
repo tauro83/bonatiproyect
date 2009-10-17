@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Eliminar Cirugía" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc">
+	<mx:Script>
+		<![CDATA[
+		//=======================================================================
+		// FECHA CREACIÓN: 14-10-09
+		// AUTOR: Esteban Cruz
+		// Comentario: Se declara la clase cirugia, una vez instanciada 
+		// representa el componente de la capa de interfaz
+		//=======================================================================
+		
+			import mx.controls.List;
+			import mx.events.ListEvent; 			
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+            import mx.core.Application;
+			
+			import transferObjects.CirugiaPurg;
+			import services.PurgCirugiaService;
+			[Bindable]
+			private var cirugias:ArrayCollection;
+			
+			/**
+			 * Se hace visible el input correspondiente a la opción
+			 * elegida en el combobox
+			 */
+			private function seleccionarBusqueda (event:Event):void
+            {   
+            	inputNombreCliente.setVisible(false,false);
+				inputApellidoPaterno.setVisible(false,false);
+				inputRutCliente.setVisible(false,false);
+				inputNombreMascota.setVisible(false,false);
+				inputNombreMascota.setVisible(false,false);
+				inputTipo.setVisible(false,false);
+				inputVeterinario.setVisible(false,false);
+				barraMsj.text="  ";
+				getAllCirugias();
+            	switch (combobox.selectedLabel)
+				{
+				case 'Nombre cliente':		
+					inputNombreCliente.setVisible(true,false);
+				break; 
+				case 'Apellido paterno':
+					inputApellidoPaterno.setVisible(true,false);
+				break;
+				case 'Rut cliente':
+					inputRutCliente.setVisible(true,false);
+				break;
+				case 'Nombre mascota':
+					inputNombreMascota.setVisible(true,false);
+				break;
+				case 'Tipo':
+					inputTipo.setVisible(true,false);
+				break;
+				case 'Veterinario':
+					inputVeterinario.setVisible(true,false);
+				break;
+				}
+            }
+			
+			public function actionCancelar():void
+			{
+				Application.application.setInvisible();
+            	Application.application.agenda2.setVisible(true,false);
+            	Application.application.menuAgenda1.setVisible(true,false);
+			
+			}
+			
+			/**
+			 * Se obtienen todas las cirugías que están registradas en 
+			 * la base de datos para ser mostrados dentro del datagrid
+			 */
+			public function getAllCirugias():void
+		    {
+		   		var purgCirugiaService:PurgCirugiaService = new PurgCirugiaService();
+		   		purgCirugiaService.addEventListener(ResultEvent.RESULT,getAllCirugiasResult);
+				purgCirugiaService.getAllCirugias();
+		    }
+		   
+		    /**
+			 * Una vez obtenidas todas las cirugías que están registradas 
+			 * en la base de datos, son mostrados dentro del datagrid
+			 */
+		    public function getAllCirugiasResult(event:ResultEvent):void
+		    {
+		   		cirugias = event.result as ArrayCollection;
+		    }
+			
+			/**
+			 * Se eliminan las cirugías que están seleccionadas en el
+			 * grid, desde la base de datos
+			 */
+			/*public function purgCirugia():void
+			{
+				var cirugiaPurgService:CirugiaPurgService = new CirugiaPurgService();
+				cirugiaPurgService.addEventListener(ResultEvent.RESULT,getAllCirugiasResult);
+				cirugiaPurgService.purgCirugia("par");
+			}
+			
+			
+			/*private function purgCirugiaResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(result>0)
+				{
+				   labelMessage.text = "Cirugía(s) eliminada(s)";
+				   //getAllCirugias();
+				}
+			}*/
+
+            /**
+			 * Mensaje para purgar las cirugías que están seleccionadas
+			 * en el grid, desde este mismo
+			 */
+           	private function deleteRow(/*nombreUsuario:String*/):void {
+			 Alert.show("¿Está seguro que desea purgar la(s) cirugía(s)? ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			}
+			
+			/**
+			 * Se eliminan las cirugías que están seleccionadas en el
+			 * grid, desde este mismo
+			 */
+			private function removeTaskRecord():void
+            {
+                var allRows:int = cirugias.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (cirugias[i].sel)
+                	{
+                        //Alert.show(cirugias[i].nombreMascota);
+                        //deleteUsuario(cirugias[i].tipo);
+                        //comando para eliminar desde la base de datos debe ir aquí
+                         
+                        cirugias.removeItemAt(i);
+                        allRows = cirugias.length;
+                        tablaCirugias.dataProvider = cirugias;
+                        i=-1;
+                    }   
+                }
+                barraMsj.text="Cirugía(s) eliminada(s)";              
+            }
+			
+			/**
+			 * Una vez seleccionado SÍ o NO en el mensaje
+			 * se llama a la función que purga
+			 */
+			private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+			
+			 /**
+			 * Se seleccionan todas las cirugías que están en 
+			 * el grid
+			 */
+			private function selectAll():void{
+                var allRows:int = cirugias.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        cirugias[i].sel = true;
+                    else
+                        cirugias[i].sel = false;
+                }
+                tablaCirugias.dataProvider = cirugias;
+            }
+            
+		]]> 
+  	</mx:Script>	
+  	
+  	<!-- Barra estado -->
+	<mx:Label x="169" y="372" width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold"/>
+	
+	<!-- AutoComplete -->
+	<fc:AutoComplete id="inputNombreCliente" x="59" y="10" width="150" dataProvider="{cirugias}" labelField="nombreCliente" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputApellidoPaterno" x="59" y="10" width="150" dataProvider="{cirugias}" labelField="apellidoPaterno" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputRutCliente" x="59" y="10" width="150" dataProvider="{cirugias}" labelField="rutCliente" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputNombreMascota" x="59" y="10" width="150" dataProvider="{cirugias}" labelField="nombreMascota" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputTipo" x="59" y="10" width="150" dataProvider="{cirugias}" labelField="tipo" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputVeterinario" x="59" y="10" width="150" dataProvider="{cirugias}" labelField="veterinario" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Tabla con datos -->
+	<mx:DataGrid x="10" y="74" width="739" height="220" id="tablaCirugias" dataProvider="{cirugias}" >
+		<mx:columns>
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>			
+			<mx:DataGridColumn width="120" headerText="Nombre cliente" dataField="nombreCliente" id="nombreCliente" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="120" headerText="Apellido paterno" dataField="apellidoPaterno" id="apellidoPaterno" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="119" headerText="Rut" dataField="rutCliente" id="rutCliente" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="120" headerText="Nombre mascota" dataField="nombreMascota" id="nombreMascota" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="120" headerText="Tipo cirugía" dataField="tipo" id="tipoCirugia" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="120" headerText="Veterinario" dataField="veterinario" id="veterinario" sortable="false" draggable="false"/>
+			</mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="523" y="302" label="Purgar" id="purgarCirugia" click="{deleteRow()}" toolTip="Purga la(s) cirugia(s) seleccionada(s)" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="647" y="302" label="Volver" id="cancelar" toolTip="Vuelve al panel principal" width="102" height="23" cornerRadius="6" click="actionCancelar()"/>
+	<mx:CheckBox x="10" y="48" id="todo" click="{selectAll()}">
+		<mx:toolTip>Seleccione todas las cirugias, en caso contrario ninguno</mx:toolTip>
+	</mx:CheckBox>
+	<mx:Label x="32" y="48" text="Seleccionar todo"/>
+	<mx:Label x="10" y="12" text="Buscar"/>
+	
+	<!-- Opciones de busqueda -->
+	<mx:ComboBox x="283" y="10" width="150" id="combobox" change="seleccionarBusqueda(event)">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="Nombre cliente"/>
+			<mx:Object label="Apellido paterno"/>
+			<mx:Object label="Rut cliente"/> 
+			<mx:Object label="Nombre mascota"/> 
+			<mx:Object label="Tipo"/> 
+			<mx:Object label="Veterinario"/>  
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
+</mx:Panel>
