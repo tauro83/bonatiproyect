@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Eliminar Cirugía" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Purgar Cirugía" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
 		//=======================================================================
@@ -23,49 +23,12 @@
 			[Bindable]
 			private var cirugias:ArrayCollection;
 			
-			/**
-			 * Se hace visible el input correspondiente a la opción
-			 * elegida en el combobox
-			 */
-			private function seleccionarBusqueda (event:Event):void
-            {   
-            	inputNombreCliente.setVisible(false,false);
-				inputApellidoPaterno.setVisible(false,false);
-				inputRutCliente.setVisible(false,false);
-				inputNombreMascota.setVisible(false,false);
-				inputNombreMascota.setVisible(false,false);
-				inputTipo.setVisible(false,false);
-				inputVeterinario.setVisible(false,false);
-				barraMsj.text="  ";
-				getAllCirugias();
-            	switch (combobox.selectedLabel)
-				{
-				case 'Nombre cliente':		
-					inputNombreCliente.setVisible(true,false);
-				break; 
-				case 'Apellido paterno':
-					inputApellidoPaterno.setVisible(true,false);
-				break;
-				case 'Rut cliente':
-					inputRutCliente.setVisible(true,false);
-				break;
-				case 'Nombre mascota':
-					inputNombreMascota.setVisible(true,false);
-				break;
-				case 'Tipo':
-					inputTipo.setVisible(true,false);
-				break;
-				case 'Veterinario':
-					inputVeterinario.setVisible(true,false);
-				break;
-				}
-            }
 			
-			public function actionCancelar():void
+			
+			public function actionVolver():void
 			{
-				Application.application.setInvisible();
-            	Application.application.agenda2.setVisible(true,false);
-            	Application.application.menuAgenda1.setVisible(true,false);
+            	Application.application.purgCirugia.setVisible(false,false);
+            	Application.application.purgCirugiaV.setVisible(true,false);
 			
 			}
 			
@@ -151,45 +114,39 @@
 			  removeTaskRecord();
 			}
 			
-			 /**
-			 * Se seleccionan todas las cirugías que están en 
-			 * el grid
-			 */
-			private function selectAll():void{
-                var allRows:int = cirugias.length;
-                for (var i:int = 0; i < allRows; i++){
-                    if (todo.selected)
-                        cirugias[i].sel = true;
-                    else
-                        cirugias[i].sel = false;
-                }
-                tablaCirugias.dataProvider = cirugias;
-            }
+			public function setDatos(cirugia:CirugiaPurg):void{
+         		cNom.text=cirugia.nombreCliente;
+         		cRut.text=cirugia.rutCliente;
+         		cTel.text=cirugia.telefono;
+         		cDir.text=cirugia.direccion;
+         		mNom.text=cirugia.nombreMascota;
+         		mRaza.text=cirugia.raza;
+         		mSex.text=cirugia.sexo;
+         		mFNa.text=cirugia.fechaNacimiento;
+         		
+         		/*this.cirugia = cirugia;
+         		
+         		lf = new ListarFichasService();
+         		gcliente = new GetCliente();
+         		
+         		lf.getCliente(mascota.rutCliente);
+         		lf.addEventListener(ResultEvent.RESULT,getClienteR);   
+         		      		
+         		gcliente.getAtenciones(mascota.rutCliente,mascota.nombre);  
+         		gcliente.addEventListener(ResultEvent.RESULT,getAtencionesR);
+         		
+         		this.getMascota();*/
+         	}
             
 		]]> 
   	</mx:Script>	
   	
   	<!-- Barra estado -->
-	<mx:Label x="169" y="372" width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold"/>
-	
-	<!-- AutoComplete -->
-	<fc:AutoComplete id="inputNombreCliente" x="59" y="10" width="150" dataProvider="{cirugias}" labelField="nombreCliente" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="inputApellidoPaterno" x="59" y="10" width="150" dataProvider="{cirugias}" labelField="apellidoPaterno" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="inputRutCliente" x="59" y="10" width="150" dataProvider="{cirugias}" labelField="rutCliente" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="inputNombreMascota" x="59" y="10" width="150" dataProvider="{cirugias}" labelField="nombreMascota" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="inputTipo" x="59" y="10" width="150" dataProvider="{cirugias}" labelField="tipo" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="inputVeterinario" x="59" y="10" width="150" dataProvider="{cirugias}" labelField="veterinario" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<mx:Label x="169" y="390" width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold"/>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid x="10" y="74" width="739" height="220" id="tablaCirugias" dataProvider="{cirugias}" >
-		<mx:columns>
-			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
-			 	<mx:itemRenderer>
-                        <mx:Component>
-                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
-                        </mx:Component>
-             	</mx:itemRenderer>
-            </mx:DataGridColumn>			
+	<mx:DataGrid x="10" y="176" width="739" height="166" id="tablaCirugias" dataProvider="{cirugias}" >
+		<mx:columns>		
 			<mx:DataGridColumn width="120" headerText="Nombre cliente" dataField="nombreCliente" id="nombreCliente" sortable="false" draggable="false"/>
 			<mx:DataGridColumn width="120" headerText="Apellido paterno" dataField="apellidoPaterno" id="apellidoPaterno" sortable="false" draggable="false"/>
 			<mx:DataGridColumn width="119" headerText="Rut" dataField="rutCliente" id="rutCliente" sortable="false" draggable="false"/>
@@ -198,25 +155,27 @@
 			<mx:DataGridColumn width="120" headerText="Veterinario" dataField="veterinario" id="veterinario" sortable="false" draggable="false"/>
 			</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="523" y="302" label="Purgar" id="purgarCirugia" click="{deleteRow()}" toolTip="Purga la(s) cirugia(s) seleccionada(s)" width="102" height="23" cornerRadius="6"/>
-	<mx:Button x="647" y="302" label="Volver" id="cancelar" toolTip="Vuelve al panel principal" width="102" height="23" cornerRadius="6" click="actionCancelar()"/>
-	<mx:CheckBox x="10" y="48" id="todo" click="{selectAll()}">
-		<mx:toolTip>Seleccione todas las cirugias, en caso contrario ninguno</mx:toolTip>
-	</mx:CheckBox>
-	<mx:Label x="32" y="48" text="Seleccionar todo"/>
-	<mx:Label x="10" y="12" text="Buscar"/>
+	<mx:Button x="523" y="350" label="Purgar" id="purgarCirugia" click="{deleteRow()}" toolTip="Purga la cirugia seleccionada" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="647" y="350" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
+	<mx:Label x="24" y="36" text="Nombre:" width="78"/>
+	<mx:Label x="10" y="9.95" text="Datos cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="393" y="9.95" text="Datos mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="24" y="62" text="Rut:" width="78"/>
+	<mx:Label x="407" y="87.95" text="Sexo:" width="78"/>
+	<mx:Label x="407" y="114" text="Fecha nacimiento:" width="107"/>
+	<mx:Label x="407" y="36" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="24" y="88" text="Teléfono:" width="78"/>
+	<mx:Label x="24" y="114" text="Dirección:" width="78" height="17.25"/>
+	<mx:Label x="407" y="61.9" text="Raza:" width="78"/>
+	<mx:TextInput x="127.1" y="34" width="217.75" editable="false" id="cNom"/>
+	<mx:TextInput x="127.1" y="60" width="138.75" editable="false" height="20" id="cRut"/>
+	<mx:TextInput x="127.1" y="86" width="138.75" editable="false" height="20" id="cTel"/>
+	<mx:TextInput x="127.1" y="112" width="217.75" editable="false" height="19.25" id="cDir"/>
+	<mx:TextInput x="548.2" y="34" width="138.75" editable="false" height="20" id="mNom"/>
+	<mx:TextInput x="548.25" y="59.9" width="92.9" editable="false" height="20" id="mRaza"/>
+	<mx:TextInput x="548.25" y="85.95" width="92.9" editable="false" height="20" id="mSex"/>
+	<mx:TextInput x="548.2" y="112" width="92.9" editable="false" height="20" id="mFNa"/>
+	<mx:Text x="10" y="150" text="Cirugías&#xa;" fontWeight="bold"/>
 	
 	<!-- Opciones de busqueda -->
-	<mx:ComboBox x="283" y="10" width="150" id="combobox" change="seleccionarBusqueda(event)">
-		<mx:ArrayCollection>
-			<mx:Object label="-Seleccione-"/>
-			<mx:Object label="Nombre cliente"/>
-			<mx:Object label="Apellido paterno"/>
-			<mx:Object label="Rut cliente"/> 
-			<mx:Object label="Nombre mascota"/> 
-			<mx:Object label="Tipo"/> 
-			<mx:Object label="Veterinario"/>  
-		</mx:ArrayCollection>
-	</mx:ComboBox>
-	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
 </mx:Panel>

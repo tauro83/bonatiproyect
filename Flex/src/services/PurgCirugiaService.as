@@ -53,6 +53,5 @@ package services
 		{
 			this.getOperation("getAllCirugias").send();
 		}
-		
 	}
 }
