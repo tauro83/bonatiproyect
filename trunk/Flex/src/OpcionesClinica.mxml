@@ -60,7 +60,7 @@
 			public function verPurgarCirugia():void{
 				Application.application.setInvisible();
 				this.visible = true;
-				Application.application.purgCirugia.visible = true;	
+				Application.application.purgCirugiaV.visible = true;	
 			}
 
 		]]>
