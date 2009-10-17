@@ -57,6 +57,11 @@
 				this.visible=true;
 				Application.application.PurgarPostOperatorio1.visible = true;	
 			}
+			public function verPurgarCirugia():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.purgCirugia.visible = true;	
+			}
 
 		]]>
 	</mx:Script>
@@ -73,6 +78,7 @@
 				<mx:Canvas label="Cirugía" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
 					<mx:LinkButton x="50" y="10" label="Registrar" width="100%" textAlign="left" id="cirugiaLink" click="verRegistrarCirugia()"/>
 					<mx:LinkButton x="50" y="40" label="Editar" width="100%" textAlign="left" id="cirugiaLink0" click="verEditarCirugia()"/>
+					<mx:LinkButton x="50" y="70" label="Purgar" width="139" textAlign="left" id="cirugiaLink1" click="verPurgarCirugia()"/>
 				</mx:Canvas>
 				<mx:Canvas label="Post-Operatorio" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
 					<mx:LinkButton x="50" y="10" label="Registrar" width="114" textAlign="left" id="PostOLink" click="verRegistrarPostOperatorio()"/>
