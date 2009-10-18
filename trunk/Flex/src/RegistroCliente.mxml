@@ -21,6 +21,7 @@
         import mx.events.CloseEvent;
 		import mx.events.DropdownEvent;
 		import services.Validacion;
+		import mx.core.Application;
         
         private var w:ClienteService= new ClienteService();
         private var rw:validarRut=new validarRut();
@@ -46,11 +47,101 @@
 *
 
 */		
+        
+         private function regiones(event:Event):void
+           {           		
+           		region.setVisible(true,false);
+           		comunas.setVisible(false,false);
+           		comunaAntofagasta.setVisible(false,false);
+           		comunaAtacama.setVisible(false,false);
+           		comunaCoquimbo.setVisible(false,false);
+           		comunaValparaiso.setVisible(false,false);
+            	comunaLibertador.setVisible(false,false)
+            	comunaMaule.setVisible(false,false);
+            	comunaBio.setVisible(false,false);
+            	comunaAraucania.setVisible(false,false);
+            	comunaLagos.setVisible(false,false);
+            	comunaMagallanes.setVisible(false,false);
+            	comunaAysen.setVisible(false,false);
+            	comunaMetro.setVisible(false,false);
+            	comunaRio.setVisible(false,false);
+            	comunaArica.setVisible(false,false);
+            	
+            	switch (region.selectedLabel)
+				{
+				case 'Region De Tarapaca':		
+					comunas.setVisible(true,false);
+					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+					//AdmIngreso2.comunaAtacama.setVisible(false,false);
+					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+					//AdmIngreso2.comunaValparao.setVisible(false,false);
+				break; 
+				case 'Region De Antofagasta':
+					comunaAntofagasta.setVisible(true,false);
+					//AdmIngreso2.comunas.setVisible(false,false);
+					//AdmIngreso2.comunaAtacama.setVisible(false,false);
+					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+					//AdmIngreso2.comunaValparao.setVisible(false,false);
+				break;
+				case 'Region De Atacama':
+					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+					//AdmIngreso2.comunas.setVisible(false,false);
+					comunaAtacama.setVisible(true,false);
+					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+					//AdmIngreso2.comunaValparao.setVisible(false,false);
+				break;
+				case 'Region De Coquimbo':
+					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+					//AdmIngreso2.comunas.setVisible(false,false);
+					//AdmIngreso2.comunaAtacama.setVisible(false,false);
+					comunaCoquimbo.setVisible(true,false);
+					//AdmIngreso2.comunaValparao.setVisible(false,false);
+				break;
+				case 'Region De Valparaiso':
+					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
+					//AdmIngreso2.comunas.setVisible(false,false);
+					//AdmIngreso2.comunaAtacama.setVisible(false,false);
+					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
+					comunaValparaiso.setVisible(true,false);
+				break;
+				case 'Region Del Libertador Bernardo O�higgins':
+					comunaLibertador.setVisible(true,false);
+				break;
+				case 'Region Del Maule':
+					comunaMaule.setVisible(true,false);
+				break;
+				case 'Region Del Bio-Bio':
+					comunaBio.setVisible(true,false);
+				break;
+				case 'Region De La Araucan�a':
+					comunaAraucania.setVisible(true,false);
+				break;
+				case 'Region De Los Lagos':
+					comunaLagos.setVisible(true,false);
+				break;
+				case 'Region Aysen del General Carlos Ibanes del Campo"':
+					comunaAysen.setVisible(true,false);
+				break;
+				case 'Region de Magallanes y Antartica Chilena':
+					comunaMagallanes.setVisible(true,false);
+				break;
+				case 'Region Metropolitana':
+					comunaMetro.setVisible(true,false);
+				break;
+				case 'Region de los Rios':
+					comunaRio.setVisible(true,false);
+				break;
+				case 'Region de Arica y Parinacota':
+					comunaArica.setVisible(true,false);
+				break;
+				}
+           }
+        
             
 		public function sendMessage():void
-			{						
+			{					
 				rw.addEventListener(ResultEvent.RESULT,resultHandler);				
-
+                
 				var c:String;
 				var aux:int;
 				var numeroArray:Array = new Array();
@@ -411,7 +502,7 @@
 	
 	<!-- Regiones -->	
 	<mx:Label x="413" y="79" text="Región:" width="112"/>
-	<mx:ComboBox x="540" y="77" width="201" id="region"  visible="true">	
+	<mx:ComboBox x="540" y="77" width="201" id="region"  visible="true" change="regiones(event)">	
 	<mx:ArrayCollection>
 			<mx:Object label="Region De Tarapaca"/>
 			<mx:Object label="Region De Antofagasta"/>

@@ -47,11 +47,12 @@
 				Application.application.editarCirugia.visible = true;
 			}
 
-			public function verEliminarPreoperatorio():void{
+			public function verPurgarPreoperatorio():void{
 				Application.application.setInvisible();
 				this.visible=true;
-				Application.application.eliminarPreO.visible = true;	
+				Application.application.visualizaPre.visible = true;	
 			}
+			
 			 private function verPurgarPostOperatorio ():void{
             	Application.application.setInvisible();
 				this.visible=true;
@@ -72,8 +73,7 @@
 				<mx:Canvas label="Pre-Operatorio" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 					<mx:LinkButton x="50" y="10" label="Registrar" width="100%" textAlign="left" id="PreOlink" click="verRegistrarPreOperatorio()"/>
 					<mx:LinkButton x="50" y="40" label="Editar"/>
-					<mx:LinkButton x="50" y="70" label="Eliminar" click="verEliminarPreoperatorio()"/>
-					<mx:LinkButton x="50" y="100" label="Purgar"/>
+					<mx:LinkButton x="50" y="100" label="Purgar" click="verPurgarPreoperatorio()"/>
 				</mx:Canvas>
 				<mx:Canvas label="Cirugía" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
 					<mx:LinkButton x="50" y="10" label="Registrar" width="100%" textAlign="left" id="cirugiaLink" click="verRegistrarCirugia()"/>

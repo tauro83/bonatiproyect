@@ -1,0 +1,108 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="updateTable()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Pre-Operatorio" x="241" y="133">
+	<mx:Script>
+		<![CDATA[
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Mascota2;
+			import mx.rpc.events.ResultEvent;
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.core.Application;
+			
+			[Bindable]
+			private var atencionesPre:ArrayCollection;
+			
+			/**
+         	 * Función de prueba que llena el datagrid sin necesidad de ir a la base de datos, para 
+         	 * el ingreso de ellos al interior del datagrid. 
+         	 */	
+         	 
+		    private function updateTable():void
+            {
+            	atencionesPre = new ArrayCollection;
+				atencionesPre.addItem({nomMascota:"alf", razaMascota:"San Bernardo", sexoMascota:"macho", rut:"16727045", nombre:"Jose", apellidoPaterno:"León"});
+            	atencionesPre.addItem({nomMascota:"boby", razaMascota:"Pastor Alemán", sexoMascota:"macho", rut:"16127599", nombre:"Natalie", apellidoPaterno:"Allende"});
+            	atencionesPre.addItem({nomMascota:"lazy", razaMascota:"Fox Terry", sexoMascota:"hembra", rut:"9342012", nombre:"Alexis", apellidoPaterno:"Fuenzalida"});
+            	atencionesPre.addItem({nomMascota:"cachupin", razaMascota:"Pastor Alemán", sexoMascota:"macho", rut:"6547893", nombre:"Juan", apellidoPaterno:"Aravena"});
+            	atencionesPre.addItem({nomMascota:"gaby", razaMascota:"poodle", sexoMascota:"hembra", rut:"102231001", nombre:"Magdalena", apellidoPaterno:"Campos"});
+            	atencionesPre.addItem({nomMascota:"Napoleón", razaMascota:"poodle", sexoMascota:"macho", rut:"3456234", nombre:"Irma", apellidoPaterno:"Briones"});
+            	tablaPreoperatorio.doubleClickEnabled=true;
+            	tablaPreoperatorio.dataProvider = atencionesPre;
+            	
+            }
+            
+			/**
+			 * Esta funcion es llamada al momento que se hace doble click sobre un elemento del data grid 
+			 * o al momento de presionar el botón visualizar, esta función llega al panel PurgarPreOperatorio de manera interna
+			 * sin necesidad de pasar por el panel Veterinaria, en donde se podra realizar la purgación de los datos de un 
+			 * preoperatorio.		
+			 */
+			 
+			public function editarAtencionPreoperatorio():void
+			{
+				
+				if(tablaPreoperatorio.selectedItem){					
+					var newPurgarPre:PurgarPreOperatorio = Application.application.purgarPre; // LLama a la componente del Preoperatorio.
+					var newMascota:Mascota2 = new Mascota2();
+					newMascota.nombre = tablaPreoperatorio.selectedItem.nomMascota;
+					newMascota.raza = tablaPreoperatorio.selectedItem.razaMascota
+					newMascota.sexo = tablaPreoperatorio.selectedItem.sexoMascota
+					newMascota.rut = tablaPreoperatorio.selectedItem.rut
+					newMascota.nombreDueno = tablaPreoperatorio.selectedItem.nombre
+					newMascota.apellidoPaterno = tablaPreoperatorio.selectedItem.apellidoPaterno
+					
+					
+					this.setVisible(false,false);
+					newPurgarPre.resetVars();
+					newPurgarPre.nomMascota.text = newMascota.nombre;
+					newPurgarPre.razaMascota.text = newMascota.raza;
+					newPurgarPre.sexoMascota.text = newMascota.sexo;
+					newPurgarPre.rut.text = newMascota.rut;
+					newPurgarPre.nombre.text = newMascota.nombreDueno;
+					newPurgarPre.apellidoPaterno.text = newMascota.apellidoPaterno;
+					
+					newPurgarPre.setVisible(true,false);
+
+				}
+
+			}
+			/**
+			 * Al momento de presionar el boton cancelar la operación se muestra un panel que solo tiene el 
+			 * mensaje "seleccione una opcion del menú" que sera el panel principal del menu de clinica.
+			 * 
+			 */
+			private function cancelando():void
+			{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+			
+		]]>
+	</mx:Script>
+	<!--DataGrid Con los datos de la mascota y cliente-->
+	<mx:DataGrid x="10" y="69" width="739" id="tablaPreoperatorio" enabled="true" height="225" dataProvider="{atencionesPre}" itemDoubleClick="editarAtencionPreoperatorio()">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre" dataField="nomMascota"/>
+			<mx:DataGridColumn headerText="Raza" dataField="razaMascota" width="100"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="sexoMascota" width="100"/>
+			<mx:DataGridColumn headerText="Rut" dataField="rut" width="80"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellidoPaterno"/>
+			
+			
+	     </mx:columns>
+	</mx:DataGrid>
+	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="302" click="editarAtencionPreoperatorio()" cornerRadius="6"/>
+	<mx:Label x="10" y="10" text="Seleccionar Mascota" fontWeight="bold"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="647" y="302" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
+	<mx:Label x="341" y="43" text="Cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="10" y="43" text="Mascota" width="98" fontWeight="bold"/>
+	
+
+
+	
+</mx:Panel>

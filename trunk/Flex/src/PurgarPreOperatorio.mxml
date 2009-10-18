@@ -1,0 +1,184 @@
+<!--@Author Erwin Díaz-->
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="updateTable()" layout="absolute"  width="779" height="466" title="Purgar Pre-Operatorio" borderColor="#15AD8F" >
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 11 Octubre
+			// AUTOR: Nicolas Delgado
+			// Comentarios: Muestra datos de la mascota con sus respectivas atenciones
+			// realizada een el pre-operatorio.
+			//=======================================================================
+		
+			import mx.controls.List;
+			import mx.events.ListEvent; 			
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+			import transferObjects.UsuarioElim;
+			import mx.rpc.events.ResultEvent;
+			import administracion.UsuarioElimService;
+			[Bindable]
+			private var atenciones:ArrayCollection;
+			
+			/**
+			 * Obtiene todas las atenciones que son de tipo pre-operatorio realizada por una mascota
+			 * al interior de la clinica veterinaria. 
+			 *@autor Nicolas
+			 */
+			 
+			private function getAllAtenciones():void
+			{
+				var usuarioElimService:UsuarioElimService = new UsuarioElimService();
+				usuarioElimService.addEventListener(ResultEvent.RESULT,getAllAtencionesResult);
+			}
+			
+			/**
+			 * Obtiene el evento de la consulta realizada a la base de datos, sobre la los datos de 
+			 * la mascota al interior de la clinica veterinaria.
+			 */
+			 
+			private function getAllAtencionesResult(event:ResultEvent):void
+			{
+				atenciones = event.result as ArrayCollection;
+			}
+			
+			/**
+			 * elimina la fila selecionada dentro del datagrid.
+			 */
+			 
+           	private function deleteRow():void {
+			 Alert.show("Está seguro que desea purgar atención ","Confirme purgar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			}
+			
+			/**
+			 * Remueve todas los elementos de preoperatorio efectuados por una mascota que han sido 
+			 * seleccionados del datagrid.
+			 */
+			 
+			private function removeTaskRecord():void
+            {
+                var allRows:int = atenciones.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (atenciones[i].sel)
+                	{
+                        atenciones.removeItemAt(i);
+                        allRows = atenciones.length;
+                        tablaAtenciones.dataProvider = atenciones;
+                        i=-1;
+                    }   
+                }              
+            }
+            
+			
+			/**
+			 * Esta fun cion se encarga de que al momento de recibir una confirmacion deleteRow proceder a 
+			 * realizar la eliminacion de los datos seleccionados
+			 */
+			 
+			private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+			
+			/**
+			 * Selecciona todos los elementos que se encuentran seleccionado al interior del datagrid, en cualquier momento que 
+			 * este sea seleccionado.
+			 * 
+			 */
+			 
+			private function selectAll():void{
+                var allRows:int = atenciones.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        atenciones[i].sel = true;
+                    else
+                        atenciones[i].sel = false;
+                }
+                tablaAtenciones.dataProvider = atenciones;
+            }
+         	
+         	
+			/**
+         	 * Función de prueba que llena el datagrid sin necesidad de ir a la base de datos, para 
+         	 * el ingreso de ellos al interior del datagrid. 
+         	 */	
+         	 
+         	private function updateTable():void
+            {
+            	atenciones = new ArrayCollection;
+            	nomMascota.text="lassie";
+            	razaMascota.text="Pastor Collie";
+            	sexoMascota.text="hembra";
+            	rut.text="1234325";
+            	nombre.text="Carlos";
+            	apellidoPaterno.text="Moreno";
+            	
+				atenciones.addItem({observaciones:"Observación1", sintomas:"vomito", diagnostico:"Limpieza de estomago", servicio:"Pabellón", hora:"15:30", fecha:"12/10/09"});
+ 				atenciones.addItem({observaciones:"Observación2", sintomas:"Torsedura en el pies", diagnostico:"operacion del pies", servicio:"Pabellón", hora:"16:00", fecha:"10/10/09"});
+ 				atenciones.addItem({observaciones:"Observación3", sintomas:"Herida Infectada", diagnostico:"Desinfeccionde la herida ", servicio:"Pabellón", hora:"20:30", fecha:"09/09/09"});
+ 				atenciones.addItem({observaciones:"Observación4", sintomas:"Tumor", diagnostico:"Extirpación", servicio:"Pabellón", hora:"13:00", fecha:"07/07/09"});
+ 				atenciones.addItem({observaciones:"Observación5", sintomas:"vomito", diagnostico:"Limpieza de estomago", servicio:"Pabellón", hora:"18:00", fecha:"01/01/07"});
+ 				atenciones.addItem({observaciones:"Observación6", sintomas:"Torsedura en el pies", diagnostico:"operacion del pies", servicio:"Pabellón", hora:"19:45", fecha:"02/02/00"});
+ 				tablaAtenciones.dataProvider = atenciones;
+ 			}
+ 			
+ 			/**
+ 			 * resetea todos los textos dejandolos en blanco, para esperar por una nueva entrada de purgar 
+ 			 * un preoperatorio.
+ 			 */
+ 			public function resetVars():void
+			{
+				nombre.text = "";
+				apellidoPaterno.text = "";
+				rut.text = "";
+				nomMascota.text = "";
+				razaMascota.text = "";
+				sexoMascota.text = "";
+			}
+			
+         	]]> 
+ 	</mx:Script>
+	<mx:Label x="24.15" y="36" text="Nombre:" width="78"/>
+	<mx:Label x="393.7" y="36" text="Nombre:" width="78"/>
+	<mx:Label x="24.15" y="10" text="Cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="393.7" y="9.95" text="Mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="24.15" y="85.95" text="Rut:" width="78"/>
+	<mx:Label x="393.7" y="87.95" text="Sexo:" width="78"/>
+	<mx:Label x="393.7" y="35.9" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="393.7" y="61.9" text="Raza:" width="78"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:DataGrid x="10" y="176.95" width="739" height="104.05" id="tablaAtenciones" dataProvider="{atenciones}" >
+		<mx:columns>
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
+			 	<mx:itemRenderer>
+			 	                <mx:Component>
+			 	                    <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+			 	                </mx:Component>
+			 	     	</mx:itemRenderer>
+			      </mx:DataGridColumn>			
+			<mx:DataGridColumn width="160" headerText="Observaciones" id="observaciones" dataField="observaciones" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="160" headerText="Sintomas" id="sintomas" dataField="sintomas" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="160" headerText="Diagnostico" id="diagnostico" dataField="diagnostico" sortable="false" draggable="false"/>			
+			<mx:DataGridColumn width="90" headerText="Servicio" id="servicio" dataField="servicio" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="60" headerText="Hora" id="hora" dataField="hora" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="60" headerText="Fecha" id="fecha" dataField="fecha" sortable="false" draggable="false"/>
+			</mx:columns>
+	</mx:DataGrid>
+	<mx:CheckBox x="114" y="150.95" id="todo" click="{selectAll()}">
+		<mx:toolTip>Seleccione todas las Preoperaciones, en caso contrario ninguna</mx:toolTip>
+	</mx:CheckBox>
+	<mx:Label x="10" y="150.95" text="Seleccionar todo"/>
+	<mx:Button x="523" y="302" label="Purgar" id="purgarAtenciones" click="{deleteRow()}" toolTip="Elimina la o las Atenciones seleccionados" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="647" y="302" label="Cancelar" id="cancelar" toolTip="Cancela la operación" width="102" height="23" cornerRadius="6"/>
+	<mx:Label x="24.15" y="62" text="Apellido:" width="78"/>
+	<mx:Label x="10" y="124.95" text="Atenciones Pre-Operatorio" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<mx:Text x="110" y="36" id="nombre" width="156"/>
+	<mx:Text x="110" y="62" id="apellidoPaterno" width="156"/>
+	<mx:Text x="110" y="85.95" id="rut" width="156"/>
+	<mx:Text x="479.7" y="36" id="nomMascota" width="156"/>
+	<mx:Text x="479.7" y="61.9" id="razaMascota" width="156"/>
+	<mx:Text x="479.7" y="87.95" id="sexoMascota" width="156"/>
+	
+</mx:Panel>
