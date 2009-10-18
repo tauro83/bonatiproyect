@@ -36,9 +36,9 @@
             
 
  			<!--Autor: Nicolas{ -->
- 				
-			AdmIngreso2.region.addEventListener(DropdownEvent.CLOSE,regiones);
 
+			purgarPre.cancelar.addEventListener(MouseEvent.CLICK,cancelarPre);
+ 				
  			<!--Autor: }Nicolas --> 
  				
  				<!--Autor: Esteban{ -->
@@ -113,95 +113,12 @@
             }
 
            <!-- Nicolas-->
-            private function regiones(event:DropdownEvent):void
-           {           		
-           		AdmIngreso2.region.setVisible(true,false);
-           		AdmIngreso2.comunas.setVisible(false,false);
-           		AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-           		AdmIngreso2.comunaAtacama.setVisible(false,false);
-           		AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-           		AdmIngreso2.comunaValparaiso.setVisible(false,false);
-            	AdmIngreso2.comunaLibertador.setVisible(false,false)
-            	AdmIngreso2.comunaMaule.setVisible(false,false);
-            	AdmIngreso2.comunaBio.setVisible(false,false);
-            	AdmIngreso2.comunaAraucania.setVisible(false,false);
-            	AdmIngreso2.comunaLagos.setVisible(false,false);
-            	AdmIngreso2.comunaMagallanes.setVisible(false,false);
-            	AdmIngreso2.comunaAysen.setVisible(false,false);
-            	AdmIngreso2.comunaMetro.setVisible(false,false);
-            	AdmIngreso2.comunaRio.setVisible(false,false);
-            	AdmIngreso2.comunaArica.setVisible(false,false);
-            	
-            	switch (AdmIngreso2.region.selectedLabel)
-				{
-				case 'Region De Tarapaca':		
-					AdmIngreso2.comunas.setVisible(true,false);
-					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					//AdmIngreso2.comunaValparao.setVisible(false,false);
-				break; 
-				case 'Region De Antofagasta':
-					AdmIngreso2.comunaAntofagasta.setVisible(true,false);
-					//AdmIngreso2.comunas.setVisible(false,false);
-					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					//AdmIngreso2.comunaValparao.setVisible(false,false);
-				break;
-				case 'Region De Atacama':
-					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-					//AdmIngreso2.comunas.setVisible(false,false);
-					AdmIngreso2.comunaAtacama.setVisible(true,false);
-					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					//AdmIngreso2.comunaValparao.setVisible(false,false);
-				break;
-				case 'Region De Coquimbo':
-					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-					//AdmIngreso2.comunas.setVisible(false,false);
-					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-					AdmIngreso2.comunaCoquimbo.setVisible(true,false);
-					//AdmIngreso2.comunaValparao.setVisible(false,false);
-				break;
-				case 'Region De Valparaiso':
-					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-					//AdmIngreso2.comunas.setVisible(false,false);
-					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					AdmIngreso2.comunaValparaiso.setVisible(true,false);
-				break;
-				case 'Region Del Libertador Bernardo O�higgins':
-					AdmIngreso2.comunaLibertador.setVisible(true,false);
-				break;
-				case 'Region Del Maule':
-					AdmIngreso2.comunaMaule.setVisible(true,false);
-				break;
-				case 'Region Del Bio-Bio':
-					AdmIngreso2.comunaBio.setVisible(true,false);
-				break;
-				case 'Region De La Araucan�a':
-					AdmIngreso2.comunaAraucania.setVisible(true,false);
-				break;
-				case 'Region De Los Lagos':
-					AdmIngreso2.comunaLagos.setVisible(true,false);
-				break;
-				case 'Region Aysen del General Carlos Ibanes del Campo"':
-					AdmIngreso2.comunaAysen.setVisible(true,false);
-				break;
-				case 'Region de Magallanes y Antartica Chilena':
-					AdmIngreso2.comunaMagallanes.setVisible(true,false);
-				break;
-				case 'Region Metropolitana':
-					AdmIngreso2.comunaMetro.setVisible(true,false);
-				break;
-				case 'Region de los Rios':
-					AdmIngreso2.comunaRio.setVisible(true,false);
-				break;
-				case 'Region de Arica y Parinacota':
-					AdmIngreso2.comunaArica.setVisible(true,false);
-				break;
-				}
-				
-           }
+
+           	private function cancelarPre ( event:Event ):void{
+            	setInvisible();
+               	opcionesClinica1.setVisible(true,false);
+            	visualizaPre.setVisible(true,false);
+            }
 
 
            <!-- Nicolas-->
@@ -596,8 +513,10 @@
 
 	<!--Autor: nicolas}-->
 
-      <ns1:EliminarPreoperatorio x="241" y="134" visible="false" id="eliminarPreO">
-	</ns1:EliminarPreoperatorio>
+     <ns1:VisualizarPreoperatorio x="241" y="134" visible="false" id="visualizaPre">
+	</ns1:VisualizarPreoperatorio>
+      <ns1:PurgarPreOperatorio x="241" y="134" id="purgarPre" visible="false" borderColor="#15AD8F">
+	</ns1:PurgarPreOperatorio>
 	
 	<!--Autor: }nicolas-->
 	
