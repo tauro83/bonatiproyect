@@ -12,9 +12,11 @@ import AdministracionBD.UsuarioElimBD;
 import TransferObjects.Mascota;
 import TransferObjects.Usuario;
 import Bd.DBConnectionManager;
+import TransferObjects.tiposCir;
+import TransferObjects.Cirugia;
 
 public class AddCirugiaService {
-
+	
 	/**
 	 * Autor: Jimmy Muñoz
 	 * Metodo que llama a la funcion con el mismo nombre que se encuentra en la 
@@ -22,9 +24,33 @@ public class AddCirugiaService {
 	 * @param Usuario contiene los datos de la persona que se quiere editar.
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
-	public int AddCirugia(Usuario person)
+	public int AddCirugia(Cirugia nuevaCir)
     {
-		int result=0;
+		
+		System.out.println("ayudante: "+nuevaCir.getAyudante());
+		System.out.println("veterinario: "+nuevaCir.getVeterinario());
+		System.out.println("fecha: "+nuevaCir.getFecha());
+		System.out.println("diagnostico: "+nuevaCir.getDiagnostico());
+		System.out.println("rut cliente: "+nuevaCir.getClienteRut());
+		System.out.println("nombre mascota: "+nuevaCir.getMascotaNombre());
+		
+		List<tiposCir> ltc = new ArrayList<tiposCir>();
+		ltc = nuevaCir.getTiposCirugias();
+		System.out.println("paso1");
+		int n = ltc.size();
+		System.out.println("paso2, n: "+n);
+		for(int i=0;i<n;i++){
+			System.out.println("paso3");
+			tiposCir tc = (tiposCir)ltc.get(i);
+			System.out.println("paso4");
+			if(tc == null){
+				System.out.println("Tipo de cirugia"+i+": "+tc.getCirugias());
+			}
+			
+		}
+		
+		return 1;
+		/*int result=0;
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
@@ -35,7 +61,7 @@ public class AddCirugiaService {
 		{
 			e.printStackTrace();
 		}
-		return result;
+		return result;*/
     }
 	
 	
@@ -90,10 +116,10 @@ public class AddCirugiaService {
 		return mascotas;
     }
 	
-	public List<String> getTiposCirugias(){
+	public List<tiposCir> getTiposCirugias(){
 		List<String> cirus=new ArrayList<String>();
+		List<tiposCir> tiposcirus=new ArrayList<tiposCir>();
 		
-		cirus.add("");
 		cirus.add("Amputación");
 		cirus.add("De Apéndice");
 		cirus.add("De los aparatos respiratorio");
@@ -110,8 +136,16 @@ public class AddCirugiaService {
 		cirus.add("Partos y cesaria");
 		cirus.add("Tiroidectomía (por tumores)");
 		cirus.add("De tumor");
+		
+		for(int i=0;i<cirus.size();i++){
+			tiposCir tc = new tiposCir();
+			tc.setCirugias(cirus.get(i));
+			tiposcirus.add(tc);
+		}
+		
+		System.out.println("tipos 1: "+tiposcirus.get(0).getCirugias());
 
-		return cirus;	
+		return tiposcirus;	
 	}
 	
 	
