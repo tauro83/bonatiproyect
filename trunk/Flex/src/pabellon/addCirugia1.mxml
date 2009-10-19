@@ -244,12 +244,10 @@
 				if(dg.selectedItem){
 					var nuevacir:addCirugia = Application.application.cliRegistro2;
 					nuevacir.iniciarPanel();
-					nuevacir.mascNomC.text = dg.selectedItem.nombre.split(" ",1).pop();
-					nuevacir.CliNomC.text = this.nombreCliente.split(" ",1).pop();
-					nuevacir.cliRutC.text=this.rutClienteInput.text.split(" ",1).pop();
-					nuevacir.cliRut2.text=this.rutClienteDVInput.text.split(" ",1).pop();
-					nuevacir.mascClase.text=this.dg.selectedItem.claseAnimal.split(" ",1).pop();
 					
+					nuevacir.nombreMascota=dg.selectedItem.nombre;
+					nuevacir.clienteRut=this.rutClienteInput.text;
+					nuevacir.clienteRut2=this.rutClienteDVInput.text;
 					nuevacir.veterinarios2=this.vetesC;
 					nuevacir.ayudantes2=this.ayudantesC;
 					nuevacir.ayudantes3=this.ayudantesC;
@@ -314,12 +312,8 @@
 			<mx:Label x="129" y="155" width="165" text="{dg.selectedItem.raza}"/>
 			<mx:Label x="129" y="181" width="165" text="{dg.selectedItem.sexo}"/>
 	</mx:Panel>	
-	<!--
-	<ns1:FileUploader x="465.75" y="152" uploaded="uploadedHandler(event)" width="200.5">
-	</ns1:FileUploader>
-	-->
-	<mx:Button x="545.75" y="369" label="Visualizar" visible="true" id="registrar" click="regCiru()"/>
-	<mx:Button x="635.75" y="369" label="Cancelar" width="84" id="cancelar" visible="true"/>
+
+	
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="10" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
 	<mx:DataGrid id="dg" color="0x323232" width="681" rowCount="3" y="92" x="38.75" variableRowHeight="true" dataProvider="{mascotas}" itemDoubleClick="regCiru()"  visible="true" height="269">
@@ -331,6 +325,9 @@
 	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
 	    </mx:columns>
 	</mx:DataGrid>
+	<mx:Button x="545.75" y="369" label="Visualizar" visible="true" id="registrar" click="regCiru()"/>
+	<mx:Button x="635.75" y="369" label="Cancelar" width="84" id="cancelar" visible="true"/>
+	
 	<mx:Label x="10" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
 	<!--
 	<mx:TileList x="465.75" y="9" width="200.5" height="135" dataProvider="{files}" itemRenderer="components.ItemRenderer"></mx:TileList>
