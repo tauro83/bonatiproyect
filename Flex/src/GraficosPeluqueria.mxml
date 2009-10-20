@@ -9,25 +9,22 @@
 -->
 	<mx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
-		
+			import mx.messaging.channels.StreamingAMFChannel;
+		import mx.collections.ArrayCollection;
 		import mx.rpc.events.ResultEvent;
 		import mx.controls.Alert;
 		import mx.events.CalendarLayoutChangeEvent;
-			
-		[Bindable]private var testInfo:XMLList;
-		[Bindable]private var periodo:String = "mes";
-		[Bindable]private var dataSet:String = "set1";
-		[Bindable]private var titulo:String = "Estadísticas a la fecha para Peluqueria";
+		import services.GetEstadisticasPeluqueria;
+		import transferObjects.EstadisticasPeluqueria;
 		
-		/**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  13 Octubre
-			 *  @Descripcion retorna el resultado del llamado a la capa logica, el cual es tratado
-			 *  como archivo .xml	
-			 * */
-		private function xmlHandler(evt:ResultEvent):void{
-			testInfo = evt.result.atencion;
+		
+		[Bindable]public var expenses:ArrayCollection ;
+		private var titulo:String = "Estadísticas por rango de fecha para Peluqueria";
+		private var gep:GetEstadisticasPeluqueria;
+
+		private function getEstadisticasR(event:ResultEvent):void
+		{
+			expenses = event.result as ArrayCollection;	
 		}
 		
 		/**
@@ -40,22 +37,25 @@
 		{
 			if(fechaIni.selectedDate!=null && fechaFin.selectedDate!=null){
 				if(fechaIni.selectedDate.getTime()<=fechaFin.selectedDate.getTime()){
-					this.dataSet="set2";
-					switch (dataSet){
-						case ('set1'):
-							testData.url ="assets/"+"mes"+"/peluqueria.xml";
-							break;
-						case ('set2'):
-							testData.url ="assets/"+"semestre"+"/peluqueria.xml";
-							break;
-						case ('set3'):
-							testData.url ="assets/"+"year"+"/peluqueria.xml";
-							break;
-						default:
-							break;
-					}
-					testData.send();
-					mens.text = "";
+					 gep = new GetEstadisticasPeluqueria();
+					var iDia:String		= fechaIni.selectedDate.getDate().toString();
+					var iMes:String		= (fechaIni.selectedDate.getMonth()+1).toString();
+					var iAnio:String	= fechaIni.selectedDate.getFullYear().toString();
+					var fDia:String		= fechaFin.selectedDate.getDate().toString();
+					var fMes:String		= (fechaFin.selectedDate.getMonth()+1).toString();
+					var fAnio:String	= fechaFin.selectedDate.getFullYear().toString();
+					//Alert.show(iDia);
+ 					var inicio:String	= iAnio+"-"+iMes+"-"+iDia;
+ 					var fin:String		= fAnio+"-"+fMes+"-"+fDia; 
+ 					gep.getEstadisticas(inicio,fin);
+ 					gep.addEventListener(ResultEvent.RESULT,getEstadisticasR);
+					
+// 					expenses = new ArrayCollection([
+//				        {tipo:"Corte", numAtenciones:820},
+//				        {tipo:"Baño", numAtenciones:200},
+//				        {tipo:"Pedicura", numAtenciones:150}
+//				     ]); 
+				     mens.text = "";  
 				}
 				else{
 					mens.text = "La fecha de inicio, debe ser anterior a la fecha fin";
@@ -65,25 +65,23 @@
 		}
 		]]>
 	</mx:Script>
-
-
 	<mx:SeriesInterpolate id="changeEffect" duration="2000"/>
-	<mx:HTTPService url="assets/mes/pabellon.xml" id="testData" result="xmlHandler(event)" resultFormat="e4x"/>	
-		<mx:Panel horizontalAlign="center" layout="absolute" title="{titulo}" width="779" height="466" borderColor="#15AD8F">
-		<mx:ColumnChart dataProvider="{testInfo}" id="chartEstadisticaClinica"  height="288" width="513" x="209" y="10">
-			<mx:horizontalAxis>
-				<mx:CategoryAxis dataProvider="{testInfo}" categoryField="name"/>
-			</mx:horizontalAxis>
-			<mx:series>
-				<mx:ColumnSeries showDataEffect="{changeEffect}" xField="name" yField="sat" displayName="N° de atenciones realizadas"/>
-			</mx:series>
-		</mx:ColumnChart>
-		<mx:Legend horizontalAlign="right" dataProvider="{chartEstadisticaClinica}" width="188" x="397" y="306"/>
-		<mx:DateField id="fechaIni"  x="89" y="36" width="112" change="changeData(event)"/>
-		<mx:Label x="10" y="38" text="Inicio:" width="58"/>
-		<mx:DateField id="fechaFin"   x="89" y="67" width="112" change="changeData(event)"/>
-		<mx:Label x="10" y="69" text="Fin:" width="45"/>
-		<mx:Label x="10" y="10" text="Rango de fechas:"/>
-		<mx:Label x="176" y="377" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+	<mx:Panel horizontalAlign="center" layout="absolute" title="{titulo}" width="779" height="466" borderColor="#15AD8F">
+		<mx:ColumnChart id="myChart" dataProvider="{expenses}"  height="316" width="540" x="209" y="36" showDataTips="true">
+	        <mx:horizontalAxis>
+	           <mx:CategoryAxis dataProvider="{expenses}" categoryField="tipo"/>
+	        </mx:horizontalAxis>
+	        <mx:series>
+	           <mx:ColumnSeries xField="tipo" yField="numAtenciones" displayName="N° de atenciones realizadas" />
+	        </mx:series>
+     	</mx:ColumnChart>
+     		<mx:Legend horizontalAlign="right" dataProvider="{myChart}" width="199" x="550" y="10"/>
+			
+			<mx:DateField id="fechaIni"  x="89" y="36" width="112" change="changeData(event)"/>
+			<mx:Label x="10" y="38" text="Inicio:" width="58"/>
+			<mx:DateField id="fechaFin"   x="89" y="67" width="112" change="changeData(event)"/>
+			<mx:Label x="10" y="69" text="Fin:" width="45"/>
+			<mx:Label x="10" y="10" text="Rango de fechas:"/>
+			<mx:Label x="176" y="377" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	</mx:Panel>
 </mx:VBox>
