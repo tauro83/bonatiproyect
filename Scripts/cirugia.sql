@@ -19,6 +19,7 @@ create table Diagnosticos(
 	nuevaFecha CHAR(10) not null,
 	tipoCirugia CHAR(30),
 	nuevaHora time not null,
-	constraint PK_diagnosticos primary key (mascotaNombre,hora,clienteRut,fecha,nuevaFecha,nuevaHora),
+	id CHAR(2),
+	constraint PK_diagnosticos primary key (mascotaNombre,hora,clienteRut,fecha,nuevaFecha,nuevaHora,id),
 	CONSTRAINT fk_cita_reference_usuario FOREIGN KEY (clienteRut,mascotaNombre,hora,fecha) REFERENCES Cirugia(clienteRut,mascotaNombre,hora,fecha) MATCH SIMPLE ON UPDATE RESTRICT ON DELETE RESTRICT
 );
