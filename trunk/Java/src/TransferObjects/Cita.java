@@ -20,6 +20,9 @@ public class Cita {
 	public String getMascota() {
 		return mascota;
 	}
+	public void setMascota(String mascota) {
+		this.mascota = mascota;
+	}
 	public String getFecha() {
 		return fecha;
 	}
@@ -28,7 +31,7 @@ public class Cita {
 	}
 	
 	public String getHora() {
-		return fecha;
+		return hora;
 	}
 	public void setHora(String hora) {
 		this.hora = hora;
