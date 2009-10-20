@@ -1,16 +1,23 @@
 package TransferObjects;
 
+import java.util.ArrayList;
+import java.util.List;
+import TransferObjects.tiposCir;
+
 public class Cirugia {
 
 	private String clienteRut;
 	private String mascotaNombre;
 	private String hora;
 	private String fecha;
+	private String nuevaFecha;
+	private String nuevaHora;
 	private String costo;
 	private String veterinario;
 	private String ayudante;
 	private String tipoCir;
 	private String diagnostico;
+	private List<tiposCir> tiposCirugias;
 	
 	public void setClienteRut(String clienteRut) {
 		this.clienteRut = clienteRut;
@@ -65,6 +72,24 @@ public class Cirugia {
 	}
 	public String getDiagnostico() {
 		return diagnostico;
+	}
+	public void setTiposCirugias(List<tiposCir> tiposCirugias) {
+		this.tiposCirugias = tiposCirugias;
+	}
+	public List<tiposCir> getTiposCirugias() {
+		return tiposCirugias;
+	}
+	public void setNuevaFecha(String nuevaFecha) {
+		this.nuevaFecha = nuevaFecha;
+	}
+	public String getNuevaFecha() {
+		return nuevaFecha;
+	}
+	public void setNuevaHora(String nuevaHora) {
+		this.nuevaHora = nuevaHora;
+	}
+	public String getNuevaHora() {
+		return nuevaHora;
 	}
 	
 }
