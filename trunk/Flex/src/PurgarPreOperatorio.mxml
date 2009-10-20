@@ -1,7 +1,9 @@
 <!--@Author Erwin Díaz-->
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="updateTable()" layout="absolute"  width="779" height="466" title="Purgar Pre-Operatorio" borderColor="#15AD8F" >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllAtenciones()" layout="absolute"  width="779" height="466" title="Purgar Pre-Operatorio" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
+			import services.PreoperatorioService;
+			import transferObjects.Preoperatorio;
 			//=======================================================================
 			// FECHA: CREACIÓN: 11 Octubre
 			// AUTOR: Nicolas Delgado
@@ -30,8 +32,8 @@
 			 
 			private function getAllAtenciones():void
 			{
-				var usuarioElimService:UsuarioElimService = new UsuarioElimService();
-				usuarioElimService.addEventListener(ResultEvent.RESULT,getAllAtencionesResult);
+				var purgarPreoperatorio:PreoperatorioService = new PreoperatorioService();
+				purgarPreoperatorio.addEventListener(ResultEvent.RESULT,getAllAtencionesResult);
 			}
 			
 			/**
@@ -108,12 +110,12 @@
          	private function updateTable():void
             {
             	atenciones = new ArrayCollection;
-            	nomMascota.text="lassie";
-            	razaMascota.text="Pastor Collie";
-            	sexoMascota.text="hembra";
             	rut.text="1234325";
             	nombre.text="Carlos";
             	apellidoPaterno.text="Moreno";
+            	nombreMascota.text="lassie";
+            	raza.text="Pastor Collie";
+            	sexo.text="hembra";
             	
 				atenciones.addItem({observaciones:"Observación1", sintomas:"vomito", diagnostico:"Limpieza de estomago", servicio:"Pabellón", hora:"15:30", fecha:"12/10/09"});
  				atenciones.addItem({observaciones:"Observación2", sintomas:"Torsedura en el pies", diagnostico:"operacion del pies", servicio:"Pabellón", hora:"16:00", fecha:"10/10/09"});
@@ -133,9 +135,9 @@
 				nombre.text = "";
 				apellidoPaterno.text = "";
 				rut.text = "";
-				nomMascota.text = "";
-				razaMascota.text = "";
-				sexoMascota.text = "";
+				nombreMascota.text = "";
+				raza.text = "";
+				sexo.text = "";
 			}
 			
          	]]> 
@@ -177,8 +179,8 @@
 	<mx:Text x="110" y="36" id="nombre" width="156"/>
 	<mx:Text x="110" y="62" id="apellidoPaterno" width="156"/>
 	<mx:Text x="110" y="85.95" id="rut" width="156"/>
-	<mx:Text x="479.7" y="36" id="nomMascota" width="156"/>
-	<mx:Text x="479.7" y="61.9" id="razaMascota" width="156"/>
-	<mx:Text x="479.7" y="87.95" id="sexoMascota" width="156"/>
+	<mx:Text x="479.7" y="36" id="nombreMascota" width="156"/>
+	<mx:Text x="479.7" y="61.9" id="raza" width="156"/>
+	<mx:Text x="479.7" y="87.95" id="sexo" width="156"/>
 	
 </mx:Panel>

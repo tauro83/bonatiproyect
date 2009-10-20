@@ -37,7 +37,15 @@ package services
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		
+		private function faultHandler(event:FaultEvent):void
+		{
+			Alert.show("Error en Preoperatorio, Detalle: "+event.fault.message);
+		}
 		
+		public function getAllDatos():void
+		{
+			this.getOperation("getAllDatos").send();
+		}
 		
 		
 	}

@@ -231,7 +231,12 @@
 		    	bitacora.setVisible(false,false);
 		    	agenda2.setVisible(false, false);
 		    	editarCirugia.setVisible(false, false);
-		 		<!--Autor: }Sebastian -->      
+		 		<!--Autor: }Sebastian -->    
+
+		      <!--Autor: Nicolas{-->
+            	purgarPre.setVisible(false,false);
+            	visualizaPre.setVisible(false,false);
+            	<!--Autor: }Nicolas -->  
 		 		
 		 		
             }
