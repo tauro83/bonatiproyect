@@ -2,7 +2,9 @@ package Pabellon;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import AdministracionBD.AddMascotaBD;
@@ -16,7 +18,7 @@ import TransferObjects.tiposCir;
 import TransferObjects.Cirugia;
 
 public class AddCirugiaService {
-	
+	public List<Usuario> persons;
 	/**
 	 * Autor: Jimmy Muñoz
 	 * Metodo que llama a la funcion con el mismo nombre que se encuentra en la 
@@ -27,29 +29,67 @@ public class AddCirugiaService {
 	public int AddCirugia(Cirugia nuevaCir)
     {
 		
-		System.out.println("ayudante: "+nuevaCir.getAyudante());
+		/*System.out.println("ayudante: "+nuevaCir.getAyudante());
 		System.out.println("veterinario: "+nuevaCir.getVeterinario());
 		System.out.println("fecha: "+nuevaCir.getFecha());
 		System.out.println("diagnostico: "+nuevaCir.getDiagnostico());
 		System.out.println("rut cliente: "+nuevaCir.getClienteRut());
 		System.out.println("nombre mascota: "+nuevaCir.getMascotaNombre());
 		
-		List<tiposCir> ltc = new ArrayList<tiposCir>();
-		ltc = nuevaCir.getTiposCirugias();
-		System.out.println("paso1");
-		int n = ltc.size();
-		System.out.println("paso2, n: "+n);
-		for(int i=0;i<n;i++){
-			System.out.println("paso3");
+		List<tiposCir> ltc = nuevaCir.getTiposCirugias();
+		
+		
+		
+		int n2 = ltc.size();
+		for(int i=0;i<n2;i++){
 			tiposCir tc = (tiposCir)ltc.get(i);
-			System.out.println("paso4");
-			if(tc == null){
+			if(tc != null){
 				System.out.println("Tipo de cirugia"+i+": "+tc.getCirugias());
 			}
 			
 		}
+		*/
 		
-		return 1;
+		this.getAllUsuariosE();
+		String nombreVet = nuevaCir.getVeterinario();
+		String nombres[] = nombreVet.split(" ");
+		String nombreAyu = nuevaCir.getAyudante();
+		String nombresa[] = nombreAyu.split(" ");
+		
+		
+		int n = persons.size();
+		
+		for(int i=0;i<n;i++){
+			Usuario u = persons.get(i); 
+			String nombre = u.getNombre().trim();
+			String nombre2 = u.getApellidoPaterno().trim();
+			if(nombre.equals(nombres[0]) && nombre2.equals(nombres[1])){
+				nuevaCir.setVeterinario(u.getUsuario().trim());
+			}
+		}
+		
+		for(int i=0;i<n;i++){
+			Usuario u = persons.get(i); 
+			String nombre = u.getNombre().trim();
+			String nombre2 = u.getApellidoPaterno().trim();
+			if(nombre.equals(nombresa[0]) && nombre2.equals(nombresa[1])){
+				nuevaCir.setAyudante(u.getUsuario().trim());
+			}
+		}
+
+		int result=0;
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			AddCirugiaBD cirugiaBd = new AddCirugiaBD(connection);
+			result = cirugiaBd.addCirugia(nuevaCir);		
+			connection.close();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
+
 		/*int result=0;
 		try 
 		{
@@ -142,8 +182,6 @@ public class AddCirugiaService {
 			tc.setCirugias(cirus.get(i));
 			tiposcirus.add(tc);
 		}
-		
-		System.out.println("tipos 1: "+tiposcirus.get(0).getCirugias());
 
 		return tiposcirus;	
 	}
@@ -152,9 +190,20 @@ public class AddCirugiaService {
 	public List<String> getTiposVeterinarios(){
 		List<String> cirus=new ArrayList<String>();
 		
+		this.getAllUsuariosE();
 		cirus.add("");
-		cirus.add("Claudio Bonati");
-		cirus.add("Patricio Castro");
+		int n = persons.size();
+		
+		for(int i=0;i<n;i++){
+			Usuario u = persons.get(i); 
+			String cargo = u.getCargo().trim();
+			if(cargo.equals("Veterinario")){
+				String nombre = u.getNombre().trim();
+				String apellido = u.getApellidoPaterno().trim();
+				String nombFinal = nombre.concat(" "+apellido);
+				cirus.add(nombFinal);
+			}
+		}
 
 		return cirus;	
 	}
@@ -162,13 +211,43 @@ public class AddCirugiaService {
 	public List<String> getTiposAyudantes(){
 		List<String> cirus=new ArrayList<String>();
 		
+		this.getAllUsuariosE();
 		cirus.add("");
-		cirus.add("Claudio Bonati");
-		cirus.add("Patricio Castro");
-		cirus.add("Sebastian Lopez");
-		cirus.add("Juan Bravo");
-		cirus.add("Esteban Rodriguez");
-
+		int n = persons.size();
+		for(int i=0;i<n;i++){
+			Usuario u = persons.get(i); 
+			String cargo = u.getCargo().trim();
+			if(cargo.equals("Veterinario") || cargo.equals("Ayudante")){
+				String nombre = u.getNombre().trim();
+				String apellido = u.getApellidoPaterno().trim();
+				String nombFinal = nombre.concat(" "+apellido);
+				cirus.add(nombFinal);
+			}
+		}
+		
 		return cirus;	
 	}
+	
+	
+	/**
+	 * Autor: Jimmy Muñoz
+	 * Solicita a la clase que se conecta con la base de datos, los datos de cada usuario.
+	 * @param
+	 * @return Lista con objetos de la clase Usuario
+	 */
+    public void getAllUsuariosE()
+    {
+    	persons=new ArrayList<Usuario>();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			UsuarioEditBD personDB= new UsuarioEditBD(connection);
+			persons= personDB.getAllUsuariosE();		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+    }
 }
