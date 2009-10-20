@@ -9,18 +9,31 @@ import java.util.Arrays;
 import java.util.List;
 import TransferObjects.EstadisticasPeluqueria;
 
-
+/**
+ * @author Camilo Verdugo
+ * @version 2
+ * Clase que hace las consultas SQL y retorna una lista de Atenciones, las cuales indican:
+ * Numero de atenciones.
+ */
 public class GetEstadisticasAtencionesBD {
 	PreparedStatement selectAll;
 	Connection connection;
 	ResultSet result;
 	
+	/**
+	 * @param connection link establecido con la BD
+	 */
 	public GetEstadisticasAtencionesBD(Connection connection)
 	{
 		this.connection = connection;
-		
 	}
 	
+	/**
+	 * @param inicio Comienzo del rango de fechas, en formato yyyy-mm-dd
+	 * @param fin Final del rango de fechas, en formato yyyy-mm-dd
+	 * @return Lista con 3 objetos estadisticas, los cuales indican el numero de atenciones para Baño, Pedicura y corte
+	 * @throws SQLException captura cualquier error tras la ejecucion de la setencia SQL
+	 */
 	public List<EstadisticasPeluqueria> getEstadisticasBD(String inicio,String fin) throws SQLException
     {
     	List<EstadisticasPeluqueria> atenciones=new ArrayList<EstadisticasPeluqueria>();
@@ -35,7 +48,7 @@ public class GetEstadisticasAtencionesBD {
 		corte.setTipo("Corte");
 		banio.setTipo("Baño");
 		pedicure.setTipo("Pedicura");
-				//Obteniendo cortes
+		//Obteniendo cortes
 		selectAll = connection.prepareStatement(queryCorte);
 		result = selectAll.executeQuery();
 		

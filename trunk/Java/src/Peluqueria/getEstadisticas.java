@@ -23,8 +23,8 @@ public class GetEstadisticas {
 	 * 
 	 * @param inicio indica el rango inicial de la estadisticas, esto referido a las fechas
 	 * @param fin indica el rango final de las estadisticas.
+	 * Este metodo hace el llamado a la clase equivalente en la capa de BD.
 	 */
-	
 	public List<EstadisticasPeluqueria> obtenerEstadisticas(String inicio,String fin)
 	{		
 		List<EstadisticasPeluqueria> Atenciones=new ArrayList<EstadisticasPeluqueria>();
