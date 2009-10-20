@@ -14,7 +14,7 @@ package pabellon
 	import mx.rpc.remoting.mxml.RemoteObject;
 	
 	import transferObjects.Cirugia;
-	import transferObjects.tipoCir;
+	import transferObjects.tiposCir;
 
 
 	public class AddCirugiaService extends RemoteObject

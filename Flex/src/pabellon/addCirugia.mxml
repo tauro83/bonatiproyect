@@ -2,6 +2,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Cirugía">
 	<mx:Script>
         <![CDATA[
+        	import transferObjects.tiposCir;
         	import services.AddMascotaService;
         	import mx.controls.DateField;
         	import mx.controls.Alert;
@@ -16,13 +17,9 @@
 		    import mx.rpc.events.ResultEvent;
 
 			import mx.controls.Image;
-			import services.MascotaService;
-		    import transferObjects.Mascota;
-		    import services.PersonService;
-		    import transferObjects.Person;
 		    import transferObjects.Cirugia;
 		    import mx.core.Application;
-		    import transferObjects.tipoCir;
+		    
 		   
 			[Bindable]
 			public var clienteRut:String;
@@ -39,12 +36,12 @@
 			[Bindable]
 			public var ayudantes3:ArrayCollection;
 			[Bindable]
-			public var tiposCir:ArrayCollection;
+			public var tiposCir1:ArrayCollection;
 			[Bindable]
 			public var tiposCir2:ArrayCollection;
 			[Bindable]
 			public var cirugsAdds:ArrayCollection;
-		    
+		   
 		    
 		    public function vuelve():void
 		    {
@@ -88,7 +85,7 @@
 		    							newCirugia.costo = this.costoC.text;
 		    							newCirugia.fecha = this.fechaC.text;
 		    							newCirugia.diagnostico = this.diagC.text;
-		    							newCirugia.tiposCirugias = this.tiposCir;
+		    							newCirugia.tiposCirugias = this.cirugsAdds;
 		    							newCirugia.clienteRut = this.clienteRut;
 		    							newCirugia.clienteRut2 = this.clienteRut2;
 		    							newCirugia.mascotaNombre = this.nombreMascota;
@@ -114,9 +111,7 @@
 		    	
 		    	if(tabCirs.selectedItem){
 		    		var s:String = tabCirs.selectedItem.cirugias;
-		    		var tc:tipoCir = new tipoCir();
-		    		tc.cirugias=s;
-		    		tiposCir.addItem(tc);
+		    		var tc:tiposCir = new tiposCir();
 					renombrarCir2(s);
 		    	}
 		    	else{
@@ -134,7 +129,7 @@
 		    	for(i=0;i<j;i++){
 		    		var s:String = newAr.removeItemAt(0).cirugias;
 		    		if(s!=texto){
-		    			var tc:tipoCir = new tipoCir();
+		    			var tc:tiposCir = new tiposCir();
 		    			tc.cirugias=s;
 		    			cirugsAdds.addItem(tc);
 		    		}
@@ -147,7 +142,7 @@
 		    	
 		    	if(cirugias1.selectedItem){
 		    		var s:String = cirugias1.selectedItem.cirugias;
-		    		var tc:tipoCir = new tipoCir();
+		    		var tc:tiposCir = new tiposCir();
 		    		tc.cirugias=s;
 		    		cirugsAdds.addItem(tc);
 					renombrarCir(s);
@@ -160,16 +155,16 @@
 		    }
 		    
 		    public function renombrarCir(texto:String):void{
-		    	var newAr:ArrayCollection = this.tiposCir;
-		    	tiposCir = new ArrayCollection();
+		    	var newAr:ArrayCollection = this.tiposCir1;
+		    	tiposCir1 = new ArrayCollection();
 		    	var i:int;
 		    	var j:int = newAr.length;
 		    	for(i=0;i<j;i++){
 		    		var s:String = newAr.removeItemAt(0).cirugias;
 		    		if(s!=texto){
-		    			var tc:tipoCir = new tipoCir();
+		    			var tc:tiposCir = new tiposCir();
 		    			tc.cirugias=s;
-		    			tiposCir.addItem(tc);
+		    			tiposCir1.addItem(tc);
 		    		}
 		    	}
 		    	
@@ -196,7 +191,7 @@
 		    
 		    
 		    public function renomCirAdd():void{
-		    	tiposCir.addItem(tabCirs.selectedItem.cirugias);
+		    	tiposCir1.addItem(tabCirs.selectedItem.cirugias);
 		    	var n:int=cirugsAdds.getItemIndex(tabCirs.selectedItem.cirugias);
 		    	cirugsAdds.removeItemAt(n);
 		    	cirugsAdds.refresh();
@@ -205,9 +200,12 @@
 		    
 		    public function iniciarPanel():void
 		    {
+		    	this.costoC.text="";
+		    	this.diagC.text="";
+		    	this.fechaC.text="";
 		    	this.cirugias1.doubleClickEnabled=true;
 		    	this.tiposCir2 = new ArrayCollection();
-		    	this.tiposCir = new ArrayCollection();
+		    	this.tiposCir1 = new ArrayCollection();
 		    	this.ayudantes2 = new ArrayCollection();
 		    	this.ayudantes3 = new ArrayCollection();
 		    	this.veterinarios2 =new ArrayCollection();
@@ -233,7 +231,7 @@
 	<mx:DateField x="536.55" y="64" width="120.25" id="fechaC"/>
 	<mx:TextInput x="536.55" y="92" width="104" id="costoC" restrict="0-9"/>
 
-	<mx:DataGrid x="118.95" y="226" id="cirugias1" width="254" dataProvider="{tiposCir}" height="116" doubleClick="guardaCir()">
+	<mx:DataGrid x="118.95" y="226" id="cirugias1" width="254" dataProvider="{tiposCir1}" height="116" doubleClick="guardaCir()">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Cirugías" dataField="cirugias"/>
 		</mx:columns>
