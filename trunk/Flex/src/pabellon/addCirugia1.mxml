@@ -251,7 +251,7 @@
 					nuevacir.veterinarios2=this.vetesC;
 					nuevacir.ayudantes2=this.ayudantesC;
 					nuevacir.ayudantes3=this.ayudantesC;
-					nuevacir.tiposCir = this.tiposC;
+					nuevacir.tiposCir1 = this.tiposC;
 					nuevacir.tiposCir2 = this.tiposC;
 					
 					this.setVisible(false,false);
