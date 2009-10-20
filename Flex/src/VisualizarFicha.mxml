@@ -114,8 +114,8 @@
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="24.15" y="36" text="Nombre:" width="78"/>
-	<mx:Label x="24.15" y="10" text="Datos cliente" width="97" fontWeight="bold"/>
-	<mx:Label x="393.7" y="9.95" text="Datos mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="24.15" y="10" text="Cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="393.7" y="9.95" text="Mascota" width="98" fontWeight="bold"/>
 	<mx:Label x="24.15" y="62" text="Rut:" width="78"/>
 	<mx:Label x="393.7" y="87.95" text="Sexo:" width="78"/>
 	<mx:Label x="393.7" y="114" text="Fecha nacimiento:" width="107"/>

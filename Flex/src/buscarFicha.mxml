@@ -105,6 +105,6 @@
 	</mx:DataGrid>
 	<mx:Button x="534" y="364" label="Visualizar" id="botonVerficha"  click="viewFicha(event)" width="102"/>
 	<mx:Button x="644" y="364" label="Volver"  toolTip="Cancela la operación" width="102" click="cancelarBuscar()"/>
-	<mx:Label x="10" y="12" text="Seleccione la mascota" fontWeight="bold"/>
+	<mx:Label x="10" y="12" text="Seleccione la mascota:" fontWeight="bold"/>
 	<mx:Label x="158" y="394" width="407" height="17" id="labelMessage" textAlign="center"/>
 </mx:Panel>
