@@ -1,6 +1,8 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="updateTable()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Pre-Operatorio" x="241" y="133">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllDatos()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Pre-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
+			import services.PreoperatorioService;
+			import transferObjects.Preoperatorio;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
@@ -15,12 +17,27 @@
 			[Bindable]
 			private var atencionesPre:ArrayCollection;
 			
+			
+			
+			
+			private function getAllDatos():void
+			{
+				var visualizarPreoperatorio:PreoperatorioService = new PreoperatorioService();
+				visualizarPreoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+				visualizarPreoperatorio.getAllDatos();
+			}	
+			
+		    private function getAllDatosResult(event:ResultEvent):void
+			{
+				atencionesPre = event.result as ArrayCollection;
+			}
+			
 			/**
          	 * Función de prueba que llena el datagrid sin necesidad de ir a la base de datos, para 
          	 * el ingreso de ellos al interior del datagrid. 
          	 */	
          	 
-		    private function updateTable():void
+		   /*private function updateTable():void
             {
             	atencionesPre = new ArrayCollection;
 				atencionesPre.addItem({nomMascota:"alf", razaMascota:"San Bernardo", sexoMascota:"macho", rut:"16727045", nombre:"Jose", apellidoPaterno:"León"});
@@ -32,7 +49,7 @@
             	tablaPreoperatorio.doubleClickEnabled=true;
             	tablaPreoperatorio.dataProvider = atencionesPre;
             	
-            }
+            }*/
             
 			/**
 			 * Esta funcion es llamada al momento que se hace doble click sobre un elemento del data grid 
@@ -47,19 +64,20 @@
 				if(tablaPreoperatorio.selectedItem){					
 					var newPurgarPre:PurgarPreOperatorio = Application.application.purgarPre; // LLama a la componente del Preoperatorio.
 					var newMascota:Mascota2 = new Mascota2();
-					newMascota.nombre = tablaPreoperatorio.selectedItem.nomMascota;
-					newMascota.raza = tablaPreoperatorio.selectedItem.razaMascota
-					newMascota.sexo = tablaPreoperatorio.selectedItem.sexoMascota
-					newMascota.rut = tablaPreoperatorio.selectedItem.rut
-					newMascota.nombreDueno = tablaPreoperatorio.selectedItem.nombre
-					newMascota.apellidoPaterno = tablaPreoperatorio.selectedItem.apellidoPaterno
+					newMascota.nombre = tablaPreoperatorio.selectedItem.nombreMascota;
+					newMascota.raza = tablaPreoperatorio.selectedItem.raza;
+					newMascota.sexo = tablaPreoperatorio.selectedItem.sexo;
+					newMascota.rut = tablaPreoperatorio.selectedItem.rut;
+					newMascota.nombreDueno = tablaPreoperatorio.selectedItem.nombre;
+					newMascota.apellidoPaterno = tablaPreoperatorio.selectedItem.apellidoPaterno;
 					
 					
 					this.setVisible(false,false);
+					
 					newPurgarPre.resetVars();
-					newPurgarPre.nomMascota.text = newMascota.nombre;
-					newPurgarPre.razaMascota.text = newMascota.raza;
-					newPurgarPre.sexoMascota.text = newMascota.sexo;
+					newPurgarPre.nombreMascota.text = newMascota.nombre;
+					newPurgarPre.raza.text = newMascota.raza;
+					newPurgarPre.sexo.text = newMascota.sexo;
 					newPurgarPre.rut.text = newMascota.rut;
 					newPurgarPre.nombre.text = newMascota.nombreDueno;
 					newPurgarPre.apellidoPaterno.text = newMascota.apellidoPaterno;
@@ -80,14 +98,62 @@
 				Application.application.panel2.setVisible(true,false);
 			}
 			
+			
+			private function seleccionarBusqueda(event:Event):void
+            {
+            	setInvisibleInput();
+            	getAllDatos();
+				switch (combobox1.selectedLabel){
+				case 'Nombre Mascota':		
+					inputNombreMas.setVisible(true,false);
+				break; 
+				case 'Raza':		
+					inputRaza.setVisible(true,false);
+				break; 
+				case 'Sexo':		
+					inputSexo.setVisible(true,false);
+				break; 
+				case 'Rut':		
+					inputRut.setVisible(true,false);
+				break;
+				case 'Nombre Cliente':
+					inputNombreCliente.setVisible(true,false); 	
+				break;
+				case 'Apellido Paterno':
+					inputApellidoPaterno.setVisible(true,false); 	
+				break;
+				}
+            }
+
+		    private function setInvisibleInput ():void
+            {
+            	inputNombreMas.setVisible(false,false);
+            	inputRaza.setVisible(false,false);
+            	inputSexo.setVisible(false,false);
+            	inputRut.setVisible(false,false);
+            	inputNombreCliente.setVisible(false,false);
+            	inputApellidoPaterno.setVisible(false,false);
+            }
+			
+			
 		]]>
 	</mx:Script>
+	
+	<!-- AutoComplete para cada parametro -->
+	<!-- input Usuario -->
+	<fc:AutoComplete id="inputNombreMas" x="59" y="10" width="150" dataProvider="{atencionesPre}" labelField="nombreMascota" visible="false"/>
+	<fc:AutoComplete id="inputRaza" x="59" y="10" width="150" dataProvider="{atencionesPre}" labelField="raza" visible="false"/>
+	<fc:AutoComplete id="inputSexo" x="59" y="10" width="150" dataProvider="{atencionesPre}" labelField="sexo" visible="false"/>
+	<fc:AutoComplete id="inputRut" x="59" y="10" width="150" dataProvider="{atencionesPre}" labelField="rut" visible="false"/>
+	<fc:AutoComplete id="inputNombreCliente" x="59" y="10" width="150" dataProvider="{atencionesPre}" labelField="nombre" visible="false"/>
+    <fc:AutoComplete id="inputApellidoPaterno" x="59" y="10" width="150" dataProvider="{atencionesPre}" labelField="apellidoPaterno" visible="false"/>
+
 	<!--DataGrid Con los datos de la mascota y cliente-->
-	<mx:DataGrid x="10" y="69" width="739" id="tablaPreoperatorio" enabled="true" height="225" dataProvider="{atencionesPre}" itemDoubleClick="editarAtencionPreoperatorio()">
+	<mx:DataGrid x="10" y="69" width="739" id="tablaPreoperatorio" enabled="true" height="225" dataProvider="{atencionesPre}" click="editarAtencionPreoperatorio()">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Nombre" dataField="nomMascota"/>
-			<mx:DataGridColumn headerText="Raza" dataField="razaMascota" width="100"/>
-			<mx:DataGridColumn headerText="Sexo" dataField="sexoMascota" width="100"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota"/>
+			<mx:DataGridColumn headerText="Raza" dataField="raza" width="100"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="sexo" width="100"/>
 			<mx:DataGridColumn headerText="Rut" dataField="rut" width="80"/>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellidoPaterno"/>
@@ -96,11 +162,24 @@
 	     </mx:columns>
 	</mx:DataGrid>
 	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="302" click="editarAtencionPreoperatorio()" cornerRadius="6"/>
-	<mx:Label x="10" y="10" text="Seleccionar Mascota" fontWeight="bold"/>
 	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="647" y="302" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
 	<mx:Label x="341" y="43" text="Cliente" width="97" fontWeight="bold"/>
 	<mx:Label x="10" y="43" text="Mascota" width="98" fontWeight="bold"/>
+	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
+	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
+	
+	<mx:ComboBox x="283" y="10" width="150" id="combobox1" change="seleccionarBusqueda(event)">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="Nombre Mascota"/>
+			<mx:Object label="Raza"/> 
+			<mx:Object label="Sexo"/> 
+			<mx:Object label="Rut"/> 
+			<mx:Object label="Nombre Cliente"/> 
+			<mx:Object label="Apellido Paterno"/>  
+		</mx:ArrayCollection>
+	</mx:ComboBox>
 	
 
 
