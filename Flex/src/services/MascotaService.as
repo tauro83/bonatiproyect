@@ -40,5 +40,11 @@ package services{
 		public function getMascotas(rutCliente:String):void{
 			this.getOperation("getMascotas").send(rutCliente);
 		}
+		public function deleteMascota(id:String):void{
+			this.getOperation("deleteMascota").send(id);
+		}
+		public function purgarMascota(id:String):void{
+			this.getOperation("purgarMascota").send(id);
+		}
 	}
 }
