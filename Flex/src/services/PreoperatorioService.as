@@ -47,6 +47,11 @@ package services
 			this.getOperation("getAllDatos").send();
 		}
 		
+		public function getAllAtenciones():void
+		{
+			this.getOperation("getAllAtenciones").send();
+		}
+		
 		
 	}
 }
