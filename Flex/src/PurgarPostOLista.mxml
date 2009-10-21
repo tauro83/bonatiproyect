@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="updateTable()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Atención Post-Operatorio" x="241" y="133">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllDatos()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Atención Post-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -8,6 +8,8 @@
 			// en post-operatorio
 			//=======================================================================
 		
+			import services.PostoperatorioService;
+			import transferObjects.Postoperatorio;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
@@ -21,6 +23,78 @@
 			
 			[Bindable]
 			private var atenciones:ArrayCollection;
+			
+			/**
+			 * Obtiene los datos de las atenciones que están 
+			 * registradas en la base de datos
+			 * 
+			 */
+			private function getAllDatos():void
+			{
+				var visualizarPostoperatorio:PostoperatorioService = new PostoperatorioService();
+				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+				visualizarPostoperatorio.getAllDatos();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function getAllDatosResult(event:ResultEvent):void
+			{
+				atenciones = event.result as ArrayCollection;
+			}
+			
+			/**
+			 * Se muestran los distintos tipos de búsqueda
+			 * que el usuario puede hacer al momento
+			 * de buscar una consulta, se pueden seleccionar
+			 * distintos parámetro que coinciden con los datos
+			 * del datagrid
+			 */
+			private function seleccionarBusqueda(event:Event):void
+            {
+            	setInvisibleInput();
+            	getAllDatos();
+				switch (comboBox.selectedLabel){
+				case 'Nombre Mascota':		
+					inputNombreMas.setVisible(true,false);
+				break; 
+				case 'Raza':		
+					inputRaza.setVisible(true,false);
+				break; 
+				case 'Sexo':		
+					inputSexo.setVisible(true,false);
+				break; 
+				case 'Rut':		
+					inputRut.setVisible(true,false);
+				break;
+				case 'Nombre Cliente':
+					inputNombreCliente.setVisible(true,false); 	
+				break;
+				case 'Apellido Paterno':
+					inputApellidoPaterno.setVisible(true,false); 	
+				break;
+				}
+            }
+			
+			/**
+			 * Este método hace invisible los demás text imputs
+			 * esto es necesario ya que se tiene distintos
+			 * campos de búsqueda y es necesario contar con uno
+			 * para cada tipo
+			 */
+			 private function setInvisibleInput ():void
+            {
+            	inputNombreMas.setVisible(false,false);
+            	inputRaza.setVisible(false,false);
+            	inputSexo.setVisible(false,false);
+            	inputRut.setVisible(false,false);
+            	inputNombreCliente.setVisible(false,false);
+            	inputApellidoPaterno.setVisible(false,false);
+            }
+			
+			
+			
 			
 			/**
          	 * Función de prueba que llena el datagrgis sin necesidad de ir a la base de datos
@@ -50,12 +124,12 @@
 				if(Tabla.selectedItem){					
 					var newPurgarPost:PurgarPostOperatorio = Application.application.purgPost;
 					var newMascota:Mascota2 = new Mascota2();
-					newMascota.nombre = Tabla.selectedItem.nomMascota;
-					newMascota.raza = Tabla.selectedItem.razaMascota
-					newMascota.sexo = Tabla.selectedItem.sexoMascota
-					newMascota.rut = Tabla.selectedItem.rut
-					newMascota.nombreDueno = Tabla.selectedItem.nombre
-					newMascota.apellidoPaterno = Tabla.selectedItem.apellidoPaterno
+					newMascota.nombre = Tabla.selectedItem.nombreMascota;
+					newMascota.raza = Tabla.selectedItem.raza;
+					newMascota.sexo = Tabla.selectedItem.sexo;
+					newMascota.rut = Tabla.selectedItem.rut;
+					newMascota.nombreDueno = Tabla.selectedItem.nombre;
+					newMascota.apellidoPaterno = Tabla.selectedItem.apellidoPaterno;
 					
 					
 					this.setVisible(false,false);
@@ -68,6 +142,7 @@
 					newPurgarPost.nombre.text = newMascota.nombreDueno;
 					newPurgarPost.apellidoPaterno.text = newMascota.apellidoPaterno;
 					
+					//newPurgarPost.tablaAtenciones.dataProvider = atenciones;
 					newPurgarPost.setVisible(true,false);
 
 				}
@@ -86,12 +161,40 @@
 			
 		]]>
 	</mx:Script>
-	<mx:DataGrid x="10" y="62" width="739" id="Tabla" enabled="true" height="258" dataProvider="{atenciones}" itemDoubleClick="editarAtencion()">
+	
+	
+	
+	<!-- AutoComplete para cada parametro -->
+	<!-- input Usuario -->
+	<fc:AutoComplete id="inputNombreMas" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="nombreMascota" visible="false"/>
+	<fc:AutoComplete id="inputRaza" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="raza" visible="false"/>
+	<fc:AutoComplete id="inputSexo" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="sexo" visible="false"/>
+	<fc:AutoComplete id="inputRut" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="rut" visible="false"/>
+	<fc:AutoComplete id="inputNombreCliente" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="nombre" visible="false"/>
+    <fc:AutoComplete id="inputApellidoPaterno" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="apellidoPaterno" visible="false"/>
+
+
+	<mx:ComboBox x="283" y="10" width="150" id="comboBox" change="seleccionarBusqueda(event)">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="Nombre Mascota"/>
+			<mx:Object label="Raza"/> 
+			<mx:Object label="Sexo"/> 
+			<mx:Object label="Rut"/> 
+			<mx:Object label="Nombre Cliente"/> 
+			<mx:Object label="Apellido Paterno"/>  
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	
+
+	
+	
+	<mx:DataGrid x="10" y="64" width="739" id="Tabla" enabled="true" height="278" dataProvider="{atenciones}" itemDoubleClick="editarAtencion()">
 		<mx:toolTip>Muestra las mascotas registradas en el sistema que tienen atenciones de post-operatorio no bloqueadas</mx:toolTip>
 		<mx:columns>
-			<mx:DataGridColumn headerText="Nombre" dataField="nomMascota"/>
-			<mx:DataGridColumn headerText="Raza" dataField="razaMascota" width="100"/>
-			<mx:DataGridColumn headerText="Sexo" dataField="sexoMascota" width="100"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota"/>
+			<mx:DataGridColumn headerText="Raza" dataField="raza" width="100"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="sexo" width="100"/>
 			<mx:DataGridColumn headerText="Rut" dataField="rut" width="80"/>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellidoPaterno"/>
@@ -99,12 +202,13 @@
 			
 	     </mx:columns>
 	</mx:DataGrid>
-	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="328" click="editarAtencion()" cornerRadius="6" toolTip="Visualizar mascota seleccionada"/>
-	<mx:Label x="10" y="10" text="Seleccionar Mascota" fontWeight="bold"/>
-	<mx:Label x="26" y="36" text="Datos mascota" fontWeight="bold"/>
-	<mx:Label x="357.5" y="36" text="Datos cliente" fontWeight="bold"/>
-	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Button x="647" y="328" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6" toolTip="Regresa al panel anterior"/>
+	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="350" click="editarAtencion()" cornerRadius="6" toolTip="Visualizar mascota seleccionada"/>
+	<mx:Label x="10" y="43" text="Mascota" fontWeight="bold"/>
+	<mx:Label x="339.5" y="43" text="Cliente" fontWeight="bold"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="647" y="350" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6" toolTip="Regresa al panel anterior"/>
+	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
+	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
 	
 
 
