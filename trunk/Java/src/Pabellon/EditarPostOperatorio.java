@@ -17,6 +17,7 @@ public class EditarPostOperatorio {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		
 	}
 	public int editarPostOperatorio(PostOperatorio p, String hora, String fecha, String servicio) throws SQLException{
 		EditarPostOperatorioBD object = new EditarPostOperatorioBD(connection);
