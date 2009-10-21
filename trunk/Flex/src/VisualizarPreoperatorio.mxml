@@ -149,23 +149,22 @@
     <fc:AutoComplete id="inputApellidoPaterno" x="59" y="10" width="150" dataProvider="{atencionesPre}" labelField="apellidoPaterno" visible="false"/>
 
 	<!--DataGrid Con los datos de la mascota y cliente-->
-	<mx:DataGrid x="10" y="69" width="739" id="tablaPreoperatorio" enabled="true" height="225" dataProvider="{atencionesPre}" click="editarAtencionPreoperatorio()">
+	<mx:DataGrid x="10" y="64" width="739" id="tablaPreoperatorio" enabled="true" height="278" dataProvider="{atencionesPre}" click="editarAtencionPreoperatorio()">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota"/>
-			<mx:DataGridColumn headerText="Raza" dataField="raza" width="100"/>
-			<mx:DataGridColumn headerText="Sexo" dataField="sexo" width="100"/>
-			<mx:DataGridColumn headerText="Rut" dataField="rut" width="80"/>
-			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
-			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellidoPaterno"/>
-			
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre" width="90"/>
+			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellidoPaterno" width="90"/>
+			<mx:DataGridColumn headerText="Rut" dataField="rut" width="90"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota" width="80"/>
+			<mx:DataGridColumn headerText="Raza" dataField="raza" width="80"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="sexo" width="60"/>
 			
 	     </mx:columns>
 	</mx:DataGrid>
-	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="302" click="editarAtencionPreoperatorio()" cornerRadius="6"/>
-	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Button x="647" y="302" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
-	<mx:Label x="341" y="43" text="Cliente" width="97" fontWeight="bold"/>
-	<mx:Label x="10" y="43" text="Mascota" width="98" fontWeight="bold"/>
+	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="350" click="editarAtencionPreoperatorio()" cornerRadius="6"/>
+	<mx:Label x="159" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="647" y="350" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
+	<mx:Label x="10" y="43" text="Cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="416" y="43" text="Mascota" width="98" fontWeight="bold"/>
 	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
 	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
 	
