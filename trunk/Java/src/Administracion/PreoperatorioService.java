@@ -28,4 +28,21 @@ public class PreoperatorioService {
 		}
 		return atencionPre;
     }
+    
+    public List<Preoperatorio> getAllAtenciones()
+    {
+    	List<Preoperatorio> atencionPre2=new ArrayList<Preoperatorio>();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			PreoperatorioBD atencionPreoDB2= new PreoperatorioBD(connection);
+			atencionPre2= atencionPreoDB2.getAllAtenciones();		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return atencionPre2;
+    }
 }
