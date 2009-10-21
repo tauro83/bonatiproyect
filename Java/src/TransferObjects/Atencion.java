@@ -1,4 +1,7 @@
 package TransferObjects;
+
+import java.util.Date;
+
 /**
  * @author Camilo Verdugo
  * @version 1
@@ -12,7 +15,7 @@ public class Atencion {
 	private String mascotaNombre;
 	private String servicio;
 	private String hora;
-	private String fecha;
+	private Date fecha;
 	private String costo;
 		
 	public Atencion(){
@@ -43,10 +46,10 @@ public class Atencion {
 	public void setHora(String hora) {
 		this.hora = hora;
 	}
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
-	public void setFecha(String  fecha) {
+	public void setFecha(Date  fecha) {
 		this.fecha = fecha;
 	}
 	public String getCosto() {
