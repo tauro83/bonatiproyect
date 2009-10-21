@@ -196,6 +196,9 @@
 				editarCita.setVisible(false,false);
 				panelEditaCLi.setVisible(false,false);
 				ediCliUp.setVisible(false,false);
+				regPreoOp.setVisible(false,false);
+				regPreoOp1.setVisible(false,false);
+				panelClinicaPrin.setVisible(false,false);
 				<!--Autor: }Raul Lopez -->
 				
 				<!--Autor: }Vitoxone {-->

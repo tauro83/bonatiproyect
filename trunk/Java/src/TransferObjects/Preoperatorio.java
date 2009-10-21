@@ -5,16 +5,11 @@ public class Preoperatorio {
 	public String observaciones;
 	public String  sintomas;
 	public String diagnostico;
-	public String  servicio;
 	public String  fecha;
 	public String  hora;
-	public String nombreMascota;
-	public String raza;
-	public String sexo;
-	public String rut;
-	public String nombre;
-	public String apellidoPaterno;
-	
+	public String idpreoperatorio;
+	public String responsable;
+	public String ayudante;
 	
 	public String getObservaciones() {
 		return observaciones;
@@ -34,12 +29,6 @@ public class Preoperatorio {
 	public void setDiagnostico(String diagnostico) {
 		this.diagnostico = diagnostico;
 	}
-	public String getServicio() {
-		return servicio;
-	}
-	public void setServicio(String servicio) {
-		this.servicio = servicio;
-	}
 	public String getFecha() {
 		return fecha;
 	}
@@ -52,43 +41,24 @@ public class Preoperatorio {
 	public void setHora(String hora) {
 		this.hora = hora;
 	}
-	public String getNombreMascota() {
-		return nombreMascota;
+	public void setIdpreoperatorio(String idpreoperatorio) {
+		this.idpreoperatorio = idpreoperatorio;
 	}
-	public void setNombreMascota(String nombreMascota) {
-		this.nombreMascota = nombreMascota;
+	public String getIdpreoperatorio() {
+		return idpreoperatorio;
 	}
-	public String getRaza() {
-		return raza;
+	public void setResponsable(String responsable) {
+		this.responsable = responsable;
 	}
-	public void setRaza(String raza) {
-		this.raza = raza;
+	public String getResponsable() {
+		return responsable;
 	}
-	public String getSexo() {
-		return sexo;
+	public void setAyudante(String ayudante) {
+		this.ayudante = ayudante;
 	}
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
+	public String getAyudante() {
+		return ayudante;
 	}
-	public String getRut() {
-		return rut;
-	}
-	public void setRut(String rut) {
-		this.rut = rut;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getApellidoPaterno() {
-		return apellidoPaterno;
-	}
-	public void setApellidoPaterno(String apellidoPaterno) {
-		this.apellidoPaterno = apellidoPaterno;
-	}	
-	
 	
 	
 }
