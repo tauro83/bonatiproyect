@@ -1,0 +1,102 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="iniData()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Post-Operatorio" x="241" y="133">
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 11 Octubre
+			// AUTOR: Erwin Díaz
+			// Comentarios: Muestra datos de la mascota con sus respectivas atenciones
+			// en post-operatorio
+			//=======================================================================
+		
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.core.Application;
+			import pabellon.GetAllPostOperatorio;
+			import transferObjects.PostOperatorio;
+			
+			[Bindable]
+			private var postOperatorios:ArrayCollection;
+			/**
+         	 * Función de prueba que inicializa las tablas
+         	 * 
+         	 */	
+		    private function iniData():void{
+            	var object:GetAllPostOperatorio = new GetAllPostOperatorio();
+            	object.addEventListener(ResultEvent.RESULT,getAllResult);
+            	object.getAllPostOperatoio();
+            }
+            private function getAllResult(event:ResultEvent):void{
+				postOperatorios= new ArrayCollection();
+				var lista:ArrayCollection = event.result as ArrayCollection;
+				var i:int;
+				
+				for(i=0;i<lista.length;i++){
+					var asd:PostOperatorio = lista.getItemAt(i) as PostOperatorio;
+					postOperatorios.addItem(asd);
+				}
+				
+			}
+			/**
+			 * Es llamada al hacer doble click en el data grid o al presionar el 
+			 * botón visualizar, esta función llega al panel PurgarPostOperatorio de manera interna
+			 * sin necesidad de pasar por el panel Veterinaria
+			 * 
+			 */
+			 
+			public function editarAtencion():void{
+				
+				if(tablaDatos.selectedItem){				
+					var atencion:PostOperatorio = tablaDatos.selectedItem as PostOperatorio;	
+					Application.application.editarPostOperatorioDetalle.setData(atencion);
+					this.setVisible(false,false);
+					Application.application.editarPostOperatorioDetalle.visible=true;
+				}
+				else{
+					Alert.show("Atencion!: Primero debe seleccionar una atención.");
+				}
+
+			}
+			
+			/**
+			 * Al cancelar la operación se muestra un panel que solo tiene el 
+			 * mensaje "seleccione una opcion del menú"
+			 * 
+			 */
+			private function cancelando():void
+			{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:DataGrid x="52" y="62" width="638" id="tablaDatos" doubleClick="editarAtencion()" enabled="true" height="258" dataProvider="{postOperatorios}">
+		<mx:toolTip>Mascotas registradas en el sistema que tienen atenciones de post-operatorio </mx:toolTip>
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre Mascota" dataField="nombreMascota"/>
+			<mx:DataGridColumn headerText="Fecha Atención" dataField="fecha"/>
+			<mx:DataGridColumn headerText="Hora Atención" dataField="hora"/>
+			<mx:DataGridColumn headerText="Nombre Dueño" dataField="nombreCliente"/>
+			<mx:DataGridColumn headerText="Apellido" dataField="apellidoDueño"/>
+			<mx:DataGridColumn headerText="Rut" dataField="rut" />
+			
+			
+			
+	     </mx:columns>
+	</mx:DataGrid>
+	
+	<mx:Button label="Editar Ficha" id="visualizar"  click="editarAtencion()" height="23" width="102" x="478" y="328" cornerRadius="6" toolTip="Visualizar mascota seleccionada"/>
+	<mx:Label x="10" y="10" text="Lista de mascotas que tienen fichas de post-operatorio" fontWeight="bold"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="588" y="328" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6" toolTip="Regresa al panel anterior"/>
+	
+
+
+	
+</mx:Panel>
