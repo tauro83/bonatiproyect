@@ -22,25 +22,25 @@
 	    </properties>
   	</destination>
 
-        <destination id="AddCliente">
+    <destination id="AddCliente">
 	    <properties>
 	      <source>Administracion.AddCliente</source>
 	    </properties>
-        </destination>
+    </destination>
 
-        <destination id="DiaAgendaServices">
+    <destination id="DiaAgendaServices">
 	    <properties>
 	      <source>Agenda.DiaAgendaServices</source>
 	    </properties>
-        </destination>
+    </destination>
 
-        <destination id="AddMascotaService">
+    <destination id="AddMascotaService">
 	    <properties>
 	      <source>Administracion.AddMascotaService</source>
 	    </properties>
-        </destination>
+    </destination>
 
-	 <destination id="BusquedaService"> 
+	<destination id="BusquedaService"> 
   	 	<properties>
   			<source>Administracion.BusquedaService</source>
   		</properties>
@@ -96,6 +96,30 @@
 	<destination id="EditarCitaService"> 
   	 	<properties>
   			<source>Administracion.EditarCitaService</source>
+  		</properties>
+  	</destination>
+	
+	<destination id="GetAllMascotas">
+	    <properties>
+	      <source>Administracion.GetAllMascotas</source>
+	    </properties>
+  	</destination>
+	
+	<destination id="DelMascota">
+        	<properties>
+        		<source>Administracion.DelMascota</source>
+        	</properties>
+	</destination>
+	
+	<destination id="GetAllPostOperatorio"> 
+  	 	<properties>
+  			<source>Administracion.GetAllPostOperatorio</source>
+		</properties>
+  	</destination>
+	
+	<destination id="EditarPostOperatorio"> 
+  	 	<properties>
+  			<source>Pabellon.EditarPostOperatorio</source>
   		</properties>
   	</destination>
 
