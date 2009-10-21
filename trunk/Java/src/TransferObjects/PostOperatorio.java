@@ -9,27 +9,50 @@ public class PostOperatorio extends Atencion{
 	private String medicamentos;
 	private String alimentos;
 	private String indicaciones;
+	private String nombreMascota;
+	private String nombreDueño;
+	private String rut;
+	private String apellidoDueño;
 	
-	public PostOperatorio(String med, String alimento, String indicacion
-			, String hora, String fecha, String cost, String coment){
+	
+	public PostOperatorio(String hora, String fecha, String cost){
 		super();
-		this.medicamentos = med;
-		this.alimentos = alimento;
-		this.indicaciones=indicacion;
 		this.setHora(hora);
 		this.setFecha(fecha);
 		this.setCosto(cost);
 	}
-	
-	public String getMedicamentos(){
-		return this.medicamentos;
+	public String getNombreDueño(){
+		return this.nombreDueño;
+	}
+	public String getRut(){
+		return this.rut;
+	}
+	public String getApellidoDueño(){
+		return this.apellidoDueño;
 	}
 	public String getAlimentos(){
 		return this.alimentos;
 	}
-
+	public String getMedicamentos(){
+		return this.medicamentos;
+	}
 	public String getIndicaciones(){
 		return this.indicaciones;
+	}
+	public String getNombreMascota(){
+		return this.nombreMascota;
+	}
+	public void setNombreMascota(String s){
+		this.nombreMascota=s;
+	}
+	public void setNombreDueño(String s){
+		this.nombreDueño = s;
+	}
+	public void setRut(String s){
+		this.rut=s;
+	}
+	public void setApellidoDueño(String s){
+		this.apellidoDueño=s;
 	}
 	public void setMedicamentos(String meds){
 		this.medicamentos=meds;

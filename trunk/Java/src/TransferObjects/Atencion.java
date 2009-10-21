@@ -14,7 +14,7 @@ public class Atencion {
 	private String hora;
 	private String fecha;
 	private String costo;
-	
+		
 	public Atencion(){
 		
 	}
@@ -55,5 +55,4 @@ public class Atencion {
 	public void setCosto(String costo) {
 		this.costo = costo;
 	}
-	
 }
