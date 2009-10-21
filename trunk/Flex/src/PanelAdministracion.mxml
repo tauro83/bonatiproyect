@@ -86,7 +86,7 @@
           private function eliminarMascota():void{
           		Application.application.setInvisible();
             	Application.application.AdmOpciones1.setVisible(true,false);
-            	Application.application.AdmEliminarrMascota.setVisible(true,false);
+            	Application.application.AdmEliminarMascota.setVisible(true,false);
           }
           private function registrarCliente():void
           {
