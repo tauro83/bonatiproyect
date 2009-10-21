@@ -53,7 +53,7 @@ public class GetAllPostOperatorio {
 		} 
     	catch (SQLException e) 
     	{
-			e.printStackTrace();
+			System.out.println("Error en GetAllPostOperatorio, detalle: "+e.getMessage());
 		}
     	
     	return lista;
