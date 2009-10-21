@@ -2,6 +2,7 @@ package Pabellon;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import PabellonBD.EditarPostOperatorioBD;
 import TransferObjects.PostOperatorio;
@@ -19,9 +20,11 @@ public class EditarPostOperatorio {
 		}
 		
 	}
-	public int editarPostOperatorio(PostOperatorio p, String hora, String fecha, String servicio) throws SQLException{
+	public int editarPostOperatorio(List l) throws SQLException{
 		EditarPostOperatorioBD object = new EditarPostOperatorioBD(connection);
-		int result = object.editarPostOperatorio(p,hora,fecha,servicio);
+		
+		
+		int result = object.editarPostOperatorio(l);
 		connection.close();
 		return result;
 	}
