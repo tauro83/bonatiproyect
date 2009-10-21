@@ -18,24 +18,19 @@ package transferObjects
 		public var observaciones:String;
 		public var sintomas:String;
 		public var diagnostico:String;
-		public var servicio:String;
 		public var fecha:String;
 		public var hora:String;
-		public var nombreMascota:String;
-		public var raza:String;
-		public var sexo:String;
-		public var rut:String;
-		public var nombre:String;
-		public var apellidoPaterno:String;
-		
+		public var idpreoperatorio:String;
+		public var responsable:String;
+		public var ayudante:String;
 		/*
 		* Estos atributos permitiran poder realizar la eliminacion de un preoperatorio realizado		 
 		* a una mascota.
 		*/
 	
 	//****************************
-	    //public var checkbox:CheckBox = new CheckBox;
-		//public var sel:Boolean;
+	    public var checkbox:CheckBox = new CheckBox;
+		public var sel:Boolean;
 	//****************************
 		
 	}

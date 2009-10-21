@@ -87,5 +87,16 @@
   			<source>Administracion.ClienteElimPurgService</source>
   		</properties>
   	</destination>
+	<destination id="AddPreOperatorioService"> 
+  	 	<properties>
+  			<source>Pabellon.AddPreOperatorioService</source>
+  		</properties>
+  	</destination>
+	
+	<destination id="EditarCitaService"> 
+  	 	<properties>
+  			<source>Administracion.EditarCitaService</source>
+  		</properties>
+  	</destination>
 
 </service>
