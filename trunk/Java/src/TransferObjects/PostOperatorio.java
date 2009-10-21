@@ -1,4 +1,7 @@
 package TransferObjects;
+
+import java.sql.Date;
+
 //=======================================================================
 //FECHA CREACIÓN: 13-10-09
 //AUTOR: Andres Garrido R.
@@ -15,12 +18,13 @@ public class PostOperatorio extends Atencion{
 	private String apellidoDueño;
 	
 	
-	public PostOperatorio(String hora, String fecha, String cost){
+	public PostOperatorio(String hora, Date fecha, String cost){
 		super();
 		this.setHora(hora);
 		this.setFecha(fecha);
 		this.setCosto(cost);
 	}
+
 	public String getNombreDueño(){
 		return this.nombreDueño;
 	}
