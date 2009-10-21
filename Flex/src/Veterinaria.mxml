@@ -220,7 +220,7 @@
             	
             	<!--Autor: Andres G.{-->
             	graficosClinica1.setVisible(false,false);
-            	
+            	AdmEliminarMascota.setVisible(false,false);
             	<!--Autor: Andres G.}-->
             	
             	<!--Autor: Esteban{ -->
@@ -517,7 +517,7 @@
 	
 	<ns1:GraficosClinica x="241" y="134" id="graficosClinica1" visible="false">
 	</ns1:GraficosClinica>
-	<ns1:EliminarMascota x="241" y="134" id="AdmEliminarrMascota" visible="false">
+	<ns1:EliminarMascota x="241" y="134" id="AdmEliminarMascota" visible="false">
 	</ns1:EliminarMascota>
 	<!--Autor: andres}-->
 
