@@ -18,7 +18,7 @@ package transferObjects
 		public var mascotaNombre:String;
 		public var servicio:String;
 		public var hora:String;
-		public var fecha:String;
+		public var fecha:Date;
 		public var costo:String;
 	}
 }

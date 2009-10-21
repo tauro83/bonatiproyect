@@ -26,7 +26,7 @@
          	 * Función de prueba que inicializa las tablas
          	 * 
          	 */	
-		    private function iniData():void{
+		    public function iniData():void{
             	var object:GetAllPostOperatorio = new GetAllPostOperatorio();
             	object.addEventListener(ResultEvent.RESULT,getAllResult);
             	object.getAllPostOperatoio();
@@ -82,7 +82,7 @@
 			<mx:DataGridColumn headerText="Nombre Mascota" dataField="nombreMascota"/>
 			<mx:DataGridColumn headerText="Fecha Atención" dataField="fecha"/>
 			<mx:DataGridColumn headerText="Hora Atención" dataField="hora"/>
-			<mx:DataGridColumn headerText="Nombre Dueño" dataField="nombreCliente"/>
+			<mx:DataGridColumn headerText="Nombre Dueño" dataField="nombreDueño"/>
 			<mx:DataGridColumn headerText="Apellido" dataField="apellidoDueño"/>
 			<mx:DataGridColumn headerText="Rut" dataField="rut" />
 			
