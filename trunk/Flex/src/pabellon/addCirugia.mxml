@@ -42,7 +42,13 @@
 			[Bindable]
 			public var cirugsAdds:ArrayCollection;
 		   
-		    
+		   
+		   /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion Metodo que realiza la accion de volver al panel anterior, dejando invisible este
+			 * y dejando visible el anterior.		 		
+			 * */ 
 		    public function vuelve():void
 		    {
 		    	this.setVisible(false,false);
@@ -51,6 +57,14 @@
 		    	Application.application.addCirug.setVisible(true,false);
 		    }
 		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion Metodo que realiza la accion de verificar que todos los datos esten correctamente
+			 * ingresados en los inputs correspondientes, para que no se guarde una cirugia con datos erroneos.
+			 * En caso de que se produsca algun error o que falten datos se mostrara por pantalla los mensajes 
+			 * informando de cuales datos faltan por ingresar.		 		
+			 * */ 
 		    public function registrarCiru():void{
 		    	
 		    	if(this.veterinariosC.text==""){
@@ -106,21 +120,36 @@
 		    	
 		    }
 		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion Metodo que realiza la accion de quitar una cirugia de la lista de cirugias realizadas
+			 * representada por la lista cirugsAdds y volviendo a colocarla disponible en la lista de cirugias.
+			 * */ 
 		     public function quitaCir():void
 		    {
 		    	
 		    	if(tabCirs.selectedItem){
 		    		var s:String = tabCirs.selectedItem.cirugias;
 		    		var tc:tiposCir = new tiposCir();
+		    		tc.cirugias=s;
+		    		tiposCir1.addItem(tc);
 					renombrarCir2(s);
 		    	}
 		    	else{
-		    		this.labelMessage.text="Seleccione una cirugía de la tabla Cirugías a realizar.";
+		    		this.labelMessage.text="Seleccione una cirugía de la tabla Cirugías realizadas.";
 		    	}
-		    	
-				
+	
 		    }
 		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion Metodo que realiza la accion de quitar una cirugia de la lista de cirugias realizadas
+			 * representada por la lista cirugsAdds y volviendo a colocarla disponible en la lista de cirugias. 
+			 * Esto lo hace comparando las cirugias con el nombre, y luego cuando encuentra la corecta la añade.
+			 *  @Param String representando el nombre del tipo de cirugia.
+			 * */ 
 		    public function renombrarCir2(texto:String):void{
 		    	var newAr:ArrayCollection = this.cirugsAdds;
 		    	cirugsAdds = new ArrayCollection();
@@ -137,6 +166,12 @@
 		    	
 		    }
 		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion Metodo que realiza la accion de agregar una cirugia de la lista de cirugias(tiposCir1) a la de 
+			 * cirugias realizadas (cirugsAdds), representada por la lista cirugsAdds y volviendo a colocarla disponible en la lista de cirugias.
+			 * */ 
 		    public function guardaCir():void
 		    {
 		    	
@@ -154,6 +189,14 @@
 				
 		    }
 		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion Metodo que realiza la accion de agregar una cirugia de la lista de cirugias(tiposCir1) a la de 
+			 * cirugias realizadas (cirugsAdds), representada por la lista cirugsAdds y volviendo a colocarla disponible en 
+			 * la lista de cirugias. Esto lo hace comparando las cirugias con el nombre, y luego cuando encuentra la corecta la añade.
+			 *  @Param String representando el nombre del tipo de cirugia.
+			 * */ 
 		    public function renombrarCir(texto:String):void{
 		    	var newAr:ArrayCollection = this.tiposCir1;
 		    	tiposCir1 = new ArrayCollection();
@@ -171,7 +214,13 @@
 		    }
 		    
 		    
-		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion Metodo que realiza la accion de deshabilitar la seleccion de un nombre de veterinario
+			 * para que pueda ser seleccionado como ayudante, pues no puede ser veterinario y a la vez ayudante,
+			 * debe tener un ayudante diferente.
+			 * */ 
 		    public function renombrarAyu():void
 		    {
 		    	var texto:String=veterinariosC.selectedLabel;
@@ -189,15 +238,13 @@
 
 		    }
 		    
-		    
-		    public function renomCirAdd():void{
-		    	tiposCir1.addItem(tabCirs.selectedItem.cirugias);
-		    	var n:int=cirugsAdds.getItemIndex(tabCirs.selectedItem.cirugias);
-		    	cirugsAdds.removeItemAt(n);
-		    	cirugsAdds.refresh();
-		    	
-		    }
-		    
+		   
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion Metodo que inicializa todos los datos del panel para que 
+			 * no existan datos de registros anteriores.
+			 * */ 
 		    public function iniciarPanel():void
 		    {
 		    	this.costoC.text="";
@@ -218,7 +265,7 @@
     </mx:Script>
 	<mx:Label x="10" y="10" text="Cirugía:" width="110" fontWeight="bold"/>
 	<mx:Label x="450.55" y="38" text="Ayudante: " width="78"/>
-	<mx:Label x="25.55" y="229" text="Cirugía:" width="63.4" height="17.931034"/>
+	<mx:Label x="25.55" y="229" text="Cirugías:" width="63.4" height="17.931034"/>
 	<mx:Label x="25.55" y="38" text="Responsable:" width="94.45"/>
 	<mx:Label x="450.55" y="66" text="Fecha: " width="78"/>
 	<mx:Label x="450.55" y="94" text="Costo:" width="63.4"/>
@@ -242,7 +289,7 @@
 	
 	<mx:DataGrid x="450.55" y="229" height="116" width="279.7" id="tabCirs" dataProvider="{cirugsAdds}">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Cirugías a realizar" dataField="cirugias"/>
+			<mx:DataGridColumn headerText="Cirugías realizadas" dataField="cirugias"/>
 		</mx:columns>
 	</mx:DataGrid>
 

@@ -44,20 +44,17 @@
 		    
 		    [Bindable] 
 		    public var cliente:Person;
-		    
-		    /**
-			* Opciones de seleccion para sexo de la mascota
-			*/
-		    [Bindable]
-            public var sexos:ArrayCollection = new ArrayCollection(
-                [ {label:" ", data:0},
-                  {label:"Macho", data:1}, 
-                  {label:"Hembra", data:2} ]);    
+		      
 
 			/**
-			* Funcion que busca un cliente
-			* @param event Evento
-			*/
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 * Funcion que busca un cliente, en la base de datos, para esto primero verifica 
+			 * si el rut esta ingresado correctamente, en caso de estar incorrecto lo informa por pantalla.
+			 * En caso contrario realiza las llamadas a la capa de java, la cual procesara la soliitud, y 
+			 * retornara si el cliente existe o no.
+			 * @param event Evento
+			 */
         	private function buscarCliente(event:Event):void{
         		ini(event);
         		var Numero:String = rutClienteInput.text;
@@ -100,88 +97,27 @@
 				}		
         	}
         	
+        	/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
+			 * el cual envia las solicitudes, y devuelve los resultados.
+			 */
         	private function getCliente(rutCliente:String):void{
 				var addMascotaService:AddCirugiaService = new AddCirugiaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
 				addMascotaService.getCliente(rutCliente);
 			}
-        	
-			/**
-			* Funcion que llena la tabla de mascotas asociadas al cliente
-			* @param event Evento
-			*/
-	        private function ini(event:Event):void{
-	        	//datosMascota.visible = true;
-	        	
-	           	mascotas.removeAll();
-	           	getMascotas();
-				mascotas.refresh();
-	         }
-
-        	private function alertClickHandler(event:CloseEvent):void {
-            	if (event.detail==Alert.YES)
-                	rutClienteInput.visible=false;
-            	else
-                	rutClienteInput.visible=true;
-        	}
-        	
-        	/**
-			* Funcion que llena las opciones de razas segun la clase de animal seleccionada
-			* @param event Evento
-			*/
-        	private function selRazas(event:Event):void {
-        		var razas:ArrayCollection = new ArrayCollection();
-    			
-			}
-						
-			/**
-			* Funcion escucha para agregar mascota
-			* @param event Evento
-			*/
-			private function resultHandler(event:ResultEvent):void{
-				var message:String= event.result as String;
-				Alert.show(message);
-			}
 			
 			
 			/**
-			* Funcion que llama  a retornar todas las mascotas 
-			* 
-			*/
-			private function getAllMascotas():void{
-				var mascotaService:AddCirugiaService = new AddCirugiaService();
-				mascotaService.addEventListener(ResultEvent.RESULT,getAllMascotasResult);
-				mascotaService.getAllMascotas();
-			}
-			
-			/**
-			* Funcion que obtiene todas las mascotas anteriormente llamadas
-			* @param event Evento
-			*/
-			public function getAllMascotasResult(event:ResultEvent):void{
-				mascotas = event.result as ArrayCollection;
-				//mascotas.refresh();
-			}
-			
-			/**
-			* Funcion que llama a retornar todas las mascotas de un cliente
-			*/
-			public function getMascotas():void{
-				var addMascotaService:AddCirugiaService = new AddCirugiaService();
-				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addMascotaService.getMascotas(rutClienteInput.text);
-			}
-			
-			/**
-			* Funcion que obtiene todas las mascotas de un cliente
-			* @param event Evento
-			*/
-			public function getAddMascotasResult(event:ResultEvent):void{
-				mascotas = event.result as ArrayCollection;
-				//mascotas.refresh();
-			}
-			
-
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
+			 * el cual envia las solicitudes, y devuelve los resultados. Se procesa el resultado del metodo 
+			 * anterior.
+			 * @param event Evento
+			 */
 			public function getClienteResult(event:ResultEvent):void{
 				nombreCliente = event.result as String;
 				
@@ -199,9 +135,56 @@
         			ini(event);
         		}
 			}
-			
-			
+        	
+			/**
+		 	* 	@author  "Jimmy Muñoz"
+			* 	@Fecha  13 Octubre
+			* Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
+			* de la comunicacion con la capa logica.
+			* @param event Evento
+			*/
+	        private function ini(event:Event):void{
+	        	//datosMascota.visible = true;
+	        	
+	           	mascotas.removeAll();
+	           	getMascotas();
+				mascotas.refresh();
+	        }
+	         
+        	
+        					
 					
+			/**
+		 	* 	@author  "Jimmy Muñoz"
+			* 	@Fecha  13 Octubre
+			* Metodo que realiza la comunicacion a la capa logica a traves de AddCirugiaService,
+			* solicitando todas las mascotas que le pertenescan a un determinado cliente.
+			*/
+			public function getMascotas():void{
+				var addMascotaService:AddCirugiaService = new AddCirugiaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(rutClienteInput.text);
+			}
+			
+			/**
+		 	* 	@author  "Jimmy Muñoz"
+			* 	@Fecha  13 Octubre
+			* Metodo que realiza la comunicacion a la capa logica a traves de AddCirugiaService,
+			* solicitando todas las mascotas que le pertenescan a un determinado cliente. 
+			 * Se almacena el resultado del metodo anterior en la variable mascotas.
+			* @param event Evento
+			*/
+			public function getAddMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+			}
+			
+			/**
+		 	* 	@author  "Jimmy Muñoz"
+			* 	@Fecha  13 Octubre
+			* Metodo que realiza la comunicacion a la capa logica a traves de AddCirugiaService,
+			* solicitando todos los tipos de cirugias, para que sean cargados al panel de registrar cirugia, 
+			 * para que se pueda seleccionar.
+			*/		
 			public function getTiposCirugias():void
 			{
 				var addMascotaService:AddCirugiaService = new AddCirugiaService();
@@ -209,11 +192,25 @@
 				addMascotaService.getTiposCirugias();
 			}
 			
+			/**
+		 	* 	@author  "Jimmy Muñoz"
+			* 	@Fecha  13 Octubre
+			* Metodo que procesa el resultado del evento anterior, almacenando la lista resultante en la 
+			* variable tiposC. Que corresponde a la lista de todas las cirugias que existen.
+			* @param event Evento
+			*/
 			public function getTiposC(event:ResultEvent):void
 			{
 				tiposC = event.result as ArrayCollection;
 			}
 			
+			
+			/**
+		 	* 	@author  "Jimmy Muñoz"
+			* 	@Fecha  13 Octubre
+			* Metodo que se comunica con la capa logica, para obtener un listado con los nombres de los 
+			* veterinarios esto lo hace a traves de la clase AddCirugiaService. 
+			*/
 			public function getTiposVeterinarios():void
 			{
 				var addMascotaService:AddCirugiaService = new AddCirugiaService();
@@ -221,11 +218,25 @@
 				addMascotaService.getTiposVeterinarios();
 			}
 			
+			/**
+		 	* 	@author  "Jimmy Muñoz"
+			* 	@Fecha  13 Octubre
+			* Metodo que procesa el resultado del metodo anterior, almacenando la lista resultante en la 
+			* variable vetesC. Que corresponde a la lista veterinarios que existen en el sistema.
+			* @param event Evento
+			*/
 			public function getTiposV(event:ResultEvent):void
 			{
 				vetesC = event.result as ArrayCollection;
 			}
 			
+			
+			/**
+		 	* 	@author  "Jimmy Muñoz"
+			* 	@Fecha  13 Octubre
+			* Metodo que se comunica con la capa logica, para obtener un listado con los nombres de los 
+			* veterinarios y ayudantes del sistema esto lo hace a traves de la clase AddCirugiaService. 
+			*/
 			public function getTiposAyudantes():void
 			{
 				var addMascotaService:AddCirugiaService = new AddCirugiaService();
@@ -233,11 +244,27 @@
 				addMascotaService.getTiposAyudantes();
 			}
 			
+			/**
+		 	* 	@author  "Jimmy Muñoz"
+			* 	@Fecha  13 Octubre
+			* Metodo que procesa el resultado del metodo anterior, almacenando la lista resultante en la 
+			* variable ayudantesC. Que corresponde a la lista de veterinarios y ayudantes que existen en 
+			 * el sistema.
+			* @param event Evento
+			*/
 			public function getTiposA(event:ResultEvent):void
 			{
 				ayudantesC = event.result as ArrayCollection;
 			}
 			
+			
+			/**
+		 	* 	@author  "Jimmy Muñoz"
+			* 	@Fecha  13 Octubre
+			* Metodo que procesa los datos ingresados en este panel, y muestra el panel 
+			* en donde se realiza el registro de cirugia, cargando los datos correspondientes, 
+			* para que el otro panel posea todos los datos.
+			*/
 			public function regCiru():void
 			{
 				
@@ -263,6 +290,11 @@
 				
 			}
 			
+			/**
+		 	* 	@author  "Jimmy Muñoz"
+			* 	@Fecha  13 Octubre
+			* Metodo que inicializa todos los valores y variables de este panel.
+			*/
 			public function iniciarPanel():void
 			{
 				this.getTiposCirugias();
@@ -275,6 +307,11 @@
 				this.rutClienteDVInput.text="";
 			}
 			
+			/**
+		 	* 	@author  "Jimmy Muñoz"
+			* 	@Fecha  13 Octubre
+			* Metodo que inicializa los valores de los tipos de cirugias, veterinarios y ayudantes.
+			*/
 			public function iniciarPanel1():void
 			{
 				this.getTiposCirugias();
@@ -286,16 +323,11 @@
         ]]>
     </mx:Script>
 	
-	<!-- DATOS BUSQUEDA DE CLIENTE PARA REGISTRO DE MASCOTA --> 
-	
 	<mx:Label x="38.75" y="38" text="Rut:" width="84"/>
 	<mx:Label x="221" y="38" text="-" width="14.75" textAlign="center"/>
 	<mx:TextInput  restrict="0-9" x="130.75" y="36" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
 	<mx:TextInput x="232.5" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	
-	<!-- BOTON QUE DA ACCION A BUSQUEDA DE CLIENTE -->
-
-	<!-- FICHA DE MASCOTA SELECCIONADA --> 
 	<mx:Panel x="121.5" y="-12" width="585" height="323" layout="absolute"  visible="false" id="ficha">
 			<mx:Label x="10" y="63" text="Nombre:" width="97"/>
 			<mx:Label x="10" y="125" text="Tipo Animal:" width="97"/>
@@ -320,7 +352,7 @@
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
-	        <mx:DataGridColumn dataField="claseAnimal" headerText="Tipo" width="100"/>
+	        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" width="100"/>
 	        <mx:DataGridColumn dataField="raza" headerText="Raza" width="100"/>
 	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
 	    </mx:columns>
@@ -329,7 +361,5 @@
 	<mx:Button x="635.75" y="369" label="Cancelar" width="84" id="cancelar" visible="true"/>
 	
 	<mx:Label x="10" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
-	<!--
-	<mx:TileList x="465.75" y="9" width="200.5" height="135" dataProvider="{files}" itemRenderer="components.ItemRenderer"></mx:TileList>
-	-->	
+	
 </mx:Panel>
