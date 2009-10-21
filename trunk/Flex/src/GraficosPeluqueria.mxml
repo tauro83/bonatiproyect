@@ -9,18 +9,19 @@
 -->
 	<mx:Script>
 		<![CDATA[
-			import mx.messaging.channels.StreamingAMFChannel;
+		import mx.messaging.channels.StreamingAMFChannel;
 		import mx.collections.ArrayCollection;
 		import mx.rpc.events.ResultEvent;
 		import mx.controls.Alert;
 		import mx.events.CalendarLayoutChangeEvent;
 		import services.GetEstadisticasPeluqueria;
 		import transferObjects.EstadisticasPeluqueria;
-		
-		
+		import services.Mensajes;
+				
 		[Bindable]public var expenses:ArrayCollection ;
 		private var titulo:String = "Estadísticas por rango de fecha para Peluqueria";
 		private var gep:GetEstadisticasPeluqueria;
+		private var fechaActual:Date = new Date();
 
 		private function getEstadisticasR(event:ResultEvent):void
 		{
@@ -37,31 +38,30 @@
 		{
 			if(fechaIni.selectedDate!=null && fechaFin.selectedDate!=null){
 				if(fechaIni.selectedDate.getTime()<=fechaFin.selectedDate.getTime()){
-					 gep = new GetEstadisticasPeluqueria();
-					var iDia:String		= fechaIni.selectedDate.getDate().toString();
-					var iMes:String		= (fechaIni.selectedDate.getMonth()+1).toString();
-					var iAnio:String	= fechaIni.selectedDate.getFullYear().toString();
-					var fDia:String		= fechaFin.selectedDate.getDate().toString();
-					var fMes:String		= (fechaFin.selectedDate.getMonth()+1).toString();
-					var fAnio:String	= fechaFin.selectedDate.getFullYear().toString();
-					//Alert.show(iDia);
- 					var inicio:String	= iAnio+"-"+iMes+"-"+iDia;
- 					var fin:String		= fAnio+"-"+fMes+"-"+fDia; 
- 					gep.getEstadisticas(inicio,fin);
- 					gep.addEventListener(ResultEvent.RESULT,getEstadisticasR);
-					
-// 					expenses = new ArrayCollection([
-//				        {tipo:"Corte", numAtenciones:820},
-//				        {tipo:"Baño", numAtenciones:200},
-//				        {tipo:"Pedicura", numAtenciones:150}
-//				     ]); 
-				     mens.text = "";  
+					if(fechaIni.selectedDate.getTime()<fechaActual.getTime()){
+						 gep = new GetEstadisticasPeluqueria();
+						var iDia:String		= fechaIni.selectedDate.getDate().toString();
+						var iMes:String		= (fechaIni.selectedDate.getMonth()+1).toString();
+						var iAnio:String	= fechaIni.selectedDate.getFullYear().toString();
+						var fDia:String		= fechaFin.selectedDate.getDate().toString();
+						var fMes:String		= (fechaFin.selectedDate.getMonth()+1).toString();
+						var fAnio:String	= fechaFin.selectedDate.getFullYear().toString();
+						//Alert.show(fechaActual.getTime().toString());
+	 					var inicio:String	= iAnio+"-"+iMes+"-"+iDia;
+	 					var fin:String		= fAnio+"-"+fMes+"-"+fDia; 
+	 					gep.getEstadisticas(inicio,fin);
+	 					gep.addEventListener(ResultEvent.RESULT,getEstadisticasR);
+						
+					     mens.text = "";  
+					}else
+					{
+						 mens.text = "Ingrese una fecha inicio anterior a la actual"; 
+					}
 				}
 				else{
-					mens.text = "La fecha de inicio, debe ser anterior a la fecha fin";
+					mens.text = Mensajes.getMensajeError(7);
 				}
 			}
-		
 		}
 		]]>
 	</mx:Script>
@@ -80,7 +80,7 @@
 			<mx:DateField id="fechaIni"  x="89" y="36" width="112" change="changeData(event)"/>
 			<mx:Label x="10" y="38" text="Inicio:" width="58"/>
 			<mx:DateField id="fechaFin"   x="89" y="67" width="112" change="changeData(event)"/>
-			<mx:Label x="10" y="69" text="Fin:" width="45"/>
+			<mx:Label x="10" y="69" text="Termino:" width="71"/>
 			<mx:Label x="10" y="10" text="Rango de fechas:"/>
 			<mx:Label x="176" y="377" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	</mx:Panel>

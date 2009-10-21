@@ -14,7 +14,7 @@ package services
 			 );
 			 return popup[0];
 		}
-		
+		//Comienza desde el 0
 		public static function getMensajeError(index:int):String
 		{
 			 var error:Array = new Array(
@@ -24,7 +24,8 @@ package services
 				 "Ingrese una contraseña sin espacios en blanco y más larga",
 				 "Ingrese una contraseña que coincida con la anterior",
 				 "Ingrese un apellido paterno más largo",
-				 "Usuario previamente registrado, elija otro nombre de usuario"
+				 "Usuario previamente registrado, elija otro nombre de usuario",
+				 "La fecha de inicio, debe ser anterior a la fecha fin"
 			 );
 			 return error[index];
 		}
