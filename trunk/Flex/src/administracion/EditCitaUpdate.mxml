@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F">
+	
+	
+	 <mx:Script>
+        <![CDATA[
+        import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Cita;
+			
+			import mx.rpc.events.ResultEvent;
+			import administracion.EditarCitaService;
+			
+			import administracion.EditClienteUpdate;
+			import administracion.EditCitaUpdate;
+			
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import mx.core.Application;
+			
+			[Bindable]
+			private var clientes:ArrayCollection;
+			//private var clientillo:ClienteService;
+			private var clienteAux:Cita;
+			[Bindable]
+			public var clienteAuxEditado:Cita;
+			public var newCli2:EditClienteUpdate;
+			//var newCli2:EditClienteUpdate = Application.application.ediCliUp;
+			
+			
+			public var citi:Cita;
+			
+			/**
+			 * Funcion que carga los datos de la cita que se quiere editar  en panle respectivo para la 
+			 * edicion
+			 * 
+			 */ 
+			public function carga(clientillo:Cita):void
+			{       //asigno el cliente entregado desde panel EditarCliente
+				    clienteAuxEditado = clientillo;
+				    nombre.text = clientillo.cliente;
+				    hora.text   = clientillo.hora;
+				    fecha.text	= clientillo.fecha;
+				    usuario.text= clientillo.usuario;
+				    mascota.text= clientillo.mascota;
+				    servicio.text=clientillo.servicio;
+				    //nombre.enabled=false;
+				    
+			}
+			
+			public function clienteModificado():void
+			{
+					
+					clienteAuxEditado.cliente  = nombre.text;
+					clienteAuxEditado.mascota = mascota.text;
+					clienteAuxEditado.fecha =  fecha.text;
+					clienteAuxEditado.hora       = hora.text;
+					clienteAuxEditado.servicio 	 	= servicio.text;
+					clienteAuxEditado.usuario  = usuario.text;
+					carga1();
+					
+			}
+			
+			public function carga1():void
+			{
+			  //Alert.show(clienteAuxEditado.cliente);
+			  //Alert.show(" entra a funcion carga1");
+			  var auxiliar:EditarCitaService = new EditarCitaService();
+			  auxiliar.addEventListener(ResultEvent.RESULT,carga1Result);
+			  auxiliar.insertCitaE(clienteAuxEditado);
+			  
+			}
+			public function carga1Result(event:ResultEvent):void
+			{
+			   var res:int;
+			   res = event.result as int;
+			   if(res > 0)
+			   {
+			   	  
+			   	  Application.application.agenda2.labelMessage.text ="La cita ha sido modificada exitosamente";
+			   	  this.setVisible(false,false);
+			   	  Application.application.agenda2.setVisible(true,false);
+			      //Alert.show("ok");
+			   }
+			   else
+			   {
+			      Alert.show("no");
+			   }
+			}
+			
+			
+            
+            [Bindable]
+            public var horas:ArrayCollection = new ArrayCollection(
+            [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
+            {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
+            {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]);
+            
+            [Bindable]
+            public var servicios:ArrayCollection = new ArrayCollection(
+            [ {label:"Todos", data:1}, 
+            {label:"Pabellón"}, 
+            {label:"Peluquería"},
+            {label:"Policlínico"},
+            {label:"Atención a domicilio"} ]);
+            
+            [Bindable]
+            public var perros:ArrayCollection = new ArrayCollection(
+            [{label:"Kato"}, 
+            {label:"Scoby"},
+            {label:"Chicho"},
+            {label:"Zuki"}]);            
+            
+            [Bindable]
+            public var usuarios:ArrayCollection = new ArrayCollection(
+            [ {label:"Todos", data:1}, 
+            {label:"Claudio Bonati"}, 
+            {label:"Patricio Castro"},
+             {label:"Peluquería" },
+             ]);
+           
+            
+            public function guardaEditaCita(event:Event = null):void
+			{
+				
+			    //Alert.show(selectedRow.hora);
+			    Application.application.agenda2.setVisible(true);
+			    Application.application.editarCita.setVisible(false);
+			    Application.application.agenda2.labelMessage.text="Su Cita ha sido Modificada";
+			    
+			    
+			}
+			
+			public function cancelarEditaCita(event:Event = null):void
+			{
+				
+			    //Alert.show(selectedRow.hora);
+			    Application.application.agenda2.setVisible(true);
+			    Application.application.editarCita.setVisible(false);
+			    Application.application.agenda2.labelMessage.text="Usted ha cancelado la operación";
+			    
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+
+            
+       ]]>
+       
+    </mx:Script>
+	
+	
+	<mx:TextInput x="163" y="64" width="140" id="nombre" enabled="true" maxChars="20" editable="false"/>
+	
+	
+	
+	<mx:Label x="10" y="66" text="Nombre         :" width="145"/>
+	<mx:Label x="10" y="152" text="Fecha           :" width="145"/>
+	<mx:Label x="10" y="202" text="Hora             :" width="145"/>
+	<mx:DateField x="163" y="150" width="115" id="fecha"/>
+	<mx:Label x="10" y="249" text="Servicio        :" width="145"/>
+	<mx:Button x="590" y="347" label="Cancelar" width="112" click="{cancelarEditaCita()}"/>
+	<mx:Button x="425" y="347" label="Guardar " width="123" click="{clienteModificado()} "/>
+	<mx:Label x="10" y="309" text="Responsable :" width="145"/>
+	<mx:Label x="10" y="111" text="Mascota:" width="112"/>
+	<mx:ComboBox x="163" y="109" width="160" id="mascota" dataProvider="{perros}"/>
+	<mx:ComboBox id="hora" x="163" y="200" dataProvider="{horas}" labelField="hora" width="160"/>
+	<mx:ComboBox x="163" y="247" id="servicio" dataProvider="{servicios}" width="160"></mx:ComboBox>
+	<mx:ComboBox x="163" y="307" id="usuario" dataProvider="{usuarios}" width="160"></mx:ComboBox>
+	
+</mx:Panel>
