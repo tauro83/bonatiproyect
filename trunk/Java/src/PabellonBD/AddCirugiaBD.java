@@ -23,7 +23,8 @@ public class AddCirugiaBD {
 	
 	
 	/**
-	 * Constructor de MascotaBD
+	 * Constructor de AddCirugiaBD
+	 * En el cual se declaran las query, para realizar las diferentes acciones, tanto de solicitud, como de insercion.
 	 * @param connection Enlace para la conexion a la base de datos
 	 */
 	public AddCirugiaBD(Connection connection){
@@ -55,9 +56,14 @@ public class AddCirugiaBD {
 	}
 	
 	/**
-	 * Ingresa a una nueva Mascota a la base de datos
-	 * @param mascota contiene los datos de la mascota que se quiere ingresar
-	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
+	 * Autor: Jimmy Muñoz
+	 * Metodo que se comunica con la base de datos, en el cual se registra una nueva cirugia, para esto primero se
+	 * captura la hora del sistema, para realizar el registro, esto se almacena en la variable t.
+	 * Luego se prepara el statement add en el cual se le ingresan todos los datos para realizar la insercion en la cirugia.
+	 * Una vez completada la insercion anterior, se procede a insertar los diagnosticos, y los tipos de cirugia en la tabla 
+	 * diagnostico.
+	 * @param Cirugia, nuevaCir, que representa la cirugia que sera almacenada o registrada en la base de datos.
+	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
     public int addCirugia(Cirugia newCirugia){
     	int result=0, result2=0, result1=0;
@@ -82,9 +88,6 @@ public class AddCirugiaBD {
 			
 			result1= add.executeUpdate();
 			
-			/*"INSERT INTO diagnostico(clienterut, mascotanombre, hora, fecha, diagnostico, nuevafecha, tipocirugia, nuevahora) "+
-			"VALUES (?, ?, ?, ?, ?, ?, ?, ?);"*/
-			
 			List<tiposCir> ltc = newCirugia.getTiposCirugias();
 			int n = ltc.size();
 			for(int i=0;i<n;i++){
@@ -105,26 +108,6 @@ public class AddCirugiaBD {
 				}
 				
 			}
-			
-			/*List<tiposCir> ltc = newCirugia.getTiposCirugias();
-			
-			tiposCir tc = (tiposCir)ltc.get(0);
-			String s = Integer.toString(0);
-			System.out.println("inicio");
-			addDiag.setString(1, newCirugia.getClienteRut());
-			addDiag.setString(2, newCirugia.getMascotaNombre());
-			addDiag.setTime(3, t);
-			addDiag.setString(4, newCirugia.getFecha());
-			addDiag.setString(5, newCirugia.getDiagnostico());
-			addDiag.setString(6, newCirugia.getNuevaFecha());
-			addDiag.setString(7, tc.getCirugias());
-			addDiag.setTime(8, t);
-			addDiag.setString(9, s);
-			System.out.println("fin");
-			
-			result2= addDiag.executeUpdate();
-			*/
-		
 		} 
     	catch (SQLException e) {
 			e.printStackTrace();
@@ -133,6 +116,14 @@ public class AddCirugiaBD {
     	return result2;
     }
 	
+    
+    /**
+	 * Autor: Jimmy Muñoz
+	 * Metodo que se comunica con la base de datos, y que solicita todos los clientes existentes, y luego compara los rut,
+	 * para verificar si el cliente existe.
+	 * @param El rut del cliente, en una varibale String..
+	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
+	 */
 	public String getCliente(String rutCliente){
     	String cliente = null;
     	try{
@@ -150,9 +141,11 @@ public class AddCirugiaBD {
 	}
     
 	/**
-	 * Retorna todas las mascotas alojadas en la base de datos
-	 *
-	 * @return Lista de todas las mascotas
+	 * Autor: Jimmy Muñoz
+	 * Metodo que se comunica con la base de datos, y que recibe los datos de las mascotas existentes en el sistema, 
+	 * los cuales va añadiendo a un objeto de tipos Mascota, para luego se agregados a una lista del tipo Mascota.
+	 * @param No recibe parametro.
+	 * @return Lista con las mascotas del sistema, esto en una lista de objetos Mascota.
 	 */
     public List<Mascota> getAllMascotas(){
     	List<Mascota> mascotas=new ArrayList<Mascota>();
@@ -179,10 +172,13 @@ public class AddCirugiaBD {
     	return mascotas;
     }
     
-	/**
-	 * Retorna una lista con las mascotas de @param
-	 * @param rutCliente es el rut del cliente  que se quiere retornar las mascotas
-	 * @return Lista de mascotas o null si no tiene
+    /**
+	 * Autor: Jimmy Muñoz
+	 * Metodo que se comunica con la base de datos, y que recibe los datos de las mascotas existentes en el sistema, 
+	 * que pertenecen al cliente, del rut ingresado, los cuales va añadiendo a un objeto de tipos Mascota, para luego 
+	 * se agregados a una lista del tipo Mascota.
+	 * @param El rut del cliente del cual se quieren obtener las mascotas.
+	 * @return Lista con las mascotas del sistema que pertenecen a este cliente, esto en una lista de objetos Mascota.
 	 */
     public List<Mascota> getMascotas(String rutCliente){
     	List<Mascota> mascotas=new ArrayList<Mascota>();
