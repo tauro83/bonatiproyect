@@ -18,38 +18,20 @@ import TransferObjects.tiposCir;
 import TransferObjects.Cirugia;
 
 public class AddCirugiaService {
-	public List<Usuario> persons;
+	public List<Usuario> persons; //Lista en la cual se almacenan los datos de los usuarios del sistema.
 	/**
 	 * Autor: Jimmy Muñoz
-	 * Metodo que llama a la funcion con el mismo nombre que se encuentra en la 
-	 * clase que se conecta con la base de datos.
-	 * @param Usuario contiene los datos de la persona que se quiere editar.
-	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
+	 * Metodo que llama a la funcion addCirugia, de la clase AddCirugiaDB, que se encuentra en el paquete PabellonBD,
+	 * en este metodo se procesan los datos de la nueva cirugia a guardar que llega como parametro.
+	 * En un comienzo se procesa los nombres del responsable y del ayudante de la cirugia, realizando un llamado al
+	 * metodo getAllUsuariosE(), la que almacena los datos de los usuarios en la lista persons, para asi obtener las
+	 * claves primarias del ayudante y del veterinario responsable.
+	 * se asignan estos valores a la cirugia y son enviados al metodo addCirugia, a traves del objeto de tipo cirugia.
+	 * @param Cirugia, nuevaCir, que representa la cirugia que sera almacenada o registrada en la base de datos.
+	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
 	public int AddCirugia(Cirugia nuevaCir)
-    {
-		
-		/*System.out.println("ayudante: "+nuevaCir.getAyudante());
-		System.out.println("veterinario: "+nuevaCir.getVeterinario());
-		System.out.println("fecha: "+nuevaCir.getFecha());
-		System.out.println("diagnostico: "+nuevaCir.getDiagnostico());
-		System.out.println("rut cliente: "+nuevaCir.getClienteRut());
-		System.out.println("nombre mascota: "+nuevaCir.getMascotaNombre());
-		
-		List<tiposCir> ltc = nuevaCir.getTiposCirugias();
-		
-		
-		
-		int n2 = ltc.size();
-		for(int i=0;i<n2;i++){
-			tiposCir tc = (tiposCir)ltc.get(i);
-			if(tc != null){
-				System.out.println("Tipo de cirugia"+i+": "+tc.getCirugias());
-			}
-			
-		}
-		*/
-		
+    {		
 		this.getAllUsuariosE();
 		String nombreVet = nuevaCir.getVeterinario();
 		String nombres[] = nombreVet.split(" ");
@@ -89,22 +71,17 @@ public class AddCirugiaService {
 			e.printStackTrace();
 		}
 		return result;
-
-		/*int result=0;
-		try 
-		{
-			Connection connection=DBConnectionManager.getConnection();
-			UsuarioEditBD personDB= new UsuarioEditBD(connection);
-			result= personDB.insertUsuarioE(person);		
-			connection.close();
-		} catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		return result;*/
     }
 	
 	
+	/**
+	 * Autor: Jimmy Muñoz
+	 * Metodo que llama a la funcion getCliente, de la clase AddCirugiaDB, que se encuentra en el paquete PabellonBD,
+	 * en este metodo se recibe un rut con el cual se realiza una solicitud de informacion, para verificar si el cliente
+	 * existe.
+	 * @param String rutCliente, recibe un string que representa el rut del cliente que se necesita verificar si existe.
+	 * @return retorna el rut del cliente si es que existe.
+	 */
 	public String getCliente(String rutCliente){
     	String cliente = null;
     	try {
@@ -120,8 +97,11 @@ public class AddCirugiaService {
 	}
 	
 	/**
-	 * Crea la conexion a la base de datos para retornar todas las mascotas
-	 * @return Lista de todas las mascotas
+	 * Autor: Jimmy Muñoz
+	 * Metodo que llama a la funcion getAllMascotas, de la clase AddCirugiaDB, que se encuentra en el paquete PabellonBD,
+	 * en este metodo se realiza una solicitud de las mascotas que existen en el sistema.
+	 * @param no recibe parametro.
+	 * @return Listado de mascotas, objetos con todos los datos de las mascotas registradas.
 	 */
 	public List<Mascota> getAllMascotas(){
     	List<Mascota> mascotas=new ArrayList<Mascota>();
@@ -138,9 +118,13 @@ public class AddCirugiaService {
     }
     
 	/**
-	 * Crea la conexion a la base de datos para retornar las mascotas de @param
-	 * @param rutCliente Rut de Cliente que se quiere retornar sus mascotas
-	 * @return Lista de mascotas
+	 * Autor: Jimmy Muñoz
+	 * Metodo que llama a la funcion getMascotas, de la clase AddCirugiaDB, que se encuentra en el paquete PabellonBD,
+	 * metodo que realiza una solicitud de las mascotas que posee un determinado cliente identificado por el rut que 
+	 * se recibe de entrada.
+	 * @param String rutCliente, es el rut del cliente del cual se quieren obtener las mascotas.
+	 * @return Listado de mascotas, objetos con todos los datos de las mascotas registradas a nombre del cliente con 
+	 * dicho rut.
 	 */
 	public List<Mascota> getMascotas(String rutCliente){
     	List<Mascota> mascotas=new ArrayList<Mascota>();
@@ -156,6 +140,14 @@ public class AddCirugiaService {
 		return mascotas;
     }
 	
+	
+	/**
+	 * Autor: Jimmy Muñoz
+	 * Metodo que retorna una lista de objetos tiposCir, en la cual se encuentran los nombres de las posibles cirugias, 
+	 * que podran ser seleccionadas por el usuario, al momento de registrar una cirugia.
+	 * @param No recibe parametro.
+	 * @return Listado de tiposCir tipos de cirugias, que seran cargadas en los paneles de flex, para su posterior seleccion.
+	 */
 	public List<tiposCir> getTiposCirugias(){
 		List<String> cirus=new ArrayList<String>();
 		List<tiposCir> tiposcirus=new ArrayList<tiposCir>();
@@ -186,7 +178,16 @@ public class AddCirugiaService {
 		return tiposcirus;	
 	}
 	
-	
+	/**
+	 * Autor: Jimmy Muñoz
+	 * Metodo que llama a la funcion getAllUsuariosE, de esta clase, la cual se comunica con la base de datos cargando
+	 * los datos de los usuarios del sistema.
+	 * Posterior a esto, comienza a procesar los datos obtenidos para enviarlo como resultado a la capa de flex, para 
+	 * esto concatena el nombre y el apellido del usuario que tenga como cargo Veterinario, y este resultado
+	 * de la concatenacion es añadido a la lista que se retornara hacia la capa 1.
+	 * @param No recibe parametro.
+	 * @return Listado de String con los nombres de los veterinarios.
+	 */
 	public List<String> getTiposVeterinarios(){
 		List<String> cirus=new ArrayList<String>();
 		
@@ -208,6 +209,17 @@ public class AddCirugiaService {
 		return cirus;	
 	}
 	
+	
+	/**
+	 * Autor: Jimmy Muñoz
+	 * Metodo que llama a la funcion getAllUsuariosE, de esta clase, la cual se comunica con la base de datos cargando
+	 * los datos de los usuarios del sistema.
+	 * Posterior a esto, comienza a procesar los datos obtenidos para enviarlo como resultado a la capa de flex, para 
+	 * esto concatena el nombre y el apellido del usuario que tenga como cargo Veterinario o Ayudante, y este resultado
+	 * de la concatenacion es añadido a la lista que se retornara hacia la capa 1.
+	 * @param No recibe parametro.
+	 * @return Listado de String con los nombres de los veterinarios y ayudantes que podrian cooperar en la cirugia.
+	 */
 	public List<String> getTiposAyudantes(){
 		List<String> cirus=new ArrayList<String>();
 		
@@ -231,9 +243,11 @@ public class AddCirugiaService {
 	
 	/**
 	 * Autor: Jimmy Muñoz
-	 * Solicita a la clase que se conecta con la base de datos, los datos de cada usuario.
-	 * @param
-	 * @return Lista con objetos de la clase Usuario
+	 * Metodo que llama a la funcion getAllUsuariosE, de la clase UsuarioEditBD, que se encuentra en el paquete 
+	 * AdministracionBD, metodo que realiza una solicitud de los usuarios del sistema y los almacena en la lista persons,
+	 * para que otros metodos puedan acceder a esta.
+	 * @param No recibe parametro.
+	 * @return No retorna resultado.
 	 */
     public void getAllUsuariosE()
     {
