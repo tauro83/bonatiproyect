@@ -1,4 +1,5 @@
 package pabellon{
+	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
@@ -15,13 +16,13 @@ package pabellon{
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="EditarPostOperatorio";
-			this.source="Administracion.EditarPostOperatorio";	
+			this.source="Pabellon.EditarPostOperatorio";	
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		private function faultHandler(event:FaultEvent):void{
 			Alert.show("Error en EditarPostOperatorio, Detalle: "+event.fault.message);
 		}
-		public function editarPostOperatoio(lista:ArrayList):void{
+		public function editarPostOperatoio(lista:ArrayCollection):void{
 			this.getOperation("editarPostOperatorio").send(lista);
 		}
 

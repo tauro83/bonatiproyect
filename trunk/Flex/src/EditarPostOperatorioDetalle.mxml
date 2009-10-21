@@ -27,11 +27,11 @@
 			
 			public function setData(post:PostOperatorio):void{
 				this.atencion = post;
-				nombreCliente.text = post.nombreCliente;
+				nombreDueño.text = post.nombreDueño;
 				apellidoPaterno.text = post.apellidoDueño;
 				rut.text = post.rut;
 				hora.text = post.hora;
-				fecha.text = post.fecha;
+				fecha.text = post.fecha.toDateString();
 				costo.text = post.costo;
 				nomMascota.text = post.nombreMascota;
 				medicamentos.text = post.medicamentos;
@@ -42,11 +42,11 @@
  			private function guardarDatos():void{
  				var lista:ArrayCollection = new ArrayCollection;
  				
- 				atencion.nombreCliente = nombreCliente.text;
+ 				atencion.nombreDueño = nombreDueño.text;
 				atencion.apellidoDueño =apellidoPaterno.text;
 				atencion.rut = rut.text;
 				atencion.hora = hora.text;
-				atencion.fecha = fecha.text;
+				atencion.fecha = new Date(fecha.text);
 				atencion.costo = costo.text;
 				atencion.nombreMascota = nomMascota.text;
 				atencion.medicamentos = medicamentos.text;
@@ -62,15 +62,18 @@
 				lista.addItem(atencion.nombreMascota);
 				lista.addItem(atencion.rut);
 				lista.addItem(atencion.apellidoDueño);
-				lista.addItem(atencion.nombreCliente);
+				lista.addItem(atencion.nombreDueño);
  				var object:pabellon.EditarPostOperatorio = new pabellon.EditarPostOperatorio();
  				object.addEventListener(ResultEvent.RESULT,editarPostOResult);
             	object.editarPostOperatoio(lista);
             }
-            private function editarPostOResult(event:int):void{
-				if(event!=0){
+            private function editarPostOResult(event:ResultEvent):void{
+				if(event.result!=0){
 					Alert.show("Datos guardados correctamente");
 					setData(atencion);
+				}
+				else{
+					Alert.show("Error en la actualizacion de datos");
 				}
 				
 			}
@@ -79,6 +82,7 @@
  			private function cancelando():void{
 				this.setVisible(false,false);
 				Application.application.editarPostOperatorio.setVisible(true,false);
+				Application.application.editarPostOperatorio.iniData();
 			}
          	]]> 
  	</mx:Script>
@@ -93,9 +97,9 @@
 	<mx:Label x="24.15" y="62" text="Apellido:" width="78"/>
 	<mx:Label x="343.1" y="61.95" text="Fecha:" width="78"/>
 	<mx:Label x="343.1" y="38" text="Hora:" width="78"/>
-	<mx:Label x="343.1" y="85.95" text="Costo($):" width="78"/>
+	<mx:Label x="343.1" y="85.95" text="Valor($):" width="78"/>
 	
-	<mx:Text x="136" y="36" id="nombreCliente" width="156"/>
+	<mx:Text x="136" y="36" id="nombreDueño" width="156"/>
 	<mx:Text x="136" y="62" id="apellidoPaterno" width="156"/>
 	<mx:Text x="136" y="85.95" id="rut" width="156"/>
 	
@@ -106,9 +110,9 @@
 	<mx:Text x="135.95" y="111.95" id="nomMascota" width="156"/>
 	
 	<mx:Label x="24.1" y="237.9" text="Indicaciones:" width="103.899994" height="19.900002"/>
-	<mx:TextArea x="135.95" y="174.95" width="156" height="54" id="medicamentos"/>
-	<mx:TextArea x="454.95" y="174.95" width="156" height="54" id="alimentos"/>
-	<mx:TextArea x="135.95" y="236.9" width="156" height="54" id="indicaciones"/>
+	<mx:TextArea x="135.95" y="174.95" width="156" height="54" id="medicamentos" maxChars="50"/>
+	<mx:TextArea x="454.95" y="174.95" width="156" height="54" id="alimentos" maxChars="50"/>
+	<mx:TextArea x="135.95" y="236.9" width="156" height="54" id="indicaciones" maxChars="50"/>
 	
 	<mx:Button x="523" y="328" label="Guardar" id="guardarPostO" click="{guardarDatos()}" toolTip="Guarda los nuevos cambios" width="102" height="23" cornerRadius="6"/>
 	<mx:Button x="647" y="328" label="Cancelar" id="cancelar" click="cancelando()" toolTip="Cnacela la operación y regresa al panel anterior" width="102" height="23" cornerRadius="6"/>
