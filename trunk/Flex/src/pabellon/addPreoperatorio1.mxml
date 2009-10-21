@@ -232,41 +232,7 @@
 					newPreope.carga(newMascota);//se cae esta wea por la conchesumadre
 				    Application.application.regPreoOp.setVisible(true,false);
 			}
-			public function regCiru():void
-			{
-				if(dg.selectedItem){
-					var nuevacir:addCirugia = Application.application.cliRegistro2;
-					
-					nuevacir.mascNomC.text = dg.selectedItem.nombre.split(" ",1).pop();
-					nuevacir.CliNomC.text = this.nombreCliente.split(" ",1).pop();
-					nuevacir.cliRutC.text=this.rutClienteInput.text.split(" ",1).pop();
-					nuevacir.cliRut2.text=this.rutClienteDVInput.text.split(" ",1).pop();
-					nuevacir.MascRazaC.text = this.dg.selectedItem.raza.split(" ",1).pop();
-					nuevacir.mascSexC.text=this.dg.selectedItem.sexo.split(" ",1).pop();
-					nuevacir.mascClase.text=this.dg.selectedItem.claseAnimal.split(" ",1).pop();
-					
-					var vetes2:ArrayCollection = new ArrayCollection();
-					vetes2.addItem(" ");					
-					vetes2.addItem("Claudio Bonati");
-					vetes2.addItem("Patricio Perez");
-					vetes2.addItem("Benjamin Linus");
-					nuevacir.ayudantes2=vetes2;
-					
-					var vetes:ArrayCollection = new ArrayCollection();
-					vetes.addItem(" ");					
-					vetes.addItem("Claudio Bonati");
-					vetes.addItem("Patricio Perez");
-					nuevacir.veterinarios2=vetes;
-					
-					this.setVisible(false,false);
-					//nuevacir.setVisible(true,false);
-					Application.application.regPreoOp.setVisible(true,false);
-				}
-				else{
-					this.labelMessage.text="Seleccione una Mascota para registrar el Preoperatorio.";
-				}
-				
-			}
+
 			
 			public function iniciarPanel():void
 			{
