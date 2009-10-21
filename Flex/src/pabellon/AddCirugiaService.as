@@ -34,7 +34,7 @@ package pabellon
 		
 		/**
 		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
+			 * 	@Fecha  13 Octubre
 			 *  @Descripcion Metodo que en caso de error, muestra en a traves de 
 			 * un popup, esto se debe a que estos son errores de sistema, por lo 
 			 * tanto es necesario informarlo de otra forma.		 		
@@ -47,7 +47,7 @@ package pabellon
 		
 		/**
 		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
+			 * 	@Fecha  13 Octubre
 			 *  @Descripcion Metodo que envia a la capa 2, el usuario que fue editado, 
 			 * para almacenarlo en la base de datos. Llamando al metodo correspondiente.
 			 * 	@Param Recibe como parametro un objeto de la clase Usuario, para enviarlo a la capa2. 		
@@ -59,29 +59,51 @@ package pabellon
 		
 		/**
 		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Metodo que solicita a la capa 2 los datos de todos los usuarios del sistema.	 		
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion Metodo que solicita a la capa 2 los datos de un cliente del sistema
+			 * para verificar su existencia.
+			 * 	@Param recibe un String que es el rut del cliente, del cual se quieren obtener los datos.	 		
 			 * */
 		public function getCliente(rutCliente:String):void{
 			this.getOperation("getCliente").send(rutCliente);
 		}
 		
-		public function getAllMascotas():void{
-			this.getOperation("getAllMascotas").send();
-		}
-		
+	
+		/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion Metodo que solicita a la capa 2 los datos de las mascotas de un determinado cliente.	 		
+			 * 	@Param recibe un String que es el rut del cliente, del cual se quieren obtener los datos.
+			  */
 		public function getMascotas(rutCliente:String):void{
 			this.getOperation("getMascotas").send(rutCliente);
 		}
 		
+		/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion Metodo que solicita a la capa 2 los datos de todas las cirugias.	 		
+			 * */
 		public function getTiposCirugias():void{
 			this.getOperation("getTiposCirugias").send();
 		}
 		
+		/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion Metodo que solicita a la capa 2 los datos de todos los usuarios del sistema
+			 * que sean veterinarios.	 		
+			 * */
 		public function getTiposVeterinarios():void{
 			this.getOperation("getTiposVeterinarios").send();
 		}
 		
+		/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  13 Octubre
+			 *  @Descripcion Metodo que solicita a la capa 2 los datos de todos los usuarios del sistema
+			 * que sean ayudantes y veterinarios.	 		
+			 * */
 		public function getTiposAyudantes():void{
 			this.getOperation("getTiposAyudantes").send();
 		}
