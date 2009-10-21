@@ -193,12 +193,12 @@
             	bitacoraEventos.setVisible(false,false);    
             	//raullrich
 				<!--Autor: Raul Lopez{-->
-				editarCita.setVisible(false,false);
+				//editarCita.setVisible(false,false);
 				panelEditaCLi.setVisible(false,false);
 				ediCliUp.setVisible(false,false);
-				regPreoOp.setVisible(false,false);
-				regPreoOp1.setVisible(false,false);
-				panelClinicaPrin.setVisible(false,false);
+				//regPreoOp.setVisible(false,false);
+				//regPreoOp1.setVisible(false,false);
+				//panelClinicaPrin.setVisible(false,false);
 				<!--Autor: }Raul Lopez -->
 				
 				<!--Autor: }Vitoxone {-->
@@ -379,7 +379,7 @@
  			{
    				 agenda2.labelMessage.text="";
    				 setInvisible();
-    		     editarCita.setVisible(true,false);
+    		     //editarCita.setVisible(true,false);
     		     menuAgenda1.setVisible(true, false);
  			}
  			<!--Autor: Raúl López{-->
@@ -498,11 +498,11 @@
 	</ns1:MenuAgenda>
 
 
-
-       <ns1:EditarCita x="241" y="134" id="editarCita" visible="false">
+<!--
+     <ns1:EditarCita x="241" y="134" id="editarCita" visible="false">
 	</ns1:EditarCita>
 
-
+-->
 	<ns1:Bloquearydesbloquear x="241" y="134" id="panelDesbloqueo" visible="false">
 	</ns1:Bloquearydesbloquear>
 	<ns1:Aviso x="241" y="134" id="agAviso2" visible="false">

@@ -25,6 +25,5 @@ package transferObjects{
 		public var raza:String;
 		public var sexo:String;
 		public var estado:Boolean;
-		public var imagen:ByteArray;
 	}
 }

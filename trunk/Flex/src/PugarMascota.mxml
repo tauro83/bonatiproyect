@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas initialize="getAllMascotas()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="883">
+	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="383" title="Purgar Mascota" x="0" y="0">
+		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="602" label="Purgar" y="297" id="borrarMascota" click="deleteMascota()">
+			
+		</mx:Button>
+		<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Mascota;
+			import mx.rpc.events.ResultEvent;
+			import services.MascotaService;
+			// ocupen la variable que quieran, no necesariamente estas.
+            public var texto:String;
+            [Bindable]
+			private var mascotas:ArrayCollection;
+			private var mascotasB:ArrayCollection;
+			
+			
+            public function getIdPanel():String{
+            	return "EliminarMascota";
+            }
+            
+
+			}
+			private function purgaMascota():void{
+				var mascotaService:MascotaService=new MascotaService();
+				mascotaService.addEventListener(ResultEvent.RESULT,deleteMascotaResult);
+				//mascotaService.deleteMascota(comboMascota.selectedIndex.toString());
+			}
+			private function deleteMascotaResult(event:ResultEvent):void{
+				var result:int = event.result as int ;
+				if(result>0)
+				{
+				   Alert.show("Mascota Purgada!");
+				   getAllMascotas();
+				}
+				else
+				   Alert.show("Error en la mascota seleccionada!");
+			}
+			private function getAllMascotas():void{
+				/*
+				var mascotaService:MascotaService=new MascotaService();
+				mascotaService.addEventListener(ResultEvent.RESULT,getAllMascotasResult);
+				mascotaService.getAllMascotas();
+				*/
+			}
+			private function getAllMascotasResult(event:ResultEvent):void{
+				Alert.show("asd get all mascotas result");
+				var lista:ArrayCollection = event.result as ArrayCollection;
+				var i:int;
+				for(i=0;i<lista.length;i++){
+					var masc:Mascota = lista.getItemAt(i) as Mascota;
+					mascotas.addItem(masc.name);
+				}
+			}
+			 private function sortDate(obj1:Object, obj2:Object):int{
+     			var d1:Number = (new Date(Date.parse(obj1.date))).getTime();
+     			var d2:Number = (new Date(Date.parse(obj2.date))).getTime();
+     			if(d1 < d2){
+       				return -1;
+     			} else if(d1 == d2) {
+       				return 0;
+     			}		
+     			return 1;
+   			}
+   			private function deleteMascota():void{
+   				if(tablaMascotas.selectedItem!=null){
+   					Alert.YES("Mascota Eliminada");
+   				}
+   				else{
+   					Alert.show("Debe primero seleccionar un elemento");
+   				}
+   				 
+   			}
+   			private function buscar():void{
+   				//copyArrays(mascotas,mascotasB);
+   				//this.textoBusca.text=null;
+   				if(textoBusca.text!=null){
+   					var i:int;
+   					for(i=0;i<mascotas.length;i++){
+   						var texto:String = String(mascotas.getItemAt(i).name);
+	   					if(texto.search(textoBusca.text)==-1){//si no coinciden
+	   						//Alert.show(mascotas.getItemAt(i).name);
+	   						mascotas.removeItemAt(i);
+	   					}
+	   					else{
+	   						//copyArrays(mascotas,mascotasB);
+	   					}
+   					}
+   					
+   				}
+   			}
+   			//copia el arrayCollection a2 al a1
+   			private function copyArrays(a1:ArrayCollection, a2:ArrayCollection){
+   				var i:int;
+   				for(i=0;i<a2.length;i++){
+   					
+   					a1.addItemAt(a2.getItemAt(i),i);
+   				}
+   			}
+   			private function initDataGridData():void{
+   				mascotas= new ArrayCollection();
+   				mascotas.addItem({name:"Mascota3",dueño:"Dueño2",fecha:"12/12/2009",sexo:"Macho",edad:"3"});
+   				mascotas.addItem({name:"Mascota1",dueño:"Dueño3",fecha:"12/12/2009",sexo:"Macho",edad:"3"});
+   				mascotas.addItem({name:"Mascota2",dueño:"Dueño1",fecha:"12/12/2009",sexo:"Macho",edad:"3"});
+   				mascotasB = new ArrayCollection();
+   				copyArrays(mascotasB,mascotas);
+   			}
+		]]>
+		
+	</mx:Script>
+		<mx:DataGrid x="67" y="59" dataProvider="{mascotas}" creationComplete="{initDataGridData()}" 
+			allowMultipleSelection="true" editable="false" id="tablaMascotas" resizableColumns="true"
+			 showHeaders="true" width="567" height="230" sortableColumns="true" visible="true">
+			<mx:columns>
+				<mx:DataGridColumn headerText="Nombre" dataField="name"/>
+				<mx:DataGridColumn headerText="Dueño" dataField="dueño"/>
+				<mx:DataGridColumn headerText="Fecha Nacimiento" dataField="fecha"/>
+				<mx:DataGridColumn headerText="Sexo" dataField="sexo"/>
+				<mx:DataGridColumn headerText="Edad" dataField="edad" sortCompareFunction="sortDate"/>
+			</mx:columns>
+			
+		</mx:DataGrid>
+		<mx:RadioButtonGroup id="radiogroup1"/>
+		<mx:TextInput x="67" y="29" text="Buscar por nombre..." id="textoBusca" editable="true" enabled="true" click="textoBusca.text=null" textInput="buscar()"/>
+		
+		
+		
+	</mx:Panel>
+</mx:Canvas>
