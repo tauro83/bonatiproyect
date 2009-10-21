@@ -1,23 +1,34 @@
 package Administracion;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import AdministracionBD.DelMascotaDB;
+import Bd.DBConnectionManager;
+
 public class DelMascota {
-	public static int delMascota(int id){
-		int result=0;
-		/*
-		try 
-		{
-			
-			Connection connection=DBConnectionManager.getConnection();
-			
-			DelMascotaDB mascotaDB= new DelMascotaDB(connection);
-			result= mascotaDB.deleteMascota(id);		
-			connection.close();
-			
-		} catch (SQLException e) 
-		{
+	Connection connection;
+	public DelMascota(){
+		try{    		
+			connection=DBConnectionManager.getConnection();
+		}
+		catch(Exception e){
 			e.printStackTrace();
 		}
-		*/
+	}
+	public int delMascota(String rut, String nombre){
+		int result=0;
+		
+		try{			
+			DelMascotaDB mascotaDB= new DelMascotaDB(connection);
+			result= mascotaDB.DelMascota(rut, nombre);	
+			connection.close();
+			
+		}
+		catch (SQLException e){
+			e.printStackTrace();
+		}
+		
 		return result;
 	}
 
