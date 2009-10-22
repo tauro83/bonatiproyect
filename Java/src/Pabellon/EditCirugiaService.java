@@ -1,5 +1,11 @@
 package Pabellon;
 
+/**
+ * @autor: Sebastian Arancibia
+ * @langversion Java
+ * @version 1 20/10/2009
+ */
+
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -8,53 +14,82 @@ import java.util.List;
 
 import PabellonBD.EditCirugiaBD;
 import TransferObjects.Cirugia;
+import TransferObjects.Diagnostico;
+import TransferObjects.Mascota;
+import AdministracionBD.AddMascotaBD;
 import Bd.DBConnectionManager;
 
 public class EditCirugiaService 
 {
-	/**
-	 * Autor: Sebastian Arancibia
-	 * Metodo que llama a la funcion con el mismo nombre que se encuentra en la 
-	 * clase que se conecta con la base de datos.
-	 * @param Cirugia contiene los datos de la cirugia que se quiere editar.
-	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
-	 */
-	public int updateCirugia(Cirugia cirugia)
-    {
-		int result=0;
-		try 
-		{
-			Connection connection=DBConnectionManager.getConnection();
-			EditCirugiaBD editCirugiaBD= new EditCirugiaBD(connection);
-			result= editCirugiaBD.updateCirugia(cirugia);		
-			connection.close();
-		} catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		return result;
-    }
+
 	
 	/**
 	 * Autor: Sebastian Arancibia
 	 * Solicita a la clase que se conecta con la base de datos, los datos de cada cirugia.
-	 * @param
-	 * @return Lista con objetos de la clase Cirugia
+	 * @return cirugias Lista con objetos de la clase Cirugia
 	 */
-    public List<Cirugia> getCirugias(Cirugia cirugia)
+    public List<Cirugia> getCirugias(String rutCliente, String nombreMascota, String responsable, String fecha)
     {
     	List<Cirugia> cirugias = new ArrayList<Cirugia>();
     	try 
 		{
+    		//Establece conexion con la base de datos
 			Connection connection=DBConnectionManager.getConnection();
 			EditCirugiaBD editCirugiaBD= new EditCirugiaBD(connection);
-			cirugias = editCirugiaBD.getCirugias(cirugia);		
+			cirugias = editCirugiaBD.getCirugias(rutCliente, nombreMascota, responsable, fecha);		
 			connection.close();
 		} 
     	catch (SQLException e) 
 		{
+			e.printStackTrace();	
+		}
+    	//retorna lista de cirugias
+		return cirugias;
+    }
+	/**
+	 * Autor: Sebastian Arancibia
+	 * Solicita a la clase que se conecta con la base de datos, los datos de cada diagnostico.
+	 * @param diagnostico Objeto que representa un diagnostico
+	 * @return result Lista con objetos de la clase Cirugia
+	 */
+	public int addDiagnostico(Diagnostico diagnostico){
+		int result=0;
+		try{
+			//Establece conexion con la base de datos
+			Connection connection=DBConnectionManager.getConnection();
+			EditCirugiaBD editCirugiaBD= new EditCirugiaBD(connection);
+			result= editCirugiaBD.addDiagnostico(diagnostico);		
+			connection.close();
+		} catch (SQLException e){
 			e.printStackTrace();
 		}
-		return cirugias;
+		//Retorna resultado de la accion
+		return result;
+    }
+	/**
+	 * Autor: Sebastian Arancibia
+	 * Solicita a la clase que se conecta con la base de datos, los datos de cada diagnostico.
+	 * @return diagnosticos Lista con objetos de la clase Diagnostico
+	 */
+    public List<Diagnostico> getDiagnosticos(String rutCliente, String nombreMascota, String fecha, String hora)
+    {
+    	List<Diagnostico> diagnosticos = new ArrayList<Diagnostico>();
+    	Diagnostico d = new Diagnostico();
+
+    	try 
+		{
+    		//Conexion la clase que se comunica con la base de datos
+			Connection connection=DBConnectionManager.getConnection();
+			EditCirugiaBD editCirugiaBD= new EditCirugiaBD(connection);
+			diagnosticos = editCirugiaBD.getDiagnosticos(rutCliente, nombreMascota, fecha, hora);		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();	
+		}
+		//lista de diagnosticos
+    	diagnosticos.add(d);
+		return diagnosticos;
     }
 }
