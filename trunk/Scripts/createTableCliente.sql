@@ -1,19 +1,15 @@
 CREATE TABLE cliente
 (
-  nombre CHAR(12),
-  apellido CHAR(12),
-  apellido2 CHAR(12),
-  rut CHAR(9) NOT NULL,
-  rut2 CHAR(1) NOT NULL,
-  telefono CHAR(3),
-  telefono2 CHAR(10),
-  celular CHAR(2),
-  celular2 CHAR(10),
-  direccion CHAR(20),
-  region CHAR(20),
-  comuna CHAR(20),
-  email CHAR(20),
-  email2 CHAR(20),
-  estado BOOLEAN DEFAULT true,
-  CONSTRAINT rut PRIMARY KEY (rut, rut2)
-); 
+  nombre character(12),
+  apellido character(12),
+  apellido2 character(12),
+  rut character(9) NOT NULL,
+  telefono character(3),
+  telefono2 character(10),
+  celular character(2),
+  celular2 character(10),
+  direccion character(30),
+  region character(20),
+  comuna character(20),
+  email character(40)
+) ; 
