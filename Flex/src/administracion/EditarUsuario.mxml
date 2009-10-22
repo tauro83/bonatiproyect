@@ -189,7 +189,7 @@
 			
 		]]>
 	</mx:Script>
-	<mx:DataGrid x="30" y="26" width="692" id="Tabla" enabled="true" height="283" dataProvider="{usuarios}" itemDoubleClick="editarUser(event)">
+	<mx:DataGrid x="30" y="30" width="700" height="283" id="Tabla" enabled="true" dataProvider="{usuarios}" itemDoubleClick="editarUser(event)">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellidoPaterno"/>
