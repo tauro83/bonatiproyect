@@ -90,7 +90,10 @@
 					//Alert.show("Busco "+rutClienteInput.text);
 					rutClienteInput.errorString = "";
 					//getPerson(rutClienteInput.text);
-					getCliente(rutClienteInput.text);
+					if(rutClienteDVInput.text == "k"){
+						rutClienteDVInput.text = "K";
+					}
+					getCliente(rutClienteInput.text + rutClienteDVInput.text);
 				}		
         	}
         	
@@ -495,7 +498,11 @@
 			private function getMascotas():void{
 				var addMascotaService:AddMascotaService = new AddMascotaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addMascotaService.getMascotas(rutClienteInput.text);
+				
+				if(rutClienteDVInput.text == "k"){
+					rutClienteDVInput.text = "K";
+				}
+				addMascotaService.getMascotas(rutClienteInput.text+rutClienteDVInput.text);
 			}
 			
 			/**
@@ -504,6 +511,9 @@
 			*/
 			private function getAddMascotasResult(event:ResultEvent):void{
 				mascotas = event.result as ArrayCollection;
+				
+				//Alert.show(mascotas.getItemAt(1).nombre);
+				
 				mascotas.refresh();
 			}
 			
@@ -520,6 +530,7 @@
 			private function getCliente(rutCliente:String):void{
 				var addMascotaService: AddMascotaService = new AddMascotaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
+
 				addMascotaService.getCliente(rutCliente);
 			}
 			
@@ -561,7 +572,8 @@
         		}
         		else{
         			datosMascota.visible = true;
-        			labelMessage.text = "Se ha accedido al cliente " + nombreCliente + " satisfactoriamente.";
+        			labelMessage.text = "Se ha accedido al cliente " + nombreCliente.split(" ", 1).pop() + " satisfactoriamente.";
+   
         			ini(event);
         			dg.visible = true;
         			//mascotas.removeAll();
@@ -576,7 +588,11 @@
 			private function addMascota():void{
 				var mascota:Mascota = new Mascota();
 				
-				mascota.rutCliente = rutClienteInput.text;
+				if(rutClienteDVInput.text == "k"){
+					rutClienteDVInput.text = "K";				
+				}
+
+				mascota.rutCliente = rutClienteInput.text + rutClienteDVInput.text;// + rutClienteDVInput.text;
 				mascota.nombre = nombreInput.text;
 				mascota.fechaNacimiento = fechaNacimientoInput.text;
 				mascota.claseAnimal = claseAnimalInput.text;
@@ -607,7 +623,7 @@
 					razaInput.text = "";
 				}
 			}
-			private function borrarTodo(){
+			private function borrarTodo():void{
 				rutClienteInput.text = "";
 				rutClienteDVInput.text = "";
 				nombreInput.text = "";
@@ -696,7 +712,7 @@
 	<mx:Button x="546.25" y="350" label="Registrar" visible="true" click="registrarMascota(event)" id="registrar"/>
 	<mx:Button x="636.25" y="350" label="Cancelar" width="84" id="cancelar" click="borrarTodo()" visible="true"/>
 	<mx:Label x="167" y="380" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Label x="38.75" y="25" text="Cliente" fontWeight="bold"/>
+	<mx:Label x="38.75" y="34" text="Cliente" fontWeight="bold"/>
 	<mx:Label x="38.75" y="103" text="Mascota" fontWeight="bold"/>
 	<!--
 	<mx:TileList x="465.75" y="9" width="200.5" height="135" dataProvider="{files}" itemRenderer="components.ItemRenderer"></mx:TileList>
