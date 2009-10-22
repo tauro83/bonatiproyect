@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779" height="466" title="Purgar Atención Post-Operatorio" borderColor="#15AD8F" >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779" height="466" title="Editar Atención Post-Operatorio" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
 			import transferObjects.PostOperatorio;
@@ -25,6 +25,7 @@
 			[Bindable]
 			private var atencion:PostOperatorio;
 			
+			//toma un objeto PostOperatorio y completa los campos correspondientes
 			public function setData(post:PostOperatorio):void{
 				this.atencion = post;
 				nombreDueño.text = post.nombreDueño;
@@ -38,7 +39,9 @@
 				indicaciones.text = post.indicaciones;
 				alimentos.text = post.alimentos;
 				
-			}         	
+			} 
+			//guarda todos los datos en un arreglo, para poder pasarlo a java
+			//y guardar la informacion en la base de datos        	
  			private function guardarDatos():void{
  				var lista:ArrayCollection = new ArrayCollection;
  				
@@ -67,10 +70,11 @@
  				object.addEventListener(ResultEvent.RESULT,editarPostOResult);
             	object.editarPostOperatoio(lista);
             }
+            //oyente para el evento de guardado de datos
             private function editarPostOResult(event:ResultEvent):void{
 				if(event.result!=0){
 					Alert.show("Datos guardados correctamente");
-					setData(atencion);
+					setData(atencion);//actualiza los nuevos datos para mostrarlos
 				}
 				else{
 					Alert.show("Error en la actualizacion de datos");
@@ -78,7 +82,8 @@
 				
 			}
  				
- 			
+ 			//cambia de esta ventana a la del listado de atenciones
+ 			// (EditarPostOperatorio)
  			private function cancelando():void{
 				this.setVisible(false,false);
 				Application.application.editarPostOperatorio.setVisible(true,false);
@@ -97,7 +102,7 @@
 	<mx:Label x="24.15" y="62" text="Apellido:" width="78"/>
 	<mx:Label x="343.1" y="61.95" text="Fecha:" width="78"/>
 	<mx:Label x="343.1" y="38" text="Hora:" width="78"/>
-	<mx:Label x="343.1" y="85.95" text="Valor($):" width="78"/>
+	<mx:Label x="343.1" y="85.95" text="Valor Atención($):" width="114.85"/>
 	
 	<mx:Text x="136" y="36" id="nombreDueño" width="156"/>
 	<mx:Text x="136" y="62" id="apellidoPaterno" width="156"/>
@@ -115,7 +120,7 @@
 	<mx:TextArea x="135.95" y="236.9" width="156" height="54" id="indicaciones" maxChars="50"/>
 	
 	<mx:Button x="523" y="328" label="Guardar" id="guardarPostO" click="{guardarDatos()}" toolTip="Guarda los nuevos cambios" width="102" height="23" cornerRadius="6"/>
-	<mx:Button x="647" y="328" label="Cancelar" id="cancelar" click="cancelando()" toolTip="Cnacela la operación y regresa al panel anterior" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="647" y="328" label="Cancelar" id="cancelar" click="cancelando()" toolTip="Cancela la operación y regresa al panel anterior" width="102" height="23" cornerRadius="6"/>
 	
 	
 </mx:Panel>

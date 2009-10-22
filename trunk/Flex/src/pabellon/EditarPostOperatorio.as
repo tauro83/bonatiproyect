@@ -1,3 +1,8 @@
+/**
+ * @Author Andres Garrido
+ * @Version 1
+ * Clase que nos conecta con la capa 2
+*/
 package pabellon{
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;

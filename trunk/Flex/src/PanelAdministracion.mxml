@@ -11,7 +11,7 @@
 			<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="registrarMascota()"/>
 			<mx:LinkButton x="50" y="40" label="Editar" id="linkEdicionMascotaAdm" textAlign="left"/>
 			<mx:LinkButton x="50" y="70" label="Eliminar" textAlign="left" click="eliminarMascota()"/>
-			<mx:LinkButton x="50" y="100" label="Purgar" textAlign="left" id="linkPurgarClnte0"/>
+			<mx:LinkButton x="50" y="100" label="Purgar" textAlign="left" click="purgarMascota()"/>
 		</mx:Canvas>
 		<mx:Canvas label="Ficha" width="100%" height="100%">
 			<mx:LinkButton x="50" y="10" label="Visualizar" textAlign="left" click="visualizarFicha()"/>
@@ -87,6 +87,11 @@
           		Application.application.setInvisible();
             	Application.application.AdmOpciones1.setVisible(true,false);
             	Application.application.AdmEliminarMascota.setVisible(true,false);
+          }
+          private function purgarMascota():void{
+          		Application.application.setInvisible();
+            	Application.application.AdmOpciones1.setVisible(true,false);
+            	Application.application.AdmPurgarMascota.setVisible(true,false);
           }
           private function registrarCliente():void
           {

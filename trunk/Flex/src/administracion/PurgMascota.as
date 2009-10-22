@@ -2,8 +2,7 @@
 // FECHA CREACIÓN:  19/10/2009
 // AUTOR: Andres Garrido
 // Clase que conecta con capa 2
-//=======================================================================
-
+//======================================================================
 package administracion{
 	import mx.controls.Alert;
 	import mx.messaging.ChannelSet;
@@ -11,26 +10,25 @@ package administracion{
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
 	
-	public class DeleteMascota extends RemoteObject{
+	public class PurgMascota extends RemoteObject{
 		
-	
-		public function DeleteMascota(){
+		public function PurgMascota(){
 			super();
 			var channel:ChannelSet=new ChannelSet();
 			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
-			this.destination="DelMascota";
-			this.source="Administracion.DelMascota";	
+			this.destination="PurgarMascota";
+			this.source="Administracion.PurgarMascota";	
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 			
 		}
 		private function faultHandler(event:FaultEvent):void{
-			Alert.show("Error en DeleteMascota, Detalle: "+event.fault.message);
+			Alert.show("Error en PurgarMascota, Detalle: "+event.fault.message);
 		}
-		public function deleteMascota(rutCliente:String,nombre:String,status:Boolean):void{
-			this.getOperation("delMascota").send(rutCliente,nombre, status);
+		public function purgMascota(rutCliente:String,nombre:String):void{
+			this.getOperation("purgarMascota").send(rutCliente,nombre);
 		}
-
 	}
+	
 }

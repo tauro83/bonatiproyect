@@ -1,3 +1,8 @@
+/**
+ * @Author Andres Garrido
+ * @Version 1
+ * Objeto PostOperatorio equivalente al que existe en la capa 2
+*/
 package transferObjects{
 	[Bindable]
     [RemoteClass(alias="TransferObjects.PostOperatorio")]

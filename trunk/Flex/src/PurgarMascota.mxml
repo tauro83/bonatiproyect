@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas show="getAllMascotas()" initialize="getAllMascotas()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="883">
-	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Eliminar Mascota" x="0" y="0">
+	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Mascota" x="0" y="0">
 		
 		<mx:Script>
 		<![CDATA[
@@ -8,9 +8,10 @@
 			import mx.controls.Alert;
 			import transferObjects.Mascota;
 			import mx.rpc.events.ResultEvent;
-			import administracion.DeleteMascota;
+			import administracion.PurgMascota;
 			import administracion.GetAllMascotas;
 			import mx.core.Application;
+			import mx.events.CloseEvent;
 			// ocupen la variable que quieran, no necesariamente estas.
             public var texto:String;
             [Bindable]
@@ -25,29 +26,34 @@
 				return "0";
 			}			
 			
-			
-			private function deleteMascota():void{
-   				if(tablaMascotas.selectedItem!=null){
-   					//Alert.show("¿Está seguro que desea eliminar los datos seleccionados? ","Confirme eliminación ", Alert.YES | Alert.NO);
-   					var mascotaService:DeleteMascota=new DeleteMascota();
-					mascotaService.addEventListener(ResultEvent.RESULT,deleteMascotaResult);
+			//es la funcion que es llamada desde el mensaje de confirmación de la tarea
+			private function delRowHandler(evt:CloseEvent):void {
+			    if (evt.detail == Alert.YES){
+			    	var mascotaService:PurgMascota=new PurgMascota();
+					mascotaService.addEventListener(ResultEvent.RESULT,purgarMascotaResult);
 					var m:Mascota = mascotas.getItemAt(tablaMascotas.selectedIndex) as Mascota;
-					mascotaService.deleteMascota(m.rutCliente,m.nombre, false);
+					mascotaService.purgMascota(m.rutCliente,m.nombre);
+			    }
+			}
+			private function purgarMascota():void{
+   				if(tablaMascotas.selectedItem!=null){
+   					Alert.show("¿Está seguro que desea purgar la mascota definitivamente del sistema? ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+   					
    				}
    				else{
    					Alert.show("Debe primero seleccionar un elemento","Información");
    				}
    				 
    			}
-			private function deleteMascotaResult(event:ResultEvent):void{
+			private function purgarMascotaResult(event:ResultEvent):void{
 				var result:int = event.result as int ;
 				if(result!=0)
 				{
-				   Alert.show("Mascota Eliminada!");
+				   Alert.show("Mascota Purgada!");
 				   getAllMascotas();
 				}
 				else
-				   Alert.show("Error en Eliminar Mascota, inténtelo más tarde");
+				   Alert.show("Error en Purgar Mascota, inténtelo más tarde");
 			}
 			public function getAllMascotas():void{
 				var mascotaService:GetAllMascotas=new GetAllMascotas();
@@ -67,22 +73,6 @@
 				}
 				
 			}
-			 private function sortDate(obj1:Object, obj2:Object):int{
-     			var d1:Number = (new Date(Date.parse(obj1.date))).getTime();
-     			var d2:Number = (new Date(Date.parse(obj2.date))).getTime();
-     			if(d1 < d2){
-       				return -1;
-     			} else if(d1 == d2) {
-       				return 0;
-     			}		
-     			return 1;
-   			}
-   			private function restaurando():void{
-   				this.setVisible(false,false);
-   				Application.application.AdmElimMascotaRestaurar.getAllMascotas();
-   				Application.application.AdmElimMascotaRestaurar.setVisible(true,false);
-   				
-   			}
             private function cancelando():void{
 				this.setVisible(false,false);
 				Application.application.panel2.setVisible(true,false);
@@ -91,7 +81,7 @@
 		]]>
 		
 		</mx:Script>
-		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="474" label="Eliminar" y="297" id="borrarMascota" click="deleteMascota()">
+		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="474" label="Purgar" y="297" id="borrarMascota" click="purgarMascota()">
 		</mx:Button>
 		
 		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="584" label="Cancelar" y="297" id="cancelar" click="cancelando()">
@@ -116,7 +106,6 @@
 				<mx:DataGridColumn width="50" headerText="Raza" dataField="raza"/>
 			</mx:columns>
 		</mx:DataGrid>
-		<mx:LinkButton x="67" y="298" label="Restaurar mascotas eliminadas..." id="restaurar" click="restaurando()"/>
 		<mx:Label x="67" y="33" text="Lista de mascotas"/>
 		
 		
