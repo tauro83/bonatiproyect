@@ -31,9 +31,9 @@
    			
 	]]>
 </mx:Script>
-	<mx:Image x="-10" y="0" width="490" height="343" source="../gatogris.jpg"/>
-	<mx:Image x="360" y="64" width="338" height="123" source="../cerrar sesion.jpg"/>
+	<mx:Image x="-10" y="0" width="610" height="437" source="../gatogris.jpg"/>
 	<mx:Button x="523" y="302" label="Cerrar" width="102" height="23" id="botonCerrarSesion" cornerRadius="6" click="cerrar()"/>
 	<mx:Text x="322" y="163" text="Si desea cerrar su sesión presione el botón 'Cerrar'&#xa;" fontWeight="bold" fontSize="15" textAlign="center"/>
 	<mx:Button x="647" y="302" label="Cancelar" width="102" height="23" id="botonCancelar" cornerRadius="6" click="cancelar()"/>
+	<mx:Label x="402" y="89" text="¿Cerrar sesión?" fontWeight="bold" fontSize="30"/>
 </mx:Panel>
