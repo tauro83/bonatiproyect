@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Cirugia" x="241" y="133">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Nuevo Diagnóstico" x="241" y="133" initialize="getAllUsuarios()">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -17,35 +17,90 @@
 			import mx.controls.Alert;
 			import mx.core.Application;
 			
+			import pabellon.EditCirugiaService;
+			import administracion.UsuarioEditService;
+			import services.AddMascotaService;
+			import transferObjects.Mascota;
+			import transferObjects.Diagnostico;
+			
 			[Bindable]
 			private var cirugias:ArrayCollection = new ArrayCollection();
-			private var responsables:ArrayCollection = new ArrayCollection(["Claudio Bonati", "Patricio Castro"]);
+			[Bindable]
+			private var diagnosticos:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			private var responsables:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			private var fechaSeleccionada:String = null;
+			[Bindable]
+			private var usuarios:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			private var datosUsuarios:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			private var mascotas:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			private var tablaSeleccionada:Boolean = false;
+			[Bindable]
+			private var listaCirugias:ArrayCollection = new ArrayCollection( 
+				[{label:" "}, {label:"De Apéndice"}, {label:"De los aparatos respiratorio"}, {label:"De los aparatos cardiovascular"},
+				 {label:"De ojo"}, {label:"De todo tipo de fractura"},
+				 {label:"Del sistema digestivo"}, {label:"Del sistema tegumentario"},
+				 {label:"Del sistema tegumentario"}, {label:"Del sistema reproductor"}, {label:"Del sistema urinario"}, {label:"Dental"},
+				 {label:"Estenosis traqueal"}, {label:"Ortopédica"}, {label:"Partos y cesaria"}, {label:"Tiroidectomía (por tumores)"}, {label:"De tumor"}] );
+
+			
 			
 			//Funcion que busca las cirugias para retornarlas a la tabla
 			public function buscarCirugias():void{
-				cirugias.addItem({tipoCirugia:"Fractura", responsable:"Claudio Bonati", ayudante:"Patricio Castro", fecha: "09/09/2006", hora:"14:30", costo:"25000", diagnostico:"Reposo por 2 semanas", cliente:"16358963-K", mascota:"Martin"});
-				Tabla.dataProvider = cirugias;
+				//Crea clase para la conexion con la capa de java	
+				var editCirugiaService:EditCirugiaService = new EditCirugiaService();
+				editCirugiaService.addEventListener(ResultEvent.RESULT,getCirugiasResult);
+				
+				//Secuencia de if para evitar el null en la seleccion de item
+				var veterinario:String;
+				if(responsable.text == ""){
+					veterinario = "";
+				}
+				else{
+					veterinario = responsable.selectedItem.usuario;
+				}
+				//llama a la funcion para editar la cirugia
+				editCirugiaService.getCirugias(rutClienteInput.text, dg2.text.split(" ",1).pop(), veterinario, fechaSeleccionada);
 			}
 			
-			// Funcion que llena datos del componente registro para luego editarlo
-			public function editarCirugia(event:Event):void{
+			/**
+			* Funcion que obtiene todas las mascotas anteriormente llamadas
+			* @param event Evento
+			*/
+			private function getCirugiasResult(event:ResultEvent):void{
+				cirugias = event.result as ArrayCollection;
+				cirugias.refresh();
+			}
+		
+			/**
+			* Funcion que llena datos del componente registro para luego editarlo
+			*
+			*/
+			 public function editarCirugia(event:Event):void{
 				var selectedRow:Object = event.currentTarget.selectedItem;
 				var sakdm:String = new String();
 				if(selectedRow.fecha != null){
-					//Application.application.addCirug.visible = true;
-					//Application.application.addCirug.rutClienteInput.text = selectedRow.cliente.split("-",1);
-					//this.visible = false;
 					busqueda.visible = false;
 					edicion.visible = true;
+					edicionRutClienteInput.text = rutClienteInput.text;
+					edicionRutClienteDVInput.text = rutClienteDVInput.text;
+					edicionNombreMascotaInput.text = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
 					labelMessage.text = "Ingrese el nuevo diagnóstico";
+					
+					llenarTablaDiagnosticos();
 					
 				}
 				else{
 					labelMessage.text = "Debe seleccionar un item de cirugía";
 				}
 			}
-			
-			// Funcion que consulta si el item de la tabla seleccionada contiene un objeto
+			/**
+			* Funcion que consulta si el item de la tabla seleccionada contiene un objeto
+			*/
 			public function consultarAccion(event:Event):void{
 				var selectedRow:Object = event.currentTarget.selectedItem;
 				
@@ -56,9 +111,14 @@
 					editar.visible = false;
 				}
 			}
+			/**
+			* vuelve al panel anterior
+			*/ 
 			public function volver(i:int):void{
 				busqueda.visible = true;
 				edicion.visible = false;
+				editar.visible=false;
+				//Consulta tipo de retorno
 				if(i==0){
 					labelMessage.text = "Se ha agregado el nuevo diagnóstico";
 				}
@@ -66,102 +126,297 @@
 					labelMessage.text = "";
 				}
 			}
-			// Funcion que busca cliente
-			public function buscarCliente():void{
+			/**
+			* Funcion que busca cliente
+			*/
+			 private function buscarCliente():void{
+        		//Revisa el correcto ingreso del rut
+        		var Numero:String = rutClienteInput.text;
+        		var Dv:String = rutClienteDVInput.text;
+				var suma:int = 0;
+				var rut:String = Numero;
+				var NumMag:int = 2;
+				var Resto:int = 0;
+				var j:int ;
+				var i:int;
+				var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
+				var ParteNumerica:Array = new Array();
+				
+				if (rut.length == 0) { 
+					//return false; 
+					}
+				for ( j =0, i =0; j < rut.length; j++){
+					if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
+						ParteNumerica[i] = rut.charAt(i);
+						++i;
+					}
+				}
+				
+				for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
+					suma += ParteNumerica[i] * NumMag;
+					trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
+					if (NumMag>6){
+						NumMag =1;	
+					}	
+				}
+				
+				Resto = 11-(suma%11);
+				if(DigVer[Resto] != Dv.toUpperCase()){
+					labelMessage.text = "El Rut que ha ingresado es incorrecto.";
+					mascotas = new ArrayCollection();
+				
+				}
+				else{
+					labelMessage.text = "";
+					rutClienteInput.errorString = "";
+					getCliente(rutClienteInput.text);
+				}		
+        	}
+			/**
+			 * 
+			 * */
+			private function getCliente(rutCliente:String):void{
+				var addMascotaService: AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
+				addMascotaService.getCliente(rutCliente);
 			}
 			
-			// Funcion que edita cirugia a traves del boton 
+			/**
+			* Consulta si el cliente existe y si existe se imprime su correcto acceso
+			* @param event ResultEvent
+			*/
+			private function getClienteResult(event:ResultEvent):void{
+				var nombreCliente:String = event.result as String;
+				
+				//retorna null si el cliente no esta registrado en la base de datos
+				if(nombreCliente == null){
+        			labelMessage.text = "Cliente no registrado."
+        		}
+        		else{
+        			labelMessage.text = "Se ha accedido al cliente " + nombreCliente + " satisfactoriamente.";
+        			getMascotas();
+        			buscarCirugias();
+        		}
+			}
+			
+			/** 
+			* Funcion que edita cirugia a traves del boton 
+			*/ 
 			public function editarCirugiaB():void{
 				var selectedRow:Object = Tabla.selectedItem;
-				//Application.application.addCirug.visible = true;
-				//Application.application.addCirug.rutClienteInput.text = selectedRow.cliente.split("-",1);
-				//this.visible = false;	
 				busqueda.visible = false;
 				edicion.visible = true;
+				
+				//Completa formulario dos de la edicion de cirugia
+				edicionRutClienteInput.text = rutClienteInput.text;
+				edicionRutClienteDVInput.text = rutClienteDVInput.text;
+				edicionNombreMascotaInput.text = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
+				
+				//Funcion que llena la tabla de diagnosticos con los respectivos datos
+				llenarTablaDiagnosticos();
+				
 				labelMessage.text = "Ingrese el nuevo diagnóstico";
 			}
-					
+			/**
+			 * Funcion que llena la tabla de diagnosticos con los respectivos datos 
+			 **/
+			public function llenarTablaDiagnosticos():void{
+				var editCirugiaService:EditCirugiaService = new EditCirugiaService();
+				editCirugiaService.addEventListener(ResultEvent.RESULT,getDiagnosticosResult);
+				var nm:String = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
+				var cr:String = Tabla.selectedItem.clienteRut.split(" ",1).pop();
+				var fe:String = Tabla.selectedItem.fecha.split(" ",1).pop();
+				var ho:String = Tabla.selectedItem.hora.split(" ",1).pop();
+				
+				editCirugiaService.getDiagnosticos(cr, nm, fe, ho);
+			}
+			/**
+			 * Funcion que captura todos los diagnosticos del sistema 
+			 */ 
+			private function getDiagnosticosResult(event:ResultEvent):void{
+				diagnosticos = event.result as ArrayCollection;
+            	tablaDiagnosticos.dataProvider = diagnosticos;
+			} 
+			/**
+			 * Funcion que captura la fecha y la guarda en un string
+			 */ 
+			public function seleccionarFecha():void{
+				fechaSeleccionada = new String();
+				if(fecha.text != ""){
+					fechaSeleccionada =  fecha.selectedDate.date+"/"+(fecha.selectedDate.month+1)+"/"+fecha.selectedDate.fullYear;
+				}
+				else{
+					fechaSeleccionada = null;
+				}
+				buscarCirugias();	
+			}
+			/**
+			 * Funcion que captura todos los usuarios del sistema
+			 */ 
+			public function getAllUsuarios():void{
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();	
+			}
+			/**
+			 * Funcion que captura todos los usuarios del sistema
+			 * 
+			 */ 
+			private function getAllUsuariosEResult(event:ResultEvent):void{
+				usuarios = event.result as ArrayCollection;
+				var responsables:ArrayCollection;
+				responsables = new ArrayCollection();
+				datosUsuarios = new ArrayCollection();
+				
+				var i:int;
+				responsables.addItem({label:""});
+				for(i=0; i < usuarios.length; i++){
+            		var nombre:String = usuarios.getItemAt(i).nombre.split(" ",1);
+            		var apellido:String = usuarios.getItemAt(i).apellidoPaterno.split(" ",1);
+            		responsables.addItem({label:(nombre + " " + apellido), usuario: usuarios.getItemAt(i).usuario.split(" ",1)});
+            	}
+            	responsable.dataProvider = responsables;
+			} 
+			/**
+			 * Funcion que captura todos las mascotas del sistema
+			 * 
+			 */ 
+			private function getMascotas():void{
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(rutClienteInput.text);
+			}
+			
+			/**
+			* Funcion que obtiene todas las mascotas de un cliente
+			* @param event Evento
+			*/
+			private function getAddMascotasResult(event:ResultEvent):void{
+				var masc:ArrayCollection = event.result as ArrayCollection;
+				mascotas = new ArrayCollection();
+				mascotas.addItem({label:""});
+				for(var i:int = 0; i<masc.length;i++){
+					mascotas.addItem({label:masc.getItemAt(i).nombre});
+				}
+				
+				
+				mascotas.refresh();
+			}
+			/**
+			 * Funcion que los diagnosticos del sistema
+			 * 
+			 */ 
+			private function guardarDiagnostico():void{
+				var editCirugiaService:EditCirugiaService = new EditCirugiaService();
+				editCirugiaService.addEventListener(ResultEvent.RESULT,guardarDiagnosticoResult);
+				
+				var d:Diagnostico = new Diagnostico();
+				var date:Date = new Date();
+				
+				d.clienteRut = rutClienteInput.text;
+				d.diagnostico = diagC.text;
+				d.mascotaNombre = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
+				d.nuevaFecha = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+				d.fecha = Tabla.selectedItem.fecha.split(" ",1).pop();
+				d.hora = Tabla.selectedItem.hora.split(" ",1).pop();
+				d.tipoCir = cirugiasBox.text;
+				
+				editCirugiaService.addDiagnostico(d);
+			}
+			/**
+			 * Funcion que guarda los diagnosticos del sistema
+			 * 
+			 */ 
+			private function guardarDiagnosticoResult(event:ResultEvent):void{
+				var result:int = event.result as int;
+				
+				if(result>0)
+				{
+				   labelMessage.text="Diágnostico guardado";
+				   llenarTablaDiagnosticos();
+				}
+				else
+				   labelMessage.text="El diágnostico no fue guardado";
+				   
+			}					
 		]]>
 	</mx:Script>
 	<mx:Label x="167" y="368" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	
 	<!-- Tabla de Cirugias encontradas -->
 	<mx:Canvas x="0" y="0" width="759" height="426" visible="true" id="busqueda">
-	<mx:DataGrid x="10" y="168" width="739" id="Tabla" enabled="true" height="183" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="editarCirugia(event)" itemClick="consultarAccion(event)" click="consultarAccion(event)">
+	<mx:DataGrid x="33" y="179" width="690" id="Tabla" enabled="true" height="144" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="editarCirugia(event)" itemClick="consultarAccion(event)" click="consultarAccion(event)">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Cirugía" dataField="tipoCirugia" width="80"/>
-			<mx:DataGridColumn headerText="Responsable" dataField="responsable" width="95"/>
+			<mx:DataGridColumn headerText="Cirugía" dataField="tipoCir" width="80" visible="false"/>
+			<mx:DataGridColumn headerText="Responsable" dataField="veterinario" width="95"/>
 			<mx:DataGridColumn headerText="Ayudante" dataField="ayudante" width="95" visible="false"/>
 			<mx:DataGridColumn headerText="Fecha" dataField="fecha" width="75"/>
 			<mx:DataGridColumn headerText="Hora" dataField="hora" width="45"/>
 			<mx:DataGridColumn headerText="Costo" dataField="costo" width="55" visible="false"/>
-			<mx:DataGridColumn headerText="Cliente" dataField="cliente" width="80"/>
-			<mx:DataGridColumn headerText="Mascota" dataField="mascota" width="60"/>
+			<mx:DataGridColumn headerText="Cliente" dataField="clienteRut" width="80"/>
+			<mx:DataGridColumn headerText="Mascota" dataField="mascotaNombre" width="60"/>
 			<mx:DataGridColumn headerText="Diagnóstico" dataField="diagnostico" visible="false"/>
 		</mx:columns>
 	</mx:DataGrid>
 	
 	<!-- Botones -->
 	
-	<mx:Button label="Editar" height="23" width="102" x="537" y="393" cornerRadius="6" visible="false" id="editar" click="editarCirugiaB()"/>
-	<mx:Button label="Buscar" height="23" width="102" x="647" y="115" cornerRadius="6" click="buscarCirugias()"/>
+	<mx:Button label="Diagnosticar" height="23" width="102" x="511" y="393" cornerRadius="6" visible="false" id="editar" click="editarCirugiaB()"/>
 
 	<!-- Datos de Busqueda -->
 	
-	<mx:Label x="10" y="142" text="Seleccionar Cirugía:" fontWeight="bold"/>
-	<mx:Label x="10" y="10" text="Cliente:" fontWeight="bold"/>
-	<mx:Label x="335" y="12" text="Otros datos:" fontWeight="bold"/>
-	<mx:Label x="10" y="68" text="Mascota:" fontWeight="bold"/>
-	<mx:Button x="647" y="393" label="Cancelar" width="102" height="23" cornerRadius="6"/>
-	<mx:Label x="42" y="38" text="Rut:" width="55.75"/>
-	<mx:Label x="224.25" y="40" text="-" width="14.75" textAlign="center"/>
-	<mx:TextInput  restrict="0-9" x="135.75" y="38" width="90.5" id="rutClienteInput" maxChars="9"/>
-	<mx:TextInput x="235.75" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente()"/>
-	<mx:Label x="43.25" y="96" text="Nombre:" width="55.75" height="22"/>
-	<mx:TextInput restrict="A-Z a-z -" x="135" y="94" width="119.5" id="nombreInput" maxChars="50"/>
-	<mx:Label x="358" y="38" text="Responsable:" width="93" height="22"/>
-	<mx:Label x="358" y="94" text="Fecha:" width="55.75" height="22"/>
-	<mx:DateField x="459" y="92" width="139"/>
-	<mx:ComboBox x="459" y="36" dataProvider="{responsables}" width="139">
+	<mx:Label x="33" y="153" text="Cirugías:" fontWeight="bold"/>
+	<mx:Label x="33" y="10" text="Cliente:" fontWeight="bold"/>
+	<mx:Label x="33" y="64" text="Cirugía:" fontWeight="bold"/>
+	<mx:Label x="330" y="13" text="Mascota:" fontWeight="bold"/>
+	<mx:Button x="621" y="331" label="Cancelar" width="102" height="23" cornerRadius="6"/>
+	<mx:Label x="56.25" y="38" text="Rut:" width="55.75"/>
+	<mx:Label x="351.6" y="38" text="Nombre:" width="55.75"/>
+	<mx:Label x="250.5" y="38" text="-" width="14.75" textAlign="center"/>
+	<mx:TextInput  restrict="0-9" x="147" y="36" width="100.5" id="rutClienteInput" maxChars="9"/>
+	<mx:TextInput x="266.5" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente()"/>
+	<mx:Label x="55.25" y="95" text="Responsable:" width="93" height="22"/>
+	<mx:Label x="351.6" y="93" text="Fecha:" width="55.75" height="20"/>
+	<mx:DateField x="464" y="91" width="161" id="fecha" change="seleccionarFecha()" editable="true"/>
+	<mx:ComboBox x="146" y="93" dataProvider="{responsables}" width="139" id="responsable" change="buscarCirugias()">
 	</mx:ComboBox>
+		<mx:DataGrid  color="0x323232" width="189" rowCount="3" y="126" x="454" variableRowHeight="true" dataProvider="{mascotas}"  visible="false" height="84" change="tablaSeleccionada = true">
+		    <mx:columns>
+		        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
+		        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" visible="false" width="100"/>
+		    </mx:columns>
+		</mx:DataGrid>
+		<mx:ComboBox id="dg2" x="464" y="36" dataProvider="{mascotas}" width="161" change="buscarCirugias()"></mx:ComboBox>
 	</mx:Canvas>
 	
 	<mx:Canvas x="0" y="0" width="759" height="426" visible="false" id="edicion">
 		<mx:Label x="9.95" y="10" text="Mascota:" width="127" fontWeight="bold"/>
 		<mx:Label x="24.55" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
 		<mx:TextInput x="133.5" y="33.95" width="138.75" editable="false" height="20" id="mascNomC" enabled="false"/>
-		<mx:Button x="585" y="394" label="Guardar" visible="true" id="registrar" click="volver(0)"/>
-		<mx:Button x="665" y="394" label="Cancelar" width="84" id="cancelar" visible="true" click="volver(1)"/>
-		<mx:Label x="376.5" y="166" text="Diagnóstico:" width="81.9"/>
-			<mx:Label x="24.55" y="63.85" text="Especie:" width="87.4"/>
-		<mx:TextInput x="133.55" y="61.85" width="93.4" id="mascClase" editable="false" enabled="false"/>
-		<mx:Label x="373.5" y="36" text="Nombre:" width="71.95"/>
-		<mx:Label x="359.45" y="10" text="Cliente:" width="109" fontWeight="bold"/>
-		<mx:Label x="373.5" y="66" text="Rut:" width="71.95"/>
-		<mx:TextInput x="459.6" y="36" width="165.6" editable="false" id="CliNomC" enabled="false"/>
-		<mx:TextInput x="459.6" y="66" width="113.35" editable="false" height="20" id="cliRutC" enabled="false"/>
-		<mx:Label x="575.95" y="68" text="-" width="12.25"/>
-		<mx:TextInput x="588.2" y="66" width="19.5" id="cliRut2" restrict="K k 0-9" editable="false" enabled="false"/>
-		<mx:Label x="10" y="102" text="Cirugía:" width="110" fontWeight="bold"/>
-		<mx:Label x="24.55" y="161" text="Ayudante: " width="78"/>
-		<mx:Label x="24.55" y="217" text="Cirugía:" width="63.4" height="17.931034"/>
-		<mx:Label x="24.55" y="130" text="Responsable:" width="100.45"/>
-		<mx:Label x="24.55" y="191" text="Fecha: " width="78"/>
-		<mx:ComboBox x="133" y="128" id="veterinariosC" width="139.25" enabled="false"></mx:ComboBox>
-		<mx:DateField x="133" y="189" width="120.25" id="fechaC"/>
-		<mx:ComboBox x="133" y="159" width="139.25" id="ayudantesC" editable="false" enabled="false"></mx:ComboBox>
-		<mx:DataGrid x="133" y="249" height="112" width="220.25" id="tabCirs">
-			<mx:columns>
-				<mx:DataGridColumn headerText="Cirugías" dataField="cirugias"/>
-			</mx:columns>
-		</mx:DataGrid>
-		<mx:ComboBox x="133" y="219" width="158.25" id="cirugiasBox"></mx:ComboBox>
-		<mx:Label x="373.5" y="130" text="Costo:" width="63.4"/>
-		<mx:TextInput x="459.45" y="128" width="104" id="costoC" restrict="0-9" enabled="false"/>
-		<mx:TextArea x="459.45" y="166" width="289.55" height="195" id="diagC"/>
+		<mx:Button x="561.5" y="314" label="Guardar" visible="true" id="registrar" click="guardarDiagnostico()"/>
+		<mx:Button x="641.5" y="314" label="Cancelar" width="84" id="cancelar" visible="true" click="volver(1)"/>
+		<mx:Label x="362" y="83.85" text="Diagnóstico:" width="81.9"/>
+		<mx:Label x="324.95" y="10" text="Cliente:" width="109" fontWeight="bold"/>
+		<mx:Label x="362" y="33.95" text="Rut:" width="71.95"/>
+		<mx:TextInput x="459.6" y="31.95" width="113.35" editable="false" height="20" id="edicionRutClienteInput"/>
+		<mx:Label x="575.95" y="33.95" text="-" width="12.25"/>
+		<mx:TextInput x="588.2" y="31.95" width="19.5" id="edicionRutClienteDVInput" restrict="K k 0-9" editable="false"/>
+		<mx:Label x="10" y="61.85" text="Cirugía:" width="110" fontWeight="bold"/>
+		<mx:Label x="10" y="164" text="Diagnósticos:" width="110" fontWeight="bold"/>
+		<mx:Label x="24.55" y="84.85" text="Cirugía:" width="63.4" height="17.931034"/>
+		<mx:ComboBox x="133" y="82.85" width="158.25" id="cirugiasBox" dataProvider="{listaCirugias}"></mx:ComboBox>
+		<mx:TextArea x="459.45" y="82.85" width="265.55" height="89.95" id="diagC"/>
 		<mx:Label x="9.95" y="10" text="Mascota:" width="127" fontWeight="bold"/>
 		<mx:Label x="24.55" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
-		<mx:TextInput x="133.5" y="33.95" width="138.75" editable="false" height="20" id="mascNomC0" enabled="false"/>
+		<mx:TextInput x="133.5" y="33.95" width="138.75" editable="false" height="20" id="edicionNombreMascotaInput"/>
+		<mx:DataGrid x="33.5" y="190" width="692" height="105" id="tablaDiagnosticos">
+			<mx:columns>
+				<mx:DataGridColumn headerText="Fecha" dataField="nuevaFecha" width="80"/>
+				<mx:DataGridColumn headerText="Hora" dataField="nuevaHora" width="70"/>
+				<mx:DataGridColumn headerText="Cirugía" dataField="tipoCir" width="150"/>
+				<mx:DataGridColumn headerText="Diagnóstico" dataField="diagnostico"/>
+			</mx:columns>
+		</mx:DataGrid>
 	</mx:Canvas>
 
 </mx:Panel>
