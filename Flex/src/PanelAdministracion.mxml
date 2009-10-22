@@ -22,7 +22,6 @@
 			<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="registrarUsuario()"/>
 			<mx:LinkButton x="50" y="40" label="Editar" id="linkEditarUsAd" click="editarUsuario()" width="66" textAlign="left"/>
 			<mx:LinkButton x="50" y="70" label="Eliminar" textAlign="left" click="eliminarUsuario()"/>
-			<mx:LinkButton x="50" y="100" label="Purgar" textAlign="left" id="linkPurgarUsAd" click="purgarUsuario()"/>
 		</mx:Canvas>
 	</mx:Accordion>
 	 <mx:Script>
