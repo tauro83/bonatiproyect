@@ -133,4 +133,10 @@
 			  <source>Pabellon.PurgCirugiaService</source>
 			</properties>
 		</destination>
+
+  	<destination id="EditCirugiaService"> 
+  	 	<properties>
+  			<source>Pabellon.EditCirugiaService</source>
+  		</properties>
+  	</destination>
 </service>
