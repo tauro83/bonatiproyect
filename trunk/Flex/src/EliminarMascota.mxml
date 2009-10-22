@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+//=======================================================================
+// FECHA CREACIÓN: 20 Octubre
+// AUTOR: Andres Garrido
+// Componente que tiene un grafico que elimina una mascota del sistema
+//=======================================================================
+-->
 <mx:Canvas show="getAllMascotas()" initialize="getAllMascotas()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="883">
 	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Eliminar Mascota" x="0" y="0">
 		
