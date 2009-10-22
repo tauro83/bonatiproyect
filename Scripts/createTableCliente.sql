@@ -3,7 +3,7 @@ CREATE TABLE cliente
   nombre CHAR(12),
   apellido CHAR(12),
   apellido2 CHAR(12),
-  rut CHAR(8) NOT NULL,
+  rut CHAR(9) NOT NULL,
   rut2 CHAR(1) NOT NULL,
   telefono CHAR(3),
   telefono2 CHAR(10),
