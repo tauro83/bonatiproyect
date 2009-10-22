@@ -217,7 +217,8 @@
             	
             	<!--Autor: Andres G.{-->
             	graficosClinica1.setVisible(false,false);
-            	
+            	this.AdmEliminarMascota.setVisible(false,false);
+            	this.AdmPurgarMascota.setVisible(false,false);
             	<!--Autor: Andres G.}-->
             	
             	<!--Autor: Esteban{ -->
@@ -509,6 +510,13 @@
 	
 	<ns1:GraficosClinica x="241" y="134" id="graficosClinica1" visible="false">
 	</ns1:GraficosClinica>
+	<ns1:EliminarMascota x="241" y="134" id="AdmEliminarMascota" visible="false">
+	</ns1:EliminarMascota>
+	<ns1:PurgarMascota x="241" y="134" id="AdmPurgarMascota" visible="false">
+	</ns1:PurgarMascota>
+	<ns1:EliminarMascotaRestaurar x="241" y="134" id="AdmElimMascotaRestaurar" visible="false">
+	</ns1:EliminarMascotaRestaurar>
+	
 	<!--Autor: andres}-->
 
 	<!--Autor: nicolas}-->
