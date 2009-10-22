@@ -45,6 +45,7 @@ package services{
 		}
 		
 		public function getMascotas(rutCliente:String):void{
+			//Alert.show("|"+rutCliente+"|")
 			this.getOperation("getMascotas").send(rutCliente);
 		}
 		
