@@ -51,7 +51,7 @@ public class AddMascotaBD{
 			selectAll = connection.prepareStatement(query);
 			
 			query = "SELECT rut, nombre " +
-					"FROM clientepresencial;";
+					"FROM cliente;";
 			
 			getAllClientes = connection.prepareStatement(query);
 		} 
@@ -147,7 +147,7 @@ public class AddMascotaBD{
     	try{
     		ResultSet result = selectAll.executeQuery();
     		while(result.next()){
-    			if(rutCliente.equals(result.getString(1).substring(0, 8))){
+    			if(rutCliente.equals(result.getString(1).substring(0, 9))){
     				mascota= new Mascota();
 
 	    			mascota.setRutCliente(result.getString(1));
