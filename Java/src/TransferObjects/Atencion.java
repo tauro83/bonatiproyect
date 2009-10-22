@@ -15,7 +15,7 @@ public class Atencion {
 	private String mascotaNombre;
 	private String servicio;
 	private String hora;
-	private Date fecha;
+	private String fecha;
 	private String costo;
 		
 	public Atencion(){
@@ -46,11 +46,11 @@ public class Atencion {
 	public void setHora(String hora) {
 		this.hora = hora;
 	}
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
-	public void setFecha(Date  fecha) {
-		this.fecha = fecha;
+	public void setFecha(String  string) {
+		this.fecha = string;
 	}
 	public String getCosto() {
 		return costo;
