@@ -36,11 +36,51 @@
 			private var productos:ArrayCollection;
 		
 			//salir de busqueda
-			private function cerrarBusqueda (event:Event):void
+			private function volver():void
             {
             	Application.application.setInvisible();
             	Application.application.agenda2.setVisible(true,false);
             	Application.application.menuAgenda1.setVisible(true,false);
+            	this.removeAllChildren();
+            	this.addChild(inputUsuarioCargo);
+            	this.addChild(inputUsuarioNombre);
+            	this.addChild(inputUsuarioAp);
+            	this.addChild(inputUsuarioAm);
+            	this.addChild(inputUsuarioServicio);
+            	this.addChild(inputClienteEmail);
+            	this.addChild(inputClienteNombre);
+            	this.addChild(inputClienteTel);
+            	this.addChild(inputClienteRut);
+            	this.addChild(inputClienteApellido);
+            	this.addChild(inputClienteApellido2);
+            	this.addChild(inputMascotaNombre);
+            	this.addChild(inputMascotaRut);
+            	this.addChild(inputMascotaRaza);
+            	this.addChild(inputMascotaClase);
+            	this.addChild(inputMascotaSexo);
+            	this.addChild(inputAtencionCliente);
+            	this.addChild(inputAtencionMascota);
+            	this.addChild(inputAtencionFecha);
+            	this.addChild(inputAtencionHora);
+            	this.addChild(inputAtencionServico);
+            	this.addChild(inputProductoNombre);
+            	this.addChild(inputProductoCodigo);
+            	this.addChild(inputProductoPrecio);
+            	this.addChild(inputProductoCategoria);
+            	this.addChild(comboboxCliente);
+            	this.addChild(comboboxMascota);
+            	this.addChild(combobox);
+            	this.addChild(comboboxProducto);
+            	this.addChild(comboboxAtencion);
+            	this.addChild(comboboxUsuario);
+            	this.addChild(gridCliente);
+            	this.addChild(gridUsuario);
+            	this.addChild(gridMascota);
+            	this.addChild(gridProducto);
+            	this.addChild(gridAtencion);
+            	this.addChild(textFiltrar);
+            	this.addChild(textBuscar);
+            	this.addChild(idCancelar);
             }
             		
 			//hace invisible a todos los elementos del componente
@@ -137,6 +177,7 @@
             {
             	setInvisibleInput();
             	getAllUsuarios();
+            	textBuscar.setVisible(true, false);
 				switch (comboboxUsuario.selectedLabel){
 				case 'Cargo':		
 					inputUsuarioCargo.setVisible(true,false);
@@ -175,6 +216,7 @@
             {
             	setInvisibleInput();
             	getAllClientes();
+            	textBuscar.setVisible(true, false);
             	switch (comboboxCliente.selectedLabel){
 				case 'E-mail':		
 					inputClienteEmail.setVisible(true,false);
@@ -216,6 +258,7 @@
             {
  				setInvisibleInput();
             	getAllMascotas();
+            	textBuscar.setVisible(true, false);
 				switch (comboboxMascota.selectedLabel){
 				case 'Nombre':		
 					inputMascotaNombre.setVisible(true,false);
@@ -254,6 +297,7 @@
             {
 				setInvisibleInput();
             	getAllAtenciones();
+            	textBuscar.setVisible(true, false);
             	switch (comboboxAtencion.selectedLabel){
 				case 'Rut Cliente':		
 					inputAtencionCliente.setVisible(true,false);
@@ -292,6 +336,7 @@
             {
 				setInvisibleInput();
             	getAllProductos();
+            	textBuscar.setVisible(true, false);
 				switch (comboboxProducto.selectedLabel){
 				case 'Nombre':		
 					inputProductoNombre.setVisible(true,false);
@@ -311,10 +356,10 @@
 		]]>
 	</mx:Script>
 	
-	<mx:Button x="647" y="302" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="Application.application()"/>
-	<mx:ComboBox x="283" y="10" width="150" id="combobox" change="seleccionarBusqueda(event)" >
+	<mx:Button x="620" y="343" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()"/>
+	<mx:ComboBox x="96" y="24" width="150" id="combobox" change="seleccionarBusqueda(event)" >
 		<mx:ArrayCollection>
-			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Atencion"/>
 			<!-- <mx:Object label="Aviso"/> -->
 			<mx:Object label="Cliente"/> 
@@ -323,49 +368,49 @@
 			<mx:Object label="Usuario"/>  
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
-	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
+	<mx:Text x="30" y="26" id="textFiltrar" text="Filtrar por"/>
+	<mx:Text x="523" y="26" text="Buscar" id="textBuscar" visible="false"/>
 
 	<!-- AutoComplete para cada parametro -->
 	<!-- input Usuario -->
-	<fc:AutoComplete id="inputUsuarioNombre" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="nombre" visible="false"/>
-	<fc:AutoComplete id="inputUsuarioCargo" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="cargo" visible="false"/>
-	<fc:AutoComplete id="inputUsuarioAp" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="apellidoPaterno" visible="false"/>
-	<fc:AutoComplete id="inputUsuarioAm" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="apellidoMaterno" visible="false"/>
-	<fc:AutoComplete id="inputUsuarioServicio" x="59" y="10" width="150" dataProvider="{usuarios}" labelField="servicio" visible="false"/>
+	<fc:AutoComplete id="inputUsuarioNombre" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputUsuarioCargo" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="cargo" visible="false"/>
+	<fc:AutoComplete id="inputUsuarioAp" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="apellidoPaterno" visible="false"/>
+	<fc:AutoComplete id="inputUsuarioAm" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="apellidoMaterno" visible="false"/>
+	<fc:AutoComplete id="inputUsuarioServicio" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="servicio" visible="false"/>
 	
 	<!-- input Cliente -->
-	<fc:AutoComplete id="inputClienteNombre" x="59" y="10" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
-	<fc:AutoComplete id="inputClienteRut" x="59" y="10" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
-	<fc:AutoComplete id="inputClienteTel" x="59" y="10" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
-	<fc:AutoComplete id="inputClienteEmail" x="59" y="10" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
-	<fc:AutoComplete id="inputClienteApellido" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
-	<fc:AutoComplete id="inputClienteApellido2" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
+	<fc:AutoComplete id="inputClienteNombre" x="572" y="24" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputClienteRut" x="572" y="24" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
+	<fc:AutoComplete id="inputClienteTel" x="572" y="24" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
+	<fc:AutoComplete id="inputClienteEmail" x="572" y="24" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido" x="572" y="24" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido2" x="572" y="24" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
 	
 	<!-- input Mascota -->
-	<fc:AutoComplete id="inputMascotaNombre" x="59" y="10" width="150" dataProvider="{mascotas}" labelField="nombre" visible="false"/>
-	<fc:AutoComplete id="inputMascotaRut" x="59" y="10" width="150" dataProvider="{mascotas}" labelField="rutCliente" visible="false"/>
-	<fc:AutoComplete id="inputMascotaRaza" x="59" y="10" width="150" dataProvider="{mascotas}" labelField="raza" visible="false"/>
-	<fc:AutoComplete id="inputMascotaClase" x="59" y="10" width="150" dataProvider="{mascotas}" labelField="claseAnimal" visible="false"/>
-	<fc:AutoComplete id="inputMascotaSexo" x="59" y="10" width="150" dataProvider="{mascotas}" labelField="sexo" visible="false"/>
+	<fc:AutoComplete id="inputMascotaNombre" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputMascotaRut" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="rutCliente" visible="false"/>
+	<fc:AutoComplete id="inputMascotaRaza" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="raza" visible="false"/>
+	<fc:AutoComplete id="inputMascotaClase" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="claseAnimal" visible="false"/>
+	<fc:AutoComplete id="inputMascotaSexo" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="sexo" visible="false"/>
 	
 	<!-- input Atencion -->
-	<fc:AutoComplete id="inputAtencionCliente" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="clienteRut" visible="false"/>
-	<fc:AutoComplete id="inputAtencionMascota" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="mascotaNombre" visible="false"/>
-	<fc:AutoComplete id="inputAtencionFecha" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="fecha" visible="false"/>
-	<fc:AutoComplete id="inputAtencionHora" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="hora" visible="false"/>
-	<fc:AutoComplete id="inputAtencionServico" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="servicio" visible="false"/>
+	<fc:AutoComplete id="inputAtencionCliente" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="clienteRut" visible="false"/>
+	<fc:AutoComplete id="inputAtencionMascota" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="mascotaNombre" visible="false"/>
+	<fc:AutoComplete id="inputAtencionFecha" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="fecha" visible="false"/>
+	<fc:AutoComplete id="inputAtencionHora" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="hora" visible="false"/>
+	<fc:AutoComplete id="inputAtencionServico" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="servicio" visible="false"/>
 	
 	<!-- input Producto -->
-	<fc:AutoComplete id="inputProductoNombre" x="59" y="10" width="150" dataProvider="{productos}" labelField="nombre" visible="false"/>
-	<fc:AutoComplete id="inputProductoCodigo" x="59" y="10" width="150" dataProvider="{productos}" labelField="codigo" visible="false"/>
-	<fc:AutoComplete id="inputProductoPrecio" x="59" y="10" width="150" dataProvider="{productos}" labelField="precio" visible="false"/>
-	<fc:AutoComplete id="inputProductoCategoria" x="59" y="10" width="150" dataProvider="{productos}" labelField="categoria" visible="false"/>
+	<fc:AutoComplete id="inputProductoNombre" x="572" y="24" width="150" dataProvider="{productos}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputProductoCodigo" x="572" y="24" width="150" dataProvider="{productos}" labelField="codigo" visible="false"/>
+	<fc:AutoComplete id="inputProductoPrecio" x="572" y="24" width="150" dataProvider="{productos}" labelField="precio" visible="false"/>
+	<fc:AutoComplete id="inputProductoCategoria" x="572" y="24" width="150" dataProvider="{productos}" labelField="categoria" visible="false"/>
 	
 	<!-- Mascota: combobox y grid -->
-	<mx:ComboBox x="441" y="10" id="comboboxMascota" width="150" visible="false" change="seleccionarMascota(event)">
+	<mx:ComboBox x="254" y="24" id="comboboxMascota" width="150" visible="false" change="seleccionarMascota(event)">
 		<mx:ArrayCollection>
-			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Nombre"/>
 			<mx:Object label="Rut Cliente"/>
 			<mx:Object label="Raza"/>
@@ -373,7 +418,7 @@
 			<mx:Object label="Clase"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridMascota" visible="false" dataProvider="{mascotas}">
+	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridMascota" visible="false" dataProvider="{mascotas}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Rut cliente" dataField="rutCliente"/>
@@ -384,9 +429,9 @@
 	</mx:DataGrid>
 	
 	<!-- Usuario: combobox y grid -->
-	<mx:ComboBox x="441" y="10" id="comboboxUsuario" width="150" visible="false" change="seleccionarUsuario(event)">
+	<mx:ComboBox x="254" y="24" id="comboboxUsuario" width="150" visible="false" change="seleccionarUsuario(event)">
 		<mx:ArrayCollection>
-			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Apellido materno"/>
 			<mx:Object label="Apellido paterno"/>
 			<mx:Object label="Cargo"/>
@@ -394,7 +439,7 @@
 			<mx:Object label="Servicio"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridUsuario" visible="false" dataProvider="{usuarios}">
+	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridUsuario" visible="false" dataProvider="{usuarios}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Apellido paterno" dataField="apellidoPaterno"/>
@@ -405,16 +450,16 @@
 	</mx:DataGrid>
 	
 	<!-- Aviso: combobox y grid -->
-	<mx:ComboBox x="441" y="10" id="comboboxAviso" width="150" visible="false">
+	<mx:ComboBox x="254" y="24" id="comboboxAviso" width="150" visible="false">
 		<mx:ArrayCollection>
-			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Cliente"/>
 			<mx:Object label="Mascota"/>
 			<mx:Object label="Rut"/>
 			<mx:Object label="Servicio"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridAviso" visible="false">
+	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridAviso" visible="false">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Servicio" dataField="col1"/>
 			<mx:DataGridColumn headerText="Cliente" dataField="col2"/>
@@ -424,9 +469,9 @@
 	</mx:DataGrid>
 	
 	<!-- Atencion: combobox y grid -->
-	<mx:ComboBox x="441" y="10" id="comboboxAtencion" width="150" visible="false" change="seleccionarAtencion(event)">
+	<mx:ComboBox x="254" y="24" id="comboboxAtencion" width="150" visible="false" change="seleccionarAtencion(event)">
 		<mx:ArrayCollection>
-			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Rut Cliente"/>
 			<mx:Object label="Fecha"/>
 			<mx:Object label="Hora"/>
@@ -434,7 +479,7 @@
 			<mx:Object label="Servicio"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridAtencion" visible="false" dataProvider="{atenciones}">
+	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridAtencion" visible="false" dataProvider="{atenciones}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Rut cliente" dataField="clienteRut"/>
 			<mx:DataGridColumn headerText="Nombre mascota" dataField="mascotaNombre"/>
@@ -445,16 +490,16 @@
 	</mx:DataGrid>
 	
 	<!-- Producto: combobox y grid -->
-	<mx:ComboBox x="441" y="10" id="comboboxProducto" width="150" visible="false" change="seleccionarProducto(event)">
+	<mx:ComboBox x="254" y="24" id="comboboxProducto" width="150" visible="false" change="seleccionarProducto(event)">
 		<mx:ArrayCollection>
-			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Categoria"/>
 			<mx:Object label="Nombre"/>
 			<mx:Object label="Precio"/>
 			<mx:Object label="Codigo"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridProducto" visible="false" dataProvider="{productos}">
+	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridProducto" visible="false" dataProvider="{productos}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Precio" dataField="precio"/>
@@ -464,9 +509,9 @@
 	</mx:DataGrid>
 	
 	<!-- Cliente: combobox y grid -->
-	<mx:ComboBox x="441" y="10" id="comboboxCliente" width="150" visible="false" change="seleccionarCliente(event)">
+	<mx:ComboBox x="254" y="24" id="comboboxCliente" width="150" visible="false" change="seleccionarCliente(event)">
 		<mx:ArrayCollection>
-			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Apellido materno"/>
 			<mx:Object label="Apellido paterno"/>
 			<mx:Object label="E-mail"/>
@@ -475,7 +520,7 @@
 			<mx:Object label="Teléfono"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:DataGrid x="10" y="38" width="739" height="256" id="gridCliente" visible="false" dataProvider="{clientes}">
+	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridCliente" visible="false" dataProvider="{clientes}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Apellido paterno" dataField="apellido"/>
