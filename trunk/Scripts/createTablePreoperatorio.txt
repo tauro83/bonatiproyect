@@ -7,5 +7,5 @@ create table preoperatorio (
 	hora CHAR(10),
         responsable CHAR(30),
 	ayudante CHAR(30),
-	constraint PK_preoperatorio primary key (idpreoperatorio,fecha,hora,)
+	constraint PK_preoperatorio primary key (idpreoperatorio,fecha,hora)
 );
