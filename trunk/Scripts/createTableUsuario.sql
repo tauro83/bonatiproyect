@@ -10,6 +10,7 @@ create table Usuario (
 	pEditar		bool,
 	pEliminar	bool,
 	pPurgar		bool,	
+	estado bool,
    constraint PK_usuario primary key (usuario)
 );
 
