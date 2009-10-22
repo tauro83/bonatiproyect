@@ -123,4 +123,9 @@
   		</properties>
   	</destination>
 
+	<destination id="GetEstadisticas"> 
+  	 	<properties>
+  			<source>Peluqueria.GetEstadisticas</source>
+  		</properties>
+  	</destination>
 </service>
