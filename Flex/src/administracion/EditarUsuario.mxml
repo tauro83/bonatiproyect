@@ -189,7 +189,7 @@
 			
 		]]>
 	</mx:Script>
-	<mx:DataGrid x="10" y="10" width="739" id="Tabla" enabled="true" height="338" dataProvider="{usuarios}" itemDoubleClick="editarUser(event)">
+	<mx:DataGrid x="30" y="26" width="692" id="Tabla" enabled="true" height="283" dataProvider="{usuarios}" itemDoubleClick="editarUser(event)">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellidoPaterno"/>
@@ -204,9 +204,9 @@
 			<mx:DataGridColumn headerText="Permiso Purgar" dataField="permisoPurgar" visible="false"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Button label="Editar" height="23" width="102" x="537" y="393" click="editarUser(event)" cornerRadius="6"/>
+	<mx:Button label="Editar" height="23" width="102" x="510" y="317" click="editarUser(event)" cornerRadius="6"/>
 	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Button x="647" y="393" label="Cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
+	<mx:Button x="620" y="317" label="Cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
 	
 
 

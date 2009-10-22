@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllUsuarios()" layout="absolute" width="779" height="466" title="Eliminar usuario" >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllUsuarios()" layout="absolute" width="779" height="466" title="Eliminar usuario" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
 			import mx.controls.List;
@@ -105,7 +105,7 @@
   	</mx:Script>	
 	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	
-	<mx:DataGrid x="10" y="74" width="739" height="220" id="tablaUsuarios" dataProvider="{persons}" >
+	<mx:DataGrid x="37" y="52" width="678" height="267" id="tablaUsuarios" dataProvider="{persons}" >
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
 			 	<mx:itemRenderer>
@@ -125,12 +125,12 @@
 			<mx:DataGridColumn width="50" headerText="Purgar" dataField="permisoPurgar" id="permisoPurgar" sortable="false" draggable="false"/>
 			</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="523" y="302" label="Eliminar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados" width="102" height="23" cornerRadius="6"/>
-	<mx:Button x="647" y="302" label="Cancelar" id="cancelar" toolTip="Cancela la operación" width="102" height="23" cornerRadius="6"/>
-	<mx:CheckBox x="10" y="48" id="todo" click="{selectAll()}">
+	<mx:Button x="503" y="327" label="Eliminar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="613" y="327" label="Cancelar" id="cancelar" toolTip="Cancela la operación" width="102" height="23" cornerRadius="6"/>
+	<mx:CheckBox x="37" y="26" id="todo" click="{selectAll()}">
 		<mx:toolTip>Seleccione todos los usuarios, en caso contrario ninguno</mx:toolTip>
 	</mx:CheckBox>
-	<mx:Label x="32" y="48" text="Seleccionar todo"/>
-	<mx:TextInput x="59" y="10" id="texImput" toolTip="ingrese texto para búsqueda"/>
-	<mx:Label x="10" y="12" text="Buscar"/>
+	<mx:Label x="59" y="26" text="Seleccionar todo"/>
+<!--	<mx:TextInput x="59" y="10" id="texImput" toolTip="ingrese texto para búsqueda"/>
+	<mx:Label x="10" y="12" text="Buscar"/>-->
 </mx:Panel>
