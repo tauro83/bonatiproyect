@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Visualizar Cliente" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registrar Cliente" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
 		
@@ -71,40 +71,20 @@
 				{
 				case 'Region De Tarapaca':		
 					comunas.setVisible(true,false);
-					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					//AdmIngreso2.comunaValparao.setVisible(false,false);
 				break; 
 				case 'Region De Antofagasta':
 					comunaAntofagasta.setVisible(true,false);
-					//AdmIngreso2.comunas.setVisible(false,false);
-					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					//AdmIngreso2.comunaValparao.setVisible(false,false);
 				break;
 				case 'Region De Atacama':
-					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-					//AdmIngreso2.comunas.setVisible(false,false);
 					comunaAtacama.setVisible(true,false);
-					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
-					//AdmIngreso2.comunaValparao.setVisible(false,false);
 				break;
 				case 'Region De Coquimbo':
-					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-					//AdmIngreso2.comunas.setVisible(false,false);
-					//AdmIngreso2.comunaAtacama.setVisible(false,false);
 					comunaCoquimbo.setVisible(true,false);
-					//AdmIngreso2.comunaValparao.setVisible(false,false);
 				break;
 				case 'Region De Valparaiso':
-					//AdmIngreso2.comunaAntofagasta.setVisible(false,false);
-					//AdmIngreso2.comunas.setVisible(false,false);
-					//AdmIngreso2.comunaAtacama.setVisible(false,false);
-					//AdmIngreso2.comunaCoquimbo.setVisible(false,false);
 					comunaValparaiso.setVisible(true,false);
 				break;
-				case 'Region Del Libertador Bernardo O�higgins':
+				case 'Region Del Libertador Bernardo O´higgins':
 					comunaLibertador.setVisible(true,false);
 				break;
 				case 'Region Del Maule':
@@ -113,13 +93,13 @@
 				case 'Region Del Bio-Bio':
 					comunaBio.setVisible(true,false);
 				break;
-				case 'Region De La Araucan�a':
+				case 'Region De La Araucania':
 					comunaAraucania.setVisible(true,false);
 				break;
 				case 'Region De Los Lagos':
 					comunaLagos.setVisible(true,false);
 				break;
-				case 'Region Aysen del General Carlos Ibanes del Campo"':
+				case 'Region Aysen del General Carlos Ibanes del Campo':
 					comunaAysen.setVisible(true,false);
 				break;
 				case 'Region de Magallanes y Antartica Chilena':
@@ -168,7 +148,7 @@
 					cl.apellido = apellido.text;
 					cl.apellido2 = apellido2.text;
 					cl.rut =  rut.text;
-					cl.rut2 = rut2.text;
+					cl.rut2 =  rut2.text;
 					cl.telefono = telefono.text;
 					cl.telefono2 = telefono2.text;
 					cl.celular = celular.text;
@@ -211,7 +191,7 @@
 						cl.comuna=comunaBio.selectedLabel;
 					}	
 					
-					else if(cl.region=="Region De La Araucanía"){
+					else if(cl.region=="Region De La Araucania"){
 						cl.comuna=comunaAraucania.selectedLabel;
 					}	
 					
@@ -466,49 +446,50 @@
 	</mx:Script>
 	
 	<!-- Nombre -->
-	<mx:Label x="20" y="30" text="Nombre:" width="97" />
-	<mx:TextInput  x="125" y="28" width="201" id="nombre" click="validaciones()" maxChars="12"/>	
+	<mx:Label x="24" y="21" text="Nombre:" width="97" />
+	<mx:TextInput restrict="A-Z a-z"  x="143" y="19" width="201" id="nombre" click="validaciones()" maxChars="12"/>	
 
     <!-- Apellido Paterno -->
-	<mx:Label x="20" y="79" text="Apellido Paterno:" width="112" />
-	<mx:TextInput x="125" y="77" width="201" id="apellido" click="validaciones()" maxChars="12"/>
+	<mx:Label x="24" y="66" text="Apellido paterno:" width="112" />
+	<mx:TextInput restrict="A-Z a-z" x="143" y="64" width="201" id="apellido" click="validaciones()" maxChars="12"/>
 	
 	<!-- Apellido Materno -->
-	<mx:Label x="20" y="128" text="Apellido Materno:" width="112" />
-	<mx:TextInput x="125" y="126" width="201" id="apellido2" click="validaciones()" maxChars="12"/>
+	<mx:Label x="412" y="66" text="Apellido materno:" width="112" />
+	<mx:TextInput restrict="A-Z a-z" x="523" y="64" width="201" id="apellido2" click="validaciones()" maxChars="12"/>
 	
 	<!-- Rut -->	
-	<mx:Label x="20" y="177" text="Rut:" width="97"/>
-	<mx:TextInput x="125" y="175" width="140" id="rut"  maxChars="8"/>	
-	<mx:Label x="169" y="275" text="-" textAlign="center"/>
-	<mx:TextInput x="290" y="175" width="36" id="rut2" maxChars="1"/>
+	<mx:Label x="24" y="106" text="Rut:" width="97"/>
+	<mx:TextInput restrict="0-9" x="143" y="106" width="140" id="rut"  maxChars="8"/>	
+	<mx:Label x="561" y="144" text="-" textAlign="center"/>
+	<mx:TextInput restrict="0-9 k K" x="308" y="106" width="36" id="rut2" maxChars="1"/>
 	
 	<!-- Telefono -->
-	<mx:Label x="20" y="226" text="Teléfono Fijo:" width="97"/>
-	<mx:TextInput x="125" y="224" width="40" id="telefono" click="validaciones()" maxChars="3"/>
-	<mx:Label x="268" y="177" text="-" textAlign="center"/>
-	<mx:TextInput x="190" y="224" width="136" id="telefono2" click="validaciones()" maxChars="10"/>
+	<mx:Label x="24" y="146" text="Teléfono fijo:" width="97"/>
+	<mx:TextInput restrict="0-9" x="143" y="146" width="40" id="telefono" click="validaciones()" maxChars="3"/>
+	<mx:Label x="291" y="108" text="-" textAlign="center"/>
+	<mx:TextInput restrict="0-9" x="208" y="146" width="136" id="telefono2" click="validaciones()" maxChars="10"/>
 	
 		
     <!-- Celular -->
-	<mx:Label x="20" y="275" text="Celular:" click="validaciones()" width="97"/>
-	<mx:TextInput x="125" y="273" width="40" id="celular" maxChars="2"/>
-	<mx:Label x="169" y="226" text="-" textAlign="center"/>
-	<mx:TextInput x="190" y="273" width="136" id="celular2" click="validaciones()" maxChars="10"/>
+	<mx:Label x="412" y="146" text="Celular:" click="validaciones()" width="97"/>
+	<mx:TextInput restrict="0-9" x="523" y="142" width="40" id="celular" maxChars="2"/>
+	<mx:Label x="187" y="148" text="-" textAlign="center"/>
+	<mx:TextInput restrict="0-9" x="582" y="142" width="142" id="celular2" click="validaciones()" maxChars="10"/>
 	
 	<!-- Direccion -->	
-	<mx:Label x="413" y="30" text="Dirección:" width="97"/>
-	<mx:TextInput  x="540" y="28" width="201" id="direccion" maxChars="20"/>
+	<mx:Label x="24" y="185" text="Dirección:" width="97"/>
+	<mx:TextInput  restrict="0-9 # A-Z a-z" x="143" y="183" width="201" id="direccion" maxChars="20"/>
 	
 	<!-- Regiones -->	
-	<mx:Label x="413" y="79" text="Región:" width="112"/>
-	<mx:ComboBox x="540" y="77" width="201" id="region"  visible="true" change="regiones(event)">	
+	<mx:Label x="24" y="226" text="Región:" width="112"/>
+	<mx:ComboBox x="144" y="224" width="201" id="region"  visible="true" change="regiones(event)">	
 	<mx:ArrayCollection>
+	        <mx:Object label="--Seleccione--"/>
 			<mx:Object label="Region De Tarapaca"/>
 			<mx:Object label="Region De Antofagasta"/>
 			<mx:Object label="Region De Atacama"/>
 			<mx:Object label="Region De Coquimbo"/>
-			<mx:Object label="Region De Valparaíso"/>
+			<mx:Object label="Region De Valparaiso"/>
 			<mx:Object label="Region Del Libertador Bernardo O´higgins"/>
 			<mx:Object label="Region Del Maule"/>
 			<mx:Object label="Region Del Bio-Bio"/>
@@ -523,9 +504,10 @@
 	</mx:ComboBox>	
 	
 	<!-- Region Tarapaca -->
-	<mx:Label x="413" y="128" text="Comuna:" width="112"/>
-	<mx:ComboBox x="540" y="126" width="201" id="comunas" visible="false">	
+	<mx:Label x="412" y="226" text="Comuna:" width="112"/>
+	<mx:ComboBox x="523" y="224" width="201" id="comunas" visible="false">	
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Alto Hospicio"/>
 			<mx:Object label="Camiña"/>
 			<mx:Object label="Colchane"/>
@@ -537,8 +519,9 @@
 	</mx:ComboBox>	
 	
 	<!-- Region Antofagasta -->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaAntofagasta" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaAntofagasta" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Antofagasta"/>
 			<mx:Object label="Mejillones"/>
 			<mx:Object label="Sierra Gorda"/>
@@ -552,8 +535,9 @@
 	</mx:ComboBox>	
 	
 	<!-- Region Atacama-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaAtacama" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaAtacama" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Chañaral"/>
 			<mx:Object label="Diego de Almagro"/>
 			<mx:Object label="Caldera"/>
@@ -567,8 +551,9 @@
 	</mx:ComboBox>	
 	
 	<!-- Region Coquimbo-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaCoquimbo" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaCoquimbo" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Canela"/>
 			<mx:Object label="Illapel"/>
 			<mx:Object label="Los Vilos"/>
@@ -588,8 +573,9 @@
 	</mx:ComboBox>	
 	
 	<!-- Region Valparaíso-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaValparaiso" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaValparaiso" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Los Andes"/>
 			<mx:Object label="San Esteban"/>
 			<mx:Object label="Calle Larga"/>
@@ -632,8 +618,9 @@
 	</mx:ComboBox>
 	
 	<!--Región Del Libertador Bernardo O´higgins-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaLibertador" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaLibertador" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Rancagua"/>
 			<mx:Object label="Codegua"/>
 			<mx:Object label="Coinco"/>
@@ -671,8 +658,9 @@
 	</mx:ComboBox>
 	
 	<!--Región Del Maule-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaMaule" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaMaule" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Cauquenes"/>
 			<mx:Object label="Pelluhue"/>
 			<mx:Object label="Chanco"/>
@@ -707,8 +695,9 @@
 	</mx:ComboBox>
 	
 	<!--Región Del Bio Bio-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaBio" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaBio" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Arauco"/>
 			<mx:Object label="Cañete"/>
 			<mx:Object label="Contulmo"/>
@@ -767,8 +756,9 @@
 	</mx:ComboBox>		
 	
 	<!--Región De La Araucania-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaAraucania" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaAraucania" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Temuco"/>
 			<mx:Object label="Carahue"/>
 			<mx:Object label="Cholchol"/>
@@ -805,8 +795,9 @@
 	</mx:ComboBox>	
 	
 	<!--Región De Los Lagos-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaLagos" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaLagos" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Chiloé"/>
 			<mx:Object label="Ancud"/>
 			<mx:Object label="Castro"/>
@@ -843,8 +834,9 @@
 	</mx:ComboBox>		
 	
 	<!--Región Aysén del General Carlos Ibáñes del Campo-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaAysen" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaAysen" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Aysén"/>
 			<mx:Object label="Cisnes"/>
 			<mx:Object label="Guaitecas"/>
@@ -859,8 +851,9 @@
 	</mx:ComboBox>
 
 	<!--Región de Magallanes y Antártica Chilena-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaMagallanes" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaMagallanes" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Navarino"/>
 			<mx:Object label="Antártica"/>
 			<mx:Object label="Punta Arenas"/>
@@ -876,8 +869,9 @@
 	</mx:ComboBox>
 	
 	<!--Región Metropolitana-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaMetro" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaMetro" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Colina"/>
 			<mx:Object label="Lampa"/>
 			<mx:Object label="Til Til"/>
@@ -903,8 +897,9 @@
 	</mx:ComboBox>	
 
 	<!--Región de los Ríos-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaRio" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaRio" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="La Unión"/>
 			<mx:Object label="Futrono"/>
 			<mx:Object label="Lago Ranco"/>
@@ -922,8 +917,9 @@
 	</mx:ComboBox>
 	
 	<!--Región de Arica y Parinacota-->
-	<mx:ComboBox x="540" y="126" width="201" id="comunaArica" visible="false">
+	<mx:ComboBox x="523" y="224" width="201" id="comunaArica" visible="false">
 	<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
 			<mx:Object label="Arica"/>
 			<mx:Object label="Camarones"/>
 			<mx:Object label="Putre"/>
@@ -931,18 +927,18 @@
 		</mx:ArrayCollection>
 	</mx:ComboBox>
 	
-	<mx:Label x="413" y="177" text="E-Mail:" width="97"/>
-	<mx:TextInput x="539" y="175" width="201" id="email" click="validaciones()" maxChars="20"/>	
+	<mx:Label x="24" y="263" text="E-Mail:" width="97"/>
+	<mx:TextInput x="144" y="261" width="201" id="email" click="validaciones()" maxChars="20"/>	
 	
-    <mx:Label x="413" y="226" text="Confirmación E-mail:" width="132"/>
-	<mx:TextInput x="539" y="224" width="201" id="email2" maxChars="20"/>
+    <mx:Label x="412" y="263" text="Repetir E-mail:" width="132"/>
+	<mx:TextInput x="523" y="261" width="201" id="email2" maxChars="20"/>
 
 	<mx:Button x="523" y="302" width="102" label="Registrar" id="guardarClienteIng" click="{sendMessage()}" height="23" cornerRadius="6">
 	</mx:Button>
 	
 	<mx:Button x="647" y="302" width="102" label="Cancelar" id="cancelarClienteIng" height="23" cornerRadius="6">
 	</mx:Button>	
-	<mx:Label id="labelMessage" x="169" y="372" width="407" textAlign="center" fontWeight="bold" height="17"/>
+	<mx:Label id="labelMessage" x="176" y="373" width="407" textAlign="center" fontWeight="bold" height="17"/>
 
 
 	
