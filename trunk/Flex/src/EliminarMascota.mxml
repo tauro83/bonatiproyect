@@ -42,7 +42,7 @@
 					mascotaService.deleteMascota(m.rutCliente,m.nombre, false);
    				}
    				else{
-   					Alert.show("Debe primero seleccionar un elemento","Información");
+   					mens.text="Debe primero seleccionar un elemento";
    				}
    				 
    			}
@@ -50,11 +50,11 @@
 				var result:int = event.result as int ;
 				if(result!=0)
 				{
-				   Alert.show("Mascota Eliminada!");
+				   mens.text="Mascota Eliminada!";
 				   getAllMascotas();
 				}
 				else
-				   Alert.show("Error en Eliminar Mascota, inténtelo más tarde");
+				   mens.text="Error en Eliminar Mascota, inténtelo más tarde";
 			}
 			public function getAllMascotas():void{
 				var mascotaService:GetAllMascotas=new GetAllMascotas();
@@ -98,14 +98,15 @@
 		]]>
 		
 		</mx:Script>
-		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="474" label="Eliminar" y="297" id="borrarMascota" click="deleteMascota()">
+		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="518" label="Eliminar" y="320" id="borrarMascota" click="deleteMascota()">
+			<mx:toolTip>Elimina una mascota del sistema dejándola inactiva</mx:toolTip>
 		</mx:Button>
 		
-		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="584" label="Cancelar" y="297" id="cancelar" click="cancelando()">
+		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="628" label="Cancelar" y="320" id="cancelar" click="cancelando()" toolTip="Cierra la ventana y vuelve a la anterior">
 		</mx:Button>
-		<mx:DataGrid x="67" y="59" dataProvider="{mascotas}" allowMultipleSelection="true" 
+		<mx:DataGrid x="30" y="30" width="700" height="283" dataProvider="{mascotas}" allowMultipleSelection="true" 
 			editable="false" id="tablaMascotas" resizableColumns="true" showHeaders="true" 
-			width="619" height="230" sortableColumns="true" visible="true" toolTip="Presione Ctrl para seleccionar múltriples objetos">
+			sortableColumns="true" visible="true" toolTip="Presione Ctrl para seleccionar múltriples objetos">
 			<mx:columns>
 				<!--
 				<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
@@ -123,9 +124,7 @@
 				<mx:DataGridColumn width="50" headerText="Raza" dataField="raza"/>
 			</mx:columns>
 		</mx:DataGrid>
-		<mx:LinkButton x="67" y="298" label="Restaurar mascotas eliminadas..." id="restaurar" click="restaurando()"/>
-		<mx:Label x="67" y="33" text="Lista de mascotas"/>
-		
+		<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 		
 		
 		

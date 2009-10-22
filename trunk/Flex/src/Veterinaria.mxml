@@ -514,9 +514,6 @@
 	</ns1:EliminarMascota>
 	<ns1:PurgarMascota x="241" y="134" id="AdmPurgarMascota" visible="false">
 	</ns1:PurgarMascota>
-	<ns1:EliminarMascotaRestaurar x="241" y="134" id="AdmElimMascotaRestaurar" visible="false">
-	
-	</ns1:EliminarMascotaRestaurar>
 	
 	<!--Autor: andres}-->
 
