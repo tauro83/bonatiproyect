@@ -294,7 +294,7 @@
             	
             	getAllUsuarios();
 
-            	servicioInput.dataProvider = ["Todos", "Pabellon", "Peluquería", "Policlinico", "Atencion a domicilio"];
+            	servicioInput.dataProvider = ["Todos", "Pabellon", "Peluqueria", "Policlinico", "Atencion a domicilio"];
             	servicioOutput.text = "Todos";
             	fechaOutput.text = fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" +fechaActual.getFullYear();;	
             }    
