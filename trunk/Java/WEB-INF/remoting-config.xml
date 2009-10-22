@@ -139,4 +139,15 @@
   			<source>Pabellon.EditCirugiaService</source>
   		</properties>
   	</destination>
+	<destination id="PurgarMascota"> 
+  	 	<properties>
+  			<source>Administracion.PurgarMascota</source>
+  		</properties>
+  	</destination>
+	<destination id="EliminarMascota"> 
+  	 	<properties>
+  			<source>Administracion.EliminarMascota</source>
+  		</properties>
+  	</destination>
+
 </service>
