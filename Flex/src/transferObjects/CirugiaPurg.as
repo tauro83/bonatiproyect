@@ -30,10 +30,11 @@ package transferObjects
 		public var tipo:String;
 		public var veterinario:String;
 		public var sexo:String;
-		public var direccion:String;
-		public var telefono:String;
-		public var fechaNacimiento:String;
+		public var servicio:String;
+		public var hora:String;
 		public var fechaCirugia:String;
 		public var raza:String;
+		public var ayudante:String;
+		public var estado:String;
 	}
 }
