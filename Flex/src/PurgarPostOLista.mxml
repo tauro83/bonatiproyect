@@ -8,8 +8,8 @@
 			// en post-operatorio
 			//=======================================================================
 		
-			import services.PostoperatorioService;
-			import transferObjects.Postoperatorio;
+//			import services.PostoperatorioService;
+//			import transferObjects.Postoperatorio;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
@@ -31,9 +31,9 @@
 			 */
 			private function getAllDatos():void
 			{
-				var visualizarPostoperatorio:PostoperatorioService = new PostoperatorioService();
-				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
-				visualizarPostoperatorio.getAllDatos();
+//				var visualizarPostoperatorio:PostoperatorioService = new PostoperatorioService();
+//				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+//				visualizarPostoperatorio.getAllDatos();
 			}	
 			/**
 			 * Obtiene el evento del resultado de la consulta
