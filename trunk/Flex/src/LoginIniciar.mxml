@@ -66,10 +66,10 @@
 			}
  		]]>
  	</mx:Script>	
-	<mx:CheckBox x="482" y="252" label="Sí" id="recordar"/>
+	<mx:CheckBox x="589" y="267" label="Sí" id="recordar"/>
 	<mx:TextArea x="482" y="192" height="19" width="196" displayAsPassword="true" id="pass"/>
 	<mx:Button x="647" y="302" label="Iniciar" id="AceptarUsuario" width="102" height="23" click="existLogin()" cornerRadius="6"/> 
-	<mx:Image x="-11" y="0" source="../gato.jpg" width="689" height="426"/>
+	<mx:Image x="-6" y="0" source="../gato.jpg" width="455" height="426" alpha="1.0"/>
 	<mx:Text x="407" y="164" text="Ingrese su contraseña&#xa;" fontWeight="bold" fontSize="12"/>
 	<mx:Text x="407" y="226" text="¿Desea recordar su cuenta?&#xa;" fontWeight="bold"/>
 	<mx:TextArea x="482" y="130" height="19" width="196" id="nombre" fontStyle="normal"/>
