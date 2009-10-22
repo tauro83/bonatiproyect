@@ -121,7 +121,7 @@
         	private function selRazas(event:Event):void {
         		var razas:ArrayCollection = new ArrayCollection();
     			if(ComboBox(event.target).text.localeCompare("Gato") == 0){
-    				razas.addItem({label:" "});
+    				//razas.addItem({label:" "});
     				
     				razas.addItem({label:"Gato Mestizo"});
 					razas.addItem({label:"Abisinio"});
@@ -182,7 +182,7 @@
 					razas.addItem({label:"York Chocolate"});
     			}
     			else if(ComboBox(event.target).text.localeCompare("Perro") == 0){
-    				razas.addItem({label:" "});
+    				//razas.addItem({label:" "});
 
 					razas.addItem({label:"Perro Mestizo"});
 					razas.addItem({label:"Affenpinscher"});
@@ -624,15 +624,15 @@
  
 	<!-- DATOS BUSQUEDA DE CLIENTE PARA REGISTRO DE MASCOTA --> 
 	
-	<mx:Label x="38.75" y="25" text="Rut:" width="84"/>
-	<mx:Label x="38.75" y="70" text="Nombre:" width="84" height="22"/>
-	<mx:Label x="419.5" y="68" text="Fecha Nacimiento:" width="108.75" height="22"/>
-	<mx:Label x="38.75" y="113" text="Clase Animal:" width="108.75" height="22"/>
-	<mx:Label x="419.5" y="113" text="Raza:" width="108.75" height="22"/>
-	<mx:Label x="38.75" y="158" text="Sexo:" width="51.75" height="22"/>
-	<mx:Label x="242" y="25" text="-" width="14.75" textAlign="center"/>
-	<mx:TextInput  restrict="0-9" x="153.5" y="23" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="253.5" y="23" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
+	<mx:Label x="38.75" y="60" text="Rut:" width="84"/>
+	<mx:Label x="38.75" y="129" text="Nombre:" width="84" height="22"/>
+	<mx:Label x="38.75" y="159" text="Fecha Nacimiento:" width="108.75" height="22"/>
+	<mx:Label x="38.75" y="189" text="Especie:" width="108.75" height="22"/>
+	<mx:Label x="414.5" y="189" text="Raza:" width="43.75" height="22"/>
+	<mx:Label x="414.5" y="159" text="Sexo:" width="51.75" height="22"/>
+	<mx:Label x="292" y="58" text="-" width="14.75" textAlign="center"/>
+	<mx:TextInput  restrict="0-9" x="153.5" y="56" width="141.5" id="rutClienteInput" maxChars="8" change="rutClienteDVInput.enabled=true"/>
+	<mx:TextInput x="303" y="56" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	
 	<!-- BOTON QUE DA ACCION A BUSQUEDA DE CLIENTE -->
 
@@ -654,7 +654,7 @@
 			<mx:Label x="129" y="181" width="165" text="{dg.selectedItem.sexo}"/>
 	</mx:Panel>	
 			
-	<mx:Canvas x="38.75" y="188" width="681.5" height="123" id="datosMascota" visible="true">
+	<mx:Canvas x="38.75" y="219" width="681.5" height="123" id="datosMascota" visible="true">
 		
 		<!-- DATOS DE REGISTRO DE MASCOTA --> 
 		<!-- DATOS DE CLIENTE SELECCIONADO --> 
@@ -663,8 +663,8 @@
 		<mx:DataGrid id="dg" color="0x323232" width="681" rowCount="3" y="10" x="0" variableRowHeight="true" dataProvider="{mascotas}"  visible="false" height="103">
 		    <mx:columns>
 		        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
-		        <mx:DataGridColumn dataField="fechaNacimiento" headerText="F. Nacimiento" width="100"/>
-		        <mx:DataGridColumn dataField="claseAnimal" headerText="Clase Animal" width="100"/>
+		        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Nacimiento" width="100"/>
+		        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" width="100"/>
 		        <mx:DataGridColumn dataField="raza" headerText="Raza" width="150"/>
 		        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="95"/>
 		        <mx:DataGridColumn dataField="imagen" headerText="Imagen" visible="false">
@@ -681,21 +681,23 @@
 		
 		<!-- OPCIONES PARA SUBIR IMAGEN -->
 	</mx:Canvas>
-	<mx:TextInput restrict="A-Z a-z -" x="153.5" y="68" width="169" id="nombreInput" maxChars="50"/>
-	<mx:DateField x="534.25" y="66" width="186" id="fechaNacimientoInput"/>
-	<mx:ComboBox x="153.5" y="111" width="169" id="claseAnimalInput" close="selRazas(event);">
+	<mx:TextInput restrict="A-Z a-z -" x="153.5" y="127" width="169" id="nombreInput" maxChars="50"/>
+	<mx:DateField x="153.5" y="157" width="169" id="fechaNacimientoInput"/>
+	<mx:ComboBox x="153.5" y="187" width="169" id="claseAnimalInput" close="selRazas(event);">
 	</mx:ComboBox>
-	<mx:ComboBox x="536.25" y="111" width="169" id="razaInput">
+	<mx:ComboBox x="491.25" y="187" width="229" id="razaInput">
 	</mx:ComboBox>
-	<mx:ComboBox x="153.5" y="156" width="169" id="sexoInput" dataProvider="{sexos}">
+	<mx:ComboBox x="491.25" y="157" width="114" id="sexoInput" dataProvider="{sexos}">
 	</mx:ComboBox>
 	<!--
 	<ns1:FileUploader x="465.75" y="152" uploaded="uploadedHandler(event)" width="200.5">
 	</ns1:FileUploader>
 	-->
-	<mx:Button x="546.25" y="328" label="Registrar" visible="true" click="registrarMascota(event)" id="registrar"/>
-	<mx:Button x="636.25" y="328" label="Cancelar" width="84" id="cancelar" click="borrarTodo()" visible="true"/>
-	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="546.25" y="350" label="Registrar" visible="true" click="registrarMascota(event)" id="registrar"/>
+	<mx:Button x="636.25" y="350" label="Cancelar" width="84" id="cancelar" click="borrarTodo()" visible="true"/>
+	<mx:Label x="167" y="380" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="38.75" y="25" text="Cliente" fontWeight="bold"/>
+	<mx:Label x="38.75" y="103" text="Mascota" fontWeight="bold"/>
 	<!--
 	<mx:TileList x="465.75" y="9" width="200.5" height="135" dataProvider="{files}" itemRenderer="components.ItemRenderer"></mx:TileList>
 	-->
