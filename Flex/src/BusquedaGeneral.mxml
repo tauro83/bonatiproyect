@@ -41,46 +41,6 @@
             	Application.application.setInvisible();
             	Application.application.agenda2.setVisible(true,false);
             	Application.application.menuAgenda1.setVisible(true,false);
-            	this.removeAllChildren();
-            	this.addChild(inputUsuarioCargo);
-            	this.addChild(inputUsuarioNombre);
-            	this.addChild(inputUsuarioAp);
-            	this.addChild(inputUsuarioAm);
-            	this.addChild(inputUsuarioServicio);
-            	this.addChild(inputClienteEmail);
-            	this.addChild(inputClienteNombre);
-            	this.addChild(inputClienteTel);
-            	this.addChild(inputClienteRut);
-            	this.addChild(inputClienteApellido);
-            	this.addChild(inputClienteApellido2);
-            	this.addChild(inputMascotaNombre);
-            	this.addChild(inputMascotaRut);
-            	this.addChild(inputMascotaRaza);
-            	this.addChild(inputMascotaClase);
-            	this.addChild(inputMascotaSexo);
-            	this.addChild(inputAtencionCliente);
-            	this.addChild(inputAtencionMascota);
-            	this.addChild(inputAtencionFecha);
-            	this.addChild(inputAtencionHora);
-            	this.addChild(inputAtencionServico);
-            	this.addChild(inputProductoNombre);
-            	this.addChild(inputProductoCodigo);
-            	this.addChild(inputProductoPrecio);
-            	this.addChild(inputProductoCategoria);
-            	this.addChild(comboboxCliente);
-            	this.addChild(comboboxMascota);
-            	this.addChild(combobox);
-            	this.addChild(comboboxProducto);
-            	this.addChild(comboboxAtencion);
-            	this.addChild(comboboxUsuario);
-            	this.addChild(gridCliente);
-            	this.addChild(gridUsuario);
-            	this.addChild(gridMascota);
-            	this.addChild(gridProducto);
-            	this.addChild(gridAtencion);
-            	this.addChild(textFiltrar);
-            	this.addChild(textBuscar);
-            	this.addChild(idCancelar);
             }
             		
 			//hace invisible a todos los elementos del componente
