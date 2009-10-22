@@ -8,124 +8,129 @@
 
     <default-channels>
         <channel ref="my-amf"/>
-    </default-channels>
-    
-	<destination id="AddUsuario">
-	    <properties>
-	      <source>Administracion.AddUsuario</source>
-	    </properties>
-  	</destination>
-	
-	<destination id="UsuarioEditService">
-	    <properties>
-	      <source>Administracion.UsuarioEditService</source>
-	    </properties>
-  	</destination>
+    </default-channels>    
+        <destination id="AddUsuario">
+            <properties>
+              <source>Administracion.AddUsuario</source>
+            </properties>
+        </destination>
+        
+        <destination id="UsuarioEditService">
+            <properties>
+              <source>Administracion.UsuarioEditService</source>
+            </properties>
+        </destination>
 
     <destination id="AddCliente">
-	    <properties>
-	      <source>Administracion.AddCliente</source>
-	    </properties>
+            <properties>
+              <source>Administracion.AddCliente</source>
+            </properties>
     </destination>
 
     <destination id="DiaAgendaServices">
-	    <properties>
-	      <source>Agenda.DiaAgendaServices</source>
-	    </properties>
+            <properties>
+              <source>Agenda.DiaAgendaServices</source>
+            </properties>
     </destination>
 
     <destination id="AddMascotaService">
-	    <properties>
-	      <source>Administracion.AddMascotaService</source>
-	    </properties>
+            <properties>
+              <source>Administracion.AddMascotaService</source>
+            </properties>
     </destination>
 
-	<destination id="BusquedaService"> 
-  	 	<properties>
-  			<source>Administracion.BusquedaService</source>
-  		</properties>
-  	</destination>
-	
-	<destination id="AddCita">
-	    <properties>
-	      <source>Administracion.AddCita</source>
-	    </properties>
-  	</destination>
-
-	<destination id="GetFichas">
-	    <properties>
-	      <source>Administracion.GetFichas</source>
-	    </properties>
-  	</destination>
-
-        <destination id="BitacoraCitaService">
-	    <properties>
-	      <source>Agenda.BitacoraCitaService</source>
-	    </properties>
+        <destination id="BusquedaService"> 
+                <properties>
+                        <source>Administracion.BusquedaService</source>
+                </properties>
+        </destination>
+        
+        <destination id="AddCita">
+            <properties>
+              <source>Administracion.AddCita</source>
+            </properties>
         </destination>
 
-	<destination id="LoginService"> 
-  	 	<properties>
-  			<source>Administracion.LoginService</source>
-  		</properties>
-  	</destination>
-	
-	<destination id="ClienteEditService">
+        <destination id="GetFichas">
+            <properties>
+              <source>Administracion.GetFichas</source>
+            </properties>
+        </destination>
+
+        <destination id="BitacoraCitaService">
+            <properties>
+              <source>Agenda.BitacoraCitaService</source>
+            </properties>
+        </destination>
+
+        <destination id="LoginService"> 
+                <properties>
+                        <source>Administracion.LoginService</source>
+                </properties>
+        </destination>
+        
+        <destination id="ClienteEditService">
         <properties>
            <source>Administracion.ClienteEditService</source>
         </properties>
-	</destination>
-	
-	<destination id="AddCirugiaService"> 
-  	 	<properties>
-  			<source>Pabellon.AddCirugiaService</source>
-  		</properties>
-  	</destination>
+        </destination>
+        
+        <destination id="AddCirugiaService"> 
+                <properties>
+                        <source>Pabellon.AddCirugiaService</source>
+                </properties>
+        </destination>
 
-  	<destination id="ClienteElimPurgService"> 
-  	 	<properties>
-  			<source>Administracion.ClienteElimPurgService</source>
-  		</properties>
-  	</destination>
-	<destination id="AddPreOperatorioService"> 
-  	 	<properties>
-  			<source>Pabellon.AddPreOperatorioService</source>
-  		</properties>
-  	</destination>
-	
-	<destination id="EditarCitaService"> 
-  	 	<properties>
-  			<source>Administracion.EditarCitaService</source>
-  		</properties>
-  	</destination>
-	
-	<destination id="GetAllMascotas">
-	    <properties>
-	      <source>Administracion.GetAllMascotas</source>
-	    </properties>
-  	</destination>
-	
-	<destination id="DelMascota">
-        	<properties>
-        		<source>Administracion.DelMascota</source>
-        	</properties>
-	</destination>
-	
-	<destination id="GetAllPostOperatorio"> 
-  	 	<properties>
-  			<source>Administracion.GetAllPostOperatorio</source>
-		</properties>
-  	</destination>
-	
-	<destination id="EditarPostOperatorio"> 
-  	 	<properties>
-  			<source>Pabellon.EditarPostOperatorio</source>
-  		</properties>
-  	</destination>
+        <destination id="ClienteElimPurgService"> 
+                <properties>
+                        <source>Administracion.ClienteElimPurgService</source>
+                </properties>
+        </destination>
+        <destination id="AddPreOperatorioService"> 
+                <properties>
+                        <source>Pabellon.AddPreOperatorioService</source>
+                </properties>
+        </destination>
+        
+        <destination id="EditarCitaService"> 
+                <properties>
+                        <source>Administracion.EditarCitaService</source>
+                </properties>
+        </destination>
+        
+        <destination id="GetAllMascotas">
+            <properties>
+              <source>Administracion.GetAllMascotas</source>
+            </properties>
+        </destination>
+        
+        <destination id="DelMascota">
+                <properties>
+                        <source>Administracion.DelMascota</source>
+                </properties>
+        </destination>
+        
+        <destination id="GetAllPostOperatorio"> 
+                <properties>
+                        <source>Administracion.GetAllPostOperatorio</source>
+                </properties>
+        </destination>
+        
+        <destination id="EditarPostOperatorio"> 
+                <properties>
+                        <source>Pabellon.EditarPostOperatorio</source>
+                </properties>
+        </destination>
 
-	<destination id="GetEstadisticas"> 
-  	 	<properties>
-  			<source>Peluqueria.GetEstadisticas</source>
-  		</properties>
-  	</destination>
+        <destination id="GetEstadisticas"> 
+                <properties>
+                        <source>Peluqueria.GetEstadisticas</source>
+                </properties>
+        </destination>
+		
+		<destination id="PurgCirugiaService">
+			<properties>
+			  <source>Pabellon.PurgCirugiaService</source>
+			</properties>
+		</destination>
 </service>
