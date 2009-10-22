@@ -6,8 +6,8 @@
 // Componente que tiene un grafico que elimina una mascota del sistema
 //=======================================================================
 -->
-<mx:Canvas show="getAllMascotas()" initialize="getAllMascotas()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="883">
-	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Eliminar Mascota" x="0" y="0">
+<mx:Canvas show="getAllMascotas()" initialize="getAllMascotas()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466">
+	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Eliminar Mascota">
 		
 		<mx:Script>
 		<![CDATA[

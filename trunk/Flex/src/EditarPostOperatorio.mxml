@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="iniData()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Post-Operatorio" x="241" y="133">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="iniData()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Post-Operatorio">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================

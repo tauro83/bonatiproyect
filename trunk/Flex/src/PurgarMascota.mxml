@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas show="getAllMascotas()" initialize="getAllMascotas()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="883">
-	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Mascota" x="0" y="0">
+<mx:Canvas show="getAllMascotas()" initialize="getAllMascotas()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466">
+	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Mascota">
 		
 		<mx:Script>
 		<![CDATA[
