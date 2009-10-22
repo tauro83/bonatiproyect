@@ -14,8 +14,6 @@
 		    import flash.net.FileReference;
 		    import flash.net.FileReferenceList;
 		    import mx.rpc.events.ResultEvent;
-//			import components.ItemRenderer;
-//			import events.FileUploaderEvent;
 			import mx.controls.Image;
 			import services.MascotaService;
 		    import transferObjects.Mascota;
@@ -669,7 +667,7 @@
 		        <mx:DataGridColumn dataField="claseAnimal" headerText="Clase Animal" width="100"/>
 		        <mx:DataGridColumn dataField="raza" headerText="Raza" width="150"/>
 		        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="95"/>
-		        <mx:DataGridColumn dataField="imagen" headerText="Imagen">
+		        <mx:DataGridColumn dataField="imagen" headerText="Imagen" visible="false">
 		        	<mx:itemRenderer>
 	        			<mx:Component>
 	        		    	<mx:Image width="15" height="15" horizontalAlign="center"/>
