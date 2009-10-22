@@ -1,5 +1,12 @@
-package services
+package pabellon
 {
+	/**
+ 	 * 	@author  "Sebastian Arancibia"
+	 * 	@Fecha  11 Octubre de 2009
+	 *  @Descripcion Clase Declara el canal, y los servicios a los cuales se estan enviando los datos.
+	 * Y la direccion en la cual esta levantado la capa 2.		 		
+	 * */
+	
 	import mx.controls.Alert;
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
@@ -7,6 +14,7 @@ package services
 	import mx.rpc.remoting.mxml.RemoteObject;
 	
 	import transferObjects.Cirugia;
+	import transferObjects.Diagnostico;
 
 	public class EditCirugiaService extends RemoteObject
 	{
@@ -60,9 +68,31 @@ package services
 			 *  @Descripcion Metodo que solicita a la capa 2 los datos de todos las cirugias del sistema que
 			 *   compartan los atributos enviados en el objeto.	 		
 			 * */
-		public function getCirugias(cirugia: Cirugia):void
+		public function getCirugias(rutCliente:String, nombreMascota:String, responsable:String, fecha:String):void
 		{
-			this.getOperation("getCirugias").send(cirugia);
+			this.getOperation("getCirugias").send(rutCliente, nombreMascota, responsable, fecha);
+		}
+		
+		/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  11 de Octubre de 2009
+			 *  @Descripcion Metodo que solicita a la capa 2 los datos de todos los diagnosticos del sistema que
+			 *   compartan los atributos enviados  		
+			 * */
+		public function getDiagnosticos(rutCliente:String, nombreMascota:String, fecha:String, hora:String):void
+		{
+			this.getOperation("getDiagnosticos").send(rutCliente, nombreMascota, fecha, hora);
+		}
+		
+		/**
+	 	 * 	@author  "Sebastian Arancibia"
+		 * 	@Fecha  11 de Octubre de 2009
+		 *  @Descripcion Metodo que solicita a la capa 2 los datos de todos las cirugias del sistema que
+		 *   compartan los atributos enviados en el objeto.	 		
+		 * */
+		public function addDiagnostico(diagnostico:Diagnostico):void
+		{
+			this.getOperation("addDiagnostico").send(diagnostico);
 		}
 		
 	}
