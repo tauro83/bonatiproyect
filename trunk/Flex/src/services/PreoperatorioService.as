@@ -44,12 +44,12 @@ package services
 		
 		public function getAllDatos():void
 		{
-			this.getOperation("getAllDatos").send();
+//			this.getOperation("getAllDatos").send();
 		}
 		
 		public function getAllAtenciones():void
 		{
-			this.getOperation("getAllAtenciones").send();
+//			this.getOperation("getAllAtenciones").send();
 		}
 		
 		

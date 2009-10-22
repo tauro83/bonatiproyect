@@ -16,9 +16,9 @@
             import mx.controls.CheckBox;    
             import mx.events.CloseEvent;
             import mx.rpc.events.ResultEvent;
-			import transferObjects.Postoperatorio;
+//			import transferObjects.Postoperatorio;
 			import mx.rpc.events.ResultEvent;
-			import services.PostoperatorioService;
+//			import services.PostoperatorioService;
 			
 			[Bindable]
 			private var atenciones:ArrayCollection;
@@ -36,9 +36,9 @@
 			 */
 			private function deletePos(clave:String):void
 			{
-				var postoperatorioService:PostoperatorioService=new PostoperatorioService();
-				postoperatorioService.addEventListener(ResultEvent.RESULT,deletePosResult);
-				postoperatorioService.hidePos(clave);
+//				var postoperatorioService:PostoperatorioService=new PostoperatorioService();
+//				postoperatorioService.addEventListener(ResultEvent.RESULT,deletePosResult);
+//				postoperatorioService.hidePos(clave);
 			}
 			private function deletePosResult(event:ResultEvent):void
 			{
@@ -59,9 +59,9 @@
 			 */
 			private function getAllDatos():void
 			{
-				var visualizarPostoperatorio:PostoperatorioService = new PostoperatorioService();
-				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
-				visualizarPostoperatorio.getAllDatos();
+//				var visualizarPostoperatorio:PostoperatorioService = new PostoperatorioService();
+//				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+//				visualizarPostoperatorio.getAllDatos();
 			}	
 			/**
 			 * Obtiene la lista con los objetos desde la base de datos

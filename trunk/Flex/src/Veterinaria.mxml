@@ -193,12 +193,9 @@
             	bitacoraEventos.setVisible(false,false);    
             	//raullrich
 				<!--Autor: Raul Lopez{-->
-				//editarCita.setVisible(false,false);
+//				editarCita.setVisible(false,false);
 				panelEditaCLi.setVisible(false,false);
 				ediCliUp.setVisible(false,false);
-				//regPreoOp.setVisible(false,false);
-				//regPreoOp1.setVisible(false,false);
-				//panelClinicaPrin.setVisible(false,false);
 				<!--Autor: }Raul Lopez -->
 				
 				<!--Autor: }Vitoxone {-->
@@ -220,10 +217,7 @@
             	
             	<!--Autor: Andres G.{-->
             	graficosClinica1.setVisible(false,false);
-            	AdmEliminarMascota.setVisible(false,false);
-            	editarPostOperatorio.setVisible(false, false);
-            	editarPostOperatorioDetalle.setVisible(false,false);
-            	this.AdmPurgarMascota.setVisible(false,false);
+            	
             	<!--Autor: Andres G.}-->
             	
             	<!--Autor: Esteban{ -->
@@ -237,12 +231,7 @@
 		    	bitacora.setVisible(false,false);
 		    	agenda2.setVisible(false, false);
 		    	editarCirugia.setVisible(false, false);
-		 		<!--Autor: }Sebastian -->    
-
-		      <!--Autor: Nicolas{-->
-            	purgarPre.setVisible(false,false);
-            	visualizaPre.setVisible(false,false);
-            	<!--Autor: }Nicolas -->  
+		 		<!--Autor: }Sebastian -->      
 		 		
 		 		
             }
@@ -382,7 +371,7 @@
  			{
    				 agenda2.labelMessage.text="";
    				 setInvisible();
-    		     //editarCita.setVisible(true,false);
+    		  /*    editarCita.setVisible(true,false); */
     		     menuAgenda1.setVisible(true, false);
  			}
  			<!--Autor: Raúl López{-->
@@ -501,11 +490,11 @@
 	</ns1:MenuAgenda>
 
 
-<!--
-     <ns1:EditarCita x="241" y="134" id="editarCita" visible="false">
-	</ns1:EditarCita>
 
--->
+    <!--<ns1:EditarCita x="241" y="134" id="editarCita" visible="false">
+	</ns1:EditarCita>-->
+
+
 	<ns1:Bloquearydesbloquear x="241" y="134" id="panelDesbloqueo" visible="false">
 	</ns1:Bloquearydesbloquear>
 	<ns1:Aviso x="241" y="134" id="agAviso2" visible="false">
@@ -520,16 +509,6 @@
 	
 	<ns1:GraficosClinica x="241" y="134" id="graficosClinica1" visible="false">
 	</ns1:GraficosClinica>
-	<ns1:EliminarMascota x="241" y="134" id="AdmEliminarMascota" visible="false">
-	</ns1:EliminarMascota>
-	<ns1:EditarPostOperatorio x="241" y="134" id="editarPostOperatorio" visible="false">
-	</ns1:EditarPostOperatorio>
-	<ns1:EditarPostOperatorioDetalle x="241" y="134" id="editarPostOperatorioDetalle" visible="false">
-	</ns1:EditarPostOperatorioDetalle>
-	<ns1:EliminarMascotaRestaurar x="241" y="134" id="AdmElimMascotaRestaurar" visible="false">
-	</ns1:EliminarMascotaRestaurar>
-	<ns1:PurgarMascota  x="241" y="134" id="AdmPurgarMascota" visible="false">
-	</ns1:PurgarMascota>
 	<!--Autor: andres}-->
 
 	<!--Autor: nicolas}-->
