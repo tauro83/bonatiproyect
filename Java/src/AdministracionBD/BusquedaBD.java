@@ -80,11 +80,11 @@ public class BusquedaBD
     		{  
     			usuario = new Usuario();
     			
-    			usuario.setNombre(result.getString(1));
-    			usuario.setApellidoPaterno(result.getString(2));
-    			usuario.setApellidoMaterno(result.getString(3));
-    			usuario.setCargo(result.getString(4));
-    			usuario.setServicio(result.getString(5));
+    			usuario.setNombre(result.getString(1).trim());
+    			usuario.setApellidoPaterno(result.getString(2).trim());
+    			usuario.setApellidoMaterno(result.getString(3).trim());
+    			usuario.setCargo(result.getString(4).trim());
+    			usuario.setServicio(result.getString(5).trim());
     			
     			usuarios.add(usuario);
     		}
@@ -112,12 +112,12 @@ public class BusquedaBD
     		{  
     			cliente = new Cliente();
     			
-    			cliente.setNombre(result.getString(1));
-    			cliente.setRut(result.getString(2));
-    			cliente.setTelefono2(result.getString(3));
-    			cliente.setEmail(result.getString(4));
-    			cliente.setApellido(result.getString(5));
-    			cliente.setApellido2(result.getString(6));
+    			cliente.setNombre(result.getString(1).trim());
+    			cliente.setRut(result.getString(2).trim());
+    			cliente.setTelefono2(result.getString(3).trim());
+    			cliente.setEmail(result.getString(4).trim());
+    			cliente.setApellido(result.getString(5).trim());
+    			cliente.setApellido2(result.getString(6).trim());
     			
     			clientes.add(cliente);
     		}
@@ -145,11 +145,11 @@ public class BusquedaBD
     		{  
     			mascota = new Mascota();
     			
-    			mascota.setRutCliente(result.getString(1));
-    			mascota.setNombre(result.getString(2));
-    			mascota.setClaseAnimal(result.getString(3));
-    			mascota.setRaza(result.getString(4));
-    			mascota.setSexo(result.getString(5));
+    			mascota.setRutCliente(result.getString(1).trim());
+    			mascota.setNombre(result.getString(2).trim());
+    			mascota.setClaseAnimal(result.getString(3).trim());
+    			mascota.setRaza(result.getString(4).trim());
+    			mascota.setSexo(result.getString(5).trim());
     			
     			mascotas.add(mascota);
     		}
@@ -177,11 +177,11 @@ public class BusquedaBD
     		{  
     			atencion = new Atencion();
     			
-    			atencion.setClienteRut(result.getString(1));
-    			atencion.setMascotaNombre(result.getString(2));
-    			atencion.setServicio(result.getString(3));
-    			atencion.setHora(result.getString(4));
-    			atencion.setFecha(result.getString(5));
+    			atencion.setClienteRut(result.getString(1).trim());
+    			atencion.setMascotaNombre(result.getString(2).trim());
+    			atencion.setServicio(result.getString(3).trim());
+    			atencion.setHora(result.getString(4).trim());
+    			atencion.setFecha(result.getString(5).trim());
     			
     			atenciones.add(atencion);
     		}
@@ -209,10 +209,10 @@ public class BusquedaBD
     		{  
     			producto = new Producto();
     			
-    			producto.setNombre(result.getString(1));
-    			producto.setPrecio(result.getString(2));
-    			producto.setCategoria(result.getString(3));
-    			producto.setCodigo(result.getString(4));
+    			producto.setNombre(result.getString(1).trim());
+    			producto.setPrecio(result.getString(2).trim());
+    			producto.setCategoria(result.getString(3).trim());
+    			producto.setCodigo(result.getString(4).trim());
     			
     			productos.add(producto);
     		}
