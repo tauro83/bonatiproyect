@@ -12,6 +12,7 @@ package services
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
+	
 	import transferObjects.CirugiaPurg;
 	/**
 	 * Clase encargada de realizar la conexión entre la capa
@@ -41,9 +42,9 @@ package services
 		/**
 		 * @param clave String que se le entrega a la acapa lógica para eliminar una cirugia
 		 */ 
-		public function purgCirugia(cirugia:String):void
+		public function setEstado(estado:String):void
 		{
-			this.getOperation("purgCirugia").send(cirugia);
+			this.getOperation("setEstado").send(estado);
 			
 		}
 		/**
@@ -52,6 +53,14 @@ package services
 		public function getAllCirugias():void
 		{
 			this.getOperation("getAllCirugias").send();
+		}
+		
+		/**
+		 * Se obtienen todas las cirugias que están registradas en la base de datos
+		 */ 
+		public function getAllCirugiasU(rut:String):void
+		{
+			this.getOperation("getAllCirugiasU").send(rut);
 		}
 	}
 }
