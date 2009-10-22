@@ -3,12 +3,12 @@ package Administracion;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import AdministracionBD.DelMascotaDB;
+import AdministracionBD.PurgarMascotaDB;
 import Bd.DBConnectionManager;
 
-public class DelMascota {
+public class PurgarMascota {
 	Connection connection;
-	public DelMascota(){
+	public PurgarMascota(){
 		try{    		
 			connection=DBConnectionManager.getConnection();
 		}
@@ -16,12 +16,12 @@ public class DelMascota {
 			e.printStackTrace();
 		}
 	}
-	public int delMascota(String rut, String nombre, boolean status){
+	public int purgarMascota(String rut, String nombre){
 		int result=0;
 		
 		try{			
-			DelMascotaDB mascotaDB= new DelMascotaDB(connection);
-			result= mascotaDB.DelMascota(rut, nombre,status);	
+			PurgarMascotaDB mascotaDB= new PurgarMascotaDB(connection);
+			result= mascotaDB.purgarMascota(rut, nombre);	
 			connection.close();
 			
 		}

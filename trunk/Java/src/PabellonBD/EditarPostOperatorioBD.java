@@ -7,11 +7,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 import TransferObjects.PostOperatorio;
-
+/**
+ * @author Andres Garrido
+ * @version 1
+ * clase que edita la informacion de una tupla de Post operatorio
+ * dada una hora, fecha y servicio
+ */
 public class EditarPostOperatorioBD {
 	Connection connection;
 	PreparedStatement update;
 	String query;
+	//constructor que crea la conexion y prepara la sentencia para ser ejecutada
 	public EditarPostOperatorioBD(Connection connection) throws SQLException{
 		this.connection = connection;
 		 query = "UPDATE atencionpostoperatorio "+
@@ -21,6 +27,12 @@ public class EditarPostOperatorioBD {
 
 			 update = connection.prepareStatement(query);
 	}
+	/**
+	 * @author Andres Garrido
+	 * @version 1
+	 * Por facilidad de implementacion esta funcion toma una lista con los elementos a actualizar
+	 * en la base de datos y los rellena en la sentencia sql para luego ejecutarla
+	 */
 	public int editarPostOperatorio(List lista){
 		int result=0;
 		try{
@@ -42,7 +54,6 @@ public class EditarPostOperatorioBD {
 			update.setString(14, (String) lista.get(3));
 			
 			result  = update.executeUpdate();
-			System.out.println((String) lista.get(4)+"   "+lista.get(5)+"   "+lista.get(3)+" "+result);
 		}
 		catch(SQLException e){
 			e.printStackTrace();

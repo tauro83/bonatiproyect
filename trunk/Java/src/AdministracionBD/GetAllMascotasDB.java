@@ -40,8 +40,7 @@ public class GetAllMascotasDB{
     			mas.setRaza(result.getString(5));
     			mas.setSexo(result.getString(6));
     			mas.setEstado(result.getBoolean(7));
-    			if(mas.getEstado())
-    				mascotas.add(mas);
+    			mascotas.add(mas);
     		}
 		} 
     	catch (SQLException e) 
