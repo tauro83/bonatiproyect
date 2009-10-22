@@ -13,11 +13,17 @@ import java.util.List;
 
 import TransferObjects.Mascota;
 import TransferObjects.PostOperatorio;
-
+/**
+ * @author Andres Garrido
+ * @version 1
+ * clase que obtiene todas las filas existentes en Post Operatorio
+ */
 public class GetAllPostOperatorio {
 	Connection connection;
 	PreparedStatement selectAll;
 	public GetAllPostOperatorio(){
+		//creamos una nueva conexion y preparamos la sentencia para
+		//luego ser llamada
 		try{    		
 			connection=DBConnectionManager.getConnection();
 			String query = "SELECT *" +
@@ -28,6 +34,12 @@ public class GetAllPostOperatorio {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * @author Andres Garrido
+	 * @version 1
+	 * método que toma todas las filas de post operatorio y las agrupa en una lista
+	 * la cual es enviada a flex
+	 */
 	public List<PostOperatorio> getAllPostOperatorio(){
 		List<PostOperatorio> lista=new ArrayList<PostOperatorio>();
     	PostOperatorio post;		
@@ -49,7 +61,6 @@ public class GetAllPostOperatorio {
     			post.setRut(result.getString(9));
     			post.setApellidoDueño(result.getString(10));
     			post.setNombreDueño(result.getString(11));
-    			System.out.println("NOMBRE "+post.getNombreDueño());
     			lista.add(post);
     			
     		}
