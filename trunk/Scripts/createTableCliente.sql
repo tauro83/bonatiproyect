@@ -14,5 +14,6 @@ CREATE TABLE cliente
   comuna CHAR(20),
   email CHAR(20),
   email2 CHAR(20),
+  estado BOOLEAN DEFAULT true,
   CONSTRAINT rut PRIMARY KEY (rut, rut2)
 ); 
