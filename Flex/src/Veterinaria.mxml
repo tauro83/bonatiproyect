@@ -223,6 +223,7 @@
             	AdmEliminarMascota.setVisible(false,false);
             	editarPostOperatorio.setVisible(false, false);
             	editarPostOperatorioDetalle.setVisible(false,false);
+            	this.AdmPurgarMascota.setVisible(false,false);
             	<!--Autor: Andres G.}-->
             	
             	<!--Autor: Esteban{ -->
@@ -525,6 +526,10 @@
 	</ns1:EditarPostOperatorio>
 	<ns1:EditarPostOperatorioDetalle x="241" y="134" id="editarPostOperatorioDetalle" visible="false">
 	</ns1:EditarPostOperatorioDetalle>
+	<ns1:EliminarMascotaRestaurar x="241" y="134" id="AdmElimMascotaRestaurar" visible="false">
+	</ns1:EliminarMascotaRestaurar>
+	<ns1:PurgarMascota  x="241" y="134" id="AdmPurgarMascota" visible="false">
+	</ns1:PurgarMascota>
 	<!--Autor: andres}-->
 
 	<!--Autor: nicolas}-->
