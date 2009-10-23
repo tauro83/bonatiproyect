@@ -193,7 +193,7 @@
             	bitacoraEventos.setVisible(false,false);    
             	//raullrich
 				<!--Autor: Raul Lopez{-->
-//				editarCita.setVisible(false,false);
+				editarCita.setVisible(false,false);
 				panelEditaCLi.setVisible(false,false);
 				ediCliUp.setVisible(false,false);
 				<!--Autor: }Raul Lopez -->
@@ -373,7 +373,7 @@
  			{
    				 agenda2.labelMessage.text="";
    				 setInvisible();
-    		  /*    editarCita.setVisible(true,false); */
+    		     editarCita.setVisible(true,false);
     		     menuAgenda1.setVisible(true, false);
  			}
  			<!--Autor: Raúl López{-->
@@ -590,6 +590,9 @@
 	</ns2:EditarCliente>
 	<ns2:EditClienteUpdate x="241" y="134" id="ediCliUp" visible="false">
 	</ns2:EditClienteUpdate>
+	
+	<ns2:EditCitaUpdate x="241" y="134" visible="false" id="editarCita">
+	</ns2:EditCitaUpdate>
 	<!--Autor: }Raul Lopez -->
 	
 	 <!--Autor: Vitoxone}--> 
