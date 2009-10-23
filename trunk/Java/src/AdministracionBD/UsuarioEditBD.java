@@ -16,6 +16,7 @@ public class UsuarioEditBD
 	PreparedStatement insert;
 	PreparedStatement selectAll;
 	Connection conn;
+
 	
 	/**
 	 * Autor: Jimmy Muñoz
@@ -38,9 +39,8 @@ public class UsuarioEditBD
 			
 			insert = connection.prepareStatement(query);
 			
-			
 			query = "SELECT nombre, apaterno, amaterno, usuario, cargo, contrasena, servicio, pregistrar, peditar, peliminar, ppurgar "+
-			"FROM usuario;";
+			"FROM usuario where estado='TRUE';";
 				
 			selectAll = connection.prepareStatement(query);
 		} 
@@ -50,7 +50,7 @@ public class UsuarioEditBD
 		}
 	}
 	
-		
+	
 	/**
 	 * Autor: Jimmy Muñoz
 	 * Ingresa a una nueva persona a la base de datos
