@@ -208,6 +208,7 @@
             	purgficha.setVisible(false,false);
             	PurgarPostOperatorio1.setVisible(false,false);
             	purgPost.setVisible(false,false);
+            	purgusuario.setVisible(false,false);
             	
             	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
@@ -544,6 +545,8 @@
 	</ns1:BitacoraEventos>
 	<ns1:ElimUsuario x="241" y="134" id="elimusuario" visible="false" borderColor="#15AD8F">
 	</ns1:ElimUsuario>
+	<ns1:PurgUsuario x="241" y="134" id="purgusuario" visible="false" borderColor="#15AD8F">
+	</ns1:PurgUsuario>
 	<ns1:ElimFicha x="241" y="134" id="elimficha" visible="false" borderColor="#15AD8F">
 	</ns1:ElimFicha>
 	<ns1:PurgFicha x="241" y="134" id="purgficha" visible="false" borderColor="#15AD8F">
