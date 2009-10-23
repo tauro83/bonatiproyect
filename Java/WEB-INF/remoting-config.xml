@@ -21,6 +21,11 @@
             </properties>
         </destination>
 
+ 		<destination id="UsuarioElimService">
+            <properties>
+              <source>Administracion.UsuarioElimService</source>
+            </properties>
+        </destination>
     <destination id="AddCliente">
             <properties>
               <source>Administracion.AddCliente</source>
