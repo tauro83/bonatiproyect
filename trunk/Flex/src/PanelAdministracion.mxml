@@ -21,7 +21,8 @@
 		<mx:Canvas label="Usuario" width="100%" height="100%">
 			<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="registrarUsuario()"/>
 			<mx:LinkButton x="50" y="40" label="Editar" id="linkEditarUsAd" click="editarUsuario()" width="66" textAlign="left"/>
-			<mx:LinkButton x="50" y="70" label="Eliminar" textAlign="left" click="eliminarUsuario()"/>
+			<mx:LinkButton x="50" y="70" label="Eliminar" textAlign="left" click="eliminarUsuario()" id="linkEliminarUsAd"/>
+			<mx:LinkButton x="50" y="100" label="Purgar" textAlign="left" id="linkPurgarUsAd" click="purgarUsuario()"/>
 		</mx:Canvas>
 	</mx:Accordion>
 	 <mx:Script>
@@ -44,17 +45,23 @@
          }
          
          private function eliminarUsuario():void
-         {
+          {
+          	
          	Application.application.setInvisible();
             Application.application.AdmOpciones1.setVisible(true,false);
+            Application.application.elimusuario.getAllUsuarios();
+            Application.application.elimusuario.resetMessage();
             Application.application.elimusuario.setVisible(true,false);
-         }
+            
+          }
          
           private function purgarUsuario():void
           {
          	Application.application.setInvisible();
             Application.application.AdmOpciones1.setVisible(true,false);
-            //purgusuario.setVisible(true,false);
+            Application.application.purgusuario.getAllUsuarios();
+            Application.application.purgusuario.resetMessage();
+            Application.application.purgusuario.setVisible(true,false);
           }
          
           private function visualizarFicha():void
