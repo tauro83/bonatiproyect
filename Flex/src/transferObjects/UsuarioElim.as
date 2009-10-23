@@ -26,10 +26,10 @@ package transferObjects
 		public var cargo:String;
 		public var usuario:String;
 		public var servicio:String;
-		public var registrar:Boolean;
-		public var editar:Boolean;
-		public var eliminar:Boolean;
-		public var purgar:Boolean;
+		public var registrar:String;
+		public var editar:String;
+		public var eliminar:String;
+		public var purgar:String;
 		
 		public var sel:Boolean;
 		
