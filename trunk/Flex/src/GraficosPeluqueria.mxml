@@ -59,7 +59,7 @@
 					}
 				}
 				else{
-					mens.text = Mensajes.getMensajeError(7);
+					mens.text ="La fecha de inicio, debe ser anterior a la fecha de término";
 				}
 			}
 		}
@@ -80,7 +80,7 @@
 			<mx:DateField id="fechaIni"  x="89" y="36" width="112" change="changeData(event)"/>
 			<mx:Label x="10" y="38" text="Inicio:" width="58"/>
 			<mx:DateField id="fechaFin"   x="89" y="67" width="112" change="changeData(event)"/>
-			<mx:Label x="10" y="69" text="Termino:" width="71"/>
+			<mx:Label x="10" y="69" text="Término:" width="71"/>
 			<mx:Label x="10" y="10" text="Rango de fechas:"/>
 			<mx:Label x="176" y="377" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	</mx:Panel>
