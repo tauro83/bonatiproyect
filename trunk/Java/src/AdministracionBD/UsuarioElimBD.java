@@ -27,6 +27,9 @@ public class UsuarioElimBD
 	PreparedStatement insert;
 	PreparedStatement selectAll;
 	PreparedStatement deleteUsuario;
+	PreparedStatement eliminar;
+	PreparedStatement selectAllPurg;
+	
 	/**
 	 * Se declaran las consultas hacia la base de datos
 	 * @param connection Conexión obtenida con la base de datos
@@ -43,10 +46,20 @@ public class UsuarioElimBD
 			query = "DELETE FROM usuario " +
 					"WHERE usuario = ?;";
 			deleteUsuario = connection.prepareStatement(query);
-			
-			query = "SELECT nombre, apaterno, usuario, cargo, servicio, pregistrar, peditar, peliminar, ppurgar " +
-					"FROM usuario;";		
+
+			query = "SELECT nombre, apaterno, amaterno, usuario, cargo, contrasena, servicio, pregistrar, peditar, peliminar, ppurgar "+
+				"FROM usuario where estado='FALSE';";
+			selectAllPurg = connection.prepareStatement(query);
+
+			query = "SELECT nombre, apaterno, amaterno, usuario, cargo, contrasena, servicio, pregistrar, peditar, peliminar, ppurgar "+
+				"FROM usuario where estado='TRUE';";
 			selectAll = connection.prepareStatement(query);
+			
+			query = "UPDATE usuario "+
+			   "SET estado = 'FALSE' " +
+			   "WHERE usuario = ?;";
+			eliminar= connection.prepareStatement(query);
+			
 		} 
 		catch (SQLException e) 
 		{
@@ -75,10 +88,73 @@ public class UsuarioElimBD
     }
     
     /**
+     * Trata de obtener todos los usuarios registrados en la base de datos
+     * @return Lista con todos los usuarios registrados
+     */
+	public List<UsuarioElim> getAllUsuariosP()
+    {
+    	List<UsuarioElim> persons=new ArrayList<UsuarioElim>();
+    	UsuarioElim person;
+    	try 
+    	{
+    		ResultSet result = selectAllPurg.executeQuery();
+    		while(result.next())
+    		{
+    			person= new UsuarioElim();
+   
+    			person.setNombre(result.getString(1));
+    			person.setApellidoPaterno(result.getString(2));
+    			person.setApellidoMaterno(result.getString(3));
+    			person.setUsuario(result.getString(4));
+    			person.setCargo(result.getString(5));
+    			person.setContrasena(result.getString(6));
+    			person.setServicio(result.getString(7));
+    			person.setEditar(result.getBoolean(8));
+ 			    person.setRegistrar(result.getBoolean(8));
+    			person.setEliminar(result.getBoolean(10));
+    			person.setPurgar(result.getBoolean(11));
+    			person.convetParam();
+    			persons.add(person);
+    		}
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	return persons;
+    }
+    
+	/**
+	 * Funcion que permite ocultar un usuario
+	 * @param clave es el nombre de usuario
+	 * con este parámetro se hace la selección de
+	 * una tupla en la base de datos
+	 * @return retorna el estado de la conexion
+	 */
+    public int hideUser(String clave)
+    {
+    	int result=0;
+    	try 
+    	{
+
+    		System.out.println("clave:  "+clave);
+    		eliminar.setString(1, clave);
+    		eliminar.executeQuery();
+    		System.out.println("despues del query clave:  "+clave);
+    		
+    		result= eliminar.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	return result;
+    }
+    /**
      * 
      * @return Lista con todos usuarios registrados en la base de datos
      */
-    public List<UsuarioElim> getAllUsers()
+    public List<UsuarioElim> getAllUsuariosE()
     {
     	List<UsuarioElim> persons=new ArrayList<UsuarioElim>();
     	UsuarioElim person;
@@ -88,16 +164,19 @@ public class UsuarioElimBD
     		while(result.next())
     		{
     			person= new UsuarioElim();
+   
     			person.setNombre(result.getString(1));
-    			person.setApellido(result.getString(2));
-    			person.setUsuario(result.getString(3));
-    			person.setCargo(result.getString(4));
-    			person.setServicio(result.getString(5));
-    			person.setRegistrar(result.getBoolean(6));
-    			person.setEditar(result.getBoolean(7));
-    			person.setEliminar(result.getBoolean(8));
-    			person.setPurgar(result.getBoolean(9));
-    			
+    			person.setApellidoPaterno(result.getString(2));
+    			person.setApellidoMaterno(result.getString(3));
+    			person.setUsuario(result.getString(4));
+    			person.setCargo(result.getString(5));
+    			person.setContrasena(result.getString(6));
+    			person.setServicio(result.getString(7));
+    			person.setEditar(result.getBoolean(8));
+ 			    person.setRegistrar(result.getBoolean(8));
+    			person.setEliminar(result.getBoolean(10));
+    			person.setPurgar(result.getBoolean(11));
+    			person.convetParam();
     			persons.add(person);
     		}
 		} 
