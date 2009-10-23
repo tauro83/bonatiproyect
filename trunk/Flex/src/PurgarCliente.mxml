@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="cargarClientesEliminados()" width="779"  height="466" borderColor="#15AD8F" title="Purgar Cliente" x="241" y="133" xmlns:ns1="com.adobe.flex.extras.controls.*">
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="cargarClientesEliminados()" width="779"  height="466" borderColor="#15AD8F" title="Purgar Cliente" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
 		<mx:Script>
 		<![CDATA[
 		
@@ -63,7 +63,78 @@
 				clientePurgadoService.reactivarCliente(rut);
 			}
 			  
+						/**
+	 * 	@Fecha  03 Octubre
+	 *  @Descripcion Metodo creado por esteban en busqueda de un cliente
+	 	**/ 
 			
+					   //combobox de cliente
+		   private function seleccionarCliente (event:Event):void
+            {
+            	//getAllClientes();
+            	switch (comboboxCliente.selectedLabel){
+				case 'E-mail':		
+					inputClienteEmail.setVisible(true,false);
+					
+					inputClienteNombre.setVisible(false,false);
+					inputClienteApellido.setVisible(false,false);
+					inputClienteApellido2.setVisible(false,false);
+					inputClienteRut.setVisible(false,false);
+				    inputClienteTel.setVisible(false,false);
+				break; 
+				case 'Nombre':		
+					inputClienteNombre.setVisible(true,false);
+					
+					inputClienteEmail.setVisible(false,false);
+					inputClienteApellido.setVisible(false,false);
+					inputClienteApellido2.setVisible(false,false);
+					inputClienteRut.setVisible(false,false);
+				    inputClienteTel.setVisible(false,false);
+
+					
+				break; 
+				case 'Teléfono':		
+					inputClienteTel.setVisible(true,false);
+					
+					inputClienteEmail.setVisible(false,false);
+					inputClienteApellido.setVisible(false,false);
+					inputClienteNombre.setVisible(false,false);
+					inputClienteApellido2.setVisible(false,false);
+					inputClienteRut.setVisible(false,false);
+					
+					
+				break; 
+				case 'Rut':		
+					inputClienteRut.setVisible(true,false);
+					
+					inputClienteApellido.setVisible(false,false);
+					inputClienteEmail.setVisible(false,false);
+					inputClienteTel.setVisible(false,false);
+					inputClienteNombre.setVisible(false,false);
+					inputClienteApellido2.setVisible(false,false);
+					
+					
+				break; 	
+				case 'Apellido Materno':		
+					inputClienteApellido2.setVisible(true,false);
+					
+					inputClienteApellido.setVisible(false,false);
+					inputClienteEmail.setVisible(false,false);
+					inputClienteTel.setVisible(false,false);
+					inputClienteNombre.setVisible(false,false);
+					inputClienteRut.setVisible(false,false);
+				break; 	
+				case 'Apellido Paterno':		
+					inputClienteApellido.setVisible(true,false);
+					
+					inputClienteEmail.setVisible(false,false);
+					inputClienteApellido2.setVisible(false,false);
+					inputClienteTel.setVisible(false,false);
+					inputClienteNombre.setVisible(false,false);
+					inputClienteRut.setVisible(true,false);
+				break; 	
+				}
+            } 
 		/**
 	 * @Fecha  03 Octubre
 	 *  @Descripcion Metodo que recibe la respuesta si es que fue una eliminacion exitosa o no
@@ -183,6 +254,12 @@
                 tablaClientes.dataProvider = clientes;
             }
             
+			private function cancelando():void
+			{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+            
             private function quitarFila():void
             {
                 var allRows:int = clientes.length;
@@ -204,7 +281,7 @@
 		]]> 
   	</mx:Script>	
 	
-	<mx:DataGrid x="10" y="74" width="739" height="206" id="tablaClientes" dataProvider="{clientes}" click="Activar()" >
+	<mx:DataGrid x="10" y="99" width="739" height="220" id="tablaClientes" dataProvider="{clientes}" click="Activar()">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" >
 			 	<mx:itemRenderer>
@@ -213,24 +290,45 @@
                         </mx:Component>
              	</mx:itemRenderer>
             </mx:DataGridColumn>
-			<mx:DataGridColumn width="90" headerText="Nombre" dataField="nombre"/>
-			<mx:DataGridColumn width="90" headerText="Apellido Paterno" dataField="apellido"/>
-			<mx:DataGridColumn width="90" headerText="Apellido Paterno" dataField="apellido2"/>
-			<mx:DataGridColumn width="90" headerText="Rut" dataField="rut"/>
+			<mx:DataGridColumn width="90" headerText="Nombre" dataField="nombre" />
+			<mx:DataGridColumn width="95" headerText="Apellido Paterno" dataField="apellido"/>
+			<mx:DataGridColumn width="95" headerText="Apellido Materno" dataField="apellido2"/>
+			<mx:DataGridColumn width="90" headerText="Rut" dataField="rut" />
 			<mx:DataGridColumn width="90" headerText="Telefono" dataField="telefono2"/>
 			<mx:DataGridColumn width="90" headerText="Celular" dataField="celular2"/>
-			<mx:DataGridColumn width="90" headerText="direccion" dataField="direccion"/>
-			<mx:DataGridColumn width="60" headerText="Region" dataField="region"/>
-			<mx:DataGridColumn width="50" headerText="Comuna" dataField="comuna"/>
+			<mx:DataGridColumn width="90" headerText="direccion" dataField="direccion" visible="false"/>
+			<mx:DataGridColumn width="60" headerText="Region" dataField="region" visible="false"/>
+			<mx:DataGridColumn width="90" headerText="Comuna" dataField="comuna" visible="false"/>
+			<mx:DataGridColumn width="90" headerText="E-mail" dataField="email"/>
 			</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Button x="591" y="301" enabled="false" label="Purgar" id="purgarCliente" click="{deleteRow()}"  toolTip="Cuidado!!, esto eliminara los clientes seleccionados para siempre"/>
-	<mx:Button x="674" y="301" label="Cancelar" id="cancelar" toolTip="Cancela la operación"/>
+	<mx:Button x="601" y="342" enabled="false" label="Purgar" id="purgarCliente" click="{deleteRow()}"  toolTip="Cuidado!!, esto eliminara los clientes seleccionados para siempre"/>
+	<mx:Button x="674" y="342" label="Cancelar" id="cancelar" toolTip="Cancela la operación"  click="cancelando()"/>
 	<mx:CheckBox x="10" y="48" id="todo" click="{seleccionarTodo()}"/>
 	<mx:Label x="32" y="48" text="Seleccionar todo"/>
-	<mx:TextInput x="59" y="10" id="texImput"/>
-
-	<mx:Label x="10" y="12" text="Buscar"/>
-	<mx:Button x="501" y="301" enabled="false" id="reactivarCliente" label="Reactivar" click="{Reactivar()}" width="82"/>
+	<mx:Button x="511" y="342" enabled="false" id="reactivarCliente" label="Reactivar" click="{Reactivar()}" width="82"/>
+	
+	
+			<!-- input Cliente -->
+	<fc:AutoComplete id="inputClienteNombre" x="59" y="10" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputClienteRut" x="59" y="10" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
+	<fc:AutoComplete id="inputClienteTel" x="59" y="10" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
+	<fc:AutoComplete id="inputClienteEmail" x="59" y="10" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido2" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
+	
+	<!-- Cliente: combobox y grid -->
+	<mx:ComboBox x="294" y="9" id="comboboxCliente" width="150" visible="true" change="{seleccionarCliente(event)}" close="{cargarClientesEliminados()}">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="Apellido Materno"/>
+			<mx:Object label="Apellido Paterno"/>
+			<mx:Object label="E-mail"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Rut"/>
+			<mx:Object label="Teléfono"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	
 </mx:Panel>
