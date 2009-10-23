@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import TransferObjects.UsuarioElim;
 import AdministracionBD.UsuarioElimBD;
 import Bd.DBConnectionManager;
@@ -33,18 +34,18 @@ public class UsuarioElimService
 	 */
 	public int deleteUser(String clave)
     {
-		System.out.println("Clave: "+clave);
+		//System.out.println("Clave: "+clave);
 		int result=0;
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			UsuarioElimBD userDB= new UsuarioElimBD(connection);
 			
-			System.out.println("Clave: "+clave+" entra al try");
+			//System.out.println("Clave: "+clave+" entra al try");
 			
 			result= userDB.deleteUser(clave);
 			
-			System.out.println("Clave: "+clave+" despues de la consulta");
+			//System.out.println("Clave: "+clave+" despues de la consulta");
 			
 			connection.close();
 		} catch (SQLException e) 
@@ -53,18 +54,65 @@ public class UsuarioElimService
 		}
 		return result;
     }
+
 	/**
-	 * Trata de obtener todos los usuarios registrados en la base de datos
-	 * @return Lista con todos los usuarios registrados
+	 * Funcion que permite ocultar un usuario
+	 * @param clave es el nombre de usuario
+	 * con este parámetro se hace la selección de
+	 * una tupla en la base de datos
+	 * @return retorna el estado de la conexion
 	 */
-    public List<UsuarioElim> getAllUsers()
+	public int hideUser(String clave)
+    {
+		int result=0;
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			UsuarioElimBD userDB= new UsuarioElimBD(connection);
+			result= userDB.hideUser(clave);
+			connection.close();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
+    }
+	
+	/**
+	 * Funcion que inserta objetos del tipo usuarioElim en un array
+	 * para enviarlo a la capa 1
+	 * @return
+	 */
+	public List<UsuarioElim> getAllUsuariosP()
     {
     	List<UsuarioElim> persons=new ArrayList<UsuarioElim>();
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			UsuarioElimBD personDB= new UsuarioElimBD(connection);
-			persons= personDB.getAllUsers();		
+			persons= personDB.getAllUsuariosP();		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return persons;
+    }
+	
+	
+	/**
+	 * Trata de obtener todos los usuarios registrados en la base de datos
+	 * @return Lista con todos los usuarios registrados
+	 */
+	public List<UsuarioElim> getAllUsuariosE()
+    {
+    	List<UsuarioElim> persons=new ArrayList<UsuarioElim>();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			UsuarioElimBD personDB= new UsuarioElimBD(connection);
+			persons= personDB.getAllUsuariosE();		
 			connection.close();
 		} 
     	catch (SQLException e) 
