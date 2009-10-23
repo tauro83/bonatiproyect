@@ -11,5 +11,6 @@ CREATE TABLE cliente
   direccion character(30),
   region character(20),
   comuna character(20),
-  email character(40)
-) ; 
+  email character(40),
+  CONSTRAINT cliente_pkey PRIMARY KEY (rut)
+) ;
