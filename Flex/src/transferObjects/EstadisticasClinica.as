@@ -1,7 +1,7 @@
 //=======================================================================
-// FECHA: CREACIÓN: 12 Septiembre
-// AUTOR: Andres garrido
-// Comentarios: TransferObject que es instanciado en el componente GraficosClinica
+// FECHA: CREACIÓN: 19 Septiembre
+// AUTOR: Camilo Verdugo
+// Comentarios: TransferObject que es instanciado en el componente GraficosPeluqueria
 //				El cual es enviado a la capa logica, con el numero de atenciones y el tipo
 //=======================================================================
 package transferObjects

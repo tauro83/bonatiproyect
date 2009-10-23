@@ -9,109 +9,93 @@
 -->
 	<mx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
+		import mx.messaging.channels.StreamingAMFChannel;
+		import mx.collections.ArrayCollection;
 		import mx.rpc.events.ResultEvent;
 		import mx.controls.Alert;
 		import mx.events.CalendarLayoutChangeEvent;
+		import services.GetEstadisticasClinica;
+		import transferObjects.EstadisticasClinica;
+		import services.Mensajes;
+				
+		[Bindable]public var expenses:ArrayCollection ;
+		private var titulo:String = "Estadísticas por rango de fecha para Clinica";
+		private var gep:GetEstadisticasClinica;
+		private var fechaActual:Date = new Date();
 
-		
-		[Bindable]private var testInfo:XMLList;
-		[Bindable]private var periodo:String;
-		[Bindable]private var dataSet:String = "set1";
-		[Bindable]private var titulo:String = "Estadísticas de Clínica";
-		[Bindable]private var datos:ArrayCollection;
-		
+		private function getEstadisticasR(event:ResultEvent):void
+		{
+			expenses = event.result as ArrayCollection;	
+		}
 		private function ini():void{
-			var lista:ArrayCollection;
-			datos = new ArrayCollection();
-			
+			servicio.selectedValue="Pabellon";
 		}
-					
-		private function xmlHandler(evt:ResultEvent):void{
-			//obtiene los objetos atencion desde el xml
-			testInfo = evt.result.atencion;
-			
-		}
-		private function changeDate(eventObj:CalendarLayoutChangeEvent):void{
+		/**
+		 	 * 	@author  Andres Garrido
+			 * 	@Fecha  12 Octubre
+			 *  @Descripcion realiza los set de fechas. Este metodo es llamado tras la accion
+			 *  de los cambios de rangos en las opciones de visualizar la estadistica.	
+			 * */
+		private function changeData():void
+		{
 			if(fechaIni.selectedDate!=null && fechaFin.selectedDate!=null){
 				if(fechaIni.selectedDate.getTime()<=fechaFin.selectedDate.getTime()){
-					//la fecha de inicio es anterior a la de fin, lo cual seria correcto
-					switch(fechaIni.selectedDate.getMonth()){
-						case 9:
-							this.periodo="1";
-							break;
-						case 8:
-							this.periodo="2";
-							break;
-						case 7:
-							this.periodo="3";
-							break;
-						default:
-							this.periodo="4";
-							break;
+					if(fechaIni.selectedDate.getTime()<fechaActual.getTime()){
+						 gep = new GetEstadisticasClinica();
+						var iDia:String		= fechaIni.selectedDate.getDate().toString();
+						var iMes:String		= (fechaIni.selectedDate.getMonth()+1).toString();
+						var iAnio:String	= fechaIni.selectedDate.getFullYear().toString();
+						var fDia:String		= fechaFin.selectedDate.getDate().toString();
+						var fMes:String		= (fechaFin.selectedDate.getMonth()+1).toString();
+						var fAnio:String	= fechaFin.selectedDate.getFullYear().toString();
+						//Alert.show(fechaActual.getTime().toString());
+	 					var inicio:String	= iAnio+"-"+iMes+"-"+iDia;
+	 					var fin:String		= fAnio+"-"+fMes+"-"+fDia;
+	 					gep.addEventListener(ResultEvent.RESULT,getEstadisticasR);
+	 					
+	 					if(servicio.selectedValue=="Pabellon"){
+	 						gep.getEstadisticas(1,inicio,fin);
+	 					}
+	 					if(servicio.selectedValue=="Policlinico"){
+	 						gep.getEstadisticas(2,inicio,fin);
+	 					}
+	 					
+	 					
+						
+					     mens.text = "";  
+					}else
+					{
+						 mens.text = "Ingrese una fecha inicio anterior a la actual"; 
 					}
-					changeData(dataSet);
 				}
 				else{
-					//error ya que la fecha de inicio es posterior a la de fin
-					Alert.show("Error: La fecha de inicio tiene que ser anterior a la de fin");
-					eventObj.currentTarget.selectedDate=null;
+					mens.text = Mensajes.getMensajeError(7);
 				}
 			}
 		}
-		private function changeData(dataSet:String):void{
-			//Determina que se set debe ser cargado
-			this.dataSet=dataSet;
-			switch (dataSet){
-				case ('set1'):
-					//Set URL target to pabellon
-					testData.url ="assets/"+periodo+"/pabellon.xml";
-					break;
-				case ('set2'):
-					//Set URL target to policlinico
-					testData.url ="assets/"+periodo+"/policlinico.xml";
-					break;
-				default:
-					break;
-			}
-			//Envia el URL Request para actualizar el grafico
-			testData.send();
-		}
-		
 		]]>
 	</mx:Script>
-	<!--Efectos para cuando un dato del grafico cambia-->
 	<mx:SeriesInterpolate id="changeEffect" duration="2000"/>
-	
-	<!--Carga el archivo url y XML y luego lo envia a la funcion xmlHandler en formato E4X-->
-	<mx:HTTPService url="" id="testData" result="xmlHandler(event)" resultFormat="e4x"/>
-	
-	<mx:Panel width="779" height="466" borderColor="#15AD8F" horizontalAlign="center" layout="absolute" title="{titulo}">
-		
-		<!--The Chart -->
-		<mx:ColumnChart dataProvider="{testInfo}" id="chartEstadisticaClinica"  height="380" width="540" x="209" y="36">
-			<mx:horizontalAxis>
-				<mx:CategoryAxis dataProvider="{testInfo}" categoryField="name"/>
-			</mx:horizontalAxis>
-			<mx:series>
-				<mx:ColumnSeries showDataEffect="{changeEffect}" xField="name" yField="sat" displayName="N° de atenciones realizadas"/>
-			</mx:series>
-		</mx:ColumnChart>
-		
-		<mx:RadioButton click="changeData('set1')" label="Pabellón" groupName="radiogroup1" x="10" y="132" selected="true"/>
-		<mx:Legend horizontalAlign="right" dataProvider="{chartEstadisticaClinica}" width="199" x="550" y="10"/>
-		<mx:RadioButton click="changeData('set2')" label="Policlínico" groupName="radiogroup1" x="10" y="162"/>
-		<mx:RadioButtonGroup id="radiogroup1"/>
-		<mx:DateField id="fechaIni" change="changeDate(event)" x="89" y="36" width="112"/>
-		<mx:Label x="10" y="38" text="Inicio:" width="58"/>
-		<mx:DateField id="fechaFin" change="changeDate(event)" x="89" y="67" width="112"/>
-		<mx:Label x="10" y="69" text="Fin:" width="58"/>
-		<mx:Label x="17" y="10" text="Rango de fechas:"/>
-		<mx:Label x="17" y="106" text="Servicio:"/>
-		
-		<!--Display Controls-->
-		
-		<!--Legend for Chart Data-->
-		
+	<mx:Panel horizontalAlign="center" layout="absolute" title="{titulo}" width="779" height="466" borderColor="#15AD8F">
+		<mx:ColumnChart id="myChart" dataProvider="{expenses}"  height="316" width="540" x="209" y="36" showDataTips="true">
+	        <mx:horizontalAxis>
+	           <mx:CategoryAxis dataProvider="{expenses}" categoryField="tipo"/>
+	        </mx:horizontalAxis>
+	        <mx:series>
+	           <mx:ColumnSeries xField="tipo" yField="numAtenciones" displayName="N° de atenciones realizadas" />
+	        </mx:series>
+     	</mx:ColumnChart>
+     		<mx:Legend horizontalAlign="right" dataProvider="{myChart}" width="199" x="550" y="10"/>
+			
+			<mx:DateField id="fechaIni"  x="89" y="36" width="112" change="changeData()"/>
+			<mx:Label x="10" y="38" text="Inicio:" width="58"/>
+			<mx:DateField id="fechaFin"   x="89" y="67" width="112" change="changeData()"/>
+			<mx:Label x="10" y="69" text="Término:" width="71"/>
+			<mx:Label x="10" y="10" text="Rango de fechas:"/>
+			<mx:Label x="10" y="108" text="Rango de fechas:"/>
+			<mx:Label x="176" y="377" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+			<mx:RadioButtonGroup id="servicio" change="changeData()"/>
+			<mx:RadioButton x="10" y="134" label="Pabellon" groupName="servicio"/>
+			<mx:RadioButton x="10" y="160" label="Policlinico" groupName="servicio"/>
 	</mx:Panel>
 </mx:VBox>
