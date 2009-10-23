@@ -27,8 +27,8 @@ package administracion
 			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
-			this.destination="UsuarioEditService";
-			this.source="Administracion.UsuarioEditService";
+			this.destination="UsuarioElimService";
+			this.source="Administracion.UsuarioElimService";
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		/**
@@ -46,12 +46,21 @@ package administracion
 			this.getOperation("deleteUser").send(clave);
 			
 		}
+		public function hideUser(clave:String):void
+		{
+			this.getOperation("hideUser").send(clave);
+		}
+		
 		/**
 		 * Se obtienen todos los usuarios que están registrados en la base de datos
 		 */ 
 		public function getAllUsuarios():void
 		{
 			this.getOperation("getAllUsuariosE").send();
+		}
+		public function getAllUsuariosP():void
+		{
+			this.getOperation("getAllUsuariosP").send();
 		}
 		
 	}
