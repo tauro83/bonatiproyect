@@ -31,13 +31,13 @@ public class ClienteElimPurgServiceBD {
 					       "servicio=?, pregistrar=?, peditar=?, peliminar=?, ppurgar=? "+
 					 "WHERE usuario = ?;";
 
-			query = "SELECT nombre, apellido,apellido2, rut, telefono2, celular2, direccion, region, comuna "+
+			query = "SELECT nombre, apellido,apellido2, rut, telefono2, celular2, direccion, region, comuna,email "+
 				"FROM cliente where estado='TRUE';";
 				
 					
 				selectActivos = connection.prepareStatement(query);
 				
-				query = "SELECT nombre, apellido,apellido2, rut, telefono2, celular2, direccion, region, comuna "+
+				query = "SELECT nombre, apellido,apellido2, rut, telefono2, celular2, direccion, region, comuna, email "+
 				"FROM cliente where estado='FALSE';";
 				
 					
@@ -126,7 +126,7 @@ public class ClienteElimPurgServiceBD {
 	    			cliente.setDireccion(result.getString(7));
 	    			cliente.setRegion(result.getString(8));
 	    			cliente.setComuna(result.getString(9));
-	    		//	cliente.setEmail(result.getString(13));
+	    			cliente.setEmail(result.getString(10));
 	    		//	cliente.setEmail2(result.getString(14));
 	    		//	cliente.setEstado(result.getBoolean(15));
 	    			System.out.println(cliente.getNombre());
@@ -164,7 +164,7 @@ public class ClienteElimPurgServiceBD {
 	    			cliente.setDireccion(result.getString(7));
 	    			cliente.setRegion(result.getString(8));
 	    			cliente.setComuna(result.getString(9));
-	    		//	cliente.setEmail(result.getString(13));
+	    			cliente.setEmail(result.getString(10));
 	    		//	cliente.setEmail2(result.getString(14));
 	    		//	cliente.setEstado(result.getBoolean(15));
 	    			System.out.println(cliente.getNombre());
