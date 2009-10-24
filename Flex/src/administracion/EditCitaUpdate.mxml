@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" initialize="ini(event)">
 	
 	
 	 <mx:Script>
@@ -13,6 +13,12 @@
 			
 			import administracion.EditClienteUpdate;
 			import administracion.EditCitaUpdate;
+			
+			import mx.events.CloseEvent;           
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
 			
 			import flash.events.MouseEvent;
             import mx.events.FlexEvent;
@@ -143,6 +149,45 @@
 			    Application.application.agenda2.labelMessage.text="Usted ha cancelado la operación";
 			    
 			}
+			private function selVet(event:Event):void {
+        		var responsables:ArrayCollection = new ArrayCollection();
+    			if(ComboBox(event.target).text.localeCompare("Clínica") == 0){
+    				//razas.addItem({label:" "});
+    				
+    				responsables.addItem({label:"Claudio Bonati"});
+					responsables.addItem({label:"Patricio Castro"});
+					responsables.addItem({label:"Ayudante Clínica"});
+			
+    			}
+    			else if(ComboBox(event.target).text.localeCompare("Hotelería") == 0){
+    			
+
+					responsables.addItem({label:"Ayudante Hotelería"});
+				
+
+				}
+				else if(ComboBox(event.target).text.localeCompare("Peluquería") == 0){
+					responsables.addItem({label:"Rosa Espinoza"});	
+					responsables.addItem({label:"Ayudante Peluquería"});	
+						
+				}
+				usuario.dataProvider = responsables;
+			}
+			private function selClaseServicio(event:Event):void {
+        		var clasesServicios:ArrayCollection = new ArrayCollection();
+        		
+        		clasesServicios.addItem({label:" "});
+        		clasesServicios.addItem({label:"Clínica"});
+        		clasesServicios.addItem({label:"Hotelería"});
+        		clasesServicios.addItem({label:"Peluquería"});
+
+        		servicio.dataProvider = clasesServicios;			
+			}
+			private function ini(event:Event):void{
+	        	
+	        	selClaseServicio(event);
+	        	
+	       }
             
        ]]>
        
@@ -162,9 +207,10 @@
 	<mx:Button x="425" y="347" label="Guardar " width="123" click="{clienteModificado()} "/>
 	<mx:Label x="10" y="309" text="Responsable :" width="145"/>
 	<mx:Label x="10" y="111" text="Mascota:" width="112"/>
-	<mx:ComboBox x="163" y="109" width="160" id="mascota" dataProvider="{perros}"/>
+	<mx:ComboBox x="163" y="109" width="160" id="mascota"/>
 	<mx:ComboBox id="hora" x="163" y="200" dataProvider="{horas}" labelField="hora" width="160"/>
-	<mx:ComboBox x="163" y="247" id="servicio" dataProvider="{servicios}" width="160"></mx:ComboBox>
-	<mx:ComboBox x="163" y="307" id="usuario" dataProvider="{usuarios}" width="160"></mx:ComboBox>
+	<mx:ComboBox x="163" y="247" id="servicio"  width="160" close="selVet(event);">
+	</mx:ComboBox>
+	<mx:ComboBox x="163" y="307" id="usuario" width="160"></mx:ComboBox>
 	
 </mx:Panel>
