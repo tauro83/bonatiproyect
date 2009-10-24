@@ -25,7 +25,7 @@ package services
 				 "Ingrese una contraseña que coincida con la anterior",
 				 "Ingrese un apellido paterno más largo",
 				 "Usuario previamente registrado, elija otro nombre de usuario",
-				 "La fecha de inicio, debe ser anterior a la fecha fin"
+				 "La fecha de inicio, debe ser anterior a la fecha término"
 			 );
 			 return error[index];
 		}

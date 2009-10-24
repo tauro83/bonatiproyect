@@ -55,7 +55,7 @@
 			public function verEditarPostOperatorio():void{
 				Application.application.setInvisible();
 				this.visible=true;
-				Application.application.editarPostOperatorio.visible=true;
+				Application.application.editarPostO.visible=true;
 			}
 			 private function verPurgarPostOperatorio ():void{
             	Application.application.setInvisible();

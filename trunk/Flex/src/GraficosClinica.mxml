@@ -28,7 +28,7 @@
 			expenses = event.result as ArrayCollection;	
 		}
 		private function ini():void{
-			servicio.selectedValue="Pabellon";
+			servicio.selectedValue="Pabellón";
 		}
 		/**
 		 	 * 	@author  Andres Garrido
@@ -53,10 +53,10 @@
 	 					var fin:String		= fAnio+"-"+fMes+"-"+fDia;
 	 					gep.addEventListener(ResultEvent.RESULT,getEstadisticasR);
 	 					
-	 					if(servicio.selectedValue=="Pabellon"){
+	 					if(servicio.selectedValue=="Pabellón"){
 	 						gep.getEstadisticas(1,inicio,fin);
 	 					}
-	 					if(servicio.selectedValue=="Policlinico"){
+	 					if(servicio.selectedValue=="Policlínico"){
 	 						gep.getEstadisticas(2,inicio,fin);
 	 					}
 	 					
@@ -92,10 +92,10 @@
 			<mx:DateField id="fechaFin"   x="89" y="67" width="112" change="changeData()"/>
 			<mx:Label x="10" y="69" text="Término:" width="71"/>
 			<mx:Label x="10" y="10" text="Rango de fechas:"/>
-			<mx:Label x="10" y="108" text="Rango de fechas:"/>
+			<mx:Label x="10" y="108" text="Tipo de atención:"/>
 			<mx:Label x="176" y="377" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 			<mx:RadioButtonGroup id="servicio" change="changeData()"/>
-			<mx:RadioButton x="10" y="134" label="Pabellon" groupName="servicio"/>
-			<mx:RadioButton x="10" y="160" label="Policlinico" groupName="servicio"/>
+			<mx:RadioButton x="10" y="134" label="Pabellón" groupName="servicio"/>
+			<mx:RadioButton x="10" y="160" label="Policlínico" groupName="servicio"/>
 	</mx:Panel>
 </mx:VBox>

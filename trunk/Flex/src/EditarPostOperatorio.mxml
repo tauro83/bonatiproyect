@@ -53,9 +53,9 @@
 				
 				if(tablaDatos.selectedItem){				
 					var atencion:PostOperatorio = tablaDatos.selectedItem as PostOperatorio;	
-					Application.application.editarPostOperatorioDetalle.setData(atencion);
+					Application.application.EditarPostODetalle.setData(atencion);
 					this.setVisible(false,false);
-					Application.application.editarPostOperatorioDetalle.visible=true;
+					Application.application.EditarPostODetalle.visible=true;
 				}
 				else{
 					Alert.show("Atencion!: Primero debe seleccionar una atención.");
