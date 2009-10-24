@@ -86,8 +86,8 @@
  			// (EditarPostOperatorio)
  			private function cancelando():void{
 				this.setVisible(false,false);
-				Application.application.editarPostOperatorio.setVisible(true,false);
-				Application.application.editarPostOperatorio.iniData();
+				Application.application.EditarPostO.setVisible(true,false);
+				Application.application.EditarPostO.iniData();
 			}
          	]]> 
  	</mx:Script>
