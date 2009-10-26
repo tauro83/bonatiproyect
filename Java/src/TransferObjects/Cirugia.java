@@ -17,7 +17,7 @@ public class Cirugia {
 	private String ayudante;
 	private String tipoCir;
 	private String diagnostico;
-	private List<tiposCir> tiposCirugias;
+	private List<String> tiposCirugias;
 	
 	public void setClienteRut(String clienteRut) {
 		this.clienteRut = clienteRut;
@@ -73,10 +73,10 @@ public class Cirugia {
 	public String getDiagnostico() {
 		return diagnostico;
 	}
-	public void setTiposCirugias(List<tiposCir> tiposCirugias) {
+	public void setTiposCirugias(List<String> tiposCirugias) {
 		this.tiposCirugias = tiposCirugias;
 	}
-	public List<tiposCir> getTiposCirugias() {
+	public List<String> getTiposCirugias() {
 		return tiposCirugias;
 	}
 	public void setNuevaFecha(String nuevaFecha) {
