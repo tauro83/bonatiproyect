@@ -70,7 +70,7 @@
 				
 				if (rut.length == 0) { 
 
-					}
+				}
 				for ( j =0, i =0; j < rut.length; j++){
 					if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
 						ParteNumerica[i] = rut.charAt(i);
@@ -278,8 +278,14 @@
 					nuevacir.veterinarios2=this.vetesC;
 					nuevacir.ayudantes2=this.ayudantesC;
 					nuevacir.ayudantes3=this.ayudantesC;
-					nuevacir.tiposCir1 = this.tiposC;
-					nuevacir.tiposCir2 = this.tiposC;
+					var i:int;
+					var large:int = tiposC.length;
+					for(i=0;i<large;i++){
+						var text:String = tiposC.getItemAt(i,0) as String;
+						nuevacir.tiposCir1.push(text);
+						nuevacir.tiposCir2.push(text);
+					}
+					
 					
 					this.setVisible(false,false);
 					nuevacir.setVisible(true,false);
