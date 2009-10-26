@@ -99,14 +99,14 @@
 		</mx:Canvas>
 		<mx:Canvas label="Policlínico" width="100%" height="100%">
 		<mx:Accordion x="25" y="0" width="193" height="362">
-				<mx:Canvas label="Vacunaci�n" width="100%" height="100%">
+				<mx:Canvas label="Vacunaci�n" width="100%" height="100%">
 				</mx:Canvas>
 				<mx:Canvas label="Consulta" width="100%" height="100%">
 					<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="verRegistrarConsulta()"/>
 				</mx:Canvas>
 				<mx:Canvas label="Control" width="100%" height="100%">
 				</mx:Canvas>
-			</mx:Accordion>
+		</mx:Accordion>
 		</mx:Canvas>
 		<mx:Canvas label="Estadística" width="100%" height="100%" initialize="verEstadisticaTodas()" show="verEstadisticaTodas()">
 		</mx:Canvas>
