@@ -88,10 +88,10 @@ public class AddCirugiaBD {
 			
 			result1= add.executeUpdate();
 			
-			List<tiposCir> ltc = newCirugia.getTiposCirugias();
+			List<String> ltc = newCirugia.getTiposCirugias();
 			int n = ltc.size();
 			for(int i=0;i<n;i++){
-				tiposCir tc = (tiposCir)ltc.get(i);
+				String tc = ltc.get(i);
 				if(tc != null){
 					String s = Integer.toString(i);
 					addDiag.setString(1, newCirugia.getClienteRut());
@@ -100,7 +100,7 @@ public class AddCirugiaBD {
 					addDiag.setString(4, newCirugia.getFecha());
 					addDiag.setString(5, newCirugia.getDiagnostico());
 					addDiag.setString(6, newCirugia.getFecha());
-					addDiag.setString(7, tc.getCirugias());
+					addDiag.setString(7, tc);
 					addDiag.setTime(8, t);
 					addDiag.setString(9, s);
 					
