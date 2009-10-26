@@ -237,15 +237,7 @@
 		    	editarCirugia.setVisible(false, false);
 		 		<!--Autor: }Sebastian -->      
 		 	
-			<!--Autor: nicolas}-->
-
-    		      <ns1:VisualizarPreoperatorio x="241" y="134" visible="false" id="visualizaPre">
-	            </ns1:VisualizarPreoperatorio>
-     		      <ns1:PurgarPreOperatorio x="241" y="134" id="purgarPre" visible="false" borderColor="#15AD8F">
-	            </ns1:PurgarPreOperatorio>
-		      <ns1:RegistrarConsulta x="241" y="134" id="registroConsulta" visible="false" borderColor="#15AD8F">
-	            </ns1:RegistrarConsulta>
-	            <!--Autor: }nicolas-->
+			
 		 		
             }
             
@@ -626,5 +618,14 @@
 	</ns1:Peluqueria>
 	<!--Autor: } Camilo -->
 	
+	<!--Autor: nicolas}-->
+
+   	<ns1:VisualizarPreoperatorio x="241" y="134" visible="false" id="visualizaPre2">
+	</ns1:VisualizarPreoperatorio>
+    <ns1:PurgarPreOperatorio x="241" y="134" id="purgarPre2" visible="false" borderColor="#15AD8F">
+	</ns1:PurgarPreOperatorio>
+	<ns1:RegistrarConsulta x="241" y="134" id="registroConsulta" visible="false" borderColor="#15AD8F">
+	</ns1:RegistrarConsulta>
+	<!--Autor: }nicolas-->
 	
 </mx:Application>
