@@ -2,6 +2,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Cirugía">
 	<mx:Script>
         <![CDATA[
+        	import mx.collections.Sort;
         	import transferObjects.tiposCir;
         	import services.AddMascotaService;
         	import mx.controls.DateField;
@@ -36,11 +37,11 @@
 			[Bindable]
 			public var ayudantes3:ArrayCollection;
 			[Bindable]
-			public var tiposCir1:ArrayCollection;
+			public var tiposCir1:Array;
 			[Bindable]
-			public var tiposCir2:ArrayCollection;
+			public var tiposCir2:Array;
 			[Bindable]
-			public var cirugsAdds:ArrayCollection;
+			public var cirugsAdds:Array;
 		   
 		   
 		   /**
@@ -99,7 +100,13 @@
 		    							newCirugia.costo = this.costoC.text;
 		    							newCirugia.fecha = this.fechaC.text;
 		    							newCirugia.diagnostico = this.diagC.text;
-		    							newCirugia.tiposCirugias = this.cirugsAdds;
+		    							var i:int;
+		    							var largo:int = this.cirugsAdds.length;
+		    							newCirugia.tiposCirugias = new ArrayCollection();
+		    							for(i=0;i<largo;i++){
+		    								newCirugia.tiposCirugias.addItem(cirugsAdds.pop());
+		    							}
+		    							
 		    							newCirugia.clienteRut = this.clienteRut;
 		    							newCirugia.clienteRut2 = this.clienteRut2;
 		    							newCirugia.mascotaNombre = this.nombreMascota;
@@ -130,10 +137,9 @@
 		    {
 		    	
 		    	if(tabCirs.selectedItem){
-		    		var s:String = tabCirs.selectedItem.cirugias;
-		    		var tc:tiposCir = new tiposCir();
-		    		tc.cirugias=s;
-		    		tiposCir1.addItem(tc);
+		    		var s:String = tabCirs.selectedItem.toString();		    		
+		    		tiposCir1.push(s);
+		    		ordenar();
 					renombrarCir2(s);
 		    	}
 		    	else{
@@ -151,18 +157,18 @@
 			 *  @Param String representando el nombre del tipo de cirugia.
 			 * */ 
 		    public function renombrarCir2(texto:String):void{
-		    	var newAr:ArrayCollection = this.cirugsAdds;
-		    	cirugsAdds = new ArrayCollection();
+		    	var newAr:Array = this.cirugsAdds;
+		    	cirugsAdds = new Array();
 		    	var i:int;
 		    	var j:int = newAr.length;
 		    	for(i=0;i<j;i++){
-		    		var s:String = newAr.removeItemAt(0).cirugias;
+		    		var s:String = newAr.pop();
 		    		if(s!=texto){
-		    			var tc:tiposCir = new tiposCir();
-		    			tc.cirugias=s;
-		    			cirugsAdds.addItem(tc);
+		    			cirugsAdds.push(s);
 		    		}
 		    	}
+		    	this.ordenar2();
+
 		    	
 		    }
 		    
@@ -176,10 +182,9 @@
 		    {
 		    	
 		    	if(cirugias1.selectedItem){
-		    		var s:String = cirugias1.selectedItem.cirugias;
-		    		var tc:tiposCir = new tiposCir();
-		    		tc.cirugias=s;
-		    		cirugsAdds.addItem(tc);
+		    		var s:String = cirugias1.selectedItem.toString();		    		
+		    		cirugsAdds.push(s);
+		    		ordenar2();
 					renombrarCir(s);
 		    	}
 		    	else{
@@ -188,7 +193,10 @@
 		    	
 				
 		    }
+         
+         
 		    
+         	
 		    /**
 		 	 * 	@author  "Jimmy Muñoz"
 			 * 	@Fecha  13 Octubre
@@ -198,21 +206,58 @@
 			 *  @Param String representando el nombre del tipo de cirugia.
 			 * */ 
 		    public function renombrarCir(texto:String):void{
-		    	var newAr:ArrayCollection = this.tiposCir1;
-		    	tiposCir1 = new ArrayCollection();
+		    	var newAr:Array = this.tiposCir1;
+		    	tiposCir1 = new Array();
 		    	var i:int;
 		    	var j:int = newAr.length;
 		    	for(i=0;i<j;i++){
-		    		var s:String = newAr.removeItemAt(0).cirugias;
+		    		var s:String = newAr.pop();
 		    		if(s!=texto){
-		    			var tc:tiposCir = new tiposCir();
-		    			tc.cirugias=s;
-		    			tiposCir1.addItem(tc);
+		    			tiposCir1.push(s);
 		    		}
 		    	}
+		    	this.ordenar();
 		    	
+            	
+
 		    }
 		    
+		    private function ordenLetra (a : Object , b : Object , fields : Array = null) : int
+		    {
+
+            	if (a > b)
+            	{
+               		return 1;
+            	}
+            	else if (a< b)
+            	{
+               		return -1;   
+            	}
+            	else {
+               		return 0;
+            	}
+         	} 
+		    
+		    private function ordenar () : void
+         	{
+
+           		var sort : Sort = new Sort ()
+            	sort.compareFunction = ordenLetra;
+            	cirugias1.dataProvider.sort = sort;
+            	cirugias1.dataProvider.refresh ();
+         	}
+         	
+         	private function ordenar2 () : void
+         	{
+
+           		var sort : Sort = new Sort ()
+            	sort.compareFunction = ordenLetra;
+            	tabCirs.dataProvider.sort = sort;
+            	tabCirs.dataProvider.refresh ();
+         	}
+		    
+		    
+
 		    
 		    /**
 		 	 * 	@author  "Jimmy Muñoz"
@@ -251,13 +296,13 @@
 		    	this.diagC.text="";
 		    	this.fechaC.text="";
 		    	this.cirugias1.doubleClickEnabled=true;
-		    	this.tiposCir2 = new ArrayCollection();
-		    	this.tiposCir1 = new ArrayCollection();
+		    	this.tiposCir2 = new Array();
+		    	this.tiposCir1 = new Array();
 		    	this.ayudantes2 = new ArrayCollection();
 		    	this.ayudantes3 = new ArrayCollection();
 		    	this.veterinarios2 =new ArrayCollection();
-		    	this.cirugsAdds =new ArrayCollection();
-		    	this.cirugsAdds = new ArrayCollection();
+		    	this.cirugsAdds =new Array();
+
 
 		    }
 				
@@ -277,24 +322,14 @@
 	<mx:TextArea x="119.25" y="65" width="290.7" height="153" id="diagC"/>
 	<mx:DateField x="536.55" y="64" width="120.25" id="fechaC"/>
 	<mx:TextInput x="536.55" y="92" width="104" id="costoC" restrict="0-9"/>
-
-	<mx:DataGrid x="118.95" y="226" id="cirugias1" width="254" dataProvider="{tiposCir1}" height="116" doubleClick="guardaCir()">
-		<mx:columns>
-			<mx:DataGridColumn headerText="Cirugías" dataField="cirugias"/>
-		</mx:columns>
-	</mx:DataGrid>
 	
 	<mx:Button x="380.95" y="267" label="-&gt;" width="47.55" click="guardaCir()"/>
 	<mx:Button x="380.95" y="297" label="&lt;-" width="47.55" click="quitaCir()"/>
-	
-	<mx:DataGrid x="450.55" y="229" height="116" width="279.7" id="tabCirs" dataProvider="{cirugsAdds}">
-		<mx:columns>
-			<mx:DataGridColumn headerText="Cirugías realizadas" dataField="cirugias"/>
-		</mx:columns>
-	</mx:DataGrid>
 
-	<mx:Button x="518.25" y="369" label="Registrar" visible="true" id="registrar" click="registrarCiru()" width="102" height="23"/>
-	<mx:Button x="628.25" y="369" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
+	<mx:Button x="518.25" y="353" label="Registrar" visible="true" id="registrar" click="registrarCiru()" width="102" height="23"/>
+	<mx:Button x="628.25" y="353" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
+	<mx:List x="119" y="226" width="253.95" height="119" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
+	<mx:List x="450" y="226" width="280.25" height="119" id="tabCirs" dataProvider="{cirugsAdds}"></mx:List>
 	
 	
 </mx:Panel>
