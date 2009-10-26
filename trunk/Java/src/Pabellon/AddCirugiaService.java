@@ -32,6 +32,10 @@ public class AddCirugiaService {
 	 */
 	public int AddCirugia(Cirugia nuevaCir)
     {		
+		/**
+		 * En este proceso se divide en nombre del veterinario y del ayudante para acceder a la base de
+		 * datos, para en los procesos posteriores procesar dicha informacion 
+		 */
 		this.getAllUsuariosE();
 		String nombreVet = nuevaCir.getVeterinario();
 		String nombres[] = nombreVet.split(" ");
@@ -41,19 +45,41 @@ public class AddCirugiaService {
 		
 		int n = persons.size();
 		
+		/**
+		 * En este proceso se accede a la base de datos para obtener los id de los 
+		 * veterinarios, para almacenarlos en la base de datos. 
+		 */
 		for(int i=0;i<n;i++){
 			Usuario u = persons.get(i); 
+			/**
+			 * En este codigo se quitan los espacios en blancos que se obtienen de la base de datos
+			 */
 			String nombre = u.getNombre().trim();
 			String nombre2 = u.getApellidoPaterno().trim();
+			/**
+			 * En este codigo se comparan los datos obtenidos con los que llegan de la capa 1
+			 * para ver cual es el veterinario correspondiente.			
+			 */
 			if(nombre.equals(nombres[0]) && nombre2.equals(nombres[1])){
 				nuevaCir.setVeterinario(u.getUsuario().trim());
 			}
 		}
 		
+		/**
+		 * En este proceso se accede a la base de datos para obtener los id de los 
+		 * ayudantes, para almacenarlos en la base de datos. 
+		 */
 		for(int i=0;i<n;i++){
 			Usuario u = persons.get(i); 
+			/**
+			 * En este codigo se quitan los espacios en blancos que se obtienen de la base de datos
+			 */
 			String nombre = u.getNombre().trim();
 			String nombre2 = u.getApellidoPaterno().trim();
+			/**
+			 * En este codigo se comparan los datos obtenidos con los que llegan de la capa 1
+			 * para ver cual es el veterinario correspondiente.			
+			 */
 			if(nombre.equals(nombresa[0]) && nombre2.equals(nombresa[1])){
 				nuevaCir.setAyudante(u.getUsuario().trim());
 			}
@@ -148,9 +174,9 @@ public class AddCirugiaService {
 	 * @param No recibe parametro.
 	 * @return Listado de tiposCir tipos de cirugias, que seran cargadas en los paneles de flex, para su posterior seleccion.
 	 */
-	public List<tiposCir> getTiposCirugias(){
+	public List<String> getTiposCirugias(){
 		List<String> cirus=new ArrayList<String>();
-		List<tiposCir> tiposcirus=new ArrayList<tiposCir>();
+		//List<tiposCir> tiposcirus=new ArrayList<tiposCir>();
 		
 		cirus.add("Amputación");
 		cirus.add("De Apéndice");
@@ -169,13 +195,13 @@ public class AddCirugiaService {
 		cirus.add("Tiroidectomía (por tumores)");
 		cirus.add("De tumor");
 		
-		for(int i=0;i<cirus.size();i++){
+		/*for(int i=0;i<cirus.size();i++){
 			tiposCir tc = new tiposCir();
 			tc.setCirugias(cirus.get(i));
 			tiposcirus.add(tc);
-		}
+		}*/
 
-		return tiposcirus;	
+		return cirus;	
 	}
 	
 	/**
@@ -191,14 +217,30 @@ public class AddCirugiaService {
 	public List<String> getTiposVeterinarios(){
 		List<String> cirus=new ArrayList<String>();
 		
+		/**
+		 * En este codigo se llama a la base de datos para obtener los datos de los usuarios
+		 * y guardarlos en la variable persosns.
+		 */
 		this.getAllUsuariosE();
 		cirus.add("");
 		int n = persons.size();
-		
+		/**
+		 * En este codigo se se procesa los datos de todos los usuarios que fueron devueltos del llamado anterior.
+		 * para ser retornado a la capa1.
+		 */
 		for(int i=0;i<n;i++){
 			Usuario u = persons.get(i); 
+			/**
+			 * Se borran los espacios en blanco obtenidos de la base de datos.
+			 * de la variable cargo. Para comparar, pues solo debe retornar los que tengan como cargo Veterinario.
+			 */
 			String cargo = u.getCargo().trim();
 			if(cargo.equals("Veterinario")){
+				/**
+				 * Se borran los espacios en blanco obtenidos de la base de datos.
+				 * de la variable nombre y apellido paterno. Luego se concatena y almacena en el array
+				 * para ser devuelto a la capa1.
+				 */
 				String nombre = u.getNombre().trim();
 				String apellido = u.getApellidoPaterno().trim();
 				String nombFinal = nombre.concat(" "+apellido);
@@ -223,13 +265,30 @@ public class AddCirugiaService {
 	public List<String> getTiposAyudantes(){
 		List<String> cirus=new ArrayList<String>();
 		
+		/**
+		 * En este codigo se llama a la base de datos para obtener los datos de los usuarios
+		 * y guardarlos en la variable persosns.
+		 */
 		this.getAllUsuariosE();
 		cirus.add("");
 		int n = persons.size();
+		/**
+		 * En este codigo se se procesa los datos de todos los usuarios que fueron devueltos del llamado anterior.
+		 * para ser retornado a la capa1.
+		 */
 		for(int i=0;i<n;i++){
 			Usuario u = persons.get(i); 
+			/**
+			 * Se borran los espacios en blanco obtenidos de la base de datos.
+			 * de la variable cargo. Para comparar, pues solo debe retornar los que tengan como cargo Veterinario.
+			 */
 			String cargo = u.getCargo().trim();
 			if(cargo.equals("Veterinario") || cargo.equals("Ayudante")){
+				/**
+				 * Se borran los espacios en blanco obtenidos de la base de datos.
+				 * de la variable nombre y apellido paterno. Luego se concatena y almacena en el array
+				 * para ser devuelto a la capa1.
+				 */
 				String nombre = u.getNombre().trim();
 				String apellido = u.getApellidoPaterno().trim();
 				String nombFinal = nombre.concat(" "+apellido);
