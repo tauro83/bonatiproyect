@@ -14,12 +14,7 @@
 		    import flash.net.FileReference;
 		    import flash.net.FileReferenceList;
 		    import mx.rpc.events.ResultEvent;
-//			import components.ItemRenderer;
-//			import events.FileUploaderEvent;
 			import mx.controls.Image;
-			import services.MascotaService;
-		    import transferObjects.Mascota;
-		    import services.PersonService;
 		    import transferObjects.Person;
 		    import transferObjects.Cirugia;
 		    import mx.core.Application;
@@ -272,7 +267,11 @@
 					var nuevacir:addCirugia = Application.application.cliRegistro2;
 					nuevacir.iniciarPanel();
 					
-					nuevacir.nombreMascota=dg.selectedItem.nombre;
+					var listCont2:Array = new Array();
+					listCont2 = dg.selectedItem.nombre.split(" ",1);
+					var nombre:String = listCont2.pop();
+					nuevacir.nombreMascota=nombre;
+					nuevacir.nombMasc.text=nombre;
 					nuevacir.clienteRut=this.rutClienteInput.text;
 					nuevacir.clienteRut2=this.rutClienteDVInput.text;
 					nuevacir.veterinarios2=this.vetesC;
@@ -329,10 +328,10 @@
         ]]>
     </mx:Script>
 	
-	<mx:Label x="38.75" y="38" text="Rut:" width="84"/>
-	<mx:Label x="221" y="38" text="-" width="14.75" textAlign="center"/>
-	<mx:TextInput  restrict="0-9" x="130.75" y="36" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="232.5" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
+	<mx:Label x="38.75" y="38" text="Rut:" width="31"/>
+	<mx:Label x="168" y="38" text="-" width="14.75" textAlign="center"/>
+	<mx:TextInput  restrict="0-9" x="77.75" y="36" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
+	<mx:TextInput x="179.5" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	
 	<mx:Panel x="121.5" y="-12" width="585" height="323" layout="absolute"  visible="false" id="ficha">
 			<mx:Label x="10" y="63" text="Nombre:" width="97"/>
@@ -354,7 +353,7 @@
 	
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="10" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="681" rowCount="3" y="92" x="38.75" variableRowHeight="true" dataProvider="{mascotas}" itemDoubleClick="regCiru()"  visible="true" height="269">
+	<mx:DataGrid id="dg" color="0x323232" width="692" rowCount="3" y="92" x="38.75" variableRowHeight="true" dataProvider="{mascotas}" itemDoubleClick="regCiru()"  visible="true" height="255">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
@@ -363,8 +362,8 @@
 	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
 	    </mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="545.75" y="369" label="Visualizar" visible="true" id="registrar" click="regCiru()"/>
-	<mx:Button x="635.75" y="369" label="Cancelar" width="84" id="cancelar" visible="true"/>
+	<mx:Button x="556.75" y="355" label="Visualizar" visible="true" id="registrar" click="regCiru()"/>
+	<mx:Button x="646.75" y="355" label="Cancelar" width="84" id="cancelar" visible="true"/>
 	
 	<mx:Label x="10" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
 	
