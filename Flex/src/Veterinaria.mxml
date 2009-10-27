@@ -211,6 +211,9 @@
             	AdEditarUsuar3.setVisible(false,false);
             	addCirug.setVisible(false,false);
             	cliRegistro2.setVisible(false,false);
+            	
+            	addVacuna1.setVisible(false,true);
+            	addVacuna.setVisible(false,false);
             	<!--Autor: }Jimmy Muñoz -->
             	
             	<!--Autor: Andres G.{-->
