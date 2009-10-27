@@ -15,6 +15,10 @@
 		    import mx.rpc.events.ResultEvent;
 			import mx.controls.Image;
 		    import mx.core.Application;
+		    import transferObjects.Person;
+		    import pabellon.addCirugia;
+		    import pabellon.addCirugia1;
+		    import pabellon.AddCirugiaService;
 		   
 			
 			[Bindable]
