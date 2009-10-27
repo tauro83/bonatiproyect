@@ -21,6 +21,11 @@
 		    import transferObjects.Cirugia;
 		    import mx.core.Application;
 		    
+		    import transferObjects.Person;
+		    import pabellon.addCirugia;
+		    import pabellon.addCirugia1;
+		    import pabellon.AddCirugiaService;
+		    
 		   
 			[Bindable]
 			public var clienteRut:String;
@@ -72,56 +77,46 @@
 		    		this.labelMessage.text="Seleccione el nombre de un Veterinario para la cirugía.";
 		    	}
 		    	else{
-		    		if(this.ayudantesC.text==""){
-		    			this.labelMessage.text="Seleccione el nombre de un ayudante para la cirugía.";
+		    		if(this.costoC.text==""){
+		    			this.labelMessage.text="Ingrese un costo para la cirugía.";
 		    		}
 		    		else{
-		    			if(this.costoC.text==""){
-		    				this.labelMessage.text="Ingrese un costo para la cirugía.";
+		    			if(this.fechaC.text==""){
+		    				this.labelMessage.text="Seleccione una fecha para la cirugía.";
 		    			}
 		    			else{
-		    				if(this.fechaC.text==""){
-		    					this.labelMessage.text="Seleccione una fecha para la cirugía.";
+		    				if(this.cirugsAdds.length==0){
+		    					this.labelMessage.text="Añada un tipo de cirugía que se haya realizado a la mascota.";
 		    				}
 		    				else{
-		    					if(this.diagC.text==""){
-		    						this.labelMessage.text="Ingrese un diagnostico para la cirugía.";
-		    					}
-		    					else{
-		    						if(this.cirugsAdds.length==0){
-		    							this.labelMessage.text="Añada un tipo de cirugía que se haya realizado a la mascota.";
-		    						}
-		    						else{
-		    							this.labelMessage.text="";
-		    							var newCirugia:Cirugia = new Cirugia();
+		    					this.labelMessage.text="";
+		    					var newCirugia:Cirugia = new Cirugia();
 		    	
-		    							newCirugia.ayudante = this.ayudantesC.text;
-		    							newCirugia.veterinario= this.veterinariosC.text;
-		    							newCirugia.costo = this.costoC.text;
-		    							newCirugia.fecha = this.fechaC.text;
-		    							newCirugia.diagnostico = this.diagC.text;
-		    							var i:int;
-		    							var largo:int = this.cirugsAdds.length;
-		    							newCirugia.tiposCirugias = new ArrayCollection();
-		    							for(i=0;i<largo;i++){
-		    								newCirugia.tiposCirugias.addItem(cirugsAdds.pop());
-		    							}
-		    							
-		    							newCirugia.clienteRut = this.clienteRut;
-		    							newCirugia.clienteRut2 = this.clienteRut2;
-		    							newCirugia.mascotaNombre = this.nombreMascota;
-		    							
-		    							var newAddServ:AddCirugiaService = new AddCirugiaService();
-		    							newAddServ.addCirugia(newCirugia);
-		    							this.setVisible(false,false);
-		    							Application.application.addCirug.iniciarPanel1();
-		    							Application.application.addCirug.labelMessage.text="Cirugía Registrada con exito.";
-		    							Application.application.addCirug.setVisible(true,false);
-		    						}
+		    					newCirugia.veterinario= this.veterinariosC.text;
+		    					newCirugia.costo = this.costoC.text;
+		    					newCirugia.fecha = this.fechaC.text;
+		    					var i:int;
+		    					var largo:int = this.cirugsAdds.length;
+		    					newCirugia.tiposCirugias = new ArrayCollection();
+		    					for(i=0;i<largo;i++){
+		    						newCirugia.tiposCirugias.addItem(cirugsAdds.pop());
 		    					}
+		    							
+		    					newCirugia.clienteRut = this.clienteRut;
+		    					newCirugia.clienteRut2 = this.clienteRut2;
+		    					newCirugia.mascotaNombre = this.nombreMascota;
+		    							
+		    					var newAddServ:AddCirugiaService = new AddCirugiaService();
+		    					newAddServ.addCirugia(newCirugia);
+		    					this.setVisible(false,false);
+		    					Application.application.addCirug.iniciarPanel1();
+		    					Application.application.addCirug.labelMessage.text="Cirugía Registrada con exito.";
+		    					Application.application.addCirug.setVisible(true,false);
 		    				}
+		    					
 		    			}
 		    		}
+		    		
 		    	}
 		    	
 		    	
@@ -293,7 +288,6 @@
 		    public function iniciarPanel():void
 		    {
 		    	this.costoC.text="";
-		    	this.diagC.text="";
 		    	this.fechaC.text="";
 		    	this.cirugias1.doubleClickEnabled=true;
 		    	this.tiposCir2 = new Array();
@@ -326,7 +320,7 @@
 	<mx:Button x="628.25" y="347" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
 	<mx:List x="119" y="120" width="270" height="175" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
 	<mx:List x="450.55" y="120" width="279.65" height="175" id="tabCirs" dataProvider="{cirugsAdds}"></mx:List>
-	<mx:Label x="25.55" y="70" text="Mascota:" width="63.95" id="nombMasc"/>
+	<mx:Label x="25.55" y="70" text="Mascota:" width="63.95"/>
 	<mx:TextInput x="119.25" y="68" width="120.8" id="nombMasc" editable="false"/>
 	
 	
