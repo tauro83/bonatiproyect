@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466"  title="Editar vacunacion" themeColor="#15ad8f" borderColor="#15ad8f" >
+	<mx:Label x="24.15" y="27.35" text="Cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="437.7" y="27.3" text="Mascota" width="98" fontWeight="bold"/>
+	<mx:TextInput x="126.1" y="51.25" width="160" editable="false" height="20" id="cRut"/>
+	<mx:Label x="437.7" y="53.25" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="437.7" y="79.25" text="Raza:" width="78"/>
+	<mx:TextInput x="561.25" y="51.25" width="138.75" editable="false" height="20" id="mNom"/>
+	<mx:TextInput x="126.1" y="190.9" width="160" editable="false" height="20"/>
+	<mx:TextInput x="126.1" y="218.9" width="160" editable="false" height="20"/>
+	<mx:TextInput x="126.1" y="246.9" width="573.9" editable="false" height="20"/>
+	<mx:TextInput x="561.25" y="77.25" width="138.75" editable="false" height="20" id="mRaza"/>
+	<mx:Label x="24.15" y="53.25" text="Rut:" width="78"/>
+	<mx:Label x="24.15" y="105.25" text="Vacunas" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<mx:ComboBox x="126.1" y="121"></mx:ComboBox>
+	<mx:Label x="24.15" y="220.9" text="Precio:" width="78"/>
+	<mx:Label x="24.15" y="192.9" text="Nombre:" width="78"/>
+	<mx:Label x="24.15" y="248.9" text="Descripción:" width="78"/>
+	<mx:Label x="24.15" y="276.9" text="Caducidad:" width="78"/>
+	<mx:DateField x="126.1" y="274.9" width="160"/>
+	<mx:Label x="183" y="383" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:Button x="488" y="339" label="Editar" id="botonVerficha" width="102"/>
+	<mx:Button x="598" y="339" label="Volver"  toolTip="Cancela la operación" width="102"/>
+	
+</mx:Panel>
