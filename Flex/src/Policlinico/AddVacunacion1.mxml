@@ -19,6 +19,7 @@
 		    import pabellon.addCirugia;
 		    import pabellon.addCirugia1;
 		    import pabellon.AddCirugiaService;
+		    import Policlinico.AddVacunacion;
 		   
 			
 			[Bindable]
@@ -261,34 +262,34 @@
 			* en donde se realiza el registro de cirugia, cargando los datos correspondientes, 
 			* para que el otro panel posea todos los datos.
 			*/
-			public function regCiru():void
+			public function regVacu():void
 			{
 				
 				if(dg.selectedItem){
-					var nuevacir:addCirugia = Application.application.cliRegistro2;
-					nuevacir.iniciarPanel();
+					var nuevavac:AddVacunacion = Application.application.addVacuna;
+					nuevavac.iniciarPanel();
 					
 					var listCont2:Array = new Array();
 					listCont2 = dg.selectedItem.nombre.split(" ",1);
 					var nombre:String = listCont2.pop();
-					nuevacir.nombreMascota=nombre;
-					nuevacir.nombMasc.text=nombre;
-					nuevacir.clienteRut=this.rutClienteInput.text;
-					nuevacir.clienteRut2=this.rutClienteDVInput.text;
-					nuevacir.veterinarios2=this.vetesC;
-					nuevacir.ayudantes2=this.ayudantesC;
-					nuevacir.ayudantes3=this.ayudantesC;
+					nuevavac.nombreMascota=nombre;
+					nuevavac.nombMasc.text=nombre;
+					nuevavac.clienteRut=this.rutClienteInput.text;
+					nuevavac.clienteRut2=this.rutClienteDVInput.text;
+					nuevavac.veterinarios2=this.vetesC;
+					nuevavac.ayudantes2=this.ayudantesC;
+					nuevavac.ayudantes3=this.ayudantesC;
 					var i:int;
 					var large:int = tiposC.length;
 					for(i=0;i<large;i++){
 						var text:String = tiposC.getItemAt(i,0) as String;
-						nuevacir.tiposCir1.push(text);
-						nuevacir.tiposCir2.push(text);
+						nuevavac.tiposCir1.push(text);
+						nuevavac.tiposCir2.push(text);
 					}
 					
 					
 					this.setVisible(false,false);
-					nuevacir.setVisible(true,false);
+					nuevavac.setVisible(true,false);
 				}
 				else{
 					this.labelMessage.text="Seleccione una Mascota para registrar la Vacunación.";
@@ -354,7 +355,7 @@
 	
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="10" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="692" rowCount="3" y="92" x="38.75" variableRowHeight="true" dataProvider="{mascotas}" itemDoubleClick="regCiru()"  visible="true" height="259">
+	<mx:DataGrid id="dg" color="0x323232" width="692" rowCount="3" y="92" x="38.75" variableRowHeight="true" dataProvider="{mascotas}" itemDoubleClick="regVacu()"  visible="true" height="259">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
@@ -363,7 +364,7 @@
 	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
 	    </mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="556.75" y="359" label="Visualizar" visible="true" id="registrar" click="regCiru()"/>
+	<mx:Button x="556.75" y="359" label="Visualizar" visible="true" id="registrar" click="regVacu()"/>
 	<mx:Button x="646.75" y="359" label="Cancelar" width="84" id="cancelar" visible="true"/>
 	
 	<mx:Label x="10" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
