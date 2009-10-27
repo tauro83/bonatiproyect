@@ -303,7 +303,7 @@
         ]]>
     </mx:Script>
 	<mx:Label x="10" y="10" text="Vacuna:" width="110" fontWeight="bold"/>
-	<mx:Label x="25.55" y="123" text="Vacunas:" width="63.4" height="17.931034"/>
+	<mx:Label x="27.15" y="167" text="Vacunas:" width="63.4" height="17.931034"/>
 	<mx:Label x="25.55" y="38" text="Responsable:" width="94.45"/>
 	<mx:Label x="450.55" y="40" text="Fecha: " width="78"/>
 	<mx:Label x="450.55" y="68" text="Costo:" width="63.4"/>
@@ -313,15 +313,17 @@
 	<mx:DateField x="536.55" y="38" width="120.25" id="fechaC"/>
 	<mx:TextInput x="536.55" y="66" width="104" id="costoC" restrict="0-9"/>
 	
-	<mx:Button x="395.65" y="172" label="-&gt;" width="47.55" click="guardaCir()"/>
-	<mx:Button x="395.65" y="202" label="&lt;-" width="47.55" click="quitaCir()"/>
+	<mx:Button x="397.25" y="216" label="-&gt;" width="47.55" click="guardaCir()"/>
+	<mx:Button x="397.25" y="246" label="&lt;-" width="47.55" click="quitaCir()"/>
 
 	<mx:Button x="518.25" y="347" label="Registrar" visible="true" id="registrar" click="registrarCiru()" width="102" height="23"/>
 	<mx:Button x="628.25" y="347" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
-	<mx:List x="119" y="120" width="270" height="175" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
-	<mx:List x="450.55" y="120" width="279.65" height="175" id="tabCirs" dataProvider="{cirugsAdds}"></mx:List>
-	<mx:Label x="25.55" y="70" text="Mascota:" width="63.95"/>
-	<mx:TextInput x="119.25" y="68" width="120.8" id="nombMasc" editable="false"/>
+	<mx:List x="120.6" y="164" width="270" height="175" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
+	<mx:List x="452.15" y="164" width="279.65" height="175" id="tabCirs" dataProvider="{cirugsAdds}"></mx:List>
+	<mx:Label x="450.55" y="96" text="Mascota:" width="63.95"/>
+	<mx:TextInput x="536.55" y="94" width="120.8" id="nombMasc" editable="false"/>
+	<mx:Label x="25" y="68" text="Descripción:" width="86"/>
+	<mx:TextArea x="119" y="67" width="271.6" height="89" id="descripcionV"/>
 	
 	
 </mx:Panel>
