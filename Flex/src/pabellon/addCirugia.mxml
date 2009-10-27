@@ -326,13 +326,10 @@
 	<mx:Button x="380.95" y="267" label="-&gt;" width="47.55" click="guardaCir()"/>
 	<mx:Button x="380.95" y="297" label="&lt;-" width="47.55" click="quitaCir()"/>
 
-	<mx:Button x="518.25" y="353" label="Registrar" visible="true" id="registrar" click="registrarCiru()" width="102" height="23"/>
-	<mx:Button x="628.25" y="353" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
-	<mx:List x="119" y="226" width="253.95" height="119" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
-	<mx:List x="450" y="226" width="280.25" height="119" id="tabCirs" dataProvider="{cirugsAdds}"></mx:List>
-	
-	
+	<mx:Button x="518.25" y="359" label="Registrar" visible="true" id="registrar" click="registrarCiru()" width="102" height="23"/>
+	<mx:Button x="628.25" y="359" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
+	<mx:List x="119" y="226" width="253.95" height="125" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
+	<mx:List x="450" y="226" width="280.25" height="125" id="tabCirs" dataProvider="{cirugsAdds}"></mx:List>
+	<mx:Label x="450" y="120" text="Mascota:" width="63.95"/>
+	<mx:TextInput x="536.55" y="118" width="120.8" id="nombMasc" editable="false"/>
 </mx:Panel>
-	
-	
-
