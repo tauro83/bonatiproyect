@@ -138,6 +138,7 @@
 
             public function setInvisible ():void
             {
+            	busVacunacion.setVisible(false,false);        
             	panelClinicaPrincipal.setVisible(false,false);
             	peluqueria.setVisible(false,false);
             	verFicha.setVisible(false,false);
@@ -408,7 +409,8 @@
     </mx:Script>
 	<ns1:PanelClinicaPrincipal x="241" y="134" id="panelClinicaPrincipal" visible="false">	
 	</ns1:PanelClinicaPrincipal>
-	
+	<ns1:buscarVacunacion x="241" y="134" id="busVacunacion" visible="false">	
+	</ns1:buscarVacunacion>
 	<mx:MenuBar x="0" y="104" width="1020" height="30"></mx:MenuBar>
 	<ns1:opciones x="0" y="134" id="panelOpciones" visible="true" horizontalAlign="center" height="466">
 	</ns1:opciones>
