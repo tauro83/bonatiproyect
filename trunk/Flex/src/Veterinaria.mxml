@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*"> 
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*"> 
 
     <mx:Script>
         <![CDATA[        
@@ -590,6 +590,11 @@
 	</ns3:addCirugia1>
 	<ns1:EditarCirugia x="241" y="134" id="editarCirugia" visible="false">
 	</ns1:EditarCirugia>
+	
+	<ns4:AddVacunacion1 x="241" y="133" id="addVacuna1" visible="false">
+	</ns4:AddVacunacion1>
+	<ns4:AddVacunacion x="240" y="133" id="addVacuna" visible="false">
+	</ns4:AddVacunacion>
 	<!--Autor: }Jimmy -->
 	
 	<!--Autor: Raul Lopez{ -->
@@ -626,6 +631,7 @@
 	</ns1:PurgarPreOperatorio>
 	<ns1:RegistrarConsulta x="241" y="134" id="registroConsulta" visible="false" borderColor="#15AD8F">
 	</ns1:RegistrarConsulta>
+	
 	<!--Autor: }nicolas-->
 	
 </mx:Application>
