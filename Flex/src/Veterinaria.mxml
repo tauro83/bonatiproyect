@@ -67,12 +67,7 @@
                 opcionesClinica1.estadisticaMes.addEventListener(MouseEvent.CLICK,verGraficosClinicaMes);
                 opcionesClinica1.estadisticaSemestre.addEventListener(MouseEvent.CLICK,verGraficosClinicaSemestre);  
                 opcionesClinica1.estadisticaTodas.addEventListener(MouseEvent.CLICK,verGraficosClinicaTodas);*/            
-                <!--Autor:Andres}-->
-               /*pelPanel1.PelNuevaAtencion.addEventListener(MouseEvent.CLICK,linkNuevaAtencion);
-				pelPanel1.PelNuevoCatalogo.addEventListener(MouseEvent.CLICK,linkNuevoCatalogo);
-				pelPanel1.PelVerCatalogo.addEventListener(MouseEvent.CLICK,linkVerCatalogo);
-				pelPanel1.PelEstadisitica.addEventListener(MouseEvent.CLICK,linkEstadistica);
-               */
+              
               
                 botonHotel.addEventListener(MouseEvent.CLICK, hotelclimanejadorClick);
               
@@ -87,8 +82,7 @@
 				/*pelCatalogo2.pelOAgregarItem.addEventListener(MouseEvent.CLICK, linkAgregarItem);
             	pelNewCatalogo2.pelOAgregarItem.addEventListener(MouseEvent.CLICK, linkAgregarItem);
             	pelNuevoItem.cancelNuevoItem.addEventListener(MouseEvent.CLICK, linkCancelAgregarItem);
-            	pelPanel1.pelVerAtenciones.addEventListener(MouseEvent.CLICK,linkVerAtencionesPel);
-				*/
+            	*/
 
 				<!--Autor: Erwin -->
 				
@@ -144,6 +138,7 @@
 
             public function setInvisible ():void
             {
+            	panelClinicaPrincipal.setVisible(false,false);
             	peluqueria.setVisible(false,false);
             	verFicha.setVisible(false,false);
             	visualizarFicha.setVisible(false,false);
@@ -168,7 +163,7 @@
 				cliRegistroPreO2.setVisible(false,false);
 				petVisualVent2.setVisible(false,false);
                 opcionesClinica1.setVisible(false,false);          
-                pelPanel1.setVisible(false,false);
+                
                 petVisualdat2.setVisible(false,false);
                 petOpciones1.setVisible(false,false);
                 petEstadisticasg2.setVisible(false,false);
@@ -353,6 +348,7 @@
             
             private function climanejadorClick ( event:Event ):void{
             	setInvisible();
+            	panelClinicaPrincipal.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
 			}        
 
@@ -410,7 +406,8 @@
         ]]>
 
     </mx:Script>
-	
+	<ns1:PanelClinicaPrincipal x="241" y="134" id="panelClinicaPrincipal" visible="false">	
+	</ns1:PanelClinicaPrincipal>
 	
 	<mx:MenuBar x="0" y="104" width="1020" height="30"></mx:MenuBar>
 	<ns1:opciones x="0" y="134" id="panelOpciones" visible="true" horizontalAlign="center" height="466">
@@ -450,8 +447,6 @@
 	</ns1:VisualizarVenta>
 	<ns1:OpcionesClinica x="0" y="134" id="opcionesClinica1" visible="false">
 	</ns1:OpcionesClinica>
-	<ns1:Panel1 x="0" y="134" id="pelPanel1" visible="false">
-	</ns1:Panel1>	
 	<ns1:EstadisticasGuardadasventas x="241" y="134" id="petEstadisticasg2" visible="false">
 	</ns1:EstadisticasGuardadasventas>
 	<ns1:ImportarDatos x="241" y="134" id="petVisualdat2" visible="false">
