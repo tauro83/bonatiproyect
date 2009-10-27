@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Vacunación">
+	<mx:Script>
+        <![CDATA[
+        	import mx.collections.Sort;
+        	import transferObjects.tiposCir;
+        	import services.AddMascotaService;
+        	import mx.controls.DateField;
+        	import mx.controls.Alert;
+            import mx.collections.ArrayCollection;
+        	import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.ValidationResultEvent;            
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
+		    import mx.rpc.events.ResultEvent;
+
+			import mx.controls.Image;
+		    import transferObjects.Cirugia;
+		    import mx.core.Application;
+		    
+		   
+			[Bindable]
+			public var clienteRut:String;
+			[Bindable]
+			public var clienteRut2:String;
+			[Bindable]
+			public var nombreMascota:String;
+			[Bindable]
+			public var hora:String;
+			[Bindable]
+			public var veterinarios2:ArrayCollection;
+			[Bindable]
+			public var ayudantes2:ArrayCollection;
+			[Bindable]
+			public var ayudantes3:ArrayCollection;
+			[Bindable]
+			public var tiposCir1:Array;
+			[Bindable]
+			public var tiposCir2:Array;
+			[Bindable]
+			public var cirugsAdds:Array;
+		   
+		   
+		   /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que realiza la accion de volver al panel anterior, dejando invisible este
+			 * y dejando visible el anterior.		 		
+			 * */ 
+		    public function vuelve():void
+		    {
+		    	this.setVisible(false,false);
+		    	Application.application.addCirug.labelMessage.text="";
+		    	Application.application.addCirug.iniciarPanel1();
+		    	Application.application.addCirug.setVisible(true,false);
+		    }
+		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que realiza la accion de verificar que todos los datos esten correctamente
+			 * ingresados en los inputs correspondientes, para que no se guarde una cirugia con datos erroneos.
+			 * En caso de que se produsca algun error o que falten datos se mostrara por pantalla los mensajes 
+			 * informando de cuales datos faltan por ingresar.		 		
+			 * */ 
+		    public function registrarCiru():void{
+		    	
+		    	if(this.veterinariosC.text==""){
+		    		this.labelMessage.text="Seleccione el nombre de un Veterinario para la cirugía.";
+		    	}
+		    	else{
+		    		if(this.ayudantesC.text==""){
+		    			this.labelMessage.text="Seleccione el nombre de un ayudante para la cirugía.";
+		    		}
+		    		else{
+		    			if(this.costoC.text==""){
+		    				this.labelMessage.text="Ingrese un costo para la cirugía.";
+		    			}
+		    			else{
+		    				if(this.fechaC.text==""){
+		    					this.labelMessage.text="Seleccione una fecha para la cirugía.";
+		    				}
+		    				else{
+		    					if(this.diagC.text==""){
+		    						this.labelMessage.text="Ingrese un diagnostico para la cirugía.";
+		    					}
+		    					else{
+		    						if(this.cirugsAdds.length==0){
+		    							this.labelMessage.text="Añada un tipo de cirugía que se haya realizado a la mascota.";
+		    						}
+		    						else{
+		    							this.labelMessage.text="";
+		    							var newCirugia:Cirugia = new Cirugia();
+		    	
+		    							newCirugia.ayudante = this.ayudantesC.text;
+		    							newCirugia.veterinario= this.veterinariosC.text;
+		    							newCirugia.costo = this.costoC.text;
+		    							newCirugia.fecha = this.fechaC.text;
+		    							newCirugia.diagnostico = this.diagC.text;
+		    							var i:int;
+		    							var largo:int = this.cirugsAdds.length;
+		    							newCirugia.tiposCirugias = new ArrayCollection();
+		    							for(i=0;i<largo;i++){
+		    								newCirugia.tiposCirugias.addItem(cirugsAdds.pop());
+		    							}
+		    							
+		    							newCirugia.clienteRut = this.clienteRut;
+		    							newCirugia.clienteRut2 = this.clienteRut2;
+		    							newCirugia.mascotaNombre = this.nombreMascota;
+		    							
+		    							var newAddServ:AddCirugiaService = new AddCirugiaService();
+		    							newAddServ.addCirugia(newCirugia);
+		    							this.setVisible(false,false);
+		    							Application.application.addCirug.iniciarPanel1();
+		    							Application.application.addCirug.labelMessage.text="Cirugía Registrada con exito.";
+		    							Application.application.addCirug.setVisible(true,false);
+		    						}
+		    					}
+		    				}
+		    			}
+		    		}
+		    	}
+		    	
+		    	
+		    }
+		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que realiza la accion de quitar una cirugia de la lista de cirugias realizadas
+			 * representada por la lista cirugsAdds y volviendo a colocarla disponible en la lista de cirugias.
+			 * */ 
+		     public function quitaCir():void
+		    {
+		    	
+		    	if(tabCirs.selectedItem){
+		    		var s:String = tabCirs.selectedItem.toString();		    		
+		    		tiposCir1.push(s);
+		    		ordenar();
+					renombrarCir2(s);
+		    	}
+		    	else{
+		    		this.labelMessage.text="Seleccione una cirugía de la tabla Cirugías realizadas.";
+		    	}
+	
+		    }
+		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que realiza la accion de quitar una cirugia de la lista de cirugias realizadas
+			 * representada por la lista cirugsAdds y volviendo a colocarla disponible en la lista de cirugias. 
+			 * Esto lo hace comparando las cirugias con el nombre, y luego cuando encuentra la corecta la añade.
+			 *  @Param String representando el nombre del tipo de cirugia.
+			 * */ 
+		    public function renombrarCir2(texto:String):void{
+		    	var newAr:Array = this.cirugsAdds;
+		    	cirugsAdds = new Array();
+		    	var i:int;
+		    	var j:int = newAr.length;
+		    	for(i=0;i<j;i++){
+		    		var s:String = newAr.pop();
+		    		if(s!=texto){
+		    			cirugsAdds.push(s);
+		    		}
+		    	}
+		    	this.ordenar2();
+
+		    	
+		    }
+		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que realiza la accion de agregar una cirugia de la lista de cirugias(tiposCir1) a la de 
+			 * cirugias realizadas (cirugsAdds), representada por la lista cirugsAdds y volviendo a colocarla disponible en la lista de cirugias.
+			 * */ 
+		    public function guardaCir():void
+		    {
+		    	
+		    	if(cirugias1.selectedItem){
+		    		var s:String = cirugias1.selectedItem.toString();		    		
+		    		cirugsAdds.push(s);
+		    		ordenar2();
+					renombrarCir(s);
+		    	}
+		    	else{
+		    		this.labelMessage.text="Seleccione una cirugía de la tabla Cirugías.";
+		    	}
+		    	
+				
+		    }
+         
+         
+		    
+         	
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que realiza la accion de agregar una cirugia de la lista de cirugias(tiposCir1) a la de 
+			 * cirugias realizadas (cirugsAdds), representada por la lista cirugsAdds y volviendo a colocarla disponible en 
+			 * la lista de cirugias. Esto lo hace comparando las cirugias con el nombre, y luego cuando encuentra la corecta la añade.
+			 *  @Param String representando el nombre del tipo de cirugia.
+			 * */ 
+		    public function renombrarCir(texto:String):void{
+		    	var newAr:Array = this.tiposCir1;
+		    	tiposCir1 = new Array();
+		    	var i:int;
+		    	var j:int = newAr.length;
+		    	for(i=0;i<j;i++){
+		    		var s:String = newAr.pop();
+		    		if(s!=texto){
+		    			tiposCir1.push(s);
+		    		}
+		    	}
+		    	this.ordenar();
+		    	
+            	
+
+		    }
+		    
+		    private function ordenLetra (a : Object , b : Object , fields : Array = null) : int
+		    {
+
+            	if (a > b)
+            	{
+               		return 1;
+            	}
+            	else if (a< b)
+            	{
+               		return -1;   
+            	}
+            	else {
+               		return 0;
+            	}
+         	} 
+		    
+		    private function ordenar () : void
+         	{
+
+           		var sort : Sort = new Sort ()
+            	sort.compareFunction = ordenLetra;
+            	cirugias1.dataProvider.sort = sort;
+            	cirugias1.dataProvider.refresh ();
+         	}
+         	
+         	private function ordenar2 () : void
+         	{
+
+           		var sort : Sort = new Sort ()
+            	sort.compareFunction = ordenLetra;
+            	tabCirs.dataProvider.sort = sort;
+            	tabCirs.dataProvider.refresh ();
+         	}
+		    
+		    
+
+		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que realiza la accion de deshabilitar la seleccion de un nombre de veterinario
+			 * para que pueda ser seleccionado como ayudante, pues no puede ser veterinario y a la vez ayudante,
+			 * debe tener un ayudante diferente.
+			 * */ 
+		    public function renombrarAyu():void
+		    {
+		    	var texto:String=veterinariosC.selectedLabel;
+		    	if(texto!=""){
+		    		ayudantes2 = new ArrayCollection();
+		    		var i:int;
+		    		var j:int = ayudantes3.length;
+		    		for(i=0;i<j;i++){
+		    			var s:String = ayudantes3.getItemAt(i,0).toString();
+		    			if(s!=texto){
+		    				ayudantes2.addItem(s);
+		    			}
+		    		}
+		    	}
+
+		    }
+		    
+		   
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que inicializa todos los datos del panel para que 
+			 * no existan datos de registros anteriores.
+			 * */ 
+		    public function iniciarPanel():void
+		    {
+		    	this.costoC.text="";
+		    	this.diagC.text="";
+		    	this.fechaC.text="";
+		    	this.cirugias1.doubleClickEnabled=true;
+		    	this.tiposCir2 = new Array();
+		    	this.tiposCir1 = new Array();
+		    	this.ayudantes2 = new ArrayCollection();
+		    	this.ayudantes3 = new ArrayCollection();
+		    	this.veterinarios2 =new ArrayCollection();
+		    	this.cirugsAdds =new Array();
+
+
+		    }
+				
+        ]]>
+    </mx:Script>
+	<mx:Label x="10" y="10" text="Vacuna:" width="110" fontWeight="bold"/>
+	<mx:Label x="25.55" y="123" text="Vacunas:" width="63.4" height="17.931034"/>
+	<mx:Label x="25.55" y="38" text="Responsable:" width="94.45"/>
+	<mx:Label x="450.55" y="40" text="Fecha: " width="78"/>
+	<mx:Label x="450.55" y="68" text="Costo:" width="63.4"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	
+	<mx:ComboBox x="119.25" y="36" id="veterinariosC" dataProvider="{veterinarios2}" width="190.25" close="renombrarAyu()"></mx:ComboBox>
+	<mx:DateField x="536.55" y="38" width="120.25" id="fechaC"/>
+	<mx:TextInput x="536.55" y="66" width="104" id="costoC" restrict="0-9"/>
+	
+	<mx:Button x="395.65" y="172" label="-&gt;" width="47.55" click="guardaCir()"/>
+	<mx:Button x="395.65" y="202" label="&lt;-" width="47.55" click="quitaCir()"/>
+
+	<mx:Button x="518.25" y="347" label="Registrar" visible="true" id="registrar" click="registrarCiru()" width="102" height="23"/>
+	<mx:Button x="628.25" y="347" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
+	<mx:List x="119" y="120" width="270" height="175" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
+	<mx:List x="450.55" y="120" width="279.65" height="175" id="tabCirs" dataProvider="{cirugsAdds}"></mx:List>
+	<mx:Label x="25.55" y="70" text="Mascota:" width="63.95" id="nombMasc"/>
+	<mx:TextInput x="119.25" y="68" width="120.8" id="nombMasc" editable="false"/>
+	
+	
+</mx:Panel>
