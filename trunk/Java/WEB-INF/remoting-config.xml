@@ -149,9 +149,16 @@
   			<source>Administracion.PurgarMascota</source>
   		</properties>
   	</destination>
+	
 	<destination id="EliminarMascota"> 
   	 	<properties>
   			<source>Administracion.EliminarMascota</source>
+  		</properties>
+  	</destination>
+	
+	<destination id="AddVacunacionService"> 
+  	 	<properties>
+  			<source>Policlinico.AddVacunacionService</source>
   		</properties>
   	</destination>
 
