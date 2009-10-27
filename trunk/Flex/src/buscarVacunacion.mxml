@@ -10,7 +10,7 @@
 			import mx.events.DropdownEvent;
 			import mx.core.Application;
 			import transferObjects.Mascota;
-			
+						
 		    [Bindable]private var mascotas:ArrayCollection;
 		   
 		    public function getAllMascotas():void
@@ -26,16 +26,70 @@
 		   		mascotas = event.result as ArrayCollection;
 		    }
 		    
+		    private function setInvisibleInput ():void
+            {
+            	inputMascotaNombre.setVisible(false,false);
+            	inputMascotaRut.setVisible(false,false);
+            	inputMascotaRaza.setVisible(false,false);
+            	inputMascotaClase.setVisible(false,false);
+            	inputMascotaSexo.setVisible(false,false);
+            }
+             private function volver():void
+            {
+            	this.setVisible(false,false);
+            	//Application.application.setInvisible();
+            	Application.application.panelClinicaPrincipal.setVisible(true,false);
+            }
+		    
 		    private function seleccionarMascota (event:Event):void
             {
-            	inputMascotaRut.setVisible(true,false);
+            	setInvisibleInput();
+            	switch (comboboxMascota.selectedLabel)
+            	{
+					case 'Nombre':		
+						inputMascotaNombre.setVisible(true,false);
+					break; 
+					case 'Rut Cliente':		
+						inputMascotaRut.setVisible(true,false);
+					break; 
+					case 'Raza':		
+						inputMascotaRaza.setVisible(true,false);
+					break; 
+					case 'Sexo':		
+						inputMascotaSexo.setVisible(true,false);
+					break;
+					case 'Clase':
+						inputMascotaClase.setVisible(true,false); 
+					break;	
+				}
             }
+            
+            public function editarVacunacion(event:Event):void
+            {
+            	if(gridMascota.selectedItem){
+            		this.setVisible(false,false);     
+      	 			Application.application.editVacunacion.setVisible(true,false);
+            		//verFicha.setDatos(fichas.selectedItem as Mascota);
+            		//verFicha.setVisible(true,false);
+            		//LLamar al otro panel
+            	}
+            }
+            
+//            AtencionVacuna
+//	            precio[money],
+//	            nombre[char],
+//	            descripcion[char],
+//	            fechaCaducidad[date],
+//	            servicio(policlinico) [char],
+//	            hora[time],
+//	            fecha[date]
+
+
+            
 		]]>
 	</mx:Script>
-		
-	
-	
-	<mx:ComboBox x="96" y="24" id="comboboxMascota" width="150" visible="true" change="seleccionarMascota(event)">
+	<mx:Label x="186" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:ComboBox x="124" y="22" id="comboboxMascota" width="150" visible="true" change="seleccionarMascota(event)">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Nombre"/>
@@ -45,7 +99,7 @@
 			<mx:Object label="Clase"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridMascota" visible="true" dataProvider="{mascotas}">
+	<mx:DataGrid x="58" y="52" width="640" height="283" id="gridMascota" visible="true" dataProvider="{mascotas}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Rut cliente" dataField="rutCliente"/>
@@ -54,7 +108,13 @@
 			<mx:DataGridColumn headerText="Sexo" dataField="sexo"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Text x="30" y="26" id="textFiltrar" text="Filtrar por"/>
-	<fc:AutoComplete id="inputMascotaRut" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="rutCliente" visible="false"/>
-
+	<mx:Text x="58" y="24" id="textFiltrar" text="Filtrar por"/>
+	<fc:AutoComplete id="inputMascotaNombre" x="548" y="22" width="150" dataProvider="{mascotas}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputMascotaRut" x="548" y="22" width="150" dataProvider="{mascotas}" labelField="rutCliente" visible="false"/>
+	<fc:AutoComplete id="inputMascotaRaza" x="548" y="22" width="150" dataProvider="{mascotas}" labelField="raza" visible="false"/>
+	<fc:AutoComplete id="inputMascotaClase" x="548" y="22" width="150" dataProvider="{mascotas}" labelField="claseAnimal" visible="false"/>
+	<fc:AutoComplete id="inputMascotaSexo" x="548" y="22" width="150" dataProvider="{mascotas}" labelField="sexo" visible="false"/>
+	<mx:Button x="486" y="360" label="Editar" id="botonVerficha"  click="editarVacunacion(event)" width="102"/>
+	<mx:Button x="596" y="360" label="Volver"  toolTip="Cancela la operación" width="102" click="volver()"/>
+	
 </mx:Panel>
