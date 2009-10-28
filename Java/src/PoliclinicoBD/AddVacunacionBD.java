@@ -3,19 +3,20 @@ package PoliclinicoBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
+
 import java.util.List;
 
-import TransferObjects.Cirugia;
+import TransferObjects.Vacuna;
 import TransferObjects.Mascota;
 
 
 public class AddVacunacionBD {
 	PreparedStatement add;
-	PreparedStatement addDiag;
 	PreparedStatement selectAll;
 	PreparedStatement getAllClientes;
 	
@@ -31,13 +32,9 @@ public class AddVacunacionBD {
 			
 			String query="";	
 			
-			query = "INSERT INTO Vacuna(clienterut, mascotanombre, hora, responsable, ayudante, fecha, costo) "+
-					"VALUES (?, ?, ?, ?, ?, ?, ?);";			
-			add = connection.prepareStatement(query);
-			
-			query = "INSERT INTO Diagnosticos(clienterut, mascotanombre, hora, fecha, diagnostico, nuevafecha, tipocirugia, nuevahora, id) "+
+			query = "INSERT INTO Vacuna(vacuna, clienterut, mascotanombre, hora, responsable, fecha, costo, fechacaducidad, descripcion) "+
 					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";			
-			addDiag = connection.prepareStatement(query);
+			add = connection.prepareStatement(query);
 			
 			query = "SELECT rut, nombre, fechanacimiento, claseanimal, raza, sexo, estado " +
 					"FROM mascota;";			
@@ -64,7 +61,7 @@ public class AddVacunacionBD {
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
     @SuppressWarnings("deprecation")
-	public int addCirugia(Cirugia newCirugia){
+	public int addCirugia(Vacuna newVacuna){
     	int result2=0;
     	try{
 
@@ -74,36 +71,27 @@ public class AddVacunacionBD {
     		int segundos = c.get(Calendar.SECOND);
     		
     		Time t = new Time(hora, minutos, segundos);
-    		
-    		
-    		    		
-			add.setString(1, newCirugia.getClienteRut());
-			add.setString(2, newCirugia.getMascotaNombre());
-			add.setTime(3, t);
-			add.setString(4, newCirugia.getVeterinario());
-			add.setString(5, newCirugia.getAyudante());
-			add.setString(6, newCirugia.getFecha());
-			add.setString(7, newCirugia.getCosto());
+			Date d = new Date(0, 0, 0);
+			d.setDate(Calendar.DATE);
+			d.setMonth(Calendar.MONTH);
+			d.setYear(Calendar.YEAR);
 			
-			result2= add.executeUpdate();
-			
-			List<String> ltc = newCirugia.getTiposCirugias();
-			int n = ltc.size();
+			List<String> ltv = newVacuna.getTiposVacunas();
+			int n = ltv.size();
 			for(int i=0;i<n;i++){
-				String tc = ltc.get(i);
+				String tc = ltv.get(i);
 				if(tc != null){
-					String s = Integer.toString(i);
-					addDiag.setString(1, newCirugia.getClienteRut());
-					addDiag.setString(2, newCirugia.getMascotaNombre());
-					addDiag.setTime(3, t);
-					addDiag.setString(4, newCirugia.getFecha());
-					addDiag.setString(5, newCirugia.getDiagnostico());
-					addDiag.setString(6, newCirugia.getFecha());
-					addDiag.setString(7, tc);
-					addDiag.setTime(8, t);
-					addDiag.setString(9, s);
-					
-					result2= addDiag.executeUpdate();
+					add.setString(1, tc);
+					add.setString(2, newVacuna.getClienteRut());
+					add.setString(3, newVacuna.getMascotaNombre());
+					add.setTime(4, t);
+					add.setString(5, newVacuna.getVeterinario());
+					add.setDate(6, d);
+					add.setString(7, newVacuna.getCosto());
+					add.setDate(8, newVacuna.getFechaCaducidad());
+					add.setString(9, newVacuna.getDescripcion());
+
+					result2= add.executeUpdate();
 				}
 				
 			}
