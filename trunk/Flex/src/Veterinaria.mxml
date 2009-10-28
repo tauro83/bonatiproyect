@@ -137,7 +137,10 @@
             }
 
             public function setInvisible ():void
-            {      
+            {   
+            	confVacunas.setVisible(false,false);
+            	confServicios.setVisible(false,false);
+            	confUsuario.setVisible(false,false);
             	confMascota.setVisible(false,false);
             	panelClinicaPrincipal.setVisible(false,false);
             	peluqueria.setVisible(false,false);
@@ -411,6 +414,12 @@
         ]]>
 
     </mx:Script>
+    <ns1:ConfiguracionVacunas x="241" y="134" id="confVacunas" visible="false">
+    </ns1:ConfiguracionVacunas>
+    <ns1:ConfiguracionServicios x="241" y="134" id="confServicios" visible="false">
+    </ns1:ConfiguracionServicios>	
+     <ns1:ConfiguracionUsuario x="241" y="134" id="confUsuario" visible="false">
+    </ns1:ConfiguracionUsuario>	
     <ns1:ConfiguracionMascota x="241" y="134" id="confMascota" visible="false">
     </ns1:ConfiguracionMascota>	
 	<ns1:PanelClinicaPrincipal x="241" y="134" id="panelClinicaPrincipal" visible="false">	
