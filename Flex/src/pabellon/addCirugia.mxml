@@ -222,6 +222,13 @@
 
 		    }
 		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  20 Octubre
+			 *  @Descripcion Metodo que procesa el orden que se mostrara en la lista de vacunas,
+			 * tanto las agregadas, como las que se muestran para agregar.
+			 * Se ordena por orden alfabetico.
+			 * */ 
 		    private function ordenLetra (a : Object , b : Object , fields : Array = null) : int
 		    {
 
@@ -238,24 +245,33 @@
             	}
          	} 
 		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  20 Octubre
+			 *  @Descripcion Metodo que asigna la forma en que se ordenara la lista de las vacunas que 
+			 * se reciben de la base de datos.
+			 * */ 
 		    private function ordenar () : void
          	{
-
            		var sort : Sort = new Sort ()
             	sort.compareFunction = ordenLetra;
             	cirugias1.dataProvider.sort = sort;
             	cirugias1.dataProvider.refresh ();
          	}
          	
+         	 /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  20 Octubre
+			 *  @Descripcion Metodo que asigna la forma en que se ordenara la lista de las vacunas que 
+			 * se han agregado.
+			 * */ 
          	private function ordenar2 () : void
          	{
-
            		var sort : Sort = new Sort ()
             	sort.compareFunction = ordenLetra;
             	tabCirs.dataProvider.sort = sort;
             	tabCirs.dataProvider.refresh ();
          	}
-		    
 		    
 
 		    
@@ -320,7 +336,7 @@
 	<mx:ComboBox x="120" y="36" id="veterinariosC" dataProvider="{veterinarios2}" width="190.25" close="renombrarAyu()"></mx:ComboBox>
 	<mx:ComboBox x="517.55" y="36" dataProvider="{ayudantes2}" width="197.45" id="ayudantesC"></mx:ComboBox>
 	<mx:TextArea x="120" y="65" width="270" height="137" id="diagC"/>
-	<mx:DateField x="517.55" y="70" width="120.25" id="fechaC"/>
+	<mx:DateField x="517.55" y="70" width="120.25" id="fechaC" formatString="DD/MM/YYYY"/>
 	<mx:TextInput x="517.55" y="102" width="104" id="costoC" restrict="0-9"/>
 	
 	<mx:Button x="400" y="242" label="-&gt;" width="50" click="guardaCir()"/>
