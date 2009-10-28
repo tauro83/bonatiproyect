@@ -103,9 +103,9 @@
 			 * el cual envia las solicitudes, y devuelve los resultados.
 			 */
         	private function getCliente(rutCliente:String):void{
-				var addMascotaService:AddCirugiaService = new AddCirugiaService();
-				addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
-				addMascotaService.getCliente(rutCliente);
+				var addvacService:AddVacunacionService = new AddVacunacionService();
+				addvacService.addEventListener(ResultEvent.RESULT,getClienteResult);
+				addvacService.getCliente(rutCliente);
 			}
 			
 			
@@ -160,9 +160,9 @@
 			* solicitando todas las mascotas que le pertenescan a un determinado cliente.
 			*/
 			public function getMascotas():void{
-				var addMascotaService:AddCirugiaService = new AddCirugiaService();
-				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addMascotaService.getMascotas(rutClienteInput.text);
+				var addvacService:AddVacunacionService = new AddVacunacionService();
+				addvacService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addvacService.getMascotas(rutClienteInput.text);
 			}
 			
 			/**
@@ -186,9 +186,9 @@
 			*/		
 			public function getTiposCirugias():void
 			{
-				var addMascotaService:AddCirugiaService = new AddCirugiaService();
-				addMascotaService.addEventListener(ResultEvent.RESULT,getTiposC);
-				addMascotaService.getTiposCirugias();
+				var addvacService:AddVacunacionService = new AddVacunacionService();
+				addvacService.addEventListener(ResultEvent.RESULT,getTiposC);
+				addvacService.getTiposCirugias();
 			}
 			
 			/**
@@ -212,9 +212,9 @@
 			*/
 			public function getTiposVeterinarios():void
 			{
-				var addMascotaService:AddCirugiaService = new AddCirugiaService();
-				addMascotaService.addEventListener(ResultEvent.RESULT,getTiposV);
-				addMascotaService.getTiposVeterinarios();
+				var addvacService:AddVacunacionService = new AddVacunacionService();
+				addvacService.addEventListener(ResultEvent.RESULT,getTiposV);
+				addvacService.getTiposVeterinarios();
 			}
 			
 			/**
@@ -227,33 +227,6 @@
 			public function getTiposV(event:ResultEvent):void
 			{
 				vetesV = event.result as ArrayCollection;
-			}
-			
-			
-			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  27 Octubre
-			* Metodo que se comunica con la capa logica, para obtener un listado con los nombres de los 
-			* veterinarios y ayudantes del sistema esto lo hace a traves de la clase AddCirugiaService. 
-			*/
-			public function getTiposAyudantes():void
-			{
-				var addMascotaService:AddCirugiaService = new AddCirugiaService();
-				addMascotaService.addEventListener(ResultEvent.RESULT,getTiposA);
-				addMascotaService.getTiposAyudantes();
-			}
-			
-			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  27 Octubre
-			* Metodo que procesa el resultado del metodo anterior, almacenando la lista resultante en la 
-			* variable ayudantesC. Que corresponde a la lista de veterinarios y ayudantes que existen en 
-			 * el sistema.
-			* @param event Evento
-			*/
-			public function getTiposA(event:ResultEvent):void
-			{
-				ayudantesV = event.result as ArrayCollection;
 			}
 			
 			
@@ -285,7 +258,7 @@
 					var large:int = tiposV.length;
 					for(i=0;i<large;i++){
 						var text:String = tiposV.getItemAt(i,0) as String;
-						nuevavac.tiposCir1.push(text);
+						nuevavac.tiposVac1.push(text);
 						nuevavac.tiposCir2.push(text);
 					}
 					
@@ -308,7 +281,6 @@
 			{
 				this.getTiposCirugias();
 				this.getTiposVeterinarios();
-				this.getTiposAyudantes();
 				this.mascotas=new ArrayCollection();
 				this.dg.doubleClickEnabled=true;
 				this.labelMessage.text="";
@@ -325,7 +297,6 @@
 			{
 				this.getTiposCirugias();
 				this.getTiposVeterinarios();
-				this.getTiposAyudantes();
 			}
 			
 				
