@@ -223,7 +223,7 @@
             	EditarPostODetalle.setVisible(false,false);
             	EditarPostO.setVisible(false,false);
             	this.purgControl.setVisible(false,false);
-            	this.panelClinica.setVisible(false,false);
+
             	<!--Autor: Andres G.}-->
             	
             	<!--Autor: Esteban{ -->
@@ -357,7 +357,7 @@
             	setInvisible();
             	panelClinicaPrincipal.setVisible(true,false);
                 opcionesClinica1.setVisible(true,false);
-                panelClinica.setVisible(true,false);
+
 			}        
 
             private function manejadorClick ( event:Event ):void{
@@ -530,8 +530,6 @@
 	</ns1:EditarPostOperatorioDetalle>
 	<ns1:PurgarControl x="241" y="134" id="purgControl" visible="false">
 	</ns1:PurgarControl>
-	<ns1:PanelClinica x="241" y="134" id="panelClinica" visible="false">
-	</ns1:PanelClinica>
 	
 	<!--Autor: andres}-->
 

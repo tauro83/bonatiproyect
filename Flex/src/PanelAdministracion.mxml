@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Opciones del módulo" borderColor="#15AD8F">
-	<mx:Accordion x="0" y="0" width="100%" height="100%">
+	<mx:Style source="css/AccordionStyle.css"/>
+	
+	<mx:Accordion styleName="Accordion1" x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Cliente" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
-				<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="registrarCliente()" fontWeight="bold"/>
-				<mx:LinkButton x="50" y="40" label="Editar" id="edCliente" textAlign="left"/>
-				<mx:LinkButton x="50" y="70" label="Eliminar" textAlign="left" id="linkEliminarClnte"/>	
-				<mx:LinkButton x="50" y="100" label="Purgar" textAlign="left" id="linkPurgarClnte"/>
+				<mx:LinkButton x="10" y="10" label="Registrar" textAlign="left" click="registrarCliente()" fontWeight="bold"/>
+				<mx:LinkButton x="10" y="40" label="Editar" id="edCliente" textAlign="left"/>
+				<mx:LinkButton x="10" y="70" label="Eliminar" textAlign="left" id="linkEliminarClnte"/>	
+				<mx:LinkButton x="10" y="100" label="Purgar" textAlign="left" id="linkPurgarClnte"/>
 		</mx:Canvas>
 		<mx:Canvas label="Mascota" width="100%" height="100%">
-			<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="registrarMascota()"/>
-			<mx:LinkButton x="50" y="40" label="Editar" id="linkEdicionMascotaAdm" textAlign="left"/>
-			<mx:LinkButton x="50" y="70" label="Eliminar" textAlign="left" click="eliminarMascota()"/>
-			<mx:LinkButton x="50" y="100" label="Purgar" textAlign="left" click="purgarMascota()"/>
+			<mx:LinkButton x="10" y="10" label="Registrar" textAlign="left" click="registrarMascota()"/>
+			<mx:LinkButton x="10" y="40" label="Editar" id="linkEdicionMascotaAdm" textAlign="left"/>
+			<mx:LinkButton x="10" y="70" label="Eliminar" textAlign="left" click="eliminarMascota()"/>
+			<mx:LinkButton x="10" y="100" label="Purgar" textAlign="left" click="purgarMascota()"/>
 		</mx:Canvas>
 		<mx:Canvas label="Ficha" width="100%" height="100%">
-			<mx:LinkButton x="50" y="10" label="Visualizar" textAlign="left" click="visualizarFicha()"/>
-			<mx:LinkButton x="50" y="40" label="Bitácora" textAlign="left" height="17" click="bitacoraFicha()"/>
+			<mx:LinkButton x="10" y="10" label="Visualizar" textAlign="left" click="visualizarFicha()"/>
+			<mx:LinkButton x="10" y="40" label="Bitácora" textAlign="left" height="17" click="bitacoraFicha()"/>
 			
 		</mx:Canvas>
 		<mx:Canvas label="Usuario" width="100%" height="100%">
