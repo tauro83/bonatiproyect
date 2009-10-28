@@ -113,7 +113,6 @@
 		<mx:Canvas label="Policlínico" width="100%" height="100%">
 		<mx:Accordion x="25" y="0" width="193" height="362">
 				<mx:Canvas label="Vacunación" width="100%" height="100%">
-						<mx:LinkButton x="50" y="40" label="Editar" click="editarVacunacion()"/>
 						<mx:LinkButton x="50" y="10" label="Registrar" id="linkRegVac" textAlign="left" click="verRegistrarVac()"/>
 				</mx:Canvas>
 				<mx:Canvas label="Consulta" width="100%" height="100%">
