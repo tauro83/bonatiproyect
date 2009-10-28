@@ -26,10 +26,22 @@
 			<mx:LinkButton x="50" y="70" label="Eliminar" textAlign="left" click="eliminarUsuario()" id="linkEliminarUsAd"/>
 			<mx:LinkButton x="50" y="100" label="Purgar" textAlign="left" id="linkPurgarUsAd" click="purgarUsuario()"/>
 		</mx:Canvas>
+		<mx:Canvas label="Configuración" width="100%" height="100%">
+			<mx:LinkButton x="10" y="10" label="Mascota" textAlign="left" click="configurarMascota()"/>
+			<mx:LinkButton x="10" y="40" label="Usuario" textAlign="left" />
+			<mx:LinkButton x="10" y="70" label="Agenda" textAlign="left" />
+		</mx:Canvas>
 	</mx:Accordion>
 	 <mx:Script>
         <![CDATA[   
          import mx.core.Application;
+         
+         private function configurarMascota():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.confMascota.visible = true;
+         }
          
          private function registrarUsuario():void
          {
