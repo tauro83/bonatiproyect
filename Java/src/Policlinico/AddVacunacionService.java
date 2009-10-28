@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import PabellonBD.AddCirugiaBD;
 import AdministracionBD.UsuarioEditBD;
+import PoliclinicoBD.AddVacunacionBD;
 import TransferObjects.Mascota;
 import TransferObjects.Usuario;
 import Bd.DBConnectionManager;
@@ -25,16 +25,16 @@ public class AddVacunacionService {
 	 * @param Cirugia, nuevaCir, que representa la cirugia que sera almacenada o registrada en la base de datos.
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
-	public int AddCirugia(Cirugia nuevaCir)
+	public int AddVacuna(Cirugia nuevaVac)
     {		
 		/**
 		 * En este proceso se divide en nombre del veterinario y del ayudante para acceder a la base de
 		 * datos, para en los procesos posteriores procesar dicha informacion 
 		 */
 		this.getAllUsuariosE();
-		String nombreVet = nuevaCir.getVeterinario();
+		String nombreVet = nuevaVac.getVeterinario();
 		String nombres[] = nombreVet.split(" ");
-		String nombreAyu = nuevaCir.getAyudante();
+		String nombreAyu = nuevaVac.getAyudante();
 		String nombresa[] = nombreAyu.split(" ");
 		
 		
@@ -56,7 +56,7 @@ public class AddVacunacionService {
 			 * para ver cual es el veterinario correspondiente.			
 			 */
 			if(nombre.equals(nombres[0]) && nombre2.equals(nombres[1])){
-				nuevaCir.setVeterinario(u.getUsuario().trim());
+				nuevaVac.setVeterinario(u.getUsuario().trim());
 			}
 		}
 		
@@ -76,7 +76,7 @@ public class AddVacunacionService {
 			 * para ver cual es el veterinario correspondiente.			
 			 */
 			if(nombre.equals(nombresa[0]) && nombre2.equals(nombresa[1])){
-				nuevaCir.setAyudante(u.getUsuario().trim());
+				nuevaVac.setAyudante(u.getUsuario().trim());
 			}
 		}
 
@@ -84,8 +84,8 @@ public class AddVacunacionService {
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
-			AddCirugiaBD cirugiaBd = new AddCirugiaBD(connection);
-			result = cirugiaBd.addCirugia(nuevaCir);		
+			AddVacunacionBD vacunaBd = new AddVacunacionBD(connection);
+			result = vacunaBd.addCirugia(nuevaVac);		
 			connection.close();
 		} catch (SQLException e) 
 		{
@@ -107,8 +107,8 @@ public class AddVacunacionService {
     	String cliente = null;
     	try {
 			Connection connection=DBConnectionManager.getConnection();
-			AddCirugiaBD addCirugiaBD = new AddCirugiaBD(connection);
-			cliente = addCirugiaBD.getCliente(rutCliente);		
+			AddVacunacionBD vacunaBd = new AddVacunacionBD(connection);
+			cliente = vacunaBd.getCliente(rutCliente);		
 			connection.close();
 		} 
     	catch (SQLException e) {
@@ -128,8 +128,8 @@ public class AddVacunacionService {
     	List<Mascota> mascotas=new ArrayList<Mascota>();
     	try {
 			Connection connection=DBConnectionManager.getConnection();
-			AddCirugiaBD cirugiaBD = new AddCirugiaBD(connection);
-			mascotas= cirugiaBD.getAllMascotas();		
+			AddVacunacionBD vacunaBd = new AddVacunacionBD(connection);
+			mascotas= vacunaBd.getAllMascotas();		
 			connection.close();
 		} 
     	catch (SQLException e) {
@@ -151,8 +151,8 @@ public class AddVacunacionService {
     	List<Mascota> mascotas=new ArrayList<Mascota>();
     	try {
 			Connection connection=DBConnectionManager.getConnection();
-			AddCirugiaBD cirugiaBD= new AddCirugiaBD(connection);
-			mascotas= cirugiaBD.getMascotas(rutCliente);		
+			AddVacunacionBD vacunaBd = new AddVacunacionBD(connection);
+			mascotas= vacunaBd.getMascotas(rutCliente);		
 			connection.close();
 		} 
     	catch (SQLException e) {
@@ -169,26 +169,24 @@ public class AddVacunacionService {
 	 * @param No recibe parametro.
 	 * @return Listado de tiposCir tipos de cirugias, que seran cargadas en los paneles de flex, para su posterior seleccion.
 	 */
-	public List<String> getTiposCirugias(){
-		List<String> cirus=new ArrayList<String>();
+	public List<String> getTiposVacunas(){
+		List<String> vacunas=new ArrayList<String>();
 		//List<tiposCir> tiposcirus=new ArrayList<tiposCir>();
 		
-		cirus.add("Amputación");
-		cirus.add("De Apéndice");
-		cirus.add("De los aparatos respiratorio");
-		cirus.add("De los aparatos cardiovascular");
-		cirus.add("De ojo");
-		cirus.add("De todo tipo de fractura");
-		cirus.add("Del sistema digestivo");
-		cirus.add("Del sistema tegumentario");
-		cirus.add("Del sistema reproductor");
-		cirus.add("Del sistema urinario");
-		cirus.add("Dental");
-		cirus.add("Estenosis traqueal");
-		cirus.add("Ortopédica");
-		cirus.add("Partos y cesaria");
-		cirus.add("Tiroidectomía (por tumores)");
-		cirus.add("De tumor");
+		vacunas.add("Coronavirus");
+		vacunas.add("Parvovirus");
+		vacunas.add("Intranasales");
+		vacunas.add("Bordetella bronchiséptica");
+		vacunas.add("Influenza canina");
+		vacunas.add("Virales");
+		vacunas.add("Bacterianas");
+		vacunas.add("Recombitek");
+		vacunas.add("Triple");
+		vacunas.add("Refuerzo de la Triple");
+		vacunas.add("Refuerzo de Parvovirus");
+		vacunas.add("Rabia");
+		vacunas.add("Rabia, Parvovirus y Triple");
+
 		
 		/*for(int i=0;i<cirus.size();i++){
 			tiposCir tc = new tiposCir();
@@ -196,7 +194,7 @@ public class AddVacunacionService {
 			tiposcirus.add(tc);
 		}*/
 
-		return cirus;	
+		return vacunas;	
 	}
 	
 	/**
