@@ -7,6 +7,7 @@ import java.util.List;
 
 import AdministracionBD.UsuarioEditBD;
 import PoliclinicoBD.AddVacunacionBD;
+import TransferObjects.Cliente;
 import TransferObjects.Mascota;
 import TransferObjects.Usuario;
 import Bd.DBConnectionManager;
@@ -83,8 +84,8 @@ public class AddVacunacionService {
 	 * @param String rutCliente, recibe un string que representa el rut del cliente que se necesita verificar si existe.
 	 * @return retorna el rut del cliente si es que existe.
 	 */
-	public String getCliente(String rutCliente){
-    	String cliente = null;
+	public Cliente getCliente(String rutCliente){
+    	Cliente cliente = null;
     	try {
 			Connection connection=DBConnectionManager.getConnection();
 			AddVacunacionBD vacunaBd = new AddVacunacionBD(connection);
@@ -221,54 +222,6 @@ public class AddVacunacionService {
 			}
 		}
 
-		return cirus;	
-	}
-	
-	
-	/**
-	 * Autor: Jimmy Muñoz
-	 * Metodo que llama a la funcion getAllUsuariosE, de esta clase, la cual se comunica con la base de datos cargando
-	 * los datos de los usuarios del sistema.
-	 * Posterior a esto, comienza a procesar los datos obtenidos para enviarlo como resultado a la capa de flex, para 
-	 * esto concatena el nombre y el apellido del usuario que tenga como cargo Veterinario o Ayudante, y este resultado
-	 * de la concatenacion es añadido a la lista que se retornara hacia la capa 1.
-	 * @param No recibe parametro.
-	 * @return Listado de String con los nombres de los veterinarios y ayudantes que podrian cooperar en la cirugia.
-	 */
-	public List<String> getTiposAyudantes(){
-		List<String> cirus=new ArrayList<String>();
-		
-		/**
-		 * En este codigo se llama a la base de datos para obtener los datos de los usuarios
-		 * y guardarlos en la variable persosns.
-		 */
-		this.getAllUsuariosE();
-		cirus.add("");
-		int n = persons.size();
-		/**
-		 * En este codigo se se procesa los datos de todos los usuarios que fueron devueltos del llamado anterior.
-		 * para ser retornado a la capa1.
-		 */
-		for(int i=0;i<n;i++){
-			Usuario u = persons.get(i); 
-			/**
-			 * Se borran los espacios en blanco obtenidos de la base de datos.
-			 * de la variable cargo. Para comparar, pues solo debe retornar los que tengan como cargo Veterinario.
-			 */
-			String cargo = u.getCargo().trim();
-			if(cargo.equals("Veterinario") || cargo.equals("Ayudante")){
-				/**
-				 * Se borran los espacios en blanco obtenidos de la base de datos.
-				 * de la variable nombre y apellido paterno. Luego se concatena y almacena en el array
-				 * para ser devuelto a la capa1.
-				 */
-				String nombre = u.getNombre().trim();
-				String apellido = u.getApellidoPaterno().trim();
-				String nombFinal = nombre.concat(" "+apellido);
-				cirus.add(nombFinal);
-			}
-		}
-		
 		return cirus;	
 	}
 	

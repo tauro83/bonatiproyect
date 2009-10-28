@@ -11,6 +11,7 @@ import java.util.Calendar;
 
 import java.util.List;
 
+import TransferObjects.Cliente;
 import TransferObjects.Vacuna;
 import TransferObjects.Mascota;
 
@@ -111,13 +112,16 @@ public class AddVacunacionBD {
 	 * @param El rut del cliente, en una varibale String..
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
-	public String getCliente(String rutCliente){
-    	String cliente = null;
+	public Cliente getCliente(String rutCliente){
+    	Cliente cliente = null;
     	try{
+    		cliente = new Cliente();
     		ResultSet result = getAllClientes.executeQuery();
     		while(result.next()){
+    			
     			if((result.getString(1).trim()).equals(rutCliente)){
-    				cliente = result.getString(2);
+    				cliente.setRut(result.getString(1));
+    				cliente.setNombre(result.getString(2));
     			}
     		}
 		} 

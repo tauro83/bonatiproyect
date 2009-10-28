@@ -9,11 +9,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-
-import Bd.DBConnectionManager;
 import TransferObjects.Cirugia;
+import TransferObjects.Cliente;
 import TransferObjects.Mascota;
-import TransferObjects.tiposCir;
+
 
 public class AddCirugiaBD {
 	PreparedStatement add;
@@ -65,8 +64,9 @@ public class AddCirugiaBD {
 	 * @param Cirugia, nuevaCir, que representa la cirugia que sera almacenada o registrada en la base de datos.
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
-    public int addCirugia(Cirugia newCirugia){
-    	int result=0, result2=0, result1=0;
+    @SuppressWarnings("deprecation")
+	public int addCirugia(Cirugia newCirugia){
+    	int result2=0;
     	try{
 
     		Calendar c = Calendar.getInstance();
@@ -74,7 +74,7 @@ public class AddCirugiaBD {
     		int minutos = c.get(Calendar.MINUTE);
     		int segundos = c.get(Calendar.SECOND);
     		
-    		Time t = new Time(hora, minutos, 0);
+    		Time t = new Time(hora, minutos, segundos);
     		
     		
     		    		
@@ -86,7 +86,7 @@ public class AddCirugiaBD {
 			add.setString(6, newCirugia.getFecha());
 			add.setString(7, newCirugia.getCosto());
 			
-			result1= add.executeUpdate();
+			result2= add.executeUpdate();
 			
 			List<String> ltc = newCirugia.getTiposCirugias();
 			int n = ltc.size();
@@ -124,13 +124,15 @@ public class AddCirugiaBD {
 	 * @param El rut del cliente, en una varibale String..
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
-	public String getCliente(String rutCliente){
-    	String cliente = null;
+	public Cliente getCliente(String rutCliente){
+    	Cliente cliente = null;
     	try{
+    		cliente = new Cliente();
     		ResultSet result = getAllClientes.executeQuery();
     		while(result.next()){
     			if((result.getString(1).trim()).equals(rutCliente)){
-    				cliente = result.getString(2);
+    				cliente.setRut(result.getString(1));
+    				cliente.setNombre(result.getString(2));
     			}
     		}
 		} 

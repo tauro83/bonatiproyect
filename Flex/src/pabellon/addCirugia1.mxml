@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registro Cirugía">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registro Cirugía" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
         <![CDATA[
+        	import transferObjects.Cliente;
         	import services.AddMascotaService;
         	import mx.controls.DateField;
         	import mx.controls.Alert;
@@ -18,18 +19,21 @@
 		    import transferObjects.Person;
 		    import transferObjects.Cirugia;
 		    import mx.core.Application;
+		     import services.BusquedaService;
 		   
 			
 			[Bindable]
 			private var files:ArrayCollection=new ArrayCollection();
 		    private var vResult:ValidationResultEvent;
-		    public var nombreCliente:String;
+		    public var clienteBD:Cliente;
 		    [Bindable]
 		    public var tiposC:ArrayCollection;
 		    [Bindable]
 		    public var vetesC:ArrayCollection;
 		    [Bindable]
 		    public var ayudantesC:ArrayCollection;
+		    [Bindable]
+			private var clientes:ArrayCollection;
 		    
 		    /**
 			* Lista de amscotas del cliente asociado
@@ -52,7 +56,7 @@
 			 */
         	private function buscarCliente(event:Event):void{
         		if(rutClienteDVInput.text != "" && rutClienteInput.text != ""){
-        			ini(event);
+        			ini();
         			var Numero:String = rutClienteInput.text;
         			var Dv:String = rutClienteDVInput.text;
 					var suma:int = 0;
@@ -116,20 +120,16 @@
 			 * @param event Evento
 			 */
 			public function getClienteResult(event:ResultEvent):void{
-				nombreCliente = event.result as String;
+				clienteBD = event.result as Cliente;
 				
-				if(nombreCliente == null){
+				if(clienteBD.nombre == null){
         			labelMessage.text = "Cliente no registrado."
-        			Application.application.AdmIngreso2.setVisible(true);
-        			Application.application.AdmIngreso2.labelMessage.text = "El cliente ingresado no esta registrado."
-        			Application.application.AdmIngreso2.rut.text = rutClienteInput.text;
-        			Application.application.AdmIngreso2.rut2.text = rutClienteDVInput.text;
         			
-        			ini(event);
         		}
         		else{
-        			labelMessage.text = "Se ha accedido al cliente "+nombreCliente;
-        			ini(event);
+        			this.inputClienteNombre.text = clienteBD.nombre;
+        			labelMessage.text = "Se ha accedido al cliente "+clienteBD.nombre;
+        			ini();
         		}
 			}
         	
@@ -140,7 +140,7 @@
 			* de la comunicacion con la capa logica.
 			* @param event Evento
 			*/
-	        private function ini(event:Event):void{
+	        private function ini():void{
 	        	//datosMascota.visible = true;
 	        	
 	           	mascotas.removeAll();
@@ -312,6 +312,7 @@
 				this.labelMessage.text="";
 				this.rutClienteInput.text="";
 				this.rutClienteDVInput.text="";
+				this.inputClienteNombre.text="";
 			}
 			
 			/**
@@ -326,14 +327,52 @@
 				this.getTiposAyudantes();
 			}
 			
+			//Cliente ---------------------------
+		   //funciona que busca todos los clientes
+		   public function getAllClientes():void
+		   {
+		   		var busquedaService:BusquedaService = new BusquedaService();
+		   		busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
+				busquedaService.getAllClientes();
+		   }
+		   
+		   public function getAllClientesResult(event:ResultEvent):void
+		   {
+		   		clientes = event.result as ArrayCollection;
+		   }
+		   
+		   public function buscarCliente2():void
+		   {
+		   		var nombre:String = inputClienteNombre.text;
+		   		if(inputClienteNombre.text != ""){
+		   			var largo:int = clientes.length;
+		   			var i:int;
+		   			
+		   			
+		   			for(i=0;i<largo;i++){
+		   				var newCli:Cliente = clientes.getItemAt(i,0) as Cliente;
+		   				if(nombre == newCli.nombre){
+		   					
+		   					this.rutClienteInput.text=newCli.rut;
+		   					this.rutClienteDVInput.text=newCli.rut2;
+		   					ini();
+		   					break;
+		   				}
+
+		   			}
+		   		}
+		   	}
+		   		
+			
 				
         ]]>
     </mx:Script>
 	
-	<mx:Label x="25" y="38" text="Rut:" width="31"/>
-	<mx:Label x="154.25" y="40" text="-" width="14.75" textAlign="center"/>
-	<mx:TextInput  restrict="0-9" x="64" y="38" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="165.75" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
+	<mx:Label x="330" y="38" text="Rut:" width="31"/>
+	<mx:Label x="459.25" y="38" text="-" width="14.75" textAlign="center"/>
+	<fc:AutoComplete id="inputClienteNombre" x="90" y="38" width="150" dataProvider="{clientes}" labelField="nombre" visible="true" click="getAllClientes()" focusOut="buscarCliente2()"/>
+	<mx:TextInput  restrict="0-9" x="369" y="38" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
+	<mx:TextInput x="470.75" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	
 	<mx:Panel x="121.5" y="-12" width="585" height="323" layout="absolute"  visible="false" id="ficha">
 			<mx:Label x="10" y="63" text="Nombre:" width="97"/>
@@ -368,5 +407,6 @@
 	<mx:Button x="632" y="353" label="Cancelar" width="102" id="cancelar" visible="true" height="23"/>
 	
 	<mx:Label x="25" y="70" text="Mascotas:" width="112.75" fontWeight="bold"/>
+	<mx:Label x="25" y="38" text="Nombre:" width="77"/>
 	
 </mx:Panel>

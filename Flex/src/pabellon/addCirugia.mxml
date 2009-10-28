@@ -338,14 +338,16 @@
 	<mx:TextArea x="120" y="65" width="270" height="137" id="diagC"/>
 	<mx:DateField x="517.55" y="70" width="120.25" id="fechaC" formatString="DD/MM/YYYY"/>
 	<mx:TextInput x="517.55" y="102" width="104" id="costoC" restrict="0-9"/>
+	<mx:TextInput x="517.55" y="134" width="120.8" id="nombMasc" editable="false"/>
 	
+	<mx:List x="120" y="210" width="270" height="125" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
 	<mx:Button x="400" y="242" label="-&gt;" width="50" click="guardaCir()"/>
 	<mx:Button x="400" y="272" label="&lt;-" width="50" click="quitaCir()"/>
-
+	<mx:List x="458" y="210" width="276" height="125" id="tabCirs" dataProvider="{cirugsAdds}"></mx:List>
+	
 	<mx:Button x="522" y="353" label="Registrar" visible="true" id="registrar" click="registrarCiru()" width="102" height="23"/>
 	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
-	<mx:List x="120" y="210" width="270" height="125" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
-	<mx:List x="458" y="210" width="276" height="125" id="tabCirs" dataProvider="{cirugsAdds}"></mx:List>
+	
 	<mx:Label x="430" y="134" text="Mascota:" width="63.95"/>
-	<mx:TextInput x="517.55" y="134" width="120.8" id="nombMasc" editable="false"/>
+	
 </mx:Panel>
