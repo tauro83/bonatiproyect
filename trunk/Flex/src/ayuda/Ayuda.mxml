@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="762" height="494" x="150" y="50" title="Ayuda" status="cerrar"   showCloseButton="true" close="PopUpManager.removePopUp(this)" borderColor="#15AD8F" verticalAlign="top" horizontalAlign="left" borderStyle="solid" borderThickness="6" xmlns:fc="http://www.adobe.com/2006/fc" xmlns:ns1="ayuda.*">
+	 
+	 <mx:Script>
+        <![CDATA[
+        	import mx.collections.ArrayCollection;       
+            import mx.managers.PopUpManager;
+            import mx.controls.Text;     
+            import transferObjects.AyudaObj;
+            
+            [Bindable]
+            public var seleccionado:String;
+	        [Bindable]
+			public var titulos:ArrayCollection = new ArrayCollection ([
+			{nameT:"Anular Cirugía"},
+			{nameT:"Anular Vacunación"},
+			{nameT:"Eliminar Vacunación"}]);
+           	
+           	private function setInvi():void
+           	{
+           		anuCirugia.visible = false;
+           		delVacu.visible = false;
+           		anuVacu.visible = false;
+           	}
+           	
+           	//Corrige error de seleccionar al primero
+		    public function Seleccionar(event:Event):void
+			{
+			    if(inputTitulos.selectedIndex==0)
+			    {
+			    	inputTitulos.text=inputTitulos.selectedLabel;
+			    }
+			}
+
+			//muestra detalle
+          	private function verDetalle(event:Event):void
+           	{	
+           		setInvi();
+           		switch(gridResult.selectedItem.nameT)
+           		{
+				case 'Anular Cirugía':	
+					anuCirugia.visible = true;
+				break; 
+				case 'Anular Vacunación':
+					anuVacu.visible = true;
+				break;
+				case 'Eliminar Vacunación':
+					delVacu.visible = true;
+				break;
+				}
+           	}
+           
+        ]]>
+    </mx:Script>
+	
+	<!-- Busqueda -->
+	<mx:Canvas x="10" y="44" width="311" height="42" backgroundColor="#CCCCCC">
+		<fc:AutoComplete id="inputTitulos" dataProvider="{titulos}" labelField="nameT" close="Seleccionar(event)" x="10" y="10" width="291"/>
+	</mx:Canvas>
+	<mx:Text x="10" y="24" text="Buscaqueda" fontWeight="bold"/>
+	
+	<!-- Resultados -->
+	<mx:DataGrid x="10" y="94" id="gridResult"  width="311" height="338" dataProvider="{titulos}" click="verDetalle(event)">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Resultados" dataField="nameT"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- Detalle -->
+	<mx:TextArea x="345" y="50" width="375" height="382" borderColor="#AABCC9" color="#213236" backgroundColor="#ECE9E9" id="detalle" editable="false"/>
+	<mx:Text x="345" y="24" text="Detalle" fontWeight="bold"/>
+	
+	<!-- Componentes -->
+	<ns1:anuCirugia x="345" y="50" visible="false" id="anuCirugia">
+	</ns1:anuCirugia>
+	<ns1:anuVacu x="345" y="50" visible="false" id="anuVacu">
+	</ns1:anuVacu>
+	<ns1:delVacu x="345" y="50" visible="false" id="delVacu">
+	</ns1:delVacu>
+
+</mx:TitleWindow>
