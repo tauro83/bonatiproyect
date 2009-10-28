@@ -137,6 +137,23 @@
 		    /**
 		 	 * 	@author  "Jimmy Muñoz"
 			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que verifica que la fecha de caducidad sea posterior a la fecha actual.
+			 * */
+		    public function verificaFecha():void
+		    {
+		    	if(fechaC.selectedDate.getTime()<fechaActual.getTime()){
+					labelMessage.text = "Ingrese una fecha de caducidad posterior a la actual"; 
+				}
+				else{
+					labelMessage.text = "";
+				}
+				
+		    	
+		    }
+		    
+		    /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  27 Octubre
 			 *  @Descripcion Metodo que realiza la accion de quitar una cirugia de la lista de cirugias realizadas
 			 * representada por la lista cirugsAdds y volviendo a colocarla disponible en la lista de cirugias.
 			 * */ 
@@ -316,7 +333,7 @@
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	
 	<mx:ComboBox x="118.4" y="33" id="veterinariosC" dataProvider="{veterinarios2}" width="190.25"></mx:ComboBox>
-	<mx:DateField x="536.55" y="35" width="120.25" id="fechaC" formatString="DD/MM/YYYY"/>
+	<mx:DateField x="536.55" y="35" width="120.25" id="fechaC" formatString="DD/MM/YYYY" change="verificaFecha()"/>
 	<mx:TextInput x="536.55" y="75" width="104" id="costoC" restrict="0-9"/>
 	
 	<mx:Button x="397.25" y="216" label="-&gt;" width="47.55" click="guardaCir()"/>
