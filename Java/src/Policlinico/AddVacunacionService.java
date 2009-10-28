@@ -10,7 +10,7 @@ import PoliclinicoBD.AddVacunacionBD;
 import TransferObjects.Mascota;
 import TransferObjects.Usuario;
 import Bd.DBConnectionManager;
-import TransferObjects.Cirugia;
+import TransferObjects.Vacuna;
 
 public class AddVacunacionService {
 	public List<Usuario> persons; //Lista en la cual se almacenan los datos de los usuarios del sistema.
@@ -25,7 +25,7 @@ public class AddVacunacionService {
 	 * @param Cirugia, nuevaCir, que representa la cirugia que sera almacenada o registrada en la base de datos.
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
-	public int AddVacuna(Cirugia nuevaVac)
+	public int AddVacuna(Vacuna nuevaVac)
     {		
 		/**
 		 * En este proceso se divide en nombre del veterinario y del ayudante para acceder a la base de
@@ -34,8 +34,6 @@ public class AddVacunacionService {
 		this.getAllUsuariosE();
 		String nombreVet = nuevaVac.getVeterinario();
 		String nombres[] = nombreVet.split(" ");
-		String nombreAyu = nuevaVac.getAyudante();
-		String nombresa[] = nombreAyu.split(" ");
 		
 		
 		int n = persons.size();
@@ -60,25 +58,7 @@ public class AddVacunacionService {
 			}
 		}
 		
-		/**
-		 * En este proceso se accede a la base de datos para obtener los id de los 
-		 * ayudantes, para almacenarlos en la base de datos. 
-		 */
-		for(int i=0;i<n;i++){
-			Usuario u = persons.get(i); 
-			/**
-			 * En este codigo se quitan los espacios en blancos que se obtienen de la base de datos
-			 */
-			String nombre = u.getNombre().trim();
-			String nombre2 = u.getApellidoPaterno().trim();
-			/**
-			 * En este codigo se comparan los datos obtenidos con los que llegan de la capa 1
-			 * para ver cual es el veterinario correspondiente.			
-			 */
-			if(nombre.equals(nombresa[0]) && nombre2.equals(nombresa[1])){
-				nuevaVac.setAyudante(u.getUsuario().trim());
-			}
-		}
+		
 
 		int result=0;
 		try 
