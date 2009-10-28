@@ -86,6 +86,18 @@
 				Application.application.addVacuna1.iniciarPanel();
 				Application.application.addVacuna1.visible = true;
 			}
+			
+			public function anularVacunaciones():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.vacunacionA.visible = true;	
+			}
+			
+			public function eliminarVacunaciones():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.vacunacionE.visible = true;	
+			}
 
 		]]>
 	</mx:Script>
@@ -101,7 +113,7 @@
 				<mx:Canvas label="Cirugía" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
 					<mx:LinkButton x="50" y="10" label="Registrar" width="100%" textAlign="left" id="cirugiaLink" click="verRegistrarCirugia()"/>
 					<mx:LinkButton x="50" y="40" label="Editar" width="100%" textAlign="left" id="cirugiaLink0" click="verEditarCirugia()"/>
-					<mx:LinkButton x="50" y="70" label="Purgar" width="100%" textAlign="left" id="cirugiaLink1" click="verPurgarCirugia()"/>
+					<mx:LinkButton x="50" y="70" label="Anular" width="100%" textAlign="left" id="cirugiaLink1" click="verPurgarCirugia()"/>
 				</mx:Canvas>
 				<mx:Canvas label="Post-Operatorio" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
 					<mx:LinkButton x="50" y="10" label="Registrar" width="100%" textAlign="left" id="PostOLink" click="verRegistrarPostOperatorio()"/>
@@ -114,7 +126,9 @@
 		<mx:Canvas label="Policlínico" width="100%" height="100%">
 		<mx:Accordion x="25" y="0" width="193" height="362">
 				<mx:Canvas label="Vacunación" width="100%" height="100%">
-						<mx:LinkButton x="50" y="10" label="Registrar" id="linkRegVac" textAlign="left" click="verRegistrarVac()"/>
+					<mx:LinkButton x="50" y="10" label="Registrar" id="linkRegVac" textAlign="left" click="verRegistrarVac()"/>
+					<mx:LinkButton x="50" y="100" label="Anular Vacunación" id="anularVacunacion" click="anularVacunaciones()"/>
+					<mx:LinkButton x="50" y="130" label="Eliminar Vacunación" id="eliminarVacunacion0" click="eliminarVacunaciones()"/>
 				</mx:Canvas>
 				<mx:Canvas label="Consulta" width="100%" height="100%">
 					<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="verRegistrarConsulta()"/>
