@@ -27,11 +27,11 @@
 		    private var vResult:ValidationResultEvent;
 		    public var nombreCliente:String;
 		    [Bindable]
-		    public var tiposC:ArrayCollection;
+		    public var tiposV:ArrayCollection;
 		    [Bindable]
-		    public var vetesC:ArrayCollection;
+		    public var vetesV:ArrayCollection;
 		    [Bindable]
-		    public var ayudantesC:ArrayCollection;
+		    public var ayudantesV:ArrayCollection;
 		    
 		    /**
 			* Lista de amscotas del cliente asociado
@@ -53,45 +53,47 @@
 			 * @param event Evento
 			 */
         	private function buscarCliente(event:Event):void{
-        		ini(event);
-        		var Numero:String = rutClienteInput.text;
-        		var Dv:String = rutClienteDVInput.text;
-				var suma:int = 0;
-				var rut:String = Numero;
-				var NumMag:int = 2;
-				var Resto:int = 0;
-				var j:int ;
-				var i:int;
-				var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
-				var ParteNumerica:Array = new Array();
+        		if(rutClienteDVInput.text != "" && rutClienteInput.text != ""){
+        			ini(event);
+        			var Numero:String = rutClienteInput.text;
+        			var Dv:String = rutClienteDVInput.text;
+					var suma:int = 0;
+					var rut:String = Numero;
+					var NumMag:int = 2;
+					var Resto:int = 0;
+					var j:int ;
+					var i:int;
+					var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
+					var ParteNumerica:Array = new Array();
 				
-				if (rut.length == 0) { 
+					if (rut.length == 0) { 
 
-				}
-				for ( j =0, i =0; j < rut.length; j++){
-					if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
-						ParteNumerica[i] = rut.charAt(i);
-						++i;
 					}
-				}
+					for ( j =0, i =0; j < rut.length; j++){
+						if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
+							ParteNumerica[i] = rut.charAt(i);
+							++i;
+						}
+					}
 				
-				for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
-					suma += ParteNumerica[i] * NumMag;
-					trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
-					if (NumMag>6){
-						NumMag =1;	
-					}	
-				}
+					for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
+						suma += ParteNumerica[i] * NumMag;
+						trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
+						if (NumMag>6){
+							NumMag =1;	
+						}	
+					}
 				
-				Resto = 11-(suma%11);
-				if(DigVer[Resto] != Dv.toUpperCase()){
-					labelMessage.text = "El Rut que ha ingresado es incorrecto.";
-				}
-				else{
-					labelMessage.text = "";
-					rutClienteInput.errorString = "";
-					getCliente(rutClienteInput.text);
-				}		
+					Resto = 11-(suma%11);
+					if(DigVer[Resto] != Dv.toUpperCase()){
+						labelMessage.text = "El Rut que ha ingresado es incorrecto.";
+					}
+					else{
+						labelMessage.text = "";
+						rutClienteInput.errorString = "";
+						getCliente(rutClienteInput.text);
+					}
+        		}		
         	}
         	
         	/**
@@ -198,7 +200,7 @@
 			*/
 			public function getTiposC(event:ResultEvent):void
 			{
-				tiposC = event.result as ArrayCollection;
+				tiposV = event.result as ArrayCollection;
 			}
 			
 			
@@ -224,7 +226,7 @@
 			*/
 			public function getTiposV(event:ResultEvent):void
 			{
-				vetesC = event.result as ArrayCollection;
+				vetesV = event.result as ArrayCollection;
 			}
 			
 			
@@ -251,7 +253,7 @@
 			*/
 			public function getTiposA(event:ResultEvent):void
 			{
-				ayudantesC = event.result as ArrayCollection;
+				ayudantesV = event.result as ArrayCollection;
 			}
 			
 			
@@ -276,13 +278,13 @@
 					nuevavac.nombMasc.text=nombre;
 					nuevavac.clienteRut=this.rutClienteInput.text;
 					nuevavac.clienteRut2=this.rutClienteDVInput.text;
-					nuevavac.veterinarios2=this.vetesC;
-					nuevavac.ayudantes2=this.ayudantesC;
-					nuevavac.ayudantes3=this.ayudantesC;
+					nuevavac.veterinarios2=this.vetesV;
+					nuevavac.ayudantes2=this.ayudantesV;
+					nuevavac.ayudantes3=this.ayudantesV;
 					var i:int;
-					var large:int = tiposC.length;
+					var large:int = tiposV.length;
 					for(i=0;i<large;i++){
-						var text:String = tiposC.getItemAt(i,0) as String;
+						var text:String = tiposV.getItemAt(i,0) as String;
 						nuevavac.tiposCir1.push(text);
 						nuevavac.tiposCir2.push(text);
 					}
@@ -330,10 +332,10 @@
         ]]>
     </mx:Script>
 	
-	<mx:Label x="38.75" y="38" text="Rut:" width="32"/>
-	<mx:Label x="169" y="38" text="-" width="14.75" textAlign="center"/>
-	<mx:TextInput  restrict="0-9" x="78.75" y="36" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="180.5" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
+	<mx:Label x="25" y="35" text="Rut:" width="32"/>
+	<mx:Label x="155.25" y="35" text="-" width="14.75" textAlign="center"/>
+	<mx:TextInput  restrict="0-9" x="65" y="35" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
+	<mx:TextInput x="166.75" y="35" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	
 	<mx:Panel x="121.5" y="-12" width="585" height="323" layout="absolute"  visible="false" id="ficha">
 			<mx:Label x="10" y="63" text="Nombre:" width="97"/>
@@ -354,8 +356,8 @@
 
 	
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Label x="10" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="692" rowCount="3" y="92" x="38.75" variableRowHeight="true" dataProvider="{mascotas}" itemDoubleClick="regVacu()"  visible="true" height="259">
+	<mx:Label x="25" y="10" text="Cliente:" width="84.75" fontWeight="bold"/>
+	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="92" x="25" variableRowHeight="true" dataProvider="{mascotas}" itemDoubleClick="regVacu()"  visible="true" height="253">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
@@ -364,9 +366,9 @@
 	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
 	    </mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="556.75" y="359" label="Visualizar" visible="true" id="registrar" click="regVacu()"/>
-	<mx:Button x="646.75" y="359" label="Cancelar" width="84" id="cancelar" visible="true"/>
+	<mx:Button x="522" y="353" label="Visualizar" visible="true" id="registrar" click="regVacu()" width="102" height="23"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="103" id="cancelar" visible="true" height="23"/>
 	
-	<mx:Label x="10" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
+	<mx:Label x="25" y="65" text="Mascotas:" width="112.75" fontWeight="bold"/>
 	
 </mx:Panel>

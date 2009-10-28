@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Vacunación">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Vacunación" xmlns:ns1="*">
 	<mx:Script>
         <![CDATA[
         	import mx.collections.Sort;
@@ -90,27 +90,27 @@
 		    				}
 		    				else{
 		    					this.labelMessage.text="";
-		    					var newCirugia:Cirugia = new Cirugia();
+		    					var newVacuna:Cirugia = new Cirugia();
 		    	
-		    					newCirugia.veterinario= this.veterinariosC.text;
-		    					newCirugia.costo = this.costoC.text;
-		    					newCirugia.fecha = this.fechaC.text;
+		    					newVacuna.veterinario= this.veterinariosC.text;
+		    					newVacuna.costo = this.costoC.text;
+		    					newVacuna.fecha = this.fechaC.text;
 		    					var i:int;
 		    					var largo:int = this.cirugsAdds.length;
-		    					newCirugia.tiposCirugias = new ArrayCollection();
+		    					newVacuna.tiposCirugias = new ArrayCollection();
 		    					for(i=0;i<largo;i++){
-		    						newCirugia.tiposCirugias.addItem(cirugsAdds.pop());
+		    						newVacuna.tiposCirugias.addItem(cirugsAdds.pop());
 		    					}
 		    							
-		    					newCirugia.clienteRut = this.clienteRut;
-		    					newCirugia.clienteRut2 = this.clienteRut2;
-		    					newCirugia.mascotaNombre = this.nombreMascota;
+		    					newVacuna.clienteRut = this.clienteRut;
+		    					newVacuna.clienteRut2 = this.clienteRut2;
+		    					newVacuna.mascotaNombre = this.nombreMascota;
 		    							
-		    					var newAddServ:AddCirugiaService = new AddCirugiaService();
-		    					newAddServ.addCirugia(newCirugia);
+		    					var newAddServ:AddVacunacionService = new AddVacunacionService();
+		    					newAddServ.addVacuna(newVacuna);
 		    					this.setVisible(false,false);
 		    					Application.application.addCirug.iniciarPanel1();
-		    					Application.application.addCirug.labelMessage.text="Cirugía Registrada con exito.";
+		    					Application.application.addCirug.labelMessage.text="Vacuna Registrada con exito.";
 		    					Application.application.addCirug.setVisible(true,false);
 		    				}
 		    					
@@ -302,28 +302,28 @@
 				
         ]]>
     </mx:Script>
-	<mx:Label x="10" y="10" text="Vacuna:" width="110" fontWeight="bold"/>
-	<mx:Label x="27.15" y="167" text="Vacunas:" width="63.4" height="17.931034"/>
-	<mx:Label x="25.55" y="38" text="Responsable:" width="94.45"/>
-	<mx:Label x="450.55" y="40" text="Fecha: " width="78"/>
-	<mx:Label x="450.55" y="68" text="Costo:" width="63.4"/>
+	<mx:Label x="25" y="10" text="Vacuna:" width="110" fontWeight="bold"/>
+	<mx:Label x="25" y="173" text="Vacunas:" width="63.4" height="17.931034"/>
+	<mx:Label x="25" y="35" text="Responsable:" width="85.45"/>
+	<mx:Label x="450.55" y="35" text="Caducidad:" width="78"/>
+	<mx:Label x="450.55" y="75" text="Costo:" width="63.4"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	
-	<mx:ComboBox x="119.25" y="36" id="veterinariosC" dataProvider="{veterinarios2}" width="190.25" close="renombrarAyu()"></mx:ComboBox>
-	<mx:DateField x="536.55" y="38" width="120.25" id="fechaC"/>
-	<mx:TextInput x="536.55" y="66" width="104" id="costoC" restrict="0-9"/>
+	<mx:ComboBox x="118.4" y="33" id="veterinariosC" dataProvider="{veterinarios2}" width="190.25" close="renombrarAyu()"></mx:ComboBox>
+	<mx:DateField x="536.55" y="35" width="120.25" id="fechaC"/>
+	<mx:TextInput x="536.55" y="75" width="104" id="costoC" restrict="0-9"/>
 	
 	<mx:Button x="397.25" y="216" label="-&gt;" width="47.55" click="guardaCir()"/>
 	<mx:Button x="397.25" y="246" label="&lt;-" width="47.55" click="quitaCir()"/>
 
-	<mx:Button x="518.25" y="347" label="Registrar" visible="true" id="registrar" click="registrarCiru()" width="102" height="23"/>
-	<mx:Button x="628.25" y="347" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
-	<mx:List x="120.6" y="164" width="270" height="175" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
-	<mx:List x="452.15" y="164" width="279.65" height="175" id="tabCirs" dataProvider="{cirugsAdds}"></mx:List>
-	<mx:Label x="450.55" y="96" text="Mascota:" width="63.95"/>
-	<mx:TextInput x="536.55" y="94" width="120.8" id="nombMasc" editable="false"/>
-	<mx:Label x="25" y="68" text="Descripción:" width="86"/>
-	<mx:TextArea x="119" y="67" width="271.6" height="89" id="descripcionV"/>
+	<mx:Button x="522" y="353" label="Registrar" visible="true" id="registrar" click="registrarCiru()" width="102" height="23"/>
+	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
+	<mx:List x="119.5" y="170" width="270" height="175" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
+	<mx:List x="452.8" y="170" width="282.65" height="175" id="tabCirs" dataProvider="{cirugsAdds}"></mx:List>
+	<mx:Label x="450.55" y="115" text="Mascota:" width="63.95"/>
+	<mx:TextInput x="536.55" y="115" width="104" id="nombMasc" editable="false"/>
+	<mx:Label x="25" y="75" text="Descripción:" width="86"/>
+	<mx:TextArea x="119.5" y="73" width="271.6" height="89" id="descripcionV"/>
 	
 	
 </mx:Panel>
