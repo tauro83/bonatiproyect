@@ -27,8 +27,6 @@
             {
             	this.setVisible(false,false);
             	Application.application.panelPCli.setVisible(true,false);
-            	//Application.application.agenda2.setVisible(true,false);
-            	//Application.application.menuAgenda1.setVisible(true,false);
             }
             
             /**
