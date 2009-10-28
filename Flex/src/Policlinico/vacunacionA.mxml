@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc" title="Anular Vacunación">
+	<mx:Script>
+		<![CDATA[
+		//=======================================================================
+		// FECHA CREACIÓN: 27-10-09
+		// AUTOR: Esteban Cruz
+		// Comentario: Se listan solo los clientes con vacunaciones al momento
+		// de realizar una busqueda, luego se selecciona 
+		//=======================================================================
+		
+			import mx.collections.ArrayCollection;
+            import mx.rpc.events.ResultEvent;
+            import mx.core.Application;
+			
+			import transferObjects.vacunacionesObj;
+			import services.VacunacionService;
+			
+			[Bindable]
+			private var vacunaicones:ArrayCollection;
+			
+			/**
+			 * Evento del boton "Volver", el cual redirige la página
+			 * a la estipulada por defecto
+			 */
+			private function volver():void
+            {
+            	this.setVisible(false,false);
+            	Application.application.panelPCli.setVisible(true,false);
+            	//Application.application.agenda2.setVisible(true,false);
+            	//Application.application.menuAgenda1.setVisible(true,false);
+            }
+            
+            /**
+			 * Se hace visible el input correspondiente a la opción
+			 * elegida en el combobox
+			 */
+            private function seleccionarBusqueda (event:Event):void
+            {   
+            	inputNombreCliente.setVisible(false,false);
+				inputApellidoPaterno.setVisible(false,false);
+				inputRutCliente.setVisible(false,false);
+				inputNombreMascota.setVisible(false,false);
+				inputNombreMascota.setVisible(false,false);
+				inputRaza.setVisible(false,false);
+				inputSexo.setVisible(false,false);
+				textBuscar.setVisible(true, false);
+				getAllVacunaciones();
+            	switch (combobox.selectedLabel)
+				{
+				case 'Nombre cliente':		
+					inputNombreCliente.setVisible(true,false);
+				break; 
+				case 'Apellido paterno':
+					inputApellidoPaterno.setVisible(true,false);
+				break;
+				case 'Rut cliente':
+					inputRutCliente.setVisible(true,false);
+				break;
+				case 'Nombre mascota':
+					inputNombreMascota.setVisible(true,false);
+				break;
+				case 'Raza':
+					inputRaza.setVisible(true,false);
+				break;
+				case 'Sexo':
+					inputSexo.setVisible(true,false);
+				break;
+				}
+            }
+            
+			/**
+			 * Se obtienen todas las vacunaciones que están registradas en 
+			 * la base de datos para ser mostrados dentro del datagrid
+			 */
+			public function getAllVacunaciones():void
+		    {
+		   		var vacunacionService:VacunacionService = new VacunacionService();
+		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
+				vacunacionService.getAllVacunaciones();
+		    }
+		   
+		    /**
+			 * Una vez obtenidas todas las vacunaciones que están registradas 
+			 * en la base de datos, son mostrados dentro del datagrid
+			 */
+		    public function getAllVacunacionesResult(event:ResultEvent):void
+		    {
+		   		vacunaicones = event.result as ArrayCollection;
+		    }
+		    
+		    /**
+			 * Una vez seleccionado un cliente, se procede a visualizar
+			 * la siguiente ventana (componente), con los datos 
+			 * correspondientes al cliente seleccionado
+			 */
+		    public function visualizarVacunaciones(event:Event):void
+            {
+            	if(tablaVacunaciones.selectedItem){
+            		this.setVisible(false,false);            	 	
+            		Application.application.vacunacionA2.setDatos(tablaVacunaciones.selectedItem as vacunacionesObj);
+            		Application.application.vacunacionA2.setVisible(true,false);
+            	}
+            }
+			
+		]]>
+	</mx:Script>
+	
+	<!-- Elementos -->
+	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Text x="10" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
+	<mx:Text x="382" y="36" text="Mascota" fontWeight="bold"/>
+	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
+	<mx:Text x="10" y="10" id="textFiltrar" text="Filtrar por"/>
+	<mx:Button x="647" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()"/>
+	
+	<!-- Opciones de busqueda -->
+	<mx:ComboBox x="76" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccionar-"/>
+			<mx:Object label="Nombre cliente"/>
+			<mx:Object label="Apellido paterno"/>
+			<mx:Object label="Rut cliente"/> 
+			<mx:Object label="Nombre mascota"/> 
+			<mx:Object label="Raza"/> 
+			<mx:Object label="Sexo"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	
+	<!-- Tabla con datos -->
+	<mx:DataGrid x="10" y="62" width="739" height="280" id="tablaVacunaciones" dataProvider="{vacunaicones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
+		<mx:columns>		
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreCliente" id="nombreCliente" draggable="false"/>
+			<mx:DataGridColumn headerText="Apellido paterno" dataField="apellidoPaterno" id="apellidoPaterno" draggable="false"/>
+			<mx:DataGridColumn headerText="Rut" dataField="rutCliente" id="rutCliente" draggable="false"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota" id="nombreMascota" draggable="false"/>
+			<mx:DataGridColumn headerText="Raza" dataField="raza" id="raza" draggable="false"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="sexo" id="sexo" draggable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- AutoComplete -->
+	<fc:AutoComplete id="inputNombreCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombreCliente" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputApellidoPaterno" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="apellidoPaterno" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputRutCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="rutCliente" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputNombreMascota" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombreMascota" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputRaza" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="raza" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputSexo" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="sexo" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+</mx:Panel>

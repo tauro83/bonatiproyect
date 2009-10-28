@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15ad8f" title="Eliminar Vacunación">
+	<mx:Script>
+		<![CDATA[
+		//=======================================================================
+		// FECHA CREACIÓN: 27-10-09
+		// AUTOR: Esteban Cruz
+		// Comentario: Una vez seleccionado un cliente, se visualiza su información 
+		// detalla junto a sus vacunaciones para poder eliminar la deseada
+		//=======================================================================
+				
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+            import mx.core.Application;
+			
+			import transferObjects.vacunacionesObj;
+			import services.VacunacionService;
+			[Bindable]
+			private var vacunaciones:ArrayCollection;
+			
+			
+			/**
+			 * Evento del boton "Volver", el cual redirige la página
+			 * a anterior (listado de clientes con vacunaciones citadas)
+			 */
+			public function actionVolver():void
+			{
+            	Application.application.vacunacionE2.setVisible(false,false);
+            	Application.application.vacunacionE.setVisible(true,false);
+			}
+			
+			/**
+			 * Se obtienen todas las vacunaciones que están registradas en 
+			 * la base de datos para ser mostrados dentro del datagrid
+			 */
+			public function getAllVacunacionesU(rut:String):void
+		    {
+		   		var vacunacionService:VacunacionService = new VacunacionService();
+		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
+				vacunacionService.getAllVacunacionesU(rut);
+		    }
+		   
+		    /**
+			 * Una vez obtenidas todas las vacunaciones que están registradas 
+			 * en la base de datos, son mostrados dentro del datagrid
+			 */
+		    public function getAllVacunacionesResult(event:ResultEvent):void
+		    {
+		   		vacunaciones = event.result as ArrayCollection;
+		    }
+			
+			/**
+			 * Se eliminan las vacunaciones que están seleccionadas en el
+			 * grid, desde la base de datos
+			 */
+			public function eliminar(estado:String):void
+			{
+				var vacunacionService:VacunacionService = new VacunacionService();
+				vacunacionService.eliminar(estado);
+			}
+
+            /**
+			 * Mensaje para eliminar las vacunaciones que están seleccionadas
+			 * en el grid, desde este mismo
+			 */
+           	private function deleteRow():void 
+           	{
+				Alert.show("¿Está seguro que desea eliminar la(s) vacunacion(es)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			}
+			
+			/**
+			 * Se eliminan las vacunaciones que están seleccionadas en el
+			 * grid, desde este mismo
+			 */
+			private function removeTaskRecord():void
+            {
+                var allRows:int = vacunaciones.length;
+                var vacu:vacunacionesObj = new vacunacionesObj();
+                
+                for (var i:int = 0; i < allRows; i++){
+                    if (vacunaciones[i].sel)
+                	{
+                        vacu = vacunaciones[i] as vacunacionesObj;
+                        eliminar(vacu.tipo);
+                        
+                        vacunaciones.removeItemAt(i);
+                        allRows = vacunaciones.length;
+                        tablaVacunaciones.dataProvider = vacunaciones;
+                        i=-1;
+                    }   
+                }
+                barraMsj.text="Vacunacion(es) eliminada(s)";              
+            }
+			
+			/**
+			 * Una vez seleccionado SÍ o NO en el mensaje
+			 * se llama a la función que elimina
+			 */
+			private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+			
+			/**
+			 * Se toma el objeto cliente con sus respectivos 
+			 * datos, y se insertan en los campos correspondientes
+			 * Cliente y Mascota
+			 */
+			public function setDatos(vacu:vacunacionesObj):void
+			{
+				getAllVacunacionesU(vacu.rutCliente);
+         		cNom.text=vacu.nombreCliente;
+         		cRut.text=vacu.rutCliente;
+         		cApP.text=vacu.apellidoPaterno;
+         		mNom.text=vacu.nombreMascota;
+         		mRaz.text=vacu.raza;
+         		mSex.text=vacu.sexo;
+         	}
+           	
+		]]>
+	</mx:Script>
+	
+	<!-- Tabla con datos -->
+	<mx:DataGrid x="10" y="152" width="739" height="190" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
+		<mx:columns>	
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>	
+			<mx:DataGridColumn width="121" headerText="Tipo vacuna" dataField="tipo" id="tipo" draggable="false"/>
+			<mx:DataGridColumn width="140" headerText="Veterinario" dataField="veterinario" id="veterinario" draggable="false"/>
+			<mx:DataGridColumn width="140" headerText="Descripción" dataField="ayudante" id="ayudante" draggable="false"/>
+			<mx:DataGridColumn width="120" headerText="Servicio" dataField="servicio" id="servicio" draggable="false"/>
+			<mx:DataGridColumn width="99" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
+			<mx:DataGridColumn width="99" headerText="Fecha" dataField="fechaVacu" id="fechaVacu" draggable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- Elementos -->
+	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="169" y="390"/>
+	<mx:Button x="647" y="350" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
+	<mx:Label x="24" y="36" text="Nombre:" width="78"/>
+	<mx:Label x="10" y="9.95" text="Cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="393" y="9.95" text="Mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="24" y="87.95" text="Rut:" width="78"/>
+	<mx:Label x="407" y="87.95" text="Sexo:" width="78"/>
+	<mx:Label x="407" y="36" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="24" y="62" text="Apellido Paterno:" width="103"/>
+	<mx:Label x="407" y="61.9" text="Raza:" width="78"/>
+	<mx:Text x="10" y="124" text="Atenciones Vacunaciones&#xd;&#xa;" fontWeight="bold" height="20"/>
+	<mx:Text x="135" y="62" id="cApP" width="150"/>
+	<mx:Text x="135" y="36" id="cNom" width="150"/>
+	<mx:Text x="135" y="87.95" id="cRut" width="150"/>
+	<mx:Text x="478.4" y="36" id="mNom" width="150"/>
+	<mx:Text x="478.4" y="61.9" id="mRaz" width="150"/>
+	<mx:Text x="478.4" y="87.95" id="mSex" width="150"/>
+	<mx:Button x="523" y="350" label="Eliminar" click="{deleteRow()}" cornerRadius="6" width="102"/>
+	
+</mx:Panel>
