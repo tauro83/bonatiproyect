@@ -228,9 +228,13 @@
             	
             	<!--Autor: Esteban{ -->
             	purgCirugia.setVisible(false,false);
-            	<!--purgCirugiaV.setVisible(false,false);-->
+            	purgCirugiaV.setVisible(false,false);
             	login2.setVisible(false,false);
          		login3.setVisible(false,false);
+         		vacunacionA.setVisible(false,false);
+         		vacunacionA2.setVisible(false,false);
+         		vacunacionE.setVisible(false,false);
+         		vacunacionE2.setVisible(false,false);
          		<!--Autor: }Esteban -->   
          		
          		<!--Autor: Sebastian{ -->
@@ -545,6 +549,14 @@
 	<!--Autor: }nicolas-->
 	
 	<!--Autor: Esteban{ -->
+	<ns4:vacunacionA x="240" y="133" visible="false" id="vacunacionA">
+	</ns4:vacunacionA>
+	<ns4:vacunacionA2 x="240" y="133" visible="false" id="vacunacionA2">
+	</ns4:vacunacionA2>
+	<ns4:vacunacionE x="240" y="133" visible="false" id="vacunacionE">
+	</ns4:vacunacionE>
+	<ns4:vacunacionE2 x="240" y="133" visible="false" id="vacunacionE2">
+	</ns4:vacunacionE2>
 	<ns3:purgCirugia x="240" y="133" visible="false" id="purgCirugia">
 	</ns3:purgCirugia>
 	<ns3:purgCirugiaV x="240" y="133" visible="false" id="purgCirugiaV">
