@@ -52,9 +52,9 @@ package Policlinico
 			 * para almacenarlo en la base de datos. Llamando al metodo correspondiente.
 			 * 	@Param Recibe como parametro un objeto de la clase Usuario, para enviarlo a la capa2. 		
 			 * */
-		public function addCirugia(cirugia:Cirugia):void
+		public function addVacuna(vacuna:Cirugia):void
 		{
-			this.getOperation("addCirugia").send(cirugia);
+			this.getOperation("addVacuna").send(vacuna);
 		}
 		
 		/**
@@ -85,7 +85,7 @@ package Policlinico
 			 *  @Descripcion Metodo que solicita a la capa 2 los datos de todas las cirugias.	 		
 			 * */
 		public function getTiposCirugias():void{
-			this.getOperation("getTiposCirugias").send();
+			this.getOperation("getTiposVacunas").send();
 		}
 		
 		/**
