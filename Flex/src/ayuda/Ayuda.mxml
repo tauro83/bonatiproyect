@@ -6,7 +6,6 @@
         	import mx.collections.ArrayCollection;       
             import mx.managers.PopUpManager;
             import mx.controls.Text;     
-            import transferObjects.AyudaObj;
             
             [Bindable]
             public var seleccionado:String;
