@@ -1,0 +1,61 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Configuración Vacunas" borderColor="#15AD8F">
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 27 Octubre
+			// AUTOR: Camilo Verdugo
+			// Modulo de mantencion de vacunas del sistema
+			//=======================================================================
+			import mx.core.Application;
+			import mx.collections.ArrayCollection;   
+			
+			[Bindable]private var vacunas:ArrayCollection = new ArrayCollection([
+		          {nombre:"Parvo Corona"},
+		          {nombre:"Sextuple"},
+		          {nombre:"Coronavirus"},
+		          {nombre:"Antirrabica"},
+		          {nombre:"Octuple"},
+		          {nombre:"Triple Felina"},
+		          {nombre:"Leucemia Felina"},
+		          {nombre:"PIF"},
+	        ]);
+			
+	
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion metodo que retorna al panel de administacion, este es llamado
+			 *  por el botton "Volver"
+			 * */			
+			public function cancelarVisulizar():void
+			{	
+				Application.application.setInvisible();
+            	Application.application.panel2.setVisible(true,false);
+            	Application.application.AdmOpciones1.setVisible(true,false);
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:DataGrid x="34.95" y="58" width="286.15" dataProvider="{vacunas}">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Label x="35" y="32" text="Vacunas disponibles" width="154" fontWeight="bold"/>
+	<mx:Label x="414" y="32" text="Registrar Vacuna" width="154" fontWeight="bold"/>
+	<mx:TextInput x="518" y="57" width="188.1" id="razaInput"/>
+	<mx:TextInput x="518" y="87" width="121.15001" id="razaInput1"/>
+	<mx:TextInput x="518" y="117" width="188.1" id="razaInput2"/>
+	<mx:Label x="187" y="383" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90" height="23" x="616.05" label="Volver" y="338.25" click="cancelarVisulizar()"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="616.05" label="Registrar" y="256"/>
+	<mx:Label x="414" y="57" text="Nombre:"/>
+	<mx:Label x="414" y="87" text="Precio:"/>
+	<mx:Label x="414" y="117" text="Descripción:"/>
+	<mx:Label x="414" y="149" text="Caducidad:"/>
+	<mx:DateField x="518" y="147"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="231" label="Eliminar" y="256"/>
+	<mx:TextInput x="34.95" y="257" width="188.09999" id="especieInput0" editable="false"/>
+	<mx:Label x="34.95" y="232" text="Seleccionada:" width="91"/>
+		
+</mx:Panel>

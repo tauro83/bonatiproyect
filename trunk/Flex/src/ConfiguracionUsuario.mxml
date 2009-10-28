@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Configuración usuario" borderColor="#15AD8F">
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 27 Octubre
+			// AUTOR: Camilo Verdugo
+			// Modulo de mantencion de cargos y empleados del sistema
+			//=======================================================================
+			import mx.core.Application;
+			import mx.collections.ArrayCollection;   
+			[Bindable]private var cargos:ArrayCollection = new ArrayCollection([
+		          {nombre:"Ayudante"},
+		          {nombre:"Veterinario"},
+		          {nombre:"Veterinaria"},
+		          {nombre:"Peluquero"},
+		          {nombre:"Peluquera"},
+		          {nombre:"Secretaria"},
+		          {nombre:"Secretario"},
+	        ]);
+
+			[Bindable]private var servicios:ArrayCollection = new ArrayCollection([
+		          {nombre:"Claudio Bonati"},
+		          {nombre:"Cristina Cruz"},
+		          {nombre:"Felipe Sazo"},
+		          {nombre:"Mauricio Tapia"},
+		          {nombre:"Alejandra Maraboli"}
+	        ]);
+			
+	
+			
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion metodo que retorna al panel de administacion, este es llamado
+			 *  por el botton "Volver"
+			 */
+			public function cancelarVisulizar():void
+			{	
+				Application.application.setInvisible();
+            	Application.application.panel2.setVisible(true,false);
+            	Application.application.AdmOpciones1.setVisible(true,false);
+			}
+			
+		]]>
+	</mx:Script>
+		
+	
+	<mx:DataGrid x="35" y="58" width="286.15002" id="especiesGrid" dataProvider="{cargos}" >
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre"  />
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:DataGrid x="419.95" y="58" width="286.15" dataProvider="{servicios}">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Label x="35" y="32" text="Cargos disponibles" width="152" fontWeight="bold"/>
+	<mx:Label x="419.95" y="32" text="Empleados disponibles" width="154" fontWeight="bold"/>
+	<mx:Label x="187" y="383" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90" height="23" x="616.05" label="Volver" y="338.25" click="cancelarVisulizar()"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="231.05" label="Eliminar" y="246.25"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="231.05" label="Registrar" y="302.25"/>
+	<mx:TextInput x="35" y="303.25" width="188.09999" id="especieInput"/>
+	<mx:TextInput x="35" y="247.25" width="188.09999" id="especieInput0" editable="false"/>
+	<mx:Label x="35" y="222.25" text="Seleccionado:" width="91"/>
+	<mx:Label x="35" y="277.25" text="Nuevo:" width="91"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="616.05" label="Eliminar" y="246.25"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="616.05" label="Registrar" y="302.25"/>
+	<mx:TextInput x="420" y="303.25" width="188.09999" id="especieInput1"/>
+	<mx:TextInput x="420" y="247.25" width="188.09999" id="especieInput2" editable="false"/>
+	<mx:Label x="420" y="222.25" text="Seleccionado:" width="91"/>
+	<mx:Label x="420" y="277.25" text="Nuevo:" width="91"/>
+		
+</mx:Panel>
