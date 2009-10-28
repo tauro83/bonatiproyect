@@ -8,9 +8,7 @@
 		// Comentario: Se declara la clase cirugia, una vez instanciada 
 		// representa el componente de la capa de interfaz
 		//=======================================================================
-		
-			import mx.controls.List;
-			import mx.events.ListEvent; 			
+				
 			import mx.controls.Alert;
 			import mx.collections.ArrayCollection;
             import mx.controls.CheckBox;    
