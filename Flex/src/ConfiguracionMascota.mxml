@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Configuración de mascota" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Configuración mascota" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 27 Octubre
+			// AUTOR: Camilo Verdugo
+			// Modulo de mantencion de especies y razas del sistema
+			//=======================================================================
 			import mx.core.Application;
 			import mx.collections.ArrayCollection;   
 			[Bindable]private var especies:ArrayCollection = new ArrayCollection([
@@ -13,7 +18,11 @@
 
 			[Bindable]private var razas:ArrayCollection;
 			
-	
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion metodo que carga las razas de una mascota, posterior a la seleccion de la especie
+			 * */
 			private function cargarDatos(event:Event):void
 			{
 				
@@ -33,6 +42,12 @@
 				
 			}
 			
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion metodo que retorna al panel de administacion, este es llamado
+			 *  por el botton "Volver"
+			 * */
 			public function cancelarVisulizar():void
 			{	
 				Application.application.setInvisible();
@@ -56,17 +71,19 @@
 	</mx:DataGrid>
 	<mx:Label x="35" y="32" text="Especies disponibles" width="152" fontWeight="bold"/>
 	<mx:Label x="419.95" y="32" text="Razas disponibles" width="131" fontWeight="bold"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="133.05" label="Eliminar" y="274.25"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="35" label="Editar" y="274.25"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="231.1" label="Registrar" y="274.25"/>
-	<mx:TextInput x="133.05" y="233" width="188.09999" id="especieInput"/>
-	<mx:Label x="35" y="235" text="Especie:" width="75"/>
-	<mx:TextInput x="518" y="233" width="188.1" id="razaInput"/>
-	<mx:Label x="419.95" y="235" text="Raza:" width="75"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="231.05" label="Eliminar" y="246.25"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="231.05" label="Registrar" y="302.25"/>
+	<mx:TextInput x="35" y="303.25" width="188.09999" id="especieInput"/>
+	<mx:TextInput x="35" y="247.25" width="188.09999" id="especieInput0" editable="false"/>
+	<mx:Label x="35" y="222.25" text="Seleccionada:" width="91"/>
+	<mx:Label x="35" y="277.25" text="Nueva:" width="91"/>
 	<mx:Label x="187" y="383" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90" height="23" x="616.05" label="Volver" y="338.25" click="cancelarVisulizar()"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="518" label="Eliminar" y="274.25"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="419.95" label="Editar" y="274.25"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="616.05" label="Registrar" y="274.25"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90" height="23" x="616.05" label="Volver" y="350.25" click="cancelarVisulizar()"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="616.05" label="Eliminar" y="246.25"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="616.05" label="Registrar" y="302.25"/>
+	<mx:TextInput x="420" y="303.25" width="188.09999" id="especieInput1"/>
+	<mx:TextInput x="420" y="247.25" width="188.09999" id="especieInput2" editable="false"/>
+	<mx:Label x="420" y="222.25" text="Seleccionada:" width="91"/>
+	<mx:Label x="420" y="277.25" text="Nueva:" width="91"/>
 		
 </mx:Panel>

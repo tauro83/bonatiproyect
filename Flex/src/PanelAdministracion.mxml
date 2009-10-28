@@ -27,14 +27,36 @@
 			<mx:LinkButton x="50" y="100" label="Purgar" textAlign="left" id="linkPurgarUsAd" click="purgarUsuario()"/>
 		</mx:Canvas>
 		<mx:Canvas label="Configuración" width="100%" height="100%">
-			<mx:LinkButton x="10" y="10" label="Mascota" textAlign="left" click="configurarMascota()"/>
-			<mx:LinkButton x="10" y="40" label="Usuario" textAlign="left" />
-			<mx:LinkButton x="10" y="70" label="Agenda" textAlign="left" />
+			<mx:LinkButton x="10" y="10" label="Mascotas" textAlign="left" click="configurarMascota()"/>
+			<mx:LinkButton x="10" y="40" label="Usuarios" textAlign="left"  click="configurarUsuario()"/>
+			<mx:LinkButton x="10" y="70" label="Servicios" textAlign="left"  click="configurarServicios()"/>
+			<mx:LinkButton x="10" y="100" label="Vacunas" textAlign="left"  click="configurarVacunas()"/>
 		</mx:Canvas>
 	</mx:Accordion>
 	 <mx:Script>
         <![CDATA[   
          import mx.core.Application;
+         
+           private function configurarVacunas():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.confVacunas.visible = true;
+         }
+         
+          private function configurarServicios():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.confServicios.visible = true;
+         }
+         
+         private function configurarUsuario():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.confUsuario.visible = true;
+         }
          
          private function configurarMascota():void
          {
