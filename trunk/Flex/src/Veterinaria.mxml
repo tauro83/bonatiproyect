@@ -138,6 +138,7 @@
 
             public function setInvisible ():void
             {      
+            	confMascota.setVisible(false,false);
             	panelClinicaPrincipal.setVisible(false,false);
             	peluqueria.setVisible(false,false);
             	verFicha.setVisible(false,false);
@@ -410,6 +411,8 @@
         ]]>
 
     </mx:Script>
+    <ns1:ConfiguracionMascota x="241" y="134" id="confMascota" visible="false">
+    </ns1:ConfiguracionMascota>	
 	<ns1:PanelClinicaPrincipal x="241" y="134" id="panelClinicaPrincipal" visible="false">	
 	</ns1:PanelClinicaPrincipal>
 	<mx:MenuBar x="0" y="104" width="1020" height="30"></mx:MenuBar>
