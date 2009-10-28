@@ -10,6 +10,7 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
 			import services.Validacion;
+			import ayuda.Ayuda;
 			
 			public var idBotonGeneral:String;
 			public var idPanelGeneral:String;
@@ -27,7 +28,7 @@
             import mx.managers.PopUpManager;
             import mx.containers.TitleWindow;
             private function showWindow():void {
-                var login:A=A(PopUpManager.createPopUp( this, A , true));
+                var login:Ayuda=Ayuda(PopUpManager.createPopUp( this, Ayuda , true));
 
             }		
 						
