@@ -167,4 +167,10 @@
   			<source>Policlinico.GetAllControles</source>
   		</properties>
   	</destination>
+
+	<destination id="VacunacionService"> 
+  	 	<properties>
+  			<source>Policlinico.VacunacionService</source>
+  		</properties>
+  	</destination>
 </service>
