@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="134" width="240" height="466" layout="absolute" title="Opciones del módulo" borderColor="#15AD8F">
+	<mx:Style source="css/AccordionStyle.css"/>
 	<mx:Script>
 		<![CDATA[
 			import mx.core.Application;
@@ -88,9 +89,9 @@
 		]]>
 	</mx:Script>
 	
-	<mx:Accordion x="0" y="0" width="100%" height="100%">
+	<mx:Accordion styleName="Accordion1" x="0" y="0" width="100%" height="100%">
 		<mx:Canvas width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" label="Pabellón" backgroundColor="#FFFFFF">
-			<mx:Accordion width="192" height="362"  y="0" x="25">
+			<mx:Accordion styleName="Accordion2" width="219" height="362"  y="0" x="-1">
 				<mx:Canvas label="Pre-Operatorio" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 					<mx:LinkButton x="50" y="10" label="Registrar" width="100%" textAlign="left" id="PreOlink" click="verRegistrarPreOperatorio()"/>
 					<mx:LinkButton x="50" y="40" label="Editar"/>
