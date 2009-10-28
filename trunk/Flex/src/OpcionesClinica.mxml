@@ -80,9 +80,10 @@
 				Application.application.busVacunacion.visible = true;	
 			}
 			
-			public function verRegistrarVac():void{
+			public function verRegistrarVac():void{		
 				Application.application.setInvisible();
 				this.visible = true;
+				Application.application.addVacuna1.iniciarPanel();
 				Application.application.addVacuna1.visible = true;
 			}
 
