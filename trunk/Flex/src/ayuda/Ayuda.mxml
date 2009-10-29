@@ -11,15 +11,18 @@
             public var seleccionado:String;
 	        [Bindable]
 			public var titulos:ArrayCollection = new ArrayCollection ([
-			{nameT:"Anular Cirugía"},
-			{nameT:"Anular Vacunación"},
-			{nameT:"Eliminar Vacunación"}]);
+				{nameT:"Anular Cirugía"},
+				{nameT:"Anular Vacunación"},
+				{nameT:"Eliminar Vacunación"},
+				{nameT:"Registrar Usuario"}
+			]);
            	
            	private function setInvi():void
            	{
            		anuCirugia.visible = false;
            		delVacu.visible = false;
            		anuVacu.visible = false;
+           		regUsuario.visible = false;
            	}
            	
            	//Corrige error de seleccionar al primero
@@ -46,6 +49,11 @@
 				case 'Eliminar Vacunación':
 					delVacu.visible = true;
 				break;
+				case 'Eliminar Vacunación':
+					delVacu.visible = true;
+				break;
+				case 'Registrar Usuario':
+					regUsuario.visible = true;
 				}
            	}
            
@@ -76,5 +84,7 @@
 	</ns1:anuVacu>
 	<ns1:delVacu x="345" y="50" visible="false" id="delVacu">
 	</ns1:delVacu>
+	<ns1:regUsuario x="345" y="50" visible="false" id="regUsuario">
+	</ns1:regUsuario>
 
 </mx:TitleWindow>

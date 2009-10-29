@@ -59,7 +59,7 @@
 	</mx:Script>
 		
 	
-	<mx:DataGrid x="35" y="58" width="286.15002" id="especiesGrid" dataProvider="{especies}" click="cargarDatos(event)">
+	<mx:DataGrid x="35" y="153.25" width="286.15002" id="especiesGrid" dataProvider="{especies}" click="cargarDatos(event)">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"  />
 		</mx:columns>
@@ -69,14 +69,11 @@
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Label x="35" y="32" text="Especies disponibles" width="152" fontWeight="bold"/>
+	<mx:Label x="35" y="32" text="Especies " width="152" fontWeight="bold"/>
 	<mx:Label x="419.95" y="32" text="Razas disponibles" width="131" fontWeight="bold"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="231.05" label="Eliminar" y="246.25"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="231.05" label="Registrar" y="302.25"/>
-	<mx:TextInput x="35" y="303.25" width="188.09999" id="especieInput"/>
-	<mx:TextInput x="35" y="247.25" width="188.09999" id="especieInput0" editable="false"/>
-	<mx:Label x="35" y="222.25" text="Seleccionada:" width="91"/>
-	<mx:Label x="35" y="277.25" text="Nueva:" width="91"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="215.1" label="Eliminar" y="111"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="78" label="Agregar" y="111"/>
+	<mx:TextInput x="35" y="63.25" width="286.15" id="especieInput"/>
 	<mx:Label x="187" y="383" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90" height="23" x="616.05" label="Volver" y="350.25" click="cancelarVisulizar()"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="616.05" label="Eliminar" y="246.25"/>
