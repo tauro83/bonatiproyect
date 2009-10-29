@@ -16,6 +16,8 @@
 				{nameT:"Eliminar Vacunación"},
 				{nameT:"Registrar Usuario"},
 				{nameT:"Visualizar Ficha"},
+				{nameT:"Eliminar Usuario"},
+				{nameT:"Purgar Usuario"},
 				{nameT:"Estadisticas Peluqueria"}
 			]);
            	
@@ -26,6 +28,8 @@
            		anuVacu.visible = false;
            		regUsuario.visible = false;
            		visFicha.visible = false;
+           		elimUsuario.visible = false;
+				purgUsuario.visible = false;
            		estPeluqueria.visible =false;
            	}
            	
@@ -61,6 +65,12 @@
 					break;					
 					case 'Visualizar Ficha':
 						visFicha.visible = true;
+					break;
+					case 'Eliminar Usuario':
+						elimUsuario.visible = true;
+					break;
+					case 'Purgar Usuario':
+						purgUsuario.visible = true;
 					break;
 					case 'Estadisticas Peluqueria':
 						estPeluqueria.visible = true;
@@ -101,5 +111,9 @@
 	</ns1:visFicha>
 	<ns1:estPeluqueria x="345" y="50" visible="false" id="estPeluqueria">
 	</ns1:estPeluqueria>
+	<ns1:elimUsuario x="345" y="50" visible="false" id="elimUsuario">
+	</ns1:elimUsuario>
+	<ns1:purgUsuario x="345" y="50" visible="false" id="purgUsuario">
+	</ns1:purgUsuario>
 
 </mx:TitleWindow>
