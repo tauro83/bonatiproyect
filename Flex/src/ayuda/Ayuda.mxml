@@ -14,7 +14,9 @@
 				{nameT:"Anular Cirugía"},
 				{nameT:"Anular Vacunación"},
 				{nameT:"Eliminar Vacunación"},
-				{nameT:"Registrar Usuario"}
+				{nameT:"Registrar Usuario"},
+				{nameT:"Visualizar Ficha"},
+				{nameT:"Estadisticas Peluqueria"}
 			]);
            	
            	private function setInvi():void
@@ -23,6 +25,8 @@
            		delVacu.visible = false;
            		anuVacu.visible = false;
            		regUsuario.visible = false;
+           		visFicha.visible = false;
+           		estPeluqueria.visible =false;
            	}
            	
            	//Corrige error de seleccionar al primero
@@ -40,20 +44,27 @@
            		setInvi();
            		switch(gridResult.selectedItem.nameT)
            		{
-				case 'Anular Cirugía':	
-					anuCirugia.visible = true;
-				break; 
-				case 'Anular Vacunación':
-					anuVacu.visible = true;
-				break;
-				case 'Eliminar Vacunación':
-					delVacu.visible = true;
-				break;
-				case 'Eliminar Vacunación':
-					delVacu.visible = true;
-				break;
-				case 'Registrar Usuario':
-					regUsuario.visible = true;
+					case 'Anular Cirugía':	
+						anuCirugia.visible = true;
+					break; 
+					case 'Anular Vacunación':
+						anuVacu.visible = true;
+					break;
+					case 'Eliminar Vacunación':
+						delVacu.visible = true;
+					break;
+					case 'Eliminar Vacunación':
+						delVacu.visible = true;
+					break;
+					case 'Registrar Usuario':
+						regUsuario.visible = true;
+					break;					
+					case 'Visualizar Ficha':
+						visFicha.visible = true;
+					break;
+					case 'Estadisticas Peluqueria':
+						estPeluqueria.visible = true;
+					break;
 				}
            	}
            
@@ -86,5 +97,9 @@
 	</ns1:delVacu>
 	<ns1:regUsuario x="345" y="50" visible="false" id="regUsuario">
 	</ns1:regUsuario>
+	<ns1:visFicha x="345" y="50" visible="false" id="visFicha">
+	</ns1:visFicha>
+	<ns1:estPeluqueria x="345" y="50" visible="false" id="estPeluqueria">
+	</ns1:estPeluqueria>
 
 </mx:TitleWindow>
