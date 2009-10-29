@@ -36,13 +36,15 @@
 			
 		]]>
 	</mx:Script>
-	<mx:Text x="10" y="10" text="Estadísticas de peluquería&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción Peluqueria&#xa;&#xa;&#x9;2. Ir a                                y seleccionar Estadísticas&#xa;&#xa;&#x9;3. Seleccionar Estadísticas&#xa;&#xa;&#x9;4. Seleccionar una fecha de inicio&#xa;&#xa;&#x9;5. Seleccionar una fecha de termino&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
-	<mx:LinkButton x="257" y="35" label="barra principal" id="linkBarraPrincipal" click="verBarra()" color="blue" width="108"/>
-	<mx:Image x="10" y="170" width="355" height="43" id="barra" visible="false">
-		<mx:source>../Images Ayuda/barra principal.JPG</mx:source>
+	<mx:Text x="10" y="10" text="Estadísticas de peluquería&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción&#xa;&#xa;&#x9;2. Ir a                                &#xa;&#xa;&#x9;3. Seleccionar Estadísticas&#xa;&#xa;&#x9;4. Seleccionar una fecha de inicio&#xa;&#xa;&#x9;5. Seleccionar una fecha de termino&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
+	<mx:LinkButton x="179" y="34" label="Peluqueria" id="linkBarraPrincipal" click="verBarra()" color="blue" width="83"/>
+	<mx:Image x="102.5" y="151"  id="barra" visible="false">
+		<mx:source>../Images Ayuda/Peluqueria.png</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
-	<mx:LinkButton x="60" y="64" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
-	<mx:Image x="95" y="10" width="185" height="332" source="../Images Ayuda/opcion modulo.JPG" id="opcMod" visible="false"/>
+	<mx:LinkButton x="58" y="64" label="seleccionar Estadísticas" color="blue" id="linkOpciones" click="verOpcMod()" width="154"/>
+	<mx:Image x="82" y="121"  id="opcMod" visible="false">
+		<mx:source>../Images Ayuda/subMenuEstadisticasPeluqueria.png</mx:source>
+	</mx:Image>	
 	
 </mx:Canvas>

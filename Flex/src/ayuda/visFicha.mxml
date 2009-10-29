@@ -36,13 +36,14 @@
 			
 		]]>
 	</mx:Script>
-	<mx:Text x="10" y="10" text="Visualizar ficha&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción Administración&#xa;&#xa;&#x9;2. Ir a                                y seleccionar Ficha&#xa;&#xa;&#x9;3. Seleccionar Visualizar&#xa;&#xa;&#x9;4. Seleccionar una mascota desde la tabla&#xa;&#x9;&#xa;&#x9;5. Presionar el  botón Visualizar&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
-	<mx:LinkButton x="257" y="35" label="barra principal" id="linkBarraPrincipal" click="verBarra()" color="blue" width="108"/>
-	<mx:Image x="10" y="170" width="355" height="43" id="barra" visible="false">
-		<mx:source>../Images Ayuda/barra principal.JPG</mx:source>
+	<mx:Text x="10" y="10" text="Visualizar ficha&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir a              y seleccionar Ficha&#xa;&#xa;&#x9;3. Seleccionar Visualizar&#xa;&#xa;&#x9;4. Seleccionar una mascota desde la tabla&#xa;&#x9;&#xa;&#x9;5. Presionar el  botón Visualizar&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
+	<mx:LinkButton x="179" y="36" label="Administración" id="linkBarraPrincipal" click="verBarra()" color="blue" width="106"/>
+	<mx:Image x="91" y="128"  id="barra" visible="false">
+		<mx:source>../Images Ayuda/Administracion.png</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
-	<mx:LinkButton x="60" y="64" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
-	<mx:Image x="95" y="10" width="185" height="332" source="../Images Ayuda/opcion modulo.JPG" id="opcMod" visible="false"/>
-	
+	<mx:LinkButton x="62" y="65" label="Ficha" color="blue" id="linkOpciones" click="verOpcMod()" width="49"/>
+	<mx:Image x="78.5" y="128"  id="opcMod" visible="false">
+		<mx:source>../Images Ayuda/subMenuFicha.png</mx:source>
+	</mx:Image>
 </mx:Canvas>

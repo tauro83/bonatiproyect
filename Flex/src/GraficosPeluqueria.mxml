@@ -67,7 +67,7 @@
 	</mx:Script>
 	<mx:SeriesInterpolate id="changeEffect" duration="2000"/>
 	<mx:Panel horizontalAlign="center" layout="absolute" title="{titulo}" width="779" height="466" borderColor="#15AD8F">
-		<mx:ColumnChart id="myChart" dataProvider="{expenses}"  height="316" width="540" x="209" y="36" showDataTips="true">
+		<mx:ColumnChart id="myChart" dataProvider="{expenses}"  height="316" width="525" x="209" y="36" showDataTips="true">
 	        <mx:horizontalAxis>
 	           <mx:CategoryAxis dataProvider="{expenses}" categoryField="tipo"/>
 	        </mx:horizontalAxis>
@@ -78,10 +78,10 @@
      		<mx:Legend horizontalAlign="right" dataProvider="{myChart}" width="199" x="550" y="10"/>
 			
 			<mx:DateField id="fechaIni"  x="89" y="36" width="112" change="changeData(event)"/>
-			<mx:Label x="10" y="38" text="Inicio:" width="58"/>
+			<mx:Label x="25" y="38" text="Inicio:" width="58"/>
 			<mx:DateField id="fechaFin"   x="89" y="67" width="112" change="changeData(event)"/>
-			<mx:Label x="10" y="69" text="Término:" width="71"/>
-			<mx:Label x="10" y="10" text="Rango de fechas:"/>
-			<mx:Label x="176" y="377" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+			<mx:Label x="25" y="69" text="Término:" width="71"/>
+			<mx:Label x="25" y="10" text="Rango de fechas" fontWeight="bold"/>
+			<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	</mx:Panel>
 </mx:VBox>
