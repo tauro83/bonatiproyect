@@ -21,8 +21,7 @@
 				{nameT:"Anular Preoperatorio"},
 				{nameT:"Registrar Consulta"},
 				{nameT:"Eliminar Usuario"},
-				{nameT:"Purgar Usuario"},
-				{nameT:"Estadisticas Peluqueria"}
+				{nameT:"Purgar Usuario"}
 			]);
            	
            	private function setInvi():void
