@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registro Consulta" borderColor="#15AD8F" xmlns:ns1="*">
-	<mx:Label x="18" y="10" text="Consulta:" fontWeight="bold"/>
-	<mx:Label x="43" y="47" text="Responsable:"/>
-	<mx:ComboBox x="133" y="45">
+	<mx:Label x="18" y="11" text="Consulta:" fontWeight="bold"/>
+	<mx:Label x="43" y="48" text="Responsable:"/>
+	<mx:ComboBox x="133" y="46">
 	<mx:ArrayCollection>
 			<mx:Object label=" "/>
 			<mx:Object label="Claudio Bonati"/>
 			<mx:Object label="Patricio Castro"/>
 		</mx:ArrayCollection>	
 	</mx:ComboBox>
-	<mx:Label x="457" y="47" text="Fecha:"/>
-	<mx:DateField x="518" y="45" width="165"/>
-	<mx:Label x="43" y="161" text="Anamnesis:"/>
-	<mx:TextArea x="133" y="160" width="550" height="122"/>
-	<mx:Button x="523" y="302" label="Registrar " cornerRadius="6" width="102" height="23"/>
-	<mx:Label x="176" y="373" width="407" textAlign="center" fontWeight="bold" height="17"/>
-	<mx:Label x="43" y="105" text="Hora:"/>
-	<mx:TextInput x="133" y="103"/>
-	<mx:Label x="457" y="105" text="Costo:"/>
-	<mx:TextInput x="518" y="103" width="165"/>
-	<mx:Button x="647" y="302" label="Cancelar" cornerRadius="6" width="102" height="23"/>
+	<mx:Label x="457" y="48" text="Fecha:"/>
+	<mx:DateField x="518" y="46" width="165"/>
+	<mx:Label x="43" y="162" text="Anamnesis:"/>
+	<mx:TextArea x="133" y="161" width="550" height="122"/>
+	<mx:Button x="523" y="303" label="Registrar " cornerRadius="6" width="102" height="23"/>
+	<mx:Label x="176" y="374" width="407" textAlign="center" fontWeight="bold" height="17"/>
+	<mx:Label x="43" y="106" text="Servicio:"/>
+	<mx:TextInput x="133" y="104"/>
+	<mx:Label x="457" y="106" text="Costo:"/>
+	<mx:TextInput x="518" y="104" width="165"/>
+	<mx:Button x="647" y="303" label="Cancelar" cornerRadius="6" width="102" height="23"/>
 	
 </mx:Panel>

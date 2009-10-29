@@ -18,10 +18,9 @@ package transferObjects
 		public var mascota:String;
 		public var fecha:String;
 		public var hora:String;
-		public var servicio:String;	
+		public var servicio:String;
 		public var usuario:String;
-		
-		
-		
+
+
 	}
 }
