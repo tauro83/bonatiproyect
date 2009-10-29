@@ -16,6 +16,10 @@
 				{nameT:"Eliminar Vacunación"},
 				{nameT:"Registrar Usuario"},
 				{nameT:"Visualizar Ficha"},
+				{nameT:"Estadisticas Peluqueria"},
+				{nameT:"Registrar Cliente"},
+				{nameT:"Anular Preoperatorio"},
+				{nameT:"Registrar Consulta"},
 				{nameT:"Eliminar Usuario"},
 				{nameT:"Purgar Usuario"},
 				{nameT:"Estadisticas Peluqueria"}
@@ -31,6 +35,9 @@
            		elimUsuario.visible = false;
 				purgUsuario.visible = false;
            		estPeluqueria.visible =false;
+			registerCliente.visible=false;
+           		anuPreoperatorio.visible=false;
+           		registerConsulta1.visible=false;
            	}
            	
            	//Corrige error de seleccionar al primero
@@ -75,6 +82,15 @@
 					case 'Estadisticas Peluqueria':
 						estPeluqueria.visible = true;
 					break;
+					case 'Registrar Cliente':
+						registerCliente.visible = true;
+					break;
+					case 'Anular Preoperatorio':
+						anuPreoperatorio.visible = true;
+					break;
+					case 'Registrar Consulta':
+						registerConsulta1.visible = true;
+					break;
 				}
            	}
            
@@ -111,6 +127,12 @@
 	</ns1:visFicha>
 	<ns1:estPeluqueria x="345" y="50" visible="false" id="estPeluqueria">
 	</ns1:estPeluqueria>
+	<ns1:registerCliente x="345" y="50" visible="false" id="registerCliente">
+	</ns1:registerCliente>
+	<ns1:anuPreoperatorio x="345" y="50" visible="false" id="anuPreoperatorio">
+	</ns1:anuPreoperatorio>
+	<ns1:registerConsulta x="345" y="50" visible="false" id="registerConsulta1">
+	</ns1:registerConsulta>
 	<ns1:elimUsuario x="345" y="50" visible="false" id="elimUsuario">
 	</ns1:elimUsuario>
 	<ns1:purgUsuario x="345" y="50" visible="false" id="purgUsuario">
