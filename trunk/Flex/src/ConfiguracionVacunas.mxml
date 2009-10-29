@@ -36,26 +36,25 @@
 			
 		]]>
 	</mx:Script>
-	<mx:DataGrid x="34.95" y="58" width="286.15" dataProvider="{vacunas}">
+	<mx:DataGrid x="25" y="128" width="311.15" dataProvider="{vacunas}" height="165">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Label x="35" y="32" text="Vacunas disponibles" width="154" fontWeight="bold"/>
-	<mx:Label x="414" y="32" text="Registrar Vacuna" width="154" fontWeight="bold"/>
-	<mx:TextInput x="518" y="57" width="188.1" id="razaInput"/>
-	<mx:TextInput x="518" y="87" width="121.15001" id="razaInput1"/>
-	<mx:TextInput x="518" y="117" width="188.1" id="razaInput2"/>
-	<mx:Label x="187" y="383" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90" height="23" x="616.05" label="Volver" y="338.25" click="cancelarVisulizar()"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="616.05" label="Registrar" y="256"/>
-	<mx:Label x="414" y="57" text="Nombre:"/>
-	<mx:Label x="414" y="87" text="Precio:"/>
-	<mx:Label x="414" y="117" text="Descripción:"/>
-	<mx:Label x="414" y="149" text="Caducidad:"/>
-	<mx:DateField x="518" y="147"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="231" label="Eliminar" y="256"/>
-	<mx:TextInput x="34.95" y="257" width="188.09999" id="especieInput0" editable="false"/>
-	<mx:Label x="34.95" y="232" text="Seleccionada:" width="91"/>
+	<mx:Label x="414" y="10" text="Registrar" width="154" fontWeight="bold"/>
+	<mx:TextInput x="518" y="36" width="216" id="razaInput"/>
+	<mx:TextInput x="518" y="66" width="216" id="razaInput1"/>
+	<mx:TextInput x="518" y="96" width="216" id="razaInput2"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Registrar" y="156"/>
+	<mx:Label x="414" y="36" text="Nombre:"/>
+	<mx:Label x="414" y="66" text="Precio:"/>
+	<mx:Label x="414" y="96" text="Descripción:"/>
+	<mx:Label x="414" y="128" text="Caducidad:"/>
+	<mx:DateField x="518" y="126" width="216"/>
+	<mx:Label x="25" y="10" text="Vacunas" width="152" fontWeight="bold"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="234.15" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')"/>
+	<mx:TextInput x="25" y="36" width="311.15" id="especieInput1"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 		
 </mx:Panel>

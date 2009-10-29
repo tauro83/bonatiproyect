@@ -94,7 +94,7 @@
 		]]> 
   	</mx:Script>	
 	
-	<mx:DataGrid x="52" y="38" width="662" height="305" id="fichas" dataProvider="{mascotas}" itemClick="viewFicha(event)">
+	<mx:DataGrid x="25" y="38" width="709" height="305" id="fichas" dataProvider="{mascotas}" itemClick="viewFicha(event)">
 		<mx:columns>			
 			<mx:DataGridColumn headerText="Nombre mascota" 	dataField="nombre"/>
 			<mx:DataGridColumn headerText="Rut cliente"   		dataField="rutCliente"/>
@@ -103,8 +103,8 @@
 			<mx:DataGridColumn headerText="Raza" visible="false"   dataField="fechaNacimiento"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="502" y="357" label="Visualizar" id="botonVerficha"  click="viewFicha(event)" width="102"/>
-	<mx:Button x="612" y="357" label="Volver"  toolTip="Cancela la operación" width="102" click="cancelarBuscar()"/>
-	<mx:Label x="52" y="12" text="Seleccione la mascota:" fontWeight="bold"/>
-	<mx:Label x="158" y="394" width="407" height="17" id="labelMessage" textAlign="center"/>
+	<mx:Button x="522" y="353" label="Visualizar" id="botonVerficha"  click="viewFicha(event)" width="102"/>
+	<mx:Button x="632" y="353" label="Volver"  toolTip="Cancela la operación" width="102" click="cancelarBuscar()"/>
+	<mx:Label x="25" y="10" text="Seleccione la mascota:" fontWeight="bold"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center"/>
 </mx:Panel>

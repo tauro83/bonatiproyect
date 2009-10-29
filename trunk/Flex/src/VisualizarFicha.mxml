@@ -105,7 +105,7 @@
  	</mx:Script>
 	
 	
-	<mx:DataGrid x="24.15" y="189.25" width="693" height="169" dataProvider="{atenciones}">
+	<mx:DataGrid x="25" y="178.25" width="709" height="157" dataProvider="{atenciones}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
 			<mx:DataGridColumn headerText="Fecha" dataField="fecha"/>
@@ -113,26 +113,26 @@
 			<mx:DataGridColumn headerText="Costo" dataField="costo"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Label x="24.15" y="36" text="Nombre:" width="78"/>
-	<mx:Label x="24.15" y="10" text="Cliente" width="97" fontWeight="bold"/>
-	<mx:Label x="393.7" y="9.95" text="Mascota" width="98" fontWeight="bold"/>
-	<mx:Label x="24.15" y="62" text="Rut:" width="78"/>
-	<mx:Label x="393.7" y="87.95" text="Sexo:" width="78"/>
-	<mx:Label x="393.7" y="114" text="Fecha nacimiento:" width="107"/>
-	<mx:Label x="393.7" y="35.9" text="Nombre:" width="63.4" height="17.931034"/>
-	<mx:Label x="24.15" y="88" text="Teléfono:" width="78"/>
-	<mx:Label x="24.15" y="114" text="Dirección:" width="78" height="17.25"/>
-	<mx:Label x="393.7" y="61.9" text="Raza:" width="78"/>
-	<mx:Label x="24.15" y="152.25" text="Atenciones" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<mx:Label x="25" y="35" text="Nombre:" width="78"/>
+	<mx:Label x="25" y="10" text="Cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="442.7" y="10" text="Mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="25" y="62" text="Rut:" width="78"/>
+	<mx:Label x="442.7" y="87.95" text="Sexo:" width="78"/>
+	<mx:Label x="442.7" y="114" text="Fecha nacimiento:" width="107"/>
+	<mx:Label x="442.7" y="35.9" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="25" y="88" text="Teléfono:" width="78"/>
+	<mx:Label x="25" y="114" text="Dirección:" width="78" height="17.25"/>
+	<mx:Label x="442.7" y="61.9" text="Raza:" width="78"/>
+	<mx:Label x="25" y="152.25" text="Atenciones" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
 	<mx:TextInput x="127.1" y="34" width="217.75" editable="false" id="cNom"/>
 	<mx:TextInput x="127.1" y="60" width="138.75" editable="false" height="20" id="cRut"/>
 	<mx:TextInput x="127.1" y="86" width="138.75" editable="false" height="20" id="cTel"/>
 	<mx:TextInput x="127.1" y="112" width="217.75" editable="false" height="19.25" id="cDir"/>
-	<mx:TextInput x="517.25" y="33.9" width="138.75" editable="false" height="20" id="mNom"/>
-	<mx:TextInput x="517.25" y="59.9" width="92.9" editable="false" height="20" id="mRaza"/>
-	<mx:TextInput x="517.25" y="87.9" width="92.9" editable="false" height="20" id="mSex"/>
-	<mx:TextInput x="517.25" y="112" width="92.9" editable="false" height="20" id="mFNa"/>
-	<mx:Label x="187" y="383" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="615.15" label="Volver" y="366.25" click="cancelarVisulizar()"/>
+	<mx:TextInput x="594.25" y="33.9" width="139.75" editable="false" height="20" id="mNom"/>
+	<mx:TextInput x="594.25" y="61.9" width="139.75" editable="false" height="20" id="mRaza"/>
+	<mx:TextInput x="594.25" y="89.9" width="139.75" editable="false" height="20" id="mSex"/>
+	<mx:TextInput x="594.25" y="114" width="139.75" editable="false" height="20" id="mFNa"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
 	
 </mx:Panel>

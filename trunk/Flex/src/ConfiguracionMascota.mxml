@@ -59,28 +59,25 @@
 	</mx:Script>
 		
 	
-	<mx:DataGrid x="35" y="153.25" width="286.15002" id="especiesGrid" dataProvider="{especies}" click="cargarDatos(event)">
+	<mx:DataGrid x="25" y="127.25" width="311.15" id="especiesGrid" dataProvider="{especies}" click="cargarDatos(event)" height="176">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"  />
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:DataGrid x="419.95" y="58" width="286.15" dataProvider="{razas}">
+	<mx:DataGrid x="419.95" y="127.25" width="314.05" dataProvider="{razas}" height="176">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Label x="35" y="32" text="Especies " width="152" fontWeight="bold"/>
-	<mx:Label x="419.95" y="32" text="Razas disponibles" width="131" fontWeight="bold"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="215.1" label="Eliminar" y="111"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="78" label="Agregar" y="111"/>
-	<mx:TextInput x="35" y="63.25" width="286.15" id="especieInput"/>
-	<mx:Label x="187" y="383" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90" height="23" x="616.05" label="Volver" y="350.25" click="cancelarVisulizar()"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="616.05" label="Eliminar" y="246.25"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="90.05" height="23" x="616.05" label="Registrar" y="302.25"/>
-	<mx:TextInput x="420" y="303.25" width="188.09999" id="especieInput1"/>
-	<mx:TextInput x="420" y="247.25" width="188.09999" id="especieInput2" editable="false"/>
-	<mx:Label x="420" y="222.25" text="Seleccionada:" width="91"/>
-	<mx:Label x="420" y="277.25" text="Nueva:" width="91"/>
+	<mx:Label x="25" y="10" text="Especies " width="152" fontWeight="bold"/>
+	<mx:Label x="419.95" y="10" text="Razas" width="131" fontWeight="bold"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="234.15" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="631.95" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="419.9" label="Agregar" y="81" icon="@Embed(source='../images/Abajo.png')"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="25" label="Agregar" y="81" icon="@Embed(source='../images/Abajo.png')"/>
+	<mx:TextInput x="25" y="36" width="311.15" id="especieInput"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
+	<mx:TextInput x="419.95" y="36" width="314.05" id="especieInput2" editable="false"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 		
 </mx:Panel>
