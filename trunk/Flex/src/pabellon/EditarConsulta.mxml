@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466"  borderColor="#15AD8F" xmlns:fc="http://www.adobe.com/2006/fc">
+	
+	<mx:Script>
+		<![CDATA[
+		
+			//=======================================================================
+			// FECHA: CREACIÓN: 27 Octubre
+			// AUTOR: Raul Lopez
+			// Panel de registro de control, dentro de esta se pueden realizar 
+			// busqueda de cliente por nommbre, por rut, acceder a la mascota y luego registrar control
+			//=======================================================================
+			import mx.collections.ArrayCollection;
+			import transferObjects.Mascota;
+			import services.MascotaService;
+			import pabellon.AddCirugiaService;
+			import mx.rpc.events.ResultEvent;
+			import mx.core.Application;
+			
+			/**
+		 	 * 	@author  "Raul Lopez"
+			 * 	@Fecha  27   Octubre
+			 *  Lista de arraylist que son ocupados en el programa	 		
+			 * */
+			[Bindable]
+            public var clientes:ArrayCollection = new ArrayCollection(
+                [ {nombre:"Raul", apellido:"Lopez", rut: "16358963-K", telefono:"89739716"} ]); 
+                  
+            [Bindable]
+            public var mascotas:ArrayCollection = new ArrayCollection(
+                [{col1:"Martin", col2:"Zuricata", col3:"Boxer", col4:"16358963-K"},
+                 {col1:"Valv", col2:"Toki", col3:"Pastor", col4:"16051746-1"},
+                 {col1:"Segundo", col2:"Safiro", col3:"Poodle", col4:"17358987-3"}]); 
+			
+			[Bindable]
+            public var tiposBusqueda:ArrayCollection = new ArrayCollection(
+                [ {label:"Rut", data:"BusquedaRut"}, 
+                  {label:"Nombre", data:"BusquedaNombre"} ]); 
+               
+            /**
+		 	 * 	@author  "Raul Lopez"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que si la mascota esta en alta medica, no se agrega un nuevo control		
+			 * */    
+            public function altaMedica():void{
+            	if(!altaMedicaBox.selected){
+            		horaProximoControl.enabled = false;
+            		fechaProximoControl.enabled = false;
+            		responsable.enabled = false;
+            	}
+            	else{
+            	    horaProximoControl.enabled = true;
+            		fechaProximoControl.enabled = true;
+            		responsable.enabled = true;
+            	}
+            }
+            /**
+		 	 * 	@author  "Raul Lopez"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que cambia de estado 		
+			 * */
+            public function nuevoControl():void{
+            	currentState="NuevoControl";
+            	nombreMascota.text = "Zuricata";
+            	rutClienteInput0.text = "16358963";
+            	rutClienteDVInput0.text = "K";
+            }
+            
+            /**
+		 	 * 	@author  "Raul Lopez"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que cambia de estado ya sea que va a una pagina o vuelve de otra		
+			 * */
+            public function volver():void{
+            	
+            	//Consulta si el estado en que se encuentra es BusquedaNombre, para de esta forma llenar el
+            	//formulario siguiente
+            	if(currentState == "BusquedaNombre" || currentState == "NuevoControl"){
+            		currentState="BusquedaRut";
+            	}
+            }
+            
+            /**
+		 	 * 	@author  "Raul Lopez"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que cambia de estado 		
+			 * */
+            public function buscarPorRut():void{
+            	
+            	//Consulta si el estado en que se encuentra es BusquedaNombre, para de esta forma llenar el
+            	//formulario siguiente
+            	if(currentState == "BusquedaNombre"){
+            		rutClienteInput0.text = "16358963";
+            		rutClienteDVInput0.text = "K";
+            	}
+            	currentState="BusquedaRut";
+            }
+                       /**
+		 	 * 	
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que cambia de estado 		
+			 * */
+            public function cambiarEstado(event:Event):void{
+            	currentState=ComboBox(event.target).selectedItem.data;
+            	//Consulta si el estado en que se encuentra es BusquedaNombre, para de esta forma llenar el
+            	//formulario siguiente
+            	if(currentState == "BusquedaNombre"){
+            		rutClienteInput0.text = " ";
+            		rutClienteDVInput0.text = " ";
+            	}
+            	
+            }
+            /**
+		 	 * 	@author  
+			 * 	@Fecha  27   Octubre
+			 *  Funcion para retornar las mascotas desde las otras capas		
+			 * */
+            public function getMascotas():void{
+				var addMascotaService:AddCirugiaService = new AddCirugiaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(rutClienteInput0.text+rutClienteDVInput0.text);
+			}
+			
+			/**
+		 	 * 	@author  
+			 * 	@Fecha  27   Octubre
+			 *  Funcion escucha que retorn las mascotas desde las otras capas 		
+			 * */
+			public function getAddMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+			}
+			public function seleccionarConsulta(event:Event):void
+			{
+				  
+				    //var newConsultaUpdate:EditarConsultaUpdate = Application.application.editConsultaUpdate;
+					//newConsulta = new Consulta();					
+					
+					//newConsulta = gridCliente.selectedItem.rut;
+					
+				  
+					//Alert.show("si entra");
+				    this.setVisible(false,false);
+					//newConsultaUpdate.carga(newConsulta);
+					
+							    				    
+				    Application.application.editConsultaUpdate.setVisible(true,false);
+				    
+				    // Application.application.editarCita.hora.text = selectedRow.hora;
+			 	
+
+			}	
+            
+		]]>
+	</mx:Script>
+	
+	<mx:states>
+		<mx:State name="BusquedaRut">
+			<mx:RemoveChild target="{labelMessage}"/>
+		</mx:State>
+		<mx:State name="BusquedaNombre">
+			<mx:RemoveChild target="{rutClienteDVInput0}"/>
+			<mx:RemoveChild target="{label3}"/>
+			<mx:SetProperty target="{rutClienteInput0}" name="width" value="158"/>
+			<mx:SetProperty target="{label4}" name="text" value="Nombre:"/>
+			<mx:SetProperty target="{label4}" name="width" value="69"/>
+			<mx:AddChild position="lastChild">
+				<mx:DataGrid id="dg" color="0x323232" width="680" rowCount="3" y="114" x="41" variableRowHeight="true" selectable="true" doubleClickEnabled="true" itemDoubleClick="buscarPorRut()"  visible="true" height="217" dataProvider="{clientes}">
+				    <mx:columns>
+				        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
+				        <mx:DataGridColumn dataField="apellido" headerText="Apellido" width="100"/>
+				        <mx:DataGridColumn dataField="rut" headerText="Rut" width="100"/>
+				        <mx:DataGridColumn dataField="telefono" headerText="Telefono" width="100"/>
+				    </mx:columns>
+				</mx:DataGrid>
+			</mx:AddChild>
+			<mx:RemoveChild target="{datagrid1}"/>
+			<mx:RemoveChild target="{label5}"/>
+			<mx:SetProperty target="{rutClienteInput0}" name="x" value="468"/>
+			<mx:SetProperty target="{label4}" name="x" value="367"/>
+			<mx:SetProperty target="{label14}" name="x" value="41"/>
+			<mx:SetProperty target="{label1}" name="x" value="41"/>
+			<mx:SetProperty target="{label0}" name="x" value="41"/>
+			<mx:SetProperty target="{label14}" name="y" value="40"/>
+			<mx:SetProperty target="{label4}" name="y" value="40"/>
+			<mx:SetProperty target="{rutClienteInput0}" name="y" value="38"/>
+		</mx:State>
+		<mx:State name="NuevoControl">
+			<mx:AddChild position="lastChild">
+				<mx:ComboBox id="horaProximoControl" x="480" y="278" width="160"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="54" y="157" text="Control" fontWeight="bold" id="label7"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="393" y="157" text="Próximo Control" fontWeight="bold" id="label10"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="54" y="193" text="Descripción:" width="84" id="label8"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="393" y="236" text="Fecha:" width="52" id="label9"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="393" y="278" text="Hora:" width="52" id="label11"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="393" y="191" text="Responsable:" width="97" id="label12"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextArea x="141" y="192" width="169" height="108"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:DateField id="fechaProximoControl" x="482" y="236" width="158" formatString="DD/MM/YYYY  "/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:CheckBox id="altaMedicaBox" x="146" y="308" label="Próximo control" change="altaMedica()" selected="true"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:ComboBox id="responsable" x="480" y="189"></mx:ComboBox>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="549" y="341" label="Registrar" visible="true" id="registrar" click="buscarPorRut()"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="636" y="341" label="Cancelar" width="84" id="cancelar" visible="true" click="buscarPorRut()"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{labelMessage}" position="before">
+				<mx:Label x="56" y="111" text="Nombre:" width="64" id="label6"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextInput x="141" y="111" id="nombreMascota"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{label14}"/>
+			<mx:SetProperty target="{label0}" name="x" value="56"/>
+			<mx:RemoveChild target="{label1}"/>
+			<mx:SetProperty target="{rutClienteDVInput0}" name="x" value="279.5"/>
+			<mx:SetProperty target="{rutClienteDVInput0}" name="y" value="42"/>
+			<mx:SetProperty target="{rutClienteInput0}" name="x" value="141"/>
+			<mx:SetProperty target="{rutClienteInput0}" name="y" value="42"/>
+			<mx:SetProperty target="{label3}" name="x" value="268.5"/>
+			<mx:SetProperty target="{label3}" name="y" value="44"/>
+			<mx:SetProperty target="{label4}" name="x" value="56"/>
+			<mx:SetProperty target="{label4}" name="y" value="42"/>
+			<mx:AddChild relativeTo="{label4}" position="before">
+				<mx:Label x="56" y="72" text="Mascota" fontWeight="bold" id="label2"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{datagrid1}"/>
+			<mx:RemoveChild target="{label5}"/>
+			<mx:RemoveChild target="{button1}"/>
+			<mx:RemoveChild target="{button2}"/>
+		</mx:State>
+	</mx:states>
+
+	<mx:Label x="167" y="380" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="40" y="10" text="Cliente" fontWeight="bold" id="label1"/>
+	<mx:Label x="40" y="10" text="Cliente" fontWeight="bold" id="label0"/>
+	<mx:Label x="40" y="48" text="Rut:" width="37" id="label4"/>
+	<mx:Label x="259.5" y="50" text="-" width="14.75" textAlign="center" id="label3"/>
+	<mx:TextInput  restrict="0-9" x="132" y="48" width="130.5" id="rutClienteInput0" maxChars="8"/>
+	<mx:TextInput x="270.5" y="48" width="19.5" id="rutClienteDVInput0" maxChars="1" restrict="K k 0-9"/>
+	<mx:Label x="167" y="380" width="407" height="17" id="labelMessage0" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="388" y="48" text="Nombre:" width="84" id="label14"/>
+	<mx:Label x="40" y="94" text="Mascota" fontWeight="bold" id="label5"/>
+	<mx:DataGrid x="40" y="120" width="681" height="208" doubleClickEnabled="true" id="datagrid1" selectable="true" click="seleccionarConsulta(event)" dataProvider="{mascotas}">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Rut Cliente" dataField="col4"/>
+			<mx:DataGridColumn headerText="Nombre Cliente" dataField="col1"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="col2"/>
+			<mx:DataGridColumn headerText="Especie" dataField="col3"/>
+			<mx:DataGridColumn headerText="Raza" dataField="col2"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="646" y="350" label="Cancelar" id="button1" click="volver()"/>
+	<mx:Button x="559" y="350" label="Siguiente" id="button2"/>
+	<mx:TextInput x="459" y="46" width="262"/>
+	
+</mx:Panel>

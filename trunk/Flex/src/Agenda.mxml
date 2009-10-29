@@ -35,6 +35,10 @@
 			import administracion.EditCitaUpdate;
 			private var cita:Cita;
 			private var citaEditada:Cita;
+			//eliminado CITA
+			import transferObjects.Cita;
+			import administracion.DeleteCitaService;
+			import administracion.GetAllMascotas;
 			//raullrich
 			
 			
@@ -371,6 +375,38 @@
 					}
 				}	
 			}
+			////////////////////////////////////INICIO ELIMINAR CITA///////////////////////
+			///////////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////////////////
+			private function deleteCita(event:Event):void{
+   				if(agendaDia.selectedItem!=null){
+   					
+   					
+   					//Alert.show("¿Está seguro que desea eliminar los datos seleccionados? ","Confirme eliminación ", Alert.YES | Alert.NO);
+   					var citaService:DeleteCitaService=new DeleteCitaService();
+					citaService.addEventListener(ResultEvent.RESULT,deleteCitaResult);
+					citaService.purgarCita(agendaDia.selectedItem.cliente,agendaDia.selectedItem.hora);
+   				}
+   				else{
+   					labelMessage.text="Debe primero seleccionar un elemento";
+   				}
+   				 
+   			}
+   			
+   			private function deleteCitaResult(event:ResultEvent):void{
+				var result:int = event.result as int ;
+				if(result!=0)
+				{
+				   labelMessage.text="Cita Eliminada!";
+				   //getAllMascotas();
+				}
+				else
+				   labelMessage.text="Error en Eliminar Cita, inténtelo más tarde";
+			}
+
+			////////////////////////////////////TERMINA ELIMINAR CITA///////////////////////
+			///////////////////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////////////////////
  		]]>
  	</mx:Script>		
 	<mx:DateChooser id="calendario" x="10" y="37" width="182" height="153" yearNavigationEnabled="true"
@@ -415,7 +451,7 @@
         <mx:ComboBox id="servicioInput" x="10" y="280" width="182" close="asignarAgenda(event);">
 		</mx:ComboBox>
         <mx:Button id="agendar" x="674" y="311" label="Agendar" visible="false"/>
-        <mx:Button id="eliminar" x="674" y="311" label="Eliminar" visible="false"/>
+        <mx:Button id="eliminar" x="674" y="311" label="Eliminar" visible="false" click="deleteCita(event)"/>
         <mx:Button x="606" y="311" label="Editar" id="ctm" visible="false"/>
         <mx:Button id="bloquear" x="200" y="311" label="Bloquear Día" click="bloquearDia()"/>
         <mx:Button id="desbloquear" x="200" y="311" label="Desbloquear Día" click="desbloquearDia()" visible="false"/>
