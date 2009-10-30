@@ -17,12 +17,12 @@ public class DeleteCitaService {
 			e.printStackTrace();
 		}
 	}
-	public int purgarCita(String cliente, String hora){
+	public int purgarCita(String cliente){
 		int result=0;
 		
 		try{			
 			DeleteCitaServiceBD citaDB= new DeleteCitaServiceBD(connection);
-			result= citaDB.purgarCita(cliente, hora);	
+			result= citaDB.purgarCita(cliente);	
 			connection.close();
 			
 		}
