@@ -25,8 +25,8 @@ package administracion
 		private function faultHandler(event:FaultEvent):void{
 			Alert.show("Error en DeleteCitaService, Detalle: "+event.fault.message);
 		}
-		public function purgarCita(cliente:String,hora:String):void{
-			this.getOperation("purgarCita").send(cliente,hora);
+		public function purgarCita(cliente:String):void{
+			this.getOperation("purgarCita").send(cliente);
 		}
 
 	}
