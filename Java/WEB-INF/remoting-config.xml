@@ -102,6 +102,12 @@
                         <source>Administracion.EditarCitaService</source>
                 </properties>
         </destination>
+		
+		<destination id="DeleteCitaService"> 
+			<properties>
+				<source>Administracion.DeleteCitaService</source>
+			</properties>
+		</destination>
         
         <destination id="GetAllMascotas">
             <properties>
