@@ -385,7 +385,7 @@
    					//Alert.show("¿Está seguro que desea eliminar los datos seleccionados? ","Confirme eliminación ", Alert.YES | Alert.NO);
    					var citaService:DeleteCitaService=new DeleteCitaService();
 					citaService.addEventListener(ResultEvent.RESULT,deleteCitaResult);
-					citaService.purgarCita(agendaDia.selectedItem.cliente,agendaDia.selectedItem.hora);
+					citaService.purgarCita(agendaDia.selectedItem.cliente);
    				}
    				else{
    					labelMessage.text="Debe primero seleccionar un elemento";
