@@ -4,7 +4,7 @@
 // …. Clase que conecta con capa 2
 //=======================================================================
 
-package policlinico
+package Policlinico
 {
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
