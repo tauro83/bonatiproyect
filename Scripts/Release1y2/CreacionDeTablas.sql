@@ -1,3 +1,24 @@
+drop table Usuario cascade;
+drop table ClientePresencial cascade;
+drop table Mascota cascade;
+drop table Producto cascade;
+drop table cliente cascade;
+drop table bitacora cascade;
+drop table atencionpostoperatorio cascade;
+drop table atencionpedicure cascade;
+drop table atencionbanio cascade; 
+drop table corte cascade;
+drop table Atencion cascade;
+drop table preoperatorio cascade;
+drop table cita cascade;
+drop table Cirugia cascade;
+drop table Diagnosticos cascade; 
+drop table atencionvacuna cascade;
+drop table atencioncirugia cascade;
+drop table atencionconsulta cascade;
+drop table atencioncontrol cascade;
+drop table atencionpreoperatorio cascade;
+
 CREATE TABLE Usuario
 (
 	nombre	CHAR(20),
@@ -14,17 +35,21 @@ CREATE TABLE Usuario
 	estado bool DEFAULT true
 );
 
+
+
 create table ClientePresencial
 (
 	rut CHAR(9) not null,
-	telefono1 int ,
-	telefono2 int ,
+	telefono int ,
+	celular int ,
 	nombre CHAR(20),
+	aPaterno CHAR(20),
+    aMaterno CHAR(20),
 	correo CHAR(20),
 	estado bool,
-	domicilioNumero int,
-	domicilioComuna CHAR(20), 
-	domicilioCalle CHAR(20),
+	domicilio CHAR(40),
+	comuna CHAR(20),
+    region CHAR(20),
 	constraint PK_rut primary key (rut)
 );
 
@@ -50,22 +75,6 @@ CREATE TABLE Producto
 	codigo CHAR(20) primary key
 );
 
-CREATE TABLE cliente
-(
-  nombre character(12),
-  apellido character(12),
-  apellido2 character(12),
-  rut character(9) primary key,
-  telefono character(3),
-  telefono2 character(10),
-  celular character(2),
-  celular2 character(10),
-  direccion character(30),
-  region character(20),
-  comuna character(20),
-  email character(40),
-  estado bool
-); 
 
 
 CREATE TABLE bitacora
@@ -179,12 +188,13 @@ CREATE TABLE cita
   servicio character(30) NOT NULL,
   responsable character(20) NOT NULL,
   CONSTRAINT pk_cita PRIMARY KEY (fecha, hora, servicio, responsable),
-  CONSTRAINT fk_cita_reference_cliente FOREIGN KEY (rutcliente)  REFERENCES cliente (rut) MATCH SIMPLE  ON UPDATE RESTRICT ON DELETE RESTRICT,
-  CONSTRAINT fk_cita_reference_usuario FOREIGN KEY (responsable) REFERENCES usuario (usuario) MATCH SIMPLE ON UPDATE RESTRICT ON DELETE RESTRICT
+  CONSTRAINT fk_cita_reference_cliente FOREIGN KEY (rutcliente)  REFERENCES clientePresencial (rut) MATCH FULL  ON UPDATE RESTRICT ON DELETE RESTRICT,
+  CONSTRAINT fk_cita_reference_usuario FOREIGN KEY (responsable) REFERENCES usuario (usuario) MATCH FULL ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
 
-create table Cirugia(
+create table Cirugia
+(
 	clienteRut CHAR(9) not null references ClientePresencial(rut) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
 	mascotaNombre CHAR(50) not null,
 	hora time not null,
