@@ -20,6 +20,8 @@
 				{nameT:"Registrar Cliente"},
 				{nameT:"Anular Preoperatorio"},
 				{nameT:"Registrar Consulta"},
+				{nameT:"Agenda"},
+				{nameT:"Registrar Mascota"},
 				{nameT:"Eliminar Usuario"},
 				{nameT:"Purgar Usuario"}
 			]);
@@ -34,9 +36,11 @@
            		elimUsuario.visible = false;
 				purgUsuario.visible = false;
            		estPeluqueria.visible =false;
-			registerCliente.visible=false;
+				registerCliente.visible=false;
            		anuPreoperatorio.visible=false;
            		registerConsulta1.visible=false;
+           		agen.visible = false;
+           		regMascota.visible = false;
            	}
            	
            	//Corrige error de seleccionar al primero
@@ -90,6 +94,12 @@
 					case 'Registrar Consulta':
 						registerConsulta1.visible = true;
 					break;
+					case 'Agenda':
+						agen.visible = true;
+					break;
+					case 'Registrar Mascota':
+						regMascota.visible = true;
+					break;
 				}
            	}
            
@@ -136,5 +146,9 @@
 	</ns1:elimUsuario>
 	<ns1:purgUsuario x="345" y="50" visible="false" id="purgUsuario">
 	</ns1:purgUsuario>
+	<ns1:regMascota x="345" y="50" visible="false" id="regMascota">
+	</ns1:regMascota>
+	<ns1:Agen x="345" y="50" visible="false" id="agen">
+	</ns1:Agen>
 
 </mx:TitleWindow>
