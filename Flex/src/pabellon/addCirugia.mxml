@@ -137,6 +137,7 @@
 		    {
 		    	
 		    	if(tabCirs.selectedItem){
+		    		this.labelMessage.text="";
 		    		var s:String = tabCirs.selectedItem.toString();		    		
 		    		tiposCir1.push(s);
 		    		ordenar();
@@ -182,6 +183,7 @@
 		    {
 		    	
 		    	if(cirugias1.selectedItem){
+		    		this.labelMessage.text="";
 		    		var s:String = cirugias1.selectedItem.toString();		    		
 		    		cirugsAdds.push(s);
 		    		ordenar2();

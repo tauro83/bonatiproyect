@@ -268,7 +268,7 @@
 				if(dg.selectedItem){
 					var nuevacir:addCirugia = Application.application.cliRegistro2;
 					nuevacir.iniciarPanel();
-					
+					this.labelMessage.text="";
 					var listCont2:Array = new Array();
 					listCont2 = dg.selectedItem.nombre.split(" ",1);
 					var nombre:String = listCont2.pop();
@@ -396,7 +396,13 @@
 					}
 					
 					Resto = 11-(suma%11);
-					this.rutClienteDVInput.text=""+Resto;
+					if(Resto == 10){
+						this.rutClienteDVInput.text="K";	
+					}
+					else{
+						this.rutClienteDVInput.text=""+Resto;	
+					}
+					
         		}
      		}
 		   		

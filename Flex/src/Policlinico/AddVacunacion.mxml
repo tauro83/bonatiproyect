@@ -161,10 +161,12 @@
 		    {
 		    	
 		    	if(vacunasList.selectedItem){
+		    		this.labelMessage.text="";
 		    		var s:String = vacunasList.selectedItem.toString();		    		
 		    		tiposVac1.push(s);
 		    		ordenar();
 					renombrarVac2(s);
+					
 		    	}
 		    	else{
 		    		this.labelMessage.text="Seleccione una cirugía de la tabla Cirugías realizadas.";
@@ -206,6 +208,7 @@
 		    {
 		    	
 		    	if(vacunas1.selectedItem){
+		    		this.labelMessage.text="";
 		    		var s:String = vacunas1.selectedItem.toString();		    		
 		    		vacunasAdds.push(s);
 		    		ordenar2();
