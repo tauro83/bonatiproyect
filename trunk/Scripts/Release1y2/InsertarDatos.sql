@@ -9,28 +9,17 @@ VALUES 		('Mauricio', 'Tapia','Ortiz','mtapia','Otro','mtapia','PetShop','true',
 INSERT INTO Usuario (nombre,aPaterno,aMaterno,usuario,cargo,contrasena,servicio,pRegistrar,pEditar,pEliminar,pPurgar)
 VALUES 		('Alejandra', 'Maraboli','Perez','amaraboli','Secretaria','cbonati','Policlinico I','true','true','false','false');
 
-INSERT INTO cliente(nombre,apellido,apellido2,rut, telefono,telefono2,celular,celular2,direccion, region, comuna, email,  estado)
-VALUES 	('Nicolas','Delgado','Nose','16167986','75','987654','09','87654345','alameda 550','Septima', 'Talca', 'nico2@mail.com', 'TRUE');
-INSERT INTO cliente(nombre,apellido,apellido2,rut, telefono,telefono2,celular,celular2,direccion, region, comuna, email, estado)
-VALUES 	('Sebastian','Arancibia','Olguin','16358963','75','908098','09','76578921','Los niches Clolihuache 15','Septima', 'Curico', 'seba2@mail.com', 'TRUE');
-INSERT INTO cliente(nombre,apellido,apellido2,rut, telefono,telefono2,celular,celular2,direccion, region, comuna, email, estado)
-VALUES 	('Cristian','Bravo','Rojas','163000001','75','9998098','09','765212321','Unimarc','Septima', 'Curico', 'Cristian2@mail.com', 'TRUE');
-INSERT INTO cliente(nombre,apellido,apellido2,rut, telefono,telefono2,celular,celular2,direccion, region, comuna, email, estado)
-VALUES 	('Camilo','Verdugo','guanthsr','163009991','75','9809876','09','765212321','calle 1','Septima', 'Talca', 'camilo2@mail.com', 'TRUE');
-INSERT INTO cliente(nombre,apellido,apellido2,rut, telefono,telefono2,celular,celular2,direccion, region, comuna, email, estado)
-VALUES 	('Raul','Lopez','raulrich','51669871','75','9805556','09','76554543','calle 2','Septima', 'Curico','raul2@mail.com', 'TRUE');
 
 
-INSERT INTO ClientePresencial(rut,telefono1,telefono2,nombre,correo,estado,domicilioNumero,domicilioComuna,domicilioCalle)
-VALUES 	('16298921', '324324','324234','Claudia','claudia@gmail.com','false','234','Talca','Los niches #231');
-INSERT INTO ClientePresencial(rut,telefono1,telefono2,nombre,correo,estado,domicilioNumero,domicilioComuna,domicilioCalle)
-VALUES 	('16298923', '223324','324234','Sofia','','false','624','Talca','Carrera #11');
-INSERT INTO ClientePresencial(rut,telefono1,telefono2,nombre,correo,estado,domicilioNumero,domicilioComuna,domicilioCalle)
-VALUES 	('16298925', '244324','32','Alejandro','avergara@hotmail.com','false','134','Talca','Los niches #231');
-INSERT INTO ClientePresencial(rut,telefono1,telefono2,nombre,correo,estado,domicilioNumero,domicilioComuna,domicilioCalle)
-VALUES 	('16298926', '213278','12','Andrade','claudia@gmail.com','false','234','Curico','Lircay #231');
-INSERT INTO ClientePresencial(rut,telefono1,telefono2,nombre,correo,estado,domicilioNumero,domicilioComuna,domicilioCalle)
-VALUES 	('16298927', '234354','2','Claudia','claudia@gmail.com','false','234','Talca','Los niches #231');
+	
+INSERT INTO ClientePresencial(rut,telefono,celular,aPaterno,aMaterno, nombre,correo,estado,domicilio,comuna,region)
+VALUES 	('16298921', '324324','324234','Apellido','OtroApellido','Claudia','claudia@gmail.com','false','20 Sur #340','Talca','Maule');
+INSERT INTO ClientePresencial(rut,telefono,celular,aPaterno,aMaterno, nombre,correo,estado,domicilio,comuna,region)
+VALUES 	('162989241', '324324','324234','Apellido','OtroApellido','Juan','claudia@gmail.com','false','20 Sur #340','Talca','Maule');
+INSERT INTO ClientePresencial(rut,telefono,celular,aPaterno,aMaterno, nombre,correo,estado,domicilio,comuna,region)
+VALUES 	('16298925', '324324','324234','Apellido','OtroApellido','Pepe','pepe@gmail.com','false','20 Sur #340','Talca','Maule');
+INSERT INTO ClientePresencial(rut,telefono,celular,aPaterno,aMaterno, nombre,correo,estado,domicilio,comuna,region)
+VALUES 	('16298923', '324324','324234','Apellido','OtroApellido','Cristina','pepe@gmail.com','false','20 Sur #340','Talca','Maule');
 
 
 INSERT INTO Mascota (rut,nombre,fechaNacimiento,claseanimal,raza,sexo,estado,imagen)
