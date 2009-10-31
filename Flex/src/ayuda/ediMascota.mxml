@@ -2,7 +2,7 @@
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="375" height="382">
 	<mx:Text x="10" y="10" text="Editar Mascota&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir al sub menu y seleccionar &#xa;&#xa;&#x9;3. Seleccionar Editar&#xa;&#xa;       4.Ingresar el rut del cliente&#xa;&#xa;       5.Seleccionar la mascota asociada al cliente para editar&#xa;&#xa;&#x9;    6.Pulsar boton Editar&#xa;&#xa;&#x9;7. Ingresar datos a editar&#xa;&#x9;&#xa;&#x9;8. Presionar el  botón Guardar&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
 	<mx:LinkButton x="202" y="64" label="Mascota" color="blue" id="linkOpciones" click="verOpcMod()" width="81"/>
-	<mx:LinkButton x="177" y="34" label="Administración" id="linkBarraPrincipal" click="verBarra()" color="blue" width="106"/>
+	<mx:LinkButton x="177" y="34" label="Administración" id="linkEdiMascota" click="verBarra()" color="blue" width="106"/>
 	
 	<mx:Script>
 		<![CDATA[
@@ -10,17 +10,17 @@
 			private function verBarra():void
 			{
 				textAyuda.visible = false;
-				linkBarraPrincipal.visible = false;
+				linkEdiMascota.visible = false;
 				barra.visible = true;
 				botVolver.visible = true;
 				linkOpciones.visible = false;
 				opcMod.visible = false;
-			}
+			} 
 			
 			private function verOpcMod():void
 			{
 				textAyuda.visible = false;
-				linkBarraPrincipal.visible = false;
+				linkEdiMascota.visible = false;
 				barra.visible = false;
 				botVolver.visible = true;
 				linkOpciones.visible = false;
@@ -30,7 +30,7 @@
 			private function volver2():void
 			{
 				textAyuda.visible = true;
-				linkBarraPrincipal.visible = true;
+				linkEdiMascota.visible = true;
 				opcMod.visible = false;
 				botVolver.visible = false;
 				linkOpciones.visible = true;
