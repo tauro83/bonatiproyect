@@ -29,7 +29,7 @@ public class ClienteEditDB
 		{
 			String query="";
 			
-			query = "UPDATE Cliente "+
+			query = "UPDATE clientepresencial "+
 			   "SET nombre=?, apellido=?, apellido2=?, rut=?, rut2=?, telefono=?, telefono2=?, celular=?, celular2=?, direccion=?, region=? ,comuna=?, email=?, email2=? "+
 				 " WHERE rut="+rutillo+";";
 			insert = connection.prepareStatement(query);
