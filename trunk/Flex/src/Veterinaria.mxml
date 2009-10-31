@@ -242,6 +242,7 @@
 		    	bitacora.setVisible(false,false);
 		    	agenda2.setVisible(false, false);
 		    	editarCirugia.setVisible(false, false);
+		    	registroControl.setVisible(false, false);
 		 		<!--Autor: }Sebastian -->      
 		 	
 			
@@ -654,7 +655,12 @@
 	</ns1:PurgarPreOperatorio>
 	<ns1:RegistrarConsulta x="241" y="134" id="registroConsulta" visible="false" borderColor="#15AD8F">
 	</ns1:RegistrarConsulta>
+
 	
 	<!--Autor: }nicolas-->
 	
+	<!--Autor: Sebastian{-->
+		<ns1:RegistrarControl x="241" y="134" id="registroControl" visible="false">
+	</ns1:RegistrarControl>
+	<!--Autor: }Sebastian-->
 </mx:Application>
