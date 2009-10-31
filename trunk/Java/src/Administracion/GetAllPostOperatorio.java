@@ -1,7 +1,7 @@
 package Administracion;
 
 import Bd.DBConnectionManager;
-import Clinica.PreOperatorio;
+import Pabellon.AddPreOperatorioService;
 
 import java.sql.Connection;
 import java.sql.Date;
