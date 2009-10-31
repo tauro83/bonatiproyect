@@ -87,10 +87,8 @@
 							NumMag =1;	
 						}	
 					}
-					Alert.show("numMag2 "+NumMag);
-					Alert.show("suma "+suma);
+					
 					Resto = 11-(suma%11);
-					Alert.show("resto "+Resto);
 					if(DigVer[Resto] != Dv.toUpperCase()){
 						labelMessage.text = "El Rut que ha ingresado es incorrecto.";
 					}
@@ -245,7 +243,7 @@
 				if(dg.selectedItem){
 					var nuevavac:AddVacunacion = Application.application.addVacuna;
 					nuevavac.iniciarPanel();
-					
+					this.labelMessage.text="";
 					var listCont2:Array = new Array();
 					listCont2 = dg.selectedItem.nombre.split(" ",1);
 					var nombre:String = listCont2.pop();
@@ -320,6 +318,7 @@
 		   
 		   public function buscarCliente2():void
 		   {
+		   		this.labelMessage.text="";
 		   		var nombre:String = inputClienteNombre.text;
 		   		if(inputClienteNombre.text != ""){
 		   			var largo:int = clientes.length;
@@ -373,7 +372,13 @@
 					}
 					
 					Resto = 11-(suma%11);
-					this.rutClienteDVInput.text=""+Resto;
+					if(Resto == 10){
+						this.rutClienteDVInput.text="K";	
+					}
+					else{
+						this.rutClienteDVInput.text=""+Resto;	
+					}
+					
         		}
      		}
 				
