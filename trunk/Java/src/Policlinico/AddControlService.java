@@ -112,7 +112,7 @@ public class AddControlService {
     	try {
 			Connection connection=DBConnectionManager.getConnection();
 			AddCirugiaBD addCirugiaBD = new AddCirugiaBD(connection);
-			cliente = addCirugiaBD.getCliente(rutCliente);		
+			//cliente = addCirugiaBD.getCliente(rutCliente);		
 			connection.close();
 		} 
     	catch (SQLException e) {
