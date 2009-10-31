@@ -239,12 +239,13 @@
 	<mx:TextInput  restrict="0-9" x="132" y="48" width="130.5" id="rutClienteInput0" maxChars="8"/>
 	<mx:TextInput x="270.5" y="48" width="19.5" id="rutClienteDVInput0" maxChars="1" restrict="K k 0-9"/>
 	<mx:Label x="167" y="380" width="407" height="17" id="labelMessage0" textAlign="center" fontWeight="bold"/>
-	<mx:Label x="388" y="48" text="Nombre:" width="84" id="label14"/>
-	<mx:Label x="40" y="94" text="Mascota" fontWeight="bold" id="label5"/>
+	<mx:Label x="388" y="48" text="Apellido:" width="84" id="label14"/>
+	<mx:Label x="40" y="94" text="Cliente" fontWeight="bold" id="label5"/>
+	<mx:Label x="313" y="94" text="Mascota" fontWeight="bold" id="label13"/>
 	<mx:DataGrid x="40" y="120" width="681" height="208" doubleClickEnabled="true" id="datagrid1" selectable="true" itemDoubleClick="nuevoControl()" dataProvider="{mascotas}">
 		<mx:columns>
-		    <mx:DataGridColumn headerText="Rut Cliente" dataField="col4"/>
-			<mx:DataGridColumn headerText="Nombre Cliente" dataField="col5"/>
+		    <mx:DataGridColumn headerText="Rut" dataField="col4"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="col5"/>
 			<mx:DataGridColumn headerText="Nombre" dataField="col1"/>
 			<mx:DataGridColumn headerText="Especie" dataField="col3"/>
 			<mx:DataGridColumn headerText="Raza" dataField="col2"/>
