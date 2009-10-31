@@ -51,7 +51,7 @@ public class AddMascotaBD{
 			selectAll = connection.prepareStatement(query);
 			
 			query = "SELECT rut, nombre " +
-					"FROM cliente;";
+					"FROM clientepresencial;";
 			
 			getAllClientes = connection.prepareStatement(query);
 		} 
