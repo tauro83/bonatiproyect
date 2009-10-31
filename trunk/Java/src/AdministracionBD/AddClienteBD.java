@@ -31,22 +31,20 @@ public class AddClienteBD {
 		String result = null;
 		PreparedStatement insert;
 		String query="";			
-		query = "INSERT INTO Cliente (nombre,apellido,apellido2,rut,telefono,telefono2,celular,celular2,direccion,region,comuna,email) "+
-				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";			
+		query = "INSERT INTO clientepresencial (nombre,aPaterno,aMaterno,rut,telefono,celular,domicilio,region,comuna,correo) "+
+				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";			
 		insert = connection.prepareStatement(query);
 		
 		insert.setString(1, c.nombre);
 		insert.setString(2, c.apellido);
 		insert.setString(3, c.apellido2);
 		insert.setString(4, c.rut+c.rut2);	
-		insert.setString(5, c.telefono);
-		insert.setString(6, c.telefono2);		
-		insert.setString(7, c.celular);
-		insert.setString(8, c.celular2);
-		insert.setString(9,c.direccion);
-		insert.setString(10,c.region);	
-		insert.setString(11,c.comuna);
-		insert.setString(12,c.email);
+		insert.setInt(5, Integer.parseInt(c.telefono+c.telefono2));		
+		insert.setInt(6, Integer.parseInt(c.celular+c.celular2));
+		insert.setString(7,c.direccion);
+		insert.setString(8,c.region);	
+		insert.setString(9,c.comuna);
+		insert.setString(10,c.email);
 		//insert.setString(13,c.email2);
 		//insert.setString(14,c.rut2);
 		
