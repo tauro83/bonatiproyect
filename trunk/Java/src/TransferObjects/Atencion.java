@@ -1,6 +1,5 @@
 package TransferObjects;
 
-import java.util.Date;
 
 /**
  * @author Camilo Verdugo

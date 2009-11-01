@@ -5,14 +5,13 @@
  **/
 package TransferObjects;
 
-import java.util.Date;
 
 public class ConfiguracionVacuna {
 
 	public String nombre;
 	public int precio;
 	public String descripcion;
-	public Date caducidad;
+	public int caducidad;
 	
 	public String getNombre() {
 		return nombre;
@@ -32,10 +31,10 @@ public class ConfiguracionVacuna {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public Date getCaducidad() {
+	public int getCaducidad() {
 		return caducidad;
 	}
-	public void setCaducidad(Date caducidad) {
+	public void setCaducidad(int caducidad) {
 		this.caducidad = caducidad;
 	}
 	
