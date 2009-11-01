@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registro Control" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registro Control" borderColor="#15AD8F" initialize="iniciar()">
 		<mx:Script>
 		<![CDATA[
+			import mx.charts.DateTimeAxis;
 		
 			//=======================================================================
 			// FECHA: CREACIÓN: 27 Octubre
@@ -14,6 +15,14 @@
 			import services.MascotaService;
 			import pabellon.AddCirugiaService;
 			import mx.rpc.events.ResultEvent;
+			import transferObjects.Usuario;
+			import transferObjects.Cita;
+			import transferObjects.Control;
+			import administracion.UsuarioEditService;
+			import mx.controls.Alert;
+			import services.DiaAgendaServices;
+			import Policlinico.AddControlService;
+			
 			
 			
 			/**
@@ -35,7 +44,61 @@
             public var tiposBusqueda:ArrayCollection = new ArrayCollection(
                 [ {label:"Rut", data:"BusquedaRut"}, 
                   {label:"Nombre", data:"BusquedaNombre"} ]); 
-               
+           
+            [Bindable]
+			private var usuarios:ArrayCollection;
+			[Bindable]
+			private var usuarios2:ArrayCollection;
+			[Bindable]
+			private var responsableSeleccionado:String;
+			[Bindable]
+			private var horasLibres:ArrayCollection;
+			
+			private var c1:Cita;
+              
+              
+             /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion inicial que carga los datos importantes desde la base de datos		
+			 * */
+			 public function iniciar():void{
+			 	getAllUsuarios();
+			 }
+			 
+			 /**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que recibe el panel EditUsuario (newRegUsuar), para almacenarlo, 
+			 * inicializa la variable personService, para poder llamar a los metodos de este
+			 * para lograr comunicarse con las clases y metodos de java.	 		
+			 * */
+			public function getAllUsuarios():void
+			{
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();
+				
+			}
+			
+			/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
+			 * del datagrid, para mostrar los datos de los usuarios que existen en el sistema.	 		
+			 * */
+			private function getAllUsuariosEResult(event:ResultEvent):void
+			{
+				usuarios = event.result as ArrayCollection;	
+				usuarios2 = new ArrayCollection();
+				responsableSeleccionado = usuarios.getItemAt(0).usuario.split(" ",1).pop();
+				for(var i:int = 0; i<usuarios.length; i++){
+					usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
+				}					
+			}
+			 
+			       
             /**
 		 	 * 	@author  "Sebastian Arancibia"
 			 * 	@Fecha  27   Octubre
@@ -128,7 +191,157 @@
 			public function getAddMascotasResult(event:ResultEvent):void{
 				mascotas = event.result as ArrayCollection;
 			}
-            
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que luego de seleccionado un responsable se buscan las horas disponible de este 
+			 **/
+			public function asignarResponsable(event:Event):void{
+				var itemSeleccionado:Object = event.currentTarget.selectedItem;
+				responsableSeleccionado = itemSeleccionado.usuario;
+				consultarHoras();
+				//Alert.show(itemSeleccionado.usuario.split(" ",1).pop());			
+			}
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que registra todos los datos del control, inclusive si existe un proximo contro
+			 **/
+			public function registrarControl():void{
+				if(altaMedicaBox.selected){
+					registrarProximoControl();
+				}
+				registrarActualControl();
+			}
+			
+			 /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que crea una instancia del transferObject cita,
+			 *  posterior a la validacion de datos  y lo envia a citaServices		 		
+			 * */
+			private function registrarActualControl():void
+			{								 
+					var cc:Control = new Control();
+					
+					cc.cliente = rutClienteInput0.text + rutClienteDVInput0.text;
+					cc.mascota = nombreMascota.text;
+					cc.fecha = new Date();
+					cc.responsable = responsableSeleccionado;
+					cc.costo = costo.text;
+					cc.descripcion = descripcion.text;
+					cc.servicio = "Policlínico"
+					
+					var addControlService:AddControlService=new AddControlService();
+					addControlService.addEventListener(ResultEvent.RESULT,addActualControlServiceResult);
+					addControlService.addActualControl(cc);
+																					
+			}	
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion retorna el resultado de la accion que se realizo:Registro.		
+			 * */
+			private function addActualControlServiceResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(!result>0)
+					labelMessage.text = "Actual control no registrado."
+				else{
+					labelMessage.text = "Actual control registrado correctamente."
+				}	
+			}
+			
+			 /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que crea una instancia del transferObject cita,
+			 *  posterior a la validacion de datos  y lo envia a citaServices		 		
+			 * */
+			private function registrarProximoControl():void
+			{								 
+					var cc:Cita = new Cita();
+					cc.cliente = rutClienteInput0.text + rutClienteDVInput0.text;
+					cc.mascota = nombreMascota.text;
+					cc.fecha = fechaProximoControl.selectedDate.date +"/"+ (fechaProximoControl.selectedDate.month+1) +"/"+ fechaProximoControl.selectedDate.fullYear;
+					cc.hora	= horaProximoControl.text
+					cc.servicio = "Policlínico";
+					cc.usuario = responsableSeleccionado;
+					
+					var addControlService:AddControlService=new AddControlService();
+					addControlService.addEventListener(ResultEvent.RESULT,addProxControlServiceResult);
+					addControlService.addProxControl(cc);
+																					
+				}			
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion retorna el resultado de la accion que se realizo:Registro.		
+			 * */
+			private function addProxControlServiceResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(!result>0)
+					labelMessage.text = "Próximo control no registrado."
+				else{
+					labelMessage.text = "Próximo control registrado correctamente."
+				}	
+			}
+			
+			
+            /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que filtra las horas disponibles del Responsable
+			 **/
+			public function consultarHoras():void{
+				if(fechaProximoControl.text != ""){
+					var diaAgenda:DiaAgendaServices = new DiaAgendaServices();
+					diaAgenda.addEventListener(ResultEvent.RESULT,consultarHorasDisponiblesResult);
+					diaAgenda.getDiaAgenda(fechaProximoControl.selectedDate.date+"/"+(fechaProximoControl.selectedDate.month+1)+"/"+fechaProximoControl.selectedDate.fullYear);
+				}
+			}
+			
+			 /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que filtra las horas disponibles del Responsable para el proximo control
+			 **/
+			private function consultarHorasDisponiblesResult(event:ResultEvent):void{
+				var horas:ArrayCollection = new ArrayCollection();
+                var horasOcupadas:ArrayCollection = new ArrayCollection();
+                
+				horas = event.result as ArrayCollection;
+				
+				for(var i:int=0; i< horas.length; i++){
+					if(responsableSeleccionado == horas.getItemAt(i).responsable){
+						horasOcupadas.addItem(horas.getItemAt(i).hora);
+					}
+				}
+				
+				horasLibres  = new ArrayCollection();
+				
+				if(!horasOcupadas.contains("10:30")){horasLibres.addItem({label:"10:30"});}
+				if(!horasOcupadas.contains("11:00")){horasLibres.addItem({label:"11:00"});}
+				if(!horasOcupadas.contains("11:30")){horasLibres.addItem({label:"11:30"});}
+				if(!horasOcupadas.contains("12:00")){horasLibres.addItem({label:"12:00"});}
+				if(!horasOcupadas.contains("12:30")){horasLibres.addItem({label:"12:30"});}
+				if(!horasOcupadas.contains("15:30")){horasLibres.addItem({label:"15:30"});}
+				if(!horasOcupadas.contains("16:00")){horasLibres.addItem({label:"16:00"});}
+				if(!horasOcupadas.contains("16:30")){horasLibres.addItem({label:"16:30"});}
+				if(!horasOcupadas.contains("17:00")){horasLibres.addItem({label:"17:00"});}
+				if(!horasOcupadas.contains("17:30")){horasLibres.addItem({label:"17:30"});}
+				if(!horasOcupadas.contains("18:00")){horasLibres.addItem({label:"18:00"});}
+				if(!horasOcupadas.contains("18:30")){horasLibres.addItem({label:"18:30"});}
+				if(!horasOcupadas.contains("19:00")){horasLibres.addItem({label:"19:00"});}
+				if(!horasOcupadas.contains("19:30")){horasLibres.addItem({label:"19:30"});}
+				
+				horaProximoControl.dataProvider = horasLibres;
+			}
 		]]>
 	</mx:Script>
 	
@@ -136,78 +349,51 @@
 		<mx:State name="BusquedaRut">
 			<mx:RemoveChild target="{labelMessage}"/>
 		</mx:State>
-		<mx:State name="BusquedaNombre">
-			<mx:RemoveChild target="{rutClienteDVInput0}"/>
-			<mx:RemoveChild target="{label3}"/>
-			<mx:SetProperty target="{rutClienteInput0}" name="width" value="158"/>
-			<mx:SetProperty target="{label4}" name="text" value="Nombre:"/>
-			<mx:SetProperty target="{label4}" name="width" value="69"/>
-			<mx:AddChild position="lastChild">
-				<mx:DataGrid id="dg" color="0x323232" width="680" rowCount="3" y="114" x="41" variableRowHeight="true" selectable="true" doubleClickEnabled="true" itemDoubleClick="buscarPorRut()"  visible="true" height="217" dataProvider="{clientes}">
-				    <mx:columns>
-				        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
-				        <mx:DataGridColumn dataField="apellido" headerText="Apellido" width="100"/>
-				        <mx:DataGridColumn dataField="rut" headerText="Rut" width="100"/>
-				        <mx:DataGridColumn dataField="telefono" headerText="Telefono" width="100"/>
-				    </mx:columns>
-				</mx:DataGrid>
-			</mx:AddChild>
-			<mx:RemoveChild target="{datagrid1}"/>
-			<mx:RemoveChild target="{label5}"/>
-			<mx:SetProperty target="{rutClienteInput0}" name="x" value="468"/>
-			<mx:SetProperty target="{label4}" name="x" value="367"/>
-			<mx:SetProperty target="{label14}" name="x" value="41"/>
-			<mx:SetProperty target="{label1}" name="x" value="41"/>
-			<mx:SetProperty target="{label0}" name="x" value="41"/>
-			<mx:SetProperty target="{label14}" name="y" value="40"/>
-			<mx:SetProperty target="{label4}" name="y" value="40"/>
-			<mx:SetProperty target="{rutClienteInput0}" name="y" value="38"/>
-		</mx:State>
 		<mx:State name="NuevoControl">
 			<mx:AddChild position="lastChild">
-				<mx:ComboBox id="horaProximoControl" x="480" y="278" width="160"/>
+				<mx:ComboBox id="horaProximoControl" x="482" y="225" width="160" dataProvider="{horasLibres}"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Label x="54" y="157" text="Control" fontWeight="bold" id="label7"/>
+				<mx:Label x="56" y="104" text="Actual Control" fontWeight="bold" id="label7"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Label x="393" y="157" text="Próximo Control" fontWeight="bold" id="label10"/>
+				<mx:Label x="395" y="104" text="Próximo Control" fontWeight="bold" id="label10"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Label x="54" y="193" text="Descripción:" width="84" id="label8"/>
+				<mx:Label x="56" y="140" text="Descripción:" width="84" id="label8"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Label x="393" y="236" text="Fecha:" width="52" id="label9"/>
+				<mx:Label x="395" y="183" text="Fecha:" width="52" id="label9"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Label x="393" y="278" text="Hora:" width="52" id="label11"/>
+				<mx:Label x="395" y="225" text="Hora:" width="52" id="label11"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Label x="393" y="191" text="Responsable:" width="97" id="label12"/>
+				<mx:Label x="395" y="138" text="Responsable:" width="97" id="label12"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextArea x="141" y="192" width="169" height="108"/>
+				<mx:TextArea x="143" y="139" width="169" height="108" id="descripcion"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:DateField id="fechaProximoControl" x="482" y="236" width="158" formatString="DD/MM/YYYY  "/>
+				<mx:DateField id="fechaProximoControl" x="484" y="183" width="158" formatString="DD/MM/YYYY" change="consultarHoras()"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:CheckBox id="altaMedicaBox" x="146" y="308" label="Próximo control" change="altaMedica()" selected="true"/>
+				<mx:CheckBox id="altaMedicaBox" x="148" y="255" label="Próximo control" change="altaMedica()" selected="true"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:ComboBox id="responsable" x="480" y="189"></mx:ComboBox>
+				<mx:ComboBox id="responsable" x="482" y="136" dataProvider="{usuarios2}" close="asignarResponsable(event)"></mx:ComboBox>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Button x="549" y="341" label="Registrar" visible="true" id="registrar" click="buscarPorRut()"/>
+				<mx:Button x="549" y="320" label="Registrar" visible="true" id="registrar" click="registrarControl()"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Button x="636" y="341" label="Cancelar" width="84" id="cancelar" visible="true" click="buscarPorRut()"/>
+				<mx:Button x="636" y="320" label="Cancelar" width="84" id="cancelar" visible="true" click="buscarPorRut()"/>
 			</mx:AddChild>
 			<mx:AddChild relativeTo="{labelMessage}" position="before">
-				<mx:Label x="56" y="111" text="Nombre:" width="64" id="label6"/>
+				<mx:Label x="393" y="42" text="Nombre:" width="64" id="label6"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextInput x="141" y="111" id="nombreMascota"/>
+				<mx:TextInput x="478" y="42" id="nombreMascota"/>
 			</mx:AddChild>
 			<mx:RemoveChild target="{label14}"/>
 			<mx:SetProperty target="{label0}" name="x" value="56"/>
@@ -221,13 +407,20 @@
 			<mx:SetProperty target="{label4}" name="x" value="56"/>
 			<mx:SetProperty target="{label4}" name="y" value="42"/>
 			<mx:AddChild relativeTo="{label4}" position="before">
-				<mx:Label x="56" y="72" text="Mascota" fontWeight="bold" id="label2"/>
+				<mx:Label x="393" y="10" text="Mascota" fontWeight="bold" id="label2"/>
 			</mx:AddChild>
 			<mx:RemoveChild target="{datagrid1}"/>
 			<mx:RemoveChild target="{label5}"/>
 			<mx:RemoveChild target="{button1}"/>
 			<mx:RemoveChild target="{button2}"/>
 			<mx:RemoveChild target="{textinput1}"/>
+			<mx:RemoveChild target="{label13}"/>
+			<mx:AddChild position="lastChild">
+				<mx:TextInput x="143" y="294" width="169" id="costo"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{label9}" position="before">
+				<mx:Label x="56" y="296" text="Costo:" width="49" id="label15"/>
+			</mx:AddChild>
 		</mx:State>
 	</mx:states>
 
