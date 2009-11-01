@@ -10,22 +10,23 @@ import java.sql.Date;
  * Ademas cuenta con un equivalente en la capa I. Para hacer el mapeo entre capas.
  */
 public class Control {
+	private String cliente;
+	private String mascota;
 	private String descripcion;
-	private String recomendacion;
 	private Date fecha;
 	private String hora;
 	private String servicio;
-	private Date proximaFecha;
 	private String costo;
+	private String responsable;
 	
-	public Control(){
-		
+	public void setCliente(String s){
+		this.cliente=s;
+	}
+	public void setMascota(String s){
+		this.mascota=s;
 	}
 	public void setDescripcion(String s){
 		this.descripcion=s;
-	}
-	public void setRecomendacion(String s){
-		this.recomendacion=s;
 	}
 	public void setFecha(Date d){
 		this.fecha=d;
@@ -36,17 +37,20 @@ public class Control {
 	public void setServicio(String s){
 		this.servicio=s;
 	}
-	public void setProxFecha(Date d){
-		this.proximaFecha=d;
-	}
 	public void setCosto(String s){
 		this.costo=s;
 	}
+	public void setResponsable(String s){
+		this.responsable=s;
+	}
+	public String getCliente(){
+		return this.cliente;
+	}
+	public String getMascota(){
+		return this.mascota;
+	}
 	public String getDescripcion(){
 		return this.descripcion;
-	}
-	public String getRecomendacion(){
-		return this.recomendacion;
 	}
 	public Date getFecha(){
 		return this.fecha;
@@ -57,11 +61,12 @@ public class Control {
 	public String getServicio(){
 		return this.servicio;
 	}
-	public Date getProxFecha(){
-		return this.proximaFecha;
-	}
 	public String getCosto(){
 		return this.costo;
 	}
+	public String getResponsable(){
+		return this.responsable;
+	}
 	
 }
+
