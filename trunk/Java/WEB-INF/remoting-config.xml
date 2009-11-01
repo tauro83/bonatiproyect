@@ -15,6 +15,12 @@
             </properties>
         </destination>
         
+        <destination id="Configurar"> 
+	  	 	<properties>
+	  			<source>Configuracion.Configurar</source>
+	  		</properties>
+  		</destination>
+        
         <destination id="UsuarioEditService">
             <properties>
               <source>Administracion.UsuarioEditService</source>
@@ -179,4 +185,5 @@
   			<source>Policlinico.VacunacionService</source>
   		</properties>
   	</destination>
+  	
 </service>
