@@ -62,7 +62,6 @@
 				var ParteNumerica:Array = new Array();
 				
 				if (rut.length == 0) { 
-					//return false; 
 					}
 				for ( j =0, i =0; j < rut.length; j++){
 					if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
@@ -81,15 +80,12 @@
 				
 				Resto = 11-(suma%11);
 				if(DigVer[Resto] != Dv.toUpperCase()){
-					//rutClienteInput.errorString = "Rut Incorrecto";
 					labelMessage.text = "El Rut que ha ingresado es incorrecto.";
 					datosMascota.visible = false;
 				}
 				else{
 					labelMessage.text = "";
-					//Alert.show("Busco "+rutClienteInput.text);
 					rutClienteInput.errorString = "";
-					//getPerson(rutClienteInput.text);
 					if(rutClienteDVInput.text == "k"){
 						rutClienteDVInput.text = "K";
 					}
@@ -124,8 +120,6 @@
         	private function selRazas(event:Event):void {
         		var razas:ArrayCollection = new ArrayCollection();
     			if(ComboBox(event.target).text.localeCompare("Gato") == 0){
-    				//razas.addItem({label:" "});
-    				
     				razas.addItem({label:"Gato Mestizo"});
 					razas.addItem({label:"Abisinio"});
 					razas.addItem({label:"Americano Pelo Corto"});
@@ -185,8 +179,6 @@
 					razas.addItem({label:"York Chocolate"});
     			}
     			else if(ComboBox(event.target).text.localeCompare("Perro") == 0){
-    				//razas.addItem({label:" "});
-
 					razas.addItem({label:"Perro Mestizo"});
 					razas.addItem({label:"Affenpinscher"});
 					razas.addItem({label:"Afgano"});
@@ -467,12 +459,6 @@
 				ini(event);
 			}
 			
-			/*private function uploadedHandler(event:FileUploaderEvent):void{
-				var object:Object=new Object();
-				object.filename=event.fileUploaded;				
-				files.addItem(object);
-			}*/
-			
 			/**
 			* Funcion que llama  a retornar todas las mascotas 
 			* 
@@ -521,11 +507,6 @@
 			* Funcion que llama para retornar todos los clientes
 			* @param event Evento
 			*/
-			/*private function getPerson(rutCliente:String):void{
-				var personService:PersonService = new PersonService();
-				personService.addEventListener(ResultEvent.RESULT,getPersonResult);
-//				personService.getPerson(rutCliente);
-			}*/
 			
 			private function getCliente(rutCliente:String):void{
 				var addMascotaService: AddMascotaService = new AddMascotaService();
@@ -538,21 +519,6 @@
 			* Aquí van los comentarios del método
 			* @param event Evento
 			*/
-			/*private function getPersonResult(event:ResultEvent):void{
-				cliente = event.result as Person;
-				
-				if(cliente == null){
-        			Alert.show("Cliente no registrado!");
-        			datosMascota.visible = false;
-        		}
-        		else{
-        			//datosMascota.visible = true;
-        			//rutClienteOutput.text = cliente.rut;
-        			//nombreClienteOutput.text = cliente.name;
-        			//apellidoClienteOutput.text = cliente.lastName;
-        			ini(event);
-        		}
-			}*/
 
 			private function getClienteResult(event:ResultEvent):void{
 				var nombreCliente:String = event.result as String;
@@ -576,9 +542,6 @@
    
         			ini(event);
         			dg.visible = true;
-        			//mascotas.removeAll();
-	           		//getMascotas();
-					//mascotas.refresh();
         		}
 			}
 			
@@ -612,15 +575,17 @@
 			private function addMascotaServiceResult(event:ResultEvent):void{
 				var result:int = event.result as int ;
 				if(!result>0)
-					labelMessage.text = "Cliente no registrado."
-					//Alert.show("Mascota NO registrada!");
+					labelMessage.text = "Mascota no registrada."
 				else{
 					getMascotas();
 					mascotas.refresh();
+					labelMessage.text = "La mascota "+ nombreInput.text +" ha sido registrada.";
 					nombreInput.text = "";
 					fechaNacimientoInput.text = "";
 					claseAnimalInput.text = "";
 					razaInput.text = "";
+					sexoInput.text = "";
+					
 				}
 			}
 			private function borrarTodo():void{
@@ -631,8 +596,14 @@
 				razaInput.text = "";
 				sexoInput.text = "";
 				fechaNacimientoInput.text = "";
-				datosMascota.visible=false;
 				labelMessage.text = "";
+				
+				dg.dataProvider ="";
+				
+				Application.application.setInvisible();
+            	Application.application.panel2.setVisible(true,false);
+            	Application.application.AdmOpciones1.setVisible(true,false);
+				
 			}	
         ]]>
     </mx:Script>
@@ -640,15 +611,15 @@
  
 	<!-- DATOS BUSQUEDA DE CLIENTE PARA REGISTRO DE MASCOTA --> 
 	
-	<mx:Label x="38.75" y="60" text="Rut:" width="84"/>
-	<mx:Label x="38.75" y="129" text="Nombre:" width="84" height="22"/>
-	<mx:Label x="38.75" y="159" text="Fecha Nacimiento:" width="108.75" height="22"/>
-	<mx:Label x="38.75" y="189" text="Especie:" width="108.75" height="22"/>
-	<mx:Label x="414.5" y="189" text="Raza:" width="43.75" height="22"/>
-	<mx:Label x="414.5" y="159" text="Sexo:" width="51.75" height="22"/>
-	<mx:Label x="292" y="58" text="-" width="14.75" textAlign="center"/>
-	<mx:TextInput  restrict="0-9" x="153.5" y="56" width="141.5" id="rutClienteInput" maxChars="8" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="303" y="56" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
+	<mx:Label x="25" y="35" text="Rut:" width="84"/>
+	<mx:Label x="25" y="101" text="Nombre:" width="67" height="22"/>
+	<mx:Label x="25" y="134" text="Fecha Nacimiento:" width="108.75" height="22"/>
+	<mx:Label x="25" y="168" text="Especie:" width="108.75" height="22"/>
+	<mx:Label x="414.5" y="166" text="Raza:" width="43.75" height="22"/>
+	<mx:Label x="414.5" y="132" text="Sexo:" width="51.75" height="22"/>
+	<mx:Label x="278.25" y="33" text="-" width="14.75" textAlign="center"/>
+	<mx:TextInput  restrict="0-9" x="139.75" y="31" width="141.5" id="rutClienteInput" maxChars="8" change="rutClienteDVInput.enabled=true"/>
+	<mx:TextInput x="289.25" y="31" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	
 	<!-- BOTON QUE DA ACCION A BUSQUEDA DE CLIENTE -->
 
@@ -670,13 +641,13 @@
 			<mx:Label x="129" y="181" width="165" text="{dg.selectedItem.sexo}"/>
 	</mx:Panel>	
 			
-	<mx:Canvas x="38.75" y="219" width="681.5" height="123" id="datosMascota" visible="true">
+	<mx:Canvas x="25" y="219" width="695.25" height="123" id="datosMascota" visible="true">
 		
 		<!-- DATOS DE REGISTRO DE MASCOTA --> 
 		<!-- DATOS DE CLIENTE SELECCIONADO --> 
 		
 		 <!-- TABLA DE MASCOTAS DEL CLIENTE --> 
-		<mx:DataGrid id="dg" color="0x323232" width="681" rowCount="3" y="10" x="0" variableRowHeight="true" dataProvider="{mascotas}"  visible="false" height="103">
+		<mx:DataGrid id="dg" color="0x323232" width="693" rowCount="3" y="0" x="0" variableRowHeight="true" dataProvider="{mascotas}"  visible="true" height="123">
 		    <mx:columns>
 		        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 		        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Nacimiento" width="100"/>
@@ -697,23 +668,23 @@
 		
 		<!-- OPCIONES PARA SUBIR IMAGEN -->
 	</mx:Canvas>
-	<mx:TextInput restrict="A-Z a-z -" x="153.5" y="127" width="169" id="nombreInput" maxChars="50"/>
-	<mx:DateField x="153.5" y="157" width="169" id="fechaNacimientoInput"/>
-	<mx:ComboBox x="153.5" y="187" width="169" id="claseAnimalInput" close="selRazas(event);">
+	<mx:TextInput restrict="A-Z a-z -" x="139.75" y="99" width="169" id="nombreInput" maxChars="50"/>
+	<mx:DateField x="139.75" y="132" width="169" id="fechaNacimientoInput"/>
+	<mx:ComboBox x="139.75" y="166" width="169" id="claseAnimalInput" close="selRazas(event);">
 	</mx:ComboBox>
-	<mx:ComboBox x="491.25" y="187" width="229" id="razaInput">
+	<mx:ComboBox x="491.25" y="164" width="229" id="razaInput">
 	</mx:ComboBox>
-	<mx:ComboBox x="491.25" y="157" width="114" id="sexoInput" dataProvider="{sexos}">
+	<mx:ComboBox x="491.25" y="130" width="156" id="sexoInput" dataProvider="{sexos}">
 	</mx:ComboBox>
 	<!--
 	<ns1:FileUploader x="465.75" y="152" uploaded="uploadedHandler(event)" width="200.5">
 	</ns1:FileUploader>
 	-->
-	<mx:Button x="546.25" y="350" label="Registrar" visible="true" click="registrarMascota(event)" id="registrar"/>
-	<mx:Button x="636.25" y="350" label="Cancelar" width="84" id="cancelar" click="borrarTodo()" visible="true"/>
-	<mx:Label x="167" y="380" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Label x="38.75" y="34" text="Cliente" fontWeight="bold"/>
-	<mx:Label x="38.75" y="103" text="Mascota" fontWeight="bold"/>
+	<mx:Button x="545" y="353" label="Registrar" visible="true" click="registrarMascota(event)" id="registrar"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="84" id="cancelar" click="borrarTodo()" visible="true"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="25" y="10" text="Cliente" fontWeight="bold"/>
+	<mx:Label x="25" y="73" text="Mascota" fontWeight="bold"/>
 	<!--
 	<mx:TileList x="465.75" y="9" width="200.5" height="135" dataProvider="{files}" itemRenderer="components.ItemRenderer"></mx:TileList>
 	-->
