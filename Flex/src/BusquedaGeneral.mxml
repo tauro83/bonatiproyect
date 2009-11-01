@@ -17,6 +17,7 @@
 			import mx.events.CloseEvent;
 			import mx.events.DropdownEvent;
 			import mx.core.Application;
+			import mx.controls.dataGridClasses.DataGridColumn;
 			
 			import transferObjects.Usuario;
 			import transferObjects.Cliente;
@@ -35,7 +36,9 @@
 			[Bindable]
 			private var productos:ArrayCollection;
 		
-			//salir de busqueda
+			/**
+			 *  Sale de la búsqueda
+			 **/
 			private function volver():void
             {
             	Application.application.setInvisible();
@@ -43,7 +46,9 @@
             	Application.application.menuAgenda1.setVisible(true,false);
             }
             		
-			//hace invisible a todos los elementos del componente
+			/**
+			 *  Hace invisible a todos los elementos del componente
+			 **/
 			private function setInvisibleInput ():void
             {
             	inputUsuarioCargo.setVisible(false,false);
@@ -73,8 +78,10 @@
             	inputProductoCategoria.setVisible(false,false);
             }
             
-			//hace visible los elementos correspondientes al objeto
-			//que se selecciono desde el 1er combobox
+            /**
+			 *  Hace visible los elementos correspondientes al objeto
+			 *  que se selecciono desde el 1er combobox
+			 **/
 			private function seleccionarBusqueda (event:Event):void
             {   
             	comboboxAtencion.setVisible(false,false);
@@ -117,9 +124,11 @@
 				break;
 				}
             }
-			
-		   //Usuario ---------------------------
-		   //funciona que busca todos los usuarios
+
+		   /**
+			*  Usuario ---------------------------
+		    *  funciona que busca todos los usuarios
+			**/
 		   public function getAllUsuarios():void
 		   {
 		   		var busquedaService:BusquedaService = new BusquedaService();
@@ -132,7 +141,9 @@
 		   		usuarios = event.result as ArrayCollection;
 		   }
 		   
-		   //combobox de usuario
+		   /**
+			*  combobox de usuario
+			**/
 		    private function seleccionarUsuario (event:Event):void
             {
             	setInvisibleInput();
@@ -157,8 +168,10 @@
 				}
             }
 		   
-		   //Cliente ---------------------------
-		   //funciona que busca todos los clientes
+		   /**
+			*  Cliente ---------------------------
+		    *  funciona que busca todos los clientes
+			**/
 		   public function getAllClientes():void
 		   {
 		   		var busquedaService:BusquedaService = new BusquedaService();
@@ -171,7 +184,9 @@
 		   		clientes = event.result as ArrayCollection;
 		   }
 		   
-		   //combobox de cliente
+		    /**
+			*  combobox de cliente
+			**/
 		   private function seleccionarCliente (event:Event):void
             {
             	setInvisibleInput();
@@ -199,8 +214,10 @@
 				}
             }
 		   
-		   //Mascota --------------------------
-		   //funciona que busca todos las mascotas
+		    /**
+			*  Mascota --------------------------
+		    *  funciona que busca todos las mascotas
+			**/
 		   public function getAllMascotas():void
 		   {
 		   		var busquedaService:BusquedaService = new BusquedaService();
@@ -213,7 +230,9 @@
 		   		mascotas = event.result as ArrayCollection;
 		   }
 		   
-		   //combobox de mascota
+		   /**
+			*  combobox de mascota
+			**/
 		   private function seleccionarMascota (event:Event):void
             {
  				setInvisibleInput();
@@ -238,8 +257,10 @@
 				}
             }
 		   
-		   //Atencion --------------------------
-		   //funciona que busca todos las atenciones
+		   /**
+			*  Atencion --------------------------
+		    *  funciona que busca todos las atenciones
+			**/
 		   public function getAllAtenciones():void
 		   {
 		   		var busquedaService:BusquedaService = new BusquedaService();
@@ -252,7 +273,9 @@
 		   		atenciones = event.result as ArrayCollection;
 		   }
 		   
-		   //combobox de atencion
+		   /**
+			*  combobox de atenciones
+			**/
 		   private function seleccionarAtencion (event:Event):void
             {
 				setInvisibleInput();
@@ -277,8 +300,10 @@
 				}
             }
 		   
-		   //Producto --------------------------
-		   //funciona que busca todos los productos
+		   /**
+			*  Producto --------------------------
+		    *  funciona que busca todos los productos
+			**/
 		   public function getAllProductos():void
 		   {
 		   		var busquedaService:BusquedaService = new BusquedaService();
@@ -291,7 +316,9 @@
 		   		productos = event.result as ArrayCollection;
 		   }
 		   
-		   //combobox de producto
+		   /**
+			*  combobox de producto
+			**/
 		   private function seleccionarProducto (event:Event):void
             {
 				setInvisibleInput();
@@ -312,6 +339,11 @@
 				break;	
 				}
             }
+            
+            private function dateFunc(item:Object, column:DataGridColumn):String
+			{
+				return df.format(item.fecha);
+			}
 			
 		]]>
 	</mx:Script>
@@ -321,7 +353,6 @@
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Atencion"/>
-			<!-- <mx:Object label="Aviso"/> -->
 			<mx:Object label="Cliente"/> 
 			<mx:Object label="Mascota"/> 
 			<mx:Object label="Producto"/> 
@@ -357,7 +388,7 @@
 	<!-- input Atencion -->
 	<fc:AutoComplete id="inputAtencionCliente" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="clienteRut" visible="false"/>
 	<fc:AutoComplete id="inputAtencionMascota" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="mascotaNombre" visible="false"/>
-	<fc:AutoComplete id="inputAtencionFecha" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="fecha" visible="false"/>
+	<fc:AutoComplete id="inputAtencionFecha" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="sfecha" visible="false"/>
 	<fc:AutoComplete id="inputAtencionHora" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="hora" visible="false"/>
 	<fc:AutoComplete id="inputAtencionServico" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="servicio" visible="false"/>
 	
@@ -439,11 +470,12 @@
 			<mx:Object label="Servicio"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
+	<mx:DateFormatter id="df" formatString="DD/MM/YY"/>
 	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridAtencion" visible="false" dataProvider="{atenciones}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Rut cliente" dataField="clienteRut"/>
 			<mx:DataGridColumn headerText="Nombre mascota" dataField="mascotaNombre"/>
-			<mx:DataGridColumn headerText="Fecha" dataField="fecha"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="sfecha" />
 			<mx:DataGridColumn headerText="Hora" dataField="hora"/>
 			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
 		</mx:columns>

@@ -20,5 +20,6 @@ package transferObjects
 		public var hora:String;
 		public var fecha:Date;
 		public var costo:String;
+		public var sfecha:String;
 	}
 }
