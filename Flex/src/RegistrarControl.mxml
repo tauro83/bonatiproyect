@@ -14,14 +14,19 @@
 			import transferObjects.Mascota;
 			import services.MascotaService;
 			import pabellon.AddCirugiaService;
+			import services.AddMascotaService;
 			import mx.rpc.events.ResultEvent;
 			import transferObjects.Usuario;
 			import transferObjects.Cita;
 			import transferObjects.Control;
+			import transferObjects.Cliente;
 			import administracion.UsuarioEditService;
 			import mx.controls.Alert;
 			import services.DiaAgendaServices;
 			import Policlinico.AddControlService;
+			import mx.core.Application;
+			
+			public var clienteBD:Cliente;
 			
 			
 			
@@ -124,8 +129,8 @@
             public function nuevoControl():void{
             	currentState="NuevoControl";
             	nombreMascota.text = "Martin";
-            	rutClienteInput0.text = "16358963";
-            	rutClienteDVInput0.text = "K";
+            	rutClienteInput.text = "16358963";
+            	rutClienteDVInput.text = "K";
             }
             
             /**
@@ -152,8 +157,8 @@
             	//Consulta si el estado en que se encuentra es BusquedaNombre, para de esta forma llenar el
             	//formulario siguiente
             	if(currentState == "BusquedaNombre"){
-            		rutClienteInput0.text = "16358963";
-            		rutClienteDVInput0.text = "K";
+            		rutClienteInput.text = "16358963";
+            		rutClienteDVInput.text = "K";
             	}
             	currentState="BusquedaRut";
             }
@@ -167,8 +172,8 @@
             	//Consulta si el estado en que se encuentra es BusquedaNombre, para de esta forma llenar el
             	//formulario siguiente
             	if(currentState == "BusquedaNombre"){
-            		rutClienteInput0.text = " ";
-            		rutClienteDVInput0.text = " ";
+            		rutClienteInput.text = " ";
+            		rutClienteDVInput.text = " ";
             	}
             	
             }
@@ -180,7 +185,7 @@
             public function getMascotas():void{
 				var addMascotaService:AddCirugiaService = new AddCirugiaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addMascotaService.getMascotas(rutClienteInput0.text+rutClienteDVInput0.text);
+				addMascotaService.getMascotas(rutClienteInput.text);
 			}
 			
 			/**
@@ -226,7 +231,7 @@
 			{								 
 					var cc:Control = new Control();
 					
-					cc.cliente = rutClienteInput0.text + rutClienteDVInput0.text;
+					cc.cliente = rutClienteInput.text + rutClienteDVInput.text;
 					cc.mascota = nombreMascota.text;
 					cc.fecha = new Date();
 					cc.responsable = responsableSeleccionado;
@@ -245,6 +250,7 @@
 			 * 	@Fecha  27 Octubre
 			 *  @Descripcion retorna el resultado de la accion que se realizo:Registro.		
 			 * */
+			
 			private function addActualControlServiceResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
@@ -264,7 +270,7 @@
 			private function registrarProximoControl():void
 			{								 
 					var cc:Cita = new Cita();
-					cc.cliente = rutClienteInput0.text + rutClienteDVInput0.text;
+					cc.cliente = rutClienteInput.text + rutClienteDVInput.text;
 					cc.mascota = nombreMascota.text;
 					cc.fecha = fechaProximoControl.selectedDate.date +"/"+ (fechaProximoControl.selectedDate.month+1) +"/"+ fechaProximoControl.selectedDate.fullYear;
 					cc.hora	= horaProximoControl.text
@@ -289,6 +295,7 @@
 					labelMessage.text = "Próximo control no registrado."
 				else{
 					labelMessage.text = "Próximo control registrado correctamente."
+					Application.application.agenda2.iniciarAgenda();
 				}	
 			}
 			
@@ -342,12 +349,114 @@
 				
 				horaProximoControl.dataProvider = horasLibres;
 			}
+			
+			/**
+		 	* 	@author  "Sebastian Arancibia"
+			* 	@Fecha  13 Octubre
+			* Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
+			* de la comunicacion con la capa logica.
+			* @param event Evento
+			*/
+	        private function ini():void{
+	        	//datosMascota.visible = true;
+	        	
+	           	mascotas.removeAll();
+	           	getMascotas();
+				mascotas.refresh();
+	        }
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  13 Octubre
+			 * Funcion que busca un cliente, en la base de datos, para esto primero verifica 
+			 * si el rut esta ingresado correctamente, en caso de estar incorrecto lo informa por pantalla.
+			 * En caso contrario realiza las llamadas a la capa de java, la cual procesara la soliitud, y 
+			 * retornara si el cliente existe o no.
+			 * @param event Evento
+			 */
+        	private function buscarCliente(event:Event):void{
+        		if(rutClienteDVInput.text != "" && rutClienteInput.text != ""){
+        			ini();
+        			var Numero:String = rutClienteInput.text;
+        			var Dv:String = rutClienteDVInput.text;
+					var suma:int = 0;
+					var rut:String = Numero;
+					var NumMag:int = 2;
+					var Resto:int = 0;
+					var j:int ;
+					var i:int;
+					var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
+					var ParteNumerica:Array = new Array();
+				
+					if (rut.length == 0) { 
+
+					}
+					for ( j =0, i =0; j < rut.length; j++){
+						if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
+							ParteNumerica[i] = rut.charAt(i);
+							++i;
+						}
+					}
+				
+					for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
+						suma += ParteNumerica[i] * NumMag;
+						trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
+						if (NumMag>6){
+							NumMag =1;	
+						}	
+					}
+				
+					Resto = 11-(suma%11);
+					if(DigVer[Resto] != Dv.toUpperCase()){
+						labelMessage.text = "El Rut que ha ingresado es incorrecto.";
+					}
+					else{
+						labelMessage.text = "";
+						rutClienteInput.errorString = "";
+						getCliente(rutClienteInput.text + rutClienteDVInput.text);
+					}
+        		}
+        	}
+        		
+        	/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  13 Octubre
+			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
+			 * el cual envia las solicitudes, y devuelve los resultados.
+			 */
+        	private function getCliente(rutCliente:String):void{
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
+				addMascotaService.getCliente(rutCliente);
+			}
+			
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  13 Octubre
+			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
+			 * el cual envia las solicitudes, y devuelve los resultados. Se procesa el resultado del metodo 
+			 * anterior.
+			 * @param event Evento
+			 */
+			public function getClienteResult(event:ResultEvent):void{
+				var nombreCliente:String = event.result as String;
+				
+				if(nombreCliente == null){
+        			labelMessage.text = "Cliente no registrado."
+        			
+        		}
+        		else{
+        			nombreClienteInput.text = nombreCliente;
+        			labelMessage.text = "Se ha accedido al cliente " + nombreCliente;
+        			ini();
+        		}	
+        	}
 		]]>
 	</mx:Script>
 	
 	<mx:states>
 		<mx:State name="BusquedaRut">
-			<mx:RemoveChild target="{labelMessage}"/>
 		</mx:State>
 		<mx:State name="NuevoControl">
 			<mx:AddChild position="lastChild">
@@ -372,13 +481,13 @@
 				<mx:Label x="395" y="138" text="Responsable:" width="97" id="label12"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextArea x="143" y="139" width="169" height="108" id="descripcion"/>
+				<mx:TextArea x="143" y="139" width="169" height="66" id="descripcion"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:DateField id="fechaProximoControl" x="484" y="183" width="158" formatString="DD/MM/YYYY" change="consultarHoras()"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:CheckBox id="altaMedicaBox" x="148" y="255" label="Próximo control" change="altaMedica()" selected="true"/>
+				<mx:CheckBox id="altaMedicaBox" x="143" y="264" label="Próximo control" change="altaMedica()" selected="true"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:ComboBox id="responsable" x="482" y="136" dataProvider="{usuarios2}" close="asignarResponsable(event)"></mx:ComboBox>
@@ -389,7 +498,7 @@
 			<mx:AddChild position="lastChild">
 				<mx:Button x="636" y="320" label="Cancelar" width="84" id="cancelar" visible="true" click="buscarPorRut()"/>
 			</mx:AddChild>
-			<mx:AddChild relativeTo="{labelMessage}" position="before">
+			<mx:AddChild relativeTo="{label1}" position="before">
 				<mx:Label x="393" y="42" text="Nombre:" width="64" id="label6"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
@@ -398,10 +507,10 @@
 			<mx:RemoveChild target="{label14}"/>
 			<mx:SetProperty target="{label0}" name="x" value="56"/>
 			<mx:RemoveChild target="{label1}"/>
-			<mx:SetProperty target="{rutClienteDVInput0}" name="x" value="279.5"/>
-			<mx:SetProperty target="{rutClienteDVInput0}" name="y" value="42"/>
-			<mx:SetProperty target="{rutClienteInput0}" name="x" value="141"/>
-			<mx:SetProperty target="{rutClienteInput0}" name="y" value="42"/>
+			<mx:SetProperty target="{rutClienteDVInput}" name="x" value="279.5"/>
+			<mx:SetProperty target="{rutClienteDVInput}" name="y" value="42"/>
+			<mx:SetProperty target="{rutClienteInput}" name="x" value="141"/>
+			<mx:SetProperty target="{rutClienteInput}" name="y" value="42"/>
 			<mx:SetProperty target="{label3}" name="x" value="268.5"/>
 			<mx:SetProperty target="{label3}" name="y" value="44"/>
 			<mx:SetProperty target="{label4}" name="x" value="56"/>
@@ -410,42 +519,37 @@
 				<mx:Label x="393" y="10" text="Mascota" fontWeight="bold" id="label2"/>
 			</mx:AddChild>
 			<mx:RemoveChild target="{datagrid1}"/>
-			<mx:RemoveChild target="{label5}"/>
 			<mx:RemoveChild target="{button1}"/>
 			<mx:RemoveChild target="{button2}"/>
-			<mx:RemoveChild target="{textinput1}"/>
-			<mx:RemoveChild target="{label13}"/>
+			<mx:RemoveChild target="{nombreClienteInput}"/>
 			<mx:AddChild position="lastChild">
-				<mx:TextInput x="143" y="294" width="169" id="costo"/>
+				<mx:TextInput x="143" y="223" width="169" id="costo" restrict="0-9"/>
 			</mx:AddChild>
 			<mx:AddChild relativeTo="{label9}" position="before">
-				<mx:Label x="56" y="296" text="Costo:" width="49" id="label15"/>
+				<mx:Label x="56" y="225" text="Costo:" width="49" id="label15"/>
 			</mx:AddChild>
 		</mx:State>
 	</mx:states>
-
-	<mx:Label x="167" y="380" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Label x="40" y="10" text="Cliente" fontWeight="bold" id="label1"/>
-	<mx:Label x="40" y="10" text="Cliente" fontWeight="bold" id="label0"/>
-	<mx:Label x="40" y="48" text="Rut:" width="37" id="label4"/>
-	<mx:Label x="259.5" y="50" text="-" width="14.75" textAlign="center" id="label3"/>
-	<mx:TextInput  restrict="0-9" x="132" y="48" width="130.5" id="rutClienteInput0" maxChars="8"/>
-	<mx:TextInput x="270.5" y="48" width="19.5" id="rutClienteDVInput0" maxChars="1" restrict="K k 0-9"/>
-	<mx:Label x="167" y="380" width="407" height="17" id="labelMessage0" textAlign="center" fontWeight="bold"/>
-	<mx:Label x="388" y="48" text="Apellido:" width="84" id="label14"/>
-	<mx:Label x="40" y="94" text="Cliente" fontWeight="bold" id="label5"/>
-	<mx:Label x="313" y="94" text="Mascota" fontWeight="bold" id="label13"/>
-	<mx:DataGrid x="40" y="120" width="681" height="208" doubleClickEnabled="true" id="datagrid1" selectable="true" itemDoubleClick="nuevoControl()" dataProvider="{mascotas}">
-		<mx:columns>
-		    <mx:DataGridColumn headerText="Rut" dataField="col4"/>
-			<mx:DataGridColumn headerText="Nombre" dataField="col5"/>
-			<mx:DataGridColumn headerText="Nombre" dataField="col1"/>
-			<mx:DataGridColumn headerText="Especie" dataField="col3"/>
-			<mx:DataGridColumn headerText="Raza" dataField="col2"/>
-		</mx:columns>
+	<mx:Label x="24" y="10" text="Cliente" fontWeight="bold" id="label1"/>
+	<mx:Label x="24" y="10" text="Cliente" fontWeight="bold" id="label0"/>
+	<mx:Label x="24" y="75" text="Mascotas" fontWeight="bold" id="label5"/>
+	<mx:Label x="337" y="38" text="Rut:" width="37" id="label4" height="20"/>
+	<mx:Label x="509.5" y="40" text="-" width="14.75" textAlign="center" id="label3"/>
+	<mx:TextInput  restrict="0-9" x="382" y="38" width="130.5" id="rutClienteInput" maxChars="8"/>
+	<mx:TextInput x="520.5" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
+	<mx:Label x="167" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="24" y="40" text="Apellido:" width="84" id="label14"/>
+	<mx:DataGrid color="0x323232" width="709" rowCount="3" y="96" x="25" variableRowHeight="true" height="251" doubleClickEnabled="true" id="datagrid1" selectable="true" itemDoubleClick="nuevoControl()" dataProvider="{mascotas}">
+	    <mx:columns>
+	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
+	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
+	        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" width="100"/>
+	        <mx:DataGridColumn dataField="raza" headerText="Raza" width="100"/>
+	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
+	    </mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="646" y="350" label="Cancelar" id="button1" click="volver()"/>
-	<mx:Button x="559" y="350" label="Siguiente" id="button2"/>
-	<mx:TextInput x="459" y="46" width="262" id="textinput1"/>
+	<mx:Button x="659" y="355" label="Cancelar" id="button1" click="volver()"/>
+	<mx:Button x="572" y="355" label="Siguiente" id="button2"/>
+	<mx:TextInput x="84" y="38" width="218" id="nombreClienteInput"/>
 	
 </mx:Panel>

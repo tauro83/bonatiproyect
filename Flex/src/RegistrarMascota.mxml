@@ -538,7 +538,7 @@
         		}
         		else{
         			datosMascota.visible = true;
-        			labelMessage.text = "Se ha accedido al cliente " + nombreCliente.split(" ", 1).pop() + " satisfactoriamente.";
+        			labelMessage.text = "Se ha accedido al cliente " + nombreCliente + " satisfactoriamente.";
    
         			ini(event);
         			dg.visible = true;
