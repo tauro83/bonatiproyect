@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Agenda" xmlns:ns1="*" initialize="iniciarAgenda()" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
@@ -103,22 +103,28 @@
 			 * 
 			 */ 
             private function cambioFecha():void{
-            	var date:Date = calendario.selectedDate;
+            	var date:Date;
+            	if(calendario.selectedDate != null){
+            		date = calendario.selectedDate;
+            	}else{
+            		date = new Date();
+            	}
+
             	fechaOutput.text = (date.getDate()) + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
             	
             	if(diasBloqueados.contains(fechaOutput.text)){
             		fechaBloqueadoOutput.text = "(Bloqueado)";
             		agendaDia.selectable = false;
             		
-            		bloquear.visible = false;
-            		desbloquear.visible = true;
+            		//bloquear.visible = false;
+            		//desbloquear.visible = true;
             	}
             	else{
             		agendaDia.selectable = true;
             		
             		fechaBloqueadoOutput.text = "";		
-            		bloquear.visible = true;
-            		desbloquear.visible = false;
+            		//bloquear.visible = true;
+            		//desbloquear.visible = false;
             		
             		getDiaAgenda();
             		
@@ -293,14 +299,14 @@
 			 * Funcion que inicia la agenda
 			 * 
 			 */ 
-            private function iniciarAgenda():void{
+            public function iniciarAgenda():void{
             	var fechaActual:Date = new Date();
-            	
             	getAllUsuarios();
-
+			
             	servicioInput.dataProvider = ["Todos", "Pabellón", "Peluquería", "Policlínico", "Atención a domicilio"];
             	servicioOutput.text = "Todos";
-            	fechaOutput.text = fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" +fechaActual.getFullYear();;	
+            	fechaOutput.text = fechaActual.getDate() + "/" + (fechaActual.getMonth()+1) + "/" +fechaActual.getFullYear();
+            	getDiaAgenda();
             }    
             /**
 			 * Funcion que inicia el calendario
@@ -453,12 +459,12 @@
         <mx:Button id="agendar" x="674" y="311" label="Agendar" visible="false"/>
         <mx:Button id="eliminar" x="674" y="311" label="Eliminar" visible="false" click="deleteCita(event)"/>
         <mx:Button x="606" y="311" label="Editar" id="ctm" visible="false"/>
-        <mx:Button id="bloquear" x="200" y="311" label="Bloquear Día" click="bloquearDia()"/>
+        <mx:Button id="bloquear" x="200" y="311" label="Bloquear Día" click="bloquearDia()" visible="false"/>
         <mx:Button id="desbloquear" x="200" y="311" label="Desbloquear Día" click="desbloquearDia()" visible="false"/>
         <mx:Text x="200" y="10" text="Fecha:" fontWeight="bold" visible="false"/>
         <mx:Label id="fechaOutput" x="248" y="10" visible="false"/>
         <mx:Label id="fechaBloqueadoOutput" x="200" y="14" visible="true"/>
         <mx:Text x="437" y="10" text="Servicio:" fontWeight="bold" visible="false"/>
         <mx:Label id="servicioOutput" x="491" y="10" visible="false"/>
-        <mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+        <mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 </mx:Panel>
