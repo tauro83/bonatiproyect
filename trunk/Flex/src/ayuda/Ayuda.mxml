@@ -3,6 +3,11 @@
 	 
 	 <mx:Script>
         <![CDATA[
+        	//=======================================================================
+			// FECHA CREACIÓN: 28 Octubre
+			// AUTOR: Esteban Cruz
+			// Ayuda del sistema para el usuario
+			//=======================================================================
         	import mx.collections.ArrayCollection;       
             import mx.managers.PopUpManager;
             import mx.controls.Text;     
@@ -43,7 +48,9 @@
            		regMascota.visible = false;
            	}
            	
-           	//Corrige error de seleccionar al primero
+           	/**
+			 *  Corrige error de seleccionar el primero
+			 * */
 		    public function Seleccionar(event:Event):void
 			{
 			    if(inputTitulos.selectedIndex==0)
@@ -110,7 +117,7 @@
 	<mx:Canvas x="10" y="44" width="311" height="42" backgroundColor="#CCCCCC">
 		<fc:AutoComplete id="inputTitulos" dataProvider="{titulos}" labelField="nameT" close="Seleccionar(event)" x="10" y="10" width="291"/>
 	</mx:Canvas>
-	<mx:Text x="10" y="24" text="Buscaqueda" fontWeight="bold"/>
+	<mx:Text x="10" y="24" text="Búsqueda" fontWeight="bold"/>
 	
 	<!-- Resultados -->
 	<mx:DataGrid x="10" y="94" id="gridResult"  width="311" height="338" dataProvider="{titulos}" click="verDetalle(event)">
