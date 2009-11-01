@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Agenda" xmlns:ns1="*" initialize="iniciarAgenda()" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
@@ -298,7 +298,7 @@
             	
             	getAllUsuarios();
 
-            	servicioInput.dataProvider = ["Todos", "Pabellon", "Peluquería", "Policlinico", "Atencion a domicilio"];
+            	servicioInput.dataProvider = ["Todos", "Pabellón", "Peluquería", "Policlínico", "Atención a domicilio"];
             	servicioOutput.text = "Todos";
             	fechaOutput.text = fechaActual.getDate() + "/" + fechaActual.getMonth() + "/" +fechaActual.getFullYear();;	
             }    
@@ -395,7 +395,7 @@
    			
    			private function deleteCitaResult(event:ResultEvent):void{
 				var result:int = event.result as int ;
-				if(result < 1)
+				if(result!=0)
 				{
 				   labelMessage.text="Cita Eliminada!";
 				   //getAllMascotas();

@@ -1,4 +1,4 @@
-
+﻿
 //=======================================================================
 // FECHA: CREACIÓN: 27 Octubre de 2009
 // AUTOR: Sebastian Arancibia
@@ -9,21 +9,23 @@ package transferObjects
 {
 	[Bindable]
     [RemoteClass(alias="TransferObjects.Control")]
-	public class Cita
+	public class Control
 	{
 		// Rut de Cliente
 		public var cliente:String;
+		// Descripcion del control
+		public var descripcion:String;
 		// Nombre de la mascota
 		public var mascota:String;
 		// Fecha en que se realiza el control
-		public var fecha:String;
+		public var fecha:Date;
 		// Hora en que se realiza el control
 		public var hora:String;
-		// Fecha en que se fija el proximo control, esto debe ser guardado en la agenda
-		public var fechaProxControl:String;	
-		// Hora en que se realiza el proximo control, esto debe ser guardado en la agenda
-		public var horaProxControl:String;
-		// Responsable que esta a cargo del proximo control
+		// Responsable que esta a del actual control
 		public var responsable:String;
+		//Costo del control
+		public var costo:String;
+		//Servicio
+		public var servicio:String;
 	}
 }

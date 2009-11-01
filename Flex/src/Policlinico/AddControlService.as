@@ -1,4 +1,4 @@
-//=======================================================================
+﻿//=======================================================================
 // FECHA CREACIÓN:  27/10/2009
 // AUTOR: Sebastian Arancibia
 // …. Clase que conecta con capa 2
@@ -12,6 +12,8 @@ package Policlinico
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
+	import transferObjects.Cita;
+	import transferObjects.Control;
 
 	public class AddControlService extends RemoteObject
 	{
@@ -48,9 +50,20 @@ package Policlinico
 			 * para almacenarlo en la base de datos. Llamando al metodo correspondiente.
 			 * 	@Param Recibe como parametro un objeto de la clase Control, para enviarlo a la capa2. 		
 			 * */
-		public function addControl(control:Control):void
+		public function addProxControl(cita:Cita):void
 		{
-			this.getOperation("addControl").send(control);
+			this.getOperation("addProxControl").send(cita);
+		}
+		/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que envia a la capa 2, el control que fue editado, 
+			 * para almacenarlo en la base de datos. Llamando al metodo correspondiente.
+			 * 	@Param Recibe como parametro un objeto de la clase Control, para enviarlo a la capa2. 		
+			 * */
+		public function addActualControl(control:Control):void
+		{
+			this.getOperation("addActualControl").send(control);
 		}
 	}
 }
