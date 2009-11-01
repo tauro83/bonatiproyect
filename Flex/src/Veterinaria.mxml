@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*"> 
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*"> 
 
     <mx:Script>
         <![CDATA[        
@@ -11,6 +11,7 @@
 			import mx.controls.Alert;
 			import services.Validacion;
 			import ayuda.Ayuda;
+			import configuracion.*;
 			
 			public var idBotonGeneral:String;
 			public var idPanelGeneral:String;
@@ -472,17 +473,17 @@
 	</ns1:EstadisticasGuardadasventas>
 	<ns1:VisualizarVenta x="241" y="134" id="petVisualVenta2" visible="false">
 	</ns1:VisualizarVenta>	
-	<ns1:PanelAdministracion x="0" y="134" id="AdmOpciones1" visible="false">
-	</ns1:PanelAdministracion>
+	<ns2:PanelAdministracion x="0" y="134" id="AdmOpciones1" visible="false">
+	</ns2:PanelAdministracion>
 	<ns1:RegistroRazas2 x="241" y="134" id="AdRegistrarRazas2" visible="false">
 	</ns1:RegistroRazas2>	
-	<!--Autor: camilo}-->
-	<ns1:RegistroUsuario x="241" y="134" id="AdRegUsuario2" visible="false">
-	</ns1:RegistroUsuario>
-	<ns1:VisualizarFicha x="241" y="134" id="verFicha" visible="false">
-	</ns1:VisualizarFicha>
-	<ns1:buscarFicha x="241" y="134" id="visualizarFicha" visible="false">
-	</ns1:buscarFicha>
+	<!--Autor: camilo}--> 
+	<ns2:RegistroUsuario x="241" y="134" id="AdRegUsuario2" visible="false">
+	</ns2:RegistroUsuario>
+	<ns2:VisualizarFicha x="241" y="134" id="verFicha" visible="false">
+	</ns2:VisualizarFicha>
+	<ns2:buscarFicha x="241" y="134" id="visualizarFicha" visible="false">
+	</ns2:buscarFicha>
 		<!--Autor:camilo}-->
 
 	<ns1:RegistrarMascota x="241" y="134" id="AdmMascota2" visible="false">
@@ -493,8 +494,8 @@
 	</ns1:OpcionesHoteleria>
 	<ns1:Panel1Ventas x="0" y="134" id="petOpciones1" visible="false">
 	</ns1:Panel1Ventas>
-	<ns1:Admin x="241" y="134" id="panel2" visible="false">
-	</ns1:Admin>
+	<ns2:Administracion x="241" y="134" id="panel2" visible="false">
+	</ns2:Administracion>
 	<mx:TextArea x="161" y="-31" id="texHelp" visible="false">
 	</mx:TextArea>
 	<mx:TextArea x="161" y="-31" id="texHelp2" visible="false">
