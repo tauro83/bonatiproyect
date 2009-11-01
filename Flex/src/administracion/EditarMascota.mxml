@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Mascota">
+	<mx:Script>
+        <![CDATA[
+        	import services.AddMascotaService;
+        	import mx.controls.DateField;
+        	import mx.controls.Alert;
+            import mx.collections.ArrayCollection;
+        	import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.ValidationResultEvent;            
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
+		    import mx.rpc.events.ResultEvent;
+//			import components.ItemRenderer;
+//			import events.FileUploaderEvent;
+			import mx.controls.Image;
+			import services.MascotaService;
+		    import transferObjects.Mascota;
+		    import services.PersonService;
+		    import transferObjects.Person;
+		    import transferObjects.Cirugia;
+		    import mx.core.Application;
+		   
+			
+			[Bindable]
+			private var files:ArrayCollection=new ArrayCollection();
+		    private var vResult:ValidationResultEvent;
+		    public var nombreCliente:String;
+		    [Bindable]
+		    public var tiposC:ArrayCollection;
+		    [Bindable]
+		    public var vetesC:ArrayCollection;
+		    [Bindable]
+		    public var ayudantesC:ArrayCollection;
+		    
+		    /**
+			* Lista de mascotas del cliente asociado
+			*/
+		    [Bindable] 
+		    public var mascotas:ArrayCollection = new ArrayCollection();
+		    
+		    [Bindable] 
+		    public var cliente:Person;
+		      
+
+			/**
+		 	 * 	@author  "cristian Bravo"
+			 * 	@Fecha  13 Octubre
+			 * Funcion que busca un cliente, en la base de datos, para esto primero verifica 
+			 * si el rut esta ingresado correctamente, en caso de estar incorrecto lo informa por pantalla.
+			 * En caso contrario realiza las llamadas a la capa de java, la cual procesara la soliitud, y 
+			 * retornara si el cliente existe o no.
+			 * @param event Evento
+			 */
+        	public function buscarCliente(event:Event):void{
+        		ini(event);
+        		var Numero:String = rutClienteInput.text;
+        		var Dv:String = rutClienteDVInput.text;
+				var suma:int = 0;
+				var rut:String = Numero;
+				var NumMag:int = 2;
+				var Resto:int = 0;
+				var j:int ;
+				var i:int;
+				var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
+				var ParteNumerica:Array = new Array();
+				
+				if (rut.length == 0) { 
+
+				}
+				for ( j =0, i =0; j < rut.length; j++){
+					if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
+						ParteNumerica[i] = rut.charAt(i);
+						++i;
+					}
+				}
+				
+				for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
+					suma += ParteNumerica[i] * NumMag;
+					trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
+					if (NumMag>6){
+						NumMag =1;	
+					}	
+				}
+				
+				Resto = 11-(suma%11);
+				if(DigVer[Resto] != Dv.toUpperCase()){
+					labelMessage.text = "El Rut que ha ingresado es incorrecto.";
+				}
+				else{
+					labelMessage.text = "";
+					rutClienteInput.errorString = "";
+					getCliente(rutClienteInput.text+rutClienteDVInput.text);
+				}		
+        	}
+        	
+        	/**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  13 Octubre
+			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
+			 * el cual envia las solicitudes, y devuelve los resultados.
+			 */
+			 import pabellon.AddCirugiaService;
+        	private function getCliente(rutCliente:String):void{
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
+				addMascotaService.getCliente(rutCliente);
+			}
+			
+			
+			/**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  13 Octubre
+			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
+			 * el cual envia las solicitudes, y devuelve los resultados. Se procesa el resultado del metodo 
+			 * anterior.
+			 * @param event Evento
+			 */
+			public function getClienteResult(event:ResultEvent):void{
+				nombreCliente = event.result as String;
+				
+				if(nombreCliente == null){
+        			labelMessage.text = "Cliente no registrado."
+        			Application.application.AdmIngreso2.setVisible(true);
+        			Application.application.AdmIngreso2.labelMessage.text = "El cliente ingresado no esta registrado."
+        			Application.application.AdmIngreso2.rut.text = rutClienteInput.text;
+        			Application.application.AdmIngreso2.rut2.text = rutClienteDVInput.text;
+        			
+        			ini(event);
+        		}
+        		else{
+        			labelMessage.text = "Se ha accedido al cliente "+nombreCliente;
+        			ini(event);
+        		}
+			}
+        	
+			/**
+		 	* 	@author  "Cristian Bravo"
+			* 	@Fecha  13 Octubre
+			* Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
+			* de la comunicacion con la capa logica.
+			* @param event Evento
+			*/
+	        public function ini(event:Event):void{
+	        	//datosMascota.visible = true;
+	        	
+	           	mascotas.removeAll();
+	           	getMascotas();
+				mascotas.refresh();
+	        }
+	         
+        	
+        					
+					
+			/**
+		 	* 	@author  "Cristian Bravo"
+			* 	@Fecha  13 Octubre
+			* Metodo que realiza la comunicacion a la capa logica a traves de AddCirugiaService,
+			* solicitando todas las mascotas que le pertenescan a un determinado cliente.
+			*/
+			public function getMascotas():void{
+				var addMascotaService:AddCirugiaService = new AddCirugiaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(rutClienteInput.text);
+			}
+			
+			/**
+		 	* 	@author  "Cristian Bravo"
+			* 	@Fecha  13 Octubre
+			* Metodo que realiza la comunicacion a la capa logica a traves de AddCirugiaService,
+			* solicitando todas las mascotas que le pertenescan a un determinado cliente. 
+			 * Se almacena el resultado del metodo anterior en la variable mascotas.
+			* @param event Evento
+			*/
+			public function getAddMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+			}
+			
+		
+	
+			
+			/**
+		 	* 	@author  "Cristian Bravo"
+			* 	@Fecha  13 Octubre
+			* Metodo que inicializa todos los valores y variables de este panel.
+			*/
+			public function iniciarPanel():void
+			{
+				
+			
+				this.mascotas=new ArrayCollection();
+				this.dg.doubleClickEnabled=true;
+				this.labelMessage.text="";
+				this.rutClienteInput.text="";
+				this.rutClienteDVInput.text="";
+			}
+			
+	
+			
+				/**
+			 * Funcion que selecciona una mascota
+			 * 
+			 */ 
+			[Bindable]
+			public var newMascota:Mascota;
+			
+			
+			
+			public function seleccionarMascota(event:Event):void
+			{
+				var selectedRow:Object = event.currentTarget.selectedItem;
+				
+				  
+					//tomo los datos del datagrid y los copia a un objeto cita
+					var newMascotaUpdate:EditMascotaUpdate = Application.application.AdEditarMascota3;
+					newMascota = new Mascota();					
+					
+					newMascota.nombre = dg.selectedItem.nombre;
+				    newMascota.fechaNacimiento = dg.selectedItem.fechaNacimiento;
+					newMascota.claseAnimal   = dg.selectedItem.claseAnimal;
+					newMascota.raza= dg.selectedItem.raza;
+					newMascota.sexo = dg.selectedItem.sexo;
+					newMascota.rutCliente = rutClienteInput.text+rutClienteDVInput.text;
+					
+				    this.visible = false;
+				    Application.application.AdEditarMascota3.visible = true;
+				    
+				    
+					newMascotaUpdate.carga(newMascota);				    				    
+				    Application.application.AdEditarMascota3.setVisible(true,false);
+				    
+				    // Application.application.editarCita.hora.text = selectedRow.hora;
+			 	
+
+			}
+			
+			// Funcion que cancela la funcion editar mascota
+			  private function cancelando():void{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+			
+			
+			
+				
+        ]]>
+    </mx:Script>
+	
+	<mx:Label x="38.75" y="38" text="Rut:" width="84"/>
+	<mx:Label x="221" y="38" text="-" width="14.75" textAlign="center"/>
+	<mx:TextInput  restrict="0-9" x="130.75" y="36" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
+	<mx:TextInput x="232.5" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
+	
+	<mx:Panel x="121.5" y="-12" width="585" height="323" layout="absolute"  visible="false" id="ficha">
+			<mx:Label x="10" y="63" text="Nombre:" width="97"/>
+			<mx:Label x="10" y="125" text="Tipo Animal:" width="97"/>
+			<mx:Label x="10" y="95" text="Fecha Nacimiento:" width="114.5"/>
+			<mx:Label x="10" y="155" text="Raza:" width="97"/>
+			<mx:Label x="10" y="181" text="Sexo:" width="97"/>
+			<mx:Label x="172" y="10" width="211" text="{dg.selectedItem.rut}" textAlign="center" id="rutClienteSeleccionado"/>
+			<mx:Label x="172" y="23" width="211" text="{dg.selectedItem.nombre}" textAlign="center"/>
+			<mx:Image x="343" y="61" source="{dg.selectedItem.imagenMascota}" width="209" height="157" id="fichaImagen"/>
+			<mx:Button x="501" y="245" label="Salir" click="ficha.visible=false"/>
+			<mx:Label x="129" y="63" width="165" text="{dg.selectedItem.nombreMascota}"/>
+			<mx:Label x="129" y="95" width="165" text="{dg.selectedItem.fechaNacimiento}"/>
+			<mx:Label x="129" y="125" width="165" text="{dg.selectedItem.tipoAnimal}"/>
+			<mx:Label x="129" y="155" width="165" text="{dg.selectedItem.raza}"/>
+			<mx:Label x="129" y="181" width="165" text="{dg.selectedItem.sexo}"/>
+	</mx:Panel>	
+
+	
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="10" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
+	<mx:DataGrid id="dg" color="0x323232" width="681" rowCount="3" y="92" x="38.75" variableRowHeight="true" dataProvider="{mascotas}"  visible="true" height="269" doubleClickEnabled="true" itemDoubleClick="{seleccionarMascota(event)}" >
+	    <mx:columns>
+	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
+	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
+	        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" width="100"/>
+	        <mx:DataGridColumn dataField="raza" headerText="Raza" width="100"/>
+	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
+	    </mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="635.75" y="369" label="Cancelar" width="84" id="cancelar" visible="true" click="cancelando()"/>
+	
+	<mx:Label x="10" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
+	
+</mx:Panel>
