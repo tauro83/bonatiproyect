@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Configuración servicios" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="cargarDatos()" width="779" height="466" title="Configuración servicios" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -8,19 +8,20 @@
 			// Modulo de mantencion de servicios del sistema
 			//=======================================================================
 			import mx.core.Application;
-			import mx.collections.ArrayCollection;   
+			import mx.collections.ArrayCollection;  
+			import mx.controls.Alert;
+		
 			
-			[Bindable]private var servicios:ArrayCollection = new ArrayCollection([
-		          {nombre:"Policlinico I"},
-		          {nombre:"Policlinico II"},
-		          {nombre:"Peluqueria"},
-		          {nombre:"Hoteleria"},
-		          {nombre:"Pet-Shop"},
-		          {nombre:"Pabellon"},
-		          {nombre:"Atención a domicilio"},
-	        ]);
+		
+			[Bindable]private var servicios:ArrayCollection;
 			
-	
+			
+			private function cargarDatos():void
+			{
+				//servicios = Servicios.getServicios() as ArrayCollection;
+				
+				
+			}
 			
 			/**
 		 	 * 	@author  "Camilo Verdugo"

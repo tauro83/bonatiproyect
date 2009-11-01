@@ -44,7 +44,6 @@
 			
 		]]>
 	</mx:Script>
-	<mx:Label x="419.95" y="10" text="Empleados" width="155" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cargos" width="152" fontWeight="bold"/>
 	<mx:DataGrid x="25" y="127.25" width="311.15" id="especiesGrid" dataProvider="{cargos}" height="195">
 		<mx:columns>
@@ -54,14 +53,6 @@
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="234.15" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="25" label="Agregar" y="81" icon="@Embed(source='../images/Abajo.png')"/>
 	<mx:TextInput x="25" y="36" width="311.15" id="especieInput"/>
-	<mx:DataGrid x="419.95" y="127.25" width="311.15" id="especiesGrid0" dataProvider="{servicios}" height="195">
-		<mx:columns>
-			<mx:DataGridColumn headerText="Nombre" dataField="nombre"  />
-		</mx:columns>
-	</mx:DataGrid>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="629.1" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="419.95" label="Agregar" y="81" icon="@Embed(source='../images/Abajo.png')"/>
-	<mx:TextInput x="419.95" y="36" width="311.15" id="especieInput0"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 		

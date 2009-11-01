@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" x="345" y="50" width="375" height="382">
-
 	<mx:Script>
 		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 29 Octubre
+			// AUTOR: Camilo Verdugo
+			// Panel de ayuda de usuario sobre el despliegue de estadisticas de peluqueria
+			//=======================================================================
 			
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  29 Octubre
+			 *  @Descripcion Metodo que despliega las imagenes de ayuda para este componente
+			 * */	
 			private function verBarra():void
 			{
 				textAyuda.visible = false;
@@ -13,7 +22,11 @@
 				linkOpciones.visible = false;
 				opcMod.visible = false;
 			}
-			
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  29 Octubre
+			 *  @Descripcion Metodo que despliega el texto de ayuda
+			 * */
 			private function verOpcMod():void
 			{
 				textAyuda.visible = false;
@@ -23,7 +36,11 @@
 				linkOpciones.visible = false;
 				opcMod.visible = true;
 			}
-			
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  29 Octubre
+			 *  @Descripcion Metodo que retorna el panel de carga de la imagen, a la informacion de ayuda
+			 * */
 			private function volver2():void
 			{
 				textAyuda.visible = true;
