@@ -10,17 +10,21 @@
 			import mx.core.Application;
 			import mx.collections.ArrayCollection;  
 			import mx.controls.Alert;
-		
-			
-		
+			import services.configuracionServices;
+			import mx.rpc.events.ResultEvent;
 			[Bindable]private var servicios:ArrayCollection;
 			
 			
-			private function cargarDatos():void
+			public function cargarDatos():void
 			{
-				//servicios = Servicios.getServicios() as ArrayCollection;
-				
-				
+				var confs:configuracionServices= new configuracionServices();
+				confs.getConfiguraciones("servicio");
+				confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
+			}
+			
+			public function cargarDatosR(event:ResultEvent):void
+			{
+				servicios = event.result as ArrayCollection;	
 			}
 			
 			/**
