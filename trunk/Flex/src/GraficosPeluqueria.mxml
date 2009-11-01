@@ -78,7 +78,7 @@
 			
 			<mx:DateField id="fechaIni" formatString="DD/MM/YYYY"  x="89" y="36" width="112" change="changeData(event)"/>
 			<mx:Label x="25" y="38" text="Inicio:" width="58"/>
-			<mx:DateField id="fechaFin"   x="89" y="67" width="112" change="changeData(event)"/>
+			<mx:DateField id="fechaFin" formatString="DD/MM/YYYY"   x="89" y="67" width="112" change="changeData(event)"/>
 			<mx:Label x="25" y="69" text="Término:" width="71"/>
 			<mx:Label x="25" y="10" text="Rango de fechas" fontWeight="bold"/>
 			<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Configuración mascota" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="cargarDatos()" width="779" height="466" title="Configuración Mascota" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -9,37 +9,20 @@
 			//=======================================================================
 			import mx.core.Application;
 			import mx.collections.ArrayCollection;   
-			[Bindable]private var especies:ArrayCollection = new ArrayCollection([
-		          {nombre:"Gatos"},
-		          {nombre:"Caballos"},
-		          {nombre:"Perros"},
-		          {nombre:"Otros"},
-	        ]);
-
-			[Bindable]private var razas:ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import services.configuracionServices;
+			[Bindable]private var especies:ArrayCollection;
+			private var confs:configuracionServices= new configuracionServices();
+		
+			public function cargarDatos():void
+			{				
+				confs.getConfiguraciones("Especie");
+				confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
+			}
 			
-			/**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion metodo que carga las razas de una mascota, posterior a la seleccion de la especie
-			 * */
-			private function cargarDatos(event:Event):void
+			public function cargarDatosR(event:ResultEvent):void
 			{
-				
-				if(especiesGrid.selectedItem){
-					especieInput.text = especiesGrid.selectedItem as String;
-					razas = new ArrayCollection([
-				          {nombre:"San Bernardo"},
-				          {nombre:"Gran Danés "},
-				          {nombre:"Rottweiler"},
-				          {nombre:"Pastor Alemán"},
-				          {nombre:"Bóxer"},
-				          {nombre:"Labrador"},
-				          {nombre:"Bulldog"},
-				          {nombre:"Dálmata"},
-	        		]);
-				}
-				
+				especies = event.result as ArrayCollection;	
 			}
 			
 			/**
@@ -59,7 +42,7 @@
 	</mx:Script>
 		
 	
-	<mx:DataGrid x="25" y="127.25" width="311.15" id="especiesGrid" dataProvider="{especies}" click="cargarDatos(event)" height="176">
+	<mx:DataGrid x="25" y="127.25" width="311.15" id="especiesGrid" dataProvider="{especies}" height="200">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"  />
 		</mx:columns>

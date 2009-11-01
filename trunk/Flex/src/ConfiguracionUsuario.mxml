@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Configuración usuario" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="cargarDatos()" width="779" height="466" title="Configuración Usuario" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -9,24 +9,21 @@
 			//=======================================================================
 			import mx.core.Application;
 			import mx.collections.ArrayCollection;   
-			[Bindable]private var cargos:ArrayCollection = new ArrayCollection([
-		          {nombre:"Ayudante"},
-		          {nombre:"Veterinario"},
-		          {nombre:"Veterinaria"},
-		          {nombre:"Peluquero"},
-		          {nombre:"Peluquera"},
-		          {nombre:"Secretaria"},
-		          {nombre:"Secretario"},
-	        ]);
-
-			[Bindable]private var servicios:ArrayCollection = new ArrayCollection([
-		          {nombre:"Claudio Bonati"},
-		          {nombre:"Cristina Cruz"},
-		          {nombre:"Felipe Sazo"},
-		          {nombre:"Mauricio Tapia"},
-		          {nombre:"Alejandra Maraboli"}
-	        ]);
+			import mx.rpc.events.ResultEvent;
+			import services.configuracionServices;
+			[Bindable]private var cargos:ArrayCollection;
+			private var confs:configuracionServices= new configuracionServices();
 			
+			public function cargarDatos():void
+			{				
+				confs.getConfiguraciones("Cargo");
+				confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
+			}
+			
+			public function cargarDatosR(event:ResultEvent):void
+			{
+				cargos = event.result as ArrayCollection;	
+			}
 	
 			
 			/**
@@ -45,7 +42,7 @@
 		]]>
 	</mx:Script>
 	<mx:Label x="25" y="10" text="Cargos" width="152" fontWeight="bold"/>
-	<mx:DataGrid x="25" y="127.25" width="311.15" id="especiesGrid" dataProvider="{cargos}" height="195">
+	<mx:DataGrid x="25" y="127.25" width="311.15" id="especiesGrid" dataProvider="{cargos}" height="200">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"  />
 		</mx:columns>

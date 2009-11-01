@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Configuración Vacunas" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="cargarDatos()" width="779" height="466" title="Configuración Vacunas" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -7,19 +7,22 @@
 			// Modulo de mantencion de vacunas del sistema
 			//=======================================================================
 			import mx.core.Application;
+			import mx.rpc.events.ResultEvent;
 			import mx.collections.ArrayCollection;   
+			import services.configuracionServices;
+			[Bindable]private var vacunas:ArrayCollection;
+			private var confs:configuracionServices= new configuracionServices();
 			
-			[Bindable]private var vacunas:ArrayCollection = new ArrayCollection([
-		          {nombre:"Parvo Corona"},
-		          {nombre:"Sextuple"},
-		          {nombre:"Coronavirus"},
-		          {nombre:"Antirrabica"},
-		          {nombre:"Octuple"},
-		          {nombre:"Triple Felina"},
-		          {nombre:"Leucemia Felina"},
-		          {nombre:"PIF"},
-	        ]);
+			public function cargarDatos():void
+			{				
+				confs.getConfiguracioneVacunas();
+				confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
+			}
 			
+			public function cargarDatosR(event:ResultEvent):void
+			{
+				vacunas = event.result as ArrayCollection;	
+			}
 	
 			/**
 		 	 * 	@author  "Camilo Verdugo"
@@ -36,7 +39,7 @@
 			
 		]]>
 	</mx:Script>
-	<mx:DataGrid x="25" y="128" width="311.15" dataProvider="{vacunas}" height="165">
+	<mx:DataGrid x="25" y="128" width="311.15" dataProvider="{vacunas}" height="200">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 		</mx:columns>
@@ -45,16 +48,17 @@
 	<mx:TextInput x="518" y="36" width="216" id="razaInput"/>
 	<mx:TextInput x="518" y="66" width="216" id="razaInput1"/>
 	<mx:TextInput x="518" y="96" width="216" id="razaInput2"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Registrar" y="156"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Registrar" y="173"/>
 	<mx:Label x="414" y="36" text="Nombre:"/>
 	<mx:Label x="414" y="66" text="Precio:"/>
 	<mx:Label x="414" y="96" text="Descripción:"/>
 	<mx:Label x="414" y="128" text="Caducidad:"/>
-	<mx:DateField x="518" y="126" width="216"/>
 	<mx:Label x="25" y="10" text="Vacunas" width="152" fontWeight="bold"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="234.15" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')"/>
 	<mx:TextInput x="25" y="36" width="311.15" id="especieInput1"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:ComboBox x="518" y="126" width="167"></mx:ComboBox>
+	<mx:Label x="693" y="128" text="Meses" width="41"/>
 		
 </mx:Panel>
