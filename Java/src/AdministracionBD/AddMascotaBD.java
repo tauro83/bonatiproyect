@@ -50,7 +50,7 @@ public class AddMascotaBD{
 					"FROM mascota;";			
 			selectAll = connection.prepareStatement(query);
 			
-			query = "SELECT rut, nombre " +
+			query = "SELECT rut, nombre, apaterno " +
 					"FROM clientepresencial;";
 			
 			getAllClientes = connection.prepareStatement(query);
@@ -67,7 +67,7 @@ public class AddMascotaBD{
     		while(result.next()){
     			//System.out.println("COMPARO: |" + result.getString(1).trim() +"| |"+ rutCliente +"|");
     			if((result.getString(1).trim()).equals(rutCliente)){
-    				cliente = result.getString(2);
+    				cliente = result.getString(2).trim() +" "+ result.getString(3).trim();
     			}
     		}
 		} 
