@@ -186,4 +186,9 @@
   		</properties>
   	</destination>
   	
+	 <destination id="AddControlService"> 
+  	 	<properties>
+  			<source>Policlinico.AddControlService</source>
+  		</properties>
+  	</destination>
 </service>
