@@ -31,6 +31,9 @@
 				{nameT:"Purgar Usuario"}
 			]);
            	
+           	/**
+			 *  Hace invisible todos los paneles
+			 * */
            	private function setInvi():void
            	{
            		anuCirugia.visible = false;
@@ -59,7 +62,10 @@
 			    }
 			}
 
-			//muestra detalle
+			/**
+			 *  Visualiza el panel deseado, luego de ser mascado
+			 *  una opción desde la lista de resultados
+			 * */
           	private function verDetalle(event:Event):void
            	{	
            		setInvi();
