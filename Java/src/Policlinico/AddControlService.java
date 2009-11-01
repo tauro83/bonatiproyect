@@ -11,6 +11,7 @@ import AdministracionBD.AddMascotaBD;
 import PabellonBD.AddCirugiaBD;
 import AdministracionBD.UsuarioEditBD;
 import AdministracionBD.UsuarioElimBD;
+import TransferObjects.Cliente;
 import TransferObjects.Mascota;
 import TransferObjects.Usuario;
 import Bd.DBConnectionManager;
@@ -107,8 +108,8 @@ public class AddControlService {
 	 * @param String rutCliente, recibe un string que representa el rut del cliente que se necesita verificar si existe.
 	 * @return retorna el rut del cliente si es que existe.
 	 */
-	public String getCliente(String rutCliente){
-    	String cliente = null;
+	public Cliente getCliente(String rutCliente){
+    	Cliente cliente = null;
     	try {
 			Connection connection=DBConnectionManager.getConnection();
 			AddCirugiaBD addCirugiaBD = new AddCirugiaBD(connection);
