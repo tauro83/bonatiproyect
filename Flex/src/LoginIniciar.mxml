@@ -34,8 +34,8 @@
 			{
 				var result:int = event.result as int ;
 				
-				//if(result==1)
-				//{
+				if(result==1)
+				{
             		Application.application.setInvisible();
             		Application.application.agenda2.setVisible(true,false);
             		Application.application.menuAgenda1.setVisible(true,false);
@@ -53,7 +53,7 @@
             			//tomo nombre
             			//tomo pass
             		}
-            		/*else{
+            		else{
             			nombre.text=null;
             			pass.text=null;
             		}
@@ -62,7 +62,7 @@
 				{
 					bar=0;
 				    Alert.show("Acceso denegado");
-				}*/
+				}
 			}
  		]]>
  	</mx:Script>	
