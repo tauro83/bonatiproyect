@@ -16,6 +16,7 @@ public class Atencion {
 	private String hora;
 	private String fecha;
 	private String costo;
+	private String sfecha;
 		
 	public Atencion(){
 		
@@ -44,6 +45,12 @@ public class Atencion {
 	}
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+	public String getSfecha() {
+		return sfecha;
+	}
+	public void setSfecha(String  string) {
+		this.sfecha = string;
 	}
 	public String getFecha() {
 		return fecha;

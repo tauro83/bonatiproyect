@@ -181,7 +181,7 @@ public class BusquedaBD
     			atencion.setMascotaNombre(result.getString(2).trim());
     			atencion.setServicio(result.getString(3).trim());
     			atencion.setHora(result.getString(4).trim());
-    			atencion.setFecha(result.getString(5).trim());
+    			atencion.setSfecha(result.getString(5).trim());
     			
     			atenciones.add(atencion);
     		}
