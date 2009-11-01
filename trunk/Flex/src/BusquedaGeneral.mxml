@@ -44,6 +44,64 @@
             	Application.application.setInvisible();
             	Application.application.agenda2.setVisible(true,false);
             	Application.application.menuAgenda1.setVisible(true,false);
+            	comboboxAtencion.setVisible(false,false);
+				gridAtencion.setVisible(false,false);
+				comboboxCliente.setVisible(false,false);
+				gridCliente.setVisible(false,false);
+				comboboxAviso.setVisible(false,false);
+				gridAviso.setVisible(false,false);
+				comboboxMascota.setVisible(false,false);
+				gridMascota.setVisible(false,false);
+				comboboxProducto.setVisible(false,false);
+				gridProducto.setVisible(false,false);
+				comboboxUsuario.setVisible(false,false);
+				gridUsuario.setVisible(false,false);
+				setInvisibleInput();
+            	reiniciar();
+            	combobox.selectedIndex=0;
+            	textBuscar.visible=false;
+            }
+            
+            private function reiniciar():void
+            {
+            	comboboxUsuario.selectedIndex=0;
+            	gridUsuario.dataProvider=null;
+            	inputUsuarioNombre.dataProvider=null;
+            	inputUsuarioAp.dataProvider=null;
+            	inputUsuarioAm.dataProvider=null;
+            	inputUsuarioServicio.dataProvider=null;
+            	
+            	comboboxCliente.selectedIndex=0;
+            	gridCliente.dataProvider=null;
+            	inputClienteEmail.dataProvider=null;
+            	inputClienteNombre.dataProvider=null;
+            	inputClienteTel.dataProvider=null;
+            	inputClienteRut.dataProvider=null;
+            	inputClienteApellido.dataProvider=null;
+            	inputClienteApellido2.dataProvider=null;
+            	
+            	comboboxMascota.selectedIndex=0;
+            	gridMascota.dataProvider=null;
+            	inputMascotaNombre.dataProvider=null;
+            	inputMascotaRut.dataProvider=null;
+            	inputMascotaRaza.dataProvider=null;
+            	inputMascotaClase.dataProvider=null;
+            	inputMascotaSexo.dataProvider=null;
+            	
+            	comboboxProducto.selectedIndex=0;
+            	gridProducto.dataProvider=null;
+            	inputProductoNombre.dataProvider=null;
+            	inputProductoCodigo.dataProvider=null;
+            	inputProductoPrecio.dataProvider=null;
+            	inputProductoCategoria.dataProvider=null;
+            	
+            	comboboxAtencion.selectedIndex=0;
+            	gridAtencion.dataProvider=null;
+            	inputAtencionCliente.dataProvider=null;
+            	inputAtencionMascota.dataProvider=null;
+            	inputAtencionFecha.dataProvider=null;
+            	inputAtencionHora.dataProvider=null;
+            	inputAtencionServico.dataProvider=null;
             }
             		
 			/**
@@ -84,6 +142,7 @@
 			 **/
 			private function seleccionarBusqueda (event:Event):void
             {   
+            	reiniciar();
             	comboboxAtencion.setVisible(false,false);
 				gridAtencion.setVisible(false,false);
 				comboboxCliente.setVisible(false,false);
@@ -251,7 +310,7 @@
 				case 'Sexo':		
 					inputMascotaSexo.setVisible(true,false);
 				break;
-				case 'Clase':
+				case 'Especie':
 					inputMascotaClase.setVisible(true,false); 
 				break;	
 				}
@@ -328,7 +387,7 @@
 				case 'Nombre':		
 					inputProductoNombre.setVisible(true,false);
 				break; 
-				case 'Codigo':		
+				case 'Código':		
 					inputProductoCodigo.setVisible(true,false);
 				break; 
 				case 'Precio':		
@@ -339,16 +398,11 @@
 				break;	
 				}
             }
-            
-            private function dateFunc(item:Object, column:DataGridColumn):String
-			{
-				return df.format(item.fecha);
-			}
 			
 		]]>
 	</mx:Script>
 	
-	<mx:Button x="620" y="343" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()"/>
+	<mx:Button x="634" y="353" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()" height="23"/>
 	<mx:ComboBox x="96" y="24" width="150" id="combobox" change="seleccionarBusqueda(event)" >
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccionar-"/>
@@ -406,14 +460,14 @@
 			<mx:Object label="Rut Cliente"/>
 			<mx:Object label="Raza"/>
 			<mx:Object label="Sexo"/>
-			<mx:Object label="Clase"/>
+			<mx:Object label="Especie"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
 	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridMascota" visible="false" dataProvider="{mascotas}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Rut cliente" dataField="rutCliente"/>
-			<mx:DataGridColumn headerText="Clase animal" dataField="claseAnimal"/>
+			<mx:DataGridColumn headerText="Especie" dataField="claseAnimal"/>
 			<mx:DataGridColumn headerText="Raza" dataField="raza"/>
 			<mx:DataGridColumn headerText="Sexo" dataField="sexo"/>
 		</mx:columns>
@@ -488,7 +542,7 @@
 			<mx:Object label="Categoria"/>
 			<mx:Object label="Nombre"/>
 			<mx:Object label="Precio"/>
-			<mx:Object label="Codigo"/>
+			<mx:Object label="Código"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
 	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridProducto" visible="false" dataProvider="{productos}">
@@ -496,7 +550,7 @@
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Precio" dataField="precio"/>
 			<mx:DataGridColumn headerText="Categoria" dataField="categoria"/>
-			<mx:DataGridColumn headerText="Codigo barra" dataField="codigo"/>
+			<mx:DataGridColumn headerText="Código barra" dataField="codigo"/>
 		</mx:columns>
 	</mx:DataGrid>
 	
