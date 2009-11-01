@@ -243,8 +243,12 @@
 		    	agenda2.setVisible(false, false);
 		    	editarCirugia.setVisible(false, false);
 		    	registroControl.setVisible(false, false);
-		 		<!--Autor: }Sebastian -->      
-		 	
+		 		<!--Autor: }Sebastian -->   
+		 		
+		 		<!--Autor: Cristian{ -->
+		 		AdEditarMascota3.setVisible(false,false);
+		    	AdEditarMascota2.setVisible(false, false);   
+		 		<!--Autor: }Cristian -->   
 			
 		 		
             }
@@ -658,6 +662,17 @@
 
 	
 	<!--Autor: }nicolas-->
+	
+	<!--Autor: Cristian Bravo{ -->
+	<ns2:EditMascotaUpdate x="241" y="134" visible="false" id="AdEditarMascota3">
+	</ns2:EditMascotaUpdate>
+	<ns2:EditarMascota x="241" y="134" id="AdEditarMascota2" visible="false">
+	</ns2:EditarMascota>
+
+	
+ <!--Autor: Cristian{ -->
+	
+	
 	
 	<!--Autor: Sebastian{-->
 		<ns1:RegistrarControl x="241" y="134" id="registroControl" visible="false">
