@@ -10,9 +10,9 @@ package transferObjects
 	public class ConfiguracionVacuna
 	{
 		public var nombre:String;
-		public var precio:int;
+		public var precio:String;
 		public var descripcion:String;
-		public var caducidad:int;
+		public var caducidad:String;
 
 	}
 }
