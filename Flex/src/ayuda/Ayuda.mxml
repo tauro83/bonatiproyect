@@ -28,7 +28,9 @@
 				{nameT:"Agenda"},
 				{nameT:"Registrar Mascota"},
 				{nameT:"Eliminar Usuario"},
-				{nameT:"Purgar Usuario"}
+				{nameT:"Purgar Usuario"},
+				{nameT:"Editar Usuario"},
+				{nameT:"Editar Mascota"}
 			]);
            	
            	/**
@@ -49,6 +51,8 @@
            		registerConsulta1.visible=false;
            		agen.visible = false;
            		regMascota.visible = false;
+           		editUsua.visible = false;
+           		edimasc.visible = false;
            	}
            	
            	/**
@@ -113,6 +117,12 @@
 					case 'Registrar Mascota':
 						regMascota.visible = true;
 					break;
+					case 'Editar Usuario':
+						editUsua.visible = true;
+					break;
+					case 'Editar Mascota':
+						edimasc.visible = true;
+					break;
 				}
            	}
            
@@ -163,5 +173,9 @@
 	</ns1:regMascota>
 	<ns1:Agen x="345" y="50" visible="false" id="agen">
 	</ns1:Agen>
+	<ns1:EditUsuario x="345" y="50" visible="false" id="editUsua">
+	</ns1:EditUsuario>
+	<ns1:ediMascota x="345" y="50" visible="false" id="edimasc">
+	</ns1:ediMascota>
 
 </mx:TitleWindow>
