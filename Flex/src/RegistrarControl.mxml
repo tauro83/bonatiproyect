@@ -128,9 +128,14 @@
 			 * */
             public function nuevoControl():void{
             	currentState="NuevoControl";
-            	nombreMascota.text = "Martin";
-            	rutClienteInput.text = "16358963";
-            	rutClienteDVInput.text = "K";
+            	
+            	if(datagrid1.selectedItem){
+					this.labelMessage.text="";
+					nombreMascota.text = datagrid1.selectedItem.nombre.split(" ",1).pop();
+				}
+				else{
+					this.labelMessage.text="Seleccione una Mascota para registrar un control.";
+				}
             }
             
             /**
@@ -153,13 +158,6 @@
 			 *  Funcion que cambia de estado 		
 			 * */
             public function buscarPorRut():void{
-            	
-            	//Consulta si el estado en que se encuentra es BusquedaNombre, para de esta forma llenar el
-            	//formulario siguiente
-            	if(currentState == "BusquedaNombre"){
-            		rutClienteInput.text = "16358963";
-            		rutClienteDVInput.text = "K";
-            	}
             	currentState="BusquedaRut";
             }
                        /**
@@ -375,6 +373,11 @@
 			 * @param event Evento
 			 */
         	private function buscarCliente(event:Event):void{
+        		if(rutClienteDVInput.text == "k"){
+        			rutClienteDVInput.text = "K";
+        		}
+        		
+        		
         		if(rutClienteDVInput.text != "" && rutClienteInput.text != ""){
         			ini();
         			var Numero:String = rutClienteInput.text;
@@ -409,6 +412,7 @@
 					Resto = 11-(suma%11);
 					if(DigVer[Resto] != Dv.toUpperCase()){
 						labelMessage.text = "El Rut que ha ingresado es incorrecto.";
+						currentState="BusquedaRut";
 					}
 					else{
 						labelMessage.text = "";
