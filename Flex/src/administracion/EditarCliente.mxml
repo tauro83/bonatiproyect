@@ -39,12 +39,24 @@
 			public function editClientillo(clientillo:Cliente):void
 			
 			{
-					
+					/*
+					Alert.show(clientillo.nombre);
+					Alert.show(clientillo.apellido);
+					Alert.show(clientillo.apellido2);
+					Alert.show(clientillo.rut);
+					Alert.show(clientillo.rut2);
+					Alert.show(clientillo.telefono);
+					Alert.show(clientillo.telefono2);
+					Alert.show(clientillo.celular);
+					Alert.show(clientillo.celular2);
+					Alert.show(clientillo.region);
+					Alert.show(clientillo.comuna);
+					Alert.show(clientillo.direccion);
+					Alert.show(clientillo.email);
+					*/
 					var newCli2:EditClienteUpdate = Application.application.ediCliUp; 		
 				    var list1:Array= new Array();
-				    
-				    list1 = clientillo.nombre.split(" ",1);
-				 
+					list1 = clientillo.nombre.split(" ",1);
 				    newCli2.nombre.text = list1.pop();
 				    
 				    list1 = clientillo.apellido.split(" ",1);
@@ -68,7 +80,7 @@
 				    list1 = clientillo.celular.split(" ",1);
 				    newCli2.celular.text = list1.pop();
 				    
-				    list1 = clientillo.celular2.split(" ",1);
+				    list1 = clientillo.celular2.split(" ",1); 
 				    newCli2.celular2.text  = list1.pop();
 				    
 				    list1 = clientillo.direccion.split(" ",1);
@@ -83,13 +95,17 @@
 				    list1 = clientillo.email.split(" ",1);
 				    newCli2.email.text = list1.pop();
 				    
-				    list1 = clientillo.email2.split(" ",1);
+				    list1 = clientillo.email.split(" ",1);
 				    newCli2.email2.text = list1.pop();
+				    //list1 = clientillo.email2.split(" ",1);
+				    //Alert.show(list1.pop());
+				    //newCli2.email2.text = list1.pop();
 
 					newCli2.carga(clientillo);
-					
+					//Alert.show("Tirillas");
 					this.setVisible(false,false);
 					newCli2.setVisible(true,false);
+					
 
 			}
 	    
@@ -113,28 +129,78 @@
 		private function ctm():void
 		{
 			var i:int;
+			var j:int;
 			var res:int=0;
 			var aux:int=0;
 			var ouput:String;
 			var list:Array  = new Array();
 			var list2:Array = new Array();
+			var list3:Array = new Array();
 			var nuevaRut:String;
 			var nuevaRut2:String;
+			var codVerif:String;
+			///////////////////////
+			var AuxcodCiudad:String;
+			var Aux2codCiudad:String;
+			var codCiudad:String;
+			var telSolo:String;
+			
+			var AuxcodCel:String;
+			var Aux2codCel:String;
+			var codCel:String;
+			var numCel:String;
+			//////////////////////
 			getAllClientes();
 			//Alert.show("hola1 .."+clientes.length+"...");
 			for(i=0;i<clientes.length;i++)
 			{
 				list = clientes[i].rut.split(" ",1);
 				nuevaRut  = list.pop();
-				if(nuevaRut == rut.text.toString())
+				
+			    nuevaRut2 = rut.text.concat(rut2.text);
+			    codVerif  = nuevaRut2.charAt(8);
+			
+				if(nuevaRut == nuevaRut2)
 				{
+					
 					clienteAux = clientes[i] as Cliente;
+					
+					list2 = clienteAux.telefono.split(" ",1);
+			   	    AuxcodCiudad = list2.pop();
+			        Aux2codCiudad= AuxcodCiudad;
+			        codCiudad    = AuxcodCiudad.slice(0,2);//
+			   		telSolo      = Aux2codCiudad.slice(2,8);//
+			        
+			        
+			        list3     = clienteAux.celular.split(" ",1);
+			        AuxcodCel = list3.pop();
+			        Aux2codCel= AuxcodCel;
+			        codCel    = AuxcodCel.charAt(0);
+			        numCel    = Aux2codCel.slice(1,8);
+			        //Alert.show(numCel);
+			        
+			        clienteAux.rut      = nuevaRut2.slice(0,8);//le copie el rut sin codigo verificador junto
+					clienteAux.rut2     = codVerif;//le copie el codigo verificador
+					clienteAux.telefono = codCiudad;//copio codigo ciudad
+					clienteAux.telefono2= telSolo;//copio num telefono fijo solo
+					clienteAux.celular  = codCel;//copio prefijo celular
+					clienteAux.celular2 = numCel;//copio num celular solo
+					/*
+					Alert.show(clienteAux.rut);
+					Alert.show(clienteAux.rut2);
+					Alert.show(clienteAux.telefono);
+					Alert.show(clienteAux.telefono2);
+					Alert.show(clienteAux.celular);
+					Alert.show(clienteAux.celular2);
+					*/
 					res=1;
 					break;
 				}
 			}
 			if(res==1){
+				//Alert.show(clienteAux.rut);
 				this.editClientillo(clienteAux);
+				
 			}
 			else{
 				Alert.show("Cliente no se encuentra en Base de Datos");
@@ -154,6 +220,8 @@
 		   Application.application.setVisible();
 		   Application.application.panelEditaCLi.setVisible(true,false);
 		}
+		
+
 
 		]]>
 	</mx:Script>
