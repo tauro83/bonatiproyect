@@ -103,6 +103,7 @@
 				Application.application.setInvisible();
 				this.visible = true;
 				Application.application.registroControl.visible = true;	
+				Application.application.registroControl.iniciar();
 			}
 
 		]]>
