@@ -38,18 +38,47 @@
             	Application.application.AdmOpciones1.setVisible(true,false);
 			}
 			
+			public function setNombre(event:Event):void
+			{
+				if(especiesGrid.selectedItem){
+            		especieInput.text = especiesGrid.selectedItem.nombre; 
+            		agregar.enabled = false;   
+            		eliminar.enabled = true;  
+            	}		
+            			
+			}
+			
+			private function registrarNombre(event:Event):void
+			{
+				confs.regConfiguracion("Servicio", especieInput.text);
+				this.cargarDatos();
+				especieInput.text = "";
+			}
+			
+			private function eliminarNombre(event:Event):void
+			{
+				confs.elimConfiguracion("Servicio", especieInput.text);
+				this.cargarDatos();
+			}
+			
+			private function activarRegistrar(event:Event):void
+			{
+				agregar.enabled = true;
+				eliminar.enabled = false; 
+			}
+			
 		]]>
 	</mx:Script>
 	<mx:Label x="25" y="10" text="Servicios" width="152" fontWeight="bold"/>
-	<mx:DataGrid x="25" y="127.25" width="311.15" id="especiesGrid" dataProvider="{servicios}" height="200">
+	<mx:DataGrid x="25" y="127.25" width="311.15" id="especiesGrid" dataProvider="{servicios}" itemClick="setNombre(event)"  height="200">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"  />
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="234.15" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="25" label="Agregar" y="81" icon="@Embed(source='../images/Abajo.png')"/>
-	<mx:TextInput x="25" y="36" width="311.15" id="especieInput1"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="234.15" click="eliminarNombre(event)" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')" id="eliminar"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="25"  click="registrarNombre(event)" label="Agregar" y="81" icon="@Embed(source='../images/Abajo.png')" id="agregar"/>
+	<mx:TextInput x="25" y="36" width="311.15" id="especieInput" click="activarRegistrar(event)"/>
 		
 </mx:Panel>

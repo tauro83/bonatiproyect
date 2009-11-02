@@ -1,6 +1,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="cargarDatos()" width="779" height="466" title="Configuración Vacunas" borderColor="#15AD8F">
 	<mx:Script>
-		<![CDATA[ 
+		<![CDATA[
+			import transferObjects.ConfiguracionVacuna; 
 			//=======================================================================
 			// FECHA: CREACIÓN: 27 Octubre
 			// AUTOR: Camilo Verdugo
@@ -10,6 +11,7 @@
 			import mx.rpc.events.ResultEvent; 
 			import mx.collections.ArrayCollection;   
 			import services.configuracionServices;
+			import transferObjects.ConfiguracionVacuna;
 			[Bindable]private var vacunas:ArrayCollection;
 			private var confs:configuracionServices= new configuracionServices();
 			
@@ -37,28 +39,65 @@
             	Application.application.AdmOpciones1.setVisible(true,false);
 			}
 			
+			
+			public function setNombre(event:Event):void
+			{
+				if(especiesGrid.selectedItem){
+            		especieInput.text = especiesGrid.selectedItem.nombre; 
+            		//agregar.enabled = false;   
+            		eliminar.enabled = true;  
+            	}else{
+            		eliminar.enabled = false;
+            	}		
+            			
+			}
+			
+			
+			private function registrarNombre(event:Event):void
+			{
+				var cv:ConfiguracionVacuna = new ConfiguracionVacuna();
+				cv.nombre = nomb.text;
+				cv.precio = prec.text;
+				cv.descripcion = desc.text;
+				cv.caducidad = cadu.text;
+				confs.regConfiguracionVacuna(cv);
+				this.cargarDatos();
+				
+				nomb.text = "";
+				prec.text = "";
+				desc.text = "";
+				cadu.text = "";				
+			}
+			
+			private function eliminarNombre(event:Event):void
+			{
+				confs.elimConfiguracionVacuna(especieInput.text);
+				especieInput.text = "";
+				this.cargarDatos();
+			}
+			
 		]]>
 	</mx:Script>
-	<mx:DataGrid x="25" y="128" width="311.15" dataProvider="{vacunas}" height="200">
+	<mx:DataGrid x="25" y="128" width="311.15" id="especiesGrid" dataProvider="{vacunas}" height="200" itemClick="setNombre(event)">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="414" y="10" text="Registrar" width="154" fontWeight="bold"/>
-	<mx:TextInput x="518" y="36" width="216" id="razaInput"/>
-	<mx:TextInput x="518" y="66" width="216" id="razaInput1"/>
-	<mx:TextInput x="518" y="96" width="216" id="razaInput2"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Registrar" y="173"/>
+	<mx:TextInput x="518" y="36" width="216" id="nomb"/>
+	<mx:TextInput x="518" y="66" width="216" id="prec"/>
+	<mx:TextInput x="518" y="96" width="216" id="desc"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" click="registrarNombre(event)"  label="Registrar" y="173" id="agregar"/>
 	<mx:Label x="414" y="36" text="Nombre:"/>
 	<mx:Label x="414" y="66" text="Precio:"/>
 	<mx:Label x="414" y="96" text="Descripción:"/>
 	<mx:Label x="414" y="128" text="Caducidad:"/>
 	<mx:Label x="25" y="10" text="Vacunas" width="152" fontWeight="bold"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="234.15" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')"/>
-	<mx:TextInput x="25" y="36" width="311.15" id="especieInput1"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" enabled="false" width="102" height="23" x="234.15" click="eliminarNombre(event)" id="eliminar" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')"/>
+	<mx:TextInput x="25" y="36" width="311.15" id="especieInput" editable="false"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
-	<mx:ComboBox x="518" y="126" width="167"></mx:ComboBox>
 	<mx:Label x="693" y="128" text="Meses" width="41"/>
+	<mx:TextInput x="518" y="126" id="cadu"/>
 		
 </mx:Panel>

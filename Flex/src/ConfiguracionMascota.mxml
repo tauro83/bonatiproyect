@@ -48,17 +48,13 @@
             	}		
             			
 			}
-			private function iniListener():void
-			{
-				especieInput.addEventListener(MouseEvent.CLICK,activarRegistrar);
-				agregar.addEventListener(MouseEvent.CLICK,registrarNombre);
-				eliminar.addEventListener(MouseEvent.CLICK,eliminarNombre);
-			}
+		
 			
 			private function registrarNombre(event:Event):void
 			{
 				confs.regConfiguracion("Especie", especieInput.text);
 				this.cargarDatos();
+				especieInput.text = "";
 			}
 			
 			private function eliminarNombre(event:Event):void
@@ -70,7 +66,7 @@
 			private function activarRegistrar(event:Event):void
 			{
 				agregar.enabled = true;
-				eliminar.enabled = false; 
+				eliminar.enabled = false; 				
 			}
 		]]>
 	</mx:Script>
@@ -82,9 +78,9 @@
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="25" y="10" text="Especies " width="152" fontWeight="bold"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="234.15" click="iniListener()" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')" id="eliminar"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="25"  click="iniListener()" label="Agregar" y="81" icon="@Embed(source='../images/Abajo.png')" id="agregar"/>
-	<mx:TextInput x="25" y="36" width="311.15" id="especieInput" click="iniListener()"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="234.15" click="eliminarNombre(event)" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')" id="eliminar"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="25"  click="registrarNombre(event)" label="Agregar" y="81" icon="@Embed(source='../images/Abajo.png')" id="agregar"/>
+	<mx:TextInput x="25" y="36" width="311.15" id="especieInput" click="activarRegistrar(event)"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 		
