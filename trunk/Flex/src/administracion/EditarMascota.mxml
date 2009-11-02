@@ -249,10 +249,10 @@
         ]]>
     </mx:Script>
 	
-	<mx:Label x="38.75" y="38" text="Rut:" width="84"/>
-	<mx:Label x="221" y="38" text="-" width="14.75" textAlign="center"/>
-	<mx:TextInput  restrict="0-9" x="130.75" y="36" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="232.5" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
+	<mx:Label x="25" y="38" text="Rut:" width="84"/>
+	<mx:Label x="184.25" y="38" text="-" width="14.75" textAlign="center"/>
+	<mx:TextInput  restrict="0-9" x="85.75" y="36" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
+	<mx:TextInput x="207" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	
 	<mx:Panel x="121.5" y="-12" width="585" height="323" layout="absolute"  visible="false" id="ficha">
 			<mx:Label x="10" y="63" text="Nombre:" width="97"/>
@@ -273,8 +273,8 @@
 
 	
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Label x="10" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="681" rowCount="3" y="92" x="38.75" variableRowHeight="true" dataProvider="{mascotas}"  visible="true" height="269" doubleClickEnabled="true" itemDoubleClick="{seleccionarMascota(event)}" >
+	<mx:Label x="25" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
+	<mx:DataGrid id="dg" color="0x323232" width="709" rowCount="3" y="92" x="25" variableRowHeight="true" dataProvider="{mascotas}"  visible="true" height="240" doubleClickEnabled="true" itemDoubleClick="{seleccionarMascota(event)}" >
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
@@ -283,8 +283,8 @@
 	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
 	    </mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="635.75" y="369" label="Cancelar" width="84" id="cancelar" visible="true" click="cancelando()"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="102" id="cancelar" visible="true" click="cancelando()" height="23"/>
 	
-	<mx:Label x="10" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
+	<mx:Label x="25" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
 	
 </mx:Panel>
