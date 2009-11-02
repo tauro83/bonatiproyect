@@ -62,6 +62,6 @@
 	<mx:LinkButton x="59" y="78" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
 	<mx:LinkButton x="32" y="134" label="Seleccionar" color="blue" id="selUsr" click="verSelec()"/>
 	<mx:Image x="95" y="10" width="185" height="332" source="../Images Ayuda/opcion moduloAdmin.JPG" id="opcMod" visible="false"/>
-	<mx:Image x="95" y="10" width="185" height="332" source="../Images Ayuda/selUsuario2.JPG" id="selUsuario" visible="false"/>
+	<mx:Image x="10" y="10" source="../Images Ayuda/selUsuario2.JPG" id="selUsuario" visible="false"/>
 	
 </mx:Canvas>
