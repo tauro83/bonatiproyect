@@ -30,7 +30,9 @@
 				{nameT:"Eliminar Usuario"},
 				{nameT:"Purgar Usuario"},
 				{nameT:"Editar Usuario"},
-				{nameT:"Editar Mascota"}
+				{nameT:"Editar Mascota"},
+				{nameT:"Registrar Cirugía"},
+				{nameT:"Registrar Vacunación"}
 			]);
            	
            	/**
@@ -53,6 +55,8 @@
            		regMascota.visible = false;
            		editUsua.visible = false;
            		edimasc.visible = false;
+           		addCiruAyu.visible = false;
+           		addvacuAyu.visible = false;
            	}
            	
            	/**
@@ -123,6 +127,12 @@
 					case 'Editar Mascota':
 						edimasc.visible = true;
 					break;
+					case 'Registrar Cirugía':
+						addCiruAyu.visible = true;
+					break;
+					case 'Registrar Vacunación':
+						addvacuAyu.visible = true;
+					break;
 				}
            	}
            
@@ -177,5 +187,9 @@
 	</ns1:EditUsuario>
 	<ns1:ediMascota x="345" y="50" visible="false" id="edimasc">
 	</ns1:ediMascota>
+	<ns1:registrarCirugiaAyuda x="345" y="50" visible="false" id="addCiruAyu">
+	</ns1:registrarCirugiaAyuda>
+	<ns1:registrarVacunacionAyu x="345" y="50" id="addvacuAyu" visible="false">
+	</ns1:registrarVacunacionAyu>
 
 </mx:TitleWindow>
