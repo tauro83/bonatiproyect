@@ -145,7 +145,7 @@
 									
 				}
 				
-				if(vNombre==true && vApellido==true && vApellido2==true && vCelular==true && vCelular2==true && vTelefono==true && vTelefono2==true && c=="TRUE" && vEmail==true && vEmail2==true){
+				if(vNombre==true && vApellido==true && c=="TRUE"){
 				
 					cl=new Cliente();
 					cl.nombre = nombre.text;
@@ -161,6 +161,7 @@
 					cl.region = region.selectedLabel;
 					cl.email = email.text;
 					cl.email2 = email2.text;
+					cl.estado=true;
 					
 					if(cl.region=="Region De Tarapaca"){
 						cl.comuna=comunas.selectedLabel;
