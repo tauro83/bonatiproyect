@@ -1,9 +1,9 @@
 /**
  * @author Camilo Verdugo
- * @version 2
+ * @version 1
  */
 package ConfiguracionBD;
-
+ 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -84,6 +84,70 @@ public class ConfigurarBD {
 		}
     	 
     	return configuraciones;
+	}
+	
+	public void regConfiguracion(String tipo, String nombre) throws SQLException
+	{
+		String query = "";
+		tipo = tipo.trim();
+		nombre = nombre.trim();
+		if(tipo.equals("Servicio")){
+			query = "INSERT INTO Servicio VALUES (?);";
+		}
+		if(tipo.equals("Especie")){
+			query = "INSERT INTO Especie VALUES (?);";
+		}
+		if(tipo.equals("Cargo")){
+			query = "INSERT INTO Cargo VALUES (?);";
+		}		
+		
+				
+		PreparedStatement insert;
+		insert = connection.prepareStatement(query);
+		
+		insert.setString(1, nombre);
+		
+		try 
+    	{
+			insert.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public void elimConfiguracion(String tipo, String nombre) throws SQLException
+	{
+		String query = "";
+		tipo = tipo.trim();
+		nombre = nombre.trim();
+		if(tipo.equals("Servicio")){
+			query = "DELETE FROM Servicio WHERE nombre = ?";
+		}
+		if(tipo.equals("Especie")){
+			query = "DELETE FROM Especie WHERE nombre = ?";
+		}
+		if(tipo.equals("Cargo")){
+			query = "DELETE FROM Cargo WHERE nombre = ?";
+		}		
+		 
+	
+		PreparedStatement insert;
+		insert = connection.prepareStatement(query);
+		
+		insert.setString(1, nombre);
+		
+		try 
+    	{
+			insert.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
 	}
 }
 
