@@ -15,6 +15,8 @@ package services
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
 	
+	import transferObjects.ConfiguracionVacuna;
+	
 	public class configuracionServices extends RemoteObject
 	{
 		public function configuracionServices() 
@@ -52,6 +54,18 @@ package services
 		public function elimConfiguracion(tipo:String, nombre:String):void
 		{
 			this.getOperation("elimConfiguracion").send(tipo,nombre);
+		}
+		
+		
+		
+		public function regConfiguracionVacuna(cv:ConfiguracionVacuna):void
+		{
+			this.getOperation("regConfiguracionVacuna").send(cv);
+		}
+		
+		public function elimConfiguracionVacuna(nombre:String):void
+		{
+			this.getOperation("elimConfiguracionVacuna").send(nombre);
 		}
 	}
 }
