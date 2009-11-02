@@ -1,13 +1,13 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="cargarDatos()" width="779" height="466" title="Configuración Vacunas" borderColor="#15AD8F">
 	<mx:Script>
-		<![CDATA[
+		<![CDATA[ 
 			//=======================================================================
 			// FECHA: CREACIÓN: 27 Octubre
 			// AUTOR: Camilo Verdugo
 			// Modulo de mantencion de vacunas del sistema
 			//=======================================================================
 			import mx.core.Application;
-			import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.ResultEvent; 
 			import mx.collections.ArrayCollection;   
 			import services.configuracionServices;
 			[Bindable]private var vacunas:ArrayCollection;
