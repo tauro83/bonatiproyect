@@ -9,9 +9,9 @@ package TransferObjects;
 public class ConfiguracionVacuna {
 
 	public String nombre;
-	public int precio;
+	public String precio;
 	public String descripcion;
-	public int caducidad;
+	public String caducidad;
 	
 	public String getNombre() {
 		return nombre;
@@ -19,10 +19,10 @@ public class ConfiguracionVacuna {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public int getPrecio() {
+	public String getPrecio() {
 		return precio;
 	}
-	public void setPrecio(int precio) {
+	public void setPrecio(String precio) {
 		this.precio = precio;
 	}
 	public String getDescripcion() {
@@ -31,10 +31,10 @@ public class ConfiguracionVacuna {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public int getCaducidad() {
+	public String getCaducidad() {
 		return caducidad;
 	}
-	public void setCaducidad(int caducidad) {
+	public void setCaducidad(String caducidad) {
 		this.caducidad = caducidad;
 	}
 	
