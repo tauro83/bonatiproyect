@@ -456,16 +456,7 @@
 			    
 			    
 			}
-			
-			public function cancelarEditaMascota(event:Event = null):void
-			{
-				
-			    //Alert.show(selectedRow.hora);
-			    Application.application.agenda2.setVisible(true);
-			    Application.application.editarMascota.setVisible(false);
-			    Application.application.agenda2.labelMessage.text="Usted ha cancelado la operación";
-			    
-			}
+		
 			
 			     public function guardaEditaCita(event:Event = null):void
 			{
@@ -482,9 +473,9 @@
 			{
 				
 			    //Alert.show(selectedRow.hora);
-			    Application.application.agenda2.setVisible(true);
-			    Application.application.editarMascota.setVisible(false);
-			    Application.application.agenda2.labelMessage.text="Usted ha cancelado la operación";
+			    Application.application.AdEditarMascota2.setVisible(true);
+			    Application.application.AdEditarMascota3.setVisible(false);
+			    Application.application.AdEditarMascota2.labelMessage.text="Usted ha cancelado la operación";
 			    
 			}
             
@@ -493,18 +484,18 @@
     </mx:Script>
 	
 	
-	<mx:TextInput x="163" y="41" width="140" id="nombre" maxChars="20"/>
+	<mx:TextInput x="163" y="41" width="160" id="nombre" maxChars="20" editable="false"/>
 	
 	
 	
-	<mx:Label x="10" y="43" text="Nombre:" width="145"/>
-	<mx:Label x="10" y="85" text="Fecha  Nacimiento :" width="145"/>
-	<mx:Label x="10" y="126" text="Especie:" width="145"/>
-	<mx:DateField x="163" y="83" width="140" id="fechaNacimiento"/>
-	<mx:Label x="10" y="178" text="Raza:" width="145"/>
-	<mx:Button x="590" y="347" label="Cancelar" width="112" click="{cancelarEditaCita()}"/>
-	<mx:Button x="425" y="347" label="Guardar " width="123" click="{clienteModificado()} "/>
-	<mx:Label x="10" y="220" text="Sexo:" width="145"/>
+	<mx:Label x="25" y="43" text="Nombre:" width="130"/>
+	<mx:Label x="25" y="85" text="Fecha  Nacimiento :" width="145"/>
+	<mx:Label x="25" y="126" text="Especie:" width="145"/>
+	<mx:DateField x="163" y="83" width="160" id="fechaNacimiento"/>
+	<mx:Label x="25" y="178" text="Raza:" width="145"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="102" click="{cancelarEditaCita()}" height="23"/>
+	<mx:Button x="522" y="353" label="Guardar " width="102" click="{clienteModificado()} " height="23"/>
+	<mx:Label x="25" y="220" text="Sexo:" width="145"/>
 	<mx:ComboBox x="163" y="124" width="160" id="claseAnimalInput" close="selRazas(event);"/>
 	<mx:ComboBox id="razaInput" x="163" y="176" width="160"/>
 	<mx:ComboBox x="163" y="218" id="sexo" dataProvider="{sexos}"  width="160"/>
