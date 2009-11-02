@@ -20,7 +20,8 @@ public class EditarCitaService {
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
-			CitaEditDB personDB= new CitaEditDB(connection);
+			CitaEditDB personDB= new CitaEditDB(connection, person.cliente);
+			//,person.cliente
 			result= personDB.insertCitaE(person);		
 			connection.close();
 		} catch (SQLException e) 
