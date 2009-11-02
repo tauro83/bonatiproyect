@@ -9,11 +9,11 @@
 
 package services
 {
+	import mx.controls.Alert;
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
-	import mx.rpc.remoting.mxml.RemoteObject;
 	import mx.rpc.events.FaultEvent;
-	import mx.controls.Alert;
+	import mx.rpc.remoting.mxml.RemoteObject;
 	
 	public class configuracionServices extends RemoteObject
 	{
@@ -44,5 +44,14 @@ package services
 			this.getOperation("getConfiguracionVacuna").send();
 		}
 
+		public function regConfiguracion(tipo:String, nombre:String):void
+		{
+			this.getOperation("regConfiguracion").send(tipo,nombre);
+		}
+		
+		public function elimConfiguracion(tipo:String, nombre:String):void
+		{
+			this.getOperation("elimConfiguracion").send(tipo,nombre);
+		}
 	}
 }
