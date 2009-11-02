@@ -31,8 +31,8 @@ public class AddClienteBD {
 		String result = null;
 		PreparedStatement insert;
 		String query="";			
-		query = "INSERT INTO clientepresencial (nombre,aPaterno,aMaterno,rut,telefono,celular,domicilio,region,comuna,correo) "+
-				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";			
+		query = "INSERT INTO clientepresencial (nombre,aPaterno,aMaterno,rut,telefono,celular,domicilio,region,comuna,correo,estado) "+
+				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";			
 		insert = connection.prepareStatement(query);
 		
 		insert.setString(1, c.nombre);
@@ -45,7 +45,7 @@ public class AddClienteBD {
 		insert.setString(8,c.region);	
 		insert.setString(9,c.comuna);
 		insert.setString(10,c.email);
-		//insert.setString(13,c.email2);
+		insert.setBoolean(11,c.estado);
 		//insert.setString(14,c.rut2);
 		
 		
