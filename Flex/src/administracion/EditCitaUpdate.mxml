@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" initialize="ini(event)">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F"  initialize="iniciar()" title="Registro">
 	
 	
 	 <mx:Script>
         <![CDATA[
+        	import transferObjects.Usuario;
         import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import transferObjects.Cita;
 			
 			import mx.rpc.events.ResultEvent;
 			import administracion.EditarCitaService;
-			
+			import administracion.UsuarioEditService;
 			import administracion.EditClienteUpdate;
 			import administracion.EditCitaUpdate;
 			
@@ -19,7 +20,7 @@
 		    import flash.events.*;
 		    import flash.net.FileReference;
 		    import flash.net.FileReferenceList;
-			
+			import services.DiaAgendaServices;
 			import flash.events.MouseEvent;
             import mx.events.FlexEvent;
             import mx.rpc.events.ResultEvent;
@@ -50,7 +51,7 @@
 				    nombre.text = clientillo.cliente;
 				    hora.text   = clientillo.hora;
 				    fecha.text	= clientillo.fecha;
-				    usuario.text= clientillo.usuario;
+				    responsable.text = clientillo.usuario;
 				    mascota.text= clientillo.mascota;
 				    servicio.text=clientillo.servicio;
 				    //nombre.enabled=false;
@@ -65,15 +66,14 @@
 					clienteAuxEditado.fecha =  fecha.text;
 					clienteAuxEditado.hora       = hora.text;
 					clienteAuxEditado.servicio 	 	= servicio.text;
-					clienteAuxEditado.usuario  = usuario.text;
+					clienteAuxEditado.usuario = responsable.selectedItem.usuario;
 					carga1();
 					
 			}
 			
 			public function carga1():void
 			{
-			  //Alert.show(clienteAuxEditado.cliente);
-			  //Alert.show(" entra a funcion carga1");
+			  
 			  var auxiliar:EditarCitaService = new EditarCitaService();
 			  auxiliar.addEventListener(ResultEvent.RESULT,carga1Result);
 			  auxiliar.insertCitaE(clienteAuxEditado);
@@ -89,7 +89,7 @@
 			   	  Application.application.agenda2.labelMessage.text ="La cita ha sido modificada exitosamente";
 			   	  this.setVisible(false,false);
 			   	  Application.application.agenda2.setVisible(true,false);
-			      //Alert.show("ok");
+			      
 			   }
 			   else
 			   {
@@ -107,9 +107,8 @@
             
             [Bindable]
             public var servicios:ArrayCollection = new ArrayCollection(
-            [ {label:"Todos", data:1}, 
-            {label:"Pabellón"}, 
-            {label:"Peluquería"},
+            [{label:"Pabellón"}, 
+            {label:"Cirugía"},
             {label:"Policlínico"},
             {label:"Atención a domicilio"} ]);
             
@@ -119,20 +118,11 @@
             {label:"Scoby"},
             {label:"Chicho"},
             {label:"Zuki"}]);            
-            
-            [Bindable]
-            public var usuarios:ArrayCollection = new ArrayCollection(
-            [ {label:"Todos", data:1}, 
-            {label:"Claudio Bonati"}, 
-            {label:"Patricio Castro"},
-             {label:"Peluquería" },
-             ]);
-           
-            
+          
             public function guardaEditaCita(event:Event = null):void
 			{
 				
-			    //Alert.show(selectedRow.hora);
+			    
 			    Application.application.agenda2.setVisible(true);
 			    Application.application.editarCita.setVisible(false);
 			    Application.application.agenda2.labelMessage.text="Su Cita ha sido Modificada";
@@ -143,36 +133,13 @@
 			public function cancelarEditaCita(event:Event = null):void
 			{
 				
-			    //Alert.show(selectedRow.hora);
+			    
 			    Application.application.agenda2.setVisible(true);
 			    Application.application.editarCita.setVisible(false);
 			    Application.application.agenda2.labelMessage.text="Usted ha cancelado la operación";
 			    
 			}
-			private function selVet(event:Event):void {
-        		var responsables:ArrayCollection = new ArrayCollection();
-    			if(ComboBox(event.target).text.localeCompare("Clínica") == 0){
-    				//razas.addItem({label:" "});
-    				
-    				responsables.addItem({label:"Claudio Bonati"});
-					responsables.addItem({label:"Patricio Castro"});
-					responsables.addItem({label:"Ayudante Clínica"});
 			
-    			}
-    			else if(ComboBox(event.target).text.localeCompare("Hotelería") == 0){
-    			
-
-					responsables.addItem({label:"Ayudante Hotelería"});
-				
-
-				}
-				else if(ComboBox(event.target).text.localeCompare("Peluquería") == 0){
-					responsables.addItem({label:"Rosa Espinoza"});	
-					responsables.addItem({label:"Ayudante Peluquería"});	
-						
-				}
-				usuario.dataProvider = responsables;
-			}
 			private function selClaseServicio(event:Event):void {
         		var clasesServicios:ArrayCollection = new ArrayCollection();
         		
@@ -183,12 +150,165 @@
 
         		servicio.dataProvider = clasesServicios;			
 			}
-			private function ini(event:Event):void{
-	        	
-	        	selClaseServicio(event);
-	        	
+			
+	       [Bindable]
+		   private var usuarios:ArrayCollection;
+		   
+		   [Bindable]
+		   private var usuarios2:ArrayCollection;
+	       
+	       [Bindable]
+			private var responsableSeleccionado:String;
+	       
+	       	[Bindable]
+			private var horasLibres:ArrayCollection;
+
+	        public function iniciar():void{
+			 	getAllUsuarios();
+			 	selServicios();
+			 }
+			 
+			 /**
+		 	 * 	@author  
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que recibe el panel EditUsuario (newRegUsuar), para almacenarlo, 
+			 * inicializa la variable personService, para poder llamar a los metodos de este
+			 * para lograr comunicarse con las clases y metodos de java.	 		
+			 * */
+			public function getAllUsuarios():void
+			{
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();
+				
+			}
+			
+			/**
+		 	 * 	@author  
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
+			 * del datagrid, para mostrar los datos de los usuarios que existen en el sistema.	 		
+			 * */
+			private function getAllUsuariosEResult(event:ResultEvent):void
+			{
+				usuarios = event.result as ArrayCollection;	
+				usuarios2 = new ArrayCollection();
+				responsableSeleccionado = usuarios.getItemAt(0).usuario.split(" ",1).pop();
+				for(var i:int = 0; i<usuarios.length; i++){
+					usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
+				}					
+			}
+			
+			            /**
+		 	 * 	@author  
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que filtra las horas disponibles del Responsable
+			 **/
+			
+			public function consultarHoras():void{
+				
+				if(fecha.text != ""){
+					this.fecha.selectedDate = Application.application.agenda2.calendario.selectedDate;
+					var diaAgenda:DiaAgendaServices = new DiaAgendaServices();
+					diaAgenda.addEventListener(ResultEvent.RESULT,consultarHorasDisponiblesResult);
+					var dia:Number = fecha.selectedDate.date;
+					
+					var mes:Number = (fecha.selectedDate.month+1);
+					
+					var ano:Number = fecha.selectedDate.fullYear;
+					
+					diaAgenda.getDiaAgenda(dia+"/"+mes+"/"+ano);
+				}
+			}
+			
+			 /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que filtra las horas disponibles del Responsable para el proximo control
+			 **/
+			private function consultarHorasDisponiblesResult(event:ResultEvent):void{
+				
+				var horas:ArrayCollection = new ArrayCollection();
+                var horasOcupadas:ArrayCollection = new ArrayCollection();
+                
+				horas = event.result as ArrayCollection;
+				
+				for(var i:int=0; i< horas.length; i++){
+					if(responsableSeleccionado == horas.getItemAt(i).responsable){
+						horasOcupadas.addItem(horas.getItemAt(i).hora);
+					}
+				}
+				
+				horasLibres  = new ArrayCollection();
+				Alert.show("Entro 2");
+				if(!horasOcupadas.contains("10:30")){horasLibres.addItem({label:"10:30"});}
+				if(!horasOcupadas.contains("11:00")){horasLibres.addItem({label:"11:00"});}
+				if(!horasOcupadas.contains("11:30")){horasLibres.addItem({label:"11:30"});}
+				if(!horasOcupadas.contains("12:00")){horasLibres.addItem({label:"12:00"});}
+				if(!horasOcupadas.contains("12:30")){horasLibres.addItem({label:"12:30"});}
+				if(!horasOcupadas.contains("15:30")){horasLibres.addItem({label:"15:30"});}
+				if(!horasOcupadas.contains("16:00")){horasLibres.addItem({label:"16:00"});}
+				if(!horasOcupadas.contains("16:30")){horasLibres.addItem({label:"16:30"});}
+				if(!horasOcupadas.contains("17:00")){horasLibres.addItem({label:"17:00"});}
+				if(!horasOcupadas.contains("17:30")){horasLibres.addItem({label:"17:30"});}
+				if(!horasOcupadas.contains("18:00")){horasLibres.addItem({label:"18:00"});}
+				if(!horasOcupadas.contains("18:30")){horasLibres.addItem({label:"18:30"});}
+				if(!horasOcupadas.contains("19:00")){horasLibres.addItem({label:"19:00"});}
+				if(!horasOcupadas.contains("19:30")){horasLibres.addItem({label:"19:30"});}
+				
+				hora.dataProvider = horasLibres;
+				
+			}
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que luego de seleccionado un responsable se buscan las horas disponible de este 
+			 **/
+			public function asignarResponsable(event:Event):void{
+				var itemSeleccionado:Object = event.currentTarget.selectedItem;
+				responsableSeleccionado = itemSeleccionado.usuario;
+				consultarHoras();
+				//Alert.show(itemSeleccionado.usuario.split(" ",1).pop());			
+			}
+	       /*
+	      private function cargaUsuarios(event:Event = null):void{
+	       	Alert.show("asd");
+	       	var usuario:Usuario = new Usuario();
+	        var i:int;
+	        var list:Array  = new Array();
+	       	var nombre:String;
+	        var apellido:String;
+	       	var array:ArrayCollection  = new ArrayCollection();
+	       	var wea:UsuarioEditService = new UsuarioEditService();
+	       
+	       	array = wea.getAllUsuariosE() as ArrayCollection;
+	       	for(i=0;i< array.length; i++){
+	       		list = array[i].cliente.split(" ",1);
+	       		nombre = list.pop();
+	       		list = array[i].apellido.split(" ",1);
+	       		apellido = list.pop();
+	       		
+	       		//usuario.nombre = nombre.concat(apellido);
+	       		//var aux:Usuario = arrayCarga[i] as Usuario;	
+	       	}
+	       	
 	       }
-            
+	       */
+	       
+	       private function selServicios():void {
+        		var servicios:ArrayCollection = new ArrayCollection();
+        		
+        		//servicios.addItem({label:" "});
+        		servicios.addItem({label:"Pabellón"});
+        		servicios.addItem({label:"Cirugía"});
+				servicios.addItem({label:"Atención a Domicilio"});
+        		
+
+        		servicio.dataProvider = servicios;			
+			}
+			
        ]]>
        
     </mx:Script>
@@ -202,15 +322,15 @@
 	<mx:Label x="10" y="152" text="Fecha           :" width="145"/>
 	<mx:Label x="10" y="202" text="Hora             :" width="145"/>
 	<mx:DateField x="163" y="150" width="115" id="fecha"/>
-	<mx:Label x="10" y="249" text="Servicio        :" width="145"/>
+	<mx:Label x="10" y="315" text="Servicio        :" width="145"/>
 	<mx:Button x="590" y="347" label="Cancelar" width="112" click="{cancelarEditaCita()}"/>
 	<mx:Button x="425" y="347" label="Guardar " width="123" click="{clienteModificado()} "/>
-	<mx:Label x="10" y="309" text="Responsable :" width="145"/>
+	<mx:Label x="10" y="260" text="Responsable :" width="145"/>
 	<mx:Label x="10" y="111" text="Mascota:" width="112"/>
 	<mx:ComboBox x="163" y="109" width="160" id="mascota"/>
-	<mx:ComboBox id="hora" x="163" y="200" dataProvider="{horas}" labelField="hora" width="160"/>
-	<mx:ComboBox x="163" y="247" id="servicio"  width="160" close="selVet(event);">
+	<mx:ComboBox x="163" y="313" id="servicio"  width="160" close = "selServicios();">
 	</mx:ComboBox>
-	<mx:ComboBox x="163" y="307" id="usuario" width="160"></mx:ComboBox>
+	<mx:ComboBox id="responsable" x="163" y="258" dataProvider="{usuarios2}" change ="asignarResponsable(event)"></mx:ComboBox>
+	<mx:ComboBox id="hora" x="163" y="200" width="160" dataProvider="{horasLibres}"/>
 	
 </mx:Panel>
