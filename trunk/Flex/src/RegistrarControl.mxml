@@ -68,6 +68,16 @@
 			 *  Funcion inicial que carga los datos importantes desde la base de datos		
 			 * */
 			 public function iniciar():void{
+			 	nombreClienteInput.text = "";
+			 	rutClienteDVInput.text = "";
+			 	rutClienteInput.text = "";
+			 	labelMessage.text = "";
+			 	/*nombreMascota.text = "";
+			 	descripcion.text = "";
+			 	costo.text = "";
+			 	fechaProximoControl.text = "";*/
+			 	mascotas = new ArrayCollection();
+			 	
 			 	getAllUsuarios();
 			 }
 			 
