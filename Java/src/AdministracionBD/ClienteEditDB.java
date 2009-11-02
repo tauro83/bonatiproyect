@@ -30,7 +30,7 @@ public class ClienteEditDB
 			String query="";
 			
 			query = "UPDATE clientepresencial "+
-			   "SET nombre=?, apellido=?, apellido2=?, rut=?, rut2=?, telefono=?, telefono2=?, celular=?, celular2=?, direccion=?, region=? ,comuna=?, email=?, email2=? "+
+			   "SET nombre = ?, aPaterno = ?, aMaterno = ?, rut = ?, telefono = ?, celular = ?, domicilio = ?, region = ?, comuna = ?, correo = ? "+
 				 " WHERE rut="+rutillo+";";
 			insert = connection.prepareStatement(query);
 			
@@ -47,8 +47,8 @@ public class ClienteEditDB
 		try 
 		{		
 			String query="";
-			query = "SELECT nombre, apellido, apellido2, rut, rut2, telefono, telefono2, celular, celular2, direccion, region,comuna,email, email2 "+
-			"FROM Cliente;";
+			query = "SELECT nombre,aPaterno,aMaterno,rut,telefono,celular,domicilio,region,comuna,correo "+
+			"FROM clientepresencial;";
 
 			selectAll = connection.prepareStatement(query);
 		} 
@@ -68,22 +68,20 @@ public class ClienteEditDB
     	int result=0;
     	try 
     	{
-    		
+    		System.out.println(person.nombre);
+    		System.out.println(person.email);
     		insert.setString(1, person.getNombre());
 			insert.setString(2, person.getApellido());
 			insert.setString(3, person.getApellido2());
 			insert.setString(4, person.getRut());
-			insert.setString(5, person.getRut2());
-			insert.setString(6, person.getTelefono());
-			insert.setString(7, person.getTelefono2());
-			insert.setString(8, person.getCelular());
-			insert.setString(9, person.getCelular2());
-			insert.setString(10, person.getDireccion());
-			insert.setString(11, person.getRegion());
-			insert.setString(12, person.getComuna());
-			insert.setString(13, person.getEmail());
-			insert.setString(14, person.getEmail2());
+			insert.setInt(5, Integer.parseInt(person.telefono));	
+			insert.setInt(6, Integer.parseInt(person.celular));	
+			insert.setString(7, person.getDireccion());
+			insert.setString(8, person.getRegion());
+			insert.setString(9, person.getComuna());
+			insert.setString(10, person.getEmail());
 			
+    		
 			result= insert.executeUpdate();
 		} 
     	catch (SQLException e) 
@@ -107,16 +105,13 @@ public class ClienteEditDB
     			person.setApellido(result.getString(2));
     			person.setApellido2(result.getString(3));
     			person.setRut(result.getString(4));
-    			person.setRut2(result.getString(5));
-    			person.setTelefono(result.getString(6));
-    			person.setTelefono2(result.getString(7));
-    			person.setCelular(result.getString(8));
-    			person.setCelular2(result.getString(9));
-    			person.setDireccion(result.getString(10));
-    			person.setRegion(result.getString(11));
-    			person.setComuna(result.getString(12));
-    			person.setEmail(result.getString(13));
- 			    person.setEmail2(result.getString(14));
+    			person.setTelefono(result.getString(5));
+    			person.setCelular(result.getString(6));
+    			person.setDireccion(result.getString(7));
+    			person.setRegion(result.getString(8));
+    			person.setComuna(result.getString(9));
+    			person.setEmail(result.getString(10));
+ 			    
     			
 
     			persons.add(person);
