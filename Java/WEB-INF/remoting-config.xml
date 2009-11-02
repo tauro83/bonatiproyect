@@ -191,4 +191,10 @@
   			<source>Policlinico.AddControlService</source>
   		</properties>
   	</destination>
+
+   	<destination id="EditarMascotaService"> 
+  	 	   <properties>
+  			  <source>Administracion.EditarMascotaService</source>
+  		   </properties>
+  		</destination>
 </service>
