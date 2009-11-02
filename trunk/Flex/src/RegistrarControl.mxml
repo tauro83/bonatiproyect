@@ -535,7 +535,7 @@
 	<mx:Label x="24" y="75" text="Mascotas" fontWeight="bold" id="label5"/>
 	<mx:Label x="337" y="38" text="Rut:" width="37" id="label4" height="20"/>
 	<mx:Label x="509.5" y="40" text="-" width="14.75" textAlign="center" id="label3"/>
-	<mx:TextInput  restrict="0-9" x="382" y="38" width="130.5" id="rutClienteInput" maxChars="8"/>
+	<mx:TextInput  restrict="0-9" x="382" y="38" width="130.5" id="rutClienteInput" maxChars="8" focusOut="buscarCliente(event)"/>
 	<mx:TextInput x="520.5" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	<mx:Label x="167" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="24" y="40" text="Apellido:" width="84" id="label14"/>
