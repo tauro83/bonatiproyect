@@ -353,8 +353,8 @@
 		   				var newCli:Cliente = clientes.getItemAt(i,0) as Cliente;
 		   				if(nombre == newCli.nombre){
 		   					
-		   					this.rutClienteInput.text=newCli.rut;
-		   					this.rutClienteDVInput.text=newCli.rut2;
+		   					this.rutClienteInput.text=newCli.rut.substring(0,8);
+		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
 		   					sacaDigito();
 		   					ini();
 		   					break;
@@ -444,6 +444,7 @@
 	        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" width="100"/>
 	        <mx:DataGridColumn dataField="raza" headerText="Raza" width="100"/>
 	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
+	        <mx:DataGridColumn dataField="estado" headerText="Estado" width="100" visible="false"/>
 	    </mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="522" y="353" label="Visualizar" visible="true" id="registrar" click="regCiru()" width="102" height="23"/>

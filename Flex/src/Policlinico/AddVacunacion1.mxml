@@ -329,8 +329,8 @@
 		   				var newCli:Cliente = clientes.getItemAt(i,0) as Cliente;
 		   				if(nombre == newCli.nombre){
 		   					
-		   					this.rutClienteInput.text=newCli.rut;
-		   					this.rutClienteDVInput.text=newCli.rut2;
+		   					this.rutClienteInput.text=newCli.rut.substring(0,8);
+		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
 		   					sacaDigito();
 		   					ini();
 		   					break;
