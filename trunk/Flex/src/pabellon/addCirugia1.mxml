@@ -34,7 +34,8 @@
 		    public var ayudantesC:ArrayCollection;
 		    [Bindable]
 			private var clientes:ArrayCollection;
-		    
+		    [Bindable]
+			private var cliente2:ArrayCollection;
 		    /**
 			* Lista de amscotas del cliente asociado
 			*/
@@ -56,7 +57,6 @@
 			 */
         	private function buscarCliente(event:Event):void{
         		if(rutClienteDVInput.text != "" && rutClienteInput.text != ""){
-        			ini();
         			var Numero:String = rutClienteInput.text;
         			var Dv:String = rutClienteDVInput.text;
 					var suma:int = 0;
@@ -327,8 +327,12 @@
 				this.getTiposAyudantes();
 			}
 			
-			//Cliente ---------------------------
-		   //funciona que busca todos los clientes
+			/**
+			*   @author  "Jimmy Muñoz"
+			* 	@Fecha  02 Noviembre
+			* Metodo que inicializa los valores de los clientes del sistema, para seleccionarlo 
+			 * ingresando su apellido. Llamando a la funcion de BusquedaService.
+			 */
 		   public function getAllClientes():void
 		   {
 		   		var busquedaService:BusquedaService = new BusquedaService();
@@ -336,23 +340,75 @@
 				busquedaService.getAllClientes();
 		   }
 		   
+		   /**
+			*   @author  "Jimmy Muñoz"
+			* 	@Fecha  02 Noviembre
+			* Metodo que almacena el resultado del metodo anterior en el arraycollection cliente2.
+			* Y llama a la funcion concatena.
+			*/
 		   public function getAllClientesResult(event:ResultEvent):void
 		   {
-		   		clientes = event.result as ArrayCollection;
+		   		cliente2 = event.result as ArrayCollection;
+		   		concatena();
 		   }
 		   
+		   /**
+			*   @author  "Jimmy Muñoz"
+			* 	@Fecha  02 Noviembre
+			* Metodo que concatena el apellido paterno, con el apellido materno, y el nombre, para mostrarlo 
+			* en el autocomplete, para buscar al cliente por el apellido.
+			*/
+		   public function concatena():void
+		   {
+		   		clientes = new ArrayCollection();
+		   		var i:int;
+		   		var max:int = cliente2.length;
+		   		
+		   		for(i=0;i<max;i++){
+		   			var cli:Cliente = cliente2.getItemAt(i,0) as Cliente;
+		   			var cli2:Cliente = new Cliente();
+		   			cli2.nombre = ""+cli.apellido+" "+cli.apellido2+" "+cli.nombre;
+		   			clientes.addItem(cli2);
+		   		}
+		   		clientes.refresh();
+		   }
+		   
+		   /**
+			*   @author  "Jimmy Muñoz"
+			* 	@Fecha  02 Noviembre
+			* Metodo que busca al cliente, al momento de soltar el autocomplete del apellido, 
+			 * procesando los datos, partiendo el texto, y guardandolo en el nombreN, apellidomN
+			 * y en apellidopN.
+			 */
 		   public function buscarCliente2():void
 		   {
+		   		this.labelMessage.text="";
 		   		var nombre:String = inputClienteNombre.text;
-		   		if(inputClienteNombre.text != ""){
-		   			var largo:int = clientes.length;
+		   		if(inputClienteNombre.text != "" || inputClienteNombre.selectedLabel != ""){
+		   			var largo:int = cliente2.length;
 		   			var i:int;
+		   			var sss:Array;
+		   			if(inputClienteNombre.selectedLabel != ""){
+		   				sss = inputClienteNombre.selectedLabel.split(" ",3);
+		   			}
+		   			else{
+		   				sss = inputClienteNombre.text.split(" ",3);
+		   			}
 		   			
+		   			/**
+		   			 * obtiene los datos de la division del nombre seleccionado.
+			 		*/
+		   			var nombreN:String = sss.pop();
+		   			var apellidomN:String = sss.pop();
+		   			var apellidopN:String = sss.pop();
 		   			
+		   			/**
+		   			 * Compara los datos obtenidos de la division, con los que se 
+		   			 * encuentran en el arreglo de clientes.
+			 		*/
 		   			for(i=0;i<largo;i++){
-		   				var newCli:Cliente = clientes.getItemAt(i,0) as Cliente;
-		   				if(nombre == newCli.nombre){
-		   					
+		   				var newCli:Cliente = cliente2.getItemAt(i,0) as Cliente;
+		   				if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
 		   					this.rutClienteInput.text=newCli.rut.substring(0,8);
 		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
 		   					sacaDigito();
@@ -365,8 +421,14 @@
 		 
 		   }
 		   
+		   /**
+		   	*   @author  "Jimmy Muñoz"
+			* 	@Fecha  02 Noviembre
+		   	* Función para obtener el dígito verificador, y para guardarlo en 
+		   	* el input dedicado a almacenar esa variable.
+			*/
 		   private function sacaDigito():void{        			
-        		if(this.rutClienteDVInput.text==""){	
+        			
         			var Numero:String = rutClienteInput.text;
 					var suma:int = 0;
 					var rut:String = Numero;
@@ -403,7 +465,7 @@
 						this.rutClienteDVInput.text=""+Resto;	
 					}
 					
-        		}
+        	
      		}
 		   		
 			
