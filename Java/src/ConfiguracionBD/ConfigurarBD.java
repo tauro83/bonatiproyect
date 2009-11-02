@@ -71,8 +71,8 @@ public class ConfigurarBD {
     		{
     			conf = new ConfiguracionVacuna();
     			conf.setNombre(result.getString(1));
-    			conf.setPrecio(result.getInt(2));
-    			conf.setCaducidad(result.getInt(3));
+    			conf.setPrecio(result.getString(2));
+    			conf.setCaducidad(result.getString(3));
     			conf.setDescripcion(result.getString(4));
     			
     			configuraciones.add(conf);
@@ -117,8 +117,7 @@ public class ConfigurarBD {
 		}
 	}
 	
-	
-	
+		
 	public void elimConfiguracion(String tipo, String nombre) throws SQLException
 	{
 		String query = "";
@@ -149,6 +148,56 @@ public class ConfigurarBD {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public void elimConfiguracionVacuna(String nombre) throws SQLException
+	{
+		String query = "";
+		nombre = nombre.trim();
+		
+		query = "DELETE FROM Vacuna WHERE nombre = ?";
+		
+		PreparedStatement insert;
+		insert = connection.prepareStatement(query);
+		
+		insert.setString(1, nombre);
+		
+		try 
+    	{
+			insert.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public String regConfiguracionVacuna(ConfiguracionVacuna cv) throws SQLException
+	{
+		String query = "";
+		
+		
+		query = "INSERT INTO Vacuna(nombre,precio,caducidad,descripcion) VALUES(?,?,?,?);";
+							
+		PreparedStatement insert;
+		insert = connection.prepareStatement(query);
+		
+		insert.setString(1, cv.nombre.trim());
+		insert.setInt(2,Integer.parseInt(cv.precio.trim()));
+		insert.setInt(3,Integer.parseInt(cv.caducidad.trim()));
+		insert.setString(4,cv.descripcion.trim());		
+		try 
+    	{
+			
+			return ""+insert.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+			return e.toString();
+		}
+	}
+	
 }
 
 
