@@ -271,8 +271,7 @@
 				
 		]]>
 	</mx:Script> 
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="647" label="Cancelar" y="393" click="cancelando()" id="cancGuardar" />
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="537" label="Guardar" y="393" id="guardarUsuario" click="guardarCambios()"/>
+
 	<mx:TextInput x="155" y="19" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="nomb" click="iniListener()" enabled="true" maxChars="20"/>
 	<mx:TextInput x="155" y="63" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" id="apat" click="iniListener()" enabled="true" maxChars="20"/>
 	<mx:TextInput x="512" y="63" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" id="amat" click="iniListener()" enabled="true" maxChars="20"/>
@@ -302,15 +301,17 @@
 	<mx:CheckBox x="351.5" y="269" label="Eliminar" id="peli"/>
 	<mx:CheckBox x="464" y="269" label="Purgar" id="ppur"/>
 	<mx:CheckBox x="560" y="269" label="Todos" id="ptod" click="iniListener()"/>
+		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Cancelar" y="353" click="cancelando()" id="cancGuardar" />
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="522" label="Guardar" y="353" id="guardarUsuario" click="guardarCambios()"/>
 	
 	<mx:Label x="391" y="188" text="Repetir Contraseña"/>	
-	<mx:Label x="24" y="188" text="Contraseña:" textAlign="left"/>
-	<mx:Label x="24" y="107" text="Usuario:" textAlign="left"/>
-	<mx:Label x="24" y="65" text="Apellido Paterno:" height="20"/>
+	<mx:Label x="25" y="188" text="Contraseña:" textAlign="left"/>
+	<mx:Label x="25" y="107" text="Usuario:" textAlign="left"/>
+	<mx:Label x="25" y="65" text="Apellido Paterno:" height="20"/>
 	<mx:Label x="391" y="65" text="Apellido Materno:" height="20"/>
-	<mx:Label x="24" y="21" text="Nombre:" width="69" />
-	<mx:Label x="24" y="144" text="Cargo:"/>
-	<mx:Label x="27" y="229" text="Servicio:" textAlign="left"/>
-	<mx:Label x="27" y="271" text="Permiso"/>
-	<mx:Label x="165" y="362" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="25" y="21" text="Nombre:" width="69" />
+	<mx:Label x="25" y="144" text="Cargo:"/>
+	<mx:Label x="25" y="229" text="Servicio:" textAlign="left"/>
+	<mx:Label x="25" y="271" text="Permiso"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 </mx:Panel>
