@@ -118,26 +118,6 @@ public class AddCirugiaService {
 		return cliente;
 	}
 	
-	/**
-	 * Autor: Jimmy Muñoz
-	 * Metodo que llama a la funcion getAllMascotas, de la clase AddCirugiaDB, que se encuentra en el paquete PabellonBD,
-	 * en este metodo se realiza una solicitud de las mascotas que existen en el sistema.
-	 * @param no recibe parametro.
-	 * @return Listado de mascotas, objetos con todos los datos de las mascotas registradas.
-	 */
-	public List<Mascota> getAllMascotas(){
-    	List<Mascota> mascotas=new ArrayList<Mascota>();
-    	try {
-			Connection connection=DBConnectionManager.getConnection();
-			AddCirugiaBD cirugiaBD = new AddCirugiaBD(connection);
-			mascotas= cirugiaBD.getAllMascotas();		
-			connection.close();
-		} 
-    	catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return mascotas;
-    }
     
 	/**
 	 * Autor: Jimmy Muñoz

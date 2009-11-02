@@ -41,7 +41,7 @@ public class AddCirugiaBD {
 			addDiag = connection.prepareStatement(query);
 			
 			query = "SELECT rut, nombre, fechanacimiento, claseanimal, raza, sexo, estado " +
-					"FROM mascota;";			
+					"FROM mascota WHERE estado='TRUE';";			
 			selectAll = connection.prepareStatement(query);
 			
 			query = "SELECT rut, nombre " +
@@ -130,8 +130,9 @@ public class AddCirugiaBD {
     		cliente = new Cliente();
     		ResultSet result = getAllClientes.executeQuery();
     		while(result.next()){
-    			if((result.getString(1).trim()).equals(rutCliente)){
-    				cliente.setRut(result.getString(1));
+    			String s = result.getString(1).substring(0, 8);
+    			if(s.equals(rutCliente)){
+    				cliente.setRut(s);
     				cliente.setNombre(result.getString(2));
     			}
     		}
@@ -142,37 +143,6 @@ public class AddCirugiaBD {
     	return cliente;
 	}
     
-	/**
-	 * Autor: Jimmy Muñoz
-	 * Metodo que se comunica con la base de datos, y que recibe los datos de las mascotas existentes en el sistema, 
-	 * los cuales va añadiendo a un objeto de tipos Mascota, para luego se agregados a una lista del tipo Mascota.
-	 * @param No recibe parametro.
-	 * @return Lista con las mascotas del sistema, esto en una lista de objetos Mascota.
-	 */
-    public List<Mascota> getAllMascotas(){
-    	List<Mascota> mascotas=new ArrayList<Mascota>();
-    	Mascota mascota;
-    	try{
-    		ResultSet result = selectAll.executeQuery();
-    		while(result.next()){
-    			mascota= new Mascota();
-
-    			mascota.setRutCliente(result.getString(1));
-    			mascota.setNombre(result.getString(2));
-    			mascota.setFechaNacimiento(result.getString(3));
-    			mascota.setClaseAnimal(result.getString(4));
-    			mascota.setRaza(result.getString(5));
-    			mascota.setSexo(result.getString(6));
-    			mascota.setEstado(result.getBoolean(7));
-    			
-    			mascotas.add(mascota);
-    		}
-		} 
-    	catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	return mascotas;
-    }
     
     /**
 	 * Autor: Jimmy Muñoz
