@@ -17,6 +17,10 @@ public class CitaEditDB
 	PreparedStatement selectOne;
 	Connection conn;
 	String rutillo;
+	String rut;
+	String hora;
+	String servicio;
+	String responsable;
 	
 	
 	public CitaEditDB(Connection connection)
@@ -28,19 +32,11 @@ public class CitaEditDB
 			String query="";
 			
 			query = "UPDATE cita"+
-			   " SET rutcliente=?, nombremascota=?, fecha=?, hora=?, servicio=?, responsable=? "+
-				 "WHERE rutcliente = ?;";
+			   " SET rutcliente=?, nombremascota=?, fecha=?,hora=?,servicio=?, responsable=? "+
+				 "WHERE fecha = ?" +" AND hora = ?" +" AND servicio = ?" +" AND responsable = ?;";
 			insert = connection.prepareStatement(query);
 			
-			query = "SELECT rutcliente, nombremascota, fecha, hora, servicio, responsable "+
-			"FROM cita "+
-			"WHERE rutcliente = ?;";
-			selectOne = connection.prepareStatement(query);
 			
-			query = "SELECT rutcliente, nombremascota, fecha, hora, servicio, responsable "+
-			"FROM cita;";
-
-			selectAll = connection.prepareStatement(query);
 		} 
 		catch (SQLException e) 
 		{
@@ -49,24 +45,29 @@ public class CitaEditDB
 	}
 	
 	
-	/*
-	public CitaEditDB(Connection connection)
+	
+	public CitaEditDB(Connection connection, String rut)
 	{
+		this.rut= rut;
+		//this.hora=hora;
+		//this.servicio=servicio;
+		//this.responsable= responsable;
 		conn = connection;
 		try 
 		{		
-			String query="";
-			query = "SELECT rutcliente, nombremascota, fecha, hora, servicio, responsable "+
-			"FROM cita;";
-
-			selectAll = connection.prepareStatement(query);
+			String query = "UPDATE cita " +
+			"SET rutcliente = ?, nombremascota = ?, fecha = ?, hora = ?, servicio = ?, responsable = ? " +
+		    "WHERE rutcliente = "+rut+";";
+			 insert = connection.prepareStatement(query);
+			 //rutcliente = "+rut+";";
+			
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
 	}
-	*/
+	
 
 	/**
 	 * Ingresa a una nueva persona a la base de datos
@@ -79,21 +80,27 @@ public class CitaEditDB
     	int result=0;
     	try 
     	{
-    		System.out.println(person.getCliente()+".");
+    		
+    		
+    		/*System.out.println(person.getCliente()+".");
     		System.out.println(person.getFecha()+".");
     		System.out.println(person.getHora()+".");
     		System.out.println(person.getMascota()+".");
     		System.out.println(person.getServicio()+".");
     		System.out.println(person.getUsuario()+".");
-    		
+    		*/
     		insert.setString(1, person.getCliente());
 			insert.setString(2, person.getMascota());
 			insert.setString(3, person.getFecha());
 			insert.setString(4, person.getHora());
 			insert.setString(5, person.getServicio());
 			insert.setString(6, person.getUsuario());
-			insert.setString(7, person.getCliente());
+			
+			
+			
 			result= insert.executeUpdate();
+			
+    		
 		} 
     	catch (SQLException e) 
     	{
