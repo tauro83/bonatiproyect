@@ -113,7 +113,7 @@
 		    						newVacuna.tiposVacunas.addItem(vacunasAdds.pop());
 		    						}
 		    						newVacuna.descripcion = this.descripcionV.text;	
-		    						newVacuna.clienteRut = this.clienteRut;
+		    						newVacuna.clienteRut = this.clienteRut.concat(this.clienteRut2);;
 		    						newVacuna.mascotaNombre = this.nombreMascota;
 		    							
 		    						var newAddServ:AddVacunacionService = new AddVacunacionService();
