@@ -43,7 +43,7 @@ public class BusquedaBD
 			selectAllUsuarios = connection.prepareStatement(query);
 			
 			query = "SELECT nombre, rut, telefono2, email, apellido, apellido2 " +
-					"FROM cliente;";
+					"FROM clientepresencial;";
 			selectAllClientes = connection.prepareStatement(query);
 			
 			query = "SELECT rut, nombre, claseanimal, raza, sexo " +
