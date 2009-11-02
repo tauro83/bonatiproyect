@@ -277,7 +277,7 @@
             
            public function validarNombre(event:Event):void
            {
-           	if(nombre.text.length>4)
+           	if(nombre.text.length>2)
 				{
 					
 					vNombre		= true;
@@ -293,7 +293,7 @@
            
            public function validarApellido(event:Event):void
            {
-           	if(apellido.text.length>4)
+           	if(apellido.text.length>2)
 				{
 					
 					vApellido		= true;
@@ -308,7 +308,7 @@
            }
            
            public function validarApellido2(event:Event):void{
-           	if(apellido2.text.length>4)
+           	if(apellido2.text.length>2)
 				{
 					
 					vApellido2		= true;
