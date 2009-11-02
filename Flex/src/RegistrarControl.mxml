@@ -379,7 +379,7 @@
         		
         		
         		if(rutClienteDVInput.text != "" && rutClienteInput.text != ""){
-        			ini();
+        			//ini();
         			var Numero:String = rutClienteInput.text;
         			var Dv:String = rutClienteDVInput.text;
 					var suma:int = 0;
@@ -412,7 +412,9 @@
 					Resto = 11-(suma%11);
 					if(DigVer[Resto] != Dv.toUpperCase()){
 						labelMessage.text = "El Rut que ha ingresado es incorrecto.";
-						currentState="BusquedaRut";
+						//currentState="BusquedaRut";
+						datagrid1.dataProvider = "";
+						
 					}
 					else{
 						labelMessage.text = "";
@@ -448,6 +450,8 @@
 				
 				if(nombreCliente == null){
         			labelMessage.text = "Cliente no registrado."
+        			//datagrid1.dataProvider = "";
+        			mascotas.removeAll()
         			
         		}
         		else{
@@ -456,6 +460,19 @@
         			ini();
         		}	
         	}
+        	/**
+			 * Funcion que consulta una accion realizada por el usuario
+			 * dependiendo de cual sea se ocultaran o mostraran algunas opciones
+			 */ 
+			public function consultarAccion(event:Event):void{
+				var selectedRow:Object = event.currentTarget.selectedItem;
+				if(selectedRow.nombre != null){
+					registrarNuevoControl.visible = true;	
+				}
+				else{
+					registrarNuevoControl.visible = false;
+				}	
+			}
 		]]>
 	</mx:Script>
 	
@@ -524,10 +541,10 @@
 			</mx:AddChild>
 			<mx:RemoveChild target="{datagrid1}"/>
 			<mx:RemoveChild target="{button1}"/>
-			<mx:RemoveChild target="{button2}"/>
+			<mx:RemoveChild target="{registrarNuevoControl}"/>
 			<mx:RemoveChild target="{nombreClienteInput}"/>
 			<mx:AddChild position="lastChild">
-				<mx:TextInput x="143" y="223" width="169" id="costo" restrict="0-9"/>
+				<mx:TextInput x="143" y="223" width="169" id="costo" maxChars="8" restrict="0-9"/>
 			</mx:AddChild>
 			<mx:AddChild relativeTo="{label9}" position="before">
 				<mx:Label x="56" y="225" text="Costo:" width="49" id="label15"/>
@@ -543,7 +560,7 @@
 	<mx:TextInput x="520.5" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	<mx:Label x="167" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="24" y="40" text="Apellido:" width="84" id="label14"/>
-	<mx:DataGrid color="0x323232" width="709" rowCount="3" y="96" x="25" variableRowHeight="true" height="251" doubleClickEnabled="true" id="datagrid1" selectable="true" itemDoubleClick="nuevoControl()" dataProvider="{mascotas}">
+	<mx:DataGrid color="0x323232" width="709" rowCount="3" y="96" x="25" variableRowHeight="true" height="251" doubleClickEnabled="true" id="datagrid1" selectable="true" itemDoubleClick="nuevoControl()" itemClick="consultarAccion(event)" dataProvider="{mascotas}">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
@@ -553,7 +570,7 @@
 	    </mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="659" y="355" label="Cancelar" id="button1" click="volver()"/>
-	<mx:Button x="572" y="355" label="Siguiente" id="button2"/>
+	<mx:Button x="572" y="355" label="Siguiente" id="registrarNuevoControl" visible="false" click="nuevoControl()"/>
 	<mx:TextInput x="84" y="38" width="218" id="nombreClienteInput"/>
 	
 </mx:Panel>
