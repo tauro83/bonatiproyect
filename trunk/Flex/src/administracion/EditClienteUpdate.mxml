@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" initialize="ini(event)">
 	
 	<mx:Script>
 		<![CDATA[
@@ -22,6 +22,13 @@
 			private var vNombre:Boolean;
 			private var vContrasena:Boolean;
 			private var vRContrasena:Boolean;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.CloseEvent;           
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
 			
 			private var u1:Cliente;
 			private var clienteAuxEditado:Cliente;
@@ -85,17 +92,17 @@
 					clienteAuxEditado.nombre    = nombre.text;
 					clienteAuxEditado.apellido  = apellido.text;
 					clienteAuxEditado.apellido2 = apellido2.text;
-					clienteAuxEditado.rut       = rut.text;
-					clienteAuxEditado.rut2 	 	= rut2.text;
-					clienteAuxEditado.telefono  = telefono.text;
-					clienteAuxEditado.telefono2 = telefono2.text;
-					clienteAuxEditado.celular   = celular.text;
-					clienteAuxEditado.celular2  = celular2.text;
+					clienteAuxEditado.rut       = rut.text.concat(rut2.text);
+					//clienteAuxEditado.rut2 	 	= rut2.text;
+					clienteAuxEditado.telefono  = telefono.text.concat(telefono2.text);
+					//clienteAuxEditado.telefono2 = telefono2.text;
+					clienteAuxEditado.celular   = celular.text.concat(celular2.text);
+					//clienteAuxEditado.celular2  = celular2.text;
 					clienteAuxEditado.direccion = direccion.text;
 					clienteAuxEditado.region    = region.text;
 					clienteAuxEditado.comuna    = comuna.text;
 					clienteAuxEditado.email     = email.text;
-					clienteAuxEditado.email2    = email2.text;	
+					//clienteAuxEditado.email2    = email2.text;	
 			}
 			
 			public function carga1():void
@@ -105,9 +112,7 @@
 			  auxiliar.insertClienteE(clienteAuxEditado);
 			  resetVars();
 			  //mensaje.text = "Sus cambios se realziaron con éxito";
-			  Application.application.ediCliUp.setVisible(false,false);
-			  Application.application.panelEditaCLi.mensaje2.text="Sus cambios se realizaron con éxito";
-			  Application.application.panelEditaCLi.setVisible(true,false);
+			  
 			 
 			}
 			public function carga1Result(event:ResultEvent):void
@@ -117,10 +122,13 @@
 			   if(res > 0)
 			   {
 			      //Alert.show("ok");
+			      Application.application.ediCliUp.setVisible(false,false);
+			  	  Application.application.panelEditaCLi.mensaje2.text="Sus cambios se realizaron con éxito";
+			 	  Application.application.panelEditaCLi.setVisible(true,false);
 			   }
 			   else
 			   {
-			     // Alert.show("no");
+			      Alert.show("no");
 			   }
 			}
 		 	 private function iniListener():void
@@ -222,6 +230,433 @@
 			  Application.application.panelEditaCLi.setVisible(true,false);
 			}
 			
+			private function selRegion(event:Event):void {
+        		var comunas:ArrayCollection = new ArrayCollection();
+    			if(ComboBox(event.target).text.localeCompare("Region De Tarapaca") == 0){
+    				
+    				comunas.addItem({label:" "});
+    				comunas.addItem({label:"Alto Hospicio"});
+					comunas.addItem({label:"Camiña"});
+					comunas.addItem({label:"Colchane"});
+					comunas.addItem({label:"Huara"});
+					comunas.addItem({label:"Iquique"});
+					comunas.addItem({label:"Pica"});
+					comunas.addItem({label:"Pozo Almonte"});
+			
+    			}
+    			else if(ComboBox(event.target).text.localeCompare("Region De Antofagasta") == 0){
+    			
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"Mejillones"});
+					comunas.addItem({label:"Sierra Gorda"});
+					comunas.addItem({label:"Taltal"});
+					comunas.addItem({label:"Calama"});
+					comunas.addItem({label:"San Pedro de Atacama"});
+					comunas.addItem({label:"María Elena"});
+					comunas.addItem({label:"Tocopilla"});
+
+				}
+				else if(ComboBox(event.target).text.localeCompare("Region De Atacama") == 0){
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"Chañaral"});	
+					comunas.addItem({label:"Diego de Almagro"});	
+					comunas.addItem({label:"Caldera"});
+					comunas.addItem({label:"Copiapó"});
+					comunas.addItem({label:"Tierra Amarilla"});
+					comunas.addItem({label:"Alto del Carmen"});
+					comunas.addItem({label:"Freirina"});
+					comunas.addItem({label:"Huasco"});
+					comunas.addItem({label:"Vallenar"});
+			
+				}
+				else if(ComboBox(event.target).text.localeCompare("Region De Coquimbo") == 0){
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"Canela"});	
+					comunas.addItem({label:"Illapel"});	
+					comunas.addItem({label:"Los Vilos"});	
+					comunas.addItem({label:"Salamanca"});	
+					comunas.addItem({label:"Andacollo"});
+					comunas.addItem({label:"La Higuera"});
+					comunas.addItem({label:"La Serena"});
+					comunas.addItem({label:"Paihuano"});
+					comunas.addItem({label:"Vicuña"});
+					comunas.addItem({label:"Combarbalá"});
+					comunas.addItem({label:"Monte Patria"});
+					comunas.addItem({label:"Ovalle"});
+					comunas.addItem({label:"Punitaqui"});
+					comunas.addItem({label:"Río Hurtado"});
+					
+				}
+				else if(ComboBox(event.target).text.localeCompare("Region De Valparaiso") == 0){
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"Los Andes"});	
+					comunas.addItem({label:"San Esteban"});	
+					comunas.addItem({label:"Calle Larga"});	
+					comunas.addItem({label:"Rinconada"});	
+					comunas.addItem({label:"Isla de Pascua"});	
+					comunas.addItem({label:"Petorca"});	
+					comunas.addItem({label:"La Ligua"});
+					comunas.addItem({label:"Cabildo"});
+					comunas.addItem({label:"Papudo"});
+					comunas.addItem({label:"Zapallar"});
+					comunas.addItem({label:"San Antonio"});
+					comunas.addItem({label:"Algarrobo"});
+					comunas.addItem({label:"Cartagena"});
+					comunas.addItem({label:"El Quisco"});
+					comunas.addItem({label:"El Tabo"});
+					comunas.addItem({label:"Santo Domingo"});
+					comunas.addItem({label:"San Felipe"});	
+					comunas.addItem({label:"Catemu"});	
+					comunas.addItem({label:"Llay Llay"});	
+					comunas.addItem({label:"Panquehue"});	
+					comunas.addItem({label:"Putaendo"});
+					comunas.addItem({label:"Santa María"});
+					comunas.addItem({label:"Quillota"});
+					comunas.addItem({label:"Calera"});
+					comunas.addItem({label:"Hijuelas"});
+					comunas.addItem({label:"Limache"});
+					comunas.addItem({label:"La Cruz"});
+					comunas.addItem({label:"Nogales"});
+					comunas.addItem({label:"Olmué"});
+					comunas.addItem({label:"Valparaíso"});
+					comunas.addItem({label:"Casablanca"});
+					comunas.addItem({label:"Concon"});
+					comunas.addItem({label:"Juan Fernández"});
+					comunas.addItem({label:"Puchuncaví"});
+					comunas.addItem({label:"Quilpué"});
+					comunas.addItem({label:"Villa Alemana"});
+					comunas.addItem({label:"Viña del Mar"});
+					
+						
+				}
+				else if(ComboBox(event.target).text.localeCompare("Region Del Libertador Bernardo O´higgins") == 0){
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"Rosa Espinoza"});	
+					comunas.addItem({label:"Ayudante Peluquería"});	
+					comunas.addItem({label:"Rancagua"});	
+					comunas.addItem({label:"Codegua"});	
+					comunas.addItem({label:"Coinco"});	
+					comunas.addItem({label:"Coltauco"});	
+					comunas.addItem({label:"Doñihue"});	
+					comunas.addItem({label:"Graneros"});	
+					comunas.addItem({label:"Las Cabras"});
+					comunas.addItem({label:"Mostazal"});
+					comunas.addItem({label:"Machalí"});
+					comunas.addItem({label:"Malloa"});
+					comunas.addItem({label:"Olivar"});
+					comunas.addItem({label:"Peumo"});
+					comunas.addItem({label:"Pichidegua"});
+					comunas.addItem({label:"Quinta de Tilcoco"});
+					comunas.addItem({label:"Rengo"});
+					comunas.addItem({label:"Requinoa"});
+					comunas.addItem({label:"Requinoa"});	
+					comunas.addItem({label:"San Vicente"});	
+					comunas.addItem({label:"San Fernando"});	
+					comunas.addItem({label:"Chépica"});	
+					comunas.addItem({label:"Chimbarongo"});
+					comunas.addItem({label:"Lolol"});
+					comunas.addItem({label:"Nancagua"});
+					comunas.addItem({label:"Palmilla"});
+					comunas.addItem({label:"Peralillo"});
+					comunas.addItem({label:"Placilla"});
+					comunas.addItem({label:"Pumanque"});
+					comunas.addItem({label:"Santa Cruz"});
+					comunas.addItem({label:"Pichilemu"});
+					comunas.addItem({label:"La Estrella"});
+					comunas.addItem({label:"Litueche"});
+					comunas.addItem({label:"Marchigue"});
+					comunas.addItem({label:"Navidad"});
+					comunas.addItem({label:"Paredones"});
+					
+					
+	
+				}
+				else if(ComboBox(event.target).text.localeCompare("Region Del Maule") == 0){
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"Cauquenes"});
+					comunas.addItem({label:"Pelluhue"});
+					comunas.addItem({label:"Chanco"});
+					comunas.addItem({label:"Curicó"});
+					comunas.addItem({label:"Teno"});
+					comunas.addItem({label:"Romeral"});
+					comunas.addItem({label:"Molina"});
+					comunas.addItem({label:"Sagrada Familia"});
+					comunas.addItem({label:"Hualañe"});
+					comunas.addItem({label:"Licanten"});
+					comunas.addItem({label:"Vichuquén"});
+					comunas.addItem({label:"Rauco"});
+					comunas.addItem({label:"Linares"});
+					comunas.addItem({label:"Yerbas Buenas"});
+					comunas.addItem({label:"Colbún"});
+					comunas.addItem({label:"Longaví"});
+					comunas.addItem({label:"Parral"});
+					comunas.addItem({label:"Retiro"});
+					comunas.addItem({label:"Villa Alegre"});
+					comunas.addItem({label:"San Javier"});
+					comunas.addItem({label:"Talca"});
+					comunas.addItem({label:"Pelarco"});
+					comunas.addItem({label:"Río Claro"});
+					comunas.addItem({label:"San Clemente"});
+					comunas.addItem({label:"Maule"});
+					comunas.addItem({label:"San Rafael"});
+					comunas.addItem({label:"Empedrado"});
+					comunas.addItem({label:"Pencahue"});
+					comunas.addItem({label:"Constitución"});
+					comunas.addItem({label:"Curepto"});
+					
+					
+				}
+				else if(ComboBox(event.target).text.localeCompare("Region Del Bio-Bio") == 0){
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"Arauco"});
+					comunas.addItem({label:"Cañete"});
+					comunas.addItem({label:"Contulmo"});
+					comunas.addItem({label:"Curanilahue"});
+					comunas.addItem({label:"Lebu"});
+					comunas.addItem({label:"Los Alamos"});
+					comunas.addItem({label:"Tirua"});
+					comunas.addItem({label:"Los Angeles"});
+					comunas.addItem({label:"Alto Bío-Bío"});
+					comunas.addItem({label:"Antuco"});
+					comunas.addItem({label:"Cabrero"});
+					comunas.addItem({label:"Laja"});
+					comunas.addItem({label:"Mulchén"});
+					comunas.addItem({label:"Nacimiento"});
+					comunas.addItem({label:"Negrete"});
+					comunas.addItem({label:"Negrete"});
+					comunas.addItem({label:"Quilleco"});
+					comunas.addItem({label:"Santa Bárbara"});
+					comunas.addItem({label:"San Rosendo"});
+					comunas.addItem({label:"Tucapel"});
+					comunas.addItem({label:"Yumbel"});
+					comunas.addItem({label:"Concepción"});
+					comunas.addItem({label:"Chiguayante"});
+					comunas.addItem({label:"Coronel"});
+					comunas.addItem({label:"Florida"});
+					comunas.addItem({label:"Hualpén"});
+					comunas.addItem({label:"Hualqui"});
+					comunas.addItem({label:"Lota"});
+					comunas.addItem({label:"Penco"});
+					comunas.addItem({label:"San Pedro de la Paz"});
+					comunas.addItem({label:"Santa Juana"});
+					comunas.addItem({label:"Talcahuano"});
+					comunas.addItem({label:"Tomé"});
+					comunas.addItem({label:"Chillán"});
+					comunas.addItem({label:"Bulnes"});
+					comunas.addItem({label:"Chillán Viejo"});
+					comunas.addItem({label:"Cobquecura"});
+					comunas.addItem({label:"Coelemu"});
+					comunas.addItem({label:"Coihueco"});
+					comunas.addItem({label:"El Carmen"});
+					comunas.addItem({label:"Ninhue"});
+					comunas.addItem({label:"Ñiquén"});
+					comunas.addItem({label:"Pemuco"});
+					comunas.addItem({label:"Pinto"});
+					comunas.addItem({label:"Portezuelo"});
+					comunas.addItem({label:"Quillón"});
+					comunas.addItem({label:"Quirihue"});
+					comunas.addItem({label:"Ranquil"});
+					comunas.addItem({label:"San Carlos"});
+					comunas.addItem({label:"San Fabián"});
+					comunas.addItem({label:"San Ignacio"});
+					comunas.addItem({label:"San Nicolás"});
+					comunas.addItem({label:"Trehuaco"});
+					comunas.addItem({label:"Yungay"});
+
+				}
+				else if(ComboBox(event.target).text.localeCompare("Region De La Araucania") == 0){
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"Temuco"});
+					comunas.addItem({label:"Carahue"});
+					comunas.addItem({label:"Cholchol"});
+					comunas.addItem({label:"Cunco"});
+					comunas.addItem({label:"Curarrehue"});
+					comunas.addItem({label:"Freire"});
+					comunas.addItem({label:"Galvarino"});
+					comunas.addItem({label:"Gorbea"});
+					comunas.addItem({label:"Lautaro"});
+					comunas.addItem({label:"Loncoche"});
+					comunas.addItem({label:"Melipeuco"});
+					comunas.addItem({label:"Nueva Imperial"});
+					comunas.addItem({label:"Padre las Casas"});
+					comunas.addItem({label:"Perquenco"});
+					comunas.addItem({label:"Pitrufquén"});
+					comunas.addItem({label:"Pucón"});
+					comunas.addItem({label:"Saavedra"});
+					comunas.addItem({label:"Teodoro Schmidt"});
+					comunas.addItem({label:"Toltén"});
+					comunas.addItem({label:"Vilcún"});
+					comunas.addItem({label:"Villarrica"});
+					comunas.addItem({label:"Angol"});
+					comunas.addItem({label:"Collipulli"});
+					comunas.addItem({label:"Curacautín"});
+					comunas.addItem({label:"Ercilla"});
+					comunas.addItem({label:"Lonquimay"});
+					comunas.addItem({label:"Los Sauces"});
+					comunas.addItem({label:"Lumaco"});
+					comunas.addItem({label:"Purén"});
+					comunas.addItem({label:"Renaico"});
+					comunas.addItem({label:"Traiguén"});
+					comunas.addItem({label:"Victoria"});
+					
+	
+				}
+				else if(ComboBox(event.target).text.localeCompare("Region De Los Lagos") == 0){
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"Chiloé"});	
+					comunas.addItem({label:"Ancud"});
+					comunas.addItem({label:"Castro"});
+					comunas.addItem({label:"Curaco de Veléz"});
+					comunas.addItem({label:"Chonchi"});	
+					comunas.addItem({label:"Curaco de Veléz"});
+					comunas.addItem({label:"Chonchi"});
+					comunas.addItem({label:"Dalcahue"});
+					comunas.addItem({label:"Puqueldón"});
+					comunas.addItem({label:"Queilén"});
+					comunas.addItem({label:"Quellón"});
+					comunas.addItem({label:"Quemchi"});
+					comunas.addItem({label:"Quinchao"});
+					comunas.addItem({label:"Calbuco"});
+					comunas.addItem({label:"Cochamó"});
+					comunas.addItem({label:"Fresia"});
+					comunas.addItem({label:"Frutillar"});
+					comunas.addItem({label:"Los Muermos"});
+					comunas.addItem({label:"Llanquihue"});
+					comunas.addItem({label:"Maullín"});
+					comunas.addItem({label:"Puerto Montt"});
+					comunas.addItem({label:"Puerto Varas"});
+					comunas.addItem({label:"Osorno"});
+					comunas.addItem({label:"Puerto Octay"});
+					comunas.addItem({label:"Purranque"});
+					comunas.addItem({label:"Puyehue"});
+					comunas.addItem({label:"Río Negro"});
+					comunas.addItem({label:"San Juan de la Costa"});
+					comunas.addItem({label:"San Pablo"});
+					comunas.addItem({label:"Chaitén"});
+					comunas.addItem({label:"Futaleufú"});
+					comunas.addItem({label:"Hualaihué"});
+					comunas.addItem({label:"Palena"});
+					comunas.addItem({label:"Victoria"});
+
+						
+				}
+				else if(ComboBox(event.target).text.localeCompare("Region Aysen del General Carlos Ibanes del Campo") == 0){
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"Aysén"});	
+					comunas.addItem({label:"Cisnes"});
+					comunas.addItem({label:"Guaitecas"});
+					comunas.addItem({label:"Coihaique"});
+					comunas.addItem({label:"Lago Verde"});
+					comunas.addItem({label:"Cochrane"});
+					comunas.addItem({label:"O'Higgins"});
+					comunas.addItem({label:"Tortel"});
+					comunas.addItem({label:"Chile Chico"});
+					comunas.addItem({label:"Río Ibáñez"});
+					
+
+				}
+				else if(ComboBox(event.target).text.localeCompare("Region de Magallanes y Antartica Chilena") == 0){
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"Navarino"});
+					comunas.addItem({label:"Antártica"});
+					comunas.addItem({label:"Punta Arenas"});
+					comunas.addItem({label:"Río Verde"});
+					comunas.addItem({label:"Laguna Blanca"});
+					comunas.addItem({label:"San Gregorio"});
+					comunas.addItem({label:"Porvenir"});
+					comunas.addItem({label:"Primavera"});
+					comunas.addItem({label:"Timaukel"});
+					comunas.addItem({label:"Natales"});
+					comunas.addItem({label:"Torres del Paine"});
+		
+						
+				}
+				else if(ComboBox(event.target).text.localeCompare("Region Metropolitana") == 0){
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"Colina"});
+					comunas.addItem({label:"Lampa"});
+					comunas.addItem({label:"Til Til"});
+					comunas.addItem({label:"Puente Alto"});
+					comunas.addItem({label:"Pirque"});
+					comunas.addItem({label:"San José  de Maipo"});
+					comunas.addItem({label:"Buin"});
+					comunas.addItem({label:"Calera de Tango"});
+					comunas.addItem({label:"Paine"});	
+					comunas.addItem({label:"San Bernardo"});
+					comunas.addItem({label:"Melipilla"});
+					comunas.addItem({label:"María Pinto"});
+					comunas.addItem({label:"Curacaví"});
+					comunas.addItem({label:"Alhué"});
+					comunas.addItem({label:"San Pedro"});
+					comunas.addItem({label:"Santiago"});
+					comunas.addItem({label:"Talagante"});
+					comunas.addItem({label:"El Monte"});
+					comunas.addItem({label:"Isla de Maipo"});
+					comunas.addItem({label:"Padre Hurtado"});
+					comunas.addItem({label:"Peñaflor"});
+			
+
+				}
+				else if(ComboBox(event.target).text.localeCompare("Region de los Rios") == 0){
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"La Unión"});
+					comunas.addItem({label:"Futrono"});
+					comunas.addItem({label:"Lago Ranco"});
+					comunas.addItem({label:"Río Bueno"});
+					comunas.addItem({label:"Valdivia"});
+					comunas.addItem({label:"Corral"});
+					comunas.addItem({label:"Lanco"});
+					comunas.addItem({label:"Los Lagos"});
+					comunas.addItem({label:"Máfil"});
+					comunas.addItem({label:"Mariquina"});
+					comunas.addItem({label:"Paillaco"});
+					comunas.addItem({label:"Panguipulli"});
+					comunas.addItem({label:"Río Bueno"});
+				
+				}
+				else if(ComboBox(event.target).text.localeCompare("Region de Arica y Parinacota") == 0){
+					
+					comunas.addItem({label:" "});
+					comunas.addItem({label:"Arica"});
+					comunas.addItem({label:"Camarones"});
+					comunas.addItem({label:"Putre"});
+					comunas.addItem({label:"General Lagos"});
+				}
+				comuna.dataProvider = comunas;
+		   }
+		   
+		   private function selRegiones(event:Event):void {
+        		var tiporegiones:ArrayCollection = new ArrayCollection();
+        		
+        		tiporegiones.addItem({label:" "});
+        		tiporegiones.addItem({label:"Region De Tarapaca"});
+        		tiporegiones.addItem({label:"Region De Antofagasta"});
+        		tiporegiones.addItem({label:"Region De Atacama"});
+        		tiporegiones.addItem({label:"Region De Coquimbo"});
+        		tiporegiones.addItem({label:"Region De Valparaiso"});
+        		tiporegiones.addItem({label:"Region Del Libertador Bernardo O´higgin"});
+        		tiporegiones.addItem({label:"Region Del Maule"});
+        		tiporegiones.addItem({label:"Region Del Bio-Bio"});
+        		tiporegiones.addItem({label:"Region De La Araucania"});
+        		tiporegiones.addItem({label:"Region De La Araucania"});
+        		tiporegiones.addItem({label:"Region Aysen del General Carlos Ibanes del Campo"});
+        		tiporegiones.addItem({label:"Region de Magallanes y Antartica Chilena"});
+        		tiporegiones.addItem({label:"Region Metropolitana"});
+        		tiporegiones.addItem({label:"Region de los Rios"});
+        		tiporegiones.addItem({label:"Region de Arica y Parinacota"});
+        		
+        		
+
+        		region.dataProvider = tiporegiones;			
+			}
+			private function ini(event:Event):void{
+	        	
+	        	selRegiones(event);
+	        	
+	       }
+			
+			
+			
 		]]>
 	</mx:Script> 
 	
@@ -233,48 +668,24 @@
 	<mx:Label x="20" y="128" text="Apellido Materno:" width="112" />
 	<mx:TextInput  x="125" y="126" width="201" id="apellido2" click="{iniListener()}" enabled="true" maxChars="12"/>
 	<mx:Label x="20" y="177" text="Rut:" width="97"/>
-	<mx:TextInput x="125" y="175" width="140" id="rut" enabled="false" maxChars="8"/>
+	<mx:TextInput x="125" y="175" width="140" id="rut" enabled="true" maxChars="8" editable="false"/>
 	<mx:Label x="169" y="275" text="-" textAlign="center"/>
-	<mx:TextInput x="290" y="175" width="36" id="rut2" enabled="false" maxChars="1"/>
+	<mx:TextInput x="290" y="175" width="36" id="rut2" enabled="true" maxChars="1" editable="false"/>
 	<mx:Label x="20" y="226" text="Teléfono Fijo:" width="97"/>
-	<mx:TextInput  x="125" y="224" width="40" id="telefono" enabled="true" maxChars="3"/>
+	<mx:TextInput  x="125" y="224" width="40" id="telefono" enabled="true" maxChars="2"/>
 	<mx:Label x="268" y="177" text="-" textAlign="center"/>
 	<mx:TextInput  x="190" y="224" width="136" id="telefono2" enabled="true" maxChars="10"/>
 	<mx:Label x="20" y="275" text="Celular:" width="97"/>
-	<mx:TextInput  x="125" y="273" width="40" id="celular" enabled="true" maxChars="2"/>
+	<mx:TextInput  x="125" y="273" width="40" id="celular" enabled="true" maxChars="1"/>
 	<mx:Label x="169" y="226" text="-" textAlign="center"/>
-	<mx:TextInput  x="190" y="273" width="136" id="celular2" enabled="true" maxChars="10"/>
+	<mx:TextInput  x="190" y="273" width="136" id="celular2" enabled="true" maxChars="7"/>
 	<mx:Label x="413" y="30" text="Dirección:" width="97"/>
 	<mx:TextInput x="540" y="28" width="201" id="direccion" click="{iniListener()}" enabled="true" maxChars="20"/>
 	<mx:Label x="413" y="79" text="Región:" width="112"/>
-	<mx:ComboBox x="540" y="77" width="201" id="region">
-	<mx:dataProvider>
-	<mx:Array>
-	<mx:String>---</mx:String>
-	<mx:String>Tarapaca</mx:String>
-	<mx:String>Antofagasta</mx:String>
-	<mx:String>Atacama</mx:String>
-	<mx:String>Coquimbo</mx:String>
-	<mx:String>Valparaiso</mx:String>
-	<mx:String>Libertador Bernardo O´higgins</mx:String>
-	<mx:String>Maule</mx:String>
-	<mx:String>Bio-Bio</mx:String>
-	<mx:String>Araucanía</mx:String>
-	<mx:String>De Los Lagos</mx:String>
-	</mx:Array>
-	</mx:dataProvider>	
+	<mx:ComboBox x="540" y="77" width="201" id="region"  close = "selRegion(event);">
 	</mx:ComboBox>
 	<mx:Label x="413" y="128" text="Comuna:" width="112"/>
 	<mx:ComboBox x="540" y="126" width="201" id="comuna">
-	<mx:Array>
-	<mx:String>---</mx:String>
-	<mx:String>Curico</mx:String>
-	<mx:String>Talca</mx:String>
-	<mx:String>Linares</mx:String>
-	<mx:String>Teno</mx:String>
-	<mx:String>Romeral</mx:String>
-	<mx:String>Molina</mx:String>
-	</mx:Array>		
 	</mx:ComboBox>
 	<mx:Label x="413" y="177" text="E-Mail:" width="97"/>
 	<mx:TextInput x="539" y="175" width="201" id="email" enabled="true" maxChars="20"/>
