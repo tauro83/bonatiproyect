@@ -31,28 +31,28 @@ public class ClienteElimPurgServiceBD {
 					       "servicio=?, pregistrar=?, peditar=?, peliminar=?, ppurgar=? "+
 					 "WHERE usuario = ?;";
 
-			query = "SELECT nombre, apellido,apellido2, rut, telefono2, celular2, direccion, region, comuna,email "+
-				"FROM cliente where estado='TRUE';";
+			query = "SELECT nombre, apaterno,amaterno, rut, telefono, celular, domicilio, region, comuna, correo "+
+				"FROM clientepresencial where estado='TRUE';";
 				
 					
 				selectActivos = connection.prepareStatement(query);
 				
-				query = "SELECT nombre, apellido,apellido2, rut, telefono2, celular2, direccion, region, comuna, email "+
-				"FROM cliente where estado='FALSE';";
+				query = "SELECT nombre, apaterno,amaterno, rut, telefono, celular, domicilio, region, comuna, correo "+
+				"FROM clientepresencial where estado='FALSE';";
 				
 					
 				selectEliminados = connection.prepareStatement(query);
 				
-				query = "DELETE FROM cliente " +
+				query = "DELETE FROM clientepresencial " +
 				"WHERE rut = ?;";
 				purgar = connection.prepareStatement(query);
 				
-				query = "UPDATE cliente "+
+				query = "UPDATE clientepresencial "+
 				   "SET estado='FALSE'" +
 				   "Where rut =?;";
 				eliminar= connection.prepareStatement(query);
 				
-				query = "UPDATE cliente "+
+				query = "UPDATE clientepresencial "+
 				   "SET estado='TRUE'" +
 				   "Where rut =?;";
 				reactivar= connection.prepareStatement(query);
@@ -104,7 +104,6 @@ public class ClienteElimPurgServiceBD {
 		 */
 	    public List<Cliente> getClientesActivosE()
 	    {
-	    	System.out.println("LLEGO A CLIENTEEdit BD / getAllClienteE");
 	    	List<Cliente> clientes=new ArrayList<Cliente>();
 	    	Cliente cliente;
 	    	try 
