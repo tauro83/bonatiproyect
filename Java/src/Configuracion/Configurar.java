@@ -27,6 +27,17 @@ public class Configurar {
 		return conBD.getConfiguracionesVacunas();
 	}
 	
+	public static void regConfiguracion(String tipo, String nombre) throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		ConfigurarBD conBD = new ConfigurarBD(connection);
+		conBD.regConfiguracion(tipo,nombre);
+	}
+	
+	public static void elimConfiguracion(String tipo, String nombre) throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		ConfigurarBD conBD = new ConfigurarBD(connection);
+		conBD.elimConfiguracion(tipo,nombre);
+	}
 	
 	
 }
