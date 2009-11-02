@@ -7,7 +7,7 @@ public class Vacuna {
 	private String clienteRut;
 	private String mascotaNombre;
 	private String hora;
-	private String fecha;
+	private Date fecha;
 	private Date fechaCaducidad;
 	private String costo;
 	private String veterinario;
@@ -26,10 +26,10 @@ public class Vacuna {
 	public String getMascotaNombre() {
 		return mascotaNombre;
 	}
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 	public void setHora(String hora) {

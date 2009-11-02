@@ -3,11 +3,11 @@ package PoliclinicoBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import java.util.List;
 
@@ -72,10 +72,7 @@ public class AddVacunacionBD {
     		int segundos = c.get(Calendar.SECOND);
     		
     		Time t = new Time(hora, minutos, segundos);
-			Date d = new Date(0, 0, 0);
-			d.setDate(Calendar.DATE);
-			d.setMonth(Calendar.MONTH);
-			d.setYear(Calendar.YEAR);
+			Date fecha = c.getTime();
 			
 			List<String> ltv = newVacuna.getTiposVacunas();
 			int n = ltv.size();
@@ -87,7 +84,7 @@ public class AddVacunacionBD {
 					add.setString(3, newVacuna.getMascotaNombre());
 					add.setTime(4, t);
 					add.setString(5, newVacuna.getVeterinario());
-					add.setDate(6, d);
+					add.setDate(6, newVacuna.getFecha());
 					add.setString(7, newVacuna.getCosto());
 					add.setDate(8, newVacuna.getFechaCaducidad());
 					add.setString(9, newVacuna.getDescripcion());
