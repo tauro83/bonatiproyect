@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 import Bd.DBConnectionManager;
 import TransferObjects.Configuracion;
-import ConfiguracionBD.ConfigurarBD;
 import TransferObjects.ConfiguracionVacuna;
+import ConfiguracionBD.ConfigurarBD;
 
 public class Configurar {
 
@@ -38,6 +38,16 @@ public class Configurar {
 		ConfigurarBD conBD = new ConfigurarBD(connection);
 		conBD.elimConfiguracion(tipo,nombre);
 	}
+	public static void elimConfiguracionVacuna(String nombre) throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		ConfigurarBD conBD = new ConfigurarBD(connection);
+		conBD.elimConfiguracionVacuna(nombre);
+	}
 	
+	public static String regConfiguracionVacuna(ConfiguracionVacuna cv) throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		ConfigurarBD conBD = new ConfigurarBD(connection);
+		return conBD.regConfiguracionVacuna(cv);
+	}
 	
 }
