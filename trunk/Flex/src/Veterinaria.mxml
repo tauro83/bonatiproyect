@@ -245,7 +245,7 @@
 		    	registroControl.setVisible(false, false);
 		 		<!--Autor: }Sebastian -->   
 		 		
-		 		<!--Autor: Cristian{ -->
+		 	    <!--Autor: Cristian{ -->
 		 		AdEditarMascota3.setVisible(false,false);
 		    	AdEditarMascota2.setVisible(false, false);   
 		 		<!--Autor: }Cristian -->   
