@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" xmlns:ns1="*" title="Registrar Consulta" borderColor="#15ad8f">
+<mx:Script>
+		<![CDATA[
+			import mx.events.CalendarLayoutChangeEvent;
+			import services.AddConsultaService;
+			import transferObjects.Consulta;
+			import services.configuracionServices;
+		
+//============================================================================
+// FECHA: CREACIÃ“N: 26-10-09
+// AUTOR: Nicolas Delgado
+// Esta componente se encarga de registrar una consulta realizada en el policlinico
+// De la mascota seleccionada en el estado anterior.
+//=============================================================================
+			import mx.collections.ArrayCollection;
+			import transferObjects.Mascota;
+			import mx.rpc.events.ResultEvent;
+		    import mx.core.Application;		
+		    import mx.events.ValidationResultEvent;            
+            private var vResult:ValidationResultEvent;	
+						
+
+             public function registrarConsulta():void{
+             	this.labelMessage.text="";
+             	var addconsult:Consulta=new Consulta();
+             	addconsult.rut=this.rutClienteInput1.text+this.rutClienteDVInput1.text;
+             	addconsult.costo=this.costo.text;
+             	addconsult.nombre=this.nombre.text;
+             	addconsult.responsable=this.responsable.text;
+             	addconsult.servicio=this.servicio.text;
+             	addconsult.fecha=fecha.selectedDate.date +"/"+ (fecha.selectedDate.month+1) +"/"+ fecha.selectedDate.fullYear;
+             	addconsult.anamnesis=this.anamnesis.text;
+             	var newconsulta:AddConsultaService = new AddConsultaService();
+             	newconsulta.AddConsulta(addconsult);
+             	newconsulta.addEventListener(ResultEvent.RESULT,registroConsultaResultado);
+
+		    	this.setVisible(false,false);
+		    	Application.application.rConsulta.labelMessage.text="Consulta Registrada con exito.";
+		    	Application.application.rConsulta.setVisible(true,false);
+             }
+             
+             
+             
+             private function registroConsultaResultado(event:ResultEvent):void
+			 {
+				var result:int = event.result as int ;
+				if(!result>0)
+					labelMessage.text = "Mascota no registrada."
+				else{
+					labelMessage.text = "La mascota "+ nombre.text +" ha sido registrada.";
+									
+				}
+			}      
+
+            
+            
+            /*
+            * Este metodo se encarga de limpiar todos los parametros de un registro de una consulta una vez que la consulta sea 
+            * registrada o cancelada*/
+            
+            public function limpiar():void{
+				responsable.text="";
+				fecha.text="";
+				servicio.text="";
+				costo.text="";
+				anamnesis.text="";
+				labelMessage.text= " ";
+			}
+						
+			public function validaciones():void{
+				costo.addEventListener(KeyboardEvent.KEY_UP,validarCosto);
+			}
+			
+			/*
+			 *Este metodo se encarga de traspasar todo el precio de una consulta a miles,agregandole un cero una vez 
+			 *que el usuario sobre pase los mil pesos. 
+			 **/
+			
+			public function validarCosto(event:Event):void{
+
+				if(costo.text.length==4){
+			      
+			      costo.text=costo.text.substring(0,1)+"."+costo.text.substring(1,2)+costo.text.substring(2,3)+costo.text.substring(3,4);
+			      
+				}
+				
+				if(costo.text.length==6){
+				
+			      costo.text=costo.text.substring(0,1)+costo.text.substring(2,3)+"."+costo.text.substring(3,4)+costo.text.substring(4,5)+costo.text.substring(5,6);
+				}
+				
+				if(costo.text.length==7){
+				
+			      costo.text=costo.text.substring(0,1)+costo.text.substring(1,2)+costo.text.substring(3,4)+"."+costo.text.substring(4,5)+costo.text.substring(5,6)+costo.text.substring(6,7);
+				}
+				
+				if(costo.text.length==8){
+				
+			      costo.text=costo.text.substring(0,1)+"."+costo.text.substring(1,2)+costo.text.substring(2,3)+costo.text.substring(4,5)+"."+costo.text.substring(5,6)+costo.text.substring(6,7)+costo.text.substring(7,8);
+				}
+			}
+			
+			public function volver():void
+			{
+            	Application.application.rConsulta2.setVisible(false,false);
+            	Application.application.rConsulta.setVisible(true,false);
+            	limpiar();
+			}
+			
+
+            
+		]]>
+	</mx:Script>
+	<mx:Label x="43" y="109" text="Responsable:"/>
+	<mx:ComboBox x="133" y="107" id="responsable" width="160">
+		<mx:ArrayCollection>
+		<mx:Object label=" "/>
+		<mx:Object label="Claudio Bonati"/>
+		<mx:Object label="Patricio Castro"/>
+		</mx:ArrayCollection>	
+	</mx:ComboBox>
+	<mx:Label x="43" y="155" text="Fecha:"/>
+	<mx:Label x="43" y="198" text="Anamnesis:"/>
+	<mx:TextArea x="133" y="197" width="583" height="137" id="anamnesis"/>
+	<mx:TextInput x="551" y="153" width="165" id="costo" click="validaciones()"/>
+	<mx:Label x="470" y="109" text="Servicio:"/>
+	<mx:ComboBox x="556" y="107" id="servicio" width="160">
+		<mx:ArrayCollection>
+		<mx:Object label=" "/>
+		<mx:Object label="Policlinico I"/>
+		<mx:Object label="Policlinico II"/>
+		</mx:ArrayCollection>	
+	</mx:ComboBox>
+	<mx:Button x="522" y="353" label="Registrar" visible="true" id="registrar" click="registrarConsulta()" cornerRadius="6"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="84" id="cancelar" visible="true" cornerRadius="6" click="volver()"/>
+	<mx:Label x="470" y="155" text="Costo:" width="52"/>
+	<mx:Label x="43" y="10" text="Cliente" fontWeight="bold"/>
+	<mx:Label x="43" y="36" text="Rut:" width="37" id="label2"/>
+	<mx:Label x="262.5" y="38" text="-" width="14.75" textAlign="center" id="label6"/>
+	<mx:TextInput x="135" y="36" width="130.5" id="rutClienteInput1"   editable="false"/>
+	<mx:TextInput restrict="0-9 K" x="273.5" y="36" width="19.5" id="rutClienteDVInput1"  editable="false"/>
+	<mx:Label x="470" y="10" text="Mascota" fontWeight="bold"/>
+	<mx:Label x="470" y="38" text="Nombre:"/>
+	<mx:TextInput x="556" y="36" id="nombre" editable="false" enabled="true" width="160"/>
+	<mx:Label x="43" y="74" text="Consulta" fontWeight="bold"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:DateField x="133" y="153" width="160" id="fecha"/>
+	<mx:CurrencyFormatter id="usdFormatter" precision="0" 
+        currencySymbol="$" decimalSeparatorFrom="."
+        decimalSeparatorTo="." useNegativeSign="true" 
+        useThousandsSeparator="true" alignSymbol="left"/>
+	
+</mx:Panel>
