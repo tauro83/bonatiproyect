@@ -13,7 +13,7 @@ import TransferObjects.Configuracion;
 import TransferObjects.ConfiguracionVacuna;
 import ConfiguracionBD.ConfigurarBD;
 
-public class Configurar {
+public class Configurar { 
 
 	/**
 	 * @param tipo obtiene las configuraciones de la capa ConfiguracionBD, los tipos pueden ser
