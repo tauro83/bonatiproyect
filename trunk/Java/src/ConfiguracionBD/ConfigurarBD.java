@@ -194,7 +194,7 @@ public class ConfigurarBD {
 	
 	/**
 	 * @param cv corresponde a un obtejo que encapsula los datos de una vacuna
-	 * los cuales seran registrados en la base de datos.
+	 * los cuales seran registrados en la base de datos. 
 	 */
 	public String regConfiguracionVacuna(ConfiguracionVacuna cv) throws SQLException
 	{

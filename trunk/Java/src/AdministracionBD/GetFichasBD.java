@@ -108,7 +108,7 @@ public class GetFichasBD {
 	 * @param rut Parametro que permite identificar las atenciones de una mascota en particular
 	 * @param nombre Segundo parametro necesario para identificar las atenciones
 	 * @return una lista de atenciones, las cuales seran mostradas en la ficha.
-	 */
+	 */ 
 	public List<Atencion> getAllAtenciones(String rut, String nombre)
     {
     	List<Atencion> atenciones = new ArrayList<Atencion>();
