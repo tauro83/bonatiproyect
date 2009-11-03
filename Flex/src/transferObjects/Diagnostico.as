@@ -1,3 +1,7 @@
+/**
+ * @Author Jimmy Muñoz
+ * @Version 1
+*/
 package transferObjects
 {
 	/**

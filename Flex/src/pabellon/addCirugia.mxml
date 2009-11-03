@@ -115,7 +115,7 @@
 		    							newAddServ.addCirugia(newCirugia);
 		    							this.setVisible(false,false);
 		    							Application.application.addCirug.iniciarPanel1();
-		    							Application.application.addCirug.labelMessage.text="Cirugía Registrada con exito.";
+		    							Application.application.addCirug.labelMessage.text="Cirugía registrada con éxito.";
 		    							Application.application.addCirug.setVisible(true,false);
 		    						}
 		    					}
