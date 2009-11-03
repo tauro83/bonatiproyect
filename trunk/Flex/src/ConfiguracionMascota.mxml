@@ -15,12 +15,24 @@
 			[Bindable]private var especies:ArrayCollection;
 			private var confs:configuracionServices= new configuracionServices();
 		
+		
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion obtiene las especies desde el actionScript
+			 * */
 			public function cargarDatos():void
 			{				
 				confs.getConfiguraciones("Especie");
 				confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
 			}
 			
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion asigna el retorno del llamado de cargarDatos a un
+			 *   arrayCollection para mostrar las configuraciones
+			 * */
 			public function cargarDatosR(event:ResultEvent):void
 			{
 				especies = event.result as ArrayCollection;	
@@ -41,6 +53,11 @@
             	especieInput.text = "";
 			}
 			
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion obtiene la configuracion seleccionada del grid
+			 * */
 			public function setNombre(event:Event):void
 			{
 				if(especiesGrid.selectedItem){
@@ -52,7 +69,11 @@
             			
 			}
 		
-			
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion envia una configuracion y muestra un mensaje de confirmacion de la accion.
+			 * */
 			private function registrarNombre(event:Event):void
 			{
 				confs.regConfiguracion("Especie", especieInput.text);
@@ -60,14 +81,22 @@
 				ltexto.text = "Especie registrada exitosamente";
 				especieInput.text = "";
 			}
-			
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion elimina la configuracion seleccionada del data grid
+			 * */
 			private function eliminarNombre(event:Event):void
 			{
 				confs.elimConfiguracion("Especie", especieInput.text);
 				this.cargarDatos();
 				ltexto.text = "Especie eliminada exitosamente";
 			}
-			
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion habilita el boton de registrar posterior a su deshabilitacion por la accion de eliminar
+			 * */
 			private function activarRegistrar(event:Event):void
 			{
 				agregar.enabled = true;
