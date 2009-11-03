@@ -1,6 +1,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registro Vacunación" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
         <![CDATA[
+        	import transferObjects.ConfiguracionVacuna;
         	import transferObjects.Cliente;
         	import services.AddMascotaService;
         	import mx.controls.DateField;
@@ -22,6 +23,7 @@
 		    import pabellon.AddCirugiaService;
 		    import Policlinico.AddVacunacion;
 		    import services.BusquedaService;
+		    import services.configuracionServices;
 		   
 			
 			[Bindable]
@@ -48,6 +50,8 @@
 		    [Bindable] 
 		    public var cliente:Person;
 		      
+		   [Bindable]private var vacunas:ArrayCollection;
+			private var confs:configuracionServices= new configuracionServices();
 
 			/**
 		 	 * 	@author  "Jimmy Muñoz"
@@ -255,14 +259,17 @@
 					nuevavac.veterinarios2=this.vetesV;
 					nuevavac.ayudantes2=this.ayudantesV;
 					nuevavac.ayudantes3=this.ayudantesV;
-					var i:int;
-					var large:int = tiposV.length;
-					for(i=0;i<large;i++){
-						var text:String = tiposV.getItemAt(i,0) as String;
-						nuevavac.tiposVac1.push(text);
-						nuevavac.tiposCir2.push(text);
-					}
 					
+					
+					var i:int;
+					var large:int = vacunas.length;
+					
+					for(i=0;i<large;i++){
+						var vac:ConfiguracionVacuna = this.vacunas.getItemAt(i,0) as ConfiguracionVacuna;
+						var text2:String = vac.nombre;
+
+						nuevavac.tiposVac1.push(text2);
+					}
 					
 					this.setVisible(false,false);
 					nuevavac.setVisible(true,false);
@@ -280,6 +287,7 @@
 			*/
 			public function iniciarPanel():void
 			{
+				cargarDatos();
 				this.getTiposVacunas();
 				this.getTiposVeterinarios();
 				this.mascotas=new ArrayCollection();
@@ -299,6 +307,7 @@
 			{
 				this.getTiposVacunas();
 				this.getTiposVeterinarios();
+				cargarDatos();
 			}
 			
 			
@@ -442,6 +451,17 @@
 					}
 					
         		
+     		}
+     		
+     		public function cargarDatos():void
+     		{ 
+     			confs.getConfiguracioneVacunas();
+     			confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
+     		} 
+     		
+     		public function cargarDatosR(event:ResultEvent):void
+     		{
+     			vacunas = event.result as ArrayCollection; 
      		}
 				
         ]]>

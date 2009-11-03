@@ -50,6 +50,8 @@
 			[Bindable]
 			public var vacunasAdds:Array;
 		   	private var fechaActual:Date = new Date();
+		   	[Bindable]
+		   	public var vacunass:ArrayCollection = new ArrayCollection();
 		   
 		   /**
 		 	 * 	@author  "Jimmy Muñoz"
@@ -79,66 +81,50 @@
 		    		this.labelMessage.text="Seleccione el nombre de un Veterinario para la vacuna.";
 		    	}
 		    	else{
-		    		if(this.costoC.text==""){
-		    			this.labelMessage.text="Ingrese un costo para la vacuna.";
+		    		if(this.fechahoy.text==""){
+		    			this.labelMessage.text="Seleccione una fecha para la vacuna.";
 		    		}
 		    		else{
-		    			if(this.fechahoy.text==""){
-		    				this.labelMessage.text="Seleccione una fecha para la vacuna.";
+		    			if(this.vacunasAdds.length==0){
+		    				this.labelMessage.text="Añada un tipo de vacuna que se haya aplicado a la mascota.";
 		    			}
 		    			else{
-		    				if(this.vacunasAdds.length==0){
-		    					this.labelMessage.text="Añada un tipo de vacuna que se haya aplicado a la mascota.";
-		    				}
-		    				else{
-		    					if(fechaC.selectedDate.getTime()<fechaActual.getTime() || this.fechahoy.text==""){
-						 			if(this.fechahoy.text==""){
-						 				this.labelMessage.text="Seleccione una fecha de caducidad para la vacuna.";
-						 			}
-						 			else{
-						 				labelMessage.text = "Ingrese una fecha de caducidad posterior a la actual";
-						 			} 
-								}else
-								{
-									/*var iDia:String		= fechaIni.selectedDate.getDate().toString();
-									var iMes:String		= (fechaIni.selectedDate.getMonth()+1).toString();
-									var iAnio:String	= fechaIni.selectedDate.getFullYear().toString();
-	 								var inicio:String	= iAnio+"-"+iMes+"-"+iDia;
-	
-					     			mens.text = "";*/
-					     			var date1:Date = new Date();
-					     			
-					     			
-					     			this.labelMessage.text="";
-		    						var newVacuna:Vacuna = new Vacuna();
+		    				if(fechaC.selectedDate.getTime()<fechaActual.getTime() || this.fechahoy.text==""){
+								if(this.fechahoy.text==""){
+									this.labelMessage.text="Seleccione una fecha de caducidad para la vacuna.";
+								}
+								else{
+									labelMessage.text = "Ingrese una fecha de caducidad posterior a la actual";
+								} 
+							}
+							else{	
+					    		this.labelMessage.text="";
+		    					var newVacuna:Vacuna = new Vacuna();
 		    	
-		    						newVacuna.veterinario= this.veterinariosC.text;
-		    						newVacuna.costo = this.costoC.text;
-		    						newVacuna.fechaCaducidad = this.fechaC.selectedDate;
-		    						newVacuna.fecha = this.fechahoy.selectedDate;
-		    						var i:int;
-		    						var largo:int = this.vacunasAdds.length;
-		    						newVacuna.tiposVacunas = new ArrayCollection();
-		    						for(i=0;i<largo;i++){
+		    					newVacuna.veterinario= this.veterinariosC.text;
+		    					newVacuna.fechaCaducidad = this.fechaC.selectedDate;
+		    					newVacuna.fecha = this.fechahoy.selectedDate;
+		    					var i:int;
+		    					var largo:int = this.vacunasAdds.length;
+		    					newVacuna.tiposVacunas = new ArrayCollection();
+		    					for(i=0;i<largo;i++){
 		    						newVacuna.tiposVacunas.addItem(vacunasAdds.pop());
-		    						}
-		    						newVacuna.descripcion = this.descripcionV.text;	
-		    						newVacuna.clienteRut = this.clienteRut.concat(this.clienteRut2);;
-		    						newVacuna.mascotaNombre = this.nombreMascota;
-		    							
-		    						var newAddServ:AddVacunacionService = new AddVacunacionService();
-		    						newAddServ.addVacuna(newVacuna);
-		    						this.setVisible(false,false);
-		    						Application.application.addVacuna1.iniciarPanel1();
-		    						Application.application.addVacuna1.labelMessage.text="Vacuna Registrada con exito.";
-		    						Application.application.addVacuna1.setVisible(true,false);
+		    					}
+		    					newVacuna.descripcion = this.descripcionV.text;	
+		    					newVacuna.clienteRut = this.clienteRut.concat(this.clienteRut2);;
+		    					newVacuna.mascotaNombre = this.nombreMascota;
+		    						
+		    					var newAddServ:AddVacunacionService = new AddVacunacionService();
+		    					newAddServ.addVacuna(newVacuna);
+		    					this.setVisible(false,false);
+		    					Application.application.addVacuna1.iniciarPanel1();
+		    					Application.application.addVacuna1.labelMessage.text="Vacuna Registrada con exito.";
+		    					Application.application.addVacuna1.setVisible(true,false);
 									  
-								}	
-		    				}
-		    					
+							}	
 		    			}
+		    					
 		    		}
-		    		
 		    	}
 		    	
 		    	
@@ -322,7 +308,6 @@
 			 * */ 
 		    public function iniciarPanel():void
 		    {
-		    	this.costoC.text="";
 		    	this.fechaC.text="";
 		    	this.vacunas1.doubleClickEnabled=true;
 		    	this.tiposCir2 = new Array();
@@ -330,6 +315,7 @@
 		    	this.ayudantes2 = new ArrayCollection();
 		    	this.ayudantes3 = new ArrayCollection();
 		    	this.veterinarios2 =new ArrayCollection();
+		    	vacunass = new ArrayCollection();
 		    	this.vacunasAdds =new Array();
 		    	this.descripcionV.text="";
 
@@ -342,14 +328,13 @@
 	<mx:Label x="25" y="173" text="Vacunas:" width="63.4" height="17.931034"/>
 	<mx:Label x="25" y="35" text="Responsable:" width="85.45"/>
 	<mx:Label x="452" y="70" text="Caducidad:" width="77"/>
-	<mx:Label x="452" y="105" text="Costo:" width="63.4"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	
 	<mx:ComboBox x="118.4" y="33" id="veterinariosC" dataProvider="{veterinarios2}" width="190.25"></mx:ComboBox>
+	<mx:DateField x="540" y="33" width="122" id="fechahoy" formatString="DD/MM/YYYY"/>
 	<mx:DateField x="540" y="70" width="122" id="fechaC" formatString="DD/MM/YYYY" change="verificaFecha()"/>
 	<mx:TextArea x="119.5" y="73" width="271.6" height="89" id="descripcionV"/>
-	<mx:TextInput x="540" y="105" width="104" id="costoC" restrict="0-9"/>
-	<mx:TextInput x="540" y="138" width="104" id="nombMasc" editable="false"/>
+	<mx:TextInput x="540" y="105" width="104" id="nombMasc" editable="false"/>
 	
 	<mx:List x="119.5" y="170" width="270" height="175" id="vacunas1" dataProvider="{tiposVac1}"></mx:List>
 	<mx:Button x="397.25" y="216" label="-&gt;" width="47.55" click="guardaVac()"/>
@@ -358,11 +343,12 @@
 	
 	<mx:Button x="522" y="353" label="Registrar" visible="true" id="registrar" click="registrarVacuna()" width="102" height="23"/>
 	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
-	<mx:Label x="452" y="140" text="Mascota:" width="63.95"/>
+	<mx:Label x="452" y="105" text="Mascota:" width="63.95"/>
 	
 	<mx:Label x="25" y="75" text="Descripción:" width="86"/>
 	<mx:Label x="452" y="35" text="Fecha:" width="64.2"/>
-	<mx:DateField x="540" y="33" width="122" id="fechahoy"/>
+	
+	
 	
 	
 	
