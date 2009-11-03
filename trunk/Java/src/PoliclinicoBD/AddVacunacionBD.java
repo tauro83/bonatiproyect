@@ -12,7 +12,7 @@ import java.util.List;
 
 import TransferObjects.Cliente;
 import TransferObjects.ConfiguracionVacuna;
-import TransferObjects.Vacuna;
+import TransferObjects.Vacunacion;
 import TransferObjects.Mascota;
 
 
@@ -42,7 +42,7 @@ public class AddVacunacionBD {
 					"FROM mascota;";			
 			selectAll = connection.prepareStatement(query);
 			
-			query = "SELECT rut, nombre " +
+			query = "SELECT rut, nombre, apaterno, amaterno " +
 					"FROM clientepresencial;";
 			
 			getAllClientes = connection.prepareStatement(query);
@@ -63,7 +63,7 @@ public class AddVacunacionBD {
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
     @SuppressWarnings("deprecation")
-	public int addVacunacion(Vacuna newVacuna, ArrayList<ConfiguracionVacuna> vacunas){
+	public int addVacunacion(Vacunacion newVacuna, ArrayList<ConfiguracionVacuna> vacunas){
     	int result2=0;
     	try{
     		
@@ -133,6 +133,8 @@ public class AddVacunacionBD {
     			if(s.equals(rutCliente)){
     				cliente.setRut(result.getString(1));
     				cliente.setNombre(result.getString(2));
+    				cliente.setApellido(result.getString(3));
+    				cliente.setApellido2(result.getString(4));
     			}
     		}
 		} 

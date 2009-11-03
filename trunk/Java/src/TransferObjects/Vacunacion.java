@@ -3,7 +3,7 @@ package TransferObjects;
 import java.sql.Date;
 import java.util.List;
 
-public class Vacuna {
+public class Vacunacion {
 	private String clienteRut;
 	private String mascotaNombre;
 	private String hora;

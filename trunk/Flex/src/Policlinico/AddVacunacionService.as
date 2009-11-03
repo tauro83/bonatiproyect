@@ -12,7 +12,7 @@ package Policlinico
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
 	
-	import transferObjects.Vacuna;
+	import transferObjects.Vacunacion;
 
 
 	public class AddVacunacionService extends RemoteObject
@@ -50,7 +50,7 @@ package Policlinico
 			 * para almacenarlo en la base de datos. Llamando al metodo correspondiente.
 			 * 	@Param Recibe como parametro un objeto de la clase Usuario, para enviarlo a la capa2. 		
 			 * */
-		public function addVacuna(vacuna:Vacuna):void
+		public function addVacuna(vacuna:Vacunacion):void
 		{
 			this.getOperation("addVacuna").send(vacuna);
 		}

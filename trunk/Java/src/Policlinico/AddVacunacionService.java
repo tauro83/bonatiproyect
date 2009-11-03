@@ -13,7 +13,7 @@ import TransferObjects.Mascota;
 import TransferObjects.Usuario;
 import Bd.DBConnectionManager;
 import ConfiguracionBD.ConfigurarBD;
-import TransferObjects.Vacuna;
+import TransferObjects.Vacunacion;
 
 public class AddVacunacionService {
 	ArrayList<ConfiguracionVacuna> vacc = new ArrayList<ConfiguracionVacuna>();
@@ -30,7 +30,7 @@ public class AddVacunacionService {
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 * @throws SQLException 
 	 */
-	public int AddVacuna(Vacuna nuevaVac) throws SQLException
+	public int AddVacuna(Vacunacion nuevaVac) throws SQLException
     {	
 		getConfiguracionVacuna();
 		/**
@@ -89,6 +89,7 @@ public class AddVacunacionService {
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);
 		vacc = conBD.getConfiguracionesVacunas();
+		connection.close();
 	}
 	
 	/**
