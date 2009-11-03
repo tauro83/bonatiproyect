@@ -7,20 +7,21 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import java.util.List;
 
 import TransferObjects.Cliente;
+import TransferObjects.ConfiguracionVacuna;
 import TransferObjects.Vacuna;
 import TransferObjects.Mascota;
+
 
 
 public class AddVacunacionBD {
 	PreparedStatement add;
 	PreparedStatement selectAll;
 	PreparedStatement getAllClientes;
-	
+	Connection conn;
 	
 	/**
 	 * Constructor de AddCirugiaBD
@@ -28,12 +29,12 @@ public class AddVacunacionBD {
 	 * @param connection Enlace para la conexion a la base de datos
 	 */
 	public AddVacunacionBD(Connection connection){
-		
+		conn = connection;
 		try{
 			
 			String query="";	
 			
-			query = "INSERT INTO Vacuna(vacuna, clienterut, mascotanombre, hora, responsable, fecha, costo, fechacaducidad, descripcion) "+
+			query = "INSERT INTO Vacunacion(vacuna, clienterut, mascotanombre, hora, responsable, fecha, costo, fechacaducidad, descripcion) "+
 					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";			
 			add = connection.prepareStatement(query);
 			
@@ -62,30 +63,31 @@ public class AddVacunacionBD {
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
     @SuppressWarnings("deprecation")
-	public int addCirugia(Vacuna newVacuna){
+	public int addVacunacion(Vacuna newVacuna, ArrayList<ConfiguracionVacuna> vacunas){
     	int result2=0;
     	try{
-
+    		
     		Calendar c = Calendar.getInstance();
     		int hora = c.get(Calendar.HOUR_OF_DAY);
     		int minutos = c.get(Calendar.MINUTE);
     		int segundos = c.get(Calendar.SECOND);
     		
     		Time t = new Time(hora, minutos, segundos);
-			Date fecha = c.getTime();
 			
 			List<String> ltv = newVacuna.getTiposVacunas();
 			int n = ltv.size();
 			for(int i=0;i<n;i++){
-				String tc = ltv.get(i);
-				if(tc != null){
-					add.setString(1, tc);
+				String tipVac = ltv.get(i);
+				
+				if(tipVac != null){
+					String costo = getCosto(tipVac,vacunas);
+					add.setString(1, tipVac);
 					add.setString(2, newVacuna.getClienteRut());
 					add.setString(3, newVacuna.getMascotaNombre());
 					add.setTime(4, t);
 					add.setString(5, newVacuna.getVeterinario());
 					add.setDate(6, newVacuna.getFecha());
-					add.setString(7, newVacuna.getCosto());
+					add.setString(7, costo);
 					add.setDate(8, newVacuna.getFechaCaducidad());
 					add.setString(9, newVacuna.getDescripcion());
 
@@ -99,6 +101,18 @@ public class AddVacunacionBD {
 		}
     	
     	return result2;
+    }
+    
+    public String getCosto(String tc, ArrayList<ConfiguracionVacuna> vacunas){
+    	int largo = vacunas.size();
+    	String costo = "0";
+    	for(int i=0;i<largo;i++){
+    		if(tc.equals(vacunas.get(i).getNombre())){
+    			return vacunas.get(i).getPrecio();
+    		}
+    	}
+    	
+    	return costo;
     }
 	
     

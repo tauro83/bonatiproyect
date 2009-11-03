@@ -8,12 +8,15 @@ import java.util.List;
 import AdministracionBD.UsuarioEditBD;
 import PoliclinicoBD.AddVacunacionBD;
 import TransferObjects.Cliente;
+import TransferObjects.ConfiguracionVacuna;
 import TransferObjects.Mascota;
 import TransferObjects.Usuario;
 import Bd.DBConnectionManager;
+import ConfiguracionBD.ConfigurarBD;
 import TransferObjects.Vacuna;
 
 public class AddVacunacionService {
+	ArrayList<ConfiguracionVacuna> vacc = new ArrayList<ConfiguracionVacuna>();
 	public List<Usuario> persons; //Lista en la cual se almacenan los datos de los usuarios del sistema.
 	/**
 	 * Autor: Jimmy Muñoz
@@ -25,9 +28,11 @@ public class AddVacunacionService {
 	 * se asignan estos valores a la cirugia y son enviados al metodo addCirugia, a traves del objeto de tipo cirugia.
 	 * @param Cirugia, nuevaCir, que representa la cirugia que sera almacenada o registrada en la base de datos.
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
+	 * @throws SQLException 
 	 */
-	public int AddVacuna(Vacuna nuevaVac)
-    {		
+	public int AddVacuna(Vacuna nuevaVac) throws SQLException
+    {	
+		getConfiguracionVacuna();
 		/**
 		 * En este proceso se divide en nombre del veterinario y del ayudante para acceder a la base de
 		 * datos, para en los procesos posteriores procesar dicha informacion 
@@ -66,7 +71,7 @@ public class AddVacunacionService {
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			AddVacunacionBD vacunaBd = new AddVacunacionBD(connection);
-			result = vacunaBd.addCirugia(nuevaVac);		
+			result = vacunaBd.addVacunacion(nuevaVac,vacc);		
 			connection.close();
 		} catch (SQLException e) 
 		{
@@ -75,6 +80,16 @@ public class AddVacunacionService {
 		return result;
     }
 	
+	/**
+	 * @param tipo obtiene las configuraciones que corresponden a las vacunas, desde de 
+	 * la capa ConfiguracionBD
+	 * @return una lista con todas las tuplas del tipo enviado como parametro
+	 */
+	public void getConfiguracionVacuna() throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		ConfigurarBD conBD = new ConfigurarBD(connection);
+		vacc = conBD.getConfiguracionesVacunas();
+	}
 	
 	/**
 	 * Autor: Jimmy Muñoz
