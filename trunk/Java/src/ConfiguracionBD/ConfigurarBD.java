@@ -1,6 +1,7 @@
 /**
  * @author Camilo Verdugo
  * @version 1
+ * Clase que es llamada desde la capa de presentacion, en particular del action Script
  */
 package ConfiguracionBD;
  
@@ -15,11 +16,20 @@ import TransferObjects.ConfiguracionVacuna;
 public class ConfigurarBD {
 	PreparedStatement selectAll;
 	Connection connection;
-
+	
+	/**
+	 * 
+	 * @param connection establece la conexion con la base de datos.
+	 */
 	public ConfigurarBD(Connection connection){
 		this.connection = connection;
 	}
 	
+	/**
+	 * @param tipo es la diferencia entre las distintas configuraciones registradas en el sistema
+	 * las configuraciones pueden ser: Servicio, Especie, Cargo
+	 * @return una lista de configuraciones segun el tipo del argumento
+	 */
 	public ArrayList<Configuracion> getConfiguraciones(String tipo){
 		ArrayList<Configuracion> configuraciones=new ArrayList<Configuracion>();
 		Configuracion conf;
@@ -34,10 +44,7 @@ public class ConfigurarBD {
 		if(tipo.equals("Cargo")){
 			query = "SELECT nombre FROM Cargo";
 		}		
-		else{
-			System.out.println("ninguno!!!!!!!!!!!");
-		}
-		
+				
 		try 
     	{
     		selectAll = connection.prepareStatement(query);
@@ -57,7 +64,9 @@ public class ConfigurarBD {
     	return configuraciones;
 		
 	}
-
+	/**
+	 * @return una lista de configuraciones de vacunas, esta lista es del tipo COnfiguracionVacuna
+	 */
 	public ArrayList<ConfiguracionVacuna> getConfiguracionesVacunas() {
 		ArrayList<ConfiguracionVacuna> configuraciones=new ArrayList<ConfiguracionVacuna>();
 		ConfiguracionVacuna conf;
@@ -86,6 +95,11 @@ public class ConfigurarBD {
     	return configuraciones;
 	}
 	
+	/**
+	 * @param tipo es la diferencia entre las distintas configuraciones registradas en el sistema
+	 * las configuraciones pueden ser: Servicio, Especie, Cargo
+	 * @param nombre es el valor de la configuracion segun el tipo.
+	 */
 	public void regConfiguracion(String tipo, String nombre) throws SQLException
 	{
 		String query = "";
@@ -117,7 +131,11 @@ public class ConfigurarBD {
 		}
 	}
 	
-		
+	/**
+	 * @param tipo es la diferencia entre las distintas configuraciones registradas en el sistema
+	 * las configuraciones pueden ser: Servicio, Especie, Cargo
+	 * @param nombre es el valor de la configuracion segun el tipo.
+	 */
 	public void elimConfiguracion(String tipo, String nombre) throws SQLException
 	{
 		String query = "";
@@ -149,7 +167,9 @@ public class ConfigurarBD {
 		}
 	}
 	
-	
+	/**
+	 * @param nombre es el valor de la vacuna que sera eliminada
+	 */
 	public void elimConfiguracionVacuna(String nombre) throws SQLException
 	{
 		String query = "";
@@ -172,7 +192,10 @@ public class ConfigurarBD {
 		}
 	}
 	
-	
+	/**
+	 * @param cv corresponde a un obtejo que encapsula los datos de una vacuna
+	 * los cuales seran registrados en la base de datos.
+	 */
 	public String regConfiguracionVacuna(ConfiguracionVacuna cv) throws SQLException
 	{
 		String query = "";
