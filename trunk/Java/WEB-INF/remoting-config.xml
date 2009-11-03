@@ -196,5 +196,12 @@
   	 	   <properties>
   			  <source>Administracion.EditarMascotaService</source>
   		   </properties>
-  		</destination>
+  	</destination>
+
+  	<destination id="AddConsultaService">
+		 <properties>
+  			<source>Administracion.AddConsultaService</source> 
+  		</properties>
+  	</destination>
+
 </service>

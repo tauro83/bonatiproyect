@@ -1,16 +1,26 @@
 package TransferObjects;
 
+import java.sql.Date;
+
 public class Consulta {
 	
 	
 private String rut;
+private String rut2; 
+private String nombre;
 private String responsable;
 private String servicio;
 private String fecha;
-private String hora;
 private String costo;
 private String anamnesis;
+private String hora;
 
+public String getNombre() {
+	return nombre;
+}
+public void setNombre(String nombre) {
+	this.nombre = nombre;
+}
 public void setRut(String rut) {
 	this.rut = rut;
 }
@@ -35,12 +45,7 @@ public void setFecha(String fecha) {
 public String getFecha() {
 	return fecha;
 }
-public void setHora(String hora) {
-	this.hora = hora;
-}
-public String getHora() {
-	return hora;
-}
+
 public void setCosto(String costo) {
 	this.costo = costo;
 }
@@ -52,6 +57,18 @@ public void setAnamnesis(String anamnesis) {
 }
 public String getAnamnesis() {
 	return anamnesis;
+}
+public void setRut2(String rut2) {
+	this.rut2 = rut2;
+}
+public String getRut2() {
+	return rut2;
+}
+public void setHora(String hora) {
+	this.hora = hora;
+}
+public String getHora() {
+	return hora;
 }
 
 }
