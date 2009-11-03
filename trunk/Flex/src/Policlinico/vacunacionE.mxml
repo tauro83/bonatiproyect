@@ -19,6 +19,26 @@
 			[Bindable]
 			private var vacunaicones:ArrayCollection;
 			
+			
+			public function iniciar():void
+			{
+				combobox.selectedIndex=0;
+				tablaVacunaciones.dataProvider=null;
+				textBuscar.visible=false;
+				inputNombreCliente.dataProvider=null;
+            	inputNombreMascota.dataProvider=null;
+            	inputRutCliente.dataProvider=null;
+            	inputRaza.dataProvider=null;
+            	inputSexo.dataProvider=null;
+            	inputApellidoPaterno.dataProvider=null;
+            	inputNombreCliente.visible=false;
+            	inputNombreMascota.visible=false;
+            	inputRutCliente.visible=false;
+            	inputRaza.visible=false;
+            	inputSexo.visible=false;
+            	inputApellidoPaterno.visible=false;
+			}
+			
 			/**
 			 * Evento del boton "Volver", el cual redirige la página
 			 * a la estipulada por defecto
