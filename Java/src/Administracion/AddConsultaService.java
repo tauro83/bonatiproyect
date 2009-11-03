@@ -83,11 +83,5 @@ public class AddConsultaService {
 	
     
     
-    /**
-     * 
-     * 
-     * 
-     * **/
-    
 
 }
