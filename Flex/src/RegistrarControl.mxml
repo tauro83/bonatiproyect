@@ -581,6 +581,6 @@
 	</mx:DataGrid>
 	<mx:Button x="659" y="355" label="Cancelar" id="button1" click="volver()"/>
 	<mx:Button x="572" y="355" label="Siguiente" id="registrarNuevoControl" visible="false" click="nuevoControl()"/>
-	<mx:TextInput x="84" y="38" width="218" id="nombreClienteInput"/>
+	<mx:TextInput x="84" y="38" width="210" id="nombreClienteInput"/>
 	
 </mx:Panel>
