@@ -32,7 +32,11 @@
 				{nameT:"Editar Usuario"},
 				{nameT:"Editar Mascota"},
 				{nameT:"Registrar Cirugía"},
-				{nameT:"Registrar Vacunación"}
+				{nameT:"Registrar Vacunación"},				
+				{nameT:"Configuar Servicios"},
+				{nameT:"Configuar Mascotas"},
+				{nameT:"Configuar Usuarios"},
+				{nameT:"Configuar Vacunas"}
 			]);
            	
            	/**
@@ -57,6 +61,10 @@
            		edimasc.visible = false;
            		addCiruAyu.visible = false;
            		addvacuAyu.visible = false;
+           		conMas.visible = false;
+           		conSer.visible = false;
+           		conUsu.visible = false;
+           		conVac.visible = false;
            	}
            	
            	/**
@@ -133,6 +141,18 @@
 					case 'Registrar Vacunación':
 						addvacuAyu.visible = true;
 					break;
+					case "Configuar Servicios":
+						conSer.visible = true;
+					break;
+					case "Configuar Mascotas":
+						conMas.visible = true;
+					break;
+					case "Configuar Usuarios":
+						conUsu.visible = true;
+					break;
+					case "Configuar Vacunas":
+						conVac.visible = true;
+					break;
 				}
            	}
            
@@ -191,5 +211,14 @@
 	</ns1:registrarCirugiaAyuda>
 	<ns1:registrarVacunacionAyu x="345" y="50" id="addvacuAyu" visible="false">
 	</ns1:registrarVacunacionAyu>
+	<ns1:confMascota x="345" y="50" visible="false" id="conMas">
+	</ns1:confMascota>
+	<ns1:confServicios x="345" y="50" visible="false" id="conSer">
+	</ns1:confServicios>
+	<ns1:confUsuarios x="345" y="50" visible="false" id="conUsu">
+	</ns1:confUsuarios>
+	<ns1:confVacunas x="345" y="50" visible="false" id="conVac">
+	</ns1:confVacunas>
+
 
 </mx:TitleWindow>

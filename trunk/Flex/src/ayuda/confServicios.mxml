@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" x="345" y="50" width="375" height="382" >
+
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 2 Noviembre
+			// AUTOR: Camilo Verdugo
+			// Panel de ayuda de configuracion de servicios seleccionables de la clinica
+			//=======================================================================
+			
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha 2 Noviembre
+			 *  @Descripcion Metodo que despliega las imagenes de ayuda para este componente
+			 * */	
+			private function verBarra():void
+			{
+				textAyuda.visible = false;
+				linkBarraPrincipal.visible = false;
+				barra.visible = true;
+				botVolver.visible = true;
+				opcMod.visible = false;
+			}
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  2 Noviembre
+			 *  @Descripcion Metodo que despliega el texto de ayuda
+			 * */
+			private function verOpcMod():void
+			{
+				textAyuda.visible = false;
+				linkBarraPrincipal.visible = false;
+				barra.visible = false;
+				botVolver.visible = true;
+				opcMod.visible = true;
+			}
+			/**
+		 	 * 	@author  "Camilo Verdugo"
+			 * 	@Fecha  2 Noviembre
+			 *  @Descripcion Metodo que retorna el panel de carga de la imagen, a la informacion de ayuda
+			 * */
+			private function volver2():void
+			{
+				textAyuda.visible = true;
+				linkBarraPrincipal.visible = true;
+				opcMod.visible = false;
+				botVolver.visible = false;
+				barra.visible = false;
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:Text x="10" y="10" text="Configurar servicios&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir al sub menú y seleccionar configuración &#xa;&#xa;&#x9;3. Seleccionar Servicios&#xa;&#xa;Registrar nuevo servicio&#xa;&#x9;&#xa;&#x9;1. Ingresar el servicio&#xa;&#x9;&#xa;&#x9;2. Seleccionar registrar&#xa;&#xa;Eliminar servicio&#xa;&#x9;&#xa;&#x9;1. Seleccionar el servicio del listado&#xa;&#xa;&#x9;2. Seleccionar eliminar" width="355" height="332" id="textAyuda"/>
+	<mx:LinkButton x="177" y="34" label="Administración" id="linkBarraPrincipal" click="verBarra()" color="blue" width="106"/>
+	<mx:Image   id="barra" visible="false" x="94" y="137">
+		<mx:source>../Images Ayuda/Administracion.png</mx:source>
+	</mx:Image>
+	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
+	<mx:Image   id="opcMod" visible="false" x="72" y="85">
+		<mx:source>../Images Ayuda/subMenuUsuario.png</mx:source>
+	</mx:Image>	
+</mx:Canvas>
