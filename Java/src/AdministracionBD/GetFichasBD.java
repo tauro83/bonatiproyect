@@ -73,12 +73,7 @@ public class GetFichasBD {
     	
     	String query = "SELECT rut, nombre,fechanacimiento,claseanimal,raza,sexo,estado FROM mascota";
 		
-		
-    	
-    	//mas = new Mascota3();
-    	//mas.setNombre("aaa");
-    	//mascotas.add(mas);
-    	try 
+	   	try 
     	{
     		selectAll = connection.prepareStatement(query);
 			ResultSet result = selectAll.executeQuery();
@@ -118,12 +113,8 @@ public class GetFichasBD {
     {
     	List<Atencion> atenciones = new ArrayList<Atencion>();
     	Atencion at;
-    	//String query = "SELECT clienterut, mascotaNombre,servicio,hora,fecha,costo FROM atencion";
     	String query = "SELECT clienterut, mascotaNombre,servicio,hora,fecha,costo FROM atencion" +
     			" WHERE mascotaNombre='"+nombre.trim()+"'";
-    	//String query = "SELECT clienterut, mascotaNombre,servicio,hora,fecha,costo FROM atencion" +
-    	//		" WHERE clienterut='"+rut.trim()+"' AND mascotaNombre='"+nombre.trim()+"';";
-		
     	try 
     	{
     		selectAll = connection.prepareStatement(query);
@@ -131,8 +122,6 @@ public class GetFichasBD {
     		while(result.next())
     		{
     			at = new Atencion();
-    			//at.setCosto("1111");
-    			//at.setHora("sss");
     			at.setClienteRut(result.getString(1));
     			at.setMascotaNombre(result.getString(2));
     			at.setServicio(result.getString(3));
