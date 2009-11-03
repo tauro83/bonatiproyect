@@ -1,5 +1,5 @@
-create table Vacuna(
-	vacuna CHAR(30) not null,
+create table Vacunacion(
+	vacuna CHAR(30) not null references vacuna(Nombre),
 	clienteRut CHAR(9) not null references ClientePresencial(rut) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
 	mascotaNombre CHAR(50) not null,
 	hora time not null,
