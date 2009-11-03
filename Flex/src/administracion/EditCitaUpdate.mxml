@@ -241,7 +241,7 @@
 				}
 				
 				horasLibres  = new ArrayCollection();
-				Alert.show("Entro 2");
+				
 				if(!horasOcupadas.contains("10:30")){horasLibres.addItem({label:"10:30"});}
 				if(!horasOcupadas.contains("11:00")){horasLibres.addItem({label:"11:00"});}
 				if(!horasOcupadas.contains("11:30")){horasLibres.addItem({label:"11:30"});}
