@@ -92,7 +92,7 @@ package services
 				
 		/**
 		 * @param cv objeto que registra una vacuna 
-		 */			
+		 */			 
 		public function regConfiguracionVacuna(cv:ConfiguracionVacuna):void
 		{
 			this.getOperation("regConfiguracionVacuna").send(cv);
