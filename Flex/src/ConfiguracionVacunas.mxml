@@ -90,11 +90,7 @@
 				ltexto.text = "Vacuna registrada exitosamente";	
 					
 			}
-			/**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion elimina la configuracion seleccionada del data grid
-			 * */
+			
 			private function eliminarNombre(event:Event):void
 			{
 				confs.elimConfiguracionVacuna(especieInput.text);
