@@ -401,13 +401,13 @@
    			
    			private function deleteCitaResult(event:ResultEvent):void{
 				var result:int = event.result as int ;
-				if(result!=0)
+				if(result < 1)
 				{
-				   labelMessage.text="Cita Eliminada!";
+				   labelMessage.text="Cita Eliminada";
 				   //getAllMascotas();
 				}
 				else
-				   labelMessage.text="Error en Eliminar Cita, inténtelo más tarde";
+				   labelMessage.text="Error en Eliminar Cita";
 			}
 
 			////////////////////////////////////TERMINA ELIMINAR CITA///////////////////////
