@@ -30,7 +30,7 @@
 		
 		 ]]>
  	</mx:Script>	
-	<mx:DataGrid id="bs" x="10" y="10" width="739" height="406" dataProvider="{bitacoras}" selectable="false">
+	<mx:DataGrid id="bs" x="25" y="10" width="711" height="376" dataProvider="{bitacoras}" selectable="false">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Usuario" dataField="usuario"/>
 			<mx:DataGridColumn headerText="Acción" dataField="accion"/>
