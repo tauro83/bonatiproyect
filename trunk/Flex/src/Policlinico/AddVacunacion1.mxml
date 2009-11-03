@@ -40,6 +40,8 @@
 			private var clientes:ArrayCollection;
 			[Bindable]
 			private var cliente2:ArrayCollection;
+			[Bindable]
+			public var edita:Boolean;
 		    
 		    /**
 			* Lista de amscotas del cliente asociado
@@ -134,7 +136,7 @@
         			
         		}
         		else{
-        			this.inputClienteNombre.text = clienteBD.nombre;
+        			this.inputClienteNombre.text = clienteBD.apellido.split(" ",1).pop()+" "+clienteBD.apellido2.split(" ",1).pop()+" "+clienteBD.nombre.split(" ",1).pop();
         			labelMessage.text = "Se ha accedido al cliente "+clienteBD.nombre;
         			ini();
         		}
@@ -148,8 +150,7 @@
 			* @param event Evento
 			*/
 	        private function ini():void{
-	        	//datosMascota.visible = true;
-	        	
+	        	this.edita = false;
 	           	mascotas.removeAll();
 	           	getMascotas();
 				mascotas.refresh();
@@ -287,6 +288,7 @@
 			*/
 			public function iniciarPanel():void
 			{
+				edita=true;
 				cargarDatos();
 				this.getTiposVacunas();
 				this.getTiposVeterinarios();
@@ -320,9 +322,16 @@
 			 */
 		   public function getAllClientes():void
 		   {
-		   		var busquedaService:BusquedaService = new BusquedaService();
-		   		busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
-				busquedaService.getAllClientes();
+		   		if(edita){
+		   			this.labelMessage.text="";
+		   			var busquedaService:BusquedaService = new BusquedaService();
+		   			busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
+					busquedaService.getAllClientes();
+		   		}
+		   		else{
+		   			this.labelMessage.text="Para busqueda por apellido, doble click sobre barra de apellido.";
+		   		}
+		   		
 		   }
 		   
 		   /**
@@ -369,16 +378,13 @@
 		   {
 		   		this.labelMessage.text="";
 		   		var nombre:String = inputClienteNombre.text;
-		   		if(inputClienteNombre.text != "" || inputClienteNombre.selectedLabel != ""){
+		   		if(inputClienteNombre.text != ""){
 		   			var largo:int = cliente2.length;
 		   			var i:int;
 		   			var sss:Array;
-		   			if(inputClienteNombre.selectedLabel != ""){
-		   				sss = inputClienteNombre.selectedLabel.split(" ",3);
-		   			}
-		   			else{
-		   				sss = inputClienteNombre.text.split(" ",3);
-		   			}
+		   			
+		   			sss = inputClienteNombre.text.split(" ",3);
+
 		   			
 		   			/**
 		   			 * obtiene los datos de la division del nombre seleccionado.
@@ -453,23 +459,56 @@
         		
      		}
      		
+     		/**
+		   	*   @author  "Jimmy Muñoz"
+			* 	@Fecha  02 Noviembre
+		   	* Metodo que obtiene las vacunas desde la base de datos. Desde la clase configuracionServices.
+			*/
      		public function cargarDatos():void
      		{ 
      			confs.getConfiguracioneVacunas();
      			confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
      		} 
      		
+     		/**
+		   	*   @author  "Jimmy Muñoz"
+			* 	@Fecha  02 Noviembre
+		   	* Metodo que obtiene obtiene el resultado del metodo anterior, que son las vacunas 
+		   	 * que se han registrado en el sistema.
+			*/
      		public function cargarDatosR(event:ResultEvent):void
      		{
      			vacunas = event.result as ArrayCollection; 
      		}
-				
+     		
+     		/**
+		   	*   @author  "Jimmy Muñoz"
+			* 	@Fecha  02 Noviembre
+		   	* Metodo que retorna al panel principal de clinica.
+			*/
+     		public function vuelve():void
+     		{
+     			this.setVisible(false,false);
+     			Application.application.panelClinicaPrincipal.setVisible(true,false);
+     		}
+			
+			/**
+		   	*   @author  "Jimmy Muñoz"
+			* 	@Fecha  02 Noviembre
+		   	* Metodo que permite, que la busqueda se realice mediante el ingreso del apellido.
+			*/
+			public function permite():void
+     		{
+     			edita = true;
+     			this.inputClienteNombre.editable = true;
+     		}
+     		
         ]]>
     </mx:Script>
 	
 	<mx:Label x="330" y="38" text="Rut:" width="32"/>
 	<mx:Label x="460.25" y="38" text="-" width="14.75" textAlign="center"/>
-	<fc:AutoComplete id="inputClienteNombre" x="90" y="38" width="150" dataProvider="{clientes}" labelField="nombre" visible="true" click="getAllClientes()" focusOut="buscarCliente2()"/>
+	<fc:AutoComplete id="inputClienteNombre" x="90" y="38" width="210" dataProvider="{clientes}" labelField="nombre" visible="true" click="getAllClientes()" focusOut="buscarCliente2()" doubleClick="permite()"/>
 	<mx:TextInput  restrict="0-9" x="370" y="38" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
 	<mx:TextInput x="471.75" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	
@@ -503,7 +542,7 @@
 	    </mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="522" y="353" label="Visualizar" visible="true" id="registrar" click="regVacu()" width="102" height="23"/>
-	<mx:Button x="632" y="353" label="Cancelar" width="103" id="cancelar" visible="true" height="23"/>
+	<mx:Button x="632" y="353" label="Volver" width="103" id="cancelar" visible="true" height="23" click="vuelve()"/>
 	
 	<mx:Label x="25" y="65" text="Mascotas:" width="112.75" fontWeight="bold"/>
 	<mx:Label x="25" y="38" text="Apellido:" width="64"/>

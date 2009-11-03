@@ -1,12 +1,16 @@
+/**
+ * @Author Jimmy Muñoz
+ * @Version 1
+*/
 package transferObjects
 {
 	import mx.collections.ArrayCollection;
 	
 	
 	[Bindable]
-    [RemoteClass(alias="TransferObjects.Vacuna")]
+    [RemoteClass(alias="TransferObjects.Vacunacion")]
     
-	public class Vacuna
+	public class Vacunacion
 	{
 		public var clienteRut:String;
 		public var mascotaNombre:String;

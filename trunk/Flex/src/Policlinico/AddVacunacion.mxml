@@ -3,7 +3,7 @@
 	<mx:Script>
         <![CDATA[
         	import mx.events.CalendarLayoutChangeEvent;
-        	import transferObjects.Vacuna;
+        	import transferObjects.Vacunacion;
         	import mx.collections.Sort;
         	import transferObjects.tiposCir;
         	import services.AddMascotaService;
@@ -99,7 +99,7 @@
 							}
 							else{	
 					    		this.labelMessage.text="";
-		    					var newVacuna:Vacuna = new Vacuna();
+		    					var newVacuna:Vacunacion = new Vacunacion();
 		    	
 		    					newVacuna.veterinario= this.veterinariosC.text;
 		    					newVacuna.fechaCaducidad = this.fechaC.selectedDate;
@@ -118,7 +118,7 @@
 		    					newAddServ.addVacuna(newVacuna);
 		    					this.setVisible(false,false);
 		    					Application.application.addVacuna1.iniciarPanel1();
-		    					Application.application.addVacuna1.labelMessage.text="Vacuna Registrada con exito.";
+		    					Application.application.addVacuna1.labelMessage.text="Vacunación Registrada con éxito.";
 		    					Application.application.addVacuna1.setVisible(true,false);
 									  
 							}	
@@ -308,7 +308,9 @@
 			 * */ 
 		    public function iniciarPanel():void
 		    {
+		    	this.labelMessage.text="";
 		    	this.fechaC.text="";
+		    	this.fechahoy.text="";
 		    	this.vacunas1.doubleClickEnabled=true;
 		    	this.tiposCir2 = new Array();
 		    	this.tiposVac1 = new Array();
@@ -324,17 +326,17 @@
 				
         ]]>
     </mx:Script>
-	<mx:Label x="25" y="10" text="Vacuna:" width="110" fontWeight="bold"/>
 	<mx:Label x="25" y="173" text="Vacunas:" width="63.4" height="17.931034"/>
-	<mx:Label x="25" y="35" text="Responsable:" width="85.45"/>
-	<mx:Label x="452" y="70" text="Caducidad:" width="77"/>
+	<mx:Label x="25" y="15" text="Responsable:" width="85.45"/>
+	<mx:Label x="452" y="50" text="Caducidad:" width="77"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	
-	<mx:ComboBox x="118.4" y="33" id="veterinariosC" dataProvider="{veterinarios2}" width="190.25"></mx:ComboBox>
-	<mx:DateField x="540" y="33" width="122" id="fechahoy" formatString="DD/MM/YYYY"/>
-	<mx:DateField x="540" y="70" width="122" id="fechaC" formatString="DD/MM/YYYY" change="verificaFecha()"/>
-	<mx:TextArea x="119.5" y="73" width="271.6" height="89" id="descripcionV"/>
-	<mx:TextInput x="540" y="105" width="104" id="nombMasc" editable="false"/>
+	<mx:ComboBox x="118.4" y="15" id="veterinariosC" dataProvider="{veterinarios2}" width="190.25"></mx:ComboBox>
+	<mx:DateField x="540" y="15" width="122" id="fechahoy" formatString="DD/MM/YYYY"/>
+	<mx:DateField x="540" y="50" width="122" id="fechaC" formatString="DD/MM/YYYY" change="verificaFecha()"/>
+	<mx:TextArea x="119.5" y="50" width="271.6" height="112" id="descripcionV" maxChars="200">
+	</mx:TextArea>
+	<mx:TextInput x="540" y="85" width="104" id="nombMasc" editable="false"/>
 	
 	<mx:List x="119.5" y="170" width="270" height="175" id="vacunas1" dataProvider="{tiposVac1}"></mx:List>
 	<mx:Button x="397.25" y="216" label="-&gt;" width="47.55" click="guardaVac()"/>
@@ -343,10 +345,10 @@
 	
 	<mx:Button x="522" y="353" label="Registrar" visible="true" id="registrar" click="registrarVacuna()" width="102" height="23"/>
 	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
-	<mx:Label x="452" y="105" text="Mascota:" width="63.95"/>
+	<mx:Label x="452" y="85" text="Mascota:" width="63.95"/>
 	
-	<mx:Label x="25" y="75" text="Descripción:" width="86"/>
-	<mx:Label x="452" y="35" text="Fecha:" width="64.2"/>
+	<mx:Label x="25" y="50" text="Descripción:" width="86"/>
+	<mx:Label x="452" y="15" text="Fecha:" width="64.2"/>
 	
 	
 	
