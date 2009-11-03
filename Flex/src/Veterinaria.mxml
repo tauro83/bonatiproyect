@@ -249,6 +249,11 @@
 		 		AdEditarMascota3.setVisible(false,false);
 		    	AdEditarMascota2.setVisible(false, false);   
 		 		<!--Autor: }Cristian -->   
+
+		 	<!--Autor: Nicolas{ -->
+		    	rConsulta.setVisible(false,false);
+		    	rConsulta2.setVisible(false, false);
+		 	<!--Autor: }Nicolas -->
 			
 		 		
             }
@@ -551,6 +556,10 @@
 	</ns1:VisualizarPreoperatorio>
       <ns1:PurgarPreOperatorio x="241" y="134" id="purgarPre" visible="false" borderColor="#15AD8F">
 	</ns1:PurgarPreOperatorio>
+	<ns1:RegistrarConsulta x="241" y="134" id="rConsulta" visible="false" borderColor="#15AD8F">
+	</ns1:RegistrarConsulta>
+	<ns1:RegistrarConsulta2 x="241" y="134" id="rConsulta2" visible="false" borderColor="#15AD8F">
+	</ns1:RegistrarConsulta2>
 	
 	<!--Autor: }nicolas-->
 	
