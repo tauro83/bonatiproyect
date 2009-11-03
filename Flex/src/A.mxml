@@ -8,8 +8,7 @@
             import mx.controls.Text;
            
         ]]>
-    </mx:Script>
-     
+    </mx:Script>     
      
         
          <mx:Text width="100%" color="#0B0A0A" textAlign="center"
