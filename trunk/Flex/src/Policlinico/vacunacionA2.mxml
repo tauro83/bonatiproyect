@@ -97,7 +97,7 @@
                         i=-1;
                     }   
                 }
-                motivo.text=" ";
+                motivo.text="";
                 barraMsj.text="Vacunacion(es) anulada(s)";              
             }
 			
@@ -125,12 +125,27 @@
          		mRaz.text=vacu.raza;
          		mSex.text=vacu.sexo;
          	}
+         	
+         	/**
+			 * Se seleccionan todas las vacunaciones existentes
+			 * en el grid
+			 */
+         	private function selectAll():void{
+                var allRows:int = vacunaciones.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        vacunaciones[i].sel = true;
+                    else
+                        vacunaciones[i].sel = false;
+                }
+                tablaVacunaciones.dataProvider = vacunaciones;
+            }
            	
 		]]>
 	</mx:Script>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid x="10" y="152" width="739" height="160" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
+	<mx:DataGrid x="25" y="178" width="709" height="134" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
 			 	<mx:itemRenderer>
@@ -147,27 +162,29 @@
 			<mx:DataGridColumn width="99" headerText="Fecha" dataField="fechaVacu" id="fechaVacu" draggable="false"/>
 		</mx:columns>
 	</mx:DataGrid>
+	<mx:CheckBox x="25" y="152" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
+	<mx:Label x="47" y="152" text="Seleccionar todo"/>
 	
 	<!-- Elementos -->
-	<mx:Button x="647" y="350" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
-	<mx:Label x="24" y="36" text="Nombre:" width="78"/>
-	<mx:Label x="10" y="9.95" text="Cliente" width="97" fontWeight="bold"/>
-	<mx:Label x="393" y="9.95" text="Mascota" width="98" fontWeight="bold"/>
-	<mx:Label x="24" y="87.95" text="Rut:" width="78"/>
+	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
+	<mx:Label x="25" y="35" text="Nombre:" width="78"/>
+	<mx:Label x="25" y="10" text="Cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="407" y="10" text="Mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="25" y="87.95" text="Rut:" width="78"/>
 	<mx:Label x="407" y="87.95" text="Sexo:" width="78"/>
 	<mx:Label x="407" y="36" text="Nombre:" width="63.4" height="17.931034"/>
-	<mx:Label x="24" y="62" text="Apellido Paterno:" width="103"/>
+	<mx:Label x="25" y="62" text="Apellido Paterno:" width="103"/>
 	<mx:Label x="407" y="61.9" text="Raza:" width="78"/>
-	<mx:Text x="10" y="124" text="Atenciones Vacunaciones&#xd;&#xa;" fontWeight="bold" height="20"/>
-	<mx:Text x="135" y="62" id="cApP" width="150"/>
-	<mx:Text x="135" y="36" id="cNom" width="150"/>
-	<mx:Text x="135" y="87.95" id="cRut" width="150"/>
+	<mx:Text x="25" y="124" text="Vacunaciones&#xa;" fontWeight="bold" height="20"/>
+	<mx:Text x="136" y="62" id="cApP" width="150"/>
+	<mx:Text x="136" y="35" id="cNom" width="150"/>
+	<mx:Text x="136" y="87.95" id="cRut" width="150"/>
 	<mx:Text x="478.4" y="36" id="mNom" width="150"/>
 	<mx:Text x="478.4" y="61.9" id="mRaz" width="150"/>
 	<mx:Text x="478.4" y="87.95" id="mSex" width="150"/>
-	<mx:Button x="523" y="350" label="Anular" click="{deleteRow()}" cornerRadius="6" width="102"/>
-	<mx:TextInput x="61" y="320" width="688" id="motivo" toolTip="Ingrese el motivo por el cual desea anular la(s) vacunacion(es)"/>
-	<mx:Text x="10" y="322" text="Motivo" fontWeight="bold"/>
-	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="169" y="390"/>
+	<mx:Button x="522" y="354" label="Anular" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula la(s) vacunacion(es) seleccionada(s)"/>
+	<mx:TextInput x="76" y="320" width="658" id="motivo" toolTip="Ingrese el motivo por el cual desea anular la(s) vacunacion(es)"/>
+	<mx:Text x="25" y="322" text="Motivo" fontWeight="bold"/>
+	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
 	
 </mx:Panel>
