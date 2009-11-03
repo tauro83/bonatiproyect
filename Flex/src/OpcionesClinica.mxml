@@ -71,7 +71,7 @@
 			public function verRegistrarConsulta():void{
 				Application.application.setInvisible();
 				this.visible = true;
-				Application.application.editConsulta.visible = true;	
+				Application.application.rConsulta.visible = true;	
 			}
 			
 			public function editarVacunacion():void{
