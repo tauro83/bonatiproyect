@@ -203,5 +203,11 @@
   			<source>Administracion.AddConsultaService</source> 
   		</properties>
   	</destination>
+  	
+  	<destination id="DeleteControl">
+		 <properties>
+  			<source>Policlinico.DeleteControl</source> 
+  		</properties>
+  	</destination>
 
 </service>
