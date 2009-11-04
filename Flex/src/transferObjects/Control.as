@@ -25,7 +25,7 @@ package transferObjects
 		public var responsable:String;
 		//Costo del control
 		public var costo:String;
-		//Servicio
+		//Servicio al que esta asociado el control que por defecto es "POLICLINICO"
 		public var servicio:String;
 	}
 }
