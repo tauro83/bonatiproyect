@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Calendar;
-
+import java.sql.Date;
 import java.util.List;
 
 import TransferObjects.Cliente;
@@ -22,6 +22,7 @@ public class AddVacunacionBD {
 	PreparedStatement selectAll;
 	PreparedStatement getAllClientes;
 	Connection conn;
+	public int caduci=0;;
 	
 	/**
 	 * Constructor de AddCirugiaBD
@@ -81,6 +82,7 @@ public class AddVacunacionBD {
 				
 				if(tipVac != null){
 					String costo = getCosto(tipVac,vacunas);
+					Date fecha = this.getFechaCaducidad(newVacuna.getFecha());
 					add.setString(1, tipVac);
 					add.setString(2, newVacuna.getClienteRut());
 					add.setString(3, newVacuna.getMascotaNombre());
@@ -88,7 +90,7 @@ public class AddVacunacionBD {
 					add.setString(5, newVacuna.getVeterinario());
 					add.setDate(6, newVacuna.getFecha());
 					add.setString(7, costo);
-					add.setDate(8, newVacuna.getFechaCaducidad());
+					add.setDate(8, fecha);
 					add.setString(9, newVacuna.getDescripcion());
 
 					result2= add.executeUpdate();
@@ -103,16 +105,47 @@ public class AddVacunacionBD {
     	return result2;
     }
     
+    /**
+	 * Autor: Jimmy Muñoz
+	 * Metodo que obtiene el costo que tiene una determinada vacuna. Y asigna el valor de caducidad 
+	 * para posteriormente generar el date que se almacenara.
+	 * @param tc: el nombre de la vacuna que se quiere registrar. vacunas: listado de vacunas 
+	 * registradas en el sistema.
+	 * @return El costo de la vacuna, en formato String.
+	 */
     public String getCosto(String tc, ArrayList<ConfiguracionVacuna> vacunas){
     	int largo = vacunas.size();
     	String costo = "0";
     	for(int i=0;i<largo;i++){
     		if(tc.equals(vacunas.get(i).getNombre())){
+    			this.caduci = (int)Integer.parseInt(vacunas.get(i).getCaducidad());
     			return vacunas.get(i).getPrecio();
     		}
     	}
     	
     	return costo;
+    }
+    
+    /**
+	 * Autor: Jimmy Muñoz
+	 * Metodo que genera la fecha de caducidad, que corresponde a cada vacuna.
+	 * @param 
+	 * @return 
+	 */
+    @SuppressWarnings("deprecation")
+	public Date getFechaCaducidad(Date fechaHoy){
+    	int mes = fechaHoy.getMonth();
+    	int dia = fechaHoy.getDate();
+    	int anhio = fechaHoy.getYear();
+
+    	int nuevoMes = mes+caduci;
+    	
+    	mes = nuevoMes%12;
+    	nuevoMes = nuevoMes/12;
+    	anhio = anhio + nuevoMes;
+
+    	Date fechaCaducidad = new Date(anhio,mes,dia);
+    	return fechaCaducidad;
     }
 	
     
