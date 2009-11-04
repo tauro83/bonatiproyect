@@ -1,0 +1,211 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" activate="getAllDatos()" layout="absolute" 
+	width="779" height="466" borderColor="#15AD8F" title="Anular Control Agendado" x="241" y="133" 
+	xmlns:fc="http://www.adobe.com/2006/fc">
+	<mx:Script>
+		<![CDATA[
+		
+			//=======================================================================
+			// FECHA: CREACIÓN: 27 Octubre
+			// AUTOR: Andres Garrido
+			// Comentarios: Muestra datos de la mascota con sus respectivas atenciones
+			// en post-operatorio
+			//=======================================================================
+
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Control;
+			import mx.rpc.events.ResultEvent;
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.core.Application;
+			import mx.formatters.DateFormatter;
+			
+			[Bindable]
+			private var controles:ArrayCollection;
+			[Bindable]
+			private var atrib:String;
+			
+			/**
+			 * Obtiene los datos de las atenciones que están 
+			 * registradas en la base de datos
+			 * 
+			 */
+			private function getAllDatos():void
+			{
+				var getAll:GetAllControles = new GetAllControles();
+				getAll.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+				getAll.getAllControles();
+			}	
+			/**
+			 * Oyente para la funcion getAllDatos()
+			 * el resultado del evento lo interpreta como una lista de datos
+			 * en donde cada elemento corresponde a un Control de la clinica
+			 * luego se guarda cada uno de estos daos
+			 */
+		    private function getAllDatosResult(event:ResultEvent):void
+			{
+				controles = new ArrayCollection;
+				var lista:ArrayCollection = event.result as ArrayCollection;
+				var i:int;
+				
+				for(i=0;i<lista.length;i++){
+					
+					var control:Control = lista.getItemAt(i) as Control;
+					controles.addItem(control);
+				}
+			}
+			/**
+			 * Es llamada al hacer doble click en el datagrid o al presionar el 
+			 * botón Anular, al hacer esto llama a la clase DeleteControl
+			 * quien es la encargada de borrar un control de la BD 
+			 */
+			public function eliminarAtencion():void{
+				if(Tabla.selectedItem!=null){
+					var control:Control = controles.getItemAt(Tabla.selectedIndex) as Control;
+					var deleteControl:DeleteControl = new DeleteControl();
+					deleteControl.addEventListener(ResultEvent.RESULT,deleteControlResult);
+					deleteControl.deleteControl(control.hora, control.fecha, control.responsable);
+				}
+				else{
+					mens.text="Debe primero seleccionar un elemento";
+				}
+				
+			}
+			/**
+			 * Oyente para la funcion eliminarAtencion()
+			 * toma el resultado de la ejecucion del borrado en la base de datos
+			 * y lo evalua para informar al usuario lo sucedido
+			 * si la variable es distinta de cero el resultado fue exitoso
+			 * la variable es cero en caso contrario
+			 */
+			private function deleteControlResult(event:ResultEvent):void{
+				var result:int = event.result as int ;
+				if(result!=0)
+				{
+				   mens.text="Control anulado!";
+				   getAllDatos();
+				}
+				else
+				   mens.text="Error al anular el control, inténtelo más tarde";
+			}
+			/**
+			 * Al cancelar la operación se muestra un panel que solo tiene el 
+			 * mensaje "seleccione una opcion del menú"
+			 * 
+			 */
+			private function cancelando():void
+			{
+				this.setVisible(false,false);
+				Application.application.panelClinicaPrincipal.setVisible(true,false);
+			
+			}
+			/**
+			 *Cambia el formato de la fecha para una mejor lectura del datagrid
+			 */
+			
+			private function doLabel(item:Object, column:DataGridColumn):String {
+				var dateFormatted:DateFormatter = new DateFormatter();
+				dateFormatted.formatString = "DD-MM-YYYY";
+				var rawDate:Date = new Date(item[column.dataField]);
+				return dateFormatted.format(rawDate) as String;
+			}
+			/**
+			 *Cambia el formato de la fecha para una mejor lectura del autocomplete
+			 */
+			
+			private function doLabel2(item:Object):String {
+				if(comboBox.selectedItem.label=='Fecha Control'){
+					var dateFormatted:DateFormatter = new DateFormatter();
+					dateFormatted.formatString = "DD-MM-YYYY";
+					var rawDate:Date = new Date(item);
+					return dateFormatted.format(rawDate) as String;
+				}
+				return item as String;
+				
+			}
+			/**
+			 *  Corrige error de seleccionar el primero
+			 * */
+		    public function Seleccionar(event:Event):void
+			{
+			    if(input.selectedIndex==0)
+			    {
+			    	input.text=input.selectedLabel;
+			    }
+			}
+			/**
+			 * Determina qué atributo es el que se debe filtrar para
+			 * las búsquedas con el auto complete
+			 */
+			public function setAtrib():void{				
+				switch(comboBox.selectedItem.label){
+					case 'Nombre Mascota':
+						atrib='mascota';
+						break;
+					case 'Descripción':
+						atrib='descripcion';
+						break;
+					case 'Fecha Control':
+						atrib='fecha';
+						break;
+					case 'Hora':
+						atrib='hora';
+						break;
+					case 'Servicio':
+						atrib='servicio';
+						break;
+					case 'Responsable':
+						atrib='responsable';
+						break;
+				}
+				
+			}
+
+			
+		]]>
+	</mx:Script>
+	
+	
+	
+	
+	<mx:ComboBox x="379" y="10" width="169" id="comboBox" change="setAtrib()" >
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="Nombre Mascota"/> 
+			<mx:Object label="Descripción"/>
+			<mx:Object label="Fecha Control"/> 
+			<mx:Object label="Hora"/> 
+			<mx:Object label="Servicio"/> 
+			<mx:Object label="Responsable"/> 
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	
+
+	<fc:AutoComplete id="input" dataProvider="{controles}" labelField="{atrib}" close="Seleccionar(event)" x="59" y="10" width="246" />
+	
+	<mx:DataGrid x="10" y="52" width="739" id="Tabla" enabled="true" height="278" dataProvider="{controles}" itemDoubleClick="eliminarAtencion()">
+		<mx:toolTip>Controles agendados en la veterinaria</mx:toolTip>
+		<mx:columns>
+			<mx:DataGridColumn headerText="Mascota" dataField="mascota" width="70"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="fecha" width="100" labelFunction="doLabel"/>
+			<mx:DataGridColumn headerText="Hora" dataField="hora" width="70"/>
+			<mx:DataGridColumn headerText="Servicio" dataField="servicio" width="100"/>
+			<mx:DataGridColumn headerText="Costo($)" dataField="costo" width="70"/>
+			<mx:DataGridColumn headerText="Responsable" dataField="responsable" width="85"/>
+			
+	     </mx:columns>
+	</mx:DataGrid>
+	<mx:Button label="Anular" id="eliminar" height="23" width="102" x="537" y="338" click="eliminarAtencion()" cornerRadius="6" toolTip="Anula el control seleccionado" enabled="true"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+	<mx:Button x="647" y="338" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6" toolTip="Regresa al panel anterior"/>
+	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
+	<mx:Text x="313" y="12" id="textFiltrar" text="Filtrar por"/>
+	
+
+
+	
+</mx:Panel>
