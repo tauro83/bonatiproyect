@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TransferObjects.Control;
-import TransferObjects.Mascota;
 
 /**
  * @author Andres Garrido
@@ -33,7 +32,16 @@ public class GetAllControlesBD {
     		while(result.next())
     		{
     			object = new Control();
-    			object.setDescripcion(result.getString(1));
+    			object.setCliente(result.getString(1).trim());
+    			object.setMascota(result.getString(2).trim());
+    			object.setDescripcion(result.getString(3).trim());
+    			object.setFecha(result.getDate(4));
+    			object.setHora(result.getString(5).trim());
+    			object.setResponsable(result.getString(6).trim());
+    			object.setServicio(result.getString(7).trim());
+    			object.setCosto(result.getString(8).trim());
+    			
+    	
     			mascotas.add(object);
     		}
 		} 
