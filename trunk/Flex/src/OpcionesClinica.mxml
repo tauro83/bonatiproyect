@@ -105,7 +105,14 @@
 				Application.application.registroControl.visible = true;	
 				Application.application.registroControl.iniciar();
 			}
-
+			public function verEditarControl():void{
+				//falta implementar
+			}
+			public function verAnularControl():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.purgControl.visible = true;
+			}
 		]]>
 	</mx:Script>
 	
@@ -143,6 +150,8 @@
 				</mx:Canvas>
 				<mx:Canvas label="Control" width="100%" height="100%">
 						<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="verRegistrarControl()"/>
+						<mx:LinkButton x="50" y="40" label="Editar" textAlign="left" click="verEditarControl()"/>
+						<mx:LinkButton x="50" y="70" label="Anular" textAlign="left" click="verAnularControl()"/>
 				</mx:Canvas>
 		</mx:Accordion>
 		</mx:Canvas>

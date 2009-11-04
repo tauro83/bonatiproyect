@@ -545,8 +545,8 @@
 	</ns1:EditarPostOperatorio>
 	<ns1:EditarPostOperatorioDetalle x="241" y="134" id="EditarPostODetalle" visible="false">
 	</ns1:EditarPostOperatorioDetalle>
-	<ns1:PurgarControl x="241" y="134" id="purgControl" visible="false">
-	</ns1:PurgarControl>
+	<ns4:PurgarControl x="241" y="134" id="purgControl" visible="false">
+	</ns4:PurgarControl>
 	
 	<!--Autor: andres}-->
 
