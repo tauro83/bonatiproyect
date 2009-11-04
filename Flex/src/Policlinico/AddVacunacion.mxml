@@ -89,38 +89,28 @@
 		    				this.labelMessage.text="Añada un tipo de vacuna que se haya aplicado a la mascota.";
 		    			}
 		    			else{
-		    				if(this.fechaC.text==""){
-								this.labelMessage.text="Seleccione una fecha de caducidad para la vacunación.";
-							}
-							else{
-								if(fechaC.selectedDate.getTime()<fechaActual.getTime()){
-									this.labelMessage.text = "Ingrese una fecha de caducidad posterior a la actual";
-								}
-								else{
-									this.labelMessage.text="";
-		    						var newVacuna:Vacunacion = new Vacunacion();
+		    				this.labelMessage.text="";
+		    				var newVacuna:Vacunacion = new Vacunacion();
 		    	
-		    						newVacuna.veterinario= this.veterinariosC.text;
-		    						newVacuna.fechaCaducidad = this.fechaC.selectedDate;
-		    						newVacuna.fecha = this.fechahoy.selectedDate;
-		    						var i:int;
-		    						var largo:int = this.vacunasAdds.length;
-		    						newVacuna.tiposVacunas = new ArrayCollection();
-		    						for(i=0;i<largo;i++){
-		    							newVacuna.tiposVacunas.addItem(vacunasAdds.pop());
-		    						}
-		    						newVacuna.descripcion = this.descripcionV.text;	
-		    						newVacuna.clienteRut = this.clienteRut.concat(this.clienteRut2);;
-		    						newVacuna.mascotaNombre = this.nombreMascota;
+		    				newVacuna.veterinario= this.veterinariosC.text;
+		    				newVacuna.fecha = this.fechahoy.selectedDate;
+		    				var i:int;
+		    				var largo:int = this.vacunasAdds.length;
+		    				newVacuna.tiposVacunas = new ArrayCollection();
+		    				for(i=0;i<largo;i++){
+		    					newVacuna.tiposVacunas.addItem(vacunasAdds.pop());
+		    				}
+		    				newVacuna.descripcion = this.descripcionV.text;	
+		    				newVacuna.clienteRut = this.clienteRut.concat(this.clienteRut2);;
+		    				newVacuna.mascotaNombre = this.nombreMascota;
 		    						
-		    						var newAddServ:AddVacunacionService = new AddVacunacionService();
-		    						newAddServ.addVacuna(newVacuna);
-		    						this.setVisible(false,false);
-		    						Application.application.addVacuna1.iniciarPanel1();
-		    						Application.application.addVacuna1.labelMessage.text="Vacunación Registrada con éxito.";
-		    						Application.application.addVacuna1.setVisible(true,false);
-								}	  
-							}	
+		    				var newAddServ:AddVacunacionService = new AddVacunacionService();
+		    				newAddServ.addVacuna(newVacuna);
+		    				this.setVisible(false,false);
+		    				Application.application.addVacuna1.iniciarPanel1();
+		    				Application.application.addVacuna1.labelMessage.text="Vacunación Registrada con éxito.";
+		    				Application.application.addVacuna1.setVisible(true,false);
+							
 		    			}
 		    					
 		    		}
@@ -129,23 +119,7 @@
 		    	
 		    }
 		    
-		    /**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion Metodo que verifica que la fecha de caducidad sea posterior a la fecha actual.
-			 * */
-		    public function verificaFecha():void
-		    {
-		    	if(fechaC.selectedDate.getTime()<fechaActual.getTime()){
-					labelMessage.text = "Ingrese una fecha de caducidad posterior a la actual"; 
-				}
-				else{
-					labelMessage.text = "";
-				}
-				
-		    	
-		    }
-		    
+		    		    
 		    /**
 		 	 * 	@author  "Jimmy Muñoz"
 			 * 	@Fecha  27 Octubre
@@ -340,7 +314,6 @@
 		    public function iniciarPanel():void
 		    {
 		    	this.labelMessage.text="";
-		    	this.fechaC.text="";
 		    	this.fechahoy.text="";
 		    	this.vacunas1.doubleClickEnabled=true;
 		    	this.tiposCir2 = new Array();
@@ -359,15 +332,13 @@
     </mx:Script>
 	<mx:Label x="119.5" y="170" text="Vacunas:" width="63.4" height="17.931034"/>
 	<mx:Label x="25" y="15" text="Responsable:" width="85.45"/>
-	<mx:Label x="452" y="50" text="Caducidad:" width="77"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	
 	<mx:ComboBox x="118.4" y="15" id="veterinariosC" dataProvider="{veterinarios2}" width="190.25"></mx:ComboBox>
 	<mx:DateField x="540" y="15" width="122" id="fechahoy" formatString="DD/MM/YYYY"/>
-	<mx:DateField x="540" y="50" width="122" id="fechaC" formatString="DD/MM/YYYY" change="verificaFecha()"/>
 	<mx:TextArea x="119.5" y="50" width="271.6" height="112" id="descripcionV" maxChars="200">
 	</mx:TextArea>
-	<mx:TextInput x="540" y="85" width="104" id="nombMasc" editable="false"/>
+	<mx:TextInput x="540" y="50" width="104" id="nombMasc" editable="false"/>
 	
 	<mx:List x="119.5" y="195.9" width="270" height="149.1" id="vacunas1" dataProvider="{tiposVac1}"></mx:List>
 	<mx:Button x="397.25" y="250" label="-&gt;" width="47.55" click="guardaVac()"/>
@@ -376,7 +347,7 @@
 	
 	<mx:Button x="522" y="353" label="Registrar" visible="true" id="registrar" click="registrarVacuna()" width="102" height="23"/>
 	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
-	<mx:Label x="452" y="85" text="Mascota:" width="63.95"/>
+	<mx:Label x="452" y="50" text="Mascota:" width="63.95"/>
 	
 	<mx:Label x="25" y="50" text="Descripción:" width="86"/>
 	<mx:Label x="452" y="15" text="Fecha:" width="64.2"/>
