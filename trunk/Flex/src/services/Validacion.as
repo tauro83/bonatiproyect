@@ -114,5 +114,52 @@ package services
 		}
 		}*/
 		
+		
+		/**
+		 	 * 	@author  "Jimmy Muñoz"
+			 * 	@Fecha  04 Noviembre
+			 * Metodo que verifica que el rut este ingresado correctamente.
+			 * @param rut: el rut sin el digitoverificador. rutVer: digito verificador.
+			 */
+        	public static function validaRut(rut:String, rutVer:String):Boolean{
+        		var Numero:String = rut;
+        		var Dv:String = rutVer;
+				var suma:int = 0;
+				var rut:String = Numero;
+				var NumMag:int = 2;
+				var Resto:int = 0;
+				var j:int ;
+				var i:int;
+				var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
+				var ParteNumerica:Array = new Array();
+				
+				if (rut.length == 0) { 
+
+				}
+				for ( j =0, i =0; j < rut.length; j++){
+					if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
+						ParteNumerica[i] = rut.charAt(i);
+						++i;
+					}
+				}
+				
+				for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
+					suma += ParteNumerica[i] * NumMag;
+					trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
+					if (NumMag>6){
+						NumMag =1;	
+					}	
+				}
+					
+				Resto = 11-(suma%11);
+				if(DigVer[Resto] != Dv.toUpperCase()){
+					return false;
+				}
+				else{
+					return true;
+				}
+		
+        	}
+		
 	}
 }
