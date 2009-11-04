@@ -129,8 +129,9 @@ public class AddVacunacionBD {
     /**
 	 * Autor: Jimmy Muñoz
 	 * Metodo que genera la fecha de caducidad, que corresponde a cada vacuna.
-	 * @param 
-	 * @return 
+	 * @param fechaHoy, que es la fecha que fue seleccionada en la capa 1.
+	 * @return fechaCaducidad, que es la fecha que se obtuvo de agregarle la 
+	 * caducidad de la vacuna a la fecha actual.
 	 */
     @SuppressWarnings("deprecation")
 	public Date getFechaCaducidad(Date fechaHoy){
