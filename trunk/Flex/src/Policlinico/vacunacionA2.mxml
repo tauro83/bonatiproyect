@@ -169,12 +169,12 @@
 	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
 	<mx:Label x="25" y="35" text="Nombre:" width="78"/>
 	<mx:Label x="25" y="10" text="Cliente" width="97" fontWeight="bold"/>
-	<mx:Label x="407" y="10" text="Mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="405" y="10" text="Mascota" width="98" fontWeight="bold"/>
 	<mx:Label x="25" y="87.95" text="Rut:" width="78"/>
-	<mx:Label x="407" y="87.95" text="Sexo:" width="78"/>
-	<mx:Label x="407" y="36" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="405" y="87.95" text="Sexo:" width="78"/>
+	<mx:Label x="405" y="36" text="Nombre:" width="63.4" height="17.931034"/>
 	<mx:Label x="25" y="62" text="Apellido Paterno:" width="103"/>
-	<mx:Label x="407" y="61.9" text="Raza:" width="78"/>
+	<mx:Label x="405" y="61.9" text="Raza:" width="78"/>
 	<mx:Text x="25" y="124" text="Vacunaciones&#xa;" fontWeight="bold" height="20"/>
 	<mx:Text x="136" y="62" id="cApP" width="150"/>
 	<mx:Text x="136" y="35" id="cNom" width="150"/>

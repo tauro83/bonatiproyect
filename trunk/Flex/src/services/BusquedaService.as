@@ -28,7 +28,9 @@ package services
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		/**
-		 * @param event Evento recogido en caso de una falla en la llamada hacia la capa lógica
+		 *  @author  "Esteban Cruz"
+		 * 	@Fecha  6 Octubre
+		 *  @Descripcion event Evento recogido en caso de una falla en la llamada hacia la capa lógica
 		 */ 
 		private function faultHandler(event:FaultEvent):void
 		{
@@ -36,35 +38,43 @@ package services
 		}
 		
 		/**
-	 	* Trata de obtener todos los usuarios registrados en la base de datos
-	 	* @return Lista con todos los usuarios registrados
-	 	*/
+		 * @author  "Esteban Cruz"
+		 * @Fecha  6 Octubre
+		 * @Descripcion Trata de obtener todos los usuarios registrados en la base de datos
+	 	 * @return Lista con todos los usuarios registrados
+	 	 */
 		public function getAllUsuarios():void
 		{
 			this.getOperation("getAllUsuarios").send();
 		}
 		
 		/**
-	 	* Trata de obtener todos los clientes registrados en la base de datos
-	 	* @return Lista con todos los clientes registrados
-	 	*/
+		 *  @author  "Esteban Cruz"
+		 * 	@Fecha  6 Octubre
+		 *  @Descripcion Trata de obtener todos los clientes registrados en la base de datos
+	 	 *  @return Lista con todos los clientes registrados
+	 	 */
 		public function getAllClientes():void
 		{
 			this.getOperation("getAllClientes").send();
 		}
 		
 		/**
-	 	* Trata de obtener todos las mascotas registrados en la base de datos
-	 	* @return Lista con todos las mascotas registrados
-	 	*/
+	 	 *  @author  "Esteban Cruz"
+		 * 	@Fecha  6 Octubre
+		 *  @Descripcion Trata de obtener todos las mascotas registrados en la base de datos
+	 	 *  @return Lista con todos las mascotas registrados
+	 	 */
 		public function getAllMascotas():void
 		{
 			this.getOperation("getAllMascotas").send();
 		}
 		
 		/**
-	 	* Trata de obtener todos las atenciones registrados en la base de datos
-	 	* @return Lista con todos las atenciones registrados
+	 	*  @author  "Esteban Cruz"
+		*  @Fecha  6 Octubre
+		*  @Descripcion Trata de obtener todos las atenciones registrados en la base de datos
+	 	*  @return Lista con todos las atenciones registrados
 	 	*/
 		public function getAllAtenciones():void
 		{
@@ -72,8 +82,10 @@ package services
 		}
 		
 		/**
-	 	* Trata de obtener todos los productos registrados en la base de datos
-	 	* @return Lista con todos los productos registrados
+	 	*  @author  "Esteban Cruz"
+		*  @Fecha  6 Octubre
+		*  @Descripcion Trata de obtener todos los productos registrados en la base de datos
+	 	*  @return Lista con todos los productos registrados
 	 	*/
 		public function getAllProductos():void
 		{

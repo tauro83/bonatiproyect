@@ -29,17 +29,25 @@ package services
 			
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
+		
+		/**
+		 *  @author  "Esteban Cruz"
+		 * 	@Fecha  6 Octubre
+		 *  @Descripcion event Evento recogido en caso de una falla en la llamada hacia la capa lógica
+		 */ 
 		private function faultHandler(event:FaultEvent):void
 		{
-			Alert.show("Error en PersonService, Detalle: "+event.fault.message);
+			Alert.show("Error en LoginService, Detalle: "+event.fault.message);
 		}
 		
 		/**
-	 	* Obtiene los usuarios existentes en la base de datos, 
-	 	* y verifica que el login ingresado sea correcto
-		 * @return 1 si el login ingresado es correcto, de lo 
-	 	* contrario 0
-	 	*/
+	 	 *  @author  "Esteban Cruz"
+		 *  @Fecha  6 Octubre
+		 *  @Descripcion Obtiene los usuarios existentes en la base de datos, 
+	 	 *  y verifica que el login ingresado sea correcto
+		 *  @return 1 si el login ingresado es correcto, de lo 
+	 	 *  contrario 0
+	 	 */
 		public function existLogin(login:Usuario):void
 		{
 			this.getOperation("existLogin").send(login);

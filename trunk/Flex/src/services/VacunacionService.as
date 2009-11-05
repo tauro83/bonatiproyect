@@ -1,5 +1,5 @@
 //=======================================================================
-// FECHA CREACIÓN: 14-10-09
+// FECHA CREACIÓN: 27-10-09
 // AUTOR: Esteban Cruz 
 // Comentario: Clase que se encarga de realizar la conexion entre la capa
 // lógica y la interfaz

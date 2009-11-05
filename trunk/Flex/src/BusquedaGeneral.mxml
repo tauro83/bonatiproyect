@@ -37,7 +37,9 @@
 			private var productos:ArrayCollection;
 		
 			/**
-			 *  Sale de la búsqueda
+			 *  @author  "Esteban Cruz"
+			 * 	@Fecha  6 Octubre
+			 *  @Descripcion Sale de la búsqueda
 			 **/
 			private function volver():void
             {
@@ -62,6 +64,11 @@
             	textBuscar.visible=false;
             }
             
+            /**
+			 *  @author  "Esteban Cruz"
+			 * 	@Fecha  6 Octubre
+			 *  @Descripcion Reinicia el panel de busqueda
+			 **/
             private function reiniciar():void
             {
             	comboboxUsuario.selectedIndex=0;
@@ -105,7 +112,9 @@
             }
             		
 			/**
-			 *  Hace invisible a todos los elementos del componente
+			 *  @author  "Esteban Cruz"
+			 * 	@Fecha  6 Octubre
+			 *  @Descripcion Hace invisible a todos los elementos del componente
 			 **/
 			private function setInvisibleInput ():void
             {
@@ -137,7 +146,9 @@
             }
             
             /**
-			 *  Hace visible los elementos correspondientes al objeto
+             *  @author  "Esteban Cruz"
+			 * 	@Fecha  6 Octubre
+			 *  @Descripcion Hace visible los elementos correspondientes al objeto
 			 *  que se selecciono desde el 1er combobox
 			 **/
 			private function seleccionarBusqueda (event:Event):void
@@ -185,8 +196,9 @@
             }
 
 		   /**
-			*  Usuario ---------------------------
-		    *  funciona que busca todos los usuarios
+		    *  @author  "Esteban Cruz"
+			*  @Fecha  6 Octubre
+			*  @Descripcion funcion que busca todos los usuarios
 			**/
 		   public function getAllUsuarios():void
 		   {
@@ -201,7 +213,9 @@
 		   }
 		   
 		   /**
-			*  combobox de usuario
+			*  @author  "Esteban Cruz"
+			*  @Fecha  6 Octubre
+			*  @Descripcion combobox de usuario
 			**/
 		    private function seleccionarUsuario (event:Event):void
             {
@@ -228,8 +242,9 @@
             }
 		   
 		   /**
-			*  Cliente ---------------------------
-		    *  funciona que busca todos los clientes
+			*  @author  "Esteban Cruz"
+			*  @Fecha  6 Octubre
+			*  @Descripcion funcion que busca todos los clientes
 			**/
 		   public function getAllClientes():void
 		   {
@@ -244,7 +259,9 @@
 		   }
 		   
 		    /**
-			*  combobox de cliente
+			*  @author  "Esteban Cruz"
+			*  @Fecha  6 Octubre
+			*  @Descripcion combobox de cliente
 			**/
 		   private function seleccionarCliente (event:Event):void
             {
@@ -274,8 +291,9 @@
             }
 		   
 		    /**
-			*  Mascota --------------------------
-		    *  funciona que busca todos las mascotas
+			*  @author  "Esteban Cruz"
+			*  @Fecha  6 Octubre
+			*  @Descripcion funcion que busca todos las mascotas
 			**/
 		   public function getAllMascotas():void
 		   {
@@ -290,7 +308,9 @@
 		   }
 		   
 		   /**
-			*  combobox de mascota
+			*  @author  "Esteban Cruz"
+			*  @Fecha  6 Octubre
+			*  @Descripcion combobox de mascota
 			**/
 		   private function seleccionarMascota (event:Event):void
             {
@@ -317,8 +337,9 @@
             }
 		   
 		   /**
-			*  Atencion --------------------------
-		    *  funciona que busca todos las atenciones
+			*  @author  "Esteban Cruz"
+			*  @Fecha  6 Octubre
+			*  @Descripcion funcion que busca todos las atenciones
 			**/
 		   public function getAllAtenciones():void
 		   {
@@ -333,7 +354,9 @@
 		   }
 		   
 		   /**
-			*  combobox de atenciones
+			*  @author  "Esteban Cruz"
+			*  @Fecha  6 Octubre
+			*  @Descripcion combobox de atenciones
 			**/
 		   private function seleccionarAtencion (event:Event):void
             {
@@ -360,8 +383,9 @@
             }
 		   
 		   /**
-			*  Producto --------------------------
-		    *  funciona que busca todos los productos
+			*  @author  "Esteban Cruz"
+			*  @Fecha  6 Octubre
+			*  @Descripcion funcion que busca todos los productos
 			**/
 		   public function getAllProductos():void
 		   {
@@ -376,7 +400,9 @@
 		   }
 		   
 		   /**
-			*  combobox de producto
+			*  @author  "Esteban Cruz"
+			*  @Fecha  6 Octubre
+			*  @Descripcion combobox de producto
 			**/
 		   private function seleccionarProducto (event:Event):void
             {
