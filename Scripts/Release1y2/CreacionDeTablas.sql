@@ -1,22 +1,22 @@
-drop table Usuario cascade;
-drop table ClientePresencial cascade;
-drop table Mascota cascade;
-drop table Producto cascade;
-drop table bitacora cascade;
-drop table atencionpostoperatorio cascade;
-drop table atencionpedicure cascade;
-drop table atencionbanio cascade; 
-drop table corte cascade;
-drop table Atencion cascade;
-drop table preoperatorio cascade;
-drop table cita cascade;
-drop table Cirugia cascade;
-drop table Diagnosticos cascade; 
-drop table atencionvacuna cascade;
-drop table atencioncirugia cascade;
-drop table atencionconsulta cascade;
-drop table atencioncontrol cascade;
-drop table atencionpreoperatorio cascade;
+drop table IF EXISTS Usuario cascade;
+drop table IF EXISTS ClientePresencial cascade;
+drop table IF EXISTS Mascota cascade;
+drop table IF EXISTS Producto cascade;
+drop table IF EXISTS bitacora cascade;
+drop table IF EXISTS atencionpostoperatorio cascade;
+drop table IF EXISTS atencionpedicure cascade;
+drop table IF EXISTS atencionbanio cascade; 
+drop table IF EXISTS corte cascade;
+drop table IF EXISTS Atencion cascade;
+drop table IF EXISTS preoperatorio cascade;
+drop table IF EXISTS cita cascade;
+drop table IF EXISTS Cirugia cascade;
+drop table IF EXISTS Diagnosticos cascade; 
+drop table IF EXISTS atencionvacuna cascade;
+drop table IF EXISTS atencioncirugia cascade;
+drop table IF EXISTS atencionconsulta cascade;
+drop table IF EXISTS atencioncontrol cascade;
+drop table IF EXISTS atencionpreoperatorio cascade;
 
 CREATE TABLE Usuario
 (

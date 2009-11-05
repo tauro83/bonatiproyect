@@ -34,7 +34,7 @@ INSERT INTO Mascota (rut,nombre,fechaNacimiento,claseanimal,raza,sexo,estado,ima
 VALUES 	('16298923', 'patitas','10/05/2001','Perro','Pastor Aleman','Macho','true','');
 
 INSERT INTO CITA (rutcliente,nombremascota,fecha,hora,servicio,responsable)
-VALUES ('16298923','Laica','9/9/2009','09:09:00','Pabellón','Bonati');
+VALUES ('16298925', 'Larry2','9/9/2009','09:09','Pabellón','cbonati');
 
 INSERT INTO Atencion (clienteRut,mascotaNombre,servicio,hora,fecha,costo)
 VALUES 		('16298923','Larry','Hoteleria','12:52:30','20/10/09','3600');
