@@ -1,7 +1,7 @@
 //=======================================================================
 // FECHA CREACIÓN: 20/09/09 
 // AUTOR: Erwin Díaz
-// Comentario: Se declara la clase usuario, una vez instanciada 
+// Se declara la clase usuario, una vez instanciada 
 // representa el objeto de transferencia entre la capa lógica
 // y la interfaz gráfica
 //=======================================================================

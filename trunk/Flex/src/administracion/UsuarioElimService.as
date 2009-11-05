@@ -1,7 +1,7 @@
 //=======================================================================
 // FECHA CREACIÓN: 20/09/09
 // AUTOR: Erwin Díaz 
-// Comentario: Clase que se encarga de realizar la conexion entre la capa
+// Clase que se encarga de realizar la conexion entre la capa
 // lógica y la interfaz
 //=======================================================================
 
@@ -46,6 +46,12 @@ package administracion
 			this.getOperation("deleteUser").send(clave);
 			
 		}
+		/**
+		 * 
+		 * @param clave es el nombre que se envía a la capa dos y tres
+		 * para que el usuario sea purgado
+		 * 
+		 */		
 		public function hideUser(clave:String):void
 		{
 			this.getOperation("hideUser").send(clave);
@@ -58,6 +64,11 @@ package administracion
 		{
 			this.getOperation("getAllUsuariosE").send();
 		}
+		/**
+		 *Función que retorna todos los usuarios que están marcados
+		 * como eliminados 
+		 * 
+		 */		
 		public function getAllUsuariosP():void
 		{
 			this.getOperation("getAllUsuariosP").send();

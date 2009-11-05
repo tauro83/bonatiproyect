@@ -1,13 +1,13 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Eliminar usuario" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
-//=======================================================================
-// FECHA CREACIÓN: 20/09/09
-// AUTOR: Erwin Díaz 
-// Comentario: Panel en el cual se muestran los usuarios que están
-//			   registrados y que permite su eliminación, es decir
-//			   los oculta del sistema
-//=======================================================================
+			//=======================================================================
+			// FECHA CREACIÓN: 20/09/09
+			// AUTOR: Erwin Díaz 
+			// Panel en el cual se muestran los usuarios que están
+			// registrados y que permite su eliminación, es decir
+			// los oculta del sistema
+			//=======================================================================
 
 			import mx.controls.List;
 			import mx.events.ListEvent; 			
@@ -35,6 +35,10 @@
 				usuarioElimService.addEventListener(ResultEvent.RESULT,getAllUsuariosResult);
 				usuarioElimService.getAllUsuarios();
 			}
+			/**
+			 * Obtiene el resultado del llamado a la capa dos y tres
+			 * del sistema
+			 */
 			private function getAllUsuariosResult(event:ResultEvent):void
 			{
 				persons = event.result as ArrayCollection;
@@ -63,27 +67,39 @@
 			}
 			
 			
-			<!-- Purga un usuario que está en la base de datos-->
+			/**
+			 * Purga un usuario que está en la base de datos
+			 * 
+			 */
 			private function deleteUsuario(clave:String):void
 			{
 				var usuarioElimService:UsuarioElimService=new UsuarioElimService();
 				usuarioElimService.addEventListener(ResultEvent.RESULT,deleteUsuarioResult);
 				usuarioElimService.hideUser(clave);
 			}
-			
+			/**
+			 * 
+			 * Muestra un mensaje de acuerdo al resultado de la operación
+			 * en la capa dos
+			 */
 			private function deleteUsuarioResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
 				labelMessage.text = "Usuario(s) eliminado(s) con éxito";
 				getAllUsuarios();
 			}
-			
+			/**
+			 * Borra el mensaje que se muestra en la etiqueta de mensajes del panel
+			 */
 			public function resetMessage():void
 			{
 				labelMessage.text = "";
 			}
 			
-			
+			/**
+			 * Marca o desmarca los checkboxes
+			 * 
+			 */
 			private function removeTaskRecord():void
             {
                 var allRows:int = persons.length;
@@ -107,7 +123,9 @@
 			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
 			  removeTaskRecord();
 			}
-			
+			/**
+			 * Selecciona o deselecciona todos los checkboxes
+			 */
 			private function selectAll():void{
                 var allRows:int = persons.length;
                 for (var i:int = 0; i < allRows; i++){

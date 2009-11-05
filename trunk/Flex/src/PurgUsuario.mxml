@@ -1,13 +1,13 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Purgar usuario" >
 	<mx:Script>
 		<![CDATA[
-//=======================================================================
-// FECHA CREACIÓN: 20/09/09
-// AUTOR: Erwin Díaz 
-// Comentario: Panel en el cual se muestran los usuarios que están
-//			   registrados y que permite purgarlos, es decir
-//			   los borra de la base de datos
-//=======================================================================
+			//=======================================================================
+			// FECHA CREACIÓN: 20/09/09
+			// AUTOR: Erwin Díaz 
+			// Panel en el cual se muestran los usuarios que están
+			// registrados y que permite purgarlos, es decir
+			// los borra de la base de datos
+			//=======================================================================
 
 			import mx.controls.List;
 			import mx.events.ListEvent; 			
@@ -16,7 +16,6 @@
             import mx.controls.CheckBox;    
             import mx.events.CloseEvent;
             import mx.rpc.events.ResultEvent;
-			
 			import transferObjects.UsuarioElim;
 			import mx.rpc.events.ResultEvent;
 			import administracion.UsuarioElimService;
@@ -36,6 +35,10 @@
 				usuarioElimService.addEventListener(ResultEvent.RESULT,getAllUsuariosResult);
 				usuarioElimService.getAllUsuariosP();
 			}
+			/**
+			 * Obtiene el resultado del llamado a la capa dos y tres
+			 * del sistema
+			 */
 			private function getAllUsuariosResult(event:ResultEvent):void
 			{
 				persons = event.result as ArrayCollection;
@@ -56,8 +59,15 @@
                 tablaUsuarios.dataProvider = persons;
             }
         
-            //elimina una fila dentro de la tabla
-           	private function deleteRow():void {
+            /**
+            * 
+            * Elimina una fila del datagrid, esto lo hace antes de
+            * hacer el llamado a la acapa dos y tres, en caso de que
+            * el proceso en la capa dos no se cumpla, es decir, que no se 
+            * purgue un usuario correctmante entonces volverá a mostrarse dentro
+            * del datagrid ya que se recarga nuevamente
+            */
+            private function deleteRow():void {
 			 Alert.show("Está seguro que desea purgar usuario ","Confirme purgar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
 			}
 			
@@ -73,17 +83,28 @@
 				usuarioElimService.addEventListener(ResultEvent.RESULT,deleteUsuarioResult);
 				usuarioElimService.deleteUser(clave);
 			}
+			/**
+			 * 
+			 * Muestra un mensaje de acuerdo al resultado de la operación
+			 * en la capa dos
+			 */
 			private function deleteUsuarioResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
 			    labelMessage.text = "Usuario(s) purgado(s) con éxito";
 				getAllUsuarios();
 			}
+			/**
+			 * Borra el mensaje que se muestra en la etiqueta de mensajes del panel
+			 */
 			public function resetMessage():void
 			{
 				labelMessage.text = "";
 			}
-			
+			/**
+			 * Marca o desmarca los checkboxes
+			 * 
+			 */
 			private function removeTaskRecord():void
             {
                 var allRows:int = persons.length;
@@ -108,6 +129,9 @@
 			  removeTaskRecord();
 			}
 			
+			/**
+			 * Selecciona o deselecciona todos los checkboxes
+			 */
 			private function selectAll():void{
                 var allRows:int = persons.length;
                 for (var i:int = 0; i < allRows; i++){
