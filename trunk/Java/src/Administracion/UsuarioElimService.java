@@ -1,7 +1,7 @@
 //=======================================================================
 // FECHA CREACIÓN: 20/09/09
 // AUTOR: Erwin Díaz 
-// Comentario: Clase encargada de realizar todas las conexiones para
+// Clase encargada de realizar todas las conexiones para
 // para eliminar o purgar un usuario de la base de datos
 //=======================================================================
 

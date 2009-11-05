@@ -1,7 +1,7 @@
 //=======================================================================
 // FECHA CREACIÓN: 20/09/09
 // AUTOR: Erwin Díaz 
-// Comentario: Clase encargada de declarar los scripts que luego serán
+// Clase encargada de declarar los scripts que luego serán
 // ejecutados en la base de datos
 //=======================================================================
 
