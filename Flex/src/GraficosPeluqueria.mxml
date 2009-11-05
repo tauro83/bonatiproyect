@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466" borderColor="#15AD8F">
-<!--
-//=======================================================================
-// FECHA CREACIÓN: 13 Octubre
-// AUTOR: Camilo Verdugo
-// Componente que tiene un grafico  y muestra las estadisticas de Peluqueria
-//=======================================================================
--->
-	<mx:Script>
+<mx:Script>
 		<![CDATA[
+		//=======================================================================
+		// FECHA CREACIÓN: 13/08/09
+		// AUTOR: Camilo Verdugo
+		// Componente que tiene un grafico  y muestra las estadisticas de Peluqueria
+		//=======================================================================
+		
 		import mx.messaging.channels.StreamingAMFChannel;
 		import mx.collections.ArrayCollection;
 		import mx.rpc.events.ResultEvent;
@@ -22,12 +21,17 @@
 		private var gep:GetEstadisticasPeluqueria;
 		private var fechaActual:Date = new Date();
 
+		/**
+		 *  Asigna las estadisticas
+		 * 	@author  "Camilo Verdugo"
+		 * */
 		private function getEstadisticasR(event:ResultEvent):void
 		{
 			expenses = event.result as ArrayCollection;	
 		}
 		
-		/**realiza los set de fechas. Este metodo es llamado tras la accion
+		/**
+		 *  Realiza los set de fechas. Este metodo es llamado tras la accion
 		 *  de los cambios de rangos en las opciones de visualizar la estadistica.
 		 * 	@author  "Camilo Verdugo"
 		 * */

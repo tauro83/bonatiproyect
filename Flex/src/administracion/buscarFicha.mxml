@@ -1,11 +1,8 @@
-<!--@Author Camilo Verdugo
-	@Version	2
--->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllFichas()" layout="absolute" borderColor="#15AD8F" width="779" height="466" title="Visualizar Ficha" >
 	<mx:Script>		
 		<![CDATA[
 			//=======================================================================
-			// FECHA: CREACIÓN: 5 Octubre
+			// FECHA: CREACIÓN: 05/08/09
 			// AUTOR: Camilo Verdugo
 			// Muestra los datos de todas las fichas del sistema
 			//=======================================================================
@@ -40,7 +37,8 @@
 			}
 			
 			
-			/** El resultado del metodo anterior y del retorno de as es recibido por este metodo
+			/** 
+			 *  El resultado del metodo anterior y del retorno de as es recibido por este metodo
 			 *  El cual asigna la lista de mascotas obtenidas.
 		 	 * 	@author  "Camilo Verdugo"
 			 * */                   
@@ -50,7 +48,7 @@
             }
            
             /**
-             *   Metodo que es llamado por la accion del boton visualizar y mediante la selccion directa
+             *  Metodo que es llamado por la accion del boton visualizar y mediante la selccion directa
 			 *  se encarga de hacer el llamado al otro panel de tal forma que se muestren los datos de la mascota nueva
 		 	 * 	@author  "Camilo Verdugo"
 			 * */ 
@@ -64,7 +62,8 @@
             
             }
           	
-          	 /**Metodo que es llamado desde Veterinaria.mxml el cual obtiene el componente en el cual
+          	 /**
+          	 * 	Metodo que es llamado desde Veterinaria.mxml el cual obtiene el componente en el cual
 			 *  Se cargan los datos de la ficha
 		 	 * 	@author  "Camilo Verdugo"
 			 * */ 
@@ -73,7 +72,8 @@
             	this.verFicha = verFicha;               	
             }
             
-            /** Metodo que retorna al panel anterior
+            /** 
+             * 	Metodo que retorna al panel anterior
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
             private function cancelarBuscar():void
