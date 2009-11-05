@@ -8,10 +8,8 @@
 			// AUTOR: Camilo Verdugo
 			// Panel de ayuda de visualizar la ficha de una mascota
 			//=======================================================================
-			/**
+			/** Metodo que despliega las imagenes de ayuda para este componente
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  29 Octubre
-			 *  @Descripcion Metodo que despliega las imagenes de ayuda para este componente
 			 * */	
 			private function verBarra():void
 			{
@@ -22,10 +20,8 @@
 				linkOpciones.visible = false;
 				opcMod.visible = false;
 			}
-			/**
+			/** Metodo que despliega el texto de ayuda
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  29 Octubre
-			 *  @Descripcion Metodo que despliega el texto de ayuda
 			 * */
 			private function verOpcMod():void
 			{
@@ -37,10 +33,8 @@
 				opcMod.visible = true;
 			}
 			
-			/**
+			/** Metodo que retorna el panel de carga de la imagen, a la informacion de ayuda
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  29 Octubre
-			 *  @Descripcion Metodo que retorna el panel de carga de la imagen, a la informacion de ayuda
 			 * */
 			private function volver2():void
 			{

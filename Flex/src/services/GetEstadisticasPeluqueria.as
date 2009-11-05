@@ -17,11 +17,9 @@ package services
 	public class GetEstadisticasPeluqueria extends RemoteObject
 	{
 		
-		/**
+		/** Constructor de la clase, establece los datos de conexion de los servicios de JBos
+		 *  Indica el package y el nombre de la clase de la capa 2 a la que es referida.
 		 * 	@author  "Camilo Verdugo"
-		 * 	@Fecha  19 Septiembre
-		 *  @Descripcion Constructor de la clase, establece los datos de conexion de los servicios de JBos
-		 *  			 Indica el package y el nombre de la clase de la capa 2 a la que es referida.
 		*/
 		public function GetEstadisticasPeluqueria()
 		{
@@ -35,22 +33,18 @@ package services
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		
-		/**
+		/** Constructor de la clase, establece los datos de conexion de los servicios de JBos
+		 *  Indica el package y el nombre de la clase de la capa 2 a la que es referida.
 		 * 	@author  "Camilo Verdugo"
-		 * 	@Fecha  19 Septiembre
-		 *  @Descripcion Constructor de la clase, establece los datos de conexion de los servicios de JBos
-		 *  			 Indica el package y el nombre de la clase de la capa 2 a la que es referida.
 		*/
 		private function faultHandler(event:FaultEvent):void
 		{
 			Alert.show("Error obteniendoEstadisticas, Detalle: "+event.fault.message);
 		}
 		
-		/**
-		 * 	@author  "Camilo Verdugo"
-		 * 	@Fecha  19 Septiembre
-		 *  @Descripcion Metodo que llama al metodo de la capa 2 y manda dos parametros
+		/** Metodo que llama al metodo de la capa 2 y manda dos parametros
 		 *  el cual indica el rango de fechas para obtener las atenciones.	
+		 * 	@author  "Camilo Verdugo"
 		*/
 		public function getEstadisticas(inicio:String,fin:String):void
 		{

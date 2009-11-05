@@ -9,10 +9,8 @@
 			// Panel de ayuda de configuracion de servicios seleccionables de la clinica
 			//=======================================================================
 			
-			/**
+			/** Metodo que despliega las imagenes de ayuda para este componente
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha 2 Noviembre
-			 *  @Descripcion Metodo que despliega las imagenes de ayuda para este componente
 			 * */	
 			private function verBarra():void
 			{
@@ -22,10 +20,8 @@
 				botVolver.visible = true;
 				opcMod.visible = false;
 			}
-			/**
+			/** Metodo que despliega el texto de ayuda
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  2 Noviembre
-			 *  @Descripcion Metodo que despliega el texto de ayuda
 			 * */
 			private function verOpcMod():void
 			{
@@ -35,10 +31,8 @@
 				botVolver.visible = true;
 				opcMod.visible = true;
 			}
-			/**
+			/** Metodo que retorna el panel de carga de la imagen, a la informacion de ayuda
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  2 Noviembre
-			 *  @Descripcion Metodo que retorna el panel de carga de la imagen, a la informacion de ayuda
 			 * */
 			private function volver2():void
 			{

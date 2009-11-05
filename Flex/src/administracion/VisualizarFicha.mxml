@@ -31,11 +31,10 @@
          	[Bindable]
          	private var atenciones:ArrayCollection;
          	
-         	/**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  5 Octubre
-			 *  @Descripcion Metodo que asigna la mascota obtenida del listado de mascotas
+         	/** Metodo que asigna la mascota obtenida del listado de mascotas
 			 *  ademas se encarga de solicitar los datos de su dueño y las atenciones realizadas
+		 	 * 	@author  "Camilo Verdugo"
+			 *  @Descripcion 
 			 * */
          	public function setDatos(mascota:Mascota):void{
          		this.mascota = mascota;
@@ -52,11 +51,9 @@
          		this.getMascota();
          	}
 	
-			/**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  5 Octubre
-			 *  @Descripcion Metodo que asigna los valores del cliente retornado del as
+			/** Metodo que asigna los valores del cliente retornado del as
 			 *  Los valores son asignados directamente en el componente luego de su retorno
+		 	 * 	@author  "Camilo Verdugo"
 			 * */		
 			public function getClienteR(event:ResultEvent):void{
 				var cliente:Cliente = event.result as Cliente;
@@ -66,20 +63,16 @@
 				this.cTel.text = cliente.telefono;			
 				
 			}
-			/**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  5 Octubre
-			 *  @Descripcion Metodo que recibe las atenciones que fueron enviadas del as
+			/** Metodo que recibe las atenciones que fueron enviadas del as
 			 *  Estas son asignadas a la lista de atenciones.
+		 	 * 	@author  "Camilo Verdugo"
 			 * */	
 			public function getAtencionesR(event:ResultEvent):void{
 				atenciones = event.result as ArrayCollection;	
 						
 			}
-			/**
+			/** Asigna los datos de la mascota seleccionada a los campos de la ficha
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  5 Octubre
-			 *  @Descripcion Asigna los datos de la mascota seleccionada a los campos de la ficha
 			 * */
 			public function getMascota():void
 			{
@@ -90,10 +83,8 @@
             	this.mSex.text = mascota.sexo;
 			}
 			
-			/**
+			/** Retorna el panel anterior
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  5 Octubre
-			 *  @Descripcion Retorna el panel anterior
 			 * */
 			public function cancelarVisulizar():void
 			{
@@ -103,8 +94,6 @@
 			
 			]]> 
  	</mx:Script>
-	
-	
 	<mx:DataGrid x="25" y="178.25" width="709" height="157" dataProvider="{atenciones}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>

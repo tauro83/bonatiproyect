@@ -14,10 +14,8 @@
 			[Bindable]private var servicios:ArrayCollection;
 			private var confs:configuracionServices= new configuracionServices();
 			
-			/**
+			/** obtiene las especies desde el actionScript
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion obtiene las especies desde el actionScript
 			 * */
 			public function cargarDatos():void
 			{
@@ -25,35 +23,38 @@
 				confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
 			}
 			
-			/**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion asigna el retorno del llamado de cargarDatos a un
+			/** asigna el retorno del llamado de cargarDatos a un
 			 *   arrayCollection para mostrar las configuraciones
+		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			public function cargarDatosR(event:ResultEvent):void
 			{
 				servicios = event.result as ArrayCollection;	
 			}
-			
-			/**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion metodo que retorna al panel de administacion, este es llamado
+			 
+			/** metodo que retorna al panel de administacion, este es llamado
 			 *  por el botton "Volver"
+		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			public function cancelarVisulizar():void
 			{	
 				Application.application.setInvisible();
             	Application.application.panel2.setVisible(true,false);
             	Application.application.AdmOpciones1.setVisible(true,false);
-            	ltexto.text = "";
-            	especieInput.text = "";
+            	this.resetVars();
 			}
-			/**
+			/** reinicia las variables y borra las entradas de textos y mensajes de
+			 * sistema
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion obtiene la configuracion seleccionada del grid
+			 * */
+			public function resetVars():void
+			{
+				especieInput.text = "";
+				ltexto.text = "";
+			}
+			
+			/** obtiene la configuracion seleccionada del grid
+		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			public function setNombre(event:Event):void
 			{
@@ -65,33 +66,37 @@
             	}		
             			
 			}
-			/**
+			/** envia una configuracion y muestra un mensaje de confirmacion de la accion.
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion envia una configuracion y muestra un mensaje de confirmacion de la accion.
 			 * */
 			private function registrarNombre(event:Event):void
 			{
-				confs.regConfiguracion("Servicio", especieInput.text);
-				this.cargarDatos();
-				ltexto.text = "Servicio registrado exitosamente";
-				especieInput.text = "";
+				var nombre:String = especieInput.text;
+				nombre = nombre.replace(" ","");
+				if(nombre.length>0){
+					confs.regConfiguracion("Servicio", especieInput.text);
+					this.cargarDatos();
+					ltexto.text = "Servicio registrado exitosamente";
+					especieInput.text = "";
+				}
+				else{
+					ltexto.text = "Ingrese un servicio antes de registrar";
+				}
+				especieInput.text = "";			
+				
 			}
-			/**
+			/** elimina la configuracion seleccionada del data grid
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion elimina la configuracion seleccionada del data grid
 			 * */
 			private function eliminarNombre(event:Event):void
 			{
 				confs.elimConfiguracion("Servicio", especieInput.text);
 				this.cargarDatos();
 				ltexto.text = "Servicio eliminado exitosamente";
+				especieInput.text = "";
 			}
-			/**
+			/** habilita el boton de registrar posterior a su deshabilitacion por la accion de eliminar
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion habilita el boton de registrar posterior a su deshabilitacion por la accion de eliminar
 			 * */
 			private function activarRegistrar(event:Event):void
 			{
@@ -111,7 +116,7 @@
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="234.15" click="eliminarNombre(event)" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')" id="eliminar"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="25"  click="registrarNombre(event)" label="Agregar" y="81" icon="@Embed(source='../images/Abajo.png')" id="agregar"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="25"  click="registrarNombre(event)" label="Registrar" y="81" icon="@Embed(source='../images/Abajo.png')" id="agregar"/>
 	<mx:TextInput x="25" y="36" width="311.15" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú"  id="especieInput" click="activarRegistrar(event)"/>
 		
 </mx:Panel>

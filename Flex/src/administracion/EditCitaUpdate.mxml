@@ -315,9 +315,6 @@
 	
 	
 	<mx:TextInput x="163" y="64" width="140" id="nombre" enabled="true" maxChars="20" editable="false"/>
-	
-	
-	
 	<mx:Label x="10" y="66" text="Nombre         :" width="145"/>
 	<mx:Label x="10" y="152" text="Fecha           :" width="145"/>
 	<mx:Label x="10" y="202" text="Hora             :" width="145"/>
