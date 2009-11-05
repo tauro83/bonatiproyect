@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Bitácora" borderColor="#15AD8F" initialize="getAllBitacoras()">
 	<mx:Script>
 		<![CDATA[
@@ -12,9 +12,9 @@
 		 public var bitacoras:ArrayCollection = new ArrayCollection();
 		 
 		 private function getAllBitacoras():void{
-			var bitacoraCitaService:BitacoraCitaService = new BitacoraCitaService();
-			bitacoraCitaService.addEventListener(ResultEvent.RESULT,getAllBitacoraCitaResult);
-			bitacoraCitaService.getAllBitacoraCita();
+			//var bitacoraCitaService:BitacoraCitaService = new BitacoraCitaService();
+			//bitacoraCitaService.addEventListener(ResultEvent.RESULT,getAllBitacoraCitaResult);
+			//bitacoraCitaService.getAllBitacoraCita();
 		}
 			
 		/**
@@ -30,7 +30,7 @@
 		
 		 ]]>
  	</mx:Script>	
-	<mx:DataGrid id="bs" x="25" y="10" width="711" height="376" dataProvider="{bitacoras}" selectable="false">
+	<mx:DataGrid id="bs" x="33" y="14" width="692" height="345" dataProvider="{bitacoras}" selectable="false">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Usuario" dataField="usuario"/>
 			<mx:DataGridColumn headerText="Acción" dataField="accion"/>
