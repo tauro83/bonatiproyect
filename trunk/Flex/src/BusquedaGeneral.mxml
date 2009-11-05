@@ -5,7 +5,7 @@
 			import mx.binding.utils.ChangeWatcher;
 		
 			//=======================================================================
-			// FECHA: CREACIÓN: 6 Octubre
+			// FECHA CREACIÓN: 6 Octubre
 			// AUTOR: Esteban Cruz
 			// Panel de busqueda del sistema, dentro de esta se pueden realizar 
 			// busquedas para: Mascota, Cliente, Atencion, Producto, Aviso, Usuario

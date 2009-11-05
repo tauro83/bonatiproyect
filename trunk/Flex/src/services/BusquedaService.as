@@ -1,5 +1,5 @@
 //=======================================================================
-// FECHA: CREACIÓN: 6 Octubre
+// FECHA CREACIÓN: 6 Octubre
 // AUTOR: Esteban Cruz
 // Script de busqueda del sistema, dentro de esta se pueden realizar 
 // busquedas para: Mascota, Cliente, Atencion, Producto, Aviso, Usuario
