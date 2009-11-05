@@ -1,5 +1,5 @@
 //=======================================================================
-// FECHA: CREACIÓN: 6 Octubre
+// FECHA CREACIÓN: 6 Octubre
 // AUTOR: Esteban Cruz
 // Clase de busqueda del sistema, dentro de esta se pueden realizar 
 // busquedas para: Mascota, Cliente, Atencion, Producto, Aviso, Usuario
@@ -29,9 +29,11 @@ public class BusquedaBD
 	PreparedStatement selectAllAtenciones;
 	PreparedStatement selectAllProductos;
 	/**
-	 * Se declaran las consultas hacia la base de datos
-	 * @param connection Conexión obtenida con la base de datos
-	 */
+	 *  @author  "Esteban Cruz"
+	 *  @Fecha  6 Octubre
+	 *  @Descripcion Se declaran las consultas hacia la base de datos
+	 *  @param connection Conexión obtenida con la base de datos
+	 **/
 	public BusquedaBD(Connection connection)
 	{
 		try 
@@ -42,7 +44,7 @@ public class BusquedaBD
 					"FROM usuario;";
 			selectAllUsuarios = connection.prepareStatement(query);
 			
-			query = "SELECT nombre, rut, telefono, correo, apaterno, amaterno " +
+			query = "SELECT nombre, rut, telefono2, email, apellido, apellido2 " +
 					"FROM clientepresencial;";
 			selectAllClientes = connection.prepareStatement(query);
 			
@@ -65,9 +67,11 @@ public class BusquedaBD
 	}
     
 	/**
-	 * Trata de obtener todos los usuarios registrados en la base de datos
-	 * @return Lista con todos los usuarios registrados
-	 */
+	 *  @author  "Esteban Cruz"
+	 *  @Fecha  6 Octubre
+	 *  @Descripcion Trata de obtener todos los usuarios registrados en la base de datos
+	 *  @return Lista con todos los usuarios registrados
+	 **/
     public List<Usuario> getAllUsuarios()
     {	
     	List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -97,9 +101,11 @@ public class BusquedaBD
     }
     
     /**
-	 * Trata de obtener todos los clientes registrados en la base de datos
-	 * @return Lista con todos los clientes registrados
-	 */
+	 *  @author  "Esteban Cruz"
+	 *  @Fecha  6 Octubre
+	 *  @Descripcion Trata de obtener todos los clientes registrados en la base de datos
+	 *  @return Lista con todos los clientes registrados
+	 **/
     public List<Cliente> getAllClientes()
     {	
     	List<Cliente> clientes = new ArrayList<Cliente>();
@@ -130,9 +136,11 @@ public class BusquedaBD
     }
     
     /**
-	 * Trata de obtener todos las mascotas registrados en la base de datos
-	 * @return Lista con todos las moscotas registrados
-	 */
+	 *  @author  "Esteban Cruz"
+	 *  @Fecha  6 Octubre
+	 *  @Descripcion Trata de obtener todos las mascotas registrados en la base de datos
+	 *  @return Lista con todos las moscotas registrados
+	 **/
     public List<Mascota> getAllMascotas()
     {	
     	List<Mascota> mascotas = new ArrayList<Mascota>();
@@ -162,9 +170,11 @@ public class BusquedaBD
     }
     
     /**
-	 * Trata de obtener todos las atenciones registrados en la base de datos
-	 * @return Lista con todos las atenciones registrados
-	 */
+	 *  @author  "Esteban Cruz"
+	 *  @Fecha  6 Octubre
+	 *  @Descripcion Trata de obtener todos las atenciones registrados en la base de datos
+	 *  @return Lista con todos las atenciones registrados
+	 **/
     public List<Atencion> getAllAtenciones()
     {	
     	List<Atencion> atenciones = new ArrayList<Atencion>();
@@ -194,9 +204,11 @@ public class BusquedaBD
     }
     
     /**
-	 * Trata de obtener todos los productos registrados en la base de datos
-	 * @return Lista con todos los productos registrados
-	 */
+	 *  @author  "Esteban Cruz"
+	 *  @Fecha  6 Octubre
+	 *  @Descripcion Trata de obtener todos los productos registrados en la base de datos
+	 *  @return Lista con todos los productos registrados
+	 **/
     public List<Producto> getAllProductos()
     {	
     	List<Producto> productos = new ArrayList<Producto>();
