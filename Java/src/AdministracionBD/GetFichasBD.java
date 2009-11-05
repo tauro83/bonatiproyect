@@ -1,3 +1,9 @@
+//=======================================================================
+// Fecha Creaccion: 05/10/09
+// AUTOR: Camilo Verdugo
+// Descripcion:  Clase que gestiona la obtencion de las fichas, esta clase es llamada por la capa dos, retornando 
+// las mascotas, el cliente y las atenciones
+//=======================================================================
 package AdministracionBD;
 
 import java.sql.Connection;
@@ -10,19 +16,13 @@ import TransferObjects.Atencion;
 import TransferObjects.Mascota;
 import TransferObjects.Cliente;
 
-/**
- * @author cavg
- * @version 2
- * Clase que gestiona la obtencion de las fichas, esta clase es llamada por la capa dos, retornando 
- * las mascotas, el cliente y las atenciones
- */
 public class GetFichasBD {
 	
 	PreparedStatement selectAll;
 	Connection connection;
 		
 	/**
-	 * 
+	 * Constructor de la clase
 	 * @param connection establece la conexion con la base de datos.
 	 */
 	public GetFichasBD(Connection connection)
@@ -31,7 +31,7 @@ public class GetFichasBD {
 		
 	}
 	/**
-	 * 
+	 * Obtiene un cliente a partir del RUT
 	 * @param rut Parametro que permite identificar a un cliente en particular
 	 * @return Un transfer Object Cliente, el cual fue recuperado desde la BD
 	 * @throws SQLException Permite manejar errores en la sentencia sql
@@ -61,7 +61,7 @@ public class GetFichasBD {
 	}
 	
 	/**
-	 * 
+	 * Obtiene un listado de mascotas
 	 * @return retorna un listad de mascotas, las cuales seran mostradas en la capa de presencion
 	 * Este metodo es llamado desde la capa 2
 	 * 
@@ -87,10 +87,6 @@ public class GetFichasBD {
     			mas.setRaza(result.getString(5));
     			mas.setSexo(result.getString(6));
     			mas.setEstado(result.getBoolean(7));
-    			
-    			//mas.setFechaNacimiento(result.getString(3));
-    			//mas.setSexo(result.getString(4));
-    			//mas.setRaza(result.getString(5));
     			mascotas.add(mas);
     		}
 		} 
@@ -104,7 +100,7 @@ public class GetFichasBD {
 	
 	
 	/**
-	 * 
+	 * Obtiene las atenciones
 	 * @param rut Parametro que permite identificar las atenciones de una mascota en particular
 	 * @param nombre Segundo parametro necesario para identificar las atenciones
 	 * @return una lista de atenciones, las cuales seran mostradas en la ficha.

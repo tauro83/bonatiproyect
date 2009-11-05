@@ -1,3 +1,9 @@
+//=======================================================================
+// Fecha Creaccion: 05/10/09
+// AUTOR: Camilo Verdugo
+// Descripcion:  Clase que llama al metodo del paquete PeluqueriaBD, para obtener los datos de las atenciones
+// de peluqueria
+//=======================================================================
 package Peluqueria;
 
 import java.sql.Connection;
@@ -8,19 +14,12 @@ import PeluqueriaBD.GetEstadisticasAtencionesBD;
 import Bd.DBConnectionManager;
 import TransferObjects.EstadisticasPeluqueria;
 
-/**
- * @author Camilo Verdugo
- * @version 2
- * Clase que llama al metodo del paquete PeluqueriaBD, para obtener los datos de las atenciones
- * de peluqueria
- *  		
- **/
-
 public class GetEstadisticas {
 
 	Connection connection;
+	
 	/**
-	 * 
+	 * Obtiene las estadisticas de peluqueria
 	 * @param inicio indica el rango inicial de la estadisticas, esto referido a las fechas
 	 * @param fin indica el rango final de las estadisticas.
 	 * Este metodo hace el llamado a la clase equivalente en la capa de BD.
