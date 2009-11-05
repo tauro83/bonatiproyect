@@ -1,5 +1,5 @@
 //=======================================================================
-// FECHA: CREACIÓN: 
+// FECHA CREACIÓN: 15 Septiembre
 // AUTOR: Esteban Cruz
 // Script de login del sistema, dentro de esta se puede realizar 
 // comprobacion para el login
@@ -32,7 +32,7 @@ package services
 		
 		/**
 		 *  @author  "Esteban Cruz"
-		 * 	@Fecha  6 Octubre
+		 * 	@Fecha  15 Septiembre
 		 *  @Descripcion event Evento recogido en caso de una falla en la llamada hacia la capa lógica
 		 */ 
 		private function faultHandler(event:FaultEvent):void
@@ -42,7 +42,7 @@ package services
 		
 		/**
 	 	 *  @author  "Esteban Cruz"
-		 *  @Fecha  6 Octubre
+		 *  @Fecha  15 Septiembre
 		 *  @Descripcion Obtiene los usuarios existentes en la base de datos, 
 	 	 *  y verifica que el login ingresado sea correcto
 		 *  @return 1 si el login ingresado es correcto, de lo 

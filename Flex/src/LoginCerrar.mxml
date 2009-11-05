@@ -2,9 +2,21 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Cerrar Sesión" borderColor="#15AD8F">
 <mx:Script>
 	<![CDATA[
+		//=======================================================================
+		// FECHA CREACIÓN: 15 Septiembre
+		// AUTOR: Esteban Cruz
+		// Dentro de este componente se puede cerrar la sesion de un usuario
+		// acutalmente activo o volver al panel de agenda
+		//=======================================================================
 		
 		import mx.core.Application;
 		
+		/**
+		*  @author  "Esteban Cruz"
+		*  @Fecha  15 Septiembre
+		*  @Descripcion Cierra la sesion de un usuario, haciendolo volver 
+		*  al panel de "iniciar sesion"
+		**/
 		private function cerrar():void
 		{
 			Application.application.setInvisible();
@@ -22,6 +34,12 @@
            	Application.application.botonLogin.label="Iniciar Sesión";
    		}
    			
+   		/**
+		*  @author  "Esteban Cruz"
+		*  @Fecha  15 Septiembre
+		*  @Descripcion Si se cancela al momento de cerrar sesion,
+		*  vuelve al panel de agenda 
+		**/
    		private function cancelar():void
    		{
    			Application.application.setInvisible();

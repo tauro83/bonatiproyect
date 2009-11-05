@@ -4,7 +4,7 @@
 		<![CDATA[
 		
 			//=======================================================================
-			// FECHA: CREACIÓN: 
+			// FECHA CREACIÓN: 15 Septiembre
 			// AUTOR: Esteban Cruz
 			// Dentro de este componente se realiza la comprobacion del login 
 			// de ser correcto se podra ingresar, de lo contrario no
@@ -20,6 +20,13 @@
 			
 			public var bar:int;
 			
+			/**
+			 *  @author  "Esteban Cruz"
+			 * 	@Fecha  15 Septiembre
+			 *  @Descripcion Comprueba que exista el login que se esta ingresando,
+			 *  haciendo un llamado a la funcion que consulta a la base de datos,
+			 *  @Return 1 si existe y es correcto, 0 en caso contrario
+			 **/
 			private function existLogin():void
 			{
 				var usuario:Usuario = new Usuario();
@@ -30,6 +37,14 @@
 				loginService.addEventListener(ResultEvent.RESULT,existLoginResult);
 				loginService.existLogin(usuario);
 			}
+			
+			/**
+			 *  @author  "Esteban Cruz"
+			 * 	@Fecha  15 Septiembre
+			 *  @Descripcion Una vez consulado en la base de datos por el usuario
+			 *  ingresado, tomando el valor de retorno, si este es 1 accede al 
+			 *  sistema, de lo contrario no dando aviso por un popup
+			 **/
 			private function existLoginResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
