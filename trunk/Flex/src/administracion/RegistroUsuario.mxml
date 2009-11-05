@@ -1,11 +1,9 @@
-<!-- @autor Camilo Verdugo
--->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registrar Usuario" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
 		
 			//=======================================================================
-			// FECHA: CREACIÓN: 20 Septiembre
+			// FECHA: CREACIÓN: 05/08/09e
 			// AUTOR: Camilo Verdugo
 			// Comentarios: Formulario y validacion del registro de un usuario de sistema
 			//=======================================================================
@@ -27,7 +25,8 @@
 			private var ru:UsuarioService = new UsuarioService();
 			private var u1:Usuario;
 			
-			/** Metodo que crea una instancia del transferObject usuario,
+			/** 
+			 *  Metodo que crea una instancia del transferObject usuario,
 			 *  posterior a la validacion de datos  y lo envia a usuarioServices	
 		 	 * 	@author  "Camilo Verdugo"
 			 * 	@Fecha  23 Septiembre
@@ -62,7 +61,8 @@
 			}
 			
 			
-			/** Metodo que reinicia los campos de textos, tras una accion de cancelar
+			/** 
+			 *  Metodo que reinicia los campos de textos, tras una accion de cancelar
 			 * 	o regitrar satisfactoriamente a un usuario.
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
@@ -87,7 +87,11 @@
 				vApaterno		= false;
 				mens.text		= "";				
 			}
-			
+			/** 
+			 *  Metodo que reinicia los campos de textos, tras una accion de cancelar
+			 * 	o regitrar satisfactoriamente a un usuario.
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
 			public function resetVars2():void
 			{
 				nomb.text 		= "";
@@ -110,7 +114,8 @@
 				mens.text		= "";			
 				this.cancelarRegistrar();
 			}
-			/** Validacion del nombre del usuario	 
+			/** 
+			 *  Validacion del nombre del usuario	 
 		 	 * 	@author  "Camilo Verdugo"
 			 * 	@Fecha  23 Septiembre
 			 * */
@@ -128,7 +133,8 @@
 				}	
 			}
 			
-			/** Validacion del nombre con el cual el usuario se identificara en el sistema
+			/** 
+			 *  Validacion del nombre con el cual el usuario se identificara en el sistema
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function validarUsuario(event:Event):void
@@ -146,7 +152,8 @@
 				
 			}
 			
-			/** Validacion las propiedades de la contraseña	
+			/** 
+			 *  Validacion las propiedades de la contraseña	
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function validarContrasena(event:Event):void
@@ -164,7 +171,8 @@
 				
 			}
 			
-			/** comprueba que las dos contraseñas ingresadas coincidan	
+			/** 
+			 *  Comprueba que las dos contraseñas ingresadas coincidan	
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function validarRContrasena(event:Event):void
@@ -181,7 +189,8 @@
 				}
 			}
 			
-			/** Realiza la opcion de elegir todos los privilegios tras seleccionar la opcion todos
+			/** 
+			 *  Realiza la opcion de elegir todos los privilegios tras seleccionar la opcion todos
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function todosLosPrivilegios(event:Event):void
@@ -201,7 +210,8 @@
 				}
 			}			
 			
-			/** Inicia los eventos de las entradas de texto que requieren revision
+			/** 
+			 *  Inicia los eventos de las entradas de texto que requieren revision
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function iniListener():void
@@ -229,7 +239,8 @@
 			}
 			
 			
-			/** retorna el resultado de la accion que se realizo:Registro.
+			/** 
+			 *  Retorna el resultado de la accion que se realizo:Registro.
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function registroUsuarioResultado(event:ResultEvent):void
@@ -245,7 +256,8 @@
 				}		
 				mens.text = msj;	
 			}	
-			/** retorna el panel anterior de opciones	
+			/** 
+			 *  Retorna el panel anterior de opciones	
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function cancelarRegistrar():void

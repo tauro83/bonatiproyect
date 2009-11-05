@@ -1,11 +1,8 @@
-<!--@Author Camilo Verdugo
-	@Version	3
--->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779" height="466" title="Visualizar Ficha" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
-			// FECHA: CREACIÓN: 5 Octubre
+			// FECHA: CREACIÓN: 05/09/09
 			// AUTOR: Camilo Verdugo
 			// Muestra los datos de una ficha su dueño y las atenciones
 			//=======================================================================
@@ -31,7 +28,8 @@
          	[Bindable]
          	private var atenciones:ArrayCollection;
          	
-         	/** Metodo que asigna la mascota obtenida del listado de mascotas
+         	/** 
+         	 *  Metodo que asigna la mascota obtenida del listado de mascotas
 			 *  ademas se encarga de solicitar los datos de su dueño y las atenciones realizadas
 		 	 * 	@author  "Camilo Verdugo"
 			 *  @Descripcion 
@@ -51,7 +49,8 @@
          		this.getMascota();
          	}
 	
-			/** Metodo que asigna los valores del cliente retornado del as
+			/** 
+			 *  Metodo que asigna los valores del cliente retornado del as
 			 *  Los valores son asignados directamente en el componente luego de su retorno
 		 	 * 	@author  "Camilo Verdugo"
 			 * */		
@@ -63,7 +62,8 @@
 				this.cTel.text = cliente.telefono;			
 				
 			}
-			/** Metodo que recibe las atenciones que fueron enviadas del as
+			/** 
+			 *  Metodo que recibe las atenciones que fueron enviadas del as
 			 *  Estas son asignadas a la lista de atenciones.
 		 	 * 	@author  "Camilo Verdugo"
 			 * */	
@@ -71,7 +71,8 @@
 				atenciones = event.result as ArrayCollection;	
 						
 			}
-			/** Asigna los datos de la mascota seleccionada a los campos de la ficha
+			/** 
+			 *  Asigna los datos de la mascota seleccionada a los campos de la ficha
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			public function getMascota():void
@@ -83,7 +84,8 @@
             	this.mSex.text = mascota.sexo;
 			}
 			
-			/** Retorna el panel anterior
+			/** 
+			 *  Retorna el panel anterior
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			public function cancelarVisulizar():void

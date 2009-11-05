@@ -3,7 +3,7 @@
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
-			// FECHA: CREACIÓN: 27 Octubre
+			// FECHA: CREACIÓN: 27/08/09
 			// AUTOR: Camilo Verdugo
 			// Modulo de mantencion de servicios del sistema
 			//=======================================================================
@@ -14,7 +14,8 @@
 			[Bindable]private var servicios:ArrayCollection;
 			private var confs:configuracionServices= new configuracionServices();
 			
-			/** obtiene las especies desde el actionScript
+			/** 
+			 *  Obtiene las especies desde el actionScript
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			public function cargarDatos():void
@@ -23,7 +24,8 @@
 				confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
 			}
 			
-			/** asigna el retorno del llamado de cargarDatos a un
+			/** 
+			 *  Asigna el retorno del llamado de cargarDatos a un
 			 *   arrayCollection para mostrar las configuraciones
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
@@ -32,7 +34,8 @@
 				servicios = event.result as ArrayCollection;	
 			}
 			 
-			/** metodo que retorna al panel de administacion, este es llamado
+			/** 
+			 *  Metodo que retorna al panel de administacion, este es llamado
 			 *  por el botton "Volver"
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
@@ -43,8 +46,8 @@
             	Application.application.AdmOpciones1.setVisible(true,false);
             	this.resetVars();
 			}
-			/** reinicia las variables y borra las entradas de textos y mensajes de
-			 * sistema
+			/** 
+			 * Reinicia las variables y borra las entradas de textos y mensajes de sistema
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			public function resetVars():void
@@ -53,7 +56,8 @@
 				ltexto.text = "";
 			}
 			
-			/** obtiene la configuracion seleccionada del grid
+			/** 
+			 *  Obtiene la configuracion seleccionada del grid
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			public function setNombre(event:Event):void
@@ -66,7 +70,8 @@
             	}		
             			
 			}
-			/** envia una configuracion y muestra un mensaje de confirmacion de la accion.
+			/** 
+			 *  Envia una configuracion y muestra un mensaje de confirmacion de la accion.
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function registrarNombre(event:Event):void
@@ -85,7 +90,8 @@
 				especieInput.text = "";			
 				
 			}
-			/** elimina la configuracion seleccionada del data grid
+			/** 
+			 *  Elimina la configuracion seleccionada del data grid
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function eliminarNombre(event:Event):void
@@ -95,7 +101,8 @@
 				ltexto.text = "Servicio eliminado exitosamente";
 				especieInput.text = "";
 			}
-			/** habilita el boton de registrar posterior a su deshabilitacion por la accion de eliminar
+			/** 
+			 *  Habilita el boton de registrar posterior a su deshabilitacion por la accion de eliminar
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function activarRegistrar(event:Event):void

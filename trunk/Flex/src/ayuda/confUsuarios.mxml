@@ -4,12 +4,13 @@
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
-			// FECHA: CREACIÓN: 2 Noviembre
+			// FECHA: CREACIÓN: 02/11/09
 			// AUTOR: Camilo Verdugo
 			// Panel de ayuda de configuracion de categorias de usuarios
 			//=======================================================================
 			
-			/** Metodo que despliega las imagenes de ayuda para este componente
+			/** 
+			 *  Metodo que despliega las imagenes de ayuda para este componente
 		 	 * 	@author  "Camilo Verdugo"
 			 * */	
 			private function verBarra():void
@@ -20,7 +21,8 @@
 				botVolver.visible = true;
 				opcMod.visible = false;
 			}
-			/** Metodo que despliega el texto de ayuda
+			/** 
+			 *  Metodo que despliega el texto de ayuda
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function verOpcMod():void
@@ -31,7 +33,8 @@
 				botVolver.visible = true;
 				opcMod.visible = true;
 			}
-			/** Metodo que retorna el panel de carga de la imagen, a la informacion de ayuda
+			/** 
+			 *  Metodo que retorna el panel de carga de la imagen, a la informacion de ayuda
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function volver2():void

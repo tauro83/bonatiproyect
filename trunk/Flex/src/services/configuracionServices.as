@@ -1,6 +1,5 @@
-// ActionScript file
 //=======================================================================
-// FECHA: CREACIÓN: 31 Octubre
+// FECHA: CREACIÓN: 31/10/09
 // AUTOR: Camilo Verdugo
 // Comentarios: Clase que establece la conexion con la capa logica y
 //				realiza la accion de obtener y enviar las configuraciones que correponden
@@ -16,9 +15,9 @@ package services
 	import mx.rpc.remoting.mxml.RemoteObject;	
 	import transferObjects.ConfiguracionVacuna;
 	
-	/** Clase que gesitiona la conexion. Mediante el constructor
+	/** 
+	 *  Clase que gesitiona la conexion. Mediante el constructor
 	 *  Se instancia la conexion con la capa logica , indicando los datos del servidor. 
-	 * 	@author  "Camilo Verdugo"
 	*/
 	public class configuracionServices extends RemoteObject
 	{
@@ -39,7 +38,6 @@ package services
 		}
 		
 		/**
-		 * 
 		 * @param event reaccion ante un error en la conexion con la capa 2
 		 * se maneja este error por medio de un POPUP 
 		 */		
@@ -49,10 +47,8 @@ package services
 		}
 		
 		/**
-		 * 
 		 * @param tipo indica que configuracion esta solicitando, los tipos pueden ser:
 		 * Servicio, Especie, Cargo, obteniendo las configuraciones para cada uno de esos tipos
-		 * 
 		 */		
 		public function getConfiguraciones(tipo:String):void
 		{
@@ -68,6 +64,7 @@ package services
 		}
 		
 		/**
+		 * Registrar configuracion
 		 * @param tipo indica que configuracion esta solicitando, los tipos pueden ser:
 		 * Servicio, Especie, Cargo, obteniendo las configuraciones para cada uno de esos tipos
 		 * @param nombre valor que sera seteado en la configuracion, por ejemplo: Policlinico, Ayudante
@@ -78,6 +75,7 @@ package services
 			this.getOperation("regConfiguracion").send(tipo,nombre);
 		}
 		/**
+		 * Eliminar configuracion
 		 * @param tipo indica que configuracion esta solicitando, los tipos pueden ser:
 		 * Servicio, Especie, Cargo, obteniendo las configuraciones para cada uno de esos tipos
 		 * @param nombre valor que sera eliminado de la configuracion, por ejemplo: Policlinico, Ayudante
@@ -89,6 +87,7 @@ package services
 		}
 				
 		/**
+		 * Registrar configuracion
 		 * @param cv objeto que registra una vacuna 
 		 */			 
 		public function regConfiguracionVacuna(cv:ConfiguracionVacuna):void
@@ -96,6 +95,7 @@ package services
 			this.getOperation("regConfiguracionVacuna").send(cv);
 		}
 		/**
+		 * Eliminar vacuna
 		 * @param nombre valor que sera eliminado de la tabla de vacunas
 		 */	
 		public function elimConfiguracionVacuna(nombre:String):void

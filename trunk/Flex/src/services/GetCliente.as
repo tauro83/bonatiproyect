@@ -1,7 +1,11 @@
+//=======================================================================
+// FECHA: CREACIÓN: 20/08/09
+// AUTOR: Camilo Verdugo
+// Comentarios: Clase que establece la conexion con la capa logica y
+//				realiza la accion de registrar un usuario
+//=======================================================================
 package services
 {
-	// @autor Camilo Verdugo
-
 	import mx.controls.Alert;
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
@@ -10,17 +14,14 @@ package services
 	
 	
 	/**
+	 *  Clase que gesitiona la conexion. Mediante el constructor
+	 *  Se instancia la conexion con la capa logica , indicando los datos del servidor. 
 	 * 	@author  "Camilo Verdugo"
-	 * 	@Fecha  20 Septiembre
-	 *  @Descripcion Clase que gesitiona la conexion. Mediante el constructor
-	 *  			 Se instancia la conexion con la capa logica , indicando los datos del servidor. 
 	*/
 
 	public class GetCliente extends RemoteObject
 	{
 		/**
-		 * @author "Camilo Verdugo"
-		 * @Fecha 22 Septiembre
 		 * @param amfChannel Indica la ruta del servidor Jboss
 		 * @param destination indica el package el nombre del package en la capa logica.
 		 * @param source indica el nombre de la clase de la capa logica seguida por el package
@@ -37,13 +38,17 @@ package services
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		
-		
+		/**
+		 * Muestra el mensaje de error
+		 * */
 		private function faultHandler(event:FaultEvent):void
 		{
 			Alert.show("Error en getFichas, Detalle: "+event.fault.message);
 		}
 		
-		
+		/**
+		 * Obtiene las atenciones
+		 * */
 		public function getAtenciones(rut:String,nombre:String):void
 		{
 			this.getOperation("getAtenciones").send(rut,nombre);

@@ -1,6 +1,5 @@
-// ActionScript file
 //=======================================================================
-// FECHA: CREACIÓN: 20 Septiembre
+// FECHA: CREACIÓN: 20/08/09
 // AUTOR: Camilo Verdugo
 // Comentarios: Clase que establece la conexion con la capa logica y
 //				realiza la accion de registrar un usuario
@@ -17,7 +16,8 @@ package services
 	import transferObjects.Usuario;
 	
 	
-	/** Clase que gesitiona la conexion. Mediante el constructor
+	/** 
+	 *  Clase que gesitiona la conexion. Mediante el constructor
 	 *  Se instancia la conexion con la capa logica , indicando los datos del servidor. 
 	 * 	@author  "Camilo Verdugo"
 	*/
@@ -25,7 +25,7 @@ package services
 	public class UsuarioService extends RemoteObject
 	{
 		/**
-		 * @author "Camilo Verdugo"
+		 * Constructor de la clase
 		 * @param amfChannel Indica la ruta del servidor Jboss
 		 * @param destination indica el package el nombre del package en la capa logica.
 		 * @param source indica el nombre de la clase de la capa logica seguida por el package
@@ -42,7 +42,7 @@ package services
 		}
 		
 		/**
-		 * @author "Camilo Verdugo"
+		 * Registra un usuario a la capa 2
 		 * @param user es una instancia del transferObject Usuario, instanciado en la capa logica.
 		 * @param addUsuario es el metodo de la clase Administracion de la capa logica.
 		 * */

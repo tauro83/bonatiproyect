@@ -4,12 +4,13 @@
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
-			// FECHA: CREACIÓN: 29 Octubre
+			// FECHA: CREACIÓN: 29/08/09
 			// AUTOR: Camilo Verdugo
 			// Panel de ayuda de usuario sobre registrar un nuevo usuario
 			//=======================================================================
 			
-			/** Metodo que despliega las imagenes de ayuda para este componente
+			/** 
+			 *  Metodo que despliega las imagenes de ayuda para este componente
 		 	 * 	@author  "Camilo Verdugo"
 			 * */	
 			private function verBarra():void
@@ -21,7 +22,8 @@
 				linkOpciones.visible = false;
 				opcMod.visible = false;
 			}
-			/** Metodo que despliega el texto de ayuda
+			/** 
+			 *  Metodo que despliega el texto de ayuda
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function verOpcMod():void
@@ -33,7 +35,8 @@
 				linkOpciones.visible = false;
 				opcMod.visible = true;
 			}
-			/** Metodo que retorna el panel de carga de la imagen, a la informacion de ayuda
+			/** 
+			 *  Metodo que retorna el panel de carga de la imagen, a la informacion de ayuda
 		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			private function volver2():void
