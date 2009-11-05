@@ -16,11 +16,9 @@ package services
 	import mx.rpc.remoting.mxml.RemoteObject;	
 	import transferObjects.ConfiguracionVacuna;
 	
-	/**
+	/** Clase que gesitiona la conexion. Mediante el constructor
+	 *  Se instancia la conexion con la capa logica , indicando los datos del servidor. 
 	 * 	@author  "Camilo Verdugo"
-	 * 	@Fecha  31 Octubre
-	 *  @Descripcion Clase que gesitiona la conexion. Mediante el constructor
-	 *  			 Se instancia la conexion con la capa logica , indicando los datos del servidor. 
 	*/
 	public class configuracionServices extends RemoteObject
 	{

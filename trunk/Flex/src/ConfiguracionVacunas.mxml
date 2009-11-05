@@ -1,6 +1,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="cargarDatos()" width="779" height="466" title="Configuración Vacunas" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
+			import mx.events.IndexChangedEvent;
 			import transferObjects.ConfiguracionVacuna; 
 			//=======================================================================
 			// FECHA: CREACIÓN: 27 Octubre
@@ -8,6 +9,7 @@
 			// Modulo de mantencion de vacunas del sistema
 			//=======================================================================
 			import mx.core.Application;
+			import mx.controls.Alert;
 			import mx.rpc.events.ResultEvent; 
 			import mx.collections.ArrayCollection;   
 			import services.configuracionServices;
@@ -15,46 +17,50 @@
 			[Bindable]private var vacunas:ArrayCollection;
 			private var confs:configuracionServices= new configuracionServices();
 			
-			/**
+			/** obtiene las especies desde el actionScript
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion obtiene las especies desde el actionScript
 			 * */
 			public function cargarDatos():void
 			{				
 				confs.getConfiguracioneVacunas();
-				confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
-				
+				confs.addEventListener(ResultEvent.RESULT,cargarDatosR);				
 			}
-			/**
+			
+			/** reinicia las variables y borra las entradas de textos y mensajes de
+			 * sistema
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion asigna el retorno del llamado de cargarDatos a un
-			 *   arrayCollection para mostrar las configuraciones
+			 * */
+			public function resetVars():void
+			{
+				especieInput.text = "";
+				ltexto.text = "";
+				nomb.text = "";
+				prec.text = "";
+				desc.text = "";
+				cadu.text = "";	
+			}
+			
+			/** asigna el retorno del llamado de cargarDatos a un arrayCollection para mostrar las configuraciones
+		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			public function cargarDatosR(event:ResultEvent):void
 			{
 				vacunas = event.result as ArrayCollection;	
 			}
 	
-			/**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion metodo que retorna al panel de administacion, este es llamado
+			/** metodo que retorna al panel de administacion, este es llamado
 			 *  por el botton "Volver"
+		 	 * 	@author  "Camilo Verdugo"
 			 * */			
 			public function cancelarVisulizar():void
 			{	
 				Application.application.setInvisible();
             	Application.application.panel2.setVisible(true,false);
             	Application.application.AdmOpciones1.setVisible(true,false);
-            	ltexto.text = "";
-            	especieInput.text = "";
+            	this.resetVars();
 			}
-			/**
+			/** obtiene la configuracion seleccionada del grid
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion obtiene la configuracion seleccionada del grid
 			 * */
 			public function setNombre(event:Event):void
 			{
@@ -68,36 +74,40 @@
             			
 			}
 			
-			/**
+			/** envia una configuracion y muestra un mensaje de confirmacion de la accion.
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  27 Octubre
-			 *  @Descripcion envia una configuracion y muestra un mensaje de confirmacion de la accion.
 			 * */
 			private function registrarNombre(event:Event):void
 			{
 				var cv:ConfiguracionVacuna = new ConfiguracionVacuna();
-				cv.nombre = nomb.text;
-				cv.precio = prec.text;
-				cv.descripcion = desc.text;
-				cv.caducidad = cadu.text;
-				confs.regConfiguracionVacuna(cv);
-				this.cargarDatos();
-				
-				nomb.text = "";
-				prec.text = "";
-				desc.text = "";
-				cadu.text = "";		
-				ltexto.text = "Vacuna registrada exitosamente";	
+				if(nomb.text.length>0 &&  prec.text.length>2 && cadu.length>0){
+					cv.nombre = nomb.text;
+					cv.precio = prec.text;
+					cv.descripcion = desc.text;
+					cv.caducidad = cadu.text;				
+					confs.regConfiguracionVacuna(cv);
+					ltexto.text = "Vacuna registrada exitosamente";	
+					nomb.text = "";
+					prec.text = "";
+					desc.text = "";
+					cadu.text = "";		
+					especieInput.text = "";
+					this.cargarDatos();
+				}else{
+					ltexto.text = "Complete los datos solicitados antes de registrar";	
+				}
 					
 			}
-			
+			/** envia un parametro identificatorio, de la vacuna seleccionada, para su eliminacion.
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
 			private function eliminarNombre(event:Event):void
 			{
-				confs.elimConfiguracionVacuna(especieInput.text);
-				especieInput.text = "";
+				confs.elimConfiguracionVacuna(especieInput.text);				
 				this.cargarDatos();
-				ltexto.text = "Vacuna eliminada exitosamente";
-			}
+				especieInput.text = "";
+				ltexto.text = "Vacuna eliminada exitosamente";									
+			}			
 			
 		]]>
 	</mx:Script>

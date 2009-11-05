@@ -27,11 +27,10 @@
 			private var ru:UsuarioService = new UsuarioService();
 			private var u1:Usuario;
 			
-			/**
+			/** Metodo que crea una instancia del transferObject usuario,
+			 *  posterior a la validacion de datos  y lo envia a usuarioServices	
 		 	 * 	@author  "Camilo Verdugo"
 			 * 	@Fecha  23 Septiembre
-			 *  @Descripcion Metodo que crea una instancia del transferObject usuario,
-			 *  posterior a la validacion de datos  y lo envia a usuarioServices		 		
 			 * */
 			private function registrar():void
 			{								 
@@ -63,11 +62,9 @@
 			}
 			
 			
-			/**
+			/** Metodo que reinicia los campos de textos, tras una accion de cancelar
+			 * 	o regitrar satisfactoriamente a un usuario.
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  23 Septiembre
-			 *  @Descripcion Metodo que reinicia los campos de textos, tras una accion de cancelar
-			 * 	o regitrar satisfactoriamente a un usuario.		 		
 			 * */
 			public function resetVars():void
 			{				
@@ -113,31 +110,26 @@
 				mens.text		= "";			
 				this.cancelarRegistrar();
 			}
-			/**
+			/** Validacion del nombre del usuario	 
 		 	 * 	@author  "Camilo Verdugo"
 			 * 	@Fecha  23 Septiembre
-			 *  @Descripcion Validacion del nombre del usuario	 		
 			 * */
 			private function validarNombre(event:Event):void
 			{
 				if(Validacion.longitudMinima(nomb.text))
 				{
-					
 					vNombre		= true;
 					mens.text = "";
 				}
 				else
 				{
-					
 					vNombre		= false;
 					mens.text = "Ingrese un nombre más largo";
 				}	
 			}
 			
-			/**
+			/** Validacion del nombre con el cual el usuario se identificara en el sistema
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  23 Septiembre
-			 *  @Descripcion Validacion del nombre con el cual el usuario se identificara en el sistema 		
 			 * */
 			private function validarUsuario(event:Event):void
 			{	
@@ -154,10 +146,8 @@
 				
 			}
 			
-			/**
+			/** Validacion las propiedades de la contraseña	
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  23 Septiembre
-			 *  @Descripcion Validacion las propiedades de la contraseña		
 			 * */
 			private function validarContrasena(event:Event):void
 			{
@@ -174,10 +164,8 @@
 				
 			}
 			
-			/**
+			/** comprueba que las dos contraseñas ingresadas coincidan	
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  23 Septiembre
-			 *  @Descripcion comprueba que las dos contraseñas ingresadas coincidan		
 			 * */
 			private function validarRContrasena(event:Event):void
 			{
@@ -193,10 +181,8 @@
 				}
 			}
 			
-			/**
+			/** Realiza la opcion de elegir todos los privilegios tras seleccionar la opcion todos
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  23 Septiembre
-			 *  @Descripcion Realiza la opcion de elegir todos los privilegios tras seleccionar la opcion todos		
 			 * */
 			private function todosLosPrivilegios(event:Event):void
 			{
@@ -215,10 +201,8 @@
 				}
 			}			
 			
-			/**
+			/** Inicia los eventos de las entradas de texto que requieren revision
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  23 Septiembre
-			 *  @Descripcion Inicia los eventos de las entradas de texto que requieren revision		
 			 * */
 			private function iniListener():void
 			{
@@ -228,7 +212,6 @@
 				usua.addEventListener(KeyboardEvent.KEY_UP,validarUsuario);		
 				ptod.addEventListener(MouseEvent.CLICK,todosLosPrivilegios);
 				apat.addEventListener(KeyboardEvent.KEY_UP,validarApellido);
-			
 			}
 
 			private function validarApellido(event:Event):void
@@ -246,10 +229,8 @@
 			}
 			
 			
-			/**
+			/** retorna el resultado de la accion que se realizo:Registro.
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  23 Septiembre
-			 *  @Descripcion retorna el resultado de la accion que se realizo:Registro.		
 			 * */
 			private function registroUsuarioResultado(event:ResultEvent):void
 			{
@@ -264,10 +245,8 @@
 				}		
 				mens.text = msj;	
 			}	
-			/**
+			/** retorna el panel anterior de opciones	
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  23 Septiembre
-			 *  @Descripcion retorna el panel anterior de opciones		
 			 * */
 			private function cancelarRegistrar():void
 			{

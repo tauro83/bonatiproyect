@@ -41,32 +41,36 @@
          {
          	Application.application.setInvisible();
          	this.visible = true;
-         	Application.application.confVacunas.visible = true;
          	Application.application.confVacunas.resetVars();
+         	Application.application.confVacunas.visible = true;
+         	
          }
          
           private function configurarServicios():void
          {
          	Application.application.setInvisible();
          	this.visible = true;
+         	Application.application.confServicios.resetVars();
          	Application.application.confServicios.visible = true;
-         	Application.application.confVacunas.resetVars();
+         	
          }
          
          private function configurarUsuario():void
          {
          	Application.application.setInvisible();
          	this.visible = true;
+         	Application.application.confUsuario.resetVars();
          	Application.application.confUsuario.visible = true;
-         	Application.application.confVacunas.resetVars();
+         	
          }
          
          private function configurarMascota():void
          {
          	Application.application.setInvisible();
          	this.visible = true;
+         	Application.application.confMascota.resetVars();
          	Application.application.confMascota.visible = true;
-         	Application.application.confVacunas.resetVars();
+         	
          }
          
          private function registrarUsuario():void

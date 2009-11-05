@@ -27,12 +27,10 @@
 			expenses = event.result as ArrayCollection;	
 		}
 		
-		/**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  13 Octubre
-			 *  @Descripcion realiza los set de fechas. Este metodo es llamado tras la accion
-			 *  de los cambios de rangos en las opciones de visualizar la estadistica.	
-			 * */
+		/**realiza los set de fechas. Este metodo es llamado tras la accion
+		 *  de los cambios de rangos en las opciones de visualizar la estadistica.
+		 * 	@author  "Camilo Verdugo"
+		 * */
 		private function changeData(eventObj:CalendarLayoutChangeEvent):void
 		{
 			if(fechaIni.selectedDate!=null && fechaFin.selectedDate!=null){

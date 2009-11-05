@@ -27,10 +27,9 @@
 			
 						
 			/**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  5 Octubre
-			 *  @Descripcion Metodo que es llamdo al iniciar el componente. Se encarga de solicitar 
+			 *  Metodo que es llamdo al iniciar el componente. Se encarga de solicitar 
 			 *  al as las mascotas que estan registradas en el sistema, de tal forma que permita su seleccion posterior
+		 	 * 	@author  "Camilo Verdugo"
 			 * */
 			public function getAllFichas():void
 			{				
@@ -41,11 +40,9 @@
 			}
 			
 			
-			/**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  5 Octubre
-			 *  @Descripcion El resultado del metodo anterior y del retorno de as es recibido por este metodo
+			/** El resultado del metodo anterior y del retorno de as es recibido por este metodo
 			 *  El cual asigna la lista de mascotas obtenidas.
+		 	 * 	@author  "Camilo Verdugo"
 			 * */                   
             public function getAllMascotasR(event:ResultEvent):void
             {
@@ -53,10 +50,9 @@
             }
            
             /**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  5 Octubre
-			 *  @Descripcion Metodo que es llamado por la accion del boton visualizar y mediante la selccion directa
+             *   Metodo que es llamado por la accion del boton visualizar y mediante la selccion directa
 			 *  se encarga de hacer el llamado al otro panel de tal forma que se muestren los datos de la mascota nueva
+		 	 * 	@author  "Camilo Verdugo"
 			 * */ 
             public function viewFicha(event:Event):void
             {
@@ -68,21 +64,17 @@
             
             }
           	
-          	 /**
-		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  5 Octubre
-			 *  @Descripcion Metodo que es llamado desde Veterinaria.mxml el cual obtiene el componente en el cual
+          	 /**Metodo que es llamado desde Veterinaria.mxml el cual obtiene el componente en el cual
 			 *  Se cargan los datos de la ficha
+		 	 * 	@author  "Camilo Verdugo"
 			 * */ 
             public function setVisualizarFicha(verFicha:VisualizarFicha):void
             {
             	this.verFicha = verFicha;               	
             }
             
-            /**
+            /** Metodo que retorna al panel anterior
 		 	 * 	@author  "Camilo Verdugo"
-			 * 	@Fecha  5 Octubre
-			 *  @Descripcion Metodo que retorna al panel anterior
 			 * */
             private function cancelarBuscar():void
             {
