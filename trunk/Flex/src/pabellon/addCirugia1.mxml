@@ -2,29 +2,23 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registro Cirugía" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
         <![CDATA[
+        	import mx.events.FlexEvent;
+        	import transferObjects.ConfiguracionVacuna;
         	import transferObjects.Cliente;
         	import services.AddMascotaService;
         	import mx.controls.DateField;
-        	import mx.controls.Alert;
             import mx.collections.ArrayCollection;
-        	import mx.controls.Alert;
 			import mx.events.CloseEvent;
 			import mx.events.ValidationResultEvent;            
-  			import flash.display.Sprite;
 		    import flash.events.*;
-		    import flash.net.FileReference;
-		    import flash.net.FileReferenceList;
 		    import mx.rpc.events.ResultEvent;
-			import mx.controls.Image;
-		    import transferObjects.Person;
-		    import transferObjects.Cirugia;
 		    import mx.core.Application;
-		     import services.BusquedaService;
-		   
+		    import transferObjects.Person;
+		    import services.BusquedaService;
+		    import services.configuracionServices;
+			import services.Validacion;
 			
 			[Bindable]
-			private var files:ArrayCollection=new ArrayCollection();
-		    private var vResult:ValidationResultEvent;
 		    public var clienteBD:Cliente;
 		    [Bindable]
 		    public var tiposC:ArrayCollection;
@@ -33,9 +27,16 @@
 		    [Bindable]
 		    public var ayudantesC:ArrayCollection;
 		    [Bindable]
-			private var clientes:ArrayCollection;
+			private var clientes:ArrayCollection = new ArrayCollection();
 		    [Bindable]
 			private var cliente2:ArrayCollection;
+		    [Bindable]
+			public var edita:Boolean;
+			[Bindable]
+			public var rutEnvi:String ="";
+		    [Bindable]
+			public var nomEnvi:String ="";
+			
 		    /**
 			* Lista de amscotas del cliente asociado
 			*/
@@ -44,9 +45,8 @@
 		    
 		    [Bindable] 
 		    public var cliente:Person;
-		    [Bindable]
-			public var edita:Boolean;
-		      
+		    
+		    
 
 			/**
 		 	 * 	@author  "Jimmy Muñoz"
@@ -58,45 +58,17 @@
 			 * @param event Evento
 			 */
         	private function buscarCliente(event:Event):void{
-        		if(rutClienteDVInput.text != "" && rutClienteInput.text != ""){
-        			var Numero:String = rutClienteInput.text;
-        			var Dv:String = rutClienteDVInput.text;
-					var suma:int = 0;
-					var rut:String = Numero;
-					var NumMag:int = 2;
-					var Resto:int = 0;
-					var j:int ;
-					var i:int;
-					var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
-					var ParteNumerica:Array = new Array();
-				
-					if (rut.length == 0) { 
-
-					}
-					for ( j =0, i =0; j < rut.length; j++){
-						if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
-							ParteNumerica[i] = rut.charAt(i);
-							++i;
+        		if(this.rutEnvi != this.rutClienteInput.text){
+        			if(rutClienteDVInput.text != "" && rutClienteInput.text != ""){
+        				if(!Validacion.validaRut(rutClienteInput.text, rutClienteDVInput.text)){
+							labelMessage.text = "El Rut que ha ingresado es incorrecto.";
 						}
-					}
-				
-					for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
-						suma += ParteNumerica[i] * NumMag;
-						trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
-						if (NumMag>6){
-							NumMag =1;	
-						}	
-					}
-				
-					Resto = 11-(suma%11);
-					if(DigVer[Resto] != Dv.toUpperCase()){
-						labelMessage.text = "El Rut que ha ingresado es incorrecto.";
-					}
-					else{
-						labelMessage.text = "";
-						rutClienteInput.errorString = "";
-						getCliente(rutClienteInput.text);
-					}
+						else{
+							labelMessage.text = "";
+							rutClienteInput.errorString = "";
+							getCliente(rutClienteInput.text);
+						}
+        			}
         		}		
         	}
         	
@@ -121,7 +93,7 @@
 			 * anterior.
 			 * @param event Evento
 			 */
-			public function getClienteResult(event:ResultEvent):void{
+			private function getClienteResult(event:ResultEvent):void{
 				clienteBD = event.result as Cliente;
 				
 				if(clienteBD.nombre == null){
@@ -130,6 +102,8 @@
         		}
         		else{
         			this.inputClienteNombre.text = clienteBD.apellido.split(" ",1).pop()+" "+clienteBD.apellido2.split(" ",1).pop()+" "+clienteBD.nombre.split(" ",1).pop();
+        			this.nomEnvi = this.inputClienteNombre.text;
+        			this.rutEnvi = this.rutClienteInput.text;
         			labelMessage.text = "Se ha accedido al cliente "+clienteBD.nombre;
         			ini();
         		}
@@ -143,10 +117,9 @@
 			* @param event Evento
 			*/
 	        private function ini():void{
-	        	this.edita = false;
 	           	mascotas.removeAll();
 	           	getMascotas();
-				mascotas.refresh();
+	           	mascotas.refresh();
 	        }
 	         
         	
@@ -158,7 +131,7 @@
 			* Metodo que realiza la comunicacion a la capa logica a traves de AddCirugiaService,
 			* solicitando todas las mascotas que le pertenescan a un determinado cliente.
 			*/
-			public function getMascotas():void{
+			private function getMascotas():void{
 				var addMascotaService:AddCirugiaService = new AddCirugiaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
 				addMascotaService.getMascotas(rutClienteInput.text);
@@ -172,7 +145,7 @@
 			 * Se almacena el resultado del metodo anterior en la variable mascotas.
 			* @param event Evento
 			*/
-			public function getAddMascotasResult(event:ResultEvent):void{
+			private function getAddMascotasResult(event:ResultEvent):void{
 				mascotas = event.result as ArrayCollection;
 			}
 			
@@ -183,7 +156,7 @@
 			* solicitando todos los tipos de cirugias, para que sean cargados al panel de registrar cirugia, 
 			 * para que se pueda seleccionar.
 			*/		
-			public function getTiposCirugias():void
+			private function getTiposCirugias():void
 			{
 				var addMascotaService:AddCirugiaService = new AddCirugiaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getTiposC);
@@ -197,7 +170,7 @@
 			* variable tiposC. Que corresponde a la lista de todas las cirugias que existen.
 			* @param event Evento
 			*/
-			public function getTiposC(event:ResultEvent):void
+			private function getTiposC(event:ResultEvent):void
 			{
 				tiposC = event.result as ArrayCollection;
 			}
@@ -209,7 +182,7 @@
 			* Metodo que se comunica con la capa logica, para obtener un listado con los nombres de los 
 			* veterinarios esto lo hace a traves de la clase AddCirugiaService. 
 			*/
-			public function getTiposVeterinarios():void
+			private function getTiposVeterinarios():void
 			{
 				var addMascotaService:AddCirugiaService = new AddCirugiaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getTiposV);
@@ -223,7 +196,7 @@
 			* variable vetesC. Que corresponde a la lista veterinarios que existen en el sistema.
 			* @param event Evento
 			*/
-			public function getTiposV(event:ResultEvent):void
+			private function getTiposV(event:ResultEvent):void
 			{
 				vetesC = event.result as ArrayCollection;
 			}
@@ -235,7 +208,7 @@
 			* Metodo que se comunica con la capa logica, para obtener un listado con los nombres de los 
 			* veterinarios y ayudantes del sistema esto lo hace a traves de la clase AddCirugiaService. 
 			*/
-			public function getTiposAyudantes():void
+			private function getTiposAyudantes():void
 			{
 				var addMascotaService:AddCirugiaService = new AddCirugiaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getTiposA);
@@ -250,7 +223,7 @@
 			 * el sistema.
 			* @param event Evento
 			*/
-			public function getTiposA(event:ResultEvent):void
+			private function getTiposA(event:ResultEvent):void
 			{
 				ayudantesC = event.result as ArrayCollection;
 			}
@@ -263,9 +236,11 @@
 			* en donde se realiza el registro de cirugia, cargando los datos correspondientes, 
 			* para que el otro panel posea todos los datos.
 			*/
-			public function regCiru():void
+			private function regCiru():void
 			{
-				
+				/**
+				 * Si se selecciono un item del datagrid se realiza la acción.
+				 */
 				if(dg.selectedItem){
 					var nuevacir:addCirugia = Application.application.cliRegistro2;
 					nuevacir.iniciarPanel();
@@ -305,6 +280,12 @@
 			*/
 			public function iniciarPanel():void
 			{
+				this.nomEnvi="";
+				this.rutEnvi="";
+				this.inputClienteNombre.text="";
+				this.inputClienteNombre.typedText="";
+				this.clientes = new ArrayCollection();
+				this.cliente2 = new ArrayCollection();
 				edita=true;
 				this.getTiposCirugias();
 				this.getTiposVeterinarios();
@@ -314,7 +295,6 @@
 				this.labelMessage.text="";
 				this.rutClienteInput.text="";
 				this.rutClienteDVInput.text="";
-				this.inputClienteNombre.text="";
 			}
 			
 			/**
@@ -335,17 +315,15 @@
 			* Metodo que inicializa los valores de los clientes del sistema, para seleccionarlo 
 			 * ingresando su apellido. Llamando a la funcion de BusquedaService.
 			 */
-		   public function getAllClientes():void
+		   private function getAllClientes():void
 		   {
 		   		if(edita){
 		   			this.labelMessage.text="";
 		   			var busquedaService:BusquedaService = new BusquedaService();
 		   			busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
 					busquedaService.getAllClientes();
-				}
-		   		else{
-		   			this.labelMessage.text="Para busqueda por apellido, doble click sobre barra de apellido.";
-		   		}
+					this.edita=false;
+				}		   		
 		   }
 		   
 		   /**
@@ -354,7 +332,7 @@
 			* Metodo que almacena el resultado del metodo anterior en el arraycollection cliente2.
 			* Y llama a la funcion concatena.
 			*/
-		   public function getAllClientesResult(event:ResultEvent):void
+		   private function getAllClientesResult(event:ResultEvent):void
 		   {
 		   		cliente2 = event.result as ArrayCollection;
 		   		concatena();
@@ -366,19 +344,19 @@
 			* Metodo que concatena el apellido paterno, con el apellido materno, y el nombre, para mostrarlo 
 			* en el autocomplete, para buscar al cliente por el apellido.
 			*/
-		   public function concatena():void
+		   private function concatena():void
 		   {
-		   		clientes = new ArrayCollection();
 		   		var i:int;
 		   		var max:int = cliente2.length;
+		   		var cli:Cliente;
+		   		var cli2:Cliente;
 		   		
 		   		for(i=0;i<max;i++){
-		   			var cli:Cliente = cliente2.getItemAt(i,0) as Cliente;
-		   			var cli2:Cliente = new Cliente();
+		   			cli = cliente2.getItemAt(i,0) as Cliente;
+		   			cli2 = new Cliente();
 		   			cli2.nombre = ""+cli.apellido+" "+cli.apellido2+" "+cli.nombre;
 		   			clientes.addItem(cli2);
 		   		}
-		   		clientes.refresh();
 		   }
 		   
 		   /**
@@ -388,41 +366,48 @@
 			 * procesando los datos, partiendo el texto, y guardandolo en el nombreN, apellidomN
 			 * y en apellidopN.
 			 */
-		   public function buscarCliente2():void
+		   private function buscarCliente2():void
 		   {
-		   		this.labelMessage.text="";
-		   		var nombre:String = inputClienteNombre.text;
-		   		if(inputClienteNombre.text != "" || inputClienteNombre.selectedLabel != ""){
-		   			var largo:int = cliente2.length;
-		   			var i:int;
-		   			var sss:Array;
-		   			
-		   			sss = inputClienteNombre.text.split(" ",3);
+		   		if(this.nomEnvi != this.inputClienteNombre.text){
+		   			dg.setFocus();
+		   			this.labelMessage.text="";
+		   			var nombre:String = inputClienteNombre.text;
 		   		
-		   			/**
-		   			 * obtiene los datos de la division del nombre seleccionado.
-			 		*/
-		   			var nombreN:String = sss.pop();
-		   			var apellidomN:String = sss.pop();
-		   			var apellidopN:String = sss.pop();
+		   			if(inputClienteNombre.text != "" || inputClienteNombre.selectedLabel != ""){
+		   				var largo:int = cliente2.length;
+		   				var i:int;
+		   				var sss:Array;
 		   			
-		   			/**
-		   			 * Compara los datos obtenidos de la division, con los que se 
-		   			 * encuentran en el arreglo de clientes.
-			 		*/
-		   			for(i=0;i<largo;i++){
-		   				var newCli:Cliente = cliente2.getItemAt(i,0) as Cliente;
-		   				if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
-		   					this.rutClienteInput.text=newCli.rut.substring(0,8);
-		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
-		   					sacaDigito();
-		   					ini();
-		   					break;
-		   				}
+		   				sss = inputClienteNombre.text.split(" ",3);
+		   		
+		   				/**
+		   				 * obtiene los datos de la division del nombre seleccionado.
+			 			*/
+		   				var nombreN:String = sss.pop();
+		   				var apellidomN:String = sss.pop();
+		   				var apellidopN:String = sss.pop();
+		   			
+		   				/**
+		   				 * Compara los datos obtenidos de la division, con los que se 
+		   				 * encuentran en el arreglo de clientes.
+			 			*/
+		   				for(i=0;i<largo;i++){
+		   					var newCli:Cliente = cliente2.getItemAt(i,0) as Cliente;
+		   					if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
+		   						this.rutClienteInput.text=newCli.rut.substring(0,8);
+		   						labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
+		   						this.nomEnvi = this.inputClienteNombre.text;
+        						this.rutEnvi = this.rutClienteInput.text;
+		   						sacaDigito();
+		   						ini();
+		   						break;
+		   					}
 
+		   				}
+		   				this.inputClienteNombre.text=this.nomEnvi;
+		   				this.rutClienteInput.text=this.rutEnvi;
 		   			}
 		   		}
-		 
 		   }
 		   
 		   /**
@@ -477,7 +462,7 @@
 			* 	@Fecha  02 Noviembre
 		   	* Metodo que retorna al panel principal de clinica.
 			*/
-     		public function vuelve():void
+     		private function vuelve():void
      		{
      			this.setVisible(false,false);
      			Application.application.panelClinicaPrincipal.setVisible(true,false);
@@ -488,25 +473,29 @@
 			* 	@Fecha  02 Noviembre
 		   	* Metodo que permite, que la busqueda se realice mediante el ingreso del apellido.
 			*/
-			public function permite():void
+			private function permite():void
      		{
      			edita = true;
-     			this.inputClienteNombre.editable = true;
      		}
 			
+			private function focusSale():void
+     		{
+     			dg.setFocus();
+
+     		}
 				
         ]]>
     </mx:Script>
 	
 	<mx:Label x="330" y="38" text="Rut:" width="31"/>
-	<mx:Label x="459.25" y="38" text="-" width="14.75" textAlign="center"/>
-	<fc:AutoComplete id="inputClienteNombre" x="90" y="38" width="210" dataProvider="{clientes}" labelField="nombre" visible="true" click="getAllClientes()" focusOut="buscarCliente2()" doubleClick="permite()"/>
-	<mx:TextInput  restrict="0-9" x="369" y="38" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="470.75" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
+	<mx:Label x="457.25" y="38" text="-" width="14.75" textAlign="center"/>
+	<fc:AutoComplete id="inputClienteNombre" typedTextChange="{getAllClientes()}" x="90" y="38" width="210" dataProvider="{clientes}" labelField="nombre" visible="true" enter="{focusSale()}" focusOut="{buscarCliente2()}"/>
+	<mx:TextInput  restrict="0-9" x="370" y="38" width="90" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
+	<mx:TextInput x="470" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente:" width="110" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="709" rowCount="3" y="96" x="25" variableRowHeight="true" dataProvider="{mascotas}" itemDoubleClick="regCiru()"  visible="true" height="251">
+	<mx:DataGrid id="dg" color="0x323232" width="709" rowCount="3" y="92" x="25" variableRowHeight="true" dataProvider="{mascotas}" itemDoubleClick="regCiru()"  visible="true" height="243">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
@@ -519,7 +508,7 @@
 	<mx:Button x="522" y="353" label="Visualizar" visible="true" id="registrar" click="regCiru()" width="102" height="23"/>
 	<mx:Button x="632" y="353" label="Volver" width="102" id="cancelar" visible="true" height="23" click="vuelve()"/>
 	
-	<mx:Label x="25" y="70" text="Mascotas:" width="112.75" fontWeight="bold"/>
-	<mx:Label x="25" y="38" text="Nombre:" width="77"/>
+	<mx:Label x="25" y="65" text="Mascotas:" width="112.75" fontWeight="bold"/>
+	<mx:Label x="25" y="38" text="Apellido:" width="68"/>
 	
 </mx:Panel>

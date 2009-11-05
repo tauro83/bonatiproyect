@@ -5,7 +5,6 @@
         	import mx.events.CalendarLayoutChangeEvent;
         	import transferObjects.Vacunacion;
         	import mx.collections.Sort;
-        	import transferObjects.tiposCir;
         	import services.AddMascotaService;
         	import mx.controls.DateField;
         	import mx.controls.Alert;
@@ -20,13 +19,9 @@
 		    import mx.rpc.events.ResultEvent;
 			
 			import mx.controls.Image;
-		    import transferObjects.Cirugia;
 		    import mx.core.Application;
 		    
 		    import transferObjects.Person;
-		    import pabellon.addCirugia;
-		    import pabellon.addCirugia1;
-		    import pabellon.AddCirugiaService;
 		    
 		   
 			[Bindable]
@@ -45,8 +40,7 @@
 			public var ayudantes3:ArrayCollection;
 			[Bindable]
 			public var tiposVac1:Array;
-			[Bindable]
-			public var tiposCir2:Array;
+
 			[Bindable]
 			public var vacunasAdds:Array;
 		   	private var fechaActual:Date = new Date();
@@ -59,7 +53,7 @@
 			 *  @Descripcion Metodo que realiza la accion de volver al panel anterior, dejando invisible este
 			 * y dejando visible el anterior.		 		
 			 * */ 
-		    public function vuelve():void
+		   	private function vuelve():void
 		    {
 		    	this.setVisible(false,false);
 		    	Application.application.addVacuna1.labelMessage.text="";
@@ -71,11 +65,11 @@
 		 	 * 	@author  "Jimmy Muñoz"
 			 * 	@Fecha  27 Octubre
 			 *  @Descripcion Metodo que realiza la accion de verificar que todos los datos esten correctamente
-			 * ingresados en los inputs correspondientes, para que no se guarde una cirugia con datos erroneos.
+			 * ingresados en los inputs correspondientes, para que no se guarde una vacunación con datos erroneos.
 			 * En caso de que se produsca algun error o que falten datos se mostrara por pantalla los mensajes 
 			 * informando de cuales datos faltan por ingresar.		 		
 			 * */ 
-		    public function registrarVacuna():void{
+		    private function registrarVacuna():void{
 		    	
 		    	if(this.veterinariosC.text==""){
 		    		this.labelMessage.text="Seleccione el nombre de un Veterinario para la vacunación.";
@@ -123,10 +117,10 @@
 		    /**
 		 	 * 	@author  "Jimmy Muñoz"
 			 * 	@Fecha  27 Octubre
-			 *  @Descripcion Metodo que realiza la accion de quitar una cirugia de la lista de cirugias realizadas
-			 * representada por la lista cirugsAdds y volviendo a colocarla disponible en la lista de cirugias.
+			 *  @Descripcion Metodo que realiza la accion de quitar una vacuna de la lista de vacunas realizadas
+			 * representada por la lista vacunasAdds y volviendo a colocarla disponible en la lista de Vacuanas.
 			 * */ 
-		     public function quitaVac():void
+		     private function quitaVac():void
 		    {
 		    	
 		    	if(vacunasList.selectedItem){
@@ -146,12 +140,12 @@
 		    /**
 		 	 * 	@author  "Jimmy Muñoz"
 			 * 	@Fecha  27 Octubre
-			 *  @Descripcion Metodo que realiza la accion de quitar una cirugia de la lista de cirugias realizadas
-			 * representada por la lista cirugsAdds y volviendo a colocarla disponible en la lista de cirugias. 
-			 * Esto lo hace comparando las cirugias con el nombre, y luego cuando encuentra la corecta la añade.
-			 *  @Param String representando el nombre del tipo de cirugia.
+			 *  @Descripcion Metodo que realiza la accion de quitar una vacuna de la lista de vacunas realizadas
+			 * representada por la lista vacunasAdds y volviendo a colocarla disponible en la lista de vacunas. 
+			 * Esto lo hace comparando las vacunas con el nombre, y luego cuando encuentra la corecta la añade.
+			 *  @Param String representando el nombre del tipo de vacuna.
 			 * */ 
-		    public function renombrarVac2(texto:String):void{
+		    private function renombrarVac2(texto:String):void{
 		    	var newAr:Array = this.vacunasAdds;
 		    	vacunasAdds = new Array();
 		    	var i:int;
@@ -170,10 +164,11 @@
 		    /**
 		 	 * 	@author  "Jimmy Muñoz"
 			 * 	@Fecha  27 Octubre
-			 *  @Descripcion Metodo que realiza la accion de agregar una cirugia de la lista de cirugias(tiposCir1) a la de 
-			 * cirugias realizadas (cirugsAdds), representada por la lista cirugsAdds y volviendo a colocarla disponible en la lista de cirugias.
+			 *  @Descripcion Metodo que realiza la accion de agregar una vacuna de la lista de vacuna(tiposVac1) a la de 
+			 * vacunas realizadas (vacunasAdds), representada por la lista vacunasAdds y volviendo a colocarla disponible 
+			 * en la lista de vacunas.
 			 * */ 
-		    public function guardaVac():void
+		    private function guardaVac():void
 		    {
 		    	
 		    	if(vacunas1.selectedItem){
@@ -196,12 +191,12 @@
 		    /**
 		 	 * 	@author  "Jimmy Muñoz"
 			 * 	@Fecha  27 Octubre
-			 *  @Descripcion Metodo que realiza la accion de agregar una cirugia de la lista de cirugias(tiposCir1) a la de 
-			 * cirugias realizadas (cirugsAdds), representada por la lista cirugsAdds y volviendo a colocarla disponible en 
-			 * la lista de cirugias. Esto lo hace comparando las cirugias con el nombre, y luego cuando encuentra la corecta la añade.
-			 *  @Param String representando el nombre del tipo de cirugia.
+			 *  @Descripcion Metodo que realiza la accion de agregar una vacuna de la lista de vacuna(tiposVac1) a la de 
+			 * vacunas realizadas (vacunasAdds), representada por la lista vacunasAdds y volviendo a colocarla disponible en 
+			 * la lista de vacunas. Esto lo hace comparando las vacunas con el nombre, y luego cuando encuentra la corecta la añade.
+			 *  @Param String representando el nombre del tipo de vacuna.
 			 * */ 
-		    public function renombrarVac(texto:String):void{
+		    private function renombrarVac(texto:String):void{
 		    	var newAr:Array = this.tiposVac1;
 		    	tiposVac1 = new Array();
 		    	var i:int;
@@ -224,6 +219,7 @@
 			 *  @Descripcion Metodo que procesa el orden que se mostrara en la lista de vacunas,
 			 * tanto las agregadas, como las que se muestran para agregar.
 			 * Se ordena por orden alfabetico.
+			 * 	@Param 2 objetos del array, los cales se compararan para guardarlos por orden.
 			 * */ 
 		    private function ordenLetra (a : Object , b : Object , fields : Array = null) : int
 		    {
@@ -273,14 +269,18 @@
 		 	 * 	@author  "Jimmy Muñoz"
 			 * 	@Fecha  02 Noviembre
 			 *  @Metodo que coloca una mascara en los numeros como los precios.
+			 * 	@Param value es el numero que se necesita aplicar la mascara.
 			 * */ 
-         	public function makeNumberFormat (value : Object, separator : String):String{
+         	private function makeNumberFormat (value : Object, separator : String):String{
 				var str : Array = value.toString ().split ("");
 				var i : Number = 0;
 				var count : Number = 0
 				var tmpArray : Array = []
 				var back : String = ""
 				str.reverse ();
+				/**
+				 * Recorre el parametro ingresado.
+				 */
 				while (str [i]){
 					if ((count % 4) == 0){
 						tmpArray.push(separator);
@@ -292,6 +292,10 @@
 					count++;
 				}
 				tmpArray.reverse ();
+				
+				/**
+				 * Transforma el nuevo string.
+				 */
 				i = 0;
 				while (tmpArray [i])
 				{
@@ -316,7 +320,6 @@
 		    	this.labelMessage.text="";
 		    	this.fechahoy.text="";
 		    	this.vacunas1.doubleClickEnabled=true;
-		    	this.tiposCir2 = new Array();
 		    	this.tiposVac1 = new Array();
 		    	this.ayudantes2 = new ArrayCollection();
 		    	this.ayudantes3 = new ArrayCollection();
@@ -330,28 +333,28 @@
 				
         ]]>
     </mx:Script>
-	<mx:Label x="119.5" y="170" text="Vacunas:" width="63.4" height="17.931034"/>
+	<mx:Label x="120" y="175" text="Vacunas:" width="63.4" height="18"/>
 	<mx:Label x="25" y="15" text="Responsable:" width="85.45"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	
-	<mx:ComboBox x="118.4" y="15" id="veterinariosC" dataProvider="{veterinarios2}" width="190.25"></mx:ComboBox>
+	<mx:ComboBox x="120" y="15" id="veterinariosC" dataProvider="{veterinarios2}" width="180" height="22"></mx:ComboBox>
 	<mx:DateField x="540" y="15" width="122" id="fechahoy" formatString="DD/MM/YYYY"/>
-	<mx:TextArea x="119.5" y="50" width="271.6" height="112" id="descripcionV" maxChars="200">
+	<mx:TextArea x="120" y="50" width="270" height="115" id="descripcionV" maxChars="200">
 	</mx:TextArea>
-	<mx:TextInput x="540" y="50" width="104" id="nombMasc" editable="false"/>
+	<mx:TextInput x="540" y="50" width="122" id="nombMasc" editable="false"/>
 	
-	<mx:List x="119.5" y="195.9" width="270" height="149.1" id="vacunas1" dataProvider="{tiposVac1}"></mx:List>
-	<mx:Button x="397.25" y="250" label="-&gt;" width="47.55" click="guardaVac()"/>
-	<mx:Button x="397.25" y="280" label="&lt;-" width="47.55" click="quitaVac()"/>
-	<mx:List x="452.8" y="195.9" width="282.65" height="149.1" id="vacunasList" dataProvider="{vacunasAdds}"></mx:List>
+	<mx:List x="120" y="200" width="270" height="135" id="vacunas1" dataProvider="{tiposVac1}"></mx:List>
+	<mx:Button x="397.25" y="239" label="-&gt;" width="47.55" click="guardaVac()"/>
+	<mx:Button x="397.25" y="269" label="&lt;-" width="47.55" click="quitaVac()"/>
+	<mx:List x="450" y="200" width="284" height="135" id="vacunasList" dataProvider="{vacunasAdds}"></mx:List>
 	
 	<mx:Button x="522" y="353" label="Registrar" visible="true" id="registrar" click="registrarVacuna()" width="102" height="23"/>
 	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
-	<mx:Label x="452" y="50" text="Mascota:" width="63.95"/>
+	<mx:Label x="450" y="50" text="Mascota:" width="63.95"/>
 	
 	<mx:Label x="25" y="50" text="Descripción:" width="86"/>
-	<mx:Label x="452" y="15" text="Fecha:" width="64.2"/>
-	<mx:Label x="452" y="170" text="Cirugías agregadas:" width="137.4" height="17.931034"/>
+	<mx:Label x="450" y="15" text="Fecha:" width="64.2"/>
+	<mx:Label x="450" y="175" text="Vacunas agregadas:" width="138" height="18"/>
 	
 	
 	

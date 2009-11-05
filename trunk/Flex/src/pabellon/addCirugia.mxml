@@ -328,29 +328,29 @@
     </mx:Script>
 	<mx:Label x="25" y="10" text="Cirugía:" width="110" fontWeight="bold"/>
 	<mx:Label x="430" y="38" text="Ayudante: " width="78"/>
-	<mx:Label x="120" y="213" text="Cirugías:" width="69.4" height="17.931034"/>
+	<mx:Label x="120" y="200" text="Cirugías:" width="69.4" height="17.931034"/>
 	<mx:Label x="25" y="38" text="Responsable:" width="92"/>
 	<mx:Label x="430" y="70" text="Fecha: " width="78"/>
 	<mx:Label x="430" y="102" text="Costo:" width="63.4"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="70" text="Diagnóstico:" width="80"/>
 	
-	<mx:ComboBox x="120" y="36" id="veterinariosC" dataProvider="{veterinarios2}" width="190.25" close="renombrarAyu()"></mx:ComboBox>
-	<mx:ComboBox x="517.55" y="36" dataProvider="{ayudantes2}" width="197.45" id="ayudantesC"></mx:ComboBox>
-	<mx:TextArea x="120" y="65" width="270" height="137" id="diagC"/>
-	<mx:DateField x="517.55" y="70" width="120.25" id="fechaC" formatString="DD/MM/YYYY"/>
-	<mx:TextInput x="517.55" y="102" width="104" id="costoC" restrict="0-9"/>
-	<mx:TextInput x="517.55" y="134" width="120.8" id="nombMasc" editable="false"/>
+	<mx:ComboBox x="120" y="38" id="veterinariosC" dataProvider="{veterinarios2}" width="180" close="{renombrarAyu()}" height="22"></mx:ComboBox>
+	<mx:ComboBox x="515" y="36" dataProvider="{ayudantes2}" width="180" id="ayudantesC" height="22"></mx:ComboBox>
+	<mx:TextArea x="120" y="70" width="270" height="125" id="diagC" maxChars="200"/>
+	<mx:DateField x="515" y="70" width="120" id="fechaC" formatString="DD/MM/YYYY"/>
+	<mx:TextInput x="515" y="100" width="120" id="costoC" restrict="0-9"/>
+	<mx:TextInput x="515" y="134" width="120" id="nombMasc" editable="false"/>
 	
-	<mx:List x="120" y="232" width="270" height="103" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
-	<mx:Button x="400" y="260" label="-&gt;" width="50" click="guardaCir()"/>
-	<mx:Button x="400" y="290" label="&lt;-" width="50" click="quitaCir()"/>
-	<mx:List x="458" y="232" width="276" height="103" id="tabCirs" dataProvider="{cirugsAdds}"></mx:List>
+	<mx:List x="120" y="220" width="270" height="115" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
+	<mx:Button x="400" y="251" label="-&gt;" width="50" click="{guardaCir()}"/>
+	<mx:Button x="400" y="281" label="&lt;-" width="50" click="{quitaCir()}"/>
+	<mx:List x="458" y="220" width="276" height="115" id="tabCirs" dataProvider="{cirugsAdds}"></mx:List>
 	
-	<mx:Button x="522" y="353" label="Registrar" visible="true" id="registrar" click="registrarCiru()" width="102" height="23"/>
-	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
+	<mx:Button x="522" y="353" label="Registrar" visible="true" id="registrar" click="{registrarCiru()}" width="102" height="23"/>
+	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" visible="true" click="{vuelve()}" width="102" height="23"/>
 	
 	<mx:Label x="430" y="134" text="Mascota:" width="63.95"/>
-	<mx:Label x="458" y="213" text="Cirugías agregadas:" width="137.4" height="17.931034"/>
+	<mx:Label x="458" y="200" text="Cirugías agregadas:" width="137.4" height="17.931034"/>
 	
 </mx:Panel>
