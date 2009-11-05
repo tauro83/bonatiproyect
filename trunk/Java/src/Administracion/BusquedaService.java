@@ -1,7 +1,7 @@
 //=======================================================================
-// FECHA: CREACIÓN: 6 Octubre
+// FECHA CREACIÓN: 6 Octubre
 // AUTOR: Esteban Cruz
-// Script de busqueda del sistema, dentro de esta se pueden realizar 
+// Clase de busqueda del sistema, dentro de esta se pueden realizar 
 // busquedas para: Mascota, Cliente, Atencion, Producto, Aviso, Usuario
 // Obtiene los datos desde la BD
 //=======================================================================
@@ -25,9 +25,11 @@ import TransferObjects.Producto;
 public class BusquedaService 
 {
 	/**
-	 * Trata de obtener todos los usuarios registrados en la base de datos
-	 * @return Lista con todos los usuarios registrados
-	 */
+	*  @author  "Esteban Cruz"
+	*  @Fecha  6 Octubre
+	*  @Descripcion Trata de obtener todos los usuarios registrados en la base de datos
+	*  @return Lista con todos los usuarios registrados
+	**/
 	public List<Usuario> getAllUsuarios()
     {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -46,9 +48,11 @@ public class BusquedaService
     }
 	
 	/**
-	 * Trata de obtener todos los clientes registrados en la base de datos
-	 * @return Lista con todos los clientes registrados
-	 */
+	 *  @author  "Esteban Cruz"
+	 *  @Fecha  6 Octubre
+	 *  @Descripcion Trata de obtener todos los clientes registrados en la base de datos
+	 *  @return Lista con todos los clientes registrados
+	 **/
 	public List<Cliente> getAllClientes()
     {
 		List<Cliente> clientes = new ArrayList<Cliente>();
@@ -67,9 +71,11 @@ public class BusquedaService
     }
 	
 	/**
-	 * Trata de obtener todos las mascotas registrados en la base de datos
-	 * @return Lista con todos las mascotas registrados
-	 */
+	 *  @author  "Esteban Cruz"
+	 *  @Fecha  6 Octubre
+	 *  @Descripcion Trata de obtener todos las mascotas registrados en la base de datos
+	 *  @return Lista con todos las mascotas registrados
+	 **/
 	public List<Mascota> getAllMascotas()
     {	
     	List<Mascota> mascotas = new ArrayList<Mascota>();
@@ -88,9 +94,11 @@ public class BusquedaService
     }
 	
 	/**
-	 * Trata de obtener todos las atenciones registrados en la base de datos
-	 * @return Lista con todos las atenciones registrados
-	 */
+	 *  @author  "Esteban Cruz"
+	 *  @Fecha  6 Octubre
+	 *  @Descripcion Trata de obtener todos las atenciones registrados en la base de datos
+	 *  @return Lista con todos las atenciones registrados
+	 **/
 	public List<Atencion> getAllAtenciones()
     {	
     	List<Atencion> atenciones = new ArrayList<Atencion>();
@@ -109,9 +117,11 @@ public class BusquedaService
     }
 	
 	/**
-	 * Trata de obtener todos los productos registrados en la base de datos
-	 * @return Lista con todos los productos registrados
-	 */
+	 *  @author  "Esteban Cruz"
+	 *  @Fecha  6 Octubre
+	 *  @DescripcionTrata de obtener todos los productos registrados en la base de datos
+	 *  @return Lista con todos los productos registrados
+	 **/
 	public List<Producto> getAllProductos()
     {	
     	List<Producto> productos = new ArrayList<Producto>();

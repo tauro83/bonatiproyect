@@ -168,7 +168,7 @@ public class VacunacionBD {
 	 }
 	 
 	 /**
-	  * Elimina todas las cirugias solicitadas por el usuario
+	  * Elimina todas las vacunaciones solicitadas por el usuario
 	  * de la base de datos
 	  * @param 0=activado, 1=desactivo, 2=anulado
 	  * @return 1 si ha elimina correctamente y 0 de lo contrario
