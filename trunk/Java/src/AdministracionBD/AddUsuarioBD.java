@@ -1,29 +1,33 @@
 //=======================================================================
-// AUTOR: Camilo Verdugo G.
-// Descripcion: Clase entidad Usuario de sistema, encapsula informacion de un
+// Fecha Creaccion: 05/10/09
+// AUTOR: Camilo Verdugo
+// Descripcion:  Clase entidad Usuario de sistema, encapsula informacion de un
 //				Usuario y el privilegio de acceso al sistema.
 //				Solo contiene los metodos para hacer get/set de los atributos.
 //=======================================================================
-
-
 package AdministracionBD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import TransferObjects.Usuario;
-
 
 public class AddUsuarioBD {
 
 	Connection connection;
-	
+	/**
+	 * Constructor de la conexion
+	 * @param connection es el enlace a la BD
+	 */
 	public AddUsuarioBD(Connection connection)
 	{
 		this.connection = connection;
 	}
 	
+	/**
+	 * Registra el usuario en la BD
+	 * @param u transferobject usuario
+	 */
 	public String addUsuario(Usuario u) throws SQLException
 	{
 		String result = null;

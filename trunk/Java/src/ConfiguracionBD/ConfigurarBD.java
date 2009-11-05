@@ -1,8 +1,8 @@
-/**
- * @author Camilo Verdugo
- * @version 1
- * Clase que es llamada desde la capa de presentacion, en particular del action Script
- */
+//=======================================================================
+// Fecha Creaccion: 05/10/09
+// AUTOR: Camilo Verdugo
+// Descripcion:   Clase que es llamada desde la capa de presentacion, en particular del action Script 
+//=======================================================================
 package ConfiguracionBD;
  
 import java.sql.Connection;
@@ -18,7 +18,7 @@ public class ConfigurarBD {
 	Connection connection;
 	
 	/**
-	 * 
+	 * constructor de la clase, establece la conexion
 	 * @param connection establece la conexion con la base de datos.
 	 */
 	public ConfigurarBD(Connection connection){
@@ -26,11 +26,13 @@ public class ConfigurarBD {
 	}
 	
 	/**
+	 * obtiene la configuraciones 
 	 * @param tipo es la diferencia entre las distintas configuraciones registradas en el sistema
 	 * las configuraciones pueden ser: Servicio, Especie, Cargo
 	 * @return una lista de configuraciones segun el tipo del argumento
+	 * @throws SQLException 
 	 */
-	public ArrayList<Configuracion> getConfiguraciones(String tipo){
+	public ArrayList<Configuracion> getConfiguraciones(String tipo) throws SQLException{
 		ArrayList<Configuracion> configuraciones=new ArrayList<Configuracion>();
 		Configuracion conf;
 		String query = "";
@@ -60,14 +62,16 @@ public class ConfigurarBD {
     	{
 			e.printStackTrace();
 		}
-    	
+    	connection.close(); 
     	return configuraciones;
 		
 	}
 	/**
+	 * obtiene la vacunas
 	 * @return una lista de configuraciones de vacunas, esta lista es del tipo COnfiguracionVacuna
+	 * @throws SQLException 
 	 */
-	public ArrayList<ConfiguracionVacuna> getConfiguracionesVacunas() {
+	public ArrayList<ConfiguracionVacuna> getConfiguracionesVacunas() throws SQLException {
 		ArrayList<ConfiguracionVacuna> configuraciones=new ArrayList<ConfiguracionVacuna>();
 		ConfiguracionVacuna conf;
 		String query = "SELECT nombre,precio,caducidad,descripcion FROM vacuna";
@@ -91,11 +95,12 @@ public class ConfigurarBD {
     	{
 			e.printStackTrace();
 		}
-    	 
+    	connection.close();  
     	return configuraciones;
 	}
 	
 	/**
+	 * registra una nueva configuracion especificando el tipo
 	 * @param tipo es la diferencia entre las distintas configuraciones registradas en el sistema
 	 * las configuraciones pueden ser: Servicio, Especie, Cargo
 	 * @param nombre es el valor de la configuracion segun el tipo.
@@ -129,9 +134,11 @@ public class ConfigurarBD {
     	{
 			e.printStackTrace();
 		}
+    	connection.close(); 
 	}
 	
 	/**
+	 * Elimina la configuracion indicada por el tipo y el nombre
 	 * @param tipo es la diferencia entre las distintas configuraciones registradas en el sistema
 	 * las configuraciones pueden ser: Servicio, Especie, Cargo
 	 * @param nombre es el valor de la configuracion segun el tipo.
@@ -150,11 +157,9 @@ public class ConfigurarBD {
 		if(tipo.equals("Cargo")){
 			query = "DELETE FROM Cargo WHERE nombre = ?";
 		}		
-		 
-	
+		 	
 		PreparedStatement insert;
-		insert = connection.prepareStatement(query);
-		
+		insert = connection.prepareStatement(query);		
 		insert.setString(1, nombre);
 		
 		try 
@@ -165,21 +170,22 @@ public class ConfigurarBD {
     	{
 			e.printStackTrace();
 		}
+    	connection.close(); 
 	}
 	
 	/**
+	 * Elimina la configuracion de la vacuna
 	 * @param nombre es el valor de la vacuna que sera eliminada
 	 */
-	public void elimConfiguracionVacuna(String nombre) throws SQLException
+	public String elimConfiguracionVacuna(String nombre) throws SQLException
 	{
 		String query = "";
-		nombre = nombre.trim();
-		
+		nombre = nombre.trim();		
 		query = "DELETE FROM Vacuna WHERE nombre = ?";
+		String out = "1";
 		
 		PreparedStatement insert;
 		insert = connection.prepareStatement(query);
-		
 		insert.setString(1, nombre);
 		
 		try 
@@ -188,18 +194,21 @@ public class ConfigurarBD {
 		} 
     	catch (SQLException e) 
     	{
-			e.printStackTrace();
+			out = "0";
 		}
+    	connection.close(); 
+    	return out;
 	}
 	
 	/**
+	 * Registra la configuracion
 	 * @param cv corresponde a un obtejo que encapsula los datos de una vacuna
 	 * los cuales seran registrados en la base de datos. 
 	 */
 	public String regConfiguracionVacuna(ConfiguracionVacuna cv) throws SQLException
 	{
 		String query = "";
-		
+		String out = "";
 		
 		query = "INSERT INTO Vacuna(nombre,precio,caducidad,descripcion) VALUES(?,?,?,?);";
 							
@@ -213,12 +222,16 @@ public class ConfigurarBD {
 		try 
     	{
 			
-			return ""+insert.executeUpdate();
+			insert.executeUpdate();
 		} 
     	catch (SQLException e) 
     	{
-			return e.toString();
+			out = e.toString();
 		}
+    	connection.close(); 
+    	
+    	return out;
+    	
 	}
 	
 }

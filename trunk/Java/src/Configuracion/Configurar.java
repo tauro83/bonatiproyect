@@ -1,13 +1,12 @@
-/**
- * @author Camilo Verdugo
- * @version 1	
- **/
+//=======================================================================
+// Fecha Creaccion: 05/10/09
+// AUTOR: Camilo Verdugo
+// Descripcion:  obtiene las nuevas configuraciones y obtiene las nuevas configuraciones de configuracionBD
+//=======================================================================
 package Configuracion;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import Bd.DBConnectionManager;
 import TransferObjects.Configuracion;
 import TransferObjects.ConfiguracionVacuna;
@@ -16,6 +15,7 @@ import ConfiguracionBD.ConfigurarBD;
 public class Configurar { 
 
 	/**
+	 * Obtiene las configuraciones para el tipo enviado
 	 * @param tipo obtiene las configuraciones de la capa ConfiguracionBD, los tipos pueden ser
 	 * Especies, Servicios, Cargos
 	 * @return una lista con todas las tuplas del tipo enviado como parametro
@@ -24,9 +24,11 @@ public class Configurar {
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);			
 		return conBD.getConfiguraciones(tipo);
+		
 	}
 	
 	/**
+	 * Obtiene una lista de todas las vacunas
 	 * @param tipo obtiene las configuraciones que corresponden a las vacunas, desde de 
 	 * la capa ConfiguracionBD
 	 * @return una lista con todas las tuplas del tipo enviado como parametro
@@ -38,6 +40,7 @@ public class Configurar {
 	}
 	
 	/**
+	 * Registrar la configuracion
 	 * @param tipo obtiene las configuraciones de la capa ConfiguracionBD, los tipos pueden ser
 	 * Especies, Servicios, Cargos
 	 * @param nombre corresponde al dato segun el tipo que se desea registrar
@@ -48,6 +51,7 @@ public class Configurar {
 		conBD.regConfiguracion(tipo,nombre);
 	}
 	/**
+	 * Eliminar la configuracion especificando el nombre de la configuracion y el nombre del dato
 	 * @param tipo obtiene las configuraciones de la capa ConfiguracionBD, los tipos pueden ser
 	 * Especies, Servicios, Cargos
 	 * @param nombre corresponde al dato segun el tipo que se desea eliminar
@@ -58,14 +62,16 @@ public class Configurar {
 		conBD.elimConfiguracion(tipo,nombre);
 	}
 	/**
+	 * Elimina una configuracion de vacuna
 	 * @param corresponde al nombre de la vacuna que se desea eliminar
 	 */
-	public static void elimConfiguracionVacuna(String nombre) throws SQLException{
+	public static String elimConfiguracionVacuna(String nombre) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);
-		conBD.elimConfiguracionVacuna(nombre);
+		return conBD.elimConfiguracionVacuna(nombre);
 	}
 	/**
+	 * registra la configuraicon de vacuna
 	 * @param cv es un objeto del tipo configuracionVacuna, el cual es enviado a la capa 3
 	 * para registrarse en la BD, este objeto contiene informacion de la vacuna, tal como:
 	 * nombre, descripcion, precio, fecha de caducidad.

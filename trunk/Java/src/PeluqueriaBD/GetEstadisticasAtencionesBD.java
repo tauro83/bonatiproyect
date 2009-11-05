@@ -1,3 +1,10 @@
+//=======================================================================
+// Fecha Creaccion: 05/10/09
+// AUTOR: Camilo Verdugo
+// Descripcion: Clase que hace las consultas SQL y retorna una lista de Atenciones, las cuales indican:
+// Numero de atenciones.
+//=======================================================================
+
 package PeluqueriaBD;
 
 import java.sql.Connection;
@@ -8,18 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 import TransferObjects.EstadisticasPeluqueria;
 
-/**
- * @author Camilo Verdugo
- * @version 2
- * Clase que hace las consultas SQL y retorna una lista de Atenciones, las cuales indican:
- * Numero de atenciones.
- */
 public class GetEstadisticasAtencionesBD {
 	PreparedStatement selectAll;
 	Connection connection;
 	ResultSet result;
 	
 	/**
+	 * Constructor de la clase
 	 * @param connection link establecido con la BD
 	 */
 	public GetEstadisticasAtencionesBD(Connection connection)
@@ -28,6 +30,7 @@ public class GetEstadisticasAtencionesBD {
 	}
 	
 	/**
+	 * Obtiene las estadisticas
 	 * @param inicio Comienzo del rango de fechas, en formato yyyy-mm-dd
 	 * @param fin Final del rango de fechas, en formato yyyy-mm-dd
 	 * @return Lista con 3 objetos estadisticas, los cuales indican el numero de atenciones para Baño, Pedicura y corte
