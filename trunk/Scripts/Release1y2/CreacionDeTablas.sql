@@ -2,7 +2,6 @@ drop table Usuario cascade;
 drop table ClientePresencial cascade;
 drop table Mascota cascade;
 drop table Producto cascade;
-drop table cliente cascade;
 drop table bitacora cascade;
 drop table atencionpostoperatorio cascade;
 drop table atencionpedicure cascade;
@@ -23,7 +22,7 @@ CREATE TABLE Usuario
 (
 	nombre	CHAR(20),
 	aPaterno CHAR(20),
-	aMaterno CHAR(20),
+	aMaterno CHAR(20),	
 	usuario  CHAR(20) primary key,
 	cargo	char(20),
 	contrasena	char(20),
@@ -32,7 +31,8 @@ CREATE TABLE Usuario
 	pEditar		bool,
 	pEliminar	bool,
 	pPurgar		bool,	
-	estado bool DEFAULT true
+	estado bool DEFAULT true,
+	id serial
 );
 
 
