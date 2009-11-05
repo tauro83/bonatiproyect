@@ -1,13 +1,13 @@
-INSERT INTO Usuario (nombre,aPaterno,aMaterno,usuario,cargo,contrasena,servicio,pRegistrar,pEditar,pEliminar,pPurgar)
-VALUES 		('Claudio', 'Bonati','Perez','cbonati','Veterinario','cbonati','Policlinico I','true','true','true','true');
-INSERT INTO Usuario (nombre,aPaterno,aMaterno,usuario,cargo,contrasena,servicio,pRegistrar,pEditar,pEliminar,pPurgar)
-VALUES 		('Cristina', 'Cruz','Perez','ccruz','Peluquero','ccruz','Peluqueria','true','true','true','false');
-INSERT INTO Usuario (nombre,aPaterno,aMaterno,usuario,cargo,contrasena,servicio,pRegistrar,pEditar,pEliminar,pPurgar)
-VALUES		('Felipe', 'Sazo','Saez','fsazo','Ayudante','fsazo','Hoteleria','false','false','false','false');
-INSERT INTO Usuario (nombre,aPaterno,aMaterno,usuario,cargo,contrasena,servicio,pRegistrar,pEditar,pEliminar,pPurgar)
-VALUES 		('Mauricio', 'Tapia','Ortiz','mtapia','Otro','mtapia','PetShop','true','false','false','false');
-INSERT INTO Usuario (nombre,aPaterno,aMaterno,usuario,cargo,contrasena,servicio,pRegistrar,pEditar,pEliminar,pPurgar)
-VALUES 		('Alejandra', 'Maraboli','Perez','amaraboli','Secretaria','cbonati','Policlinico I','true','true','false','false');
+INSERT INTO Usuario (nombre,aPaterno,aMaterno,usuario,cargo,contrasena,servicio,pRegistrar,pEditar,pEliminar,pPurgar,estado)
+VALUES 		('Claudio', 'Bonati','Perez','cbonati','Veterinario','cbonati','Policlinico I','true','true','true','true','true');
+INSERT INTO Usuario (nombre,aPaterno,aMaterno,usuario,cargo,contrasena,servicio,pRegistrar,pEditar,pEliminar,pPurgar,estado)
+VALUES 		('Cristina', 'Cruz','Perez','ccruz','Peluquero','ccruz','Peluqueria','true','true','true','false','true');
+INSERT INTO Usuario (nombre,aPaterno,aMaterno,usuario,cargo,contrasena,servicio,pRegistrar,pEditar,pEliminar,pPurgar,estado)
+VALUES		('Felipe', 'Sazo','Saez','fsazo','Ayudante','fsazo','Hoteleria','false','false','false','false','true');
+INSERT INTO Usuario (nombre,aPaterno,aMaterno,usuario,cargo,contrasena,servicio,pRegistrar,pEditar,pEliminar,pPurgar,estado)
+VALUES 		('Mauricio', 'Tapia','Ortiz','mtapia','Otro','mtapia','PetShop','true','false','false','false','true');
+INSERT INTO Usuario (nombre,aPaterno,aMaterno,usuario,cargo,contrasena,servicio,pRegistrar,pEditar,pEliminar,pPurgar,estado)
+VALUES 		('Alejandra', 'Maraboli','Perez','amaraboli','Secretaria','cbonati','Policlinico I','true','true','false','false','true');
 
 
 
@@ -33,6 +33,8 @@ VALUES 	('16298923', 'Boby','10/05/2001','Perro','Kiltro','Macho','true','');
 INSERT INTO Mascota (rut,nombre,fechaNacimiento,claseanimal,raza,sexo,estado,imagen)
 VALUES 	('16298923', 'patitas','10/05/2001','Perro','Pastor Aleman','Macho','true','');
 
+INSERT INTO CITA (rutcliente,nombremascota,fecha,hora,servicio,responsable)
+VALUES ('16298923','Laica','9/9/2009','09:09:00','Pabellón','Bonati');
 
 INSERT INTO Atencion (clienteRut,mascotaNombre,servicio,hora,fecha,costo)
 VALUES 		('16298923','Larry','Hoteleria','12:52:30','20/10/09','3600');
