@@ -1,4 +1,9 @@
 package Policlinico;
+//=======================================================================
+//FECHA CREACIÓN: 02/11/09 
+//AUTOR: Andrés Garrido
+//Clase que contecta la capa 2 con la 3
+//=======================================================================
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -19,6 +24,8 @@ public class GetAllControles {
 	Connection connection;
 	/**
 	 * Este metodo hace el llamado a la clase equivalente en la capa de BD.
+	 * Crea una nueva conexion a la base de datos, y ejecuta el método getAllControles
+	 * de la clase GetAllControles BD
 	 */
 	public List<Control> getAllControles(){		
 		List<Control> Atenciones=new ArrayList<Control>();

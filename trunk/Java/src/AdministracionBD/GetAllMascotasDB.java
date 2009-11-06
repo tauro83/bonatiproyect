@@ -1,3 +1,9 @@
+//=======================================================================
+// FECHA CREACIÓN: 15/09/09 
+// AUTOR: Andrés Garrido
+// Clase de la capa 3
+//=======================================================================
+
 package AdministracionBD;
 
 import java.sql.Connection;
@@ -8,11 +14,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TransferObjects.Mascota;
-
+/**
+ * Clase que obtiene todas las mascotas registradas en el sistema
+ * desde la base de datos
+ * @author Andrés Garrido 
+ * @version 1.0 15/09/09
+*/
 public class GetAllMascotasDB{
 	PreparedStatement selectAll;
 	Connection connection;
 
+	/**
+     * Constructor de la clase que a partir de una conexion a la BD establecida,
+     * prepara la sentencia SQl a ejecutar
+     * @param connection Conexion a la base de datos a partir de DBConnectionManager
+     */
 	public GetAllMascotasDB(Connection connection) throws SQLException{
 		
 		this.connection = connection;
@@ -23,6 +39,12 @@ public class GetAllMascotasDB{
 		selectAll = connection.prepareStatement(query);
 	}
 
+	/**
+	 * Método que ejecuta la sentencia SQL preparada anteriormente,
+	 * y obtiene cada tupla, creando una nueva clase Mascota
+	 * y agregándola a una lista
+	 * @return Lista con todas las mascotas en la Base de Datos
+	 */
 	public List<Mascota> getAllMascotas()
     {
     	List<Mascota> mascotas=new ArrayList<Mascota>();
