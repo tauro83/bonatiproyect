@@ -5,7 +5,7 @@
 		<![CDATA[
 		
 			//=======================================================================
-			// FECHA: CREACIÓN: 28 Septiembre
+			// FECHA: CREACIÓN: 20 Septiembre
 			// AUTOR: Raul Lopez
 			// Comentarios: Formulario y validacion de la edicion de un cliente en el sistema.
 			//=======================================================================
@@ -37,7 +37,7 @@
 			
 			/**
 			 * @author  "Raul Lopez"
-			 * @Fecha  28 Septiembre
+			 * @Fecha  20 Septiembre
 			 * @Funcion  que vuelve todos los campos del panel en blanco, esta es llamada al momento de pulsar
 			 * el boton guardar y quede el panel reseteado para una nueva edición
 			 * 
@@ -65,7 +65,7 @@
 			
 			/**
 			 * @author  "Raul Lopez"
-			 * @Fecha  28 Septiembre
+			 * @Fecha  20 Septiembre
 			 * @Funcion que es llamada el panel EditarCliente, en el cual se le entrega un objeto de tipo cliente con todos los datos
 			 * del cliente que se desea editar, este método copia todos los datos de este en el panel de edición
 			 * 
@@ -93,7 +93,7 @@
 			}
 			/**
 			 * @author  "Raul Lopez"
-			 * @Fecha  28 Septiembre
+			 * @Fecha  20 Septiembre
 			 * @Funcion  que verifica si todos los campos estan con la información correspondiente
 			 * si estan todos los campos llenados, el método llama al clienteModificado el cual copia todos los campos del panel
 			 * en un objeto de tipo cliente con los datos finales de como fue editado el cliente.
@@ -111,7 +111,7 @@
 			
 			/**
 			 * @author  "Raul Lopez"
-			 * @Fecha  28 Septiembre
+			 * @Fecha  20 Septiembre
 			 * @Funcion que copia la información de los campos del panel en un objeto de tipo cliente. 
 			 */
 			public function clienteModificado():void
@@ -135,7 +135,7 @@
 			
 			/**
 			 * @author  "Raul Lopez"
-			 * @Fecha  28 Septiembre
+			 * @Fecha  20 Septiembre
 			 * @Funcion que se comunica con el service cliente, el cual se comunica con la capa lógica y el metodo
 			 * insertClienteE entregandole el objeto clienteModificado y el cual hace el respectivo mapeo hace el update 
 			 * del cliente en la base de datos.
@@ -171,10 +171,10 @@
 			
 			/**
 			 * @author  "Raul Lopez"
-			 * @Fecha  28 Septiembre
-			 * @Funcion que se comunica con el service cliente, el cual se comunica con la capa lógica y el metodo
+			 * @Fecha  20 Septiembre
+			 * @Funcion que se comunica que llama a los métodos de validacion de nombre, apellido, direccion y mail
 			 * 
-			 * .
+			 * 
 			 */
 		 	 private function iniListener():void
 			{
@@ -186,6 +186,14 @@
 				
 				
 			}
+			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  20 Septiembre
+			 * @Funcion que verifica que todos los campos del formulario tengan la información que se pide
+			 * con esto nos referimos a no tener datos de entrada vacía.
+			 * .
+			 */
 			private function iniListener2():Boolean
 			{
 				var aux:Boolean=false;
@@ -205,7 +213,11 @@
 				return aux;
 				
 			}
-		
+		    /**
+			 * @author  "Raul Lopez"
+			 * @Fecha  20 Septiembre
+			 * @Funcion que valida la extensión mínima que debe de tener el nombre de un cliente
+			 */
 		  	private function validarNombre(event:Event):void
 			{
 				if(Validacion.longitudMinima(nombre.text))
@@ -220,6 +232,11 @@
 				}	
 		  	}
 		  
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  20 Septiembre
+			 * @Funcion que comprueba que el mail ingresado en la comprobación de mail sea el mismo.
+			 */
 		  	private function validarEmail(event:Event):void
 		  	{
 				if(email.text == email2.text){
@@ -230,7 +247,11 @@
 					mensaje.text = "Los email no coinciden, ingreselos nuevamente";
 				}
 			}
-		
+		    /**
+			 * @author  "Raul Lopez"
+			 * @Fecha  20 Septiembre
+			 * @Funcion que valida la extensión del apellido del cliente
+			 */
 			private function validarApaterno(event:Event):void
 			{
 				if(Validacion.longitudMinima(apellido.text))
@@ -243,6 +264,11 @@
 					mensaje.text="Ingrese un Apellido mas largo";
 				}	
 			}//clienteModificado(), carga1()
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  20 Septiembre
+			 * @Funcion que valida la extensión del apellido materno del cliente
+			 */
 			private function validarAmaterno(event:Event):void
 			{
 				if(Validacion.longitudMinima(apellido2.text))
@@ -255,6 +281,12 @@
 					mensaje.text="Ingrese un Apellido mas largo";
 				}	
 			}
+			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  20 Septiembre
+			 * @Funcion que valida la extensión de la  dirección del cliente
+			 */
 			private function validarDirec(event:Event):void
 			{
 				if(Validacion.longitudMinima(direccion.text))
@@ -267,6 +299,12 @@
 					mensaje.text="Ingrese una Dirección más larga";
 				}	
 			}
+			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  20 Septiembre
+			 * @Funcion vuelve al panel de inicion cuando se decea cancelar la edición de los datos
+			 */
 			public function cancela():void
 			{
 			    
@@ -275,6 +313,11 @@
 			  Application.application.panelEditaCLi.setVisible(true,false);
 			}
 			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  20 Septiembre
+			 * @Funcion que carga las comunas dinámicamente de la región seleccionada.
+			 */
 			private function selRegion(event:Event):void {
         		var comunas:ArrayCollection = new ArrayCollection();
     			if(ComboBox(event.target).text.localeCompare("Region De Tarapaca") == 0){
@@ -694,6 +737,12 @@
 
         		region.dataProvider = tiporegiones;			
 			}
+			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  20 Septiembre
+			 * @Función que es llamada al momento de iniciar el panel, la cual carga las regiones.
+			 */
 			private function ini(event:Event):void{
 	        	
 	        	selRegiones(event);
