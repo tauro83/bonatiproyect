@@ -1,5 +1,10 @@
 package Policlinico;
 
+//=======================================================================
+//FECHA CREACIÓN: 2 de Noviembre de 2009
+//AUTOR: Sebastian Arancibia
+//…. Clase para la comunicacion entre flex y java 
+//=======================================================================
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -18,12 +23,6 @@ public class AddControlService {
 		 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 		 */
 		public int addProxControl(Cita cita){
-			//System.out.println(cita.cliente+"|");
-			//System.out.println(cita.fecha+"|");
-			//System.out.println(cita.hora+"|");
-			//System.out.println(cita.mascota+"|");
-			//System.out.println(cita.servicio+"|");
-			//System.out.println(cita.usuario+"|");
 			
 			int result=0;
 			try{

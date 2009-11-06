@@ -34,6 +34,7 @@ public class AddMascotaBD{
 	
 	/**
 	 * Constructor de MascotaBD
+	 * @author Sebastian Arancibia
 	 * @param connection Enlace para la conexion a la base de datos
 	 */
 	public AddMascotaBD(Connection connection){
@@ -41,15 +42,17 @@ public class AddMascotaBD{
 		try{
 			
 			String query="";	
-			
+			/**Consulta a la base de datos, Inserta una nueva mascota */
 			query = "INSERT INTO mascota(rut, nombre, fechanacimiento, claseanimal, raza, sexo, estado) "+
 					"VALUES (?, ?, ?, ?, ?, ?, ?);";			
 			add = connection.prepareStatement(query);
 			
+			/**Consulta a la base de datos, Selecciona todas las mascotas registradas en la base de datos*/
 			query = "SELECT rut, nombre, fechanacimiento, claseanimal, raza, sexo, estado " +
 					"FROM mascota;";			
 			selectAll = connection.prepareStatement(query);
 			
+			/**Selecciona datos especificos de los clientes presenciales*/
 			query = "SELECT rut, nombre, apaterno " +
 					"FROM clientepresencial;";
 			
@@ -59,7 +62,11 @@ public class AddMascotaBD{
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Funcion que retorna un cliente con un rut especifico
+	 * @param rutCliente Rut del Cliente al que se le quieren seleccionar los datos
+	 * @return cliente Cliente que tiene un rut rutCliente
+	 */
 	public String getCliente(String rutCliente){
     	String cliente = null;
     	try{
@@ -80,6 +87,7 @@ public class AddMascotaBD{
 	
 	/**
 	 * Ingresa a una nueva Mascota a la base de datos
+	 * @autor Sebastian Arancibia
 	 * @param mascota contiene los datos de la mascota que se quiere ingresar
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
@@ -107,8 +115,8 @@ public class AddMascotaBD{
     
 	/**
 	 * Retorna todas las mascotas alojadas en la base de datos
-	 *
-	 * @return Lista de todas las mascotas
+	 * @autor Sebastian Arancibia
+	 * @return mascotas Lista de todas las mascotas
 	 */
     public List<Mascota> getAllMascotas(){
     	List<Mascota> mascotas=new ArrayList<Mascota>();
@@ -136,7 +144,8 @@ public class AddMascotaBD{
     }
     
 	/**
-	 * Retorna una lista con las mascotas de @param
+	 * Retorna una lista con las mascotas de rutCliente
+	 * @autor Sebastian Arancibia
 	 * @param rutCliente es el rut del cliente  que se quiere retornar las mascotas
 	 * @return Lista de mascotas o null si no tiene
 	 */
