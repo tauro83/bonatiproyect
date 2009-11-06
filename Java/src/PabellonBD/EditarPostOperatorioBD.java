@@ -17,7 +17,12 @@ public class EditarPostOperatorioBD {
 	Connection connection;
 	PreparedStatement update;
 	String query;
-	//constructor que crea la conexion y prepara la sentencia para ser ejecutada
+	/**
+	 * Constructor de la clase que recibe una conexion creada para la base de datos
+	 * y que prepara el statemnt para la actualizacion del post operatorio
+	 * @param connection Una conexion a la base de datos
+	 * @throws SQLException
+	 */
 	public EditarPostOperatorioBD(Connection connection) throws SQLException{
 		this.connection = connection;
 		 query = "UPDATE atencionpostoperatorio "+

@@ -1,4 +1,9 @@
 package PoliclinicoBD;
+//=======================================================================
+//FECHA CREACIÓN: 02/11/09 
+//AUTOR: Andrés Garrido
+//Clase que contecta la capa 2 con la 3
+//=======================================================================
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,11 +23,21 @@ import TransferObjects.Control;
 public class GetAllControlesBD {
 
 	PreparedStatement selectAll;
+	/**
+	 * Constructor de la clase que recibe una conexion creada a la BD
+	 * y que prepara el statement para obtener todos los controles
+	 * @param conn Conexion creada a partir de DBConnectionManager
+	 */
 	public GetAllControlesBD(Connection conn) throws SQLException{
 
 		String query = "select * from atencioncontrol;";
 		selectAll = conn.prepareStatement(query);
 	}
+	/**
+	 * Este metodo ejecuta el statement preparado y obtiene todos los controles
+	 * registrados en la base de datos, creando una lista con objetos Control
+	 * @return Lista con los controles registrados.
+	 */
 	public List<Control> getAllControles() {
 		List<Control> mascotas=new ArrayList<Control>();
 		Control object;		

@@ -1,4 +1,9 @@
 package Pabellon;
+//=======================================================================
+//FECHA CREACIÓN: 15/10/09 
+//AUTOR: Andrés Garrido
+//Clase que contecta la capa 2 con la 3
+//=======================================================================
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,6 +20,10 @@ import Bd.DBConnectionManager;
  */
 public class EditarPostOperatorio {
 	Connection connection;
+	/**
+	 * Constructor de la clase que crea una conexion con la base 
+	 * de datos a través de DBConnectionManager
+	 */
 	public EditarPostOperatorio(){
 		try{    		
 			connection=DBConnectionManager.getConnection();
@@ -25,10 +34,11 @@ public class EditarPostOperatorio {
 		
 	}
 	/**
-	 * @author Andres Garrido
-	 * @version 1
-	 * clase que toma una lista que viene de la capa 1 y la traspasa a la capa 2
-	 * mediante EditarPostOperatorioBD
+	 * Método que edita un registro de post operatorio a partir de 
+	 * una lista de atributos a actualizar
+	 * @param l Lista con todos los atributos a actualizar de un post operatorio
+	 * @return Entero que representa si la actualización fue exitosa o no.
+	 * @throws SQLException
 	 */
 	public int editarPostOperatorio(List l) throws SQLException{
 		EditarPostOperatorioBD object = new EditarPostOperatorioBD(connection);
