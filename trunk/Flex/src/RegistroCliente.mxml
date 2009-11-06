@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registrar Cliente" borderColor="#15AD8F">
 	<mx:Script>
-		<![CDATA[
-		
+		<![CDATA[		
 //=======================================================================
-// FECHA CREACIÓN: Nicolas Delgado 
-// AUTOR: 20/09/09
-// Comentario: Este component van imncorporado cada uno de los elementos 
+// FECHA CREACIÓN: 20/09/09 
+// AUTOR: Nicolas Delgado
+// Comentario: Este componente van incorporado cada uno de los elementos 
 // Que deberan contener el registro de un cliente para que sea parte de la 
 // Clinica Veterinaria.
 // 
@@ -39,17 +38,16 @@
         private var vTelefono2:Boolean;
         private var vEmail:Boolean;
         private var vEmail2:Boolean;
+        private var c:String;
         
-/** 
-* Este metodo se encarga de recibir todas las acciones que tendra 
-* En su ciclo de vida la componente, esencialmente en este metodo se guardar 
-* la validacion de los datos al momento que el usuario los ingrese los datos
-* del dueño de la mascota.  
-* 
-* @langversion ActionScript 3.0
-*
-
-*/		
+		/** 
+		* Este metodo se encarga de hacer invisible cada una de las comuna asociada a una region
+		* pero en el momento que el usuario seleccione una region seran desplegada las comunas
+		* corresponsiente a la region seleccionada haciendo las visible.  
+		* 
+		* @author  "Nicolas Delgado"
+		*
+		*/		
         
          private function regiones(event:Event):void
            {           		
@@ -120,30 +118,22 @@
 				}
            }
         
-            
+		/** 
+		* Este metodo se encarga de de recibir los valores obtenidos en la interfaz del programa y pasarselos
+		* a traves de un objeto a la capa 2 para que esta sea finalice pasandoselo a la capa 3 para que el cliente 
+		* sea registrado en la base de datos.  
+		* 
+		* @author  "Nicolas Delgado"
+		*
+		*/	            
 		public function sendMessage():void
 			{					
-				rw.addEventListener(ResultEvent.RESULT,resultHandler);				
-                
-				var c:String;
+							
+                		
 				var aux:int;
 				var numeroArray:Array = new Array();
 				var largo:int = numeroArray.length - 1;
 				var x:int;
-		
-				if(rut.text!="" && rut2.text!="" || rut.text=="" && rut2.text==""){
-					c= rw.Valida_Rut(rut.text,rut2.text);
-					if(c=="TRUE"){
-						labelMessage.text = " ";
-					}
-					
-					else{
-						labelMessage.text = "Ingrese el Rut";
-						limpiarRut();
-						
-					}
-									
-				}
 				
 				if(vNombre==true && vApellido==true && c=="TRUE"){
 				
@@ -162,73 +152,11 @@
 					cl.email = email.text;
 					cl.email2 = email2.text;
 					cl.estado=true;
-					
-					if(cl.region=="Region De Tarapaca"){
-						cl.comuna=comunas.selectedLabel;
-					}  
-					
-					else if(cl.region=="Region De Antofagasta"){
-						cl.comuna=comunaAntofagasta.selectedLabel;
-					}
-					
-					
-					else if(cl.region=="Region De Atacama"){
-						cl.comuna=comunaAtacama.selectedLabel;
-					}
-					
-					else if(cl.region=="Region De Coquimbo"){
-						cl.comuna=comunaCoquimbo.selectedLabel;
-					}
-					
-					else if(cl.region=="Region De Valparaiso"){
-						cl.comuna=comunaValparaiso.selectedLabel;
-					}
-					
-					else if(cl.region=="Region Del Libertador Bernardo O´higgins"){
-						cl.comuna=comunaLibertador.selectedLabel;
-					}	
-					
-					else if(cl.region=="Region Del Maule"){
-						cl.comuna=comunaMaule.selectedLabel;
-					}	
-					
-					else if(cl.region=="Region Del Bio-Bio"){
-						cl.comuna=comunaBio.selectedLabel;
-					}	
-					
-					else if(cl.region=="Region De La Araucania"){
-						cl.comuna=comunaAraucania.selectedLabel;
-					}	
-					
-					else if(cl.region=="Region De Los Lagos"){
-						cl.comuna=comunaLagos.selectedLabel;
-					}	
-					
-					else if(cl.region=="Region Aysen del General Carlos Ibanes del Campo"){
-						cl.comuna=comunaAysen.selectedLabel;
-					}	
-					
-					else if(cl.region=="Region de Magallanes y Antartica Chilena"){
-						cl.comuna=comunaMagallanes.selectedLabel;
-					}		
-					
-					else if(cl.region=="Region Metropolitana"){
-						cl.comuna=comunaMetro.selectedLabel;
-					}	
-					
-					else if(cl.region=="Region de los Rios"){
-						cl.comuna=comunaRio.selectedLabel;
-					}	
-					
-					else if(cl.region=="Region de Arica y Parinacota"){
-						cl.comuna=comunaArica.selectedLabel;
-					}	
-							
+					cl.comuna=SeleccionComunas();
+									
 
 					w.regCliente(cl);
-					w.addEventListener(ResultEvent.RESULT,registroClienteResultado);
-					
-					
+					w.addEventListener(ResultEvent.RESULT,registroClienteResultado);			
 					
 				}
 				
@@ -240,11 +168,98 @@
 				
 			}
 			
+			/** 
+			* Este metodo se encarga de obtener la region seleccionada y pasar el objeto para que
+			* este pueda ser guardado en la base de datos.  
+			* 
+			* @author  "Nicolas Delgado"
+			*
+			*/	
+			public function SeleccionComunas():String{
+				if(cl.region=="Region De Tarapaca"){
+						return comunas.selectedLabel;
+					}  
+					
+					else if(cl.region=="Region De Antofagasta"){
+						return comunaAntofagasta.selectedLabel;
+					}
+					
+					
+					else if(cl.region=="Region De Atacama"){
+						return comunaAtacama.selectedLabel;
+					}
+					
+					else if(cl.region=="Region De Coquimbo"){
+						return comunaCoquimbo.selectedLabel;
+					}
+					
+					else if(cl.region=="Region De Valparaiso"){
+						return comunaValparaiso.selectedLabel;
+					}
+					
+					else if(cl.region=="Region Del Libertador Bernardo O´higgins"){
+						return comunaLibertador.selectedLabel;
+					}	
+					
+					else if(cl.region=="Region Del Maule"){
+						return comunaMaule.selectedLabel;
+					}	
+					
+					else if(cl.region=="Region Del Bio-Bio"){
+						return comunaBio.selectedLabel;
+					}	
+					
+					else if(cl.region=="Region De La Araucania"){
+						return comunaAraucania.selectedLabel;
+					}	
+					
+					else if(cl.region=="Region De Los Lagos"){
+						return comunaLagos.selectedLabel;
+					}	
+					
+					else if(cl.region=="Region Aysen del General Carlos Ibanes del Campo"){
+						return comunaAysen.selectedLabel;
+					}	
+					
+					else if(cl.region=="Region de Magallanes y Antartica Chilena"){
+						return comunaMagallanes.selectedLabel;
+					}		
+					
+					else if(cl.region=="Region Metropolitana"){
+						return comunaMetro.selectedLabel;
+					}	
+					
+					else if(cl.region=="Region de los Rios"){
+						return comunaRio.selectedLabel;
+					}	
+					
+					else if(cl.region=="Region de Arica y Parinacota"){
+						return comunaArica.selectedLabel;
+					}
+					return "";
+			}
+			
+			
+			/** 
+			* Este metodo se encarga de mencionar los posibles errores que pueda arrojar el
+			* sistema una vez estando en funcionamiento.  
+			* 
+			* @author  "Nicolas Delgado"
+			*
+			*/	
 			private function resultHandler(event:ResultEvent):void
 			{
 				var message:String= event.result as String;
                 Alert.show(message);
 			}
+			
+			/** 
+			* Este metodo se encarga de enviar el resultado obtenido en capa en la inserccion de los datos si 
+			* se pudo desarrollar la insercion o no y mostrar al usuario el resultado.  
+			* 
+			* @author  "Nicolas Delgado"
+			*
+			*/	
 			
 			private function registroClienteResultado(event:ResultEvent):void
 			{
@@ -260,6 +275,14 @@
 					labelMessage.text=msj;
 			}
 
+			/** 
+			* Este metodo se encarga de realizar todas las validaciones desarrollas por teclado por el usuario
+			* en cada uno de los parametros de inserccion de datos para que estos no se encuentren vacios al 
+			* momento que el usuario quiera insertar datos a la base de datos.  
+			* 
+			* @author  "Nicolas Delgado"
+			*
+			*/	
             private function validaciones():void{
             	nombre.addEventListener(KeyboardEvent.KEY_UP,validarSoloString);
             	apellido.addEventListener(KeyboardEvent.KEY_UP,validarSoloString1);
@@ -274,7 +297,15 @@
             	apellido.addEventListener(MouseEvent.CLICK,validarApellido);
             	apellido2.addEventListener(MouseEvent.CLICK,validarApellido2);
             }
-            
+           
+  		   /** 
+		   * Este metodo se encarga de comprobar que el nombre ingresado por el usuario
+		   * no sea inferior a un tamaño de dos para poder hacer una insercion correcta
+		   * de los datos.  
+		   * 
+		   * @author  "Nicolas Delgado"
+		   *
+		   */	 
            public function validarNombre(event:Event):void
            {
            	if(nombre.text.length>2)
@@ -290,7 +321,15 @@
 					labelMessage.text = "Ingrese el nombre mas largo";
 				}	
            }
-           
+ 
+   		   /** 
+		   * Este metodo se encarga de comprobar que el apellido paterno ingresado por el usuario
+		   * no sea inferior a un tamaño de dos para poder hacer una insercion correcta
+		   * de los datos.  
+		   * 
+		   * @author  "Nicolas Delgado"
+		   *
+		   */	          
            public function validarApellido(event:Event):void
            {
            	if(apellido.text.length>2)
@@ -307,6 +346,14 @@
 				}	
            }
            
+  		   /** 
+		   * Este metodo se encarga de comprobar que el apellido materno ingresado por el usuario
+		   * no sea inferior a un tamaño de dos para poder hacer una insercion correcta
+		   * de los datos.  
+		   * 
+		   * @author  "Nicolas Delgado"
+		   *
+		   */	
            public function validarApellido2(event:Event):void{
            	if(apellido2.text.length>2)
 				{
@@ -322,7 +369,14 @@
 				}	
            }
            
-           
+  		   /** 
+		   * Este metodo se encarga de comprobar que el nombre ingresado por el usuario
+		   * no posea ningun tipo de caracter distinto a letras para poder hacer una 
+		   * insercion correcta de los datos.  
+		   * 
+		   * @author  "Nicolas Delgado"
+		   *
+		   */	           
             private function validarSoloString(event:Event):void{
             	if(Validacion.sinNumero(nombre.text)==true)
 				{
@@ -337,7 +391,15 @@
 					labelMessage.text = "Ingrese Solamente Letras";
 				}	
             }
-            
+
+  		     /** 
+		     * Este metodo se encarga de comprobar que el apellido paterno ingresado por el usuario
+		     * no posea ningun tipo de caracter distinto a letras para poder hacer una 
+		     * insercion correcta de los datos.  
+		     * 
+		     * @author  "Nicolas Delgado"
+		     *
+		     */	               
              private function validarSoloString1(event:Event):void{
             	
             	
@@ -352,7 +414,15 @@
 					labelMessage.text = "Ingrese Solamente Letras";
 				}	
             }
-            
+
+  		     /** 
+		     * Este metodo se encarga de comprobar que el apellido materno ingresado por el usuario
+		     * no posea ningun tipo de caracter distinto a letras para poder hacer una 
+		     * insercion correcta de los datos.  
+		     * 
+		     * @author  "Nicolas Delgado"
+		     *
+		     */	             
             private function validarSoloString2(event:Event):void{
             	if(Validacion.sinNumero(apellido2.text)==true)
 				{
@@ -365,7 +435,15 @@
 					labelMessage.text = "Ingrese Solamente Letras";
 				}	
             }
-            
+
+  		     /** 
+		     * Este metodo se encarga de comprobar que el celular ingresado por el usuario
+		     * no posea ningun tipo de caracter distinto a un digito para poder hacer una 
+		     * insercion correcta de los datos.  
+		     * 
+		     * @author  "Nicolas Delgado"
+		     *
+		     */	 
              private function validarNumero(event:Event):void{
             	if(Validacion.Numero(celular.text)==true)
 				{
@@ -378,7 +456,15 @@
 					labelMessage.text = "Ingrese Solamente Numeros";
 				}	
             }
-            
+
+  		     /** 
+		     * Este metodo se encarga de comprobar que el celular ingresado por el usuario
+		     * no posea ningun tipo de caracter distinto a un digito para poder hacer una 
+		     * insercion correcta de los datos.  
+		     * 
+		     * @author  "Nicolas Delgado"
+		     *
+		     */	             
             private function validarNumero2(event:Event):void{
             	if(Validacion.Numero(celular2.text)==true)
 				{
@@ -391,7 +477,15 @@
 					labelMessage.text = "Ingrese Solamente Numeros";
 				}	
             }
-            
+
+  		     /** 
+		     * Este metodo se encarga de comprobar que el telefono ingresado por el usuario
+		     * no posea ningun tipo de caracter distinto a un digito para poder hacer una 
+		     * insercion correcta de los datos.  
+		     * 
+		     * @author  "Nicolas Delgado"
+		     *
+		     */	             
              private function validarNumero3(event:Event):void{
             	if(Validacion.Numero(telefono.text)==true)
 				{
@@ -404,7 +498,15 @@
 					labelMessage.text = "Ingrese Solamente Numeros";
 				}	
             }
-            
+ 
+  		    /** 
+		    * Este metodo se encarga de comprobar que el telefono ingresado por el usuario
+		    * no posea ningun tipo de caracter distinto a un digito para poder hacer una 
+		    * insercion correcta de los datos.  
+		    * 
+		    * @author  "Nicolas Delgado"
+		    *
+		    */	             
             private function validarNumero4(event:Event):void{
             	if(Validacion.Numero(telefono2.text)==true)
 				{
@@ -417,7 +519,15 @@
 					labelMessage.text = "Ingrese Solamente Numeros";
 				}	
             }
-            
+
+  		     /** 
+		     * Este metodo se encarga de comprobar que el email cumpla con todos los parametros 
+		     * correctos exigidos, sin que ningun caracter falte al momento del ingreso del un
+		     * email.  
+		     * 
+		     * @author  "Nicolas Delgado"
+		     *
+		     */	             
              private function validarEmail(event:Event):void{
             	
             	var em:Boolean;
@@ -439,7 +549,14 @@
 					
 				}
             }
-            
+
+  		    /** 
+		    * Este metodo se encarga de comprobar que el email ingresado anteriormente sea igual al 
+		    * email que se encuentra en el segundo parametro de inserccion.  
+		    * 
+		    * @author  "Nicolas Delgado"
+		    *
+		    */	             
             private function validarEmail2(event:Event):void{
             	if(email.text == email2.text)
 				{
@@ -453,43 +570,41 @@
 				}
             }
 
-/**
-* Este metodo se encarga de limpiar los campos del
-* Rut si este es incorrecto, para que el usuario pueda tener mejor
-* Manejo de lugar donde se produjo el error. 
-* 
-* @langversion ActionScript 3.0
-*
-
-*/					
+			/**
+			* Este metodo se encarga de limpiar los campos del
+			* Rut si este es incorrecto, para que el usuario pueda tener mejor
+			* Manejo de lugar donde se produjo el error. 
+			* 
+			* @author  "Nicolas Delgado"
+			*
+			*/					
 			public function limpiarRut():void
 			{
 				rut.text= "";
 				rut2.text = "";				
 			}
 
-/**
-* Este metodo se encarga de limpiar los campos de la
-* confirmacion del mailporque tiene que tener un grado de concordancia
-* al email ingresado en el textInput anterior. 
-* 
-* @langversion ActionScript 3.0
-*
-*/			
+			/**
+			* Este metodo se encarga de limpiar los campos de la
+			* confirmacion del mailporque tiene que tener un grado de concordancia
+			* al email ingresado en el textInput anterior. 
+			* 
+			* @author  "Nicolas Delgado"
+			*
+			*/			
 			public function limpiarEmail():void
 			{
 				email.text = "";				
 			}
 
-/**
-* Este metodo se encarga de limpiar todos los  campos de la
-* componente, una vez ingresados los datos  a la base de datos,
-* sin mayor problema.
-* 
-* @langversion ActionScript 3.0
-*
-*/	
-			
+			/**
+			* Este metodo se encarga de limpiar todos los  campos de la
+			* componente, una vez ingresados los datos  a la base de datos,
+			* sin mayor problema.
+			* 
+			* @author  "Nicolas Delgado"
+			*
+			*/				
 			public function limpiarTodo():void
 			{
 				nombre.text="";
@@ -523,6 +638,14 @@
 				this.cancelarRegistrar();
 			}
 			
+  		    /** 
+		    * Este metodo se encarga de  que al momento que el usuario seleccione el boton cancelar se aplique
+		    * el funcionamiento de abrir el panel de administracion y resetear todos los datos que fueron ingresados
+		    * por el usuario.  
+		    * 
+		    * @author  "Nicolas Delgado"
+		    *
+		    */	
 			private function cancelarRegistrar():void
 			{
 				Application.application.setInvisible();
@@ -530,6 +653,41 @@
             	Application.application.AdmOpciones1.setVisible(true,false);
 			}
 			
+			/** 
+		    * Este metodo tiene la finalidad que al momento de que el usuario ingrese el rut existen dos checkbox
+		    * que le permitiran al usuario poder seleccionar si el usuario es nuevo existira una comprobacion del 
+		    * rut, mientras que si el usuario es antiguo no existira ninguntipo de comprobacion de rut.  
+		    * 
+		    * @author  "Nicolas Delgado"
+		    *
+		    */	
+			private function changeData():void
+			{
+			
+			rw.addEventListener(ResultEvent.RESULT,resultHandler);	
+				
+			if(Check.selectedValue=="Nuevo"){
+	 		   	if(rut.text!="" && rut2.text!="" || rut.text=="" && rut2.text==""){
+					c= rw.Valida_Rut(rut.text,rut2.text);
+					if(c=="TRUE"){
+						labelMessage.text = " ";
+					}
+					
+					else{
+						labelMessage.text = "Ingrese el Rut";
+						limpiarRut();
+						
+					}
+									
+				}
+	 		}
+	 		
+	 		if(Check.selectedValue=="Antiguo"){
+	 		   c="TRUE";
+	 		}
+	 		
+	 		
+			}
 		
 		]]>
 	</mx:Script>
@@ -548,14 +706,14 @@
 	
 	<!-- Rut -->	
 	<mx:Label x="24" y="112" text="Rut:" width="97"/>
-	<mx:TextInput restrict="0-9" x="143" y="112" width="140" id="rut"  maxChars="8"/>	
+	<mx:TextInput restrict="0-9" x="218" y="108" width="80" id="rut"  maxChars="8"/>	
 	<mx:Label x="561" y="160" text="-" textAlign="center"/>
-	<mx:TextInput restrict="0-9 K" x="308" y="112" width="36" id="rut2" maxChars="1"/>
+	<mx:TextInput restrict="0-9 K" x="324" y="108" width="20" id="rut2" maxChars="1"/>
 	
 	<!-- Telefono -->
 	<mx:Label x="24" y="158" text="Teléfono fijo:" width="97"/>
 	<mx:TextInput restrict="0-9" x="143" y="158" width="40" id="telefono" click="validaciones()" maxChars="3"/>
-	<mx:Label x="291" y="114" text="-" textAlign="center"/>
+	<mx:Label x="306" y="110" text="-" textAlign="center"/>
 	<mx:TextInput restrict="0-9" x="208" y="158" width="136" id="telefono2" click="validaciones()" maxChars="10"/>
 	
 		
@@ -1028,6 +1186,9 @@
 	<mx:Button x="647" y="353" width="102" label="Cancelar" id="cancelarClienteIng" click="{limpiarTodo()}"  height="23" cornerRadius="6">
 	</mx:Button>	
 	<mx:Label id="labelMessage" x="176" y="399" width="407" textAlign="center" fontWeight="bold" height="17"/>
+	<mx:RadioButtonGroup id="Check" change="changeData()"/>
+	<mx:RadioButton x="143" y="93" label="Nuevo" groupName="Check"/>
+	<mx:RadioButton x="143" y="119" label="Antiguo" groupName="Check"/>
 
 
 	

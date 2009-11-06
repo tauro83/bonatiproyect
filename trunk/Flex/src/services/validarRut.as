@@ -22,19 +22,19 @@ package services
 	public class validarRut extends RemoteObject
     {
     	
-/**
-* Esta clase le entregamos como parametro el rut sin digito identificador y
-* Luego se inserta el codigo identificador que nos sirve para corroborar que el 
-* Rut sea el correcto.
-*
-* @langversion ActionScript 3.0
-*
-* @param Numero numero.
-*
-* @param Numero identificador. 
-*
-* @example Valida_Rut("16789076", "5");
-*/
+			/**
+			* Esta clase le entregamos como parametro el rut sin digito identificador y
+			* Luego se inserta el codigo identificador que nos sirve para corroborar que el 
+			* Rut sea el correcto.
+			*
+			* @author  "Nicolas Delgado"
+			*
+			* @param Numero numero.
+			*
+			* @param Numero identificador. 
+			*
+			* @example Valida_Rut("16789076", "5");
+			*/
 			public function Valida_Rut(Numero:String,Dv:String):String{
 									
 			var suma:int = 0;
