@@ -1,6 +1,6 @@
 ﻿//=======================================================================
-// FECHA CREACIÓN: Nicolas Delgado 
-// AUTOR: 20/09/09
+// FECHA CREACIÓN: 20/09/09
+// AUTOR: Nicolas Delgado 
 // Comentario: Este action Script contempla todos los paso para la creación 
 //  de un cliente y poder ingresar los datos a la base de datos.
 // 
