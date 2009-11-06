@@ -65,6 +65,7 @@
 			[Bindable]
 			public var diasBloqueados:ArrayCollection = new ArrayCollection();
 			
+			/**Arreglo de horas disponibles para una cita en la clinica veterinaria*/
 			[Bindable]
             public var diaAgenda:ArrayCollection = new ArrayCollection(
                 [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
@@ -127,7 +128,7 @@
             		//desbloquear.visible = false;
             		
             		getDiaAgenda();
-            		
+       
             		//semanaAgenda = new ArrayCollection();
             		//getSemanaAgenda();
             		//agendaSemana.dataProvider = semanaAgenda;
