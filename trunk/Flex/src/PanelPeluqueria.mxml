@@ -14,23 +14,8 @@
          	Application.application.setInvisible();
          	this.visible = true;
          	Application.application.graficosPeluqueria.visible = true;
-         	//Application.application.graficosPeluqueria.changeData('set1');
+         	Application.application.graficosPeluqueria.resetVars();
          }
-         private function estadisticasSemestre():void
-         {
-         	Application.application.setInvisible();
-         	this.visible = true;
-         	Application.application.graficosPeluqueria.visible = true;
-         	Application.application.graficosPeluqueria.changeData('set2');
-         }
-         private function estadisticasAnio():void
-         {
-         	Application.application.setInvisible();
-         	this.visible = true;
-         	Application.application.graficosPeluqueria.visible = true;
-         	Application.application.graficosPeluqueria.changeData('set3');
-         }
-         
 
 	 	]]>
     </mx:Script>
