@@ -1,3 +1,9 @@
+//=======================================================================
+// FECHA CREACIÓN: 10 de Septiembre de 2009
+// AUTOR: Sebastian Arancibia
+// …. Clase para la comunicacion entre flex y java 
+//=======================================================================
+
 package Administracion;
 
 
@@ -12,6 +18,13 @@ import Bd.DBConnectionManager;
 
 public class BitacoraService 
 {
+	/**
+	 * Clase utilizada para la comunicacion entre capa 1 y 2 (Flex y Java)
+	 *
+	 * @author  Sebastian Arancibia
+	 * @version 0.1, 22/09/09
+	 * @return result resultado de la operacion 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
+	 */
 	public int insertUsuarioE(Bitacora bitacora)
     {
 		int result=0;
@@ -27,6 +40,11 @@ public class BitacoraService
 		return result;
     }
 
+	/**
+	 * Crea la conexion a la base de datos para retornar las acciones realizadas en la agenda
+	 * @author  Sebastian Arancibia
+	 * @return bitacoras lista de operaciones realizada en la agenda
+	 */
     public List<Bitacora> getAllBitacora()
     {
     	List<Bitacora> bitacoras=new ArrayList<Bitacora>();

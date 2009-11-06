@@ -39,6 +39,7 @@ public class AddMascotaService{
 	
 	/**
 	 * Crea la conexion a la base de datos para registrar una mascota
+	 * @author  Sebastian Arancibia
 	 * @param mascota contiene los datos de la mascota que se quiere ingresar
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
@@ -58,6 +59,7 @@ public class AddMascotaService{
 
 	/**
 	 * Crea la conexion a la base de datos para retornar todas las mascotas
+	 * @author  Sebastian Arancibia
 	 * @return Lista de todas las mascotas
 	 */
 	public List<Mascota> getAllMascotas(){
@@ -75,7 +77,8 @@ public class AddMascotaService{
     }
     
 	/**
-	 * Crea la conexion a la base de datos para retornar las mascotas de @param
+	 * Crea la conexion a la base de datos para retornar las mascotas de rutCliente
+	 * @author  Sebastian Arancibia
 	 * @param rutCliente Rut de Cliente que se quiere retornar sus mascotas
 	 * @return Lista de mascotas
 	 */

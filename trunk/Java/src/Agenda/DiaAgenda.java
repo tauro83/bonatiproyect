@@ -9,16 +9,22 @@ package Agenda;
 public class DiaAgenda {
 	/** Atributo que corresponde a la fecha de una cita */
 	public String fecha;
+	
 	/** Atributo que corresponde a la hora de una cita */
 	public String hora;
+	
 	/** Atributo que corresponde al responsable de una cita */
 	public String responsable;
+	
 	/** Atributo que corresponde al servicio de una cita */
 	public String servicio;
+	
 	/** Atributo que corresponde a la mascota de una cita */
 	public String mascota;
+	
 	/** Atributo que corresponde al cliente de una cita */
 	public String cliente;
+	
 	
 	/**
      * Esta clase agrega cada uno de los metodos de los set y get de
