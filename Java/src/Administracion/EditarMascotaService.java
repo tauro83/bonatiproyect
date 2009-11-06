@@ -1,3 +1,6 @@
+//=======================================================================
+// FECHA CREACIÓN: 12/09/09
+
 package Administracion;
 
 import java.sql.Connection;
@@ -13,6 +16,14 @@ import TransferObjects.Mascota;
 import Bd.DBConnectionManager;
 
 public class EditarMascotaService {
+	
+	/**
+	 * @autor Cristian BRavo
+	 * Metodo que llama a la funcion con el mismo nombre que se encuentra en la 
+	 * clase que se conecta con la base de datos.
+	 * @param Mascota contiene los datos de la mascota que se quiere editar.
+	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
+	 */
 	
 	public int insertMascotaE(Mascota person)
     {
@@ -30,6 +41,13 @@ public class EditarMascotaService {
 		return result;
     }
 
+	/**
+	 * Autor: Cristian Bravo
+	 * Solicita a la clase que se conecta con la base de datos, los datos de cada mascota.
+	 * @param
+	 * @return Lista con objetos de la clase Mascota
+	 */
+	
     public List<Mascota> getAllMascotasE()
     {
     	List<Mascota> persons=new ArrayList<Mascota>();
