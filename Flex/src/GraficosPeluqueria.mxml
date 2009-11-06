@@ -20,6 +20,14 @@
 		[Bindable]public var expenses:ArrayCollection ;
 		private var gep:GetEstadisticasPeluqueria;
 		private var fechaActual:Date = new Date();
+		private var inicio:String;
+		private var fin:String;
+		private var iDia:String;		
+		private var iMes:String;
+		private var iAnio:String;	
+		private var fDia:String;		
+		private var fMes:String;
+		private var fAnio:String;
 
 		/**
 		 *  Asigna las estadisticas
@@ -28,6 +36,24 @@
 		private function getEstadisticasR(event:ResultEvent):void
 		{
 			expenses = event.result as ArrayCollection;	
+		}
+		/**
+		 *  Reinicia los valores
+		 * 	@author  "Camilo Verdugo"
+		 * */
+		public function resetVars():void
+		{
+			fechaIni.text = "";
+			fechaFin.text = "";
+			inicio = "";
+			fin = "";
+			iDia = "";
+			iMes = "";
+			iAnio = "";
+			fDia = "";
+			fMes = "";
+			fAnio = "";
+			expenses = new ArrayCollection();
 		}
 		
 		/**
@@ -40,16 +66,16 @@
 			if(fechaIni.selectedDate!=null && fechaFin.selectedDate!=null){
 				if(fechaIni.selectedDate.getTime()<=fechaFin.selectedDate.getTime()){
 					if(fechaIni.selectedDate.getTime()<fechaActual.getTime()){
-						 gep = new GetEstadisticasPeluqueria();
-						var iDia:String		= fechaIni.selectedDate.getDate().toString();
-						var iMes:String		= (fechaIni.selectedDate.getMonth()+1).toString();
-						var iAnio:String	= fechaIni.selectedDate.getFullYear().toString();
-						var fDia:String		= fechaFin.selectedDate.getDate().toString();
-						var fMes:String		= (fechaFin.selectedDate.getMonth()+1).toString();
-						var fAnio:String	= fechaFin.selectedDate.getFullYear().toString();
+						gep = new GetEstadisticasPeluqueria();
+						iDia = fechaIni.selectedDate.getDate().toString();
+						iMes = (fechaIni.selectedDate.getMonth()+1).toString();
+						iAnio= fechaIni.selectedDate.getFullYear().toString();
+						fDia = fechaFin.selectedDate.getDate().toString();
+						fMes = (fechaFin.selectedDate.getMonth()+1).toString();
+						fAnio= fechaFin.selectedDate.getFullYear().toString();
 						//Alert.show(fechaActual.getTime().toString());
-	 					var inicio:String	= iAnio+"-"+iMes+"-"+iDia;
-	 					var fin:String		= fAnio+"-"+fMes+"-"+fDia; 
+	 					inicio	= iAnio+"-"+iMes+"-"+iDia;
+	 					fin		= fAnio+"-"+fMes+"-"+fDia; 
 	 					gep.getEstadisticas(inicio,fin);
 	 					gep.addEventListener(ResultEvent.RESULT,getEstadisticasR);
 						
