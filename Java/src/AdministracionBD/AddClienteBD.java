@@ -2,7 +2,7 @@
 // FECHA CREACIÓN: 20/09/09
 // AUTOR:Nicolas Delgado
 // Comenetario: Esta Clase desarrolla la conexion entre java y la base
-// de datos postgret en nuestreo caso.
+// de datos postgret en nuestro caso.
 //======================================================================
 
 
@@ -16,16 +16,24 @@ import java.sql.SQLException;
 import TransferObjects.Cliente;
 
 
-
 public class AddClienteBD {
 
 	Connection connection;
+	
+	/**
+	 * Constructor de la conexion
+	 * @param connection es el enlace a la BD
+	 */
 	
 	public AddClienteBD(Connection connection)
 	{
 		this.connection = connection;
 	}
 	
+	/**
+	 * Registra el Cliente en la BD, con sus respectivos datos.
+	 * @param c transferobject Cliente
+	 */
 	public String addCliente(Cliente c) throws SQLException
 	{
 		String result = null;
