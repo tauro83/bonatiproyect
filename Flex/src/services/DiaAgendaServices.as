@@ -13,11 +13,13 @@ package services{
 	
 	import transferObjects.DiaAgenda;
 
-    /**
-	 * Clase utilizada para comunicar con DiaAgendaService de la capa 2 (Java)
-	 * @author  Sebastian Arancibia
-	 * @version 1, 05/10/2009
-	 */
+	/**
+	 * Clase Declara el canal, y los servicios a los cuales se estan enviando los datos.
+	 * Y la direccion en la cual esta levantado la capa 2.
+	 * @author Sebastian Arancibia
+	 * @version 05/10/2009
+	 * @langversion ActionScript 3.0
+	*/
 	public class DiaAgendaServices extends RemoteObject{
 		public function DiaAgendaServices(){
 			super();
@@ -32,14 +34,19 @@ package services{
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		/**
-		 * @param event Evento para capturar fallas
+		 *  Metodo Declara el canal, y los servicios a los cuales se estan enviando los datos.
+		 *  Y la direccion en la cual esta levantado la capa 2.
+	 	 * 	@author  Sebastian Arancibia	 		
 		 * */
 		private function faultHandler(event:FaultEvent):void{
 			Alert.show("Error en DiaAgendaServices, Detalle: "+event.fault.message);
 		}
 		/**
-		 * @param fecha Fecha de la cual se quieren capturar las citas
-		 * */
+		 * Metodo que solicita a la capa 2 los datos de todos las mascotas del sistema que
+		 * compartan los atributos enviados  
+		 * @author  Sebastian Arancibia
+		 * @param fecha Feca de las citas que se quiere retornar
+		 **/
 		public function getDiaAgenda(fecha:String):void{
 			this.getOperation("getDiaAgenda").send(fecha);
 		}

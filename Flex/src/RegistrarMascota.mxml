@@ -44,9 +44,11 @@
                   {label:"Macho", data:1}, 
                   {label:"Hembra", data:2} ]);    
 
+
 			/**
 			* Funcion que busca un cliente
-			* @param event Evento
+			* @author  Sebastian Arancibia
+			* @param event Evento proveniente al realizar la accion
 			*/
         	private function buscarCliente(event:Event):void{
         		ini(event);
@@ -94,8 +96,9 @@
         	}
         	
 			/**
-			* Funcion que llena la tabla de mascotas asociadas al cliente
+			* Funcion que inicia el panel y llena la tabla de mascotas asociadas al cliente
 			* @param event Evento
+			* @author  Sebastian Arancibia
 			*/
 	        private function ini(event:Event):void{
 	        	datosMascota.visible = true;
@@ -116,6 +119,7 @@
         	/**
 			* Funcion que llena las opciones de razas segun la clase de animal seleccionada
 			* @param event Evento
+			* @author  Sebastian Arancibia
 			*/
         	private function selRazas(event:Event):void {
         		var razas:ArrayCollection = new ArrayCollection();
@@ -427,7 +431,8 @@
 			
 			/**
 			* Funcion que llena las opciones de razas segun la clase de animal seleccionada
-			* @param event Evento
+			* @param event Evento proveniente de la accion realizada al inicar el panel
+			* @author  Sebastian Arancibia
 			*/
         	private function selClaseAnimal(event:Event):void {
         		var clasesAnimal:ArrayCollection = new ArrayCollection();
@@ -443,7 +448,8 @@
 			
 			/**
 			* Funcion escucha para agregar mascota
-			* @param event Evento
+			* @param event Evento que verifica si la conexion se ha hecho satisfactoriamente
+			* @author  Sebastian Arancibia 
 			*/
 			private function resultHandler(event:ResultEvent):void{
 				var message:String= event.result as String;
@@ -452,7 +458,8 @@
 			
 			/**
 			* Funcion que comienza con el registro de mascota (validando datos)
-			* @param event Evento
+			* @param event Evento proveniente de la accion anterior a llamar esta funcion
+			* @author  Sebastian Arancibia
 			*/
 			private function registrarMascota(event:Event):void{
 				addMascota();
@@ -460,8 +467,8 @@
 			}
 			
 			/**
-			* Funcion que llama  a retornar todas las mascotas 
-			* 
+			* Funcion que llama  a retornar todas las mascotas desde las capas inferiores
+			* @author  Sebastian Arancibia
 			*/
 			private function getAllMascotas():void{
 				var mascotaService:MascotaService = new MascotaService();
@@ -471,7 +478,8 @@
 			
 			/**
 			* Funcion que obtiene todas las mascotas anteriormente llamadas
-			* @param event Evento
+			* @author  Sebastian Arancibia
+			* @param event Evento proveniente desde la llamada a mascota service
 			*/
 			private function getAllMascotasResult(event:ResultEvent):void{
 				mascotas = event.result as ArrayCollection;
@@ -480,6 +488,7 @@
 			
 			/**
 			* Funcion que llama a retornar todas las mascotas de un cliente
+			* @author  Sebastian Arancibia
 			*/
 			private function getMascotas():void{
 				var addMascotaService:AddMascotaService = new AddMascotaService();
@@ -493,7 +502,8 @@
 			
 			/**
 			* Funcion que obtiene todas las mascotas de un cliente
-			* @param event Evento
+			* @param event Evento proveniente de la llamada a addMascotaService
+			* @author  Sebastian Arancibia
 			*/
 			private function getAddMascotasResult(event:ResultEvent):void{
 				mascotas = event.result as ArrayCollection;
@@ -505,7 +515,8 @@
 			
 			/**
 			* Funcion que llama para retornar todos los clientes
-			* @param event Evento
+			* @param rutCliente Rut del Cliente que se quiere retornar todos los clientes
+			* @author  Sebastian Arancibia 
 			*/
 			
 			private function getCliente(rutCliente:String):void{
