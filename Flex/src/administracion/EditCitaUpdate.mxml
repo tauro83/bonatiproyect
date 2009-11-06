@@ -4,8 +4,14 @@
 	
 	 <mx:Script>
         <![CDATA[
+		
+			//=======================================================================
+			// FECHA: CREACIÓN: 28 Septiembre
+			// AUTOR: Raul Lopez
+			// Comentarios: Formulario y validacion de la edicion de un usuario en el sistema.
+			//=======================================================================
         	import transferObjects.Usuario;
-        import mx.collections.ArrayCollection;
+			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import transferObjects.Cita;
 			
@@ -41,7 +47,9 @@
 			public var citi:Cita;
 			
 			/**
-			 * Funcion que carga los datos de la cita que se quiere editar  en panle respectivo para la 
+			 * @author  "Raul Lopez"
+			 * @Fecha  28 Septiembre
+			 * @Funcion que carga los datos de la cita que se quiere editar  en panel respectivo para la 
 			 * edicion
 			 * 
 			 */ 
@@ -58,6 +66,13 @@
 				    
 			}
 			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  28 Septiembre
+			 * @Funcion que carga los datos de la la cita editada, en un objeto tipo Cita. 
+			 * edicion
+			 * 
+			 */ 
 			public function clienteModificado():void
 			{
 					
@@ -70,7 +85,14 @@
 					carga1();
 					
 			}
-			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  28 Septiembre
+			 * @Funcion que  que crea una instancia de un service, para de esta forma comunicarse con la capa 2, en este 
+			 * le envia el objeto clienteAuxEditado de tipo Cita, el que contiene los datos modificados del panel de formulario.
+			 * Del mismo modo esta función llama al metodo en java insertCitaE el cual sobrescribe los la información de la cita
+			 * que se deseaba modificar.
+			 */ 
 			public function carga1():void
 			{
 			  
@@ -119,6 +141,13 @@
             {label:"Chicho"},
             {label:"Zuki"}]);            
           
+		    /**
+			 * @author  "Raul Lopez"
+			 * @Fecha  28 Septiembre
+			 * @Funcion que hace visibles los paneles de agenda y muestra mensaje de confirmacion del edicion
+			 * 
+			 * 
+			 */ 
             public function guardaEditaCita(event:Event = null):void
 			{
 				
@@ -130,6 +159,12 @@
 			    
 			}
 			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  28 Septiembre
+			 * @Funcion que hace visibles los paneles de agenda, esto volviendo a la agenda e indicando que
+			 * la cita a modificar fue cancelada 
+			 */ 
 			public function cancelarEditaCita(event:Event = null):void
 			{
 				
@@ -140,6 +175,12 @@
 			    
 			}
 			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  28 Septiembre
+			 * @Funcion que hace carga los servicios al combox
+			 *  
+			 */ 
 			private function selClaseServicio(event:Event):void {
         		var clasesServicios:ArrayCollection = new ArrayCollection();
         		
@@ -223,9 +264,9 @@
 			}
 			
 			 /**
-		 	 * 	@author  "Sebastian Arancibia"
+		 	 * 	@author  "Raul Lopez"
 			 * 	@Fecha  27   Octubre
-			 *  Funcion que filtra las horas disponibles del Responsable para el proximo control
+			 *  Funcion que filtra las horas disponibles del sistema
 			 **/
 			private function consultarHorasDisponiblesResult(event:ResultEvent):void{
 				
