@@ -1,3 +1,6 @@
+//=======================================================================
+// FECHA CREACIÓN: 12/09/09
+
 package AdministracionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +18,12 @@ public class MascotaEditDB
 	Connection conn;
 	String rutillo;
 	
+	/**
+	 * Autor: Cristian Bravo
+	 * Realiza las Querys para comunicarse con la base de datos.
+	 * @param Connection, que permite conectarse con la base de datos.
+	 * @return void. Solo captura algun error si es que hubiera en la base de datos.
+	 */
 	
 	public MascotaEditDB(Connection connection)
 	{
@@ -36,8 +45,9 @@ public class MascotaEditDB
 	}
 
 	/**
-	 * Ingresa a una nueva persona a la base de datos
-	 * @param person contiene los datos de la persona que se quiere ingresar
+	 * Autor: Cristian Bravo
+	 * Ingresa a una nueva mascota a la base de datos
+	 * @param person contiene los datos de la mascota que se quiere ingresar
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
     public int insertMascotaE(Mascota person)
