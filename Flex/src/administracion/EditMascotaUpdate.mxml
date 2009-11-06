@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Mascota" initialize="selClaseAnimal()">
-	
-	
+
 	 <mx:Script>
         <![CDATA[
-        import mx.collections.ArrayCollection;
+           //=======================================================================
+			// FECHA: CREACIÓN: 12/09/2009
+			// AUTOR: Cristian Bravo
+			// Panel de selección de una mascota, para proceder a editar los datos de ésta.
+			//=======================================================================
+        
+            import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import transferObjects.Mascota;
 			
@@ -40,11 +45,13 @@
 			
 			public var mascoti:Mascota;
 			
-			/**
-			 * Funcion que carga los datos de la mascota que se quiere editar  en panle respectivo para la 
-			 * edicion
-			 * 
-			 */ 
+			 
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que carga los datos de la mascota que se quiere editar.	
+			 * */
+			 
 			public function carga(mascotilla:Mascota):void
 			{       //asigno el cliente entregado desde panel EditarCliente
 					nombre.text = mascotilla.nombre.split(" ", 1).pop();
@@ -60,6 +67,12 @@
 				    
 			}
 			
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que crea el objeto de la mascota editada	
+			 * */
+			
 			public function clienteModificado():void
 			{
 					
@@ -73,6 +86,12 @@
 					
 			}
 			
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que carga los datos de la mascota editada.	
+			 * */
+			
 			public function carga1():void
 			{
 			  //Alert.show(clienteAuxEditado.cliente);
@@ -82,6 +101,13 @@
 			  auxiliar.insertMascotaE(clienteAuxEditado);
 			  
 			}
+			
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que comprueba si la mascota fue edita correctamente.	
+			 * */
+			
 			public function carga1Result(event:ResultEvent):void
 			{
 			   var res:int;
@@ -103,20 +129,25 @@
 			   }
 			}
 			
-		    
 		     /**
-			* Opciones de seleccion para sexo de la mascota
-			*/
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que despliega el tipo de sexo que puede sellecionar el cliente para la mascota.	
+			 * */
+			 
 		    [Bindable]
             public var sexos:ArrayCollection = new ArrayCollection(
                 [ {label:" ", data:0},
                   {label:"Macho", data:1}, 
                   {label:"Hembra", data:2} ]);    
       
-            	/**
-			* Funcion que llena las opciones de razas segun la clase de animal seleccionada
-			* @param event Evento
-			*/
+        
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que despliega las razas de una mascota.	
+			 * */
+			 
         	private function selRazas(event:Event):void {
         		var razas:ArrayCollection = new ArrayCollection();
     			if(ComboBox(event.target).text.localeCompare("Gato") == 0){
@@ -428,11 +459,13 @@
 				}
 				razaInput.dataProvider = razas;
 			}
-            
+			
             /**
-			* Funcion que llena las opciones de razas segun la clase de animal seleccionada
-			* @param event Evento
-			*/
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que despliega la clase de animal	
+			 * */
+			 
         	private function selClaseAnimal():void {
         		var clasesAnimal:ArrayCollection = new ArrayCollection();
         		
@@ -446,6 +479,12 @@
 			}
             
             
+              /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que informa si la mascota ha sido editada exitosamente.	
+			 * */
+			 
             public function guardaEditaMascota(event:Event = null):void
 			{
 				
@@ -457,17 +496,28 @@
 			    
 			}
 		
-			
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que informa que el cliente ha cancelado la operacion editar mascota .	
+			 * */
+			 
 			     public function guardaEditaCita(event:Event = null):void
 			{
 				
 			    //Alert.show(selectedRow.hora);
 			    Application.application.agenda2.setVisible(true);
 			    Application.application.editarMascota.setVisible(false);
-			    Application.application.agenda2.labelMessage.text="Su Cita ha sido Modificada";
+			    Application.application.agenda2.labelMessage.text="Su Mascota ha sido Modificada";
 			    
 			    
 			}
+			
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que informa que el cliente ha cancelado la operacion editar mascota	
+			 * */
 			
 			public function cancelarEditaCita(event:Event = null):void
 			{
@@ -475,7 +525,7 @@
 			    //Alert.show(selectedRow.hora);
 			    Application.application.AdEditarMascota2.setVisible(true);
 			    Application.application.AdEditarMascota3.setVisible(false);
-			    Application.application.AdEditarMascota2.labelMessage.text="Usted ha cancelado la operación";
+			    Application.application.AdEditarMascota2.labelMessage.text="Usted ha cancelado la Operación";
 			    
 			}
             
