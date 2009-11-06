@@ -35,6 +35,14 @@
 			private var verdadero:Boolean=false;
             import mx.core.Application;
 			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  28 Septiembre
+			 * @Funcion  que vuelve todos los campos del panel en blanco, esta es llamada al momento de pulsar
+			 * el boton guardar y quede el panel reseteado para una nueva edición
+			 * 
+			 */ 
+			
 			public function resetVars():void
 			{
 				nombre.text	    = "";
@@ -54,6 +62,14 @@
 				//mens.text		= "";
 
 			}
+			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  28 Septiembre
+			 * @Funcion que es llamada el panel EditarCliente, en el cual se le entrega un objeto de tipo cliente con todos los datos
+			 * del cliente que se desea editar, este método copia todos los datos de este en el panel de edición
+			 * 
+			 */
 			
 			public function carga(clienteSelec:Cliente):void
 			{       //asigno el cliente entregado desde panel EditarCliente
@@ -75,7 +91,13 @@
 					person.email     = clienteSelec.email;
 					person.email2    = clienteSelec.email2;	
 			}
-			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  28 Septiembre
+			 * @Funcion  que verifica si todos los campos estan con la información correspondiente
+			 * si estan todos los campos llenados, el método llama al clienteModificado el cual copia todos los campos del panel
+			 * en un objeto de tipo cliente con los datos finales de como fue editado el cliente.
+			 */
 			public function verificaEdicion():void
 			{
 			   if(iniListener2()==true){
@@ -86,6 +108,12 @@
 			     mensaje.text = "No ha ingresado información en todos los campos";
 			   }
 			}
+			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  28 Septiembre
+			 * @Funcion que copia la información de los campos del panel en un objeto de tipo cliente. 
+			 */
 			public function clienteModificado():void
 			{
 					//Alert.show("CREANDO OBJECT");
@@ -105,6 +133,14 @@
 					//clienteAuxEditado.email2    = email2.text;	
 			}
 			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  28 Septiembre
+			 * @Funcion que se comunica con el service cliente, el cual se comunica con la capa lógica y el metodo
+			 * insertClienteE entregandole el objeto clienteModificado y el cual hace el respectivo mapeo hace el update 
+			 * del cliente en la base de datos.
+			 */
+			
 			public function carga1():void
 			{
 			  var auxiliar:ClienteEditService = new ClienteEditService();
@@ -115,6 +151,7 @@
 			  
 			 
 			}
+			
 			public function carga1Result(event:ResultEvent):void
 			{
 			   var res:int;
@@ -131,6 +168,14 @@
 			      Alert.show("no");
 			   }
 			}
+			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  28 Septiembre
+			 * @Funcion que se comunica con el service cliente, el cual se comunica con la capa lógica y el metodo
+			 * 
+			 * .
+			 */
 		 	 private function iniListener():void
 			{
 				nombre.addEventListener(KeyboardEvent.KEY_UP,validarNombre);
