@@ -17,6 +17,13 @@ public class DeleteCitaService {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * @autor Raul Lopez
+	 * Metodo que llama a la funcion con el mismo nombre que se encuentra en la 
+	 * clase que se conecta con la base de datos.
+	 * @param String rut cliente......
+	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
+	 */
 	public int purgarCita(String cliente){
 		int result=0;
 		

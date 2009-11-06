@@ -23,6 +23,12 @@ public class CitaEditDB
 	String responsable;
 	
 	
+	/**
+	 * @autor: Raúl López
+	 * Realiza las Querys para comunicarse con la base de datos.
+	 * @param Connection, que permite conectarse con la base de datos.
+	 * @return void. Solo captura algun error si es que hubiera en la base de datos.
+	 */
 	public CitaEditDB(Connection connection)
 	{
 		
@@ -44,6 +50,12 @@ public class CitaEditDB
 		}
 	}
 	
+	/**
+	 * @autor: Raúl López
+	 * Realiza las Querys para comunicarse con la base de datos.
+	 * @param Connection, que permite conectarse con la base de datos, String que corresponde al rut del cliente que se quiere encontrar
+	 * @return void. Solo captura algun error si es que hubiera en la base de datos.
+	 */
 	
 	
 	public CitaEditDB(Connection connection, String rut)
@@ -69,9 +81,9 @@ public class CitaEditDB
 	}
 	
 
-	/**
-	 * Ingresa a una nueva persona a la base de datos
-	 * @param person contiene los datos de la persona que se quiere ingresar
+	/**@autor: Raúl López
+	 * Ingresa a una nuevacita a la base de datos
+	 * @param person contiene los datos de la cita que se quiere ingresar
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
     public int insertCitaE(Cita person)
@@ -108,6 +120,13 @@ public class CitaEditDB
 		}
     	return result;
     }
+	
+	/**@autor: Raúl López
+	 * Procesa los datos obtenidos de la base de datos para ser retornados a la capa 1
+	 * con los datos de cada usuario en el sistema.
+	 * @param 
+	 * @return Una lista de objetos de la clase Cita.
+	 */
     public List<Cita> getAllCitasE()
     {
     	List<Cita> persons=new ArrayList<Cita>();
@@ -137,6 +156,12 @@ public class CitaEditDB
     	return persons;
     }
     
+	/**@autor: Raúl López
+	 * Procesa los datos obtenidos de la base de datos para ser retornados a la capa 1
+	 * con los datos de cada usuario en el sistema.
+	 * @param 
+	 * @return Un objeto de clase Cita.
+	 */
     public Cita getCitaDB(String rutnew)
     {
     	Cita person = new Cita();
