@@ -29,9 +29,8 @@ public class BusquedaBD
 	PreparedStatement selectAllAtenciones;
 	PreparedStatement selectAllProductos;
 	/**
+	 *  Se declaran las consultas hacia la base de datos
 	 *  @author  "Esteban Cruz"
-	 *  @Fecha  6 Octubre
-	 *  @Descripcion Se declaran las consultas hacia la base de datos
 	 *  @param connection Conexión obtenida con la base de datos
 	 **/
 	public BusquedaBD(Connection connection)
@@ -67,9 +66,8 @@ public class BusquedaBD
 	}
     
 	/**
+	 *  Trata de obtener todos los usuarios registrados en la base de datos
 	 *  @author  "Esteban Cruz"
-	 *  @Fecha  6 Octubre
-	 *  @Descripcion Trata de obtener todos los usuarios registrados en la base de datos
 	 *  @return Lista con todos los usuarios registrados
 	 **/
     public List<Usuario> getAllUsuarios()
@@ -101,9 +99,8 @@ public class BusquedaBD
     }
     
     /**
+     *  Trata de obtener todos los clientes registrados en la base de datos
 	 *  @author  "Esteban Cruz"
-	 *  @Fecha  6 Octubre
-	 *  @Descripcion Trata de obtener todos los clientes registrados en la base de datos
 	 *  @return Lista con todos los clientes registrados
 	 **/
     public List<Cliente> getAllClientes()
@@ -136,9 +133,8 @@ public class BusquedaBD
     }
     
     /**
+     *  Trata de obtener todos las mascotas registrados en la base de datos
 	 *  @author  "Esteban Cruz"
-	 *  @Fecha  6 Octubre
-	 *  @Descripcion Trata de obtener todos las mascotas registrados en la base de datos
 	 *  @return Lista con todos las moscotas registrados
 	 **/
     public List<Mascota> getAllMascotas()
@@ -170,9 +166,8 @@ public class BusquedaBD
     }
     
     /**
+     *  Trata de obtener todos las atenciones registrados en la base de datos
 	 *  @author  "Esteban Cruz"
-	 *  @Fecha  6 Octubre
-	 *  @Descripcion Trata de obtener todos las atenciones registrados en la base de datos
 	 *  @return Lista con todos las atenciones registrados
 	 **/
     public List<Atencion> getAllAtenciones()
@@ -204,9 +199,8 @@ public class BusquedaBD
     }
     
     /**
+     *  Trata de obtener todos los productos registrados en la base de datos
 	 *  @author  "Esteban Cruz"
-	 *  @Fecha  6 Octubre
-	 *  @Descripcion Trata de obtener todos los productos registrados en la base de datos
 	 *  @return Lista con todos los productos registrados
 	 **/
     public List<Producto> getAllProductos()
