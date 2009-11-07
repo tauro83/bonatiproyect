@@ -89,12 +89,14 @@
 			
 			public function anularVacunaciones():void{
 				Application.application.setInvisible();
+				Application.application.vacunacionA.iniciar();
 				this.visible = true;
 				Application.application.vacunacionA.visible = true;	
 			}
 			
 			public function eliminarVacunaciones():void{
 				Application.application.setInvisible();
+				Application.application.vacunacionE.iniciar();
 				this.visible = true;
 				Application.application.vacunacionE.visible = true;	
 			}
