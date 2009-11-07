@@ -10,7 +10,7 @@ CREATE TABLE atencionalojamiento
   canil int,
   fechaSalida date NOT NULL,
   comentario character(500),
-  tiempoEstadia int,
+  diasEstadia int,
 
   CONSTRAINT atencionalojamiento_pkey PRIMARY KEY (fechaIngreso, fechaSalida, canil),
   CONSTRAINT atencionalojamiento_mascota_fkey FOREIGN KEY (cliente, mascota)
