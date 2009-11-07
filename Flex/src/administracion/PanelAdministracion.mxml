@@ -149,9 +149,11 @@
           }
           private function registrarCliente():void
           {
+          	Application.application.AdmIngreso2.limpiarTodo();
           	Application.application.setInvisible();
-            Application.application.AdmIngreso2.setVisible(true,false);
-            Application.application.AdmOpciones1.setVisible(true,false);
+          	//Application.application.AdmIngreso2.limpiarTodo();
+            this.visible = true;
+            Application.application.AdmIngreso2.visible = true;	
           }
 	 	]]>
     </mx:Script>
