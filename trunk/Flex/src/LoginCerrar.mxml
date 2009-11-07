@@ -12,10 +12,9 @@
 		import mx.core.Application;
 		
 		/**
-		*  @author  "Esteban Cruz"
-		*  @Fecha  15 Septiembre
-		*  @Descripcion Cierra la sesion de un usuario, haciendolo volver 
+		*  Cierra la sesion de un usuario, haciendolo volver 
 		*  al panel de "iniciar sesion"
+		*  @author  "Esteban Cruz"
 		**/
 		private function cerrar():void
 		{
@@ -35,10 +34,9 @@
    		}
    			
    		/**
-		*  @author  "Esteban Cruz"
-		*  @Fecha  15 Septiembre
-		*  @Descripcion Si se cancela al momento de cerrar sesion,
+   		*  Si se cancela al momento de cerrar sesion,
 		*  vuelve al panel de agenda 
+		*  @author  "Esteban Cruz"
 		**/
    		private function cancelar():void
    		{

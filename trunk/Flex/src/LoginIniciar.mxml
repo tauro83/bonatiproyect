@@ -21,10 +21,9 @@
 			public var bar:int;
 			
 			/**
-			 *  @author  "Esteban Cruz"
-			 * 	@Fecha  15 Septiembre
-			 *  @Descripcion Comprueba que exista el login que se esta ingresando,
+			 *  Comprueba que exista el login que se esta ingresando,
 			 *  haciendo un llamado a la funcion que consulta a la base de datos,
+			 *  @author  "Esteban Cruz"
 			 *  @Return 1 si existe y es correcto, 0 en caso contrario
 			 **/
 			private function existLogin():void
@@ -39,11 +38,10 @@
 			}
 			
 			/**
-			 *  @author  "Esteban Cruz"
-			 * 	@Fecha  15 Septiembre
-			 *  @Descripcion Una vez consulado en la base de datos por el usuario
+			 *  Una vez consulado en la base de datos por el usuario
 			 *  ingresado, tomando el valor de retorno, si este es 1 accede al 
 			 *  sistema, de lo contrario no dando aviso por un popup
+			 *  @author  "Esteban Cruz"
 			 **/
 			private function existLoginResult(event:ResultEvent):void
 			{
@@ -64,11 +62,7 @@
             		Application.application.botonAyuda.enabled=true;
             		Application.application.botonLogin.enabled=true;
             		Application.application.botonLogin.label="Cerrar Sesión";
-            		if(recordar.selected==true){
-            			//tomo nombre
-            			//tomo pass
-            		}
-            		else{
+            		if(!recordar.selected==true){
             			nombre.text=null;
             			pass.text=null;
             		}
