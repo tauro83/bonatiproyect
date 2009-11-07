@@ -45,7 +45,7 @@ create table ClientePresencial
 	nombre CHAR(20),
 	aPaterno CHAR(20),
     aMaterno CHAR(20),
-	correo CHAR(20),
+	correo CHAR(40),
 	estado bool,
 	domicilio CHAR(40),
 	comuna CHAR(20),
