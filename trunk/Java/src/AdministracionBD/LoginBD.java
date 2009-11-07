@@ -1,5 +1,5 @@
 //=======================================================================
-// FECHA CREACIÓN: 15 Septiembre
+// FECHA CREACIÓN: 15/09/09
 // AUTOR: Esteban Cruz
 // Clase de login del sistema, dentro de esta se puede realizar 
 // comprobacion para el login, haciendo de la funcion que hace
