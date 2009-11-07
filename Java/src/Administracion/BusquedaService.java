@@ -25,11 +25,10 @@ import TransferObjects.Producto;
 public class BusquedaService 
 {
 	/**
-	*  @author  "Esteban Cruz"
-	*  @Fecha  6 Octubre
-	*  @Descripcion Trata de obtener todos los usuarios registrados en la base de datos
-	*  @return Lista con todos los usuarios registrados
-	**/
+	 *  Trata de obtener todos los usuarios registrados en la base de datos
+	 *  @author  "Esteban Cruz"
+	 *  @return Lista con todos los usuarios registrados
+	 **/
 	public List<Usuario> getAllUsuarios()
     {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -48,9 +47,8 @@ public class BusquedaService
     }
 	
 	/**
+	 *  Trata de obtener todos los clientes registrados en la base de datos
 	 *  @author  "Esteban Cruz"
-	 *  @Fecha  6 Octubre
-	 *  @Descripcion Trata de obtener todos los clientes registrados en la base de datos
 	 *  @return Lista con todos los clientes registrados
 	 **/
 	public List<Cliente> getAllClientes()
@@ -71,9 +69,8 @@ public class BusquedaService
     }
 	
 	/**
+	 *  Trata de obtener todos las mascotas registrados en la base de datos
 	 *  @author  "Esteban Cruz"
-	 *  @Fecha  6 Octubre
-	 *  @Descripcion Trata de obtener todos las mascotas registrados en la base de datos
 	 *  @return Lista con todos las mascotas registrados
 	 **/
 	public List<Mascota> getAllMascotas()
@@ -94,9 +91,8 @@ public class BusquedaService
     }
 	
 	/**
+	 *  Trata de obtener todos las atenciones registrados en la base de datos
 	 *  @author  "Esteban Cruz"
-	 *  @Fecha  6 Octubre
-	 *  @Descripcion Trata de obtener todos las atenciones registrados en la base de datos
 	 *  @return Lista con todos las atenciones registrados
 	 **/
 	public List<Atencion> getAllAtenciones()
@@ -117,9 +113,8 @@ public class BusquedaService
     }
 	
 	/**
+	 *  Trata de obtener todos los productos registrados en la base de datos
 	 *  @author  "Esteban Cruz"
-	 *  @Fecha  6 Octubre
-	 *  @DescripcionTrata de obtener todos los productos registrados en la base de datos
 	 *  @return Lista con todos los productos registrados
 	 **/
 	public List<Producto> getAllProductos()
