@@ -331,6 +331,21 @@
             private function mostrarBusqueda():void
             {
             	setInvisible();
+            	busqueda2.reiniciar();
+            	busqueda2.combobox.selectedIndex=0;
+            	busqueda2.textBuscar.visible=false;
+            	busqueda2.comboboxAtencion.setVisible(false,false);
+				busqueda2.gridAtencion.setVisible(false,false);
+				busqueda2.comboboxCliente.setVisible(false,false);
+				busqueda2.gridCliente.setVisible(false,false);
+				busqueda2.comboboxAviso.setVisible(false,false);
+				busqueda2.gridAviso.setVisible(false,false);
+				busqueda2.comboboxMascota.setVisible(false,false);
+				busqueda2.gridMascota.setVisible(false,false);
+				busqueda2.comboboxProducto.setVisible(false,false);
+				busqueda2.gridProducto.setVisible(false,false);
+				busqueda2.comboboxUsuario.setVisible(false,false);
+				busqueda2.gridUsuario.setVisible(false,false);
                 panelOpciones.setVisible(true,false);
             	busqueda2.setVisible(true,false);
             }
@@ -564,6 +579,8 @@
 	<!--Autor: }nicolas-->
 	
 	<!--Autor: Esteban{ -->
+	<ns4:Policlinico x="240" y="133" visible="false" id="policlinicoIni">
+	</ns4:Policlinico>
 	<ns4:vacunacionA x="240" y="133" visible="false" id="vacunacionA">
 	</ns4:vacunacionA>
 	<ns4:vacunacionA2 x="240" y="133" visible="false" id="vacunacionA2">
