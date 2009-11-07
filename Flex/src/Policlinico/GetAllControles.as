@@ -1,5 +1,5 @@
 //=======================================================================
-// FECHA CREACIÓN:  27/10/2009
+// FECHA CREACIÓN:  03/11/2009
 // AUTOR: Andres Garrido
 // Clase que conecta con capa 2
 //=======================================================================
@@ -11,7 +11,8 @@ package Policlinico{
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
 	import transferObjects.Mascota;
-	
+	//clase encargada de obtener todos los controles
+	//agendados que esten en la base de datos
 	public class GetAllControles extends RemoteObject{
 		public function GetAllControles(){
 			super();
@@ -23,10 +24,13 @@ package Policlinico{
 			this.source="Policlinico.GetAllControles";	
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
-		
+		//función oyente para el constructor de la clase
+		//que captura una falla y la informa al usuario
 		private function faultHandler(event:FaultEvent):void{
 			Alert.show("Error en GetAllControles, Detalle: "+event.fault.message);
 		}
+		//función que se comunica con la capa 2 para la obtención
+		//de los controles agendados
 		public function getAllControles():void{
 			this.getOperation("getAllControles").send();
 		}

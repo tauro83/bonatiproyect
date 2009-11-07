@@ -19,6 +19,7 @@
 		import services.Mensajes;
 				
 		[Bindable]public var expenses:ArrayCollection ;
+		[Bindable]
 		private var titulo:String = "Estadísticas por rango de fecha para Clinica";
 		private var gep:GetEstadisticasClinica;
 		private var fechaActual:Date = new Date();
