@@ -139,7 +139,7 @@
             
 		]]> 
   	</mx:Script>	
-	<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" fontWeight="bold" textAlign="center"/>
 	
 	<mx:DataGrid x="25" y="67" width="715" height="266" id="tablaUsuarios" dataProvider="{persons}" >
 		<mx:columns>
@@ -150,15 +150,13 @@
                         </mx:Component>
              	</mx:itemRenderer>
             </mx:DataGridColumn>			
-			<mx:DataGridColumn width="70" headerText="Nombre" dataField="nombre" id="nombreUsuario" sortable="false" draggable="false"/>
-			<mx:DataGridColumn width="110" headerText="Apellido Paterno" dataField="apellidoPaterno" id="apellidoPaterno" sortable="false" draggable="false"/>
-			<mx:DataGridColumn width="90" headerText="Usuario" dataField="usuario" id="usuario" sortable="false" draggable="false"/>
-			<mx:DataGridColumn width="90" headerText="Cargo" dataField="cargo" id="cargo" sortable="false" draggable="false"/>
-			<mx:DataGridColumn width="90" headerText="Servicio" dataField="servicio" id="servicio" sortable="false" draggable="false"/>
-			<mx:DataGridColumn width="60" headerText="Registrar" dataField="permisoRegistrar" id="permisoRegistrar" sortable="false" draggable="false"/>
-			<mx:DataGridColumn width="50" headerText="Editar" dataField="permisoEditar" id="permisoEditar" sortable="false" draggable="false"/>
-			<mx:DataGridColumn width="50" headerText="Eliminar" dataField="permisoEliminar" id="permisoEliminar" sortable="false" draggable="false"/>
-			<mx:DataGridColumn width="50" headerText="Purgar" dataField="permisoPurgar" id="permisoPurgar" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="70" headerText="Nombre" dataField="nombre" id="nombreUsuario" draggable="false"/>
+			<mx:DataGridColumn width="80" headerText="Rut Cliente" dataField="apellidoPaterno" id="apellidoPaterno" draggable="false"/>
+			<mx:DataGridColumn width="40" headerText="Canil" dataField="usuario" id="usuario" draggable="false"/>
+			<mx:DataGridColumn width="100" headerText="Fecha Ingreso" dataField="cargo" id="cargo" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Hora Ingreso" dataField="servicio" id="servicio" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Fecha Salida" dataField="permisoRegistrar" id="permisoRegistrar" draggable="false"/>
+			<mx:DataGridColumn headerText="Comentarios" dataField="permisoEditar" id="permisoEditar" draggable="false"/>
 			</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="522" y="341" label="Eliminar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados" width="102" height="23" cornerRadius="6"/>
