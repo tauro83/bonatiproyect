@@ -3,7 +3,7 @@
 <mx:Script>
 	<![CDATA[
 		//=======================================================================
-		// FECHA CREACIÓN: 15 Septiembre
+		// FECHA CREACIÓN: 15/09/09
 		// AUTOR: Esteban Cruz
 		// Dentro de este componente se puede cerrar la sesion de un usuario
 		// acutalmente activo o volver al panel de agenda
