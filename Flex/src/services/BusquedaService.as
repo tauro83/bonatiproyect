@@ -1,5 +1,5 @@
 //=======================================================================
-// FECHA CREACIÓN: 6 Octubre
+// FECHA CREACIÓN: 06/10/09
 // AUTOR: Esteban Cruz
 // Script de busqueda del sistema, dentro de esta se pueden realizar 
 // busquedas para: Mascota, Cliente, Atencion, Producto, Aviso, Usuario
@@ -28,9 +28,8 @@ package services
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		/**
+		 *  event Evento recogido en caso de una falla en la llamada hacia la capa lógica
 		 *  @author  "Esteban Cruz"
-		 * 	@Fecha  6 Octubre
-		 *  @Descripcion event Evento recogido en caso de una falla en la llamada hacia la capa lógica
 		 */ 
 		private function faultHandler(event:FaultEvent):void
 		{
@@ -38,10 +37,9 @@ package services
 		}
 		
 		/**
-		 * @author  "Esteban Cruz"
-		 * @Fecha  6 Octubre
-		 * @Descripcion Trata de obtener todos los usuarios registrados en la base de datos
-	 	 * @return Lista con todos los usuarios registrados
+		 *  Trata de obtener todos los usuarios registrados en la base de datos
+		 *  @author  "Esteban Cruz"
+	 	 *  @return Lista con todos los usuarios registrados
 	 	 */
 		public function getAllUsuarios():void
 		{
@@ -49,9 +47,8 @@ package services
 		}
 		
 		/**
+		 *  Trata de obtener todos los clientes registrados en la base de datos
 		 *  @author  "Esteban Cruz"
-		 * 	@Fecha  6 Octubre
-		 *  @Descripcion Trata de obtener todos los clientes registrados en la base de datos
 	 	 *  @return Lista con todos los clientes registrados
 	 	 */
 		public function getAllClientes():void
@@ -60,33 +57,30 @@ package services
 		}
 		
 		/**
+		 *  Trata de obtener todos las mascotas registrados en la base de datos
 	 	 *  @author  "Esteban Cruz"
-		 * 	@Fecha  6 Octubre
-		 *  @Descripcion Trata de obtener todos las mascotas registrados en la base de datos
 	 	 *  @return Lista con todos las mascotas registrados
-	 	 */
+	 	 **/
 		public function getAllMascotas():void
 		{
 			this.getOperation("getAllMascotas").send();
 		}
 		
 		/**
-	 	*  @author  "Esteban Cruz"
-		*  @Fecha  6 Octubre
-		*  @Descripcion Trata de obtener todos las atenciones registrados en la base de datos
-	 	*  @return Lista con todos las atenciones registrados
-	 	*/
+		 *  Trata de obtener todos las atenciones registrados en la base de datos
+	 	 *  @author  "Esteban Cruz"
+	 	 *  @return Lista con todos las atenciones registrados
+	 	 **/
 		public function getAllAtenciones():void
 		{
 			this.getOperation("getAllAtenciones").send();
 		}
 		
 		/**
-	 	*  @author  "Esteban Cruz"
-		*  @Fecha  6 Octubre
-		*  @Descripcion Trata de obtener todos los productos registrados en la base de datos
-	 	*  @return Lista con todos los productos registrados
-	 	*/
+		 *  Trata de obtener todos los productos registrados en la base de datos
+	 	 *  @author  "Esteban Cruz"
+	 	 *  @return Lista con todos los productos registrados
+	 	 **/
 		public function getAllProductos():void
 		{
 			this.getOperation("getAllProductos").send();

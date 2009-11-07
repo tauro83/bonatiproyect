@@ -1,5 +1,5 @@
 //=======================================================================
-// FECHA CREACIÓN: 15 Septiembre
+// FECHA CREACIÓN: 15/09/09
 // AUTOR: Esteban Cruz
 // Script de login del sistema, dentro de esta se puede realizar 
 // comprobacion para el login
@@ -15,6 +15,11 @@ package services
 	
 	import transferObjects.Usuario;
 
+    /** 
+	 *  Se encarga de hacer la conexion con la capa 2 del sistema para poder hacer 
+	 *  la verificación del usuario a la base de datos.  
+	 *  @author  "Esteban Cruz"
+	 **/	 
 	public class LoginService extends RemoteObject
 	{
 		public function LoginService()
@@ -31,9 +36,8 @@ package services
 		}
 		
 		/**
+		 *  event Evento recogido en caso de una falla en la llamada hacia la capa lógica
 		 *  @author  "Esteban Cruz"
-		 * 	@Fecha  15 Septiembre
-		 *  @Descripcion event Evento recogido en caso de una falla en la llamada hacia la capa lógica
 		 */ 
 		private function faultHandler(event:FaultEvent):void
 		{
@@ -41,10 +45,9 @@ package services
 		}
 		
 		/**
-	 	 *  @author  "Esteban Cruz"
-		 *  @Fecha  15 Septiembre
-		 *  @Descripcion Obtiene los usuarios existentes en la base de datos, 
+		 *  Obtiene los usuarios existentes en la base de datos, 
 	 	 *  y verifica que el login ingresado sea correcto
+	 	 *  @author  "Esteban Cruz"
 		 *  @return 1 si el login ingresado es correcto, de lo 
 	 	 *  contrario 0
 	 	 */
