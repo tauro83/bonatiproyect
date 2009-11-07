@@ -20,9 +20,8 @@ public class LoginBD {
 	PreparedStatement selectAllUsuarios;
 	
 	/**
+	 *  Se declaran las consultas hacia la base de datos
 	 *  @author  "Esteban Cruz"
-	 *  @Fecha  15 Septiembre
-	 *  @Descripcion Se declaran las consultas hacia la base de datos
 	 *  @param connection Conexión obtenida con la base de datos
 	 **/
 	public LoginBD(Connection connection)
@@ -43,10 +42,9 @@ public class LoginBD {
 	}
 	
 	/**
-	 *  @author  "Esteban Cruz"
-	 *  @Fecha  15 Septiembre
-	 *  @Descripcion Obtiene los usuarios existentes en la base de datos, 
+	 *  Obtiene los usuarios existentes en la base de datos, 
 	 *  y verifica que el login ingresado sea correcto
+	 *  @author  "Esteban Cruz"
 	 *  @return 1 si el login ingresado es correcto, de lo 
 	 *  contrario 0
 	 */
