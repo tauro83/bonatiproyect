@@ -45,7 +45,21 @@
 			public function editClientillo(clientillo:Cliente):void
 			
 			{
-					
+					/*
+					Alert.show(clientillo.nombre);
+					Alert.show(clientillo.apellido);
+					Alert.show(clientillo.apellido2);
+					Alert.show(clientillo.rut);
+					Alert.show(clientillo.rut2);
+					Alert.show(clientillo.telefono);
+					Alert.show(clientillo.telefono2);
+					Alert.show(clientillo.celular);
+					Alert.show(clientillo.celular2);
+					Alert.show(clientillo.region);
+					Alert.show(clientillo.comuna);
+					Alert.show(clientillo.direccion);
+					Alert.show(clientillo.email);
+					*/
 					var newCli2:EditClienteUpdate = Application.application.ediCliUp; 		
 				    var list1:Array= new Array();
 					list1 = clientillo.nombre.split(" ",1);
@@ -101,20 +115,19 @@
 
 			}
 	    
-		/**
+			/**
 			 * @author  "Raul Lopez"
 			 * @Fecha  20 Septiembre
-			 * @Funcion que recibe de la base datos todos los clientes existentes, esto se recibe y se realiza una búsqueda del rut del cliente
+			 * @Funcion que recibe de la base datos todos los clientes existentes, esto se recibe y se realiza una b?squeda del rut del cliente
 			 * para de este obtener sus datos.
-		 */
-		 public function getAllClientes():void
+		    */
+			public function getAllClientes():void
 			{
 				var personService:ClienteEditService = new ClienteEditService();
 				personService.addEventListener(ResultEvent.RESULT,getAllClientesEResult);
 				personService.getAllClientesE();
 				
 			}
-			
 			/**
 			 * @author  "Raul Lopez"
 			 * @Fecha  20 Septiembre
@@ -217,8 +230,8 @@
 		 /**
 			 * @author  "Raul Lopez"
 			 * @Fecha  20 Septiembre
-			 * @Funcion que reinicia a vacío las variables de rut del panel de ingreso de búsqueda y mensaje de aviso del panel
-			 */
+			 * @Funcion que reinicia a vac?o las variables de rut del panel de ingreso de b?squeda y mensaje de aviso del panel
+		*/
 		 public function resetVars():void
 			{
 				rut.text  = "";
