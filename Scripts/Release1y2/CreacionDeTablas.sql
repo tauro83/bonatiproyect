@@ -63,7 +63,7 @@ create table Mascota
 	sexo character(10),
 	estado bool,
 	imagen bytea,
-	CONSTRAINT pk_mascota PRIMARY KEY (rut, nombre),
+	CONSTRAINT pk_mascota PRIMARY KEY (nombre,rut),
 	CONSTRAINT fk_mascota_reference_ClientePresencial FOREIGN KEY (rut)	REFERENCES ClientePresencial(rut) MATCH SIMPLE ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
@@ -105,7 +105,8 @@ CREATE TABLE atencionpostoperatorio
   rut character(9),
   apellido character(50),
   nombrecliente character(50),
-  CONSTRAINT atencionpostoperatorio_pkey PRIMARY KEY (hora, fecha, servicio)
+  CONSTRAINT atencionpostoperatorio_pkey PRIMARY KEY (hora, fecha, servicio),
+  FOREIGN KEY (rut,nombremascota) REFERENCES Mascota(rut,nombre) MATCH FULL ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
 
@@ -188,8 +189,8 @@ CREATE TABLE cita
   servicio character(30) NOT NULL,
   responsable character(20) NOT NULL,
   CONSTRAINT pk_cita PRIMARY KEY (fecha, hora, servicio, responsable),
-  CONSTRAINT fk_cita_reference_cliente FOREIGN KEY (rutcliente)  REFERENCES clientePresencial (rut) MATCH FULL  ON UPDATE RESTRICT ON DELETE RESTRICT,
-  CONSTRAINT fk_cita_reference_usuario FOREIGN KEY (responsable) REFERENCES usuario (usuario) MATCH FULL ON UPDATE RESTRICT ON DELETE RESTRICT
+  FOREIGN KEY (rutcliente)  REFERENCES clientePresencial (rut) MATCH FULL  ON UPDATE RESTRICT ON DELETE RESTRICT,
+  FOREIGN KEY (responsable) REFERENCES usuario (usuario) MATCH FULL ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
 

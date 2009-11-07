@@ -48,13 +48,6 @@ INSERT INTO Atencion (clienteRut,mascotaNombre,servicio,hora,fecha,costo)
 VALUES 		('16298923','Larry','Peluqueria','23:53:30','03/03/09','2000');
 
 
-INSERT INTO atencionpostoperatorio(medicamentos, alimentos, indicaciones, servicio, hora, fecha, costo, nombremascota, rut, apellido, nombrecliente)
-VALUES ('aspirina', 'agua, alimento', 'reposo', 'Post Operatorio', '15:50:00', '2009-03-03', '5000', 'Larry', '152348429', 'Gonzales', 'Pedro');
-INSERT INTO atencionpostoperatorio(medicamentos, alimentos, indicaciones, servicio, hora, fecha, costo, nombremascota, rut, apellido, nombrecliente)
-VALUES ('aspirina', 'agua, alimento', 'reposo', 'Post Operatorio', '16:10:00', '2009-03-03', '5000', 'Tom', '152348429', 'Gonzales', 'Pedro');
-
-
-
 INSERT INTO  corte(rutcliente,nombremascota,servicio,hora,foto,fecha,raza,costo,nombre,categoria,descripcion)
 VALUES		  ('16298925', 'Larry2',DEFAULT ,'08:30:15','','2007-06-01','Pastor','13300',''	,'Corte tradicional','');
 INSERT INTO  corte(rutcliente,nombremascota,servicio,hora,foto,fecha,raza,costo,nombre,categoria,descripcion)
@@ -108,19 +101,19 @@ VALUES ('visita control de parastios', 'labado semanal', '2009-11-20', 'Policlin
 
 
 INSERT INTO atencionpostoperatorio( medicamentos, alimentos, indicaciones, servicio, hora, fecha,costo, nombremascota, rut, apellido, nombrecliente)
-VALUES ('aspirina', 'agua, alimento', 'reposo', 'Post Operatorio', '15:50:00', '2001-05-21', '5000', 'Larry', '152348429', 'Gonzales', 'Pedro');
+VALUES ('aspirina', 'agua, alimento', 'reposo', 'Post Operatorio', '15:50:00', '2001-05-21', '5000', 'Boby','16298923', 'Gonzales', 'Pedro');
 INSERT INTO atencionpostoperatorio( medicamentos, alimentos, indicaciones, servicio, hora, fecha,costo, nombremascota, rut, apellido, nombrecliente)
-VALUES ('aspirina', 'agua, alimento', 'reposo', 'Post Operatorio', '16:10:00', '2001-05-21', '5000', 'Tom', '152348429', 'Gonzales', 'Pedro');
+VALUES ('aspirina', 'agua, alimento', 'reposo', 'Post Operatorio', '16:10:00', '2001-05-21', '5000', 'Boby','16298923', 'Gonzales', 'Pedro');
 INSERT INTO atencionpostoperatorio( medicamentos, alimentos, indicaciones, servicio, hora, fecha,costo, nombremascota, rut, apellido, nombrecliente)
-VALUES ('diazepan', 'carne', 'asdasd', 'Pabellon', '12:56:00', '2001-05-21', '1000', 'Kaizer', '152348429', 'ramirez', 'Diego');
+VALUES ('diazepan', 'carne', 'asdasd', 'Pabellon', '12:56:00', '2001-05-21', '1000', 'Boby','16298923', 'ramirez', 'Diego');
 INSERT INTO atencionpostoperatorio( medicamentos, alimentos, indicaciones, servicio, hora, fecha,costo, nombremascota, rut, apellido, nombrecliente)
-VALUES ('diazepan', 'carne', 'asdasd', 'Pabellon', '12:36:00', '2001-06-21', '1000', 'Kaizer', '152348429', 'ramirez', 'Diego');
+VALUES ('diazepan', 'carne', 'asdasd', 'Pabellon', '12:36:00', '2001-06-21', '1000', 'Boby','16298923', 'ramirez', 'Diego');
 INSERT INTO atencionpostoperatorio( medicamentos, alimentos, indicaciones, servicio, hora, fecha,costo, nombremascota, rut, apellido, nombrecliente)
-VALUES ('diazepan', 'carne', 'asdasd', 'Pabellon', '12:53:00', '2001-09-21', '1000', 'Kaizer', '152348429', 'ramirez', 'Diego');
+VALUES ('diazepan', 'carne', 'asdasd', 'Pabellon', '12:53:00', '2001-09-21', '1000', 'Boby','16298923', 'ramirez', 'Diego');
 INSERT INTO atencionpostoperatorio( medicamentos, alimentos, indicaciones, servicio, hora, fecha,costo, nombremascota, rut, apellido, nombrecliente)
-VALUES ('diazepan', 'carne', 'asdasd', 'Pabellon', '12:09:00', '2001-10-15', '1000', 'Kaizer', '152348429', 'ramirez', 'Diego');
+VALUES ('diazepan', 'carne', 'asdasd', 'Pabellon', '12:09:00', '2001-10-15', '1000', 'Boby','16298923', 'ramirez', 'Diego');
 INSERT INTO atencionpostoperatorio( medicamentos, alimentos, indicaciones, servicio, hora, fecha,costo, nombremascota, rut, apellido, nombrecliente)
- VALUES ('diazepan', 'carne', 'asdasd', 'Pabellon', '12:01:00', '2001-10-05', '1000', 'Kaizer', '152348429', 'ramirez', 'Diego');
+ VALUES ('diazepan', 'carne', 'asdasd', 'Pabellon', '12:01:00', '2001-10-05', '1000', 'Boby','16298923', 'ramirez', 'Diego');
  
  
  INSERT INTO atencionvacuna(precio, nombre, descripcion, fechacaducidad, servicio, hora, fecha, costo)
