@@ -17,20 +17,20 @@
             private var texto8:String;
             private var texto9:String;
             private var arreglo:Array;	
-            
+            [Bindable]
             private var mascotas:Array = [
             {name: "Chuck"},
             {name: "Sparky"},
             {name: "Tom"},
             {name: "Tomas"},
             {name: "James"}];	
-            
+            [Bindable]
             private var veterinarios:Array = [
             "(seleccione uno)",
             "Claudio Bonati",
             "Daniel Perez",
             "Pedro Gonzales"];
-            
+            [Bindable]
             private var ayudantes:Array = [
             "(seleccione uno)",
             "Carlos Perez",

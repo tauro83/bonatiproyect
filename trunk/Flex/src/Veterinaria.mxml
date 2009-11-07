@@ -562,6 +562,8 @@
 	</ns1:EditarPostOperatorioDetalle>
 	<ns4:PurgarControl x="241" y="134" id="purgControl" visible="false">
 	</ns4:PurgarControl>
+	<ns1:ElminarHoteleria x="241" y="134" id="eliminarHoteleria" visible="false">
+	</ns1:ElminarHoteleria>
 	
 	<!--Autor: andres}-->
 
