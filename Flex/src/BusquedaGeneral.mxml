@@ -2,7 +2,6 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Buscar" themeColor="#15ad8f" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
-			import mx.binding.utils.ChangeWatcher;
 		
 			//=======================================================================
 			// FECHA CREACIÓN: 6 Octubre
@@ -11,6 +10,7 @@
 			// busquedas para: Mascota, Cliente, Atencion, Producto, Aviso, Usuario
 			//=======================================================================
 			
+			import mx.binding.utils.ChangeWatcher;
 			import mx.collections.ArrayCollection;
 			import mx.rpc.events.ResultEvent;
 			import services.BusquedaService;
@@ -37,39 +37,21 @@
 			private var productos:ArrayCollection;
 		
 			/**
+			 *  Sale de la búsqueda
 			 *  @author  "Esteban Cruz"
-			 * 	@Fecha  6 Octubre
-			 *  @Descripcion Sale de la búsqueda
 			 **/
 			private function volver():void
             {
             	Application.application.setInvisible();
             	Application.application.agenda2.setVisible(true,false);
             	Application.application.menuAgenda1.setVisible(true,false);
-            	comboboxAtencion.setVisible(false,false);
-				gridAtencion.setVisible(false,false);
-				comboboxCliente.setVisible(false,false);
-				gridCliente.setVisible(false,false);
-				comboboxAviso.setVisible(false,false);
-				gridAviso.setVisible(false,false);
-				comboboxMascota.setVisible(false,false);
-				gridMascota.setVisible(false,false);
-				comboboxProducto.setVisible(false,false);
-				gridProducto.setVisible(false,false);
-				comboboxUsuario.setVisible(false,false);
-				gridUsuario.setVisible(false,false);
-				setInvisibleInput();
-            	reiniciar();
-            	combobox.selectedIndex=0;
-            	textBuscar.visible=false;
             }
             
             /**
+             *  Reinicia el panel de busqueda
 			 *  @author  "Esteban Cruz"
-			 * 	@Fecha  6 Octubre
-			 *  @Descripcion Reinicia el panel de busqueda
 			 **/
-            private function reiniciar():void
+            public function reiniciar():void
             {
             	comboboxUsuario.selectedIndex=0;
             	gridUsuario.dataProvider=null;
@@ -109,12 +91,14 @@
             	inputAtencionFecha.dataProvider=null;
             	inputAtencionHora.dataProvider=null;
             	inputAtencionServico.dataProvider=null;
+            	
+            	textBuscar.visible=false;
+            	setInvisibleInput();
             }
             		
 			/**
+			 *  Hace invisible a todos los elementos del componente
 			 *  @author  "Esteban Cruz"
-			 * 	@Fecha  6 Octubre
-			 *  @Descripcion Hace invisible a todos los elementos del componente
 			 **/
 			private function setInvisibleInput ():void
             {
@@ -146,14 +130,12 @@
             }
             
             /**
-             *  @author  "Esteban Cruz"
-			 * 	@Fecha  6 Octubre
-			 *  @Descripcion Hace visible los elementos correspondientes al objeto
+			 *  Hace visible los elementos correspondientes al objeto
 			 *  que se selecciono desde el 1er combobox
+			 *  @author  "Esteban Cruz"
 			 **/
 			private function seleccionarBusqueda (event:Event):void
             {   
-            	reiniciar();
             	comboboxAtencion.setVisible(false,false);
 				gridAtencion.setVisible(false,false);
 				comboboxCliente.setVisible(false,false);
@@ -166,6 +148,7 @@
 				gridProducto.setVisible(false,false);
 				comboboxUsuario.setVisible(false,false);
 				gridUsuario.setVisible(false,false);
+				reiniciar();
             	switch (combobox.selectedLabel)
 				{
 				case 'Atencion':		
@@ -196,9 +179,8 @@
             }
 
 		   /**
+		    *  Busca todos los usuarios existentes en la base de datos
 		    *  @author  "Esteban Cruz"
-			*  @Fecha  6 Octubre
-			*  @Descripcion funcion que busca todos los usuarios
 			**/
 		   public function getAllUsuarios():void
 		   {
@@ -213,9 +195,8 @@
 		   }
 		   
 		   /**
+		    *  Combobox de usuario
 			*  @author  "Esteban Cruz"
-			*  @Fecha  6 Octubre
-			*  @Descripcion combobox de usuario
 			**/
 		    private function seleccionarUsuario (event:Event):void
             {
@@ -242,9 +223,8 @@
             }
 		   
 		   /**
+		    *  Busca todos los clientes existentes en la base de datos
 			*  @author  "Esteban Cruz"
-			*  @Fecha  6 Octubre
-			*  @Descripcion funcion que busca todos los clientes
 			**/
 		   public function getAllClientes():void
 		   {
@@ -259,9 +239,8 @@
 		   }
 		   
 		    /**
+		    *  Combobox de cliente
 			*  @author  "Esteban Cruz"
-			*  @Fecha  6 Octubre
-			*  @Descripcion combobox de cliente
 			**/
 		   private function seleccionarCliente (event:Event):void
             {
@@ -291,9 +270,8 @@
             }
 		   
 		    /**
+		    *  Busca todas las mascotas existentes en la base de datos
 			*  @author  "Esteban Cruz"
-			*  @Fecha  6 Octubre
-			*  @Descripcion funcion que busca todos las mascotas
 			**/
 		   public function getAllMascotas():void
 		   {
@@ -308,9 +286,8 @@
 		   }
 		   
 		   /**
+		    *  Combobox de mascota
 			*  @author  "Esteban Cruz"
-			*  @Fecha  6 Octubre
-			*  @Descripcion combobox de mascota
 			**/
 		   private function seleccionarMascota (event:Event):void
             {
@@ -337,9 +314,8 @@
             }
 		   
 		   /**
+		    *  Busca todas las atenciones existentes en la base de datos
 			*  @author  "Esteban Cruz"
-			*  @Fecha  6 Octubre
-			*  @Descripcion funcion que busca todos las atenciones
 			**/
 		   public function getAllAtenciones():void
 		   {
@@ -354,9 +330,8 @@
 		   }
 		   
 		   /**
+		    *  Combobox de atenciones
 			*  @author  "Esteban Cruz"
-			*  @Fecha  6 Octubre
-			*  @Descripcion combobox de atenciones
 			**/
 		   private function seleccionarAtencion (event:Event):void
             {
@@ -383,9 +358,8 @@
             }
 		   
 		   /**
+		    *  Busca todos los productos existentes en la base de datos
 			*  @author  "Esteban Cruz"
-			*  @Fecha  6 Octubre
-			*  @Descripcion funcion que busca todos los productos
 			**/
 		   public function getAllProductos():void
 		   {
@@ -400,9 +374,8 @@
 		   }
 		   
 		   /**
+		    *  Combobox de producto
 			*  @author  "Esteban Cruz"
-			*  @Fecha  6 Octubre
-			*  @Descripcion combobox de producto
 			**/
 		   private function seleccionarProducto (event:Event):void
             {
