@@ -127,13 +127,7 @@
 		*
 		*/	            
 		public function sendMessage():void
-			{					
-							
-                		
-				var aux:int;
-				var numeroArray:Array = new Array();
-				var largo:int = numeroArray.length - 1;
-				var x:int;
+			{								
 				
 				if(vNombre==true && vApellido==true && c=="TRUE"){
 				
@@ -635,6 +629,9 @@
 				comunaMetro.text="";
 				comunaRio.text="";
 				comunaArica.text="";
+				Check.selection=null;
+				Check.selection=null;
+				labelMessage.text ="";
 				this.cancelarRegistrar();
 			}
 			
@@ -1175,7 +1172,7 @@
 	</mx:ComboBox>
 	
 	<mx:Label x="25" y="314" text="E-Mail:" width="97"/>
-	<mx:TextInput x="144" y="312" width="201" id="email" click="validaciones()" maxChars="20" editable="true" enabled="true" displayAsPassword="false"/>	
+	<mx:TextInput x="144" y="312" width="201" id="email" click="validaciones()" maxChars="40" editable="true" enabled="true" displayAsPassword="false"/>	
 	
     <mx:Label x="412" y="314" text="Repetir e-mail:" width="132"/>
 	<mx:TextInput x="523" y="312" width="201" id="email2" maxChars="20"/>
