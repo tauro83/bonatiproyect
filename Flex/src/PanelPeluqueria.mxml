@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Opciones del módulo" borderColor="#15AD8F">
 	<mx:Accordion x="0" y="0" width="100%" height="100%">
+		<mx:Canvas label="Catalogo" width="100%" height="100%">
+			
+		</mx:Canvas>
+		
+		<mx:Canvas label="Peluquería" width="100%" height="100%">
+			<mx:LinkButton x="50" y="70" label="Anular" textAlign="left"/>
+			<mx:LinkButton x="50" y="100" label="Eliminar" textAlign="left"/>
+		</mx:Canvas>
+		
 		<mx:Canvas label="Estadísticas" width="100%" height="100%">
 			<mx:LinkButton x="50" y="10" label="Estadísticas" click="estadisticasMes()" textAlign="left"/>
 		</mx:Canvas>
