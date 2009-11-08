@@ -198,6 +198,7 @@
 				regPreoOp1.setVisible(false,false);
 				editConsultaUpdate.setVisible(false,false);
 				editConsulta.setVisible(false,false);
+				panelClinicaIni.setVisible(false,false);
 				<!--Autor: }Raul Lopez -->
 				
 				<!--Autor: }Vitoxone {-->
@@ -456,8 +457,6 @@
     </ns1:ConfiguracionUsuario>	
     <ns1:ConfiguracionMascota x="241" y="134" id="confMascota" visible="false">
     </ns1:ConfiguracionMascota>	
-	<ns1:PanelClinicaPrincipal x="241" y="134" id="panelClinicaPrincipal" visible="false">	
-	</ns1:PanelClinicaPrincipal>
 	<mx:MenuBar x="0" y="104" width="1020" height="30"></mx:MenuBar>
 	<ns1:opciones x="0" y="134" id="panelOpciones" visible="true" horizontalAlign="center" height="466">
 	</ns1:opciones>
@@ -717,5 +716,9 @@
 		</ns3:EditarConsulta>
 		<ns3:EditarConsultaUpdate x="241" y="134" visible="false" id="editConsultaUpdate">
 		</ns3:EditarConsultaUpdate>
+		<ns1:PanelClinicaPrincipal x="241" y="134" visible="false" id="panelClinicaPrincipal">
+		</ns1:PanelClinicaPrincipal>
+		<ns1:PanelClinica x="241" y="134" visible="false" id="panelClinicaIni">
+		</ns1:PanelClinica>
 	<!--Autor: }Sebastian-->
 </mx:Application>
