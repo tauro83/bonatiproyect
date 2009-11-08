@@ -1,0 +1,83 @@
+<appsettings>
+	<tipos>	
+		<tipoMensaje name="Error">				
+			<mensajes>
+				<mensaje key="1">Usuario no registrado</mensaje>
+				<mensaje key="2">Cliente no registrado</mensaje>
+				<mensaje key="3">Mascota no registrada</mensaje>
+				<mensaje key="4">El Rut que ha ingresado es incorrecto</mensaje>
+				<mensaje key="5">Los emails no son iguales, ingreselos nuevamente</mensaje>
+				<mensaje key="6">Las contraseñas no coinciden, ingresela nuevamente</mensaje>
+				<mensaje key="7">Corrija los datos antes de registrar</mensaje>
+				<mensaje key="8">Usuario previamente registrado, elija otro nombre de usuario</mensaje>
+				<mensaje key="9">Error al eliminar Cita</mensaje>
+				<mensaje key="10">Error al eliminar Mascota</mensaje>
+				<mensaje key="11">Error al purgar Mascota</mensaje>
+				<mensaje key="12">Error al restaurar Mascota</mensaje>
+				<mensaje key="13">Cita previamente, cambie los parametros</mensaje>
+				<mensaje key="14">Cliente previamente registrado</mensaje>
+			</mensajes>
+		</tipoMensaje>	
+		<tipoMensaje name="Advertencia">
+			<mensajes>
+				<mensaje key="1">No tiene permisos suficientes</mensaje>
+				<mensaje key="2">Seleccione un Usuario para editar</mensaje>
+				<mensaje key="3">No ha ingresado información en todos los campos</mensaje>
+				<mensaje key="4">Ingrese un nombre más largo</mensaje>
+				<mensaje key="5">Ingrese un apellido más largo</mensaje>
+				<mensaje key="6">Ingrese un Apellido Paterno mas largo</mensaje>
+				<mensaje key="7">Ingrese un Apellido Materno mas largo</mensaje>
+				<mensaje key="8">Ingrese un nombre de usuario más largo</mensaje>
+				<mensaje key="9">Ingrese una contraseña que coincida con la anterior</mensaje>
+				<mensaje key="10">Ingrese dirección más larga</mensaje>
+				<mensaje key="11">Ingrese un nombre de usuario sin espacios en blanco y mas largo</mensaje>
+				<mensaje key="12">Ingrese una contraseña mas larga y sin espacios en blanco</mensaje>
+				<mensaje key="13">Seleccione un servicio específico para poder Agendar</mensaje>
+				<mensaje key="14">Seleccione un elemento</mensaje>
+				<mensaje key="15">Ingrese una fecha inicio anterior a la actual</mensaje>
+				<mensaje key="16">La fecha de inicio, debe ser anterior a la fecha de término</mensaje>
+				<mensaje key="17">Ingrese Solamente Letras</mensaje>
+				<mensaje key="18">Ingrese Solamente Numeros</mensaje>
+				<mensaje key="19">Ingrese Email Correctamente</mensaje>
+				<mensaje key="20">Ingrese un email que coincida con el anterior</mensaje>
+				<mensaje key="21">Ingrese el Rut</mensaje>
+			</mensajes>
+		</tipoMensaje>
+		<tipoMensaje name="Pregunta">
+			<mensajes>
+				<mensaje key="1">Confirme eliminación</mensaje>
+				<mensaje key="2">Confirme purgar</mensaje>
+				<mensaje key="3">¿Está seguro que desea eliminar Cliente?</mensaje>
+				<mensaje key="4">¿Está seguro que desea eliminar Usuario?</mensaje>
+				<mensaje key="5">¿Está seguro que desea purgar Mascota?</mensaje>
+				<mensaje key="6">¿Está seguro que desea purgar Usuario?</mensaje>
+				<mensaje key="7">¿Está seguro que desea reactivar Usuario?</mensaje>
+			</mensajes>
+		</tipoMensaje>
+		<tipoMensaje name="Informacion">
+			<mensajes>
+				<mensaje key="1">Se ha accedido al Cliente</mensaje>
+				<mensaje key="2">Se ha registrado la Cita exitosamente</mensaje>
+				<mensaje key="3">Se ha registrado la Cliente exitosamente</mensaje>
+				<mensaje key="4">Se ha registrado la Mascota exitosamente</mensaje>
+				<mensaje key="5">Se ha registrado el Usuario exitosamente</mensaje>
+				<mensaje key="6">Se ha editado el Usuario exitosamente</mensaje>
+				<mensaje key="7">Se ha editado el Cliente exitosamente</mensaje>
+				<mensaje key="8">Se ha editado la Mascota exitosamente</mensaje>
+				<mensaje key="9">Se ha editado la Cita exitosamente</mensaje>
+				<mensaje key="10">Se ha eliminado el Cliente exitosamente</mensaje>
+				<mensaje key="11">Se ha eliminado el Usuario exitosamente</mensaje>
+				<mensaje key="12">Se ha eliminado la Cita exitosamente</mensaje>
+				<mensaje key="13">Se ha eliminado la Mascota exitosamente</mensaje>
+				<mensaje key="14">Se ha purgado la Mascota exitosamente</mensaje>
+				<mensaje key="15">Se ha restaurado Mascota exitosamente</mensaje>
+				<mensaje key="16">Usuario(s) eliminado(s) exitosamente</mensaje>
+				<mensaje key="17">Usuario(s) purgado(s) exitosamente</mensaje>
+				<mensaje key="18">No se ha editado el usuario</mensaje>
+				<mensaje key="19">Cambios realizados con éxito</mensaje>
+				<mensaje key="20">Ha cancelado la edición de datos</mensaje>
+				<mensaje key="21">Estadísticas por rango de fecha para Clinica</mensaje>
+			</mensajes>
+		</tipoMensaje>			
+	</tipos>
+</appsettings>
