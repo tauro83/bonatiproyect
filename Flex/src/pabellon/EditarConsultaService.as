@@ -50,6 +50,11 @@ package pabellon
 		{
 			this.getOperation("editarConsulta").send(consulta);
 		}
+		
+		public function getAllConsultas(rutillo:String):void
+		{
+			this.getOperation("getAllConsultas").send(rutillo);
+		}
 	
 
 	}
