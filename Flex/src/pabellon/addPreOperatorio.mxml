@@ -57,7 +57,8 @@
 					preope.observaciones   = observaciones.text;
 					preope.sintomas        = sintomas.text;
 					preope.diagnostico     = diagnostico.text;
-					preope.fecha		   = fecha.text;
+					preope.fecha		   = hora.text;
+				    preope.hora			   = fecha.text;
 				    preope.responsable     = veterinario.text;
 				    preope.ayudante        = ayudante.text;
 				   
@@ -72,23 +73,23 @@
 			
 			public function carga1():void
 			{
-			  
-			  Alert.show(" entra a funcion carga1");
+			  //Alert.show(preope.sintomas);
+			  //Alert.show(" entra a funcion carga1");
 			  var auxiliar:AddPreOperatorioService = new AddPreOperatorioService();
-			  auxiliar.addEventListener(ResultEvent.RESULT,carga1Result);
+			  auxiliar.addEventListener(ResultEvent.RESULT,carga1Resu);
 			  auxiliar.AddPreOpe(preope);
 			  
 			}
-			public function carga1Result(event:ResultEvent):void
+			public function carga1Resu(event:ResultEvent):void
 			{
 			   var res:int;
 			   res = event.result as int;
 			   if(res > 0)
 			   {
+			   	  Application.application.panelClinicaIni.labelMessage.text ="El post operatorio ha sido ingresado exitosamente";
 			   	  this.setVisible(false,false);
-			   	  Application.application.panelClinicaPrincipal.labelMessage.text ="El Preoperatorio ha sido ingresado exitosamente";
-			   	  Application.application.panelClinicaPrincipal.setVisible(true,false);
-			      
+			   	  Application.application.panelClinicaIni.setVisible(true,false);
+			     
 			   }
 			   else
 			   {
@@ -160,8 +161,8 @@
 	<mx:Label x="10" y="356" text="Ayudante: " width="78"/>
 	<mx:Label x="9.95" y="211" text="Síntomas:" width="63.4" height="17.931034"/>
 	<mx:Label x="10.05" y="320" text="Veterinario:" width="128"/>
-	<mx:TextArea x="381.7" y="46" height="141" width="333.55" id="diagnostico"/>
-	<mx:Label x="381.7" y="20" text="Diagnóstico" width="78"/>
+	<mx:TextArea x="399.7" y="45" height="141" width="333.55" id="diagnostico"/>
+	<mx:Label x="399.7" y="20" text="Diagnóstico" width="78"/>
 	<mx:ComboBox x="133.55" y="318" id="veterinario" dataProvider="{usuarios}" width="160"></mx:ComboBox>
 	<mx:ComboBox x="133.55" y="354" id="ayudante" dataProvider="{ayudantes}" width="160"></mx:ComboBox>
 	<mx:Button x="495.25" y="382" label="Guardar" width="87" click="{preOpeModificado()} "/>
@@ -172,8 +173,10 @@
 	<mx:Label x="10" y="141" text="Fecha nacimiento:" width="107.95"/>
 	<mx:TextInput x="133" y="97" id="sexo"/>
 	<mx:TextInput x="133" y="61.85" id="raza"/>
-	<mx:TextArea x="381.7" y="246" height="105" width="333.55" id="observaciones"/>
-	<mx:Label x="381.7" y="220" text="Observaciones" width="93"/>
+	<mx:Label x="10.05" y="396" text="Hora: " width="78"/>
+	<mx:ComboBox id="hora" x="133.05" y="394" dataProvider="{horas}" labelField="hora" width="160"/>
+	<mx:TextArea x="399.7" y="246" height="105" width="333.55" id="observaciones"/>
+	<mx:Label x="399.7" y="220" text="Observaciones" width="93"/>
 	<mx:Label x="10" y="281" text="Fecha           :" width="145"/>
 	<mx:DateField x="133" y="279" width="115" id="fecha0"/>
 	
