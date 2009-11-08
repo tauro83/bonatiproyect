@@ -65,4 +65,5 @@
 		]]>
 	</mx:Script>
 	<mx:Label x="287.5" y="156" text="Seleccione una opción del panel izquierdo" fontWeight="bold" textAlign="center"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 </mx:Panel>
