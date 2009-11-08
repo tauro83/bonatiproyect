@@ -18,9 +18,10 @@
 			
 			import transferObjects.Alojamiento;
 			import mx.rpc.events.ResultEvent;
-			import administracion.EliminarHotelService;
+			import services.EliminarHoteleriaService;
+			import administracion.GetAllHoteleriaService;
 			[Bindable]
-			private var persons:ArrayCollection;
+			private var hotelerias:ArrayCollection;
 			[Bindable]
 			private var nroSelec:int = 0;
 			/**
@@ -30,34 +31,20 @@
 			
 			public function getAllUsuarios():void
 			{
-				var usuarioElimService:UsuarioElimService = new UsuarioElimService();
-				usuarioElimService.addEventListener(ResultEvent.RESULT,getAllUsuariosResult);
-				usuarioElimService.getAllUsuarios();
+				var getAllService:GetAllHoteleriaService = new GetAllHoteleriaService();
+				getAllService.addEventListener(ResultEvent.RESULT,getAllServiceResult);
+				getAllService.getAllHoteleria();
 			}
 			/**
 			 * Obtiene el resultado del llamado a la capa dos y tres
 			 * del sistema
 			 */
-			private function getAllUsuariosResult(event:ResultEvent):void
+			private function getAllServiceResult(event:ResultEvent):void
 			{
-				persons = event.result as ArrayCollection;
+				hotelerias = event.result as ArrayCollection;
 			}
 			
-			/**
-			 * Función que actualiza la tabla de datos, ésta se 
-			 * utiliza solo como pruba
-			 */
-			private function updateTable():void
-            {
-            	persons = new ArrayCollection;
-				persons.addItem({nombreUsuario:"Juan", apPaterno:"Fernandez", usuario:"jfndz", cargo:"veterinario", servicio:"clinica", registrar:"si", editar:"si", eliminar:"si", purgar:"si"});
- 				persons.addItem({nombreUsuario:"Gonzalo", apPaterno:"Contreras", usuario:"gcontrs", cargo:"peluquero", servicio:"clinica", registrar:"si", editar:"no", eliminar:"no", purgar:"no"});
- 				persons.addItem({nombreUsuario:"Maria", apPaterno:"Hernandez", usuario:"mfrdz", cargo:"veterinario", servicio:"clinica", registrar:"si", editar:"si", eliminar:"si", purgar:"si"});
- 				
- 				//actuacliza la tabla con los datos obtenidos de users
-                tablaUsuarios.dataProvider = persons;
-            }
-        
+			        
             /**
             * elimina una fila dentro de la tabla
             */
@@ -70,18 +57,18 @@
 			 * Purga un usuario que está en la base de datos
 			 * 
 			 */
-			private function deleteUsuario(clave:String):void
+			private function deleteUsuario(fechaIngreso:Date, fechaSalida:Date, canil:int):void
 			{
-				var usuarioElimService:UsuarioElimService=new UsuarioElimService();
-				usuarioElimService.addEventListener(ResultEvent.RESULT,deleteUsuarioResult);
-				usuarioElimService.hideUser(clave);
+				var eliminarService:EliminarHoteleriaService=new EliminarHoteleriaService();
+				eliminarService.addEventListener(ResultEvent.RESULT,eliminarServiceResult);
+				eliminarService.eliminarHoteleria(fechaIngreso, fechaSalida, canil);
 			}
 			/**
 			 * 
 			 * Muestra un mensaje de acuerdo al resultado de la operación
 			 * en la capa dos
 			 */
-			private function deleteUsuarioResult(event:ResultEvent):void
+			private function eliminarServiceResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
 				labelMessage.text = "Usuario(s) eliminado(s) con éxito";
@@ -101,15 +88,15 @@
 			 */
 			private function removeTaskRecord():void
             {
-                var allRows:int = persons.length;
+                var allRows:int = hotelerias.length;
                 for (var i:int = 0; i < allRows; i++){
-                    if (persons[i].sel)
+                    if (hotelerias[i].sel)
                 	{
                        	nroSelec++;
-                        deleteUsuario(persons[i].usuario);
-                        persons.removeItemAt(i);
-                        allRows = persons.length;
-                        tablaUsuarios.dataProvider = persons;
+                        deleteUsuario(hotelerias[i].fechaIngreso, hotelerias[i].fechaSalida, hotelerias[i].canil);
+                        hotelerias.removeItemAt(i);
+                        allRows = hotelerias.length;
+                        tablaUsuarios.dataProvider = hotelerias;
                         i=-1;
                     }   
                 }              
@@ -126,21 +113,21 @@
 			 * Selecciona o deselecciona todos los checkboxes
 			 */
 			private function selectAll():void{
-                var allRows:int = persons.length;
+                var allRows:int = hotelerias.length;
                 for (var i:int = 0; i < allRows; i++){
                     if (todo.selected)
-                        persons[i].sel = true;
+                        hotelerias[i].sel = true;
                     else
-                        persons[i].sel = false;
+                        hotelerias[i].sel = false;
                 }
-                tablaUsuarios.dataProvider = persons;
+                tablaUsuarios.dataProvider = hotelerias;
             }
             
 		]]> 
   	</mx:Script>	
 	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" fontWeight="bold" textAlign="center"/>
 	
-	<mx:DataGrid x="25" y="67" width="715" height="266" id="tablaUsuarios" dataProvider="{persons}" >
+	<mx:DataGrid x="25" y="67" width="715" height="266" id="tablaUsuarios" dataProvider="{hotelerias}" >
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
 			 	<mx:itemRenderer>
@@ -164,6 +151,4 @@
 		<mx:toolTip>Seleccione todos los usuarios, en caso contrario ninguno</mx:toolTip>
 	</mx:CheckBox>
 	<mx:Label x="25" y="41" text="Seleccionar todo"/>
-<!--	<mx:TextInput x="59" y="10" id="texImput" toolTip="ingrese texto para búsqueda"/>
-	<mx:Label x="10" y="12" text="Buscar"/>-->
 </mx:Panel>

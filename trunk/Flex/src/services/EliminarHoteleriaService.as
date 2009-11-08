@@ -49,7 +49,7 @@ package services
 		 * Método que elimina (retira) una mascota de hotelería, dados la fecha de ingreso,
 		 * la de la salida y el canil.
 		 */		
-		public function eliminarHoteleria(fechaIngreso:String, fechaSalida:String, canil:int):void
+		public function eliminarHoteleria(fechaIngreso:Date, fechaSalida:Date, canil:int):void
 		{
 			this.getOperation("eliminarHoteleria").send(fechaIngreso, fechaSalida, canil);
 		}
