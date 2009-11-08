@@ -29,6 +29,7 @@
 		    import transferObjects.Preoperatorio;
 		    import pabellon.AddPreOperatorioService;
 			import pabellon.addPreOperatorio;
+			import pabellon.AddCirugiaService;
 			private var preoperatorio:Preoperatorio;
 			private var preoperatorioEditada:Preoperatorio;
 		   
@@ -146,6 +147,24 @@
 			}
 			
 			
+			/**
+			* Funcion que llama  a retornar todas las mascotas 
+			* 
+			*/
+			private function getAllMascotas():void{
+				var mascotaService:AddCirugiaService = new AddCirugiaService();
+				mascotaService.addEventListener(ResultEvent.RESULT,getAllMascotasResult);
+				mascotaService.getMascotas(newMascota.rut);
+			}
+			
+			/**
+			* Funcion que obtiene todas las mascotas anteriormente llamadas
+			* @param event Evento
+			*/
+			public function getAllMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+				//mascotas.refresh();
+			}
 			
 			/**
 			* Funcion que llama a retornar todas las mascotas de un cliente
