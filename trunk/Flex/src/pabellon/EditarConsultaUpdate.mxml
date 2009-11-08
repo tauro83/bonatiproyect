@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Consulta">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Consulta" x="-96" y="161">
 	
 	 <mx:Script>
         <![CDATA[
@@ -13,6 +13,7 @@
 			
 			import administracion.EditClienteUpdate;
 			import administracion.EditCitaUpdate;
+			import administracion.UsuarioEditService;
 			
 			import mx.events.CloseEvent;           
   			import flash.display.Sprite;
@@ -27,6 +28,9 @@
 			import mx.controls.Alert;
 			import mx.core.Application;
 			
+			import mx.events.ValidationResultEvent;            
+            private var vResult:ValidationResultEvent;	
+			
 			[Bindable]
 			private var clientes:ArrayCollection;
 			//private var clientillo:ClienteService;
@@ -34,8 +38,19 @@
 			[Bindable]
 			public var consultaAuxEditado:Consulta;
 			
+			
+			[Bindable]
+		   private var usuarios2:ArrayCollection;
+		   
+		   [Bindable]
+		   private var servicios:ArrayCollection = new ArrayCollection();
 			//var newCli2:EditClienteUpdate = Application.application.ediCliUp;
 			
+		    [Bindable]
+			private var responsableSeleccionado:String;
+			
+			[Bindable]
+			private var aux:int=0;
 			
 			public var citi:Consulta;
 			
@@ -47,15 +62,20 @@
 			public function carga(consultilla:Consulta):void
 			{       //asigno el cliente entregado desde panel EditarConsulta
 				    consultaAuxEditado = consultilla;
-				    
+				    mascota.text     = consultilla.nombre;
 				    responsable.text = consultilla.responsable;
 				    servicio.text   = consultilla.servicio;
 				    fecha.text	= consultilla.fecha;
 				    costo.text= consultilla.costo;
-				    anamnesis.text= consultilla.anamnesis;
+				    anamnesis.text = consultilla.anamnesis;
 				    
 			}
 			
+			/**
+			 * Funcion que carga los datos de la consulta del panel que el usuario edita 
+			 * cargandalos a un objeto de tipo Consulta
+			 * 
+			 */ 
 			public function consultaModificado():void
 			{
 					
@@ -68,25 +88,37 @@
 					
 			}
 			
+			/**
+			 * Funcion que envia el objeto Consulta con la informacion que halla modificado el usuario 
+			 * esta es ecibida por el service y esta comunica con la la capa java haciendo la insercion
+			 * de los datos de esta en donde corresponda.
+			 */ 
 			public function carga1():void
 			{
-			  //Alert.show(clienteAuxEditado.cliente);
-			  //Alert.show(" entra a funcion carga1");
+			  
 			  var auxiliar:EditarConsultaService = new EditarConsultaService();
 			  auxiliar.addEventListener(ResultEvent.RESULT,carga1Result);
 			  auxiliar.editarConsulta(consultaAuxEditado);
 			  
 			}
+			
+			/**
+			 * Funcion que carga recibe como resultado si la insercion de los nuevos datos fue corecta 
+			 *  mostrandose el mensaje de error o de exito, el valor que recibe esta funcion proviene
+			 * del metodo editaarConsulta de java.
+			 */ 
 			public function carga1Result(event:ResultEvent):void
 			{
 			   var res:int;
 			   res = event.result as int;
-			   if(res > 0)
+			   if(res > 0 )
 			   {
 			   	  
-			   	  Application.application.agenda2.labelMessage.text ="La Consulta ha sido modificada exitosamente";
+			   	  Application.application.editConsulta.reset();
+			   	  Application.application.editConsulta.labelMessage.text ="La Consulta ha sido modificada exitosamente";
 			   	  this.setVisible(false,false);
-			   	  Application.application.agenda2.setVisible(true,false);
+			   	  Application.application.editConsulta.setVisible(true,false);
+			   	  Application.application.editConsulta.getConsultas();
 			      //Alert.show("ok");
 			   }
 			   else
@@ -103,17 +135,18 @@
             {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
             {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]);
             
+            /*
             [Bindable]
             public var servicios:ArrayCollection = new ArrayCollection(
-            [{label:""},
+            [{label:" "},
             {label:"Pabellón"}, 
             {label:"Policlínico"},
             {label:"PreOperatorio"} ]);
             
-          
+          */
             [Bindable]
             public var usuarios:ArrayCollection = new ArrayCollection(
-            [{label:""},
+            [{label:" "},
             {label:"Claudio Bonati"}, 
             {label:"Patricio Castro"}]);
             
@@ -121,17 +154,7 @@
             public var mascotas:ArrayCollection = new ArrayCollection(
             [{label:"Zuricata"}]);
             
-            public function guardaEditaCita(event:Event = null):void
-			{
-				
-			    //Alert.show(selectedRow.hora);
-			    Application.application.agenda2.setVisible(true);
-			    Application.application.editarCita.setVisible(false);
-			    Application.application.agenda2.labelMessage.text="Su Cita ha sido Modificada";
-			    
-			    
-			}
-			
+          
 			public function cancelarEditaCita(event:Event = null):void
 			{
 				
@@ -143,42 +166,149 @@
 			}
 			
 
-			private function selClaseServicio(event:Event):void {
-        		var clasesServicios:ArrayCollection = new ArrayCollection();
-        		
-        		clasesServicios.addItem({label:" "});
-        		clasesServicios.addItem({label:"Clínica"});
-        		clasesServicios.addItem({label:"Hotelería"});
-        		clasesServicios.addItem({label:"Peluquería"});
-
-        		servicio.dataProvider = clasesServicios;			
+		   /**
+			 * Funcion que valida el costo ingresado, esto se refiere a  darle el formato
+			 * estandart de precios de en territorio
+			 * 
+			 */ 
+			
+	       public function validaciones():void{
+				costo.addEventListener(KeyboardEvent.KEY_UP,validarCosto);
 			}
-			private function ini(event:Event):void{
-	        	
-	        	selClaseServicio(event);
-	        	
-	       }
+	       
+	       /**
+			 * Funcion que valida el costo ingresado, esto se refiere a  darle el formato
+			 * estandart de precios de en territorio
+			 * 
+			 */ 
+	       public function validarCosto(event:Event):void{
+
+				if(costo.text.length==4){
+			      
+			      costo.text=costo.text.substring(0,1)+"."+costo.text.substring(1,2)+costo.text.substring(2,3)+costo.text.substring(3,4);
+			      
+				}
+				
+				if(costo.text.length==6){
+				
+			      costo.text=costo.text.substring(0,1)+costo.text.substring(2,3)+"."+costo.text.substring(3,4)+costo.text.substring(4,5)+costo.text.substring(5,6);
+				}
+				
+				if(costo.text.length==7){
+				
+			      costo.text=costo.text.substring(0,1)+costo.text.substring(1,2)+costo.text.substring(3,4)+"."+costo.text.substring(4,5)+costo.text.substring(5,6)+costo.text.substring(6,7);
+				}
+				
+				if(costo.text.length==8){
+				
+			      costo.text=costo.text.substring(0,1)+"."+costo.text.substring(1,2)+costo.text.substring(2,3)+costo.text.substring(4,5)+"."+costo.text.substring(5,6)+costo.text.substring(6,7)+costo.text.substring(7,8);
+				}
+			}
+			
+			/**
+			 * Funcion que vuelve al panel de inicio al momento de de cancelar
+			 * una edición de una consulta
+			 * 
+			 */ 
+			public function cancela():void{
+     		
+     		   this.visible = false;
+     		   Application.application.editConsulta.reset();
+     		   Application.application.panelClinicaPrincipal.setVisible(true,false);
+     		}
+     		
+     		/**
+			 * Funcion que obtiene de la base de datos todos responsables existentes para
+			 * la ejecución de una consulta
+			 * 
+			 */ 
+     		
+     		public function getAllUsuarios():void
+			{
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();
+				
+			}
+			
+			public function iniciar():void{
+			 	getAllUsuarios();
+			 	selServicios();
+			 	Application.application.editConsulta.labelMessage.text = "";
+			 }
+			 
+			 private function selServicios():void {
+        		
+        		
+        		//servicios.addItem({label:" "});
+        		servicios.addItem({label:" "});
+        		servicios.addItem({label:"Policlinico I"});
+				servicios.addItem({label:"Policlinico II"});
+        		
+
+        		servicio.dataProvider = servicios;			
+			}
+			
+			/**
+		 	 * 	@author  
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
+			 * del datagrid, para mostrar los datos de los usuarios que existen en el sistema.	 		
+			 * */
+			private function getAllUsuariosEResult(event:ResultEvent):void
+			{
+				usuarios = event.result as ArrayCollection;	
+				usuarios2 = new ArrayCollection();
+				responsableSeleccionado = usuarios.getItemAt(0).usuario.split(" ",1).pop();
+				for(var i:int = 0; i<usuarios.length; i++){
+					usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
+				}					
+			}
+			
+			private function iniListener2():Boolean
+			{
+				var aux:Boolean=false;
+				if(anamnesis.text== "" || costo.text== ""){
+				     aux=false;
+				}   
+				else{
+				     aux = true;
+				}
+				return aux;
+				
+			}
+			public function verificaEdicion():void
+			{
+				//Alert.show("entra verificacion");
+			   if(iniListener2()==true){
+			      consultaModificado();
+			   }
+			   else{
+			   	
+			   	 mensaje.text = "No ha ingresado información en todos los campos";
+			     
+			   }
+			}
             
        ]]>
        
     </mx:Script>
 	<mx:Label x="25" y="61" text="Responsable:"/>
-	<mx:ComboBox x="133" y="59" id="responsable" dataProvider="{usuarios}" width="160">
-	
-	</mx:ComboBox>
 	<mx:Label x="457" y="47" text="Fecha:"/>
-	<mx:DateField x="518" y="45" width="165" id="fecha"/>
+	<mx:DateField x="518" y="45" width="165" id="fecha" editable="false" enabled="false"/>
 	<mx:Label x="25" y="161" text="Anamnesis:"/>
 	<mx:TextArea x="133" y="160" width="575" height="122" id="anamnesis"/>
-	<mx:Button x="473" y="302" label="Guardar" cornerRadius="6" width="102" height="23" click= "consultaModificado()"/>
-	<mx:Label x="176" y="373" width="407" textAlign="center" fontWeight="bold" height="17"/>
+	<mx:Button x="473" y="302" label="Guardar" cornerRadius="6" width="102" height="23" click="{verificaEdicion()}"/>
+	<mx:Label x="176" y="373" width="407" textAlign="center" id="mensaje" fontWeight="bold" height="17"/>
 	<mx:Label x="25" y="105" text="Servicio:"/>
 	<mx:Label x="457" y="105" text="Costo:"/>
-	<mx:TextInput x="518" y="103" width="165" id="costo"/>
-	<mx:Button x="606" y="302" label="Cancelar" cornerRadius="6" width="102" height="23"/>
-	<mx:ComboBox x="133" y="103" id="servicio" dataProvider="{servicios}" width="160">
+	<mx:TextInput x="518" y="103" width="165" id="costo" click="validaciones()"/>
+	<mx:Button x="606" y="302" label="Cancelar" cornerRadius="6" width="102" height="23" click=" cancela()"/>
+	<mx:ComboBox x="133" y="103" id="servicio" dataProvider="{servicios}" width="160" editable="false" enabled="false">
 	</mx:ComboBox>
 	<mx:Label x="25" y="26" text="Mascota:"/>
-	<mx:TextInput x="133" y="24" width="160" id="mascota" text="Zuricata" enabled="true" editable="false"/>
+	<mx:TextInput x="133" y="24" width="160" id="mascota"  enabled="true" editable="false"/>
+	<mx:ComboBox id="responsable" x="133" y="59" dataProvider="{usuarios2}"></mx:ComboBox>
 	
 </mx:Panel>

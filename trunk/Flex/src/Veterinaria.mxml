@@ -194,6 +194,10 @@
 				editarCita.setVisible(false,false);
 				panelEditaCLi.setVisible(false,false);
 				ediCliUp.setVisible(false,false);
+				regPreoOp.setVisible(false,false);
+				regPreoOp1.setVisible(false,false);
+				editConsultaUpdate.setVisible(false,false);
+				editConsulta.setVisible(false,false);
 				<!--Autor: }Raul Lopez -->
 				
 				<!--Autor: }Vitoxone {-->
@@ -705,5 +709,13 @@
 	<!--Autor: Sebastian{-->
 		<ns1:RegistrarControl x="241" y="134" id="registroControl" visible="false">
 	</ns1:RegistrarControl>
+		<ns3:addPreOperatorio x="241" y="134" visible="false" id="regPreoOp">
+		</ns3:addPreOperatorio>
+		<ns3:addPreoperatorio1 x="241" y="134" visible="false" id="regPreoOp1">
+		</ns3:addPreoperatorio1>
+		<ns3:EditarConsulta x="241" y="134" visible="false" id="editConsulta">
+		</ns3:EditarConsulta>
+		<ns3:EditarConsultaUpdate x="241" y="134" visible="false" id="editConsultaUpdate">
+		</ns3:EditarConsultaUpdate>
 	<!--Autor: }Sebastian-->
 </mx:Application>
