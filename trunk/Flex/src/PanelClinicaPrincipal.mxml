@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F">
 	<mx:Label x="159.5" y="192" text="Seleccione una opción del panel izquierdo" fontWeight="bold" textAlign="center" width="440"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	
 </mx:Panel>
