@@ -16,14 +16,14 @@ import Bd.DBConnectionManager;
 
 public class EditarConsultaService {
 	
-	public int insertConsulta(Consulta consulta)
+	public int editarConsulta(Consulta consulta)
     {
 		int result=0;
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
-			EditarConsultaBD consultaDB= new EditarConsultaBD(connection);
-			result= consultaDB.insertConsulta(consulta);		
+			EditarConsultaBD consultaDB= new EditarConsultaBD(connection);//,consulta.getRut()
+			result= consultaDB.editarConsulta(consulta);		
 			connection.close();
 		} catch (SQLException e) 
 		{
@@ -32,14 +32,14 @@ public class EditarConsultaService {
 		return result;
     }
 
-    public List<Consulta> getAllConsultas()
+    public List<Consulta> getAllConsultas(String rutCliente)
     {
     	List<Consulta> consultas=new ArrayList<Consulta>();
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			EditarConsultaBD consultaDB= new EditarConsultaBD(connection);
-			consultas= consultaDB.getAllConsultas();		
+			consultas= consultaDB.getAllConsultas(rutCliente);		
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -48,21 +48,8 @@ public class EditarConsultaService {
 		}
 		return consultas;
     }
-    public Consulta getConsulta(String rut)
-    {
-    	Consulta co = new Consulta();
-    	try 
-		{
-			Connection connection=DBConnectionManager.getConnection();
-			EditarConsultaBD consultaDB= new EditarConsultaBD(connection);
-			co= consultaDB.getConsultaDB(rut);		
-			connection.close();
-		} 
-    	catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-    	return co;
-    }
+    
+    
+   
 
 }

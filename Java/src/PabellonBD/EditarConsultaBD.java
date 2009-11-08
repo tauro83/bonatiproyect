@@ -19,6 +19,7 @@ public class EditarConsultaBD
 	PreparedStatement selectOne;
 	Connection conn;
 	String rutillo;
+	String rut;
 	
 	
 	public EditarConsultaBD(Connection connection)
@@ -27,20 +28,21 @@ public class EditarConsultaBD
 		conn = connection;
 		try 
 		{
+			System.out.println("entro acacacacacacacacacac");
 			String query="";
 			
 			query = "UPDATE consulta"+
-			   " SET rut=?, responsable=?, servicio=?, fecha=?,hora=?, costo=?, anamnesis=? "+
-				 "WHERE rut = ?;";
+			   " SET anamnesis=?, servicio = ?, hora = ?, fecha = ?,costo = ?, rut = ?, nombre = ?, responsable = ? "+
+				 "WHERE rut = ? AND servicio = ? AND hora = ? AND fecha = ?;";
 			insert = connection.prepareStatement(query);
 			
-			query = "SELECT rut, responsable, servicio, fecha, hora,  costo, anamnesis "+
+			query = "SELECT anamnesis, servicio, hora, fecha, costo,  rut, nombre, responsable "+
 			"FROM consulta "+
 			"WHERE rut = ?;";
 			selectOne = connection.prepareStatement(query);
 			
-			query = "SELECT rut, responsable, servicio, fecha, hora, costo, anamnesis "+
-			"FROM consulta;";
+			query = "SELECT anamnesis, servicio, hora, fecha, costo,  rut, nombre, responsable "+
+			"FROM consulta where rut = ?;";
 
 			selectAll = connection.prepareStatement(query);
 		} 
@@ -52,16 +54,27 @@ public class EditarConsultaBD
 	
 	
 	/*
-	public CitaEditDB(Connection connection)
+	public EditarConsultaBD(Connection connection, String rutillo)
 	{
+		System.out.println("entro al constructor rutillooooooooooo");
+		this.rut= rutillo;
+		//this.hora=hora;
+		//this.servicio=servicio;
+		//this.responsable= responsable;
 		conn = connection;
 		try 
 		{		
-			String query="";
-			query = "SELECT rutcliente, nombremascota, fecha, hora, servicio, responsable "+
-			"FROM cita;";
-
+			String query = "UPDATE consulta"+
+			   " SET anamnesis=?, servicio = ?, hora = ?, fecha = ?,costo = ?, rut = ?, nombre = ?, responsable = ?"+
+				 "WHERE rut = "+rutillo+";";
+			 insert = connection.prepareStatement(query);
+			 
+			 
+			query = "SELECT anamnesis, servicio, hora, fecha, costo, rut, nombre, responsable "+
+				"FROM consulta where rut = "+rutillo+";";
+					
 			selectAll = connection.prepareStatement(query);
+			
 		} 
 		catch (SQLException e) 
 		{
@@ -75,7 +88,7 @@ public class EditarConsultaBD
 	 * @param person contiene los datos de la persona que se quiere ingresar
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
-    public int insertConsulta(Consulta consulta)
+    public int editarConsulta(Consulta consulta)
     {
     	
     	int result=0;
@@ -89,14 +102,29 @@ public class EditarConsultaBD
     		System.out.println(person.getServicio()+".");
     		System.out.println(person.getUsuario()+".");
     		*/
-    		insert.setString(1, consulta.getRut());
-			insert.setString(2, consulta.getResponsable());
-			insert.setString(3, consulta.getServicio());
-			insert.setString(4, consulta.getFecha());
-			insert.setString(5, consulta.getHora());
-			insert.setString(6, consulta.getCosto());
-			insert.setString(7, consulta.getAnamnesis());
+    		
+    		System.out.println(consulta.getAnamnesis()+".");
+    		System.out.println(consulta.getRut()+".");
+    		
+    		
+
+    		insert.setString(1, consulta.getAnamnesis());
+    		insert.setString(2, consulta.getServicio());
+    		insert.setString(3, consulta.getHora());
+    		insert.setString(4, consulta.getFecha());
+			insert.setString(5, consulta.getCosto());
+    		insert.setString(6, consulta.getRut());
+    		insert.setString(7, consulta.getNombre());
+			insert.setString(8, consulta.getResponsable());
+			insert.setString(9, consulta.getRut());
+			insert.setString(10, consulta.getServicio());
+			insert.setString(11, consulta.getHora());
+			insert.setString(12, consulta.getFecha());
+			
+			
 			result= insert.executeUpdate();
+			System.out.println(+result);
+			
 		} 
     	catch (SQLException e) 
     	{
@@ -104,27 +132,30 @@ public class EditarConsultaBD
 		}
     	return result;
     }
-    public List<Consulta> getAllConsultas()
+    public List<Consulta> getAllConsultas(String rutCliente)
     {
     	List<Consulta> consultas=new ArrayList<Consulta>();
-    	Consulta consulta;
+
     	try 
     	{
+    		selectAll.setString(1, rutCliente);
     		ResultSet result = selectAll.executeQuery();
     		while(result.next())
     		{
-    			consulta= new Consulta();
-   
-    			consulta.setRut(result.getString(1));
-    			consulta.setResponsable(result.getString(2));
-    			consulta.setServicio(result.getString(3));
-    			consulta.setFecha(result.getString(4));
-    			consulta.setHora(result.getString(5));
-    			consulta.setCosto(result.getString(6));
-    			consulta.setAnamnesis(result.getString(7));
-    			
-
-    			consultas.add(consulta);
+    			  System.out.println("rut: "+rutCliente+".");
+    		  
+    			  Consulta consulta= new Consulta();
+    			  consulta.setAnamnesis(result.getString(1));
+    			  consulta.setServicio(result.getString(2));
+    			  consulta.setHora(result.getString(3));
+    			  consulta.setFecha(result.getString(4));
+    			  consulta.setCosto(result.getString(5));
+    			  consulta.setRut(result.getString(6));
+    			  consulta.setNombre(result.getString(7));
+    			  consulta.setResponsable(result.getString(8));
+    			  
+    			  consultas.add(consulta);
+    		
     		}
 		} 
     	catch (SQLException e) 
@@ -134,29 +165,5 @@ public class EditarConsultaBD
     	return consultas;
     }
     
-    public Consulta getConsultaDB(String rutnew)
-    {
-    	Consulta consulta = new Consulta();
-    	try 
-    	{   
-    		
-    		selectOne.setString(1, rutnew);
-    		ResultSet result = selectOne.executeQuery();
-    		while(result.next())
-    		{
-    			consulta.setRut(result.getString(1));
-    			consulta.setResponsable(result.getString(2));
-    			consulta.setServicio(result.getString(3));
-    			consulta.setFecha(result.getString(4));
-    			consulta.setHora(result.getString(5));
-    			consulta.setCosto(result.getString(6));
-    			consulta.setAnamnesis(result.getString(7));
-    		}
-		} 
-    	catch (SQLException e) 
-    	{
-			e.printStackTrace();
-		}
-    	return consulta;
-    }
+   
 }
