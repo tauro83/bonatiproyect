@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="com.adobe.flex.extras.controls.*">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="cargarClientes()" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="com.adobe.flex.extras.controls.*" title="Registro cita" x="191" y="90">
 	
 	<mx:Script>
         <![CDATA[
@@ -20,9 +20,15 @@
             import mx.collections.ArrayCollection;
             import services.citaServices;
 			import transferObjects.Cita;
+			import transferObjects.Cliente; 
 			
 			private var ct:citaServices = new citaServices();
 			private var c1:Cita;
+			
+			[Bindable]
+			private var clientes:ArrayCollection;
+			private var mascotas:ArrayCollection;
+			var fechaOutput:String; 
             
             
              //Datos para Editar las ociones sin tener que volver a agenda
@@ -46,6 +52,59 @@
                  {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
                  {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]);
                  
+            	/**
+	 * 	@Fecha  03 Octubre
+	 *  @Descripcion Metodo que consulta todos los registros de clientes en la base de datos
+	 
+	 	**/ 
+			public function cargarClientes():void
+			{
+			    var citaservices: citaServices = new citaServices();
+				citaservices.addEventListener(ResultEvent.RESULT,getClientesResult);
+				citaservices.getClientesActivos();
+			}
+            
+            
+            	/**
+	 * @Fecha  03 Octubre
+	 *  @Descripcion Metodo que recibe un ArrayCollection con las clientes activos del sistema
+	 *  consulta todos los registros de clientes en la base de datos.
+	 
+	 	**/	
+			
+			private function getClientesResult(event:ResultEvent):void
+			{
+				var i:int=0;
+				clientes = event.result as ArrayCollection;
+				for(i=0; i<clientes.length; i++){
+					clientes.getItemAt(i).nombre= clientes.getItemAt(i).nombre.split(" ",1).pop() + " " + clientes.getItemAt(i).apellido.split(" ",1).pop() + " " + clientes.getItemAt(i).apellido2;
+					
+					/* clientes.get(i).nombre= clientes.get(i).nombre.split(" ",1).pop() + " " + clientes.get(i).apellido.split(" ",1).pop() + " " + clientes.get(i).apellido2.split(" ",1).pop();  */ 
+				}
+				
+				
+				autoClientes.dataProvider=clientes;
+				autoClientes.labelField= "rut";
+			}
+			
+              private function AsignarNombre():void
+            {
+            		if(autoClientes.selectedItem != false){
+            			autoClienteN.text = autoClientes.selectedItem.nombre.split(" ",1).pop() + " " + autoClientes.selectedItem.apellido.split(" ",1).pop() + " " + autoClientes.selectedItem.apellido2;
+            			cargarMascotas();
+            			} 
+            	
+            }
+            
+            
+            private function asignarRut():void
+            {
+            	if(autoClienteN.selectedItem != false){
+            			autoClientes.text = autoClienteN.selectedItem.rut;
+            		    cargarMascotas();
+            			} 
+            }
+             
             
             
             /**
@@ -60,14 +119,15 @@
 					
 					c1					= new Cita();
 					c1.cliente 			= autoClientes.text
-					c1.mascota      	= autoMascotas.text;
-					c1.fecha        	= fecha.text
+					c1.mascota      	= listMascotas.selectedLabel;
+					c1.fecha        	= fecha.text;
 					c1.hora				= hora.text
 					c1.servicio			= servicio.text;
 					c1.usuario			= usuario.text;
 					
 					ct.addCita(c1);				
-					ct.addEventListener(ResultEvent.RESULT,registroCitaResultado);																					
+					ct.addEventListener(ResultEvent.RESULT,registroCitaResultado);	
+																									
 				}			
 			
 			/**
@@ -80,24 +140,18 @@
 				var message:String= event.result as String;	
 				var msj:String = "";
 				if(message=="1"){
-					msj = "Cita para   " +autoMascotas.text + "fue Registrada"; 					
+					Application.application.agenda2.labelMessage.text = "Cita para " +listMascotas.selectedLabel.split(" ",1) + " fue Registrada"; 	
+					Application.application.registrarCita.setVisible(false);
+					Application.application.agenda2.setVisible(true);	
+					listMascotas.text = '';
+					Application.application.agenda2.iniciarAgenda();			
     		 	}
 				else{
-					msj = "Cita ya esta registrada con la hora, dia y Encargado, Cambie los parametros"; 				
+					msj = "Cita ya esta registrada con la hora, dia y encargado, cambie los parametros"; 				
 				}		
 				mens.text = msj;	
 			}		
             
-            public function guardaEditaCita(event:Event = null):void
-			{
-				
-			    //Alert.show(selectedRow.hora);
-			    Application.application.agenda2.setVisible(true);
-			    Application.application.editarCita.setVisible(false);
-			    Application.application.agenda2.labelMessage.text="Ha registrado una nueva cita";
-			    
-			    
-			}
 			
 			public function cancelarRegistroCita(event:Event = null):void
 			{
@@ -108,53 +162,6 @@
 			    Application.application.agenda2.labelMessage.text="Usted ha cancelado la operación";
 			    
 			}
-			
-			 
-             
-             [Bindable]
-		public var Clientes:Array= [
-		{rut:"16298921"},
-		{rut:"16298923"},
-		{rut:"16298925"},
-		{rut:"16298926"},
-		{rut:"16198927"},
-		{rut:"16298928"},
-		{rut:"16198929"},
-		{rut:"16298930"},
-		{rut:"16298931"},
-		{rut:"16168932"},
-		{rut:"15298921"},
-		{rut:"15298922"},
-		{rut:"16166068"},
-		{rut:"15298924"},
-		{rut:"15298925"},
-		{rut:"15298926"},
-		{rut:"15298927"},
-		{rut:"15298928"},
-		{rut:"15298929"},];	 
-         
-               [Bindable]
-		public var mascotas:Array= [
-		{name:"juanito"},
-		{name:"pollito"},
-		{name:"willy"},
-		{name:"Angdo"},
-		{name:"Ave"},
-		{name:"Aristo"},
-		{name:"Avestrus"},
-		{name:"Alarez"},
-		{name:"Armas"},
-		{name:"Adanara"},
-		{name:"Aroreno"},
-		{name:"jitano"},
-		{name:"jios"},
-		{name:"jodriguez"},
-		{ name:"Brocoli"},
-		{name:"Bravo"},
-		{name:"Burbuja"},
-		{name:"Banhueza"},
-		{name:"Barbacho"},];   
-            
             
              public function Seleccionar(event:Event = null):void
 			{
@@ -165,14 +172,39 @@
 			    
 			}
 			
-			     public function Seleccionar2(event:Event = null):void
+			
+			
+		    public function Seleccionar2(event:Event = null):void
 			{
-			    if(Application.application.registrarCita.autoMascotas.selectedIndex == "0")
+			    if(Application.application.registrarCita.autoClienteN.selectedIndex == "0")
 			    {
-			    Application.application.registrarCita.autoMascotas.text=autoMascotas.selectedLabel;
+			    Application.application.registrarCita.autoClienteN.text=autoClienteN.selectedLabel;
 			    }
 			    
+			} 
+			
+			public function cargarMascotas():void
+			{
+			 var citaservices: citaServices = new citaServices();
+				citaservices.addEventListener(ResultEvent.RESULT,getMascotasResult);
+				citaservices.getMascotas(Application.application.registrarCita.autoClientes.text);
+				
+				
 			}
+			
+			private function getMascotasResult(event:ResultEvent):void
+			{
+				var i:int;
+				mascotas = event.result as ArrayCollection;
+				listMascotas.dataProvider = mascotas;
+				for(i<0; i<mascotas.length; i++){
+					mascotas.getItemAt(i).nombre= mascotas.getItemAt(i).nombre.split(" ",1);
+					
+				}
+				listMascotas.labelField = 'nombre';
+			}
+			
+		
        ]]>
        
     </mx:Script>
@@ -181,23 +213,25 @@
 	<mx:Label x="10" y="100" text="Nombre Mascota:" width="145"/>
 	<mx:Label x="10" y="146" text="Fecha         :" width="145"/>
 	<mx:Label x="10" y="196" text="Hora          :" width="145"/>
-	<mx:DateField id="fecha" x="163" y="144" width="115"/>
-	<mx:ComboBox id="hora" x="163" y="194" dataProvider="{horas}" labelField="hora" width="160">
+	<mx:DateField id="fecha" x="163" y="144" width="115" formatString="DD/MM/YYYY" editable="false"/>
+	<mx:ComboBox id="hora" x="163" y="194"   width="160" editable="false">
 	
 	</mx:ComboBox>
 	<mx:Label  x="10" y="243" text="Servicio         :" width="145"/>
-	<mx:ComboBox x="163" y="241" id="servicio" dataProvider="{servicios}" width="160"></mx:ComboBox>
+	<mx:ComboBox x="163" y="241" id="servicio" width="160" editable="false"></mx:ComboBox>
 	
 	
 	<mx:Button x="601" y="312" label="Cancelar" width="112" click="{cancelarRegistroCita()}"/>
 	<mx:Button x="470" y="312" label="Guardar " width="123" click="registrarCita()"/>
 	<mx:Label id="encargado" x="10" y="303" text="Responsable :" width="145"/>
-	<mx:ComboBox x="163" y="301" id="usuario" dataProvider="{usuarios}" width="160"></mx:ComboBox>
+	<mx:ComboBox x="163" y="301" id="usuarioNombre" width="160" labelField="nombre" activate="false"></mx:ComboBox>
 	<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	
-	<ns1:AutoComplete x="163" y="18"  id="autoClientes" dataProvider="{Clientes}" labelField="rut" close="Seleccionar()"/>
-	<ns1:AutoComplete x="163" y="100"  id="autoMascotas" dataProvider="{mascotas}" labelField="name" close="Seleccionar2()"/>
+	<ns1:AutoComplete x="163" y="18"   id="autoClientes" dataProvider="{clientes}" labelField="rut" close="AsignarNombre(), Seleccionar()"/>
 	<mx:Label x="10" y="61" text="Nombre Cliente:" width="145"/>
-	<ns1:AutoComplete x="163" y="59"/>
+	<ns1:AutoComplete x="163" y="59" id="autoClienteN" dataProvider="{clientes}" labelField="nombre" close="asignarRut(),Seleccionar2()" />
+	<mx:ComboBox x="163" y="98" id="listMascotas" labelField="nombre" resize="false" >
+	</mx:ComboBox>
+	<mx:TextInput id="usuario" x="163" y="331" visible="false"/>
 
 </mx:Panel>
