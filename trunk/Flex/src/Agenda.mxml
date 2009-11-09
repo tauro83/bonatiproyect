@@ -2,6 +2,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Agenda" xmlns:ns1="*" initialize="iniciarAgenda()" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
+			import transferObjects.Cliente;
 		
 			//=======================================================================
 			// FECHA CREACIÓN: 05/10/2009
@@ -50,7 +51,7 @@
 			
 			[Bindable]
 			private var citas:ArrayCollection;
-			
+			public var cliente:Cliente;
 			
 			
 			import flash.events.MouseEvent;
@@ -65,7 +66,6 @@
 			[Bindable]
 			public var diasBloqueados:ArrayCollection = new ArrayCollection();
 			
-			/**Arreglo de horas disponibles para una cita en la clinica veterinaria*/
 			[Bindable]
             public var diaAgenda:ArrayCollection = new ArrayCollection(
                 [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
@@ -128,7 +128,7 @@
             		//desbloquear.visible = false;
             		
             		getDiaAgenda();
-       
+            		
             		//semanaAgenda = new ArrayCollection();
             		//getSemanaAgenda();
             		//agendaSemana.dataProvider = semanaAgenda;
@@ -335,6 +335,9 @@
 					labelMessage.text = "Debe seleccionar un servicio específico para poder Agendar.";
 				}
 				else{  
+					
+					if(Application.application.agenda2.agendaDia.selectedItem.cliente != null)
+			    {
 					//tomo los datos del datagrid y los copia a un objeto cita
 					var newCitaUpdate:EditCitaUpdate = Application.application.editarCita;
 					newCita = new Cita();					
@@ -349,12 +352,24 @@
 					newCitaUpdate.carga(newCita);				    				    
 				    Application.application.editarCita.setVisible(true,false);
 				    
-				    // Application.application.editarCita.hora.text = selectedRow.hora;
 			 	}
+			 	else{
+			        
+			        Application.application.registrarCita.autoClientes.text = "";
+			        Application.application.registrarCita.autoClienteN.text = "";
+			        Application.application.registrarCita.autoClientes.setFocus();
+			    	Application.application.agenda2.setVisible(false);
+			     	Application.application.registrarCita.setVisible(true);
+			     	Application.application.registrarCita.fecha.data = calendario.selectedDate;
+			     	Application.application.registrarCita.hora.text = selectedRow.hora; 
+			   	 	Application.application.registrarCita.servicio.text = servicioInput.selectedLabel;
+			    	Application.application.registrarCita.fecha.selectedDate = calendario.selectedDate;
+			    	Application.application.registrarCita.usuarioNombre.text = usuarioInput.selectedLabel;
+			     	Application.application.registrarCita.usuario.text = usuarios[usuarioInput.selectedIndex-1].usuario;			    }
+			 	
 
 			}
-			
-		
+			}
 			/**
 			 * Funcion que consulta una accion realizada por el usuario
 			 * dependiendo de cual sea se ocultaran o mostraran algunas opciones
@@ -404,7 +419,7 @@
 				var result:int = event.result as int ;
 				if(result < 1)
 				{
-				   labelMessage.text="Cita Eliminada";
+				   labelMessage.text="Cita Eliminada!";
 				   //getAllMascotas();
 				}
 				else
@@ -416,11 +431,22 @@
 			////////////////////////////////////////////////////////////////////////////////
  		]]>
  	</mx:Script>		
-	<mx:DateChooser id="calendario" x="32" y="37" width="182" height="153" yearNavigationEnabled="true"
+	<mx:DateChooser id="calendario" x="10" y="37" width="182" height="153" yearNavigationEnabled="true"
 		initialize="iniciarCalendario()" change="cambioFecha()"/>
-        <mx:LinkBar color="0x0050AA" horizontalAlign="right" width="98" dataProvider="{tiposCalendario}" x="624" y="10"/>
-        <mx:ViewStack id="tiposCalendario" width="510" height="268" x="214" y="35">
+        <mx:LinkBar color="0x0050AA" horizontalAlign="right" width="98" dataProvider="{tiposCalendario}" x="651" y="10"/>
+        <mx:ViewStack id="tiposCalendario" width="550" height="268" x="200" y="35">
             <mx:VBox id="dia" label="Día" width="100%" height="100%">
+                <mx:Canvas width="550" height="266">
+                    <mx:DataGrid id="agendaDia" x="0" y="0" width="550" height="266" dataProvider="{semanaAgenda}" doubleClickEnabled="true" itemDoubleClick="{seleccionarCita(event)}" itemClick="consultarAccion(event)">
+                        <mx:columns>
+                            <mx:DataGridColumn headerText="Hora" dataField="hora"  fontWeight="bold" width="45"/>
+                            <mx:DataGridColumn headerText="Cliente" dataField="cliente"/>
+                            <mx:DataGridColumn headerText="Mascota" dataField="mascota"/>
+                            <mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
+                            <mx:DataGridColumn headerText="Responsable" dataField="responsable"/>
+                        </mx:columns>
+                    </mx:DataGrid>
+                </mx:Canvas>
             </mx:VBox>
             <!--
             <mx:VBox id="semana" label="Semana" width="100%" height="100%">
@@ -440,15 +466,15 @@
             </mx:VBox>
             -->
         </mx:ViewStack>
-        <mx:Label x="32" y="198" text="Responsable:"/>
-        <mx:ComboBox id="usuarioInput" x="32" y="224" width="182" close="asignarAgenda(event);">
+        <mx:Label x="10" y="198" text="Responsable:"/>
+        <mx:ComboBox id="usuarioInput" x="10" y="224" width="182" close="asignarAgenda(event);">
 		</mx:ComboBox>
-        <mx:Label x="32" y="254" text="Servicio:"/>
-        <mx:ComboBox id="servicioInput" x="32" y="280" width="182" close="asignarAgenda(event);">
+        <mx:Label x="10" y="254" text="Servicio:"/>
+        <mx:ComboBox id="servicioInput" x="10" y="280" width="182" close="asignarAgenda(event);">
 		</mx:ComboBox>
-        <mx:Button id="agendar" x="650" y="310" label="Agendar" visible="false"/>
-        <mx:Button id="eliminar" x="654" y="310" label="Eliminar" visible="false" click="deleteCita(event)"/>
-        <mx:Button x="586" y="310" label="Editar" id="ctm" visible="false"/>
+        <mx:Button id="agendar" x="674" y="311" label="Agendar" visible="false"/>
+        <mx:Button id="eliminar" x="674" y="311" label="Eliminar" visible="false" click="deleteCita(event)"/>
+        <mx:Button x="606" y="311" label="Editar" id="ctm" visible="false"/>
         <mx:Button id="bloquear" x="200" y="311" label="Bloquear Día" click="bloquearDia()" visible="false"/>
         <mx:Button id="desbloquear" x="200" y="311" label="Desbloquear Día" click="desbloquearDia()" visible="false"/>
         <mx:Text x="200" y="10" text="Fecha:" fontWeight="bold" visible="false"/>
@@ -457,15 +483,4 @@
         <mx:Text x="437" y="10" text="Servicio:" fontWeight="bold" visible="false"/>
         <mx:Label id="servicioOutput" x="491" y="10" visible="false"/>
         <mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-        <mx:Canvas width="509" height="266" x="223" y="36">
-            <mx:DataGrid id="agendaDia" x="0" y="0" width="503" height="266" dataProvider="{semanaAgenda}" doubleClickEnabled="true" itemDoubleClick="{seleccionarCita(event)}" itemClick="consultarAccion(event)">
-                <mx:columns>
-                    <mx:DataGridColumn headerText="Hora" dataField="hora"  fontWeight="bold" width="45"/>
-                    <mx:DataGridColumn headerText="Cliente" dataField="cliente"/>
-                    <mx:DataGridColumn headerText="Mascota" dataField="mascota"/>
-                    <mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
-                    <mx:DataGridColumn headerText="Responsable" dataField="responsable"/>
-                </mx:columns>
-            </mx:DataGrid>
-        </mx:Canvas>
 </mx:Panel>
