@@ -204,7 +204,7 @@
 				<!--Autor: }Vitoxone {-->
 				eliminarCliente.setVisible(false,false);  
                 purgarCliente.setVisible(false,false);
-            	
+            	registrarCita.setVisible(false,false);
             	<!--Erwin Díaz-->
             	elimusuario.setVisible(false,false);
             	elimficha.setVisible(false,false);
@@ -671,6 +671,9 @@
 	</ns1:EliminarCliente>
 	<ns1:PurgarCliente x="241" y="134" id="purgarCliente" visible="false">
 	</ns1:PurgarCliente>
+		<ns1:RegistraCita x="241" y="134" id="registrarCita" visible="false">
+		
+	</ns1:RegistraCita>
 	 <!--Autor: Vitoxone}--> 
 	
 	<!--Autor: Camilo{ -->
