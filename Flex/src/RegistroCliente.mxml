@@ -40,6 +40,7 @@
         private var vEmail2:Boolean;
         private var c:String;
         
+        
 		/** 
 		* Este metodo se encarga de hacer invisible cada una de las comuna asociada a una region
 		* pero en el momento que el usuario seleccione una region seran desplegada las comunas
@@ -629,8 +630,6 @@
 				comunaMetro.text="";
 				comunaRio.text="";
 				comunaArica.text="";
-				Check.selection=null;
-				Check.selection=null;
 				labelMessage.text ="";
 				this.cancelarRegistrar();
 			}
@@ -660,12 +659,13 @@
 		    */	
 			private function changeData():void
 			{
-			
-			rw.addEventListener(ResultEvent.RESULT,resultHandler);	
 				
 			if(Check.selectedValue=="Nuevo"){
+				//rw.addEventListener(ResultEvent.RESULT,resultHandler);	
 	 		   	if(rut.text!="" && rut2.text!="" || rut.text=="" && rut2.text==""){
-					c= rw.Valida_Rut(rut.text,rut2.text);
+					//c= rw.Valida_Rut(rut.text,rut2.text);
+					//rw.addEventListener(ResultEvent.RESULT,resultHandler);
+					c="TRUE";
 					if(c=="TRUE"){
 						labelMessage.text = " ";
 					}
@@ -673,7 +673,6 @@
 					else{
 						labelMessage.text = "Ingrese el Rut";
 						limpiarRut();
-						
 					}
 									
 				}
