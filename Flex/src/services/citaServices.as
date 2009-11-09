@@ -14,7 +14,8 @@ package services
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
-	import mx.rpc.remoting.mxml.RemoteObject;	
+	import mx.rpc.remoting.mxml.RemoteObject;
+	
 	import transferObjects.Cita;
 	
 	
@@ -54,6 +55,19 @@ package services
 		public function addCita(cita:Cita):void
 		{
 			this.getOperation("addCita").send(cita);
+		}
+		
+			/**
+		 * Se obtienen todos los clientes que están registrados en la base de datos
+		 */ 
+		public function getClientesActivos():void
+		{
+			this.getOperation("getClientesActivos").send();
+		}
+
+		public function getMascotas(rut:String):void
+		{
+			this.getOperation("getMascotas").send(rut);
 		}
 
 	}
