@@ -28,7 +28,7 @@
 			[Bindable]
 			private var clientes:ArrayCollection;
 			private var mascotas:ArrayCollection;
-			var fechaOutput:String; 
+		
             
             
              //Datos para Editar las ociones sin tener que volver a agenda
