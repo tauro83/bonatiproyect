@@ -691,7 +691,7 @@
 	
 	<!-- Nombre -->
 	<mx:Label x="25" y="10" text="Nombre:" width="97" />
-	<mx:TextInput restrict="A-Z a-z"  x="143" y="8" width="201" id="nombre" click="validaciones()" maxChars="12"/>	
+	<mx:TextInput restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú"  x="143" y="8" width="201" id="nombre" click="validaciones()" maxChars="12"/>	
 
     <!-- Apellido Paterno -->
 	<mx:Label x="24" y="60" text="Apellido paterno:" width="112" />
