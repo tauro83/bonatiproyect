@@ -9,7 +9,10 @@
 			<mx:LinkButton x="50" y="70" label="Anular" textAlign="left"/>
 			<mx:LinkButton x="50" y="100" label="Eliminar" textAlign="left"/>
 		</mx:Canvas>
-		
+		<mx:Canvas label="Catálogo" width="100%"  height="100%">
+			<mx:LinkButton x="50" y="10" label="Registrar" click="regcatalogo()" textAlign="left" id="regCatalogo"/>
+		</mx:Canvas>
+	
 		<mx:Canvas label="Estadísticas" width="100%" height="100%">
 			<mx:LinkButton x="50" y="10" label="Estadísticas" click="estadisticasMes()" textAlign="left"/>
 		</mx:Canvas>
@@ -26,6 +29,14 @@
          	Application.application.graficosPeluqueria.resetVars();
          }
 
+		 private function regcatalogo():void
+          {
+          	
+         	Application.application.setInvisible();
+            Application.application.panelPeluqueria.setVisible(true,false);
+            Application.application.regCatalogo.setVisible(true,false);
+            
+         }
 	 	]]>
     </mx:Script>
 	
