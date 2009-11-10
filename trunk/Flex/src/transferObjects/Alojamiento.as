@@ -28,5 +28,6 @@ package transferObjects{
 		public var fechaSalida:Date;
 		public var comentario:String;
 		public var diasEstadia:int;
+		public var eliminado:Boolean;
 	}
 }
