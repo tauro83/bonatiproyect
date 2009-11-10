@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Retirar Mascota de Hotelería" borderColor="#15AD8F">
+<mx:Panel initialize="getAllHotel()" xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Retirar Mascota de Hotelería" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -29,7 +29,7 @@
 			 * base de datos para ser mostrados dentro del datagrid
 			 */
 			
-			public function getAllUsuarios():void
+			public function getAllHotel():void
 			{
 				var getAllService:GetAllHoteleriaService = new GetAllHoteleriaService();
 				getAllService.addEventListener(ResultEvent.RESULT,getAllServiceResult);
@@ -72,7 +72,7 @@
 			{
 				var result:int = event.result as int ;
 				labelMessage.text = "Usuario(s) eliminado(s) con éxito";
-				getAllUsuarios();
+				getAllHotel();
 			}
 			/**
 			 * Borra el mensaje que se muestra en la etiqueta de mensajes del panel
@@ -136,13 +136,13 @@
                         </mx:Component>
              	</mx:itemRenderer>
             </mx:DataGridColumn>			
-			<mx:DataGridColumn width="70" headerText="Nombre" dataField="nombre" id="nombreUsuario" draggable="false"/>
-			<mx:DataGridColumn width="80" headerText="Rut Cliente" dataField="apellidoPaterno" id="apellidoPaterno" draggable="false"/>
-			<mx:DataGridColumn width="40" headerText="Canil" dataField="usuario" id="usuario" draggable="false"/>
-			<mx:DataGridColumn width="100" headerText="Fecha Ingreso" dataField="cargo" id="cargo" draggable="false"/>
-			<mx:DataGridColumn width="90" headerText="Hora Ingreso" dataField="servicio" id="servicio" draggable="false"/>
-			<mx:DataGridColumn width="90" headerText="Fecha Salida" dataField="permisoRegistrar" id="permisoRegistrar" draggable="false"/>
-			<mx:DataGridColumn headerText="Comentarios" dataField="permisoEditar" id="permisoEditar" draggable="false"/>
+			<mx:DataGridColumn width="70" headerText="Nombre" dataField="mascota" id="mascota" draggable="false"/>
+			<mx:DataGridColumn width="80" headerText="Rut Cliente" dataField="cliente" id="cliente" draggable="false"/>
+			<mx:DataGridColumn width="40" headerText="Canil" dataField="canil" id="canil" draggable="false"/>
+			<mx:DataGridColumn width="100" headerText="Fecha Ingreso" dataField="fechaIngreso" id="fechaIngreso" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Hora Ingreso" dataField="hora" id="hora" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Fecha Salida" dataField="fechaSalida" id="fechaSalida" draggable="false"/>
+			<mx:DataGridColumn headerText="Comentarios" dataField="comentario" id="comentario" draggable="false"/>
 			</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="522" y="341" label="Eliminar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados" width="102" height="23" cornerRadius="6"/>
