@@ -33,7 +33,7 @@
 			<mx:SetProperty target="{responsable}" name="width" value="188"/>
 		</mx:State>
 	</mx:states>
-	<mx:DataGrid x="22" y="186" width="705" id="Tabla" enabled="true" height="164" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="editarCirugia(event)" itemClick="consultarAccion(event)" click="consultarAccion(event)">
+	<mx:DataGrid x="22" y="186" width="705" id="Tabla" enabled="true" height="164">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Fecha Ingreso" dataField="veterinario" width="35"/>
 			<mx:DataGridColumn headerText="Fecha Salida" dataField="ayudante" width="35"/>
@@ -54,15 +54,15 @@
 	<mx:Label x="22" y="87" text="Nombre:" width="55.75"/>
 	<mx:Label x="532.5" y="34" text="-" width="14.75" textAlign="center"/>
 	<mx:TextInput  restrict="0-9" x="429" y="32" width="100.5" id="rutClienteInput" maxChars="9"/>
-	<mx:TextInput x="548.5" y="32" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente()"/>
+	<mx:TextInput x="548.5" y="32" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9"/>
 	<mx:Label x="342.25" y="85" text="Responsable:" width="93" height="22" id="label2"/>
 	<mx:Label x="342.25" y="115" text="Entrada:" width="61" height="20" id="label3"/>
-	<mx:DateField x="429" y="113" width="161" id="fecha" change="seleccionarFecha()" editable="true"/>
+	<mx:DateField x="429" y="113" width="161" id="fecha" editable="true"/>
 	<mx:Label x="342.25" y="145" text="Salida:" width="61" height="20" id="label4"/>
-	<mx:DateField x="429" y="143" width="161" id="fecha0" change="seleccionarFecha()" editable="true"/>
-	<mx:ComboBox x="429" y="81" dataProvider="{responsables}" width="161" id="responsable" change="buscarCirugias()">
+	<mx:DateField x="429" y="143" width="161" id="fecha0" editable="true"/>
+	<mx:ComboBox x="429" y="81" width="161" id="responsable">
 	</mx:ComboBox>
-	<mx:ComboBox id="dg2" x="112.75" y="85" dataProvider="{mascotas}" width="188" change="buscarCirugias()"></mx:ComboBox>
+	<mx:ComboBox id="dg2" x="112.75" y="85" width="188"></mx:ComboBox>
 	<ns1:AutoComplete x="112.75" y="32" width="188"/>
 	
 </mx:Panel>

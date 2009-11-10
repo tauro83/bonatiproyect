@@ -9,7 +9,9 @@
 				
 			}
 			public function verEditarHotel():void{
-
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.editarHoteleria.visible=true;
 			}
 			public function verEliminarHotel():void{
 				Application.application.setInvisible();
