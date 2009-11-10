@@ -212,6 +212,7 @@
             	PurgarPostOperatorio1.setVisible(false,false);
             	purgPost.setVisible(false,false);
             	purgusuario.setVisible(false,false);
+            	regCatalogo.setVisible(false,false);
             	
             	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
@@ -592,7 +593,8 @@
 	</ns1:PurgarPostOLista>
 	<ns1:PurgarPostOperatorio x="241" y="134" id="purgPost" visible="false" borderColor="#15AD8F">
 	</ns1:PurgarPostOperatorio>
-	
+	<ns1:RegistroCatalogo x="241" y="134" id="regCatalogo" visible="false" borderColor="#15AD8F">
+	</ns1:RegistroCatalogo>
 	
 	<mx:Image x="365" y="0" width="174" height="104" source="../fotos-animales-perros-peq.jpg" autoLoad="true"/>
 	<mx:TextArea x="0" y="0" width="366" height="104" borderStyle="none" fontFamily="Arial" editable="false" fontSize="27" fontWeight="bold" fontStyle="normal" backgroundColor="#FFFFFF" color="#0202CB" themeColor="#0060FF" borderColor="#FFFFFF" enabled="true" wordWrap="false"/>
