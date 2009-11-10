@@ -1,5 +1,5 @@
 //=======================================================================
-// FECHA CREACIÓN: 6 Octubre
+// FECHA CREACIÓN: 06/10/09
 // AUTOR: Esteban Cruz
 // Clase de busqueda del sistema, dentro de esta se pueden realizar 
 // busquedas para: Mascota, Cliente, Atencion, Producto, Aviso, Usuario
