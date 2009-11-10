@@ -1,0 +1,173 @@
+<!-- @autor Camilo Verdugo
+-->
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registrar Catálogo" borderColor="#15AD8F"  xmlns:ns1="peluqueria.*">
+	<mx:Script>
+		<![CDATA[
+		
+			//=======================================================================
+			// FECHA: CREACIÓN: 24/10/09
+			// AUTOR: Erwin Díaz
+			// Comentarios: Registra los distintos cortes de pelo que se le hacen a
+			// 				las mascotas, tambien registra los distintos tipos de 
+			//				corte que ofrece la clinica veterinaria
+			//=======================================================================
+		
+			import flash.display.Sprite;
+			import mx.utils.ObjectUtil;
+            import mx.events.CloseEvent;
+			import mx.events.FlexMouseEvent;
+			import mx.controls.Text;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import services.CatPeluqueriaService;
+			import services.Validacion;
+			import transferObjects.CatPeluqueria;
+			import mx.core.Application;
+			import services.Mensajes;
+			private var vNombre:Boolean;
+			private var regCat:CatPeluqueriaService = new CatPeluqueriaService();
+			private var cat:CatPeluqueria;
+			[Bindable] 
+			private var fileRef:FileReference;
+			
+			
+			/**
+		 	 * 	@author  Erwin Díaz
+			 *  Método que crea una instancia del transferObject catalogo,
+			 *  posterior a la validacion de datos  y lo envia a usuarioServices		 		
+			 * */
+			private function registrar():void
+			{					
+				mens.text = "está registrando";			 
+				if(vNombre==true)
+				{
+					mens.text = "entra";
+					cat					= new CatPeluqueria();
+					cat.servicio		= tipo.text;											
+					cat.nombre			= nomb.text;
+					cat.precio	  		= precio.text;											
+					cat.descripcion		= descripcion.text;											
+					
+					regCat.regCatalogo(cat);				
+					regCat.addEventListener(ResultEvent.RESULT,registroUsuarioResultado);																					
+				}
+				else
+				{
+					mens.text = Mensajes.getMensajeError(0);
+				}			
+			}
+			
+			
+			/**
+		 	 * 	@author  Erwin Díaz
+			 *  Metodo que reinicia los campos de textos, tras una accion de cancelar
+			 * 	o regitrar satisfactoriamente a un usuario.		 		
+			 * */
+			public function resetVars():void
+			{				
+				nomb.text 		= "";
+				mens.text		= "";
+			}
+			
+			/**
+		 	 * 	@author  Erwin Díaz
+			 *  Validacion del nombre del usuario	 		
+			 * */
+			private function validarNombre(event:Event):void
+			{
+				if(Validacion.longitudMinima(nomb.text))
+				{
+					
+					vNombre		= true;
+					trace("Válido");
+					mens.text = "válido";
+				}
+				else
+				{
+					
+					vNombre		= false;
+					mens.text = Mensajes.getMensajeError(1);
+				}	
+			}
+			/**
+		 	 * 	@author  Erwin Díaz
+			 *  Inicia los eventos de las entradas de texto que requieren revision		
+			 * */
+			private function iniListener():void
+			{
+				nomb.addEventListener(KeyboardEvent.KEY_UP,validarNombre);
+				
+			}
+
+			
+			/**
+		 	 * 	@author  Erwin Díaz
+			 *  retorna el resultado de la accion que se realizo:Registro.		
+			 * */
+			private function registroUsuarioResultado(event:ResultEvent):void
+			{
+				var message:String= event.result as String;	
+				var msj:String = "";
+				if(message=="1"){
+					msj = nomb.text + " fue Registrado";
+				 	resetVars(); 					
+    		 	}
+				else{
+					msj = Mensajes.getMensajeError(6);				
+				}		
+				mens.text = msj;	
+			}	
+			/**
+            * Función encargada de habilitar el botón registrar
+            * si el combobox mantiene seleccionada la etiqueta "--Seleccione--"
+            * el botón "Registrar" permanecerá desabilitado
+            */
+            private function activarBoton():void
+            {
+            	if(tipo.selectedLabel != '--Seleccione--'){
+            		regCatalogo.enabled=true;
+            	}
+            	else 
+            		regCatalogo.enabled=false;
+            }
+            /**
+			 * Al cancelar la operación se muestra un panel que solo tiene el 
+			 * mensaje "seleccione una opcion del menú"
+			 * 
+			 */
+			private function cancelando():void
+			{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+			
+				
+		]]>
+	</mx:Script> 
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="464" label="Registrar" click="registrar()" y="317" id="regCatalogo" enabled="false"/>
+	<mx:TextInput x="148" y="77" width="201" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
+	<mx:TextInput x="148" y="118" id="precio"  restrict="0-9" enabled="true" click="iniListener()" maxChars="20" width="201"/>
+	<mx:Label x="24" y="118" text="Precio:"  textAlign="left"/>
+	<mx:Label x="24" y="35" text="Servicio:" textAlign="left"/>
+	<mx:Label x="24" y="77" text="Nombre:" width="69" />
+	<mx:Label x="24" y="166" text="Descripción:"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+	<mx:ComboBox x="148" y="35" width="201" id="tipo"  visible="true" close="activarBoton()" toolTip="Seleccione un tipo de registro para continuar">	
+	<mx:ArrayCollection>
+	        <mx:Object label="--Seleccione--"/>
+			<mx:Object label="Corte"/>
+			<mx:Object label="Baño"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:Button x="594" y="317" width="120" label="Cancelar" id="cancelarCatalogo" click="cancelando()" height="25" cornerRadius="6" toolTip="Cancelar el registro de catálogo">
+	</mx:Button>
+	<mx:TextArea x="148" y="165" height="106" width="201" toolTip="Descripción del servicio" id="descripcion"/>
+	<ns1:FileUploader x="448" y="229">
+	</ns1:FileUploader>
+	<mx:Image x="448" y="36" id="imageDir" width="264" height="183" toolTip="Imagen que corresponde al tipo de servicio"/>
+	<mx:Label x="448" y="10" text="Imagen de servicio" fontWeight="bold"/>
+	<mx:HRule x="448" y="36" width="266" height="5"/>
+	<mx:HRule x="448" y="216" width="266" height="5"/>
+	<mx:VRule x="448" y="39" width="3" height="180"/>
+	<mx:VRule x="712" y="39" width="3" height="180"/>
+</mx:Panel>
