@@ -229,6 +229,9 @@
             	EditarPostODetalle.setVisible(false,false);
             	EditarPostO.setVisible(false,false);
             	this.purgControl.setVisible(false,false);
+            	hotelOpciones.setVisible(false, false);
+            	panelHoteleria.setVisible(false, false);
+            	eliminarHoteleria.setVisible(false, false);
 
             	<!--Autor: Andres G.}-->
             	
@@ -277,41 +280,7 @@
             }
             <!--Autor: }Sebastian -->
             
-            /*
             
-            
-            <!--Autor:Andres G.{-->
-            public function verGraficosClinicaMes(event:Event):void{
-            	setInvisible();
-            	opcionesClinica1.setVisible(true,false);
-            	graficosClinica1.setVisible(true,false);
-            	graficosClinica1.setTipoDatos("mes");
-            }
-            public function verGraficosClinicaSemestre(event:Event):void{
-            	setInvisible();
-            	opcionesClinica1.setVisible(true,false);
-            	graficosClinica1.setVisible(true,false);
-            	graficosClinica1.setTipoDatos("semestre");
-            }
-            public function verGraficosClinicaYear(event:Event):void{
-            	setInvisible();
-            	opcionesClinica1.setVisible(true,false);
-            	graficosClinica1.setVisible(true,false);
-            	graficosClinica1.setTipoDatos("year");
-            }
-            public function verGraficosClinicaTodas(event:Event):void{
-            	setInvisible();
-            	opcionesClinica1.setVisible(true,false);
-            	graficosClinica1.setVisible(true,false);
-            	graficosClinica1.setTipoDatos("todas");
-            }
-            public function ayudaEvento(event:Event):void{
-            	setInvisible();
-            	//panelOpciones.setVisible(true,false);
-            	//ayudaVeterinaria.setVisible(true,false);
-            }
-            <!--Autor:Andres G.}-->
-            */
             
             <!--Autor: Esteban{ -->
             private function linkLogin (event:Event):void
@@ -377,9 +346,9 @@
             }
             
             private function hotelclimanejadorClick ( event:Event ):void{
-            	//setInvisible();
-            	//hotelOpciones.setVisible(true,false);
-            	//hotelIngreso.setVisible(true,false);
+            	setInvisible();
+            	hotelOpciones.setVisible(true,false);
+            	panelHoteleria.setVisible(true,false);
             }
 			
 			private function climanejadorClickpanel ( event:Event ):void{
@@ -567,7 +536,8 @@
 	</ns4:PurgarControl>
 	<ns1:ElminarHoteleria x="241" y="134" id="eliminarHoteleria" visible="false">
 	</ns1:ElminarHoteleria>
-	
+	<ns1:PanelHoteleria x="241" y="134" id="panelHoteleria" visible="false">
+	</ns1:PanelHoteleria>
 	<!--Autor: andres}-->
 
 	<!--Autor: nicolas}-->
@@ -580,6 +550,7 @@
 	</ns1:RegistrarConsulta>
 	<ns1:RegistrarConsulta2 x="241" y="134" id="rConsulta2" visible="false" borderColor="#15AD8F">
 	</ns1:RegistrarConsulta2>
+	
 	
 	<!--Autor: }nicolas-->
 	

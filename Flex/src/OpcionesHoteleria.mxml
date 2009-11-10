@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Servicios adicionales">
-	<mx:LinkButton x="10" y="0" label="Peluqueria"/>
-	<mx:LinkButton x="10" y="80" label="Pet Shop"/>
-	<mx:LinkButton x="54" y="30" label="Servicios Peluqueria" width="139" textAlign="left" id="hotelServPellink"/>
-	<mx:LinkButton x="54" y="110" label="Alimentos" id="alimentLink"/>
-	<mx:LinkButton x="54" y="140" label="Accesorios" id="accesorVentaLink"/>
-	
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="134" width="240" height="466" layout="absolute" title="Opciones del módulo" borderColor="#15AD8F">
+	<mx:Style source="css/AccordionStyle.css"/>
+	<mx:Script>
+		<![CDATA[
+			import mx.core.Application;
+
+			public function verRegistrarHotel():void{
+				
+			}
+			public function verEditarHotel():void{
+
+			}
+			public function verEliminarHotel():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.eliminarHoteleria.visible=true;
+			}
+		]]>
+	</mx:Script>
+	<mx:Canvas label="Pre-Operatorio" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
+		<mx:LinkButton x="10" y="10" label="Registrar" click="verRegistrarHotel()" />
+		<mx:LinkButton x="10" y="40" label="Editar" click="verEditarHotel()"/>
+		<mx:LinkButton x="10" y="70" label="Eliminar" click="verEliminarHotel()"/>
+	</mx:Canvas>
+		
 </mx:Panel>
