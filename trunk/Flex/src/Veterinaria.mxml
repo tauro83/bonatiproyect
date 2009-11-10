@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*"> 
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*" xmlns:ns5="hoteleria.*"> 
 
     <mx:Script>
         <![CDATA[        
@@ -252,6 +252,7 @@
 		    	agenda2.setVisible(false, false);
 		    	editarCirugia.setVisible(false, false);
 		    	registroControl.setVisible(false, false);
+		    	editarHoteleria.setVisible(false, false);
 		 		<!--Autor: }Sebastian -->   
 		 		
 		 	    <!--Autor: Cristian{ -->
@@ -696,5 +697,7 @@
 		</ns1:PanelClinicaPrincipal>
 		<ns1:PanelClinica x="241" y="134" visible="false" id="panelClinicaIni">
 		</ns1:PanelClinica>
+		<ns5:EditarHoteleria x="241" y="134" visible="false" id="editarHoteleria">
+		</ns5:EditarHoteleria>
 	<!--Autor: }Sebastian-->
 </mx:Application>
