@@ -126,6 +126,11 @@
                         <source>Administracion.DelMascota</source>
                 </properties>
         </destination>
+        <destination id="AddCatalogo">
+            <properties>
+              <source>Peluqueria.AddCatalogo</source>
+            </properties>
+        </destination>
         
         <destination id="GetAllPostOperatorio"> 
                 <properties>
