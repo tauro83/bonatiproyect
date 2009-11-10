@@ -1,5 +1,3 @@
-<!-- @autor Camilo Verdugo
--->
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registrar Catálogo" borderColor="#15AD8F"  xmlns:ns1="peluqueria.*">
 	<mx:Script>
 		<![CDATA[
