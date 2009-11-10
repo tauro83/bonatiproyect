@@ -20,6 +20,8 @@
 		    import services.PersonService;
 		    import transferObjects.Person;
 		    import mx.core.Application;
+		    
+		    import util.Properties;
 		   
 			
 			[Bindable]
@@ -51,6 +53,9 @@
 			* @param event Evento proveniente al realizar la accion
 			*/
         	private function buscarCliente(event:Event):void{
+        		//Alert.show(Properties.getMensaje("Error", "1"));
+        		
+        		
         		ini(event);
         		var Numero:String = rutClienteInput.text;
         		var Dv:String = rutClienteDVInput.text;
