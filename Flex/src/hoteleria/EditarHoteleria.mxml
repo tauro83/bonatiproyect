@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Registro Hoteleria" xmlns:ns1="com.adobe.flex.extras.controls.*">
+	<mx:states>
+		<mx:State name="EditarHoteleria">
+			<mx:RemoveChild target="{Tabla}"/>
+			<mx:RemoveChild target="{label1}"/>
+			<mx:SetProperty target="{fecha0}" name="x" value="112.75"/>
+			<mx:SetProperty target="{fecha0}" name="y" value="215"/>
+			<mx:SetProperty target="{fecha}" name="x" value="112.75"/>
+			<mx:SetProperty target="{fecha}" name="y" value="185"/>
+			<mx:SetProperty target="{label2}" name="x" value="22"/>
+			<mx:SetProperty target="{label2}" name="y" value="155"/>
+			<mx:SetProperty target="{responsable}" name="x" value="112.75"/>
+			<mx:SetProperty target="{responsable}" name="y" value="153"/>
+			<mx:SetProperty target="{label3}" name="x" value="22"/>
+			<mx:SetProperty target="{label3}" name="y" value="185"/>
+			<mx:SetProperty target="{label4}" name="x" value="22"/>
+			<mx:SetProperty target="{label4}" name="y" value="215"/>
+			<mx:SetProperty target="{label5}" name="x" value="22"/>
+			<mx:SetProperty target="{label5}" name="y" value="132"/>
+			<mx:AddChild relativeTo="{label3}" position="before">
+				<mx:Label x="22" y="245" text="Caníl:" width="73" height="22" id="label0"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:ComboBox x="113.75" y="245" width="65"></mx:ComboBox>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{label0}" position="before">
+				<mx:Label x="342.25" y="155" text="Comentario:" width="93" height="22" id="label6"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextArea x="429" y="154" width="296" height="113"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{responsable}" name="width" value="188"/>
+		</mx:State>
+	</mx:states>
+	<mx:DataGrid x="22" y="186" width="705" id="Tabla" enabled="true" height="164" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="editarCirugia(event)" itemClick="consultarAccion(event)" click="consultarAccion(event)">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Fecha Ingreso" dataField="veterinario" width="35"/>
+			<mx:DataGridColumn headerText="Fecha Salida" dataField="ayudante" width="35"/>
+			<mx:DataGridColumn headerText="Cliente" dataField="clienteRut" width="50"/>
+			<mx:DataGridColumn headerText="Mascota" dataField="mascotaNombre" width="60"/>
+			<mx:DataGridColumn headerText="Hora" dataField="hora" width="20"/>
+			<mx:DataGridColumn headerText="Caníl" dataField="fecha" width="20"/>
+			<mx:DataGridColumn headerText="Costo" dataField="costo" width="30"/>
+			<mx:DataGridColumn headerText="Comentario" dataField="diagnostico" visible="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Label x="22" y="160" text="Registros:" fontWeight="bold" id="label1"/>
+	<mx:Label x="22" y="10" text="Cliente:" fontWeight="bold"/>
+	<mx:Label x="342.25" y="62" text="Hoteleria:" fontWeight="bold" id="label5"/>
+	<mx:Label x="22" y="64" text="Mascota:" fontWeight="bold"/>
+	<mx:Label x="342.25" y="34" text="Rut:" width="55.75"/>
+	<mx:Label x="22" y="34" text="Apellido:" width="55.75"/>
+	<mx:Label x="22" y="87" text="Nombre:" width="55.75"/>
+	<mx:Label x="532.5" y="34" text="-" width="14.75" textAlign="center"/>
+	<mx:TextInput  restrict="0-9" x="429" y="32" width="100.5" id="rutClienteInput" maxChars="9"/>
+	<mx:TextInput x="548.5" y="32" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente()"/>
+	<mx:Label x="342.25" y="85" text="Responsable:" width="93" height="22" id="label2"/>
+	<mx:Label x="342.25" y="115" text="Entrada:" width="61" height="20" id="label3"/>
+	<mx:DateField x="429" y="113" width="161" id="fecha" change="seleccionarFecha()" editable="true"/>
+	<mx:Label x="342.25" y="145" text="Salida:" width="61" height="20" id="label4"/>
+	<mx:DateField x="429" y="143" width="161" id="fecha0" change="seleccionarFecha()" editable="true"/>
+	<mx:ComboBox x="429" y="81" dataProvider="{responsables}" width="161" id="responsable" change="buscarCirugias()">
+	</mx:ComboBox>
+	<mx:ComboBox id="dg2" x="112.75" y="85" dataProvider="{mascotas}" width="188" change="buscarCirugias()"></mx:ComboBox>
+	<ns1:AutoComplete x="112.75" y="32" width="188"/>
+	
+</mx:Panel>
