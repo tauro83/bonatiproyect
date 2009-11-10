@@ -59,6 +59,7 @@ public class EditarPostOperatorioBD {
 			update.setString(14, (String) lista.get(3));
 			
 			result  = update.executeUpdate();
+			connection.close();
 		}
 		catch(SQLException e){
 			e.printStackTrace();
