@@ -37,7 +37,8 @@
 				{nameT:"Configuar Mascotas"},
 				{nameT:"Configuar Usuarios"},
 				{nameT:"Configuar Vacunas"},
-				{nameT:"Editar Catalogo"}				
+				{nameT:"Editar Catalogo"},	
+				{nameT:"Eliminar Aviso"}			
 			]);
            	
            	/**
@@ -67,6 +68,7 @@
            		conUsu.visible = false;
            		conVac.visible = false;
            		ediCatalogo.visible = false;
+				eliAviso.visible = false;
            	}
            	
            	/**
@@ -92,6 +94,10 @@
 					case 'Anular Cirugía':	
 						anuCirugia.visible = true;
 					break; 
+					
+					case 'Eliminar Aviso':
+						eliAviso.visible = true;
+					break;
 					case 'Editar Catalogo':
 						ediCatalogo.visible = true;
 					break;
@@ -182,6 +188,8 @@
 	<mx:Text x="345" y="24" text="Detalle" fontWeight="bold"/>
 	
 	<!-- Componentes -->
+	<ns1:elimAviso x="345" y="50" visible="false" id="eliAviso">		
+	</ns1:elimAviso>
 	<ns1:editCatalogo x="345" y="50" visible="false" id="ediCatalogo">
 	</ns1:editCatalogo>
 	<ns1:anuCirugia x="345" y="50" visible="false" id="anuCirugia">
