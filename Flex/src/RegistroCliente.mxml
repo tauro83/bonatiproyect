@@ -25,7 +25,6 @@
 		
         
         private var w:ClienteService= new ClienteService();
-        private var rw:validarRut=new validarRut();
         private var v:Validacion=new Validacion();
         private var e:Validaremail=new Validaremail;
 		public	var cl:Cliente;
@@ -38,9 +37,11 @@
         private var vTelefono2:Boolean;
         private var vEmail:Boolean;
         private var vEmail2:Boolean;
+        
+        [Bindable]
         private var c:String;
-        
-        
+        private var rw:validarRut=new validarRut();
+        private var valor:int=0;
 		/** 
 		* Este metodo se encarga de hacer invisible cada una de las comuna asociada a una region
 		* pero en el momento que el usuario seleccione una region seran desplegada las comunas
@@ -129,6 +130,21 @@
 		*/	            
 		public function sendMessage():void
 			{								
+				
+				if(rut.text!="" && rut2.text!=""&& valor==2 || rut.text=="" && rut2.text=="" ){
+					c= rw.Valida_Rut(rut.text,rut2.text);
+					if(c=="TRUE"){
+						labelMessage.text = " ";
+					}
+					
+					else{
+						limpiarRut();
+						labelMessage.text = "Ingrese el Rut";
+					}
+									
+				}
+
+				
 				
 				if(vNombre==true && vApellido==true && c=="TRUE"){
 				
@@ -631,6 +647,8 @@
 				comunaRio.text="";
 				comunaArica.text="";
 				labelMessage.text ="";
+				Check.selection=null;
+				valor=0;
 				this.cancelarRegistrar();
 			}
 			
@@ -659,14 +677,22 @@
 		    */	
 			private function changeData():void
 			{
+			
+			if(Check.selectedValue=="Antiguo"){
+	 		   c="TRUE";
+	 		   //labelMessage.text = "antiguo "+c;
+	 		  
+	 		}
+			
 				
 			if(Check.selectedValue=="Nuevo"){
-				//rw.addEventListener(ResultEvent.RESULT,resultHandler);	
-	 		   	if(rut.text!="" && rut2.text!="" || rut.text=="" && rut2.text==""){
-					//c= rw.Valida_Rut(rut.text,rut2.text);
+				//rw.addEventListener(ResultEvent.RESULT,resultHandler);
+				//var c:String;	
+	 		  /*if(rut.text!="" && rut2.text!=""){
+					c= rw.Valida_Rut(rut.text,rut2.text);
 					//rw.addEventListener(ResultEvent.RESULT,resultHandler);
-					c="TRUE";
-					if(c=="TRUE"){
+					//c="TRUE";
+					if(c!="TRUE"){
 						labelMessage.text = " ";
 					}
 					
@@ -675,15 +701,17 @@
 						limpiarRut();
 					}
 									
-				}
+				}*/
+				valor=2;
+				//labelMessage.text = "nuevo"+c;
 	 		}
 	 		
-	 		if(Check.selectedValue=="Antiguo"){
-	 		   c="TRUE";
-	 		}
+
 	 		
 	 		
 			}
+			
+
 		
 		]]>
 	</mx:Script>
@@ -1183,7 +1211,7 @@
 	</mx:Button>	
 	<mx:Label id="labelMessage" x="176" y="399" width="407" textAlign="center" fontWeight="bold" height="17"/>
 	<mx:RadioButtonGroup id="Check" change="changeData()"/>
-	<mx:RadioButton x="143" y="93" label="Nuevo" groupName="Check"/>
+	<mx:RadioButton x="143" y="93" label="Nuevo" groupName="Check" />
 	<mx:RadioButton x="143" y="119" label="Antiguo" groupName="Check"/>
 
 
