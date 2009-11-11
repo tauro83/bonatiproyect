@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="com.adobe.flex.extras.controls.*" title="Editar Registro Peluquería">
+	
+	<mx:Script>
+        <![CDATA[
+        	import transferObjects.Consulta;
+        import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Cita;
+			
+			import mx.rpc.events.ResultEvent;
+			import administracion.EditarCitaService;
+			
+			import administracion.EditClienteUpdate;
+			import administracion.EditCitaUpdate;
+			import administracion.UsuarioEditService;
+			
+			import mx.events.CloseEvent;           
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
+			
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import mx.core.Application;
+			
+			import mx.events.ValidationResultEvent;            
+            private var vResult:ValidationResultEvent;	
+			
+			[Bindable]
+			private var clientes:ArrayCollection;
+			//private var clientillo:ClienteService;
+			private var consulta:Consulta;
+			[Bindable]
+			public var consultaAuxEditado:Peluqueria;
+			
+			
+			[Bindable]
+		   private var usuarios2:ArrayCollection;
+		   
+		   [Bindable]
+		   private var servicios:ArrayCollection = new ArrayCollection();
+			//var newCli2:EditClienteUpdate = Application.application.ediCliUp;
+			
+		    [Bindable]
+			private var responsableSeleccionado:String;
+			
+			[Bindable]
+			private var aux:int=0;
+			
+			public var citi:Consulta;
+			
+			/**
+			 * @author  Raul Lopez
+			 * @Fecha  10 Noviembre
+			 * Funcion que carga los datos de la consulta que se quiere editar  en panle respectivo para la 
+			 * edicion
+			 * 
+			 */ 
+			public function carga(peluquilla:Peluqueria):void
+			{       //asigno el cliente entregado desde panel EditarConsulta
+				    /*
+				    mascota.text     = peluquilla.nombre;
+				    responsable.text = peluquilla.responsable;
+				    servicio.text   = peluquilla.servicio;
+				    fecha.text	= peluquilla.fecha;
+				    costo.text= peluquilla.costo;
+				    anamnesis.text = peluquilla.anamnesis;
+				    */
+			}
+			
+			/**
+			 * @author  Raul Lopez
+			 * @Fecha  10 Noviembre
+			 * Funcion que carga los datos de la consulta del panel que el usuario edita 
+			 * cargandalos a un objeto de tipo Consulta
+			 * 
+			 */ 
+			public function consultaModificado():void
+			{
+					/*
+					consultaAuxEditado.responsable  = responsable.text;
+					consultaAuxEditado.servicio     = servicio.text;
+					consultaAuxEditado.fecha        = fecha.text;
+					consultaAuxEditado.costo        = costo.text;
+					consultaAuxEditado.anamnesis    = anamnesis.text;
+					*/
+					//carga1();
+					
+			}
+			
+			/**
+			 * @author  Raul Lopez
+			 * @Fecha  10 Noviembre
+			 * Funcion que envia el objeto Consulta con la informacion que halla modificado el usuario 
+			 * esta es ecibida por el service y esta comunica con la la capa java haciendo la insercion
+			 * de los datos de esta en donde corresponda.
+			 */ 
+			
+			/*
+			public function carga1():void
+			{
+			  
+			  var auxiliar:EditarPeluService= new EditarPeluService();
+			  auxiliar.addEventListener(ResultEvent.RESULT,carga1Result);
+			  auxiliar.editarPeluqueria(consultaAuxEditado);
+			  
+			}
+			*/
+			/**
+			 * @author  Raul Lopez
+			 * @Fecha  10 Noviembre
+			 * Funcion que carga recibe como resultado si la insercion de los nuevos datos fue corecta 
+			 *  mostrandose el mensaje de error o de exito, el valor que recibe esta funcion proviene
+			 * del metodo editaarConsulta de java.
+			 */ 
+			 /*
+			public function carga1Result(event:ResultEvent):void
+			{
+			   var res:int;
+			   res = event.result as int;
+			   if(res > 0 )
+			   {
+			   	  
+			   	  Application.application.editarPelu.reset();
+			   	  Application.application.editarPelu.labelMessage.text ="La Consulta ha sido modificada exitosamente";
+			   	  this.setVisible(false,false);
+			   	  Application.application.editarPeluUpdate.setVisible(true,false);
+			   	  //Application.application.editarPeluUpdate.getConsultas();
+			      //Alert.show("ok");
+			   }
+			   else
+			   {
+			      Alert.show("no");
+			   }
+			}
+			
+			
+            */
+            [Bindable]
+            public var horas:ArrayCollection = new ArrayCollection(
+            [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
+            {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
+            {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]);
+            
+          
+            [Bindable]
+            public var usuarios:ArrayCollection = new ArrayCollection(
+            [{label:" "},
+            {label:"Claudio Bonati"}, 
+            {label:"Patricio Castro"}]);
+            
+            [Bindable]
+            public var mascotas:ArrayCollection = new ArrayCollection(
+            [{label:"Zuricata"}]);
+            
+          
+			public function cancelarEditaCita(event:Event = null):void
+			{
+				
+			    //Alert.show(selectedRow.hora);
+			    Application.application.agenda2.setVisible(true);
+			    Application.application.editarCita.setVisible(false);
+			    Application.application.agenda2.labelMessage.text="Usted ha cancelado la operación";
+			    
+			}
+			
+
+		   /**
+		     * @author  Raul Lopez
+			 * @Fecha  10 Noviembre
+			 * Funcion que valida el costo ingresado, esto se refiere a  darle el formato
+			 * estandart de precios de en territorio
+			 * 
+			 */ 
+			
+	       public function validaciones():void{
+				costo.addEventListener(KeyboardEvent.KEY_UP,validarCosto);
+			}
+	       
+	       /**
+	         * @author  Raul Lopez
+			 * @Fecha  10 Noviembre
+			 * Funcion que valida el costo ingresado, esto se refiere a  darle el formato
+			 * estandart de precios de en territorio
+			 * 
+			 */ 
+	       public function validarCosto(event:Event):void{
+
+				if(costo.text.length==4){
+			      
+			      costo.text=costo.text.substring(0,1)+"."+costo.text.substring(1,2)+costo.text.substring(2,3)+costo.text.substring(3,4);
+			      
+				}
+				
+				if(costo.text.length==6){
+				
+			      costo.text=costo.text.substring(0,1)+costo.text.substring(2,3)+"."+costo.text.substring(3,4)+costo.text.substring(4,5)+costo.text.substring(5,6);
+				}
+				
+				if(costo.text.length==7){
+				
+			      costo.text=costo.text.substring(0,1)+costo.text.substring(1,2)+costo.text.substring(3,4)+"."+costo.text.substring(4,5)+costo.text.substring(5,6)+costo.text.substring(6,7);
+				}
+				
+				if(costo.text.length==8){
+				
+			      costo.text=costo.text.substring(0,1)+"."+costo.text.substring(1,2)+costo.text.substring(2,3)+costo.text.substring(4,5)+"."+costo.text.substring(5,6)+costo.text.substring(6,7)+costo.text.substring(7,8);
+				}
+			}
+			
+			/**
+			 * @author  Raul Lopez
+			 * @Fecha  10 Noviembre
+			 * Funcion que vuelve al panel de inicio al momento de de cancelar
+			 * una edición de una consulta
+			 * 
+			 */ 
+			public function cancela():void{
+     		
+     		   this.visible = false;
+     		   Application.application.editConsulta.reset();
+     		   Application.application.panelClinicaPrincipal.setVisible(true,false);
+     		}
+     		
+     		/**
+     		 * @author  Raul Lopez
+			 * @Fecha  10 Noviembre
+			 * Funcion que obtiene de la base de datos todos responsables existentes para
+			 * la ejecución de una consulta
+			 * 
+			 */ 
+     		
+     		public function getAllUsuarios():void
+			{
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();
+				
+			}
+			
+			public function iniciar():void{
+			 	getAllUsuarios();
+			 	selServicios();
+			 	Application.application.editConsulta.labelMessage.text = "";
+			 }
+			 
+			 private function selServicios():void {
+        		
+        		
+        		//servicios.addItem({label:" "});
+        		servicios.addItem({label:" "});
+        		servicios.addItem({label:"Policlinico I"});
+				servicios.addItem({label:"Policlinico II"});
+        		
+
+        		servicio.dataProvider = servicios;			
+			}
+			
+			/**
+		 	 * 	@author  Raul Lopez
+			 * 	@Fecha  10 Noviembre  
+			 *  @Descripcion Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
+			 * del datagrid, para mostrar los datos de los usuarios que existen en el sistema.	 		
+			 * */
+			private function getAllUsuariosEResult(event:ResultEvent):void
+			{
+				usuarios = event.result as ArrayCollection;	
+				usuarios2 = new ArrayCollection();
+				responsableSeleccionado = usuarios.getItemAt(0).usuario.split(" ",1).pop();
+				for(var i:int = 0; i<usuarios.length; i++){
+					usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
+				}					
+			}
+			
+			private function iniListener2():Boolean
+			{
+				var aux:Boolean=false;
+				if(anamnesis.text== "" || costo.text== ""){
+				     aux=false;
+				}   
+				else{
+				     aux = true;
+				}
+				return aux;
+				
+			}
+			public function verificaEdicion():void
+			{
+				//Alert.show("entra verificacion");
+			   if(iniListener2()==true){
+			      consultaModificado();
+			   }
+			   else{
+			   	
+			   	 labelMessage.text = "No ha ingresado información en todos los campos";
+			     
+			   }
+			}
+			public function registrarPeluqueria():void{
+			      //Application.application.editarPelu.reset();
+			   	  Application.application.panelClinicaPrincipal.labelMessage.text ="El registro ha sido modificado exitosamente";
+			   	  this.setVisible(false,false);
+			   	  Application.application.panelClinicaPrincipal.setVisible(true,false);
+			
+			}
+            
+       ]]>
+       
+    </mx:Script>
+	
+	
+	<mx:Label x="43" y="109" text="Responsable:"/>
+	<mx:ComboBox x="133" y="107" id="responsable" width="160">
+		<mx:ArrayCollection>
+		<mx:Object label=" "/>
+		<mx:Object label="Claudio Bonati"/>
+		<mx:Object label="Patricio Castro"/>
+		</mx:ArrayCollection>	
+	</mx:ComboBox>
+	<mx:Label x="43" y="155" text="Fecha:"/>
+	<mx:Label x="43" y="198" text="Descripción:"/>
+	<mx:TextArea x="133" y="217" width="583" height="72" id="anamnesis"/>
+	<mx:TextInput x="551" y="153" width="165" id="costo" click="validaciones()"/>
+	<mx:Label x="470" y="109" text="Servicio:"/>
+	<mx:ComboBox x="556" y="107" id="servicio" width="160">
+		<mx:ArrayCollection>
+		<mx:Object label=" "/>
+		<mx:Object label="Policlinico I"/>
+		<mx:Object label="Policlinico II"/>
+		</mx:ArrayCollection>	
+	</mx:ComboBox>
+	<mx:Button x="522" y="353" label="Registrar" visible="true" id="registrar" click = "{registrarPeluqueria()}" cornerRadius="6"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="84" id="cancelar" visible="true" cornerRadius="6"/>
+	<mx:Label x="470" y="155" text="Costo:" width="52"/>
+	<mx:Label x="43" y="10" text="Cliente" fontWeight="bold"/>
+	<mx:Label x="43" y="36" text="Rut:" width="37" id="label2"/>
+	<mx:Label x="262.5" y="38" text="-" width="14.75" textAlign="center" id="label6"/>
+	<mx:TextInput x="135" y="36" width="130.5" id="rutClienteInput1"   editable="false"/>
+	<mx:TextInput restrict="0-9 K" x="273.5" y="36" width="19.5" id="rutClienteDVInput1"  editable="false"/>
+	<mx:Label x="470" y="10" text="Mascota" fontWeight="bold"/>
+	<mx:Label x="470" y="38" text="Nombre:"/>
+	<mx:TextInput x="556" y="36" id="nombre" editable="false" enabled="true" width="160"/>
+	<mx:Label x="43" y="74" text="Consulta" fontWeight="bold"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:DateField x="133" y="153" width="160" id="fecha"/>
+</mx:Panel>
