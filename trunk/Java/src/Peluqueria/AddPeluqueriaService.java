@@ -1,11 +1,11 @@
 //=======================================================================
-// FECHA CREACIÓN: 27/10/09
-// AUTOR:Jimmy Muñoz
-// Comenetario: Esta Clase desarrolla la conexion entre java y la base
-// de datos postgret en nuestreo caso, almacenando los datos de los usuarios, y recuperando datos.
+//FECHA CREACIÓN: 27/10/09
+//AUTOR:Jimmy Muñoz
+//Comenetario: Esta Clase desarrolla la conexion entre java y la base
+//de datos postgret en nuestreo caso, almacenando los datos de los usuarios, y recuperando datos.
 //======================================================================
 
-package Policlinico;
+package Peluqueria;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,11 +22,11 @@ import Bd.DBConnectionManager;
 import ConfiguracionBD.ConfigurarBD;
 import TransferObjects.Vacunacion;
 
-public class AddVacunacionService {
+public class AddPeluqueriaService {
 	ArrayList<ConfiguracionVacuna> vacc = new ArrayList<ConfiguracionVacuna>();
 	public List<Usuario> persons; //Lista en la cual se almacenan los datos de los usuarios del sistema.
 	/**
-	 * Metodo que llama a la funcion addVacunacion, de la clase AddVacunacionDB, que se encuentra en el paquete 
+	 * Metodo que llama a la funcion addPeluqueria, de la clase AddPeluqueriaDB, que se encuentra en el paquete 
 	 * PabellonBD, en este metodo se procesan los datos de la nueva cirugia a guardar que llega como parametro.
 	 * En un comienzo se procesa los nombres del responsable y del ayudante de la cirugia, realizando un 
 	 * llamado al metodo getAllUsuariosE(), la que almacena los datos de los usuarios en la lista persons, 
@@ -38,8 +38,8 @@ public class AddVacunacionService {
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 * @throws SQLException 
 	 */
-	public int AddVacuna(Vacunacion nuevaVac) throws SQLException
-    {	
+	public int AddPeluqueria(Vacunacion nuevaVac) throws SQLException
+ {	
 		getConfiguracionVacuna();
 		/**
 		 * En este proceso se divide en nombre del veterinario y del ayudante para acceder a la base de
@@ -88,7 +88,7 @@ public class AddVacunacionService {
 			e.printStackTrace();
 		}
 		return result;
-    }
+ }
 	
 	/**
 	 * Obtiene las vacunas registradas en el sistema a traves de las clases de configuración.
@@ -113,14 +113,14 @@ public class AddVacunacionService {
 	 * @return retorna el rut del cliente si es que existe.
 	 */
 	public Cliente getCliente(String rutCliente){
-    	Cliente cliente = null;
-    	try {
+ 	Cliente cliente = null;
+ 	try {
 			Connection connection=DBConnectionManager.getConnection();
 			AddVacunacionBD vacunaBd = new AddVacunacionBD(connection);
 			cliente = vacunaBd.getCliente(rutCliente);		
 			connection.close();
 		} 
-    	catch (SQLException e) {
+ 	catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return cliente;
@@ -137,18 +137,18 @@ public class AddVacunacionService {
 	 * dicho rut.
 	 */
 	public List<Mascota> getMascotas(String rutCliente){
-    	List<Mascota> mascotas=new ArrayList<Mascota>();
-    	try {
+ 	List<Mascota> mascotas=new ArrayList<Mascota>();
+ 	try {
 			Connection connection=DBConnectionManager.getConnection();
 			AddVacunacionBD vacunaBd = new AddVacunacionBD(connection);
 			mascotas= vacunaBd.getMascotas(rutCliente);		
 			connection.close();
 		} 
-    	catch (SQLException e) {
+ 	catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return mascotas;
-    }
+ }
 	
 	
 	
@@ -164,7 +164,7 @@ public class AddVacunacionService {
 	 * @param No recibe parametro.
 	 * @return Listado de String con los nombres de los veterinarios.
 	 */
-	public List<String> getTiposVeterinarios(){
+	public List<String> getTiposPeluqueros(){
 		List<String> cirus=new ArrayList<String>();
 		
 		/**
@@ -185,7 +185,7 @@ public class AddVacunacionService {
 			 * de la variable cargo. Para comparar, pues solo debe retornar los que tengan como cargo Veterinario.
 			 */
 			String cargo = u.getCargo().trim();
-			if(cargo.equals("Veterinario")){
+			if(cargo.equals("Peluquero")){
 				/**
 				 * Se borran los espacios en blanco obtenidos de la base de datos.
 				 * de la variable nombre y apellido paterno. Luego se concatena y almacena en el array
@@ -210,20 +210,19 @@ public class AddVacunacionService {
 	 * @param No recibe parametro.
 	 * @return No retorna resultado.
 	 */
-    public void getAllUsuariosE()
-    {
-    	persons=new ArrayList<Usuario>();
-    	try 
+ public void getAllUsuariosE()
+ {
+ 	persons=new ArrayList<Usuario>();
+ 	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			UsuarioEditBD personDB= new UsuarioEditBD(connection);
 			persons= personDB.getAllUsuariosE();		
 			connection.close();
 		} 
-    	catch (SQLException e) 
+ 	catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
-    }
+ }
 }
-

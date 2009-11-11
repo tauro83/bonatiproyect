@@ -2,7 +2,7 @@
 	<mx:Script>
         <![CDATA[
         	//=======================================================================
-			// FECHA: CREACIÓN: 27/10/09
+			// FECHA: CREACIÓN: 11/11/09
 			// AUTOR: Jimmy Muñoz
 			// Comentarios: Formulario para obtener datos del cliente y sus mascotas.
 			//=======================================================================
@@ -87,9 +87,9 @@
 		 	 * 	@author  "Jimmy Muñoz"
 			 */
         	private function getCliente(rutCliente:String):void{
-				var addvacService:AddVacunacionService = new AddVacunacionService();
-				addvacService.addEventListener(ResultEvent.RESULT,getClienteResult);
-				addvacService.getCliente(rutCliente);
+				var addpelService:AddPeluqueriaService = new AddPeluqueriaService();
+				addpelService.addEventListener(ResultEvent.RESULT,getClienteResult);
+				addpelService.getCliente(rutCliente);
 			}
 			
 			
@@ -138,9 +138,9 @@
 		 	 * 	@author  "Jimmy Muñoz"
 			 */
 			private function getMascotas():void{
-				var addvacService:AddVacunacionService = new AddVacunacionService();
-				addvacService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addvacService.getMascotas(rutClienteInput.text);
+				var addpelService:AddPeluqueriaService = new AddPeluqueriaService();
+				addpelService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addpelService.getMascotas(rutClienteInput.text);
 			}
 			
 			/**
@@ -162,9 +162,9 @@
 			 */
 			private function getTiposVeterinarios():void
 			{
-				var addvacService:AddVacunacionService = new AddVacunacionService();
-				addvacService.addEventListener(ResultEvent.RESULT,getTiposS);
-				addvacService.getTiposVeterinarios();
+				var addpelService:AddPeluqueriaService = new AddPeluqueriaService();
+				addpelService.addEventListener(ResultEvent.RESULT,getTiposS);
+				addpelService.getTiposPeluqueros();
 			}
 			
 			/**
