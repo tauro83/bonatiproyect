@@ -1,0 +1,206 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllAvisos()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Aviso" x="241" y="133">
+	<mx:Script>
+		<![CDATA[
+		//=======================================================================
+			// FECHA CREACIÓN: 08/11/09
+			// AUTOR: Erwin Díaz
+			// Panel de selección de Aviso, para proceder a editar los datos de éste.
+			//=======================================================================
+
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import avisoWeb.AvisoWeb;
+			import mx.rpc.events.ResultEvent;
+			//import administracion.UsuarioEditService;
+			
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import mx.core.Application;
+			
+			[Bindable]
+			private var avisos:ArrayCollection;
+			private var usuars:ArrayCollection;
+			private var usuars2:ArrayCollection;
+			//public var editarAviso:EditarAviso;
+					
+			/**
+		 	 * Metodo que obtiene los datos del datagrid, en el cual se muestran
+			 * los datos de los avisos, para procesar los datos del aviso seleccionado, esto 
+			 * enviandolo para luego dejandolo visible.	 		
+			 * */
+			public function editarUser(event:Event):void
+			{
+				
+				if(Tabla.selectedItem){					
+					var newAviso:AvisoWeb = new AvisoWeb();
+					newAviso.nombre = Tabla.selectedItem.nombre;
+					newAviso.telefono0 = Tabla.selectedItem.telefono0;
+					newAviso.telefono = Tabla.selectedItem.telefono;
+					newAviso.celular0 = Tabla.selectedItem.celular0;
+					newAviso.celular = Tabla.selectedItem.celular;
+					newAviso.asunto = Tabla.selectedItem.asunto;
+					newAviso.descripcion = Tabla.selectedItem.descripcion;
+					
+					//this.setVisible(false,false);
+					Application.application.editarAviso.resetVars();
+					Application.application.editarAviso.nomb.text = newAviso.nombre;
+					Application.application.editarAviso.telefono0.text = newAviso.telefono0;
+					Application.application.editarAviso.telefono.text = newAviso.telefono;
+					Application.application.editarAviso.celular0.text = newAviso.celular0;
+					Application.application.editarAviso.celular.text = newAviso.celular;
+					Application.application.editarAviso.asunto.text = newAviso.asunto;
+					Application.application.editarAviso.descripcion.text = newAviso.descripcion;
+					
+					Application.application.regCatalogo.setVisible(false, false);
+					Application.application.editarAviso.setVisible(true, false);
+
+					//editarAviso.setVisible(true,false);
+
+					/*
+					var listCont2:Array = new Array();
+					listCont2 = newAviso.usuario.split(" ",1);
+					editarAviso.usua.text=listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newAviso.contrasena.split(" ",1);
+					editarAviso.rcon.text = editarAviso.cont.text = listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newAviso.nombre.split(" ",1);
+					editarAviso.nomb.text = listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newAviso.apellidoPaterno.split(" ",1);
+					editarAviso.apat.text= listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newAviso.apellidoMaterno.split(" ",1);
+					editarAviso.amat.text=listCont2.pop();	
+					*/
+					
+				}
+				else{
+					this.labelMessage.text="Seleccione un Usuario para editar.";
+				}
+
+			}
+			
+			/**
+		 	 * Metodo que recibe el panel EditUsuario (editarAviso), para almacenarlo, 
+			 * inicializa la variable personService, para poder llamar a los metodos de este
+			 * para lograr comunicarse con las clases y metodos de java.	 		
+			 * */
+			public function getAllAvisos():void
+			{
+			/**
+			 * Función que actualiza la tabla de datos, ésta se 
+			 * utiliza solo como pruba
+			 */
+				avisos = new ArrayCollection;
+				avisos.addItem({nombre:"Juan Perez", telefono0:"75", telefono:"764356", celular0:"09", celular:"7654564", asunto:"Se venden cachorros", descripcion:"Se venden cachorros pitbull, interesados llamar"});
+ 				avisos.addItem({nombre:"Pedro Fuenzalida", telefono0:"75", telefono:"645667", celular0:"09", celular:"4545467", asunto:"Se compran cachorros", descripcion:"Se compran cachorros pitbull, interesados llamar"});
+ 				Tabla.dataProvider = avisos;
+            
+				
+				/*labelMessage.text="";
+				editarAviso = Application.application.AdEditarUsuar3;
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();
+				*/
+			}
+			
+			/**
+		 	 * Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
+			 * del datagrid, para mostrar los datos de los avisos que existen en el sistema.	 		
+			 * */
+			private function getAllUsuariosEResult(event:ResultEvent):void
+			{
+				Tabla.doubleClickEnabled=true;
+				avisos = event.result as ArrayCollection;	
+							
+								
+			}
+			
+			/**
+		 	 * Metodo que consulta si se cumple las devidas condiciones para editar un usuario, 
+			 * llamando al metodo itsOk, si esto se cumple procesa los datos que fueron ingresados en el objeto
+			 *  person para ser eviados a los metodos de la clase person service, para enviarlos a las otras
+			 * capas, y guardar los cambios.		 		
+			 * */
+			/*public function insertUsuarioE():void
+			{
+				if(editarAviso.itsOk()){
+					var person:Usuario= new Usuario();
+					person.nombre=editarAviso.nomb.text;
+					person.apellidoPaterno=editarAviso.apat.text;
+					person.apellidoMaterno=editarAviso.amat.text;
+					person.usuario=editarAviso.usua.text;
+					person.servicio=editarAviso.serv.text;
+					person.cargo=editarAviso.carg.text;
+					person.contrasena=editarAviso.cont.text;
+					person.permisoEditar=editarAviso.pedi.selected;
+					person.permisoEliminar=editarAviso.peli.selected;
+					person.permisoPurgar=editarAviso.ppur.selected;
+					person.permisoRegistrar=editarAviso.preg.selected;
+				
+					var personService:UsuarioEditService=new UsuarioEditService();
+					personService.addEventListener(ResultEvent.RESULT,insertUsuarioEResult);
+					personService.insertUsuarioE(person);
+				}
+				
+			}*/
+			
+			/**
+		 	 * Metodo que recibe el resultado del metodo anterior, el cual actualiza los 
+			 * datos del usuario seleccionado, y verifica si se almaceno correctamente.		 		
+			 * */
+			/*private function insertUsuarioEResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(result>0)
+				{
+				   this.getAllUsuarios();
+				   Application.application.AdEditarUsuar3.setVisible(false,false);//editarAviso.
+				   this.setVisible(true,false);
+				   labelMessage.text="Aviso editado!";
+				}
+				else
+				   editarAviso.labelMessage.text="Aviso NO editado!";
+			}*/
+			
+			/**
+		 	 * Metodo que recibe el resultado del metodo anterior, el cual actualiza los 
+			 * datos del usuario seleccionado, y verifica si se almaceno correctamente.		 		
+			 * */
+			private function cancelando():void
+			{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:DataGrid x="30" y="30" width="700" height="279" id="Tabla" enabled="true" dataProvider="{avisos}" itemDoubleClick="editarUser(event)">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre" width="100" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Cod" width="35" dataField="telefono0"/>
+			<mx:DataGridColumn headerText="Teléfono" width="100" dataField="telefono"/>
+			<mx:DataGridColumn headerText="Cod" width="35" dataField="celular0"/>
+			<mx:DataGridColumn headerText="Celular" width="100" dataField="celular"/>
+			<mx:DataGridColumn headerText="Asunto" width="130" dataField="asunto"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Button label="Editar" height="23" width="102" x="510" y="317" click="editarUser(event)" cornerRadius="6"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="620" y="317" label="Cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
+	
+
+
+	
+</mx:Panel>
