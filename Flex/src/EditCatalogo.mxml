@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Editar Catalogo" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Editar Catálogo" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
+			import mx.collections.ArrayCollection;
 			//=======================================================================
 			// FECHA: CREACIÓN: 10/11/09
 			// AUTOR: Camilo Verdugo
@@ -10,17 +11,15 @@
 			//=======================================================================
 			// editCatalogo editCatalogoBusqueda
 			import mx.core.Application;
-			 
 			
 			
 			private function cancelar():void
             {
-            	Application.application.setInvisible();
-            	this.setVisible(false,false);
-				Application.application.panel2.setVisible(true,false);
+				Application.application.peluqueria.setVisible(true,false);
+				this.setVisible(false,false);
             }
 			
-
+			
 		]]>
 	</mx:Script>
 	
@@ -34,7 +33,7 @@
 	<mx:Label x="25" y="131" text="Precio:"/>
 	<mx:Label x="25" y="176" text="Descripción:"/>
 	<mx:TextArea x="120" y="175" height="125" width="242"/>
-	<mx:Button x="522" y="353" width="102" label="Editar" id="regCatalogo" enabled="false" click="" height="23" cornerRadius="6">
+	<mx:Button x="522" y="353" width="102" label="Editar" id="regCatalogo" enabled="true"  height="23" cornerRadius="6">
 	</mx:Button>
 	<mx:Button x="632" y="353" width="102" label="Cancelar" id="cancelarCatalogo" click="cancelar()" height="23" cornerRadius="6">
 	</mx:Button>

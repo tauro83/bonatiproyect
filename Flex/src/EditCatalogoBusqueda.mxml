@@ -2,6 +2,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" title="Editar baños y cortes" width="779" height="466" borderColor="#15AD8F">
 	<mx:Script>
 		<![CDATA[
+			
 			//=======================================================================
 			// FECHA: CREACIÓN: 10/11/09
 			// AUTOR: Camilo Verdugo
@@ -9,22 +10,49 @@
 			//=======================================================================
 			//editCatalogo editCatalogoBusqueda
 			import mx.core.Application;
+			import services.GetCatalogos;
+			import mx.rpc.events.ResultEvent;
+			import mx.collections.ArrayCollection;
+			
+			[Bindable]private var listCatalogos:ArrayCollection;
+			private var getCatServices:GetCatalogos;
+			
+			
+			public function getAllCatalogo():void
+			{				
+				getCatServices = new GetCatalogos();
+				getCatServices.getCatalogo();
+				getCatServices.addEventListener(ResultEvent.RESULT,getAllCatalogoR);
+							
+			}
+			public function getAllCatalogoR(event:ResultEvent):void
+			{				
+				listCatalogos = event.result as ArrayCollection;	
+			}
+			
+			
 			private function cancelar():void
             {
-            	Application.application.setInvisible();
             	this.setVisible(false,false);
-				Application.application.panel2.setVisible(true,false);
+				Application.application.peluqueria.setVisible(true,false);
+            }
+            
+            private function cargarEditar():void
+            {
+            	
+            	this.setVisible(false,false);
+				Application.application.editCatalogo.setVisible(true,false);
             }
 		]]>
 	</mx:Script>
-	<mx:DataGrid x="25" y="38" width="709" height="305" id="fichas" >
+	<mx:DataGrid x="25" y="38" width="709" height="305" id="fichas" dataProvider="{listCatalogos}"  >
 		<mx:columns>			
 			<mx:DataGridColumn headerText="Servicio"  dataField="nombre"/>
 			<mx:DataGridColumn headerText="Nombre"   dataField="rutCliente"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="25" y="10" text="Seleccione el corte o baño:" fontWeight="bold"/>
-	<mx:Button x="522" y="353" width="102" label="Editar" id="regCatalogo" enabled="false" click="" height="23" cornerRadius="6">
+	<mx:Button x="522" y="353" width="102" label="Editar" id="regCatalogo" enabled="true" click="cargarEditar()" height="23" cornerRadius="6">
 	</mx:Button>
 	<mx:Button x="632" y="353" width="102" label="Cancelar" id="cancelarCatalogo" click="cancelar()" height="23" cornerRadius="6">
 	</mx:Button>

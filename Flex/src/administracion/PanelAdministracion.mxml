@@ -111,6 +111,7 @@
           private function visualizarFicha():void
           {
           	Application.application.setInvisible();
+          	Application.application.visualizarFicha.getAllFichas();
 			Application.application.visualizarFicha.setVisible(true,true);
             Application.application.AdmOpciones1.setVisible(true,false);
             Application.application.visualizarFicha.setVisualizarFicha(Application.application.verFicha); 
