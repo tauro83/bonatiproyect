@@ -1,0 +1,12 @@
+CREATE TABLE Avisoweb
+(
+  nombre character(20) NOT NULL,
+  telefono0 character(4),
+  telefono character(20),
+  celular0 character(4),
+  celular character(20),
+  asunto character(30),
+  descripcion character(160) NOT NULL,
+  estado boolean DEFAULT true,
+  CONSTRAINT avisoweb_pkey PRIMARY KEY (nombre, asunto)
+)
