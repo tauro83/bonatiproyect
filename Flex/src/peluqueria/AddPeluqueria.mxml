@@ -3,7 +3,7 @@
 	<mx:Script>
         <![CDATA[
         	//=======================================================================
-			// FECHA: CREACIÓN: 27/10/09
+			// FECHA: CREACIÓN: 11/11/09
 			// AUTOR: Jimmy Muñoz
 			// Comentarios: Formulario y validacion de la edicion de un usuario en el sistema.
 			//=======================================================================
@@ -349,7 +349,7 @@
 	<mx:Button x="397.25" y="269" label="&lt;-" width="47.55" click="quitaServ()"/>
 	<mx:List x="450" y="200" width="284" height="135" id="serviciosList" dataProvider="{serviciosAdds}"></mx:List>
 	
-	<mx:Button x="522" y="353" label="Registrar" visible="true" id="registrar" click="registrarPeluqueria()" width="102" height="23"/>
+	<mx:Button x="522" y="353" label="Registrar" enabled="false" visible="true" id="registrar" click="registrarPeluqueria()" width="102" height="23"/>
 	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
 	<mx:Label x="450" y="50" text="Mascota:" width="63.95"/>
 	

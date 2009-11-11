@@ -14,11 +14,13 @@
               <source>Administracion.AddUsuario</source>
             </properties>
         </destination>
+        
         <destination id="GetCatalogos">
             <properties>
               <source>Peluqueria.GetCatalogos</source>
             </properties>
         </destination>
+        
         <destination id="Configurar"> 
 	  	 	<properties>
 	  			<source>Configuracion.Configurar</source>
@@ -36,23 +38,24 @@
               <source>Administracion.UsuarioElimService</source>
             </properties>
         </destination>
-    <destination id="AddCliente">
+    	
+    	<destination id="AddCliente">
             <properties>
               <source>Administracion.AddCliente</source>
             </properties>
-    </destination>
+    	</destination>
 
-    <destination id="DiaAgendaServices">
+    	<destination id="DiaAgendaServices">
             <properties>
               <source>Agenda.DiaAgendaServices</source>
             </properties>
-    </destination>
+    	</destination>
 
-    <destination id="AddMascotaService">
+    	<destination id="AddMascotaService">
             <properties>
               <source>Administracion.AddMascotaService</source>
             </properties>
-    </destination>
+    	</destination>
 
         <destination id="BusquedaService"> 
                 <properties>
@@ -79,21 +82,21 @@
         </destination>
 
         <destination id="LoginService"> 
-                <properties>
-                        <source>Administracion.LoginService</source>
-                </properties>
+             <properties>
+             	<source>Administracion.LoginService</source>
+             </properties>
         </destination>
         
         <destination id="ClienteEditService">
-        <properties>
-           <source>Administracion.ClienteEditService</source>
-        </properties>
+        	<properties>
+        		<source>Administracion.ClienteEditService</source>
+        	</properties>
         </destination>
         
         <destination id="AddCirugiaService"> 
-                <properties>
-                        <source>Pabellon.AddCirugiaService</source>
-                </properties>
+        	<properties>
+            	<source>Pabellon.AddCirugiaService</source>
+            </properties>
         </destination>
 
         <destination id="ClienteElimPurgService"> 
@@ -101,16 +104,17 @@
                         <source>Administracion.ClienteElimPurgService</source>
                 </properties>
         </destination>
+        
         <destination id="AddPreOperatorioService"> 
-                <properties>
-                        <source>Pabellon.AddPreOperatorioService</source>
-                </properties>
+        	<properties>
+            	<source>Pabellon.AddPreOperatorioService</source>
+            </properties>
         </destination>
         
         <destination id="EditarCitaService"> 
-                <properties>
-                        <source>Administracion.EditarCitaService</source>
-                </properties>
+        	<properties>
+            	<source>Administracion.EditarCitaService</source>
+            </properties>
         </destination>
 		
 		<destination id="DeleteCitaService"> 
@@ -130,6 +134,7 @@
                         <source>Administracion.DelMascota</source>
                 </properties>
         </destination>
+        
         <destination id="AddCatalogo">
             <properties>
               <source>Peluqueria.AddCatalogo</source>
@@ -160,63 +165,70 @@
 			</properties>
 		</destination>
 
-  	<destination id="EditCirugiaService"> 
-  	 	<properties>
-  			<source>Pabellon.EditCirugiaService</source>
-  		</properties>
-  	</destination>
-	<destination id="PurgarMascota"> 
-  	 	<properties>
-  			<source>Administracion.PurgarMascota</source>
-  		</properties>
-  	</destination>
+  		<destination id="EditCirugiaService"> 
+  	 		<properties>
+  				<source>Pabellon.EditCirugiaService</source>
+  			</properties>
+  		</destination>
 	
-	<destination id="EliminarMascota"> 
-  	 	<properties>
-  			<source>Administracion.EliminarMascota</source>
-  		</properties>
-  	</destination>
+		<destination id="PurgarMascota"> 
+  	 		<properties>
+  				<source>Administracion.PurgarMascota</source>
+  			</properties>
+  		</destination>
 	
-	<destination id="AddVacunacionService"> 
-  	 	<properties>
-  			<source>Policlinico.AddVacunacionService</source>
-  		</properties>
-  	</destination>
+		<destination id="EliminarMascota"> 
+  	 		<properties>
+  				<source>Administracion.EliminarMascota</source>
+  			</properties>
+  		</destination>
+	
+		<destination id="AddVacunacionService"> 
+  	 		<properties>
+  				<source>Policlinico.AddVacunacionService</source>
+  			</properties>
+  		</destination>
   	
-	<destination id="GetAllControles"> 
-  	 	<properties>
-  			<source>Policlinico.GetAllControles</source>
-  		</properties>
-  	</destination>
+		<destination id="GetAllControles"> 
+  	 		<properties>
+  				<source>Policlinico.GetAllControles</source>
+  			</properties>
+  		</destination>
 
-	<destination id="VacunacionService"> 
-  	 	<properties>
-  			<source>Policlinico.VacunacionService</source>
-  		</properties>
-  	</destination>
+		<destination id="VacunacionService"> 
+  	 		<properties>
+  				<source>Policlinico.VacunacionService</source>
+  			</properties>
+  		</destination>
   	
-	 <destination id="AddControlService"> 
-  	 	<properties>
-  			<source>Policlinico.AddControlService</source>
-  		</properties>
-  	</destination>
+	 	<destination id="AddControlService"> 
+  	 		<properties>
+  				<source>Policlinico.AddControlService</source>
+  			</properties>
+  		</destination>
 
-   	<destination id="EditarMascotaService"> 
+   		<destination id="EditarMascotaService"> 
   	 	   <properties>
   			  <source>Administracion.EditarMascotaService</source>
   		   </properties>
-  	</destination>
+  		</destination>
 
-  	<destination id="AddConsultaService">
-		 <properties>
-  			<source>Administracion.AddConsultaService</source> 
-  		</properties>
-  	</destination>
+  		<destination id="AddConsultaService">
+			<properties>
+  				<source>Administracion.AddConsultaService</source> 
+  			</properties>
+  		</destination>
   	
-  	<destination id="DeleteControl">
-		 <properties>
-  			<source>Policlinico.DeleteControl</source> 
-  		</properties>
-  	</destination>
+  		<destination id="DeleteControl">
+			<properties>
+  				<source>Policlinico.DeleteControl</source> 
+  			</properties>
+  		</destination>
+  		
+  		<destination id="AddPeluqueriaService">
+            <properties>
+              <source>Peluqueria.AddPeluqueriaService</source>
+            </properties>
+        </destination>
 
 </service>
