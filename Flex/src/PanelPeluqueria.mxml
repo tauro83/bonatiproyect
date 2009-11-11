@@ -2,9 +2,10 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Opciones del módulo" borderColor="#15AD8F">
 	<mx:Accordion x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Peluquería" width="100%" height="100%">
-			<mx:LinkButton x="50" y="45" label="Anular" textAlign="left"/>
-			<mx:LinkButton x="50" y="80" label="Eliminar" textAlign="left"/>
+			<mx:LinkButton x="50" y="77" label="Anular" textAlign="left"/>
+			<mx:LinkButton x="50" y="112" label="Eliminar" textAlign="left"/>
 			<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" id="linkRegPel" click="{muestrarReg()}"/>
+			<mx:LinkButton x="50" y="45" label="Editar" textAlign="left" id="editRegPel" click="{editPel()}"/>
 		</mx:Canvas>
 		<mx:Canvas label="Catálogo" width="100%"  height="100%">
 			<mx:LinkButton x="50" y="10" label="Registrar" click="regcatalogo()" textAlign="left" id="regCatalogo"/>
@@ -47,6 +48,15 @@
          	this.visible = true;
          	Application.application.addPelu1.iniciarPanel();
          	Application.application.addPelu1.setVisible(true,false);
+         }
+         
+         private function editPel():void{
+         	
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	//Application.application.addPelu1.iniciarPanel();
+         	Application.application.editaPelu.setVisible(true,false);
+         
          }
          
          
