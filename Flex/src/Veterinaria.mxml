@@ -161,7 +161,6 @@
                 pelListaEspera2.setVisible(false,false);
 				pelNewAtencion2.setVisible(false,false);
                 ageNewCita2.setVisible(false,false);
-				pelNewCatalogo2.setVisible(false,false);
                 cliFindatencion2.setVisible(false,false);
 				cliFindVacuna2.setVisible(false,false);
                 cliNewAtencion2.setVisible(false,false);
@@ -454,8 +453,6 @@
 	</ns1:NuevaAtencion>
 	<ns1:Nueva_Cita x="241" y="134" id="ageNewCita2" visible="false">
 	</ns1:Nueva_Cita>
-	<ns1:NuevoCatalogo x="241" y="134" id="pelNewCatalogo2" visible="false">
-	</ns1:NuevoCatalogo>
 	<ns1:PanelBuscarAtencion x="241" y="134" id="cliFindatencion2" visible="false">
 	</ns1:PanelBuscarAtencion>
 	<ns1:PanelBuscarVacuna x="241" y="134" id="cliFindVacuna2" visible="false">
@@ -663,7 +660,6 @@
 	</ns1:EditCatalogo>
 	<ns1:EditCatalogoBusqueda 	x="241" y="134" id="editCatalogoBusqueda" visible="false">
 	</ns1:EditCatalogoBusqueda>
-	
 	<ns1:PanelPeluqueria x="0" y="134" id="panelPeluqueria" visible="false">
 	</ns1:PanelPeluqueria>
 	<ns1:GraficosPeluqueria x="241" y="134" id="graficosPeluqueria" visible="false">
