@@ -39,7 +39,8 @@
 				{nameT:"Configuar Vacunas"},
 				{nameT:"Editar Catalogo"},	
 				{nameT:"Eliminar Aviso"},
-				{nameT:"Retirar Mascota de Hotelería"}			
+				{nameT:"Retirar Mascota de Hotelería"},
+				{nameT:"Registrar Peluqueria"}			
 			]);
            	
            	/**
@@ -71,6 +72,7 @@
            		ediCatalogo.visible = false;
 				eliAviso.visible = false;
 				this.elimHotel.visible = false;
+				addpeluayu.visible = false;
            	}
            	
            	/**
@@ -168,7 +170,10 @@
 					break;
 					case "Retirar Mascota de Hotelería":
 						this.elimHotel.visible = true;
-						break;
+					break;
+					case "Registrar peluqueria":
+						this.addpeluayu.visible = true;
+					break;
 				}
            	}
            
@@ -241,5 +246,7 @@
 	</ns1:confVacunas>
 	<ns1:EliminarHoteleria x="345" y="50" visible="false" id="elimHotel">
 	</ns1:EliminarHoteleria>
+	<ns1:addPeluAyu x="345" y="50" id="addpeluayu" visible="false">
+	</ns1:addPeluAyu>
 
 </mx:TitleWindow>
