@@ -146,7 +146,7 @@
             	confUsuario.setVisible(false,false);
             	confMascota.setVisible(false,false);
             	panelClinicaPrincipal.setVisible(false,false);
-            	peluqueria.setVisible(false,false);
+            	peluqueria1.setVisible(false,false);
             	verFicha.setVisible(false,false);
             	visualizarFicha.setVisible(false,false);
             	panelPeluqueria.setVisible(false,false);
@@ -223,6 +223,9 @@
             	
             	addVacuna1.setVisible(false,true);
             	addVacuna.setVisible(false,false);
+            	
+            	addPelu1.setVisible(false,false);
+            	addPeluq.setVisible(false,false);
             	<!--Autor: }Jimmy Muñoz -->
             	
             	<!--Autor: Andres G.{-->
@@ -377,7 +380,7 @@
             private function verPanelPeluqueria( event:Event ):void
             {
             	setInvisible();
-            	peluqueria.setVisible(true,false);
+            	peluqueria1.setVisible(true,false);
             	panelPeluqueria.setVisible(true,false);
             }
             
@@ -663,7 +666,7 @@
 	</ns1:PanelPeluqueria>
 	<ns1:GraficosPeluqueria x="241" y="134" id="graficosPeluqueria" visible="false">
 	</ns1:GraficosPeluqueria>
-	<ns1:Peluqueria x="241" y="134" id="peluqueria" visible="false">
+	<ns1:Peluqueria x="241" y="134" id="peluqueria1" visible="false">
 	</ns1:Peluqueria>
 	
 	<!--Autor: } Camilo -->
@@ -708,5 +711,9 @@
 		</ns1:PanelClinica>
 		<ns5:EditarHoteleria x="241" y="134" visible="false" id="editarHoteleria">
 		</ns5:EditarHoteleria>
+		<peluqueria:AddPeluqueria1 x="241" y="133" id="addPelu1" visible="false">
+		</peluqueria:AddPeluqueria1>
+		<peluqueria:AddPeluqueria x="241" y="133" id="addPeluq" visible="false">
+		</peluqueria:AddPeluqueria>
 	<!--Autor: }Sebastian-->
 </mx:Application>
