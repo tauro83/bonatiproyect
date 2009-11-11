@@ -543,8 +543,8 @@
 	</ns1:EditarPostOperatorioDetalle>
 	<ns4:PurgarControl x="241" y="134" id="purgControl" visible="false">
 	</ns4:PurgarControl>
-	<ns1:ElminarHoteleria x="241" y="134" id="eliminarHoteleria" visible="false">
-	</ns1:ElminarHoteleria>
+	<ns5:ElminarHoteleria x="241" y="134" id="eliminarHoteleria" visible="false">
+	</ns5:ElminarHoteleria>
 	<ns1:PanelHoteleria x="241" y="134" id="panelHoteleria" visible="false">
 	</ns1:PanelHoteleria>
 	<!--Autor: andres}-->
