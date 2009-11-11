@@ -14,7 +14,7 @@ INSERT INTO atencionalojamiento(
             servicio, hora, fechaingreso, costo, responsable, cliente, mascota, 
             canil, fechasalida, comentario, diasestadia, eliminado)
     VALUES ('Hoteleria', '9:15:00', '16-10-2009', '5000', 'Claudio Bonati', '16298923 ', 'Laica', 
-            '1', '20-10-2009', 'Revisar heria en pata trasera derecha', '5', 'FALSE');
+            '1', '20-10-2009', 'Revisar herida en pata trasera derecha', '5', 'FALSE');
 
 INSERT INTO atencionalojamiento(
             servicio, hora, fechaingreso, costo, responsable, cliente, mascota, 
