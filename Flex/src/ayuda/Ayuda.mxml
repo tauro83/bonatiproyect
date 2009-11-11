@@ -40,6 +40,7 @@
 				{nameT:"Editar Catalogo"},	
 				{nameT:"Eliminar Aviso"},
 				{nameT:"Retirar Mascota de Hotelería"},
+				{nameT:"Editar Registro Peluquería"},
 				{nameT:"Registrar Peluqueria"}			
 			]);
            	
@@ -72,6 +73,7 @@
            		ediCatalogo.visible = false;
 				eliAviso.visible = false;
 				this.elimHotel.visible = false;
+				editPelu.visible = false;
 				addpeluayu.visible = false;
            	}
            	
@@ -174,6 +176,9 @@
 					case "Registrar peluqueria":
 						this.addpeluayu.visible = true;
 					break;
+					case "Editar Registro Peluquería":
+					    editPelu.visible = true;
+					break;
 				}
            	}
            
@@ -248,5 +253,8 @@
 	</ns1:EliminarHoteleria>
 	<ns1:addPeluAyu x="345" y="50" id="addpeluayu" visible="false">
 	</ns1:addPeluAyu>
+	
+	<ns1:ediPelu x="345" y="50" visible="false" id="editPelu">
+	</ns1:ediPelu>
 
 </mx:TitleWindow>
