@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Editar Catalogo" borderColor="#15AD8F">
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 10/11/09
+			// AUTOR: Camilo Verdugo
+			// Componente que posterior a la selecccion de un item del catalogo
+			// de cortes y baños, permite la modificacion de sus datos
+			//=======================================================================
+			// editCatalogo editCatalogoBusqueda
+			import mx.core.Application;
+			 
+			
+			
+			private function cancelar():void
+            {
+            	Application.application.setInvisible();
+            	this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+            }
+			
+
+		]]>
+	</mx:Script>
+	
+	
+	
+	
+	<mx:TextInput x="120" y="84" width="242" editable="true" displayAsPassword="false" text="Completo"/>
+	<mx:TextInput x="120" y="129" width="242" restrict="0-9" editable="true" text="$4500"/>
+	<mx:Label x="25" y="86" text="Nombre:"/>
+	<mx:Label x="25" y="35" text="Tipo:"/>
+	<mx:Label x="25" y="131" text="Precio:"/>
+	<mx:Label x="25" y="176" text="Descripción:"/>
+	<mx:TextArea x="120" y="175" height="125" width="242"/>
+	<mx:Button x="522" y="353" width="102" label="Editar" id="regCatalogo" enabled="false" click="" height="23" cornerRadius="6">
+	</mx:Button>
+	<mx:Button x="632" y="353" width="102" label="Cancelar" id="cancelarCatalogo" click="cancelar()" height="23" cornerRadius="6">
+	</mx:Button>
+	<mx:Label id="labelMessage" x="176" y="399" width="407" textAlign="center" fontWeight="bold" height="17"/>
+	<mx:TextInput x="120" y="33" width="242" editable="true" text="Baño"/>
+	
+</mx:Panel>
