@@ -230,5 +230,17 @@
               <source>Peluqueria.AddPeluqueriaService</source>
             </properties>
         </destination>
+        
+        <destination id="EliminarHoteleriaService">
+        	<properties>
+              <source>Administracion.EliminarHoteleriaService</source>
+            </properties>
+        </destination>
+        
+        <destination id="GetAllHoteleriaService">
+        	<properties>
+              <source>Administracion.GetAllHoteleriaService</source>
+            </properties>
+        </destination>
 
 </service>
