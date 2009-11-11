@@ -14,7 +14,11 @@
               <source>Administracion.AddUsuario</source>
             </properties>
         </destination>
-        
+        <destination id="GetCatalogos">
+            <properties>
+              <source>Peluqueria.GetCatalogos</source>
+            </properties>
+        </destination>
         <destination id="Configurar"> 
 	  	 	<properties>
 	  			<source>Configuracion.Configurar</source>
