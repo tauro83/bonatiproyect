@@ -5,8 +5,24 @@ CREATE TABLE Avisoweb
   telefono character(20),
   celular0 character(4),
   celular character(20),
-  asunto character(30),
+  asunto character(50),
   descripcion character(160) NOT NULL,
   estado boolean DEFAULT true,
   CONSTRAINT avisoweb_pkey PRIMARY KEY (nombre, asunto)
 )
+
+INSERT INTO Avisoweb(nombre,telefono0,telefono,celular0, celular,asunto,descripcion,estado)
+VALUES('Andrés Tapia','75','325432','09','2443646', 'venta de cachorros', 'Adorables cachorros de solo un mes', 'true');
+
+INSERT INTO Avisoweb(nombre,telefono0,telefono,celular0, celular,asunto,descripcion,estado)
+VALUES('Jose Fuentes','75','345456','09','7676674', 'compra de cachorros', 'Compro cachorros pastor alemán', 'true');
+
+INSERT INTO Avisoweb(nombre,telefono0,telefono,celular0, celular,asunto,descripcion,estado)
+VALUES('Pedro Reyes','75','334534','09','3343292', 'Cambio cachorrros poodle por san bernardo', 'SI hay interesados por favor contactar', 'true');
+
+INSERT INTO Avisoweb(nombre,telefono0,telefono,celular0, celular,asunto,descripcion,estado)
+VALUES('Francisca Poblete','75','656567','09','9754989', 'vendo cachorros cocker', 'interesados por favor contactar', 'true');
+
+INSERT INTO Avisoweb(nombre,telefono0,telefono,celular0, celular,asunto,descripcion,estado)
+VALUES('Daniel Gutierrez','75','343567','09','9876543', 'Venta de perros pastor alemán', 'Contactar al número o si no dirigirse a villota 34301', 'true');
+
