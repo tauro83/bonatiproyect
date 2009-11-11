@@ -205,8 +205,9 @@
 			public function regConsulta():void
 			{
 					Application.application.editarPelu.setVisible(false,false);
+					Application.application.editaPelUPdate.setVisible(true,false);
 					//newPeluUpdate.carga(newCPeluqueria);
-					Application.application.editarPeluUpdate.setVisible(true,false);
+					
 				if(dg.selectedItem){
 					var newPeluUpdate:EditarPeluqueriaUpdate = Application.application.editarPeluUpdate;
 					newCPeluqueria = new Peluqueria;
@@ -409,6 +410,13 @@
      		   this.reset();
      		   Application.application.panelClinicaPrincipal.setVisible(true,false);
      		}
+     		
+     		public function mira():void{
+     		
+     		  this.visible = false;
+     		  this.reset();
+     		  Application.application.editaPelUPdate.setVisible(true,false);
+     		}
      		public function reset():void{
      			consultas = new ArrayCollection();
      			inputClienteNombre.text = "";
@@ -439,12 +447,12 @@
 	        <mx:DataGridColumn dataField="costo" headerText="Costo" width="100"/>
 	    </mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="522" y="353" label="Visualizar" visible="true" id="registrar" click="{regConsulta()}" width="102" height="23"/>
 	<mx:Button x="632" y="353" label="Cancelar" width="103" id="cancelar" visible="true" height="23" click=" cancela()"/>
 	<mx:Label x="25" y="136" text="Registros:" width="112.75" fontWeight="bold"/>
 	<mx:Label x="25" y="38" text="Apellido:" width="64"/>
 	<mx:Label x="22" y="64" text="Mascotas:" fontWeight="bold" width="67"/>
 	<mx:Label x="22" y="87" text="Nombre:" width="55.75"/>
 	<mx:ComboBox id="dg2" x="90" y="85" width="177"></mx:ComboBox>
+	<mx:Button x="506" y="353" label="Visualizar" width="103" id="cancelar0" visible="true" height="23" click=" mira()"/>
 	
 </mx:Panel>
