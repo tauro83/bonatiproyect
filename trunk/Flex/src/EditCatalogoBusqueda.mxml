@@ -34,7 +34,7 @@
 			private function cancelar():void
             {
             	this.setVisible(false,false);
-				Application.application.peluqueria.setVisible(true,false);
+				Application.application.peluqueria1.setVisible(true,false);
             }
             
             private function cargarEditar():void

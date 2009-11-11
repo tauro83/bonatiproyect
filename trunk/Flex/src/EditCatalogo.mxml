@@ -15,7 +15,7 @@
 			
 			private function cancelar():void
             {
-				Application.application.peluqueria.setVisible(true,false);
+				Application.application.peluqueria1.setVisible(true,false);
 				this.setVisible(false,false);
             }
 			
