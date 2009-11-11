@@ -201,6 +201,8 @@
 				editConsultaUpdate.setVisible(false,false);
 				editConsulta.setVisible(false,false);
 				panelClinicaIni.setVisible(false,false);
+				editaPelu.setVisible(false,false);
+				editaPelUPdate.setVisible(false,false);
 				<!--Autor: }Raul Lopez -->
 				
 				<!--Autor: }Vitoxone {-->
@@ -715,5 +717,9 @@
 		</peluqueria:AddPeluqueria1>
 		<peluqueria:AddPeluqueria x="241" y="133" id="addPeluq" visible="false">
 		</peluqueria:AddPeluqueria>
+		<peluqueria:EditarPeluqueria x="241" y="134" visible="false" id="editaPelu">
+		</peluqueria:EditarPeluqueria>
+		<peluqueria:EditarPeluqueriaUpdate x="241" y="134" visible="false" id="editaPelUPdate">
+		</peluqueria:EditarPeluqueriaUpdate>
 	<!--Autor: }Sebastian-->
 </mx:Application>
