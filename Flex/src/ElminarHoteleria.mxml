@@ -145,7 +145,7 @@
 			<mx:DataGridColumn headerText="Comentarios" dataField="comentario" id="comentario" draggable="false"/>
 			</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="522" y="341" label="Eliminar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="522" y="341" label="Retirar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados" width="102" height="23" cornerRadius="6"/>
 	<mx:Button x="632" y="341" label="Cancelar" id="cancelar" toolTip="Cancela la operación" width="102" height="23" cornerRadius="6"/>
 	<mx:CheckBox x="129" y="41" id="todo" click="{selectAll()}">
 		<mx:toolTip>Seleccione todos los usuarios, en caso contrario ninguno</mx:toolTip>

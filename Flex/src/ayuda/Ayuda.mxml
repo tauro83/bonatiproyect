@@ -38,7 +38,8 @@
 				{nameT:"Configuar Usuarios"},
 				{nameT:"Configuar Vacunas"},
 				{nameT:"Editar Catalogo"},	
-				{nameT:"Eliminar Aviso"}			
+				{nameT:"Eliminar Aviso"},
+				{nameT:"Retirar Mascota de Hotelería"}			
 			]);
            	
            	/**
@@ -69,6 +70,7 @@
            		conVac.visible = false;
            		ediCatalogo.visible = false;
 				eliAviso.visible = false;
+				this.elimHotel.visible = false;
            	}
            	
            	/**
@@ -164,6 +166,9 @@
 					case "Configuar Vacunas":
 						conVac.visible = true;
 					break;
+					case "Retirar Mascota de Hotelería":
+						this.elimHotel.visible = true;
+						break;
 				}
            	}
            
@@ -234,6 +239,7 @@
 	</ns1:confUsuarios>
 	<ns1:confVacunas x="345" y="50" visible="false" id="conVac">
 	</ns1:confVacunas>
-
+	<ns1:EliminarHoteleria x="345" y="50" visible="false" id="elimHotel">
+	</ns1:EliminarHoteleria>
 
 </mx:TitleWindow>
