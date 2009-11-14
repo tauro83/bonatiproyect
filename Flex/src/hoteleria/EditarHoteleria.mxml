@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Registro Hoteleria" xmlns:ns1="com.adobe.flex.extras.controls.*">
+		 <mx:Script>
+        <![CDATA[
+        //=======================================================================
+		// FECHA CREACIÓN:  09/11/2009
+		// AUTOR: Sebastian Arancibia
+		// …. Componente de editar registro de hoteleria
+		//=======================================================================
+        	import mx.core.Application;
+        
+         	private function editarHoteleria():void{
+         		currentState="EditarHoteleria";
+         	}
+         	private function cancelarOperacion():void{
+         		if(this.currentState == "EditarHoteleria"){
+         			currentState = "";
+         		}
+         		else{
+         			this.visible = false;
+         			Application.application.panelHoteleria.visible = true;
+         			
+         		}
+         	}
+         
+         ]]>
+       
+    </mx:Script>
 	<mx:states>
 		<mx:State name="EditarHoteleria">
 			<mx:RemoveChild target="{Tabla}"/>
@@ -31,6 +57,10 @@
 				<mx:TextArea x="429" y="154" width="296" height="113"/>
 			</mx:AddChild>
 			<mx:SetProperty target="{responsable}" name="width" value="188"/>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="514" y="358" label="Guardar" cornerRadius="6" width="102" height="23" click="cancelarOperacion()"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{registrar}"/>
 		</mx:State>
 	</mx:states>
 	<mx:DataGrid x="22" y="186" width="705" id="Tabla" enabled="true" height="164">
@@ -64,5 +94,7 @@
 	</mx:ComboBox>
 	<mx:ComboBox id="dg2" x="112.75" y="85" width="188"></mx:ComboBox>
 	<ns1:AutoComplete x="112.75" y="32" width="188"/>
+	<mx:Button x="514" y="358" label="Editar" visible="true" id="registrar" click="editarHoteleria()" width="102" height="23"/>
+	<mx:Button x="624" y="358" label="Cancelar" width="103" id="cancelar" visible="true" height="23" click="cancelarOperacion()"/>
 	
 </mx:Panel>
