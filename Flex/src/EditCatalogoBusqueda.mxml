@@ -13,6 +13,7 @@
 			import services.GetCatalogos;
 			import mx.rpc.events.ResultEvent;
 			import mx.collections.ArrayCollection;
+			import transferObjects.CatPeluqueria;
 			
 			[Bindable]private var listCatalogos:ArrayCollection;
 			private var getCatServices:GetCatalogos;
@@ -20,6 +21,7 @@
 			
 			public function getAllCatalogo():void
 			{				
+				labelMessage.text = "";
 				getCatServices = new GetCatalogos();
 				getCatServices.getCatalogo();
 				getCatServices.addEventListener(ResultEvent.RESULT,getAllCatalogoR);
@@ -30,30 +32,44 @@
 				listCatalogos = event.result as ArrayCollection;	
 			}
 			
+			public function ediccionCorrecta():void
+			{
+				labelMessage.text = "Edito el catalogo con Exíto";
+			}
+			public function reset():void
+			{
+				labelMessage.text = "";
+			}
 			
 			private function cancelar():void
             {
+            	labelMessage.text = "";
             	this.setVisible(false,false);
 				Application.application.peluqueria1.setVisible(true,false);
             }
             
-            private function cargarEditar():void
+           
+            
+            private function editarCatalogo(event:Event):void
             {
-            	
-            	this.setVisible(false,false);
-				Application.application.editCatalogo.setVisible(true,false);
+            	if(cat.selectedItem){
+            		this.setVisible(false,false);            	 	
+            		Application.application.editCatalogo.cargarCatalogo(cat.selectedItem as CatPeluqueria);
+            		Application.application.editCatalogo.setVisible(true,false);
+            	}
             }
 		]]>
 	</mx:Script>
-	<mx:DataGrid x="25" y="38" width="709" height="305" id="fichas" dataProvider="{listCatalogos}"  >
+	<mx:DataGrid x="25" y="38" width="709" height="305" id="cat" dataProvider="{listCatalogos}"  >
 		<mx:columns>			
-			<mx:DataGridColumn headerText="Servicio"  dataField="nombre"/>
-			<mx:DataGridColumn headerText="Nombre"   dataField="rutCliente"/>
+			<mx:DataGridColumn headerText="Servicio"  dataField="servicio"/>
+			<mx:DataGridColumn headerText="Nombre"   dataField="nombre"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="25" y="10" text="Seleccione el corte o baño:" fontWeight="bold"/>
-	<mx:Button x="522" y="353" width="102" label="Editar" id="regCatalogo" enabled="true" click="cargarEditar()" height="23" cornerRadius="6">
+	<mx:Button x="522" y="353" width="102" label="Editar" id="regCatalogo" enabled="true" click="editarCatalogo(event)" height="23" cornerRadius="6">
 	</mx:Button>
 	<mx:Button x="632" y="353" width="102" label="Cancelar" id="cancelarCatalogo" click="cancelar()" height="23" cornerRadius="6">
 	</mx:Button>
+	<mx:Label id="labelMessage" x="176" y="399" width="407" textAlign="center" fontWeight="bold" height="17"/>
 </mx:Panel>

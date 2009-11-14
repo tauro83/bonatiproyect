@@ -11,6 +11,8 @@ package services
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
+	
+	import transferObjects.CatPeluqueria;
 		
 	public class GetCatalogos extends RemoteObject
 	{
@@ -33,7 +35,7 @@ package services
 		 * */
 		private function faultHandler(event:FaultEvent):void
 		{
-			Alert.show("Error en getFichas, Detalle: "+event.fault.message);
+			Alert.show("Error de conexion, Detalle: "+event.fault.message);
 		}
 		
 		/**
@@ -42,6 +44,11 @@ package services
 		public function getCatalogo():void
 		{
 			this.getOperation("getCatalogos").send();
+		}
+		
+		public function editCatalogo(cat:CatPeluqueria):void
+		{
+			this.getOperation("editCatalogo").send(cat);
 		}
 
 	}
