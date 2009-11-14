@@ -13,14 +13,12 @@
             <properties>
               <source>Administracion.AddUsuario</source>
             </properties>
-        </destination>
-        
+        </destination>        
         <destination id="GetCatalogos">
             <properties>
               <source>Peluqueria.GetCatalogos</source>
             </properties>
-        </destination>
-        
+        </destination>        
         <destination id="Configurar"> 
 	  	 	<properties>
 	  			<source>Configuracion.Configurar</source>
@@ -37,38 +35,32 @@
             <properties>
               <source>Administracion.UsuarioElimService</source>
             </properties>
-        </destination>
-    	
+        </destination>    	
     	<destination id="AddCliente">
             <properties>
               <source>Administracion.AddCliente</source>
             </properties>
     	</destination>
-
     	<destination id="DiaAgendaServices">
             <properties>
               <source>Agenda.DiaAgendaServices</source>
             </properties>
     	</destination>
-
     	<destination id="AddMascotaService">
             <properties>
               <source>Administracion.AddMascotaService</source>
             </properties>
     	</destination>
-
         <destination id="BusquedaService"> 
                 <properties>
                         <source>Administracion.BusquedaService</source>
                 </properties>
         </destination>
-        
         <destination id="AddCita">
             <properties>
               <source>Administracion.AddCita</source>
             </properties>
         </destination>
-
         <destination id="GetFichas">
             <properties>
               <source>Administracion.GetFichas</source>
