@@ -37,8 +37,11 @@
          {
          	Application.application.setInvisible();
          	this.visible = true;
+         	Application.application.editCatalogoBusqueda.getAllCatalogo();
             Application.application.panelPeluqueria.setVisible(true,false);
             Application.application.editCatalogoBusqueda.setVisible(true,false);
+            
+            
          }
          
          

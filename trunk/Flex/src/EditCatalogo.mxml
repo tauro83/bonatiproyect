@@ -11,33 +11,64 @@
 			//=======================================================================
 			// editCatalogo editCatalogoBusqueda
 			import mx.core.Application;
-			
+			import transferObjects.CatPeluqueria;
+			import services.GetCatalogos;
+			import mx.controls.Alert;
+			public var catService:GetCatalogos;
+			public var cat:CatPeluqueria = new CatPeluqueria();
+			public var catEnvio:CatPeluqueria;
 			
 			private function cancelar():void
             {
-				Application.application.peluqueria1.setVisible(true,false);
+				Application.application.editCatalogoBusqueda.setVisible(true,false);
+				Application.application.editCatalogoBusqueda.reset();
+				Application.application.editCatalogoBusqueda.getAllCatalogo();
 				this.setVisible(false,false);
             }
 			
-			
+			 public function cargarCatalogo(catalogo:CatPeluqueria):void
+			 {
+			 	this.cat 				= catalogo;
+			 	this.nom.text 			= catalogo.nombre;
+			 	this.prec.text			= "$"+ catalogo.precio;
+			 	this.des.text 			= catalogo.descripcion;
+			 	this.ser.text			= catalogo.servicio;
+			 }
+			 
+			 private function editCatalogo():void
+			 {
+			 	catEnvio				= new CatPeluqueria();
+			 	catService 				= new GetCatalogos();
+			 	
+			 	catEnvio.nombre 		= nom.text; 
+			 	catEnvio.descripcion 	= des.text
+			 	catEnvio.precio 		= prec.text;
+			 	catEnvio.servicio 		= ser.text;	
+			 	catService.editCatalogo(catEnvio);
+			 	this.setVisible(false,false);
+			 	Application.application.editCatalogoBusqueda.ediccionCorrecta();
+			 	Application.application.editCatalogoBusqueda.setVisible(true,false);
+			 	Application.application.editCatalogoBusqueda.getAllCatalogo();
+			 	
+			 }
 		]]>
 	</mx:Script>
 	
 	
 	
 	
-	<mx:TextInput x="120" y="84" width="242" editable="true" displayAsPassword="false" text="Completo"/>
-	<mx:TextInput x="120" y="129" width="242" restrict="0-9" editable="true" text="$4500"/>
+	<mx:TextInput x="120" y="84" width="242" editable="false" displayAsPassword="false" id="nom"/>
+	<mx:TextInput x="120" y="129" width="242" restrict="0-9" editable="true" id="prec" enabled="true"/>
 	<mx:Label x="25" y="86" text="Nombre:"/>
-	<mx:Label x="25" y="35" text="Tipo:"/>
+	<mx:Label x="25" y="35" text="Servicio:"/>
 	<mx:Label x="25" y="131" text="Precio:"/>
 	<mx:Label x="25" y="176" text="Descripción:"/>
-	<mx:TextArea x="120" y="175" height="125" width="242"/>
-	<mx:Button x="522" y="353" width="102" label="Editar" id="regCatalogo" enabled="true"  height="23" cornerRadius="6">
+	<mx:Button x="522" y="353" width="102" click="editCatalogo()" label="Editar" id="regCatalogo" enabled="true"  height="23" cornerRadius="6">
 	</mx:Button>
 	<mx:Button x="632" y="353" width="102" label="Cancelar" id="cancelarCatalogo" click="cancelar()" height="23" cornerRadius="6">
 	</mx:Button>
 	<mx:Label id="labelMessage" x="176" y="399" width="407" textAlign="center" fontWeight="bold" height="17"/>
-	<mx:TextInput x="120" y="33" width="242" editable="true" text="Baño"/>
+	<mx:TextInput x="120" y="33" width="242" editable="false" id="ser"/>
+	<mx:TextArea x="120" y="175" width="242" height="107" id="des" maxChars="160" editable="true"/>
 	
 </mx:Panel>
