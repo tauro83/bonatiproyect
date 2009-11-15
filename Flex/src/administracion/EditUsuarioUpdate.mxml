@@ -6,7 +6,7 @@
 		<![CDATA[
 		
 			//=======================================================================
-			// FECHA: CREACIÓN: 28 Septiembre
+			// FECHA: CREACIÓN: 28/09/09
 			// AUTOR: Jimmy Muñoz
 			// Comentarios: Formulario y validacion de la edicion de un usuario en el sistema.
 			//=======================================================================
@@ -28,11 +28,10 @@
 			
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Metodo que verifica si cada dato ingresado esta correcto,
+		 	 * 	Metodo que verifica si cada dato ingresado esta correcto,
 			 * para que en el caso de tener algun error, se informe al usuario, para que corrija dichos
-			 * errores.	 		
+			 * errores.	 
+			 * @author  "Jimmy Muñoz"		
 			 * */
 			public function itsOk():Boolean
 			{
@@ -77,10 +76,9 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Metodo que reinicia los campos de textos, tras una accion de cancelar
-			 * 	o regitrar satisfactoriamente a un usuario.		 		
+		 	 * 	 Metodo que reinicia los campos de textos, tras una accion de cancelar
+			 * 	o regitrar satisfactoriamente a un usuario.	
+			 * @author  "Jimmy Muñoz"	 		
 			 * */
 			public function resetVars():void
 			{
@@ -104,9 +102,8 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Validacion del nombre del usuario	 		
+		 	 * 	Validacion del nombre del usuario
+		 	 * @author  "Jimmy Muñoz"	 		
 			 * */
 			private function validarNombre(event:Event):void
 			{
@@ -121,9 +118,8 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Validacion del nombre con el cual el usuario se identificara en el sistema 		
+		 	 * 	Validacion del nombre con el cual el usuario se identificara en el sistema
+		 	 * @author  "Jimmy Muñoz" 		
 			 * */
 			private function validarUsuario(event:Event):void
 			{	
@@ -139,9 +135,8 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Validacion las propiedades de la contraseña		
+		 	 * 	Validacion las propiedades de la contraseña	
+		 	 * @author  "Jimmy Muñoz"	
 			 * */
 			private function validarContrasena(event:Event):void
 			{
@@ -156,9 +151,8 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion comprueba que las dos contraseñas ingresadas coincidan		
+		 	 *  comprueba que las dos contraseñas ingresadas coincidan
+		 	 * @author  "Jimmy Muñoz"		
 			 * */
 			private function validarRContrasena(event:Event):void
 			{
@@ -171,9 +165,8 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Realiza la opcion de elegir todos los privilegios tras seleccionar la opcion todos		
+		 	 * 	Realiza la opcion de elegir todos los privilegios tras seleccionar la opcion todos	
+		 	 * @author  "Jimmy Muñoz"	
 			 * */
 			private function todosLosPrivilegios(event:Event):void
 			{
@@ -193,9 +186,8 @@
 			}			
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Inicia los eventos de las entradas de texto que requieren revision		
+		 	 * 	Inicia los eventos de las entradas de texto que requieren revision	
+		 	 * @author  "Jimmy Muñoz"	
 			 * */
 			private function iniListener():void
 			{
@@ -209,9 +201,8 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Validacion del Apellido paterno del usuario	 		
+		 	 * 	Validacion del Apellido paterno del usuario	
+		 	 * @author  "Jimmy Muñoz"		
 			 * */
 			private function validarApaterno(event:Event):void
 			{
@@ -226,9 +217,8 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Validacion del Apellido materno del usuario	 		
+		 	 * 	Validacion del Apellido materno del usuario	 
+		 	 * @author  "Jimmy Muñoz"		
 			 * */
 			private function validarAmaterno(event:Event):void
 			{
@@ -243,9 +233,8 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Validacion del Apellido materno del usuario	 		
+		 	 * 	Validacion del Apellido materno del usuario
+		 	 * @author  "Jimmy Muñoz" 		
 			 * */
 			private function cancelando():void
 			{
@@ -256,9 +245,8 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  10 Octubre
-			 *  @Descripcion Validacion del Apellido materno del usuario	 		
+		 	 * 	Validacion del Apellido materno del usuario	
+		 	 * @author  "Jimmy Muñoz" 		
 			 * */
 			private function guardarCambios():void
 			{

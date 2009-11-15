@@ -51,12 +51,11 @@
 					
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  27 Octubre
-			 * Funcion que busca un cliente, en la base de datos, para esto primero verifica 
+		 	 * Funcion que busca un cliente, en la base de datos, para esto primero verifica 
 			 * si el rut esta ingresado correctamente, en caso de estar incorrecto lo informa por pantalla.
 			 * En caso contrario realiza las llamadas a la capa de java, la cual procesara la soliitud, y 
 			 * retornara si el cliente existe o no.
+			 * @author  "Jimmy Muñoz"
 			 * @param event Evento
 			 */
         	private function buscarCliente(event:Event):void{
@@ -76,10 +75,9 @@
         	}
         	
         	/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  27 Octubre
-			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddVacunaonService
+		 	 * Metodo que gestiona la comunicacion con la capa logica, a traves del servicio AddVacunaonService
 			 * el cual envia las solicitudes, y devuelve los resultados.
+			 * @author  "Jimmy Muñoz"
 			 */
         	private function getCliente(rutCliente:String):void{
 				var addvacService:AddVacunacionService = new AddVacunacionService();
@@ -89,11 +87,10 @@
 			
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  27 Octubre
-			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddvacunacionService
+		 	 * Metodo que gestiona la comunicacion con la capa logica, a traves del servicio AddvacunacionService
 			 * el cual envia las solicitudes, y devuelve los resultados. Se procesa el resultado del metodo 
 			 * anterior.
+			 * @author  "Jimmy Muñoz"
 			 * @param event Evento
 			 */
 			private function getClienteResult(event:ResultEvent):void{
@@ -113,10 +110,9 @@
 			}
         	
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  27 Octubre
-			* Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
+		 	* Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
 			* de la comunicacion con la capa logica.
+			 * @author  "Jimmy Muñoz"
 			* @param event Evento
 			*/
 	        private function ini():void{
@@ -129,10 +125,9 @@
         					
 					
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  27 Octubre
-			* Metodo que realiza la comunicacion a la capa logica a traves de AddVacunaService,
+		 	* Metodo que realiza la comunicacion a la capa logica a traves de AddVacunaService,
 			* solicitando todas las mascotas que le pertenescan a un determinado cliente.
+			 * @author  "Jimmy Muñoz"
 			*/
 			private function getMascotas():void{
 				var addvacService:AddVacunacionService = new AddVacunacionService();
@@ -141,11 +136,10 @@
 			}
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  27 Octubre
-			* Metodo que realiza la comunicacion a la capa logica a traves de AddVacunacionService,
+		 	* Metodo que realiza la comunicacion a la capa logica a traves de AddVacunacionService,
 			* solicitando todas las mascotas que le pertenescan a un determinado cliente. 
 			 * Se almacena el resultado del metodo anterior en la variable mascotas.
+			 * @author  "Jimmy Muñoz"
 			* @param event Evento
 			*/
 			private function getAddMascotasResult(event:ResultEvent):void{
@@ -154,10 +148,9 @@
 			
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  27 Octubre
-			* Metodo que se comunica con la capa logica, para obtener un listado con los nombres de los 
+		 	* Metodo que se comunica con la capa logica, para obtener un listado con los nombres de los 
 			* veterinarios esto lo hace a traves de la clase AddVacunacionService. 
+			 * @author  "Jimmy Muñoz"
 			*/
 			private function getTiposVeterinarios():void
 			{
@@ -167,10 +160,9 @@
 			}
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  27 Octubre
-			* Metodo que procesa el resultado del metodo anterior, almacenando la lista resultante en la 
+		 	* Metodo que procesa el resultado del metodo anterior, almacenando la lista resultante en la 
 			* variable vetesC. Que corresponde a la lista veterinarios que existen en el sistema.
+			 * @author  "Jimmy Muñoz"
 			* @param event Evento
 			*/
 			private function getTiposV(event:ResultEvent):void
@@ -180,11 +172,10 @@
 			
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  27 Octubre
-			* Metodo que procesa los datos ingresados en este panel, y muestra el panel 
+		 	* Metodo que procesa los datos ingresados en este panel, y muestra el panel 
 			* en donde se realiza el registro de vacuna, cargando los datos correspondientes, 
 			* para que el otro panel posea todos los datos.
+			 * @author  "Jimmy Muñoz"
 			*/
 			private function regVacu():void
 			{
@@ -226,9 +217,8 @@
 			}
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  27 Octubre
-			* Metodo que inicializa todos los valores y variables de este panel.
+		 	* Metodo que inicializa todos los valores y variables de este panel.
+		 	 * @author  "Jimmy Muñoz"
 			*/
 			public function iniciarPanel():void
 			{
@@ -249,9 +239,8 @@
 			}
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  27 Octubre
-			* Metodo que inicializa los valores de los tipos de vacunas, veterinarios y ayudantes.
+		 	* Metodo que inicializa los valores de los tipos de vacunas, veterinarios y ayudantes.
+		 	 * @author  "Jimmy Muñoz"
 			*/
 			public function iniciarPanel1():void
 			{
@@ -262,10 +251,9 @@
 			
 			
 			/**
-			*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
 			* Metodo que inicializa los valores de los clientes del sistema, para seleccionarlo 
 			 * ingresando su apellido. Llamando a la funcion de BusquedaService.
+			 * @author  "Jimmy Muñoz"
 			 */
 		   private function getAllClientes():void
 		   {
@@ -279,10 +267,9 @@
 		   }
 		   
 		   /**
-			*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
-			* Metodo que almacena el resultado del metodo anterior en el arraycollection cliente2.
+			*  Metodo que almacena el resultado del metodo anterior en el arraycollection cliente2.
 			* Y llama a la funcion concatena.
+			 * @author  "Jimmy Muñoz"
 			*/
 		   private function getAllClientesResult(event:ResultEvent):void
 		   {
@@ -291,10 +278,9 @@
 		   }
 		   
 		   /**
-			*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
 			* Metodo que concatena el apellido paterno, con el apellido materno, y el nombre, para mostrarlo 
 			* en el autocomplete, para buscar al cliente por el apellido.
+			 * @author  "Jimmy Muñoz"
 			*/
 		   private function concatena():void
 		   {
@@ -315,11 +301,10 @@
 		   }
 		   
 		   /**
-			*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
-			* Metodo que busca al cliente, al momento de soltar el autocomplete del apellido, 
+			*  Metodo que busca al cliente, al momento de soltar el autocomplete del apellido, 
 			 * procesando los datos, partiendo el texto, y guardandolo en el nombreN, apellidomN
 			 * y en apellidopN.
+			 * @author  "Jimmy Muñoz"@author  "Jimmy Muñoz"
 			 */
 		   private function buscarCliente2():void
 		   {
@@ -368,10 +353,9 @@
 		   
 		   
 		   /**
-		   	*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
-		   	* Función para obtener el dígito verificador, y para guardarlo en 
+		   	*  Función para obtener el dígito verificador, y para guardarlo en 
 		   	* el input dedicado a almacenar esa variable.
+		   	 * @author  "Jimmy Muñoz"
 			*/
 		   private function sacaDigito():void{        			
         			
@@ -420,9 +404,8 @@
      		}
      		
      		/**
-		   	*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
-		   	* Metodo que obtiene las vacunas desde la base de datos. Desde la clase configuracionServices.
+		   	*  Metodo que obtiene las vacunas desde la base de datos. Desde la clase configuracionServices.
+		   	 * @author  "Jimmy Muñoz"
 			*/
      		private function cargarDatos():void
      		{ 
@@ -431,10 +414,9 @@
      		} 
      		
      		/**
-		   	*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
 		   	* Metodo que obtiene obtiene el resultado del metodo anterior, que son las vacunas 
 		   	 * que se han registrado en el sistema.
+		   	 * @author  "Jimmy Muñoz"
 			*/
      		private function cargarDatosR(event:ResultEvent):void
      		{
@@ -442,9 +424,8 @@
      		}
      		
      		/**
-		   	*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
 		   	* Metodo que retorna al panel principal de clinica.
+		   	 * @author  "Jimmy Muñoz"
 			*/
      		private function vuelve():void
      		{
@@ -453,9 +434,8 @@
      		}
 			
 			/**
-		   	*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
 		   	* Metodo que permite, que la busqueda se realice mediante el ingreso del apellido.
+		   	 * @author  "Jimmy Muñoz"
 			*/
 			private function permite():void
      		{
@@ -464,9 +444,8 @@
      		
      		
      		/**
-		   	*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
 		   	* Metodo que quita el focus al rut o al nombre.
+		   	 * @author  "Jimmy Muñoz"
 			*/
      		private function focusSale():void
      		{
