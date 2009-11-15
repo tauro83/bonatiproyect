@@ -2,8 +2,8 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Opciones del módulo" borderColor="#15AD8F">
 	<mx:Accordion x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Peluquería" width="100%" height="100%">
-			<mx:LinkButton x="10" y="45" label="Anular" textAlign="left"/>
-			<mx:LinkButton x="10" y="75" label="Eliminar" textAlign="left"/>
+			<mx:LinkButton x="50" y="70" label="Anular" click="verAnularPeluqueria()" textAlign="left"/>
+			<mx:LinkButton x="50" y="100" label="Eliminar" click="verEliminarPeluqueria()" textAlign="left"/>
 		</mx:Canvas>
 		<mx:Canvas label="Catálogo" width="100%"  height="100%">
 			<mx:LinkButton x="10" y="10" label="Registrar" click="regcatalogo()" textAlign="left" id="regCatalogo"/>
@@ -39,11 +39,22 @@
          	this.visible = true;
          	Application.application.editCatalogoBusqueda.getAllCatalogo();
             Application.application.panelPeluqueria.setVisible(true,false);
-            Application.application.editCatalogoBusqueda.setVisible(true,false);
-            
-            
+            Application.application.editCatalogoBusqueda.setVisible(true,false); 
          }
          
+         private function verAnularPeluqueria():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.anularPel.visible = true;
+         }
+
+         private function verEliminarPeluqueria():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.eliminarPel.visible = true;
+         }  
          
 	 	]]>
     </mx:Script>
