@@ -30,11 +30,6 @@
 		public	var cl:Cliente;
 		private var vNombre:Boolean;
         private var vApellido:Boolean;
-        private var vApellido2:Boolean;
-        private var vCelular:Boolean;
-        private var vCelular2:Boolean;
-        private var vTelefono:Boolean;
-        private var vTelefono2:Boolean;
         private var vEmail:Boolean;
         private var vEmail2:Boolean;
         
@@ -134,7 +129,7 @@
 				if(rut.text!="" && rut2.text!=""&& valor==2 || rut.text=="" && rut2.text=="" ){
 					c= rw.Valida_Rut(rut.text,rut2.text);
 					if(c=="TRUE"){
-						labelMessage.text = " ";
+						labelMessage.text = "";
 					}
 					
 					else{
@@ -144,7 +139,13 @@
 									
 				}
 
+				if(telefono.text=="" && telefono2.text==""){
+					telefono.text="0";
+				}
 				
+				if(celular.text=="" && celular2.text==""){
+					celular.text="0";
+				}
 				
 				if(vNombre==true && vApellido==true && c=="TRUE"){
 				
@@ -297,16 +298,11 @@
             private function validaciones():void{
             	nombre.addEventListener(KeyboardEvent.KEY_UP,validarSoloString);
             	apellido.addEventListener(KeyboardEvent.KEY_UP,validarSoloString1);
-            	apellido2.addEventListener(KeyboardEvent.KEY_UP,validarSoloString2);
-            	celular.addEventListener(KeyboardEvent.KEY_UP,validarNumero);
-            	celular2.addEventListener(KeyboardEvent.KEY_UP,validarNumero2);
-            	telefono.addEventListener(KeyboardEvent.KEY_UP,validarNumero3);
-            	telefono2.addEventListener(KeyboardEvent.KEY_UP,validarNumero4);
             	email.addEventListener(KeyboardEvent.KEY_UP,validarEmail);
             	email2.addEventListener(KeyboardEvent.KEY_UP,validarEmail2);
             	nombre.addEventListener(MouseEvent.CLICK,validarNombre);
             	apellido.addEventListener(MouseEvent.CLICK,validarApellido);
-            	apellido2.addEventListener(MouseEvent.CLICK,validarApellido2);
+ 
             }
            
   		   /** 
@@ -357,28 +353,6 @@
 				}	
            }
            
-  		   /** 
-		   * Este metodo se encarga de comprobar que el apellido materno ingresado por el usuario
-		   * no sea inferior a un tamaño de dos para poder hacer una insercion correcta
-		   * de los datos.  
-		   * 
-		   * @author  "Nicolas Delgado"
-		   *
-		   */	
-           public function validarApellido2(event:Event):void{
-           	if(apellido2.text.length>2)
-				{
-					
-					vApellido2		= true;
-					labelMessage.text = "";
-				}
-				else
-				{
-					
-					vApellido2		= false;
-					labelMessage.text = "Ingrese el apellido materno mas largo";
-				}	
-           }
            
   		   /** 
 		   * Este metodo se encarga de comprobar que el nombre ingresado por el usuario
@@ -426,111 +400,7 @@
 				}	
             }
 
-  		     /** 
-		     * Este metodo se encarga de comprobar que el apellido materno ingresado por el usuario
-		     * no posea ningun tipo de caracter distinto a letras para poder hacer una 
-		     * insercion correcta de los datos.  
-		     * 
-		     * @author  "Nicolas Delgado"
-		     *
-		     */	             
-            private function validarSoloString2(event:Event):void{
-            	if(Validacion.sinNumero(apellido2.text)==true)
-				{
-					vApellido2		= true;
-					labelMessage.text = "";
-				}
-				else
-				{
-					vApellido2		= false;
-					labelMessage.text = "Ingrese Solamente Letras";
-				}	
-            }
-
-  		     /** 
-		     * Este metodo se encarga de comprobar que el celular ingresado por el usuario
-		     * no posea ningun tipo de caracter distinto a un digito para poder hacer una 
-		     * insercion correcta de los datos.  
-		     * 
-		     * @author  "Nicolas Delgado"
-		     *
-		     */	 
-             private function validarNumero(event:Event):void{
-            	if(Validacion.Numero(celular.text)==true)
-				{
-					vCelular		= true;
-					labelMessage.text = "";
-				}
-				else
-				{
-					vCelular		= false;
-					labelMessage.text = "Ingrese Solamente Numeros";
-				}	
-            }
-
-  		     /** 
-		     * Este metodo se encarga de comprobar que el celular ingresado por el usuario
-		     * no posea ningun tipo de caracter distinto a un digito para poder hacer una 
-		     * insercion correcta de los datos.  
-		     * 
-		     * @author  "Nicolas Delgado"
-		     *
-		     */	             
-            private function validarNumero2(event:Event):void{
-            	if(Validacion.Numero(celular2.text)==true)
-				{
-					vCelular2		= true;
-					labelMessage.text = "";
-				}
-				else
-				{
-					vCelular2		= false;
-					labelMessage.text = "Ingrese Solamente Numeros";
-				}	
-            }
-
-  		     /** 
-		     * Este metodo se encarga de comprobar que el telefono ingresado por el usuario
-		     * no posea ningun tipo de caracter distinto a un digito para poder hacer una 
-		     * insercion correcta de los datos.  
-		     * 
-		     * @author  "Nicolas Delgado"
-		     *
-		     */	             
-             private function validarNumero3(event:Event):void{
-            	if(Validacion.Numero(telefono.text)==true)
-				{
-					vTelefono		= true;
-					labelMessage.text = "";
-				}
-				else
-				{
-					vTelefono		= false;
-					labelMessage.text = "Ingrese Solamente Numeros";
-				}	
-            }
- 
-  		    /** 
-		    * Este metodo se encarga de comprobar que el telefono ingresado por el usuario
-		    * no posea ningun tipo de caracter distinto a un digito para poder hacer una 
-		    * insercion correcta de los datos.  
-		    * 
-		    * @author  "Nicolas Delgado"
-		    *
-		    */	             
-            private function validarNumero4(event:Event):void{
-            	if(Validacion.Numero(telefono2.text)==true)
-				{
-					vTelefono2		= true;
-					labelMessage.text = "";
-				}
-				else
-				{
-					vTelefono2			= false;
-					labelMessage.text = "Ingrese Solamente Numeros";
-				}	
-            }
-
+  		     
   		     /** 
 		     * Este metodo se encarga de comprobar que el email cumpla con todos los parametros 
 		     * correctos exigidos, sin que ningun caracter falte al momento del ingreso del un
@@ -679,39 +549,15 @@
 			{
 			
 			if(Check.selectedValue=="Antiguo"){
-	 		   c="TRUE";
-	 		   //labelMessage.text = "antiguo "+c;
-	 		  
+	 		   c="TRUE";	 		  
 	 		}
 			
 				
 			if(Check.selectedValue=="Nuevo"){
-				//rw.addEventListener(ResultEvent.RESULT,resultHandler);
-				//var c:String;	
-	 		  /*if(rut.text!="" && rut2.text!=""){
-					c= rw.Valida_Rut(rut.text,rut2.text);
-					//rw.addEventListener(ResultEvent.RESULT,resultHandler);
-					//c="TRUE";
-					if(c!="TRUE"){
-						labelMessage.text = " ";
-					}
-					
-					else{
-						labelMessage.text = "Ingrese el Rut";
-						limpiarRut();
-					}
-									
-				}*/
 				valor=2;
-				//labelMessage.text = "nuevo"+c;
-	 		}
-	 		
-
-	 		
+	 		}	 		
 	 		
 			}
-			
-
 		
 		]]>
 	</mx:Script>
@@ -726,7 +572,7 @@
 	
 	<!-- Apellido Materno -->
 	<mx:Label x="412" y="60" text="Apellido materno:" width="112" />
-	<mx:TextInput restrict="A-Z a-z" x="523" y="58" width="201" id="apellido2" click="validaciones()" maxChars="12"/>
+	<mx:TextInput restrict="A-Z a-z" x="523" y="58" width="201" id="apellido2"  maxChars="12"/>
 	
 	<!-- Rut -->	
 	<mx:Label x="24" y="112" text="Rut:" width="97"/>
@@ -736,20 +582,20 @@
 	
 	<!-- Telefono -->
 	<mx:Label x="24" y="158" text="Teléfono fijo:" width="97"/>
-	<mx:TextInput restrict="0-9" x="143" y="158" width="40" id="telefono" click="validaciones()" maxChars="3"/>
+	<mx:TextInput restrict="0-9" x="143" y="158" width="40" id="telefono" maxChars="3"/>
 	<mx:Label x="306" y="110" text="-" textAlign="center"/>
-	<mx:TextInput restrict="0-9" x="208" y="158" width="136" id="telefono2" click="validaciones()" maxChars="10"/>
+	<mx:TextInput restrict="0-9" x="208" y="158" width="136" id="telefono2"  maxChars="10"/>
 	
 		
     <!-- Celular -->
-	<mx:Label x="412" y="160" text="Celular:" click="validaciones()" width="97"/>
+	<mx:Label x="412" y="160" text="Celular:" width="97"/>
 	<mx:TextInput restrict="0-9" x="523" y="158" width="40" id="celular" maxChars="2"/>
 	<mx:Label x="187" y="160" text="-" textAlign="center"/>
-	<mx:TextInput restrict="0-9" x="582" y="158" width="142" id="celular2" click="validaciones()" maxChars="10"/>
+	<mx:TextInput restrict="0-9" x="582" y="158" width="142" id="celular2" maxChars="10"/>
 	
 	<!-- Direccion -->	
 	<mx:Label x="24" y="210" text="Dirección:" width="97"/>
-	<mx:TextInput  restrict="0-9 # A-Z a-z" x="143" y="208" width="201" id="direccion" maxChars="30"/>
+	<mx:TextInput  restrict="0-9 # A-Z a-z" x="143" y="208" width="201" id="direccion" maxChars="60"/>
 	
 	<!-- Regiones -->	
 	<mx:Label x="24" y="260" text="Región:" width="112"/>
