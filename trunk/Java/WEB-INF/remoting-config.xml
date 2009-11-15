@@ -240,5 +240,10 @@
   			  <source>Administracion.anularPeluqueria</source>
   		 </properties>
   	</destination>
+	<destination id="AECatPeluqueriaService">
+		 <properties>
+  			<source>Peluqueria.AECatPeluqueriaService</source> 
+  		</properties>
+  	</destination>
 
 </service>
