@@ -15,9 +15,12 @@ package services
 	import transferObjects.CatPeluqueria;
 		
 	public class GetCatalogos extends RemoteObject
-	{
-		
-			
+	{		
+		/** 
+		 *  Clase que gesitiona la conexion. Mediante el constructor
+		 *  Se instancia la conexion con la capa logica , indicando los datos del servidor. 
+		 * 	@author  "Camilo Verdugo"
+		*/		
 		public function GetCatalogos()
 		{
 			super();
@@ -31,7 +34,9 @@ package services
 		}
 		
 		/**
-		 * Muestra el mensaje de error
+		 * Muestra el mensaje de error en un popup
+		 * @author  "Camilo Verdugo"
+		 * 
 		 * */
 		private function faultHandler(event:FaultEvent):void
 		{
@@ -39,13 +44,18 @@ package services
 		}
 		
 		/**
-		 * Obtiene los catalogos
+		 * Obtiene los catalogos desde la capa logica
+		 * @author  "Camilo Verdugo"
+		 * 
 		 * */
 		public function getCatalogo():void
 		{
 			this.getOperation("getCatalogos").send();
 		}
-		
+		/** 
+		 *  Metodo que envia un catalogo editado a la capa 2
+		 * 	@author  "Camilo Verdugo"
+		*/
 		public function editCatalogo(cat:CatPeluqueria):void
 		{
 			this.getOperation("editCatalogo").send(cat);

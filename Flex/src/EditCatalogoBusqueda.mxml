@@ -8,39 +8,59 @@
 			// AUTOR: Camilo Verdugo
 			// Componente que lista todos los cortes y baños del sistema
 			//=======================================================================
-			//editCatalogo editCatalogoBusqueda
 			import mx.core.Application;
 			import services.GetCatalogos;
 			import mx.rpc.events.ResultEvent;
 			import mx.collections.ArrayCollection;
 			import transferObjects.CatPeluqueria;
+			import util.Properties; 
 			
 			[Bindable]private var listCatalogos:ArrayCollection;
 			private var getCatServices:GetCatalogos;
 			
-			
+			/** 
+         	 *  Metodo que obtiene todas los items del catalogo
+         	 *  Los cuales seran utilizados para seleccionarlos y luego editarlos.
+         	 * @author  "Camilo Verdugo"
+			 * */
 			public function getAllCatalogo():void
-			{				
-				labelMessage.text = "";
+			{	
 				getCatServices = new GetCatalogos();
 				getCatServices.getCatalogo();
-				getCatServices.addEventListener(ResultEvent.RESULT,getAllCatalogoR);
-							
+				getCatServices.addEventListener(ResultEvent.RESULT,getAllCatalogoR);							
 			}
+			/**
+			 *  Metodo que asigna el retorno del metodo anterior a una lista la cual sera cargada en
+			 *  el grid.
+			 * 	@author  "Camilo Verdugo"
+			 * */
 			public function getAllCatalogoR(event:ResultEvent):void
 			{				
 				listCatalogos = event.result as ArrayCollection;	
 			}
 			
+			/**
+			 *  Metodo que es llamada del panel de ediccion, una vez que la modificacion
+			 *  de los datos se haya registrado correctamente en la BD
+			 * 	@author  "Camilo Verdugo"
+			 * */
 			public function ediccionCorrecta():void
 			{
-				labelMessage.text = "Edito el catalogo con Exíto";
+				labelMessage.text = Properties.getMensaje("Informacion", "22");
 			}
+			/**
+			 *  Reinicia las variables
+			 * 	@author  "Camilo Verdugo"
+			 * */
 			public function reset():void
 			{
 				labelMessage.text = "";
 			}
 			
+			/**
+			 *  Retorna al panel anterior, en este caso al de opciones principal
+			 * 	@author  "Camilo Verdugo"
+			 * */
 			private function cancelar():void
             {
             	labelMessage.text = "";
@@ -48,14 +68,18 @@
 				Application.application.peluqueria1.setVisible(true,false);
             }
             
-           
-            
+            /**
+			 *  Llama al panel de ediccion con el objeto seleccionado y lo hace visible
+			 * 	@author  "Camilo Verdugo"
+			 * */            
             private function editarCatalogo(event:Event):void
             {
             	if(cat.selectedItem){
             		this.setVisible(false,false);            	 	
             		Application.application.editCatalogo.cargarCatalogo(cat.selectedItem as CatPeluqueria);
             		Application.application.editCatalogo.setVisible(true,false);
+            	}else{
+            		labelMessage.text = Properties.getMensaje("Advertencia", "22");
             	}
             }
 		]]>
