@@ -4,7 +4,7 @@
 	 <mx:Script>
         <![CDATA[
         	//=======================================================================
-			// FECHA CREACIÓN: 28 Octubre
+			// FECHA CREACIÓN: 28/10/09
 			// AUTOR: Esteban Cruz
 			// Ayuda del sistema para el usuario
 			//=======================================================================
@@ -16,6 +16,7 @@
             public var seleccionado:String;
 	        [Bindable]
 			public var titulos:ArrayCollection = new ArrayCollection ([
+				{nameT:"Anular Catálogo Peluquería"},
 				{nameT:"Anular Cirugía"},
 				{nameT:"Anular Vacunación"},
 				{nameT:"Eliminar Vacunación"},
@@ -31,6 +32,8 @@
 				{nameT:"Purgar Usuario"},
 				{nameT:"Editar Usuario"},
 				{nameT:"Editar Mascota"},
+				{nameT:"Eliminar Vacunación"},
+				{nameT:"Eliminar Catálogo Peluquería"},
 				{nameT:"Registrar Cirugía"},
 				{nameT:"Registrar Vacunación"},				
 				{nameT:"Configuar Servicios"},
@@ -77,6 +80,8 @@
 				editPelu.visible = false;
 				addpeluayu.visible = false;
 				ediHotel.visible = false;
+				eliCatPel.visible=false;
+           		anuCatPel.visible=false;
            	}
            	
            	/**
@@ -184,6 +189,12 @@
 					case "Editar Registro de Hotelería":
 						ediHotel.visible = true;
 					break;
+					case "Anular Catálogo Peluquería":
+						anuCatPel.visible=true;
+					break;
+					case "Eliminar Catálogo Peluquería":
+						eliCatPel.visible=true;
+					break;
 				}
            	}
            
@@ -258,10 +269,13 @@
 	</ns1:EliminarHoteleria>
 	<ns1:addPeluAyu x="345" y="50" id="addpeluayu" visible="false">
 	</ns1:addPeluAyu>
-	
 	<ns1:ediPelu x="345" y="50" visible="false" id="editPelu">
 	</ns1:ediPelu>
 	<ns1:EditHotel x="345" y="50" visible="false" id="ediHotel">
 	</ns1:EditHotel>
+	<ns1:eliCatPel x="345" y="50" visible="false" id="eliCatPel">
+	</ns1:eliCatPel>
+	<ns1:anuCatPel x="345" y="50" visible="false" id="anuCatPel">
+	</ns1:anuCatPel>
 
 </mx:TitleWindow>
