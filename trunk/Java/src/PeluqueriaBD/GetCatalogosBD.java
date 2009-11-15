@@ -18,6 +18,7 @@ public class GetCatalogosBD {
 	PreparedStatement selectAll;
 	Connection connection;
 	ResultSet result;	
+	
 	/**
 	 * Constructor de la clase
 	 * @param connection link establecido con la BD
@@ -28,11 +29,8 @@ public class GetCatalogosBD {
 	}
 	
 	/**
-	 * Obtiene los catalogos
-	 * @param
-	 * @param
-	 * @return
-	 * @throws
+	 * Obtiene los catalogos desde la BD
+	 * @return una lista de catalogos, la cual es llamda desde la capa 2
 	 */
 	public ArrayList<CatPeluqueria> getCatalgosBD() throws SQLException
 	{
@@ -66,6 +64,10 @@ public class GetCatalogosBD {
 	   	return catalogos;
 	}
 	
+	/**
+	 * Obtiene los catalogos desde la BD
+	 * @return una lista de catalogos, la cual es llamda desde la capa 2
+	 */
 	public void editCatalogoBD(CatPeluqueria c) throws SQLException
 	{
 		PreparedStatement insert;
