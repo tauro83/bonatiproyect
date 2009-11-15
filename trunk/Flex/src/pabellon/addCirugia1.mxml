@@ -2,6 +2,12 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registro Cirugía" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
         <![CDATA[
+        	//=======================================================================
+			// FECHA: CREACIÓN: 13/10/09
+			// AUTOR: jimmy muñoz
+			// Panel de selección de usuario, para proceder a editar los datos de éste.
+			//=======================================================================
+			
         	import mx.events.FlexEvent;
         	import transferObjects.ConfiguracionVacuna;
         	import transferObjects.Cliente;
@@ -49,12 +55,11 @@
 		    
 
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  13 Octubre
-			 * Funcion que busca un cliente, en la base de datos, para esto primero verifica 
+		 	 * 	Funcion que busca un cliente, en la base de datos, para esto primero verifica 
 			 * si el rut esta ingresado correctamente, en caso de estar incorrecto lo informa por pantalla.
 			 * En caso contrario realiza las llamadas a la capa de java, la cual procesara la soliitud, y 
 			 * retornara si el cliente existe o no.
+			 * @author  "Jimmy Muñoz"
 			 * @param event Evento
 			 */
         	private function buscarCliente(event:Event):void{
@@ -73,11 +78,10 @@
         	}
         	
         	/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  13 Octubre
-			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
+		 	 * 	Metodo que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
 			 * el cual envia las solicitudes, y devuelve los resultados.
-			 */
+			 * @author  "Jimmy Muñoz"
+			 */			 
         	private function getCliente(rutCliente:String):void{
 				var addMascotaService:AddCirugiaService = new AddCirugiaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
@@ -86,11 +90,10 @@
 			
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  13 Octubre
-			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
+		 	 * 	Metodo que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
 			 * el cual envia las solicitudes, y devuelve los resultados. Se procesa el resultado del metodo 
 			 * anterior.
+			 * @author  "Jimmy Muñoz"
 			 * @param event Evento
 			 */
 			private function getClienteResult(event:ResultEvent):void{
@@ -110,10 +113,9 @@
 			}
         	
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  13 Octubre
-			* Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
+		 	* 	Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
 			* de la comunicacion con la capa logica.
+			* @author  "Jimmy Muñoz"
 			* @param event Evento
 			*/
 	        private function ini():void{
@@ -126,10 +128,9 @@
         					
 					
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  13 Octubre
-			* Metodo que realiza la comunicacion a la capa logica a traves de AddCirugiaService,
+		 	* 	Metodo que realiza la comunicacion a la capa logica a traves de AddCirugiaService,
 			* solicitando todas las mascotas que le pertenescan a un determinado cliente.
+			* @author  "Jimmy Muñoz"
 			*/
 			private function getMascotas():void{
 				var addMascotaService:AddCirugiaService = new AddCirugiaService();
@@ -138,11 +139,10 @@
 			}
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  13 Octubre
-			* Metodo que realiza la comunicacion a la capa logica a traves de AddCirugiaService,
+		 	* 	Metodo que realiza la comunicacion a la capa logica a traves de AddCirugiaService,
 			* solicitando todas las mascotas que le pertenescan a un determinado cliente. 
-			 * Se almacena el resultado del metodo anterior en la variable mascotas.
+			* Se almacena el resultado del metodo anterior en la variable mascotas.
+			* @author  "Jimmy Muñoz"
 			* @param event Evento
 			*/
 			private function getAddMascotasResult(event:ResultEvent):void{
@@ -150,11 +150,10 @@
 			}
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  13 Octubre
-			* Metodo que realiza la comunicacion a la capa logica a traves de AddCirugiaService,
+		 	* 	Metodo que realiza la comunicacion a la capa logica a traves de AddCirugiaService,
 			* solicitando todos los tipos de cirugias, para que sean cargados al panel de registrar cirugia, 
-			 * para que se pueda seleccionar.
+			* para que se pueda seleccionar.
+			* @author  "Jimmy Muñoz"
 			*/		
 			private function getTiposCirugias():void
 			{
@@ -164,10 +163,9 @@
 			}
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  13 Octubre
-			* Metodo que procesa el resultado del evento anterior, almacenando la lista resultante en la 
+		 	* Metodo que procesa el resultado del evento anterior, almacenando la lista resultante en la 
 			* variable tiposC. Que corresponde a la lista de todas las cirugias que existen.
+			* @author  "Jimmy Muñoz"
 			* @param event Evento
 			*/
 			private function getTiposC(event:ResultEvent):void
@@ -177,10 +175,9 @@
 			
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  13 Octubre
-			* Metodo que se comunica con la capa logica, para obtener un listado con los nombres de los 
+		 	* Metodo que se comunica con la capa logica, para obtener un listado con los nombres de los 
 			* veterinarios esto lo hace a traves de la clase AddCirugiaService. 
+			* @author  "Jimmy Muñoz"
 			*/
 			private function getTiposVeterinarios():void
 			{
@@ -190,10 +187,9 @@
 			}
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  13 Octubre
-			* Metodo que procesa el resultado del metodo anterior, almacenando la lista resultante en la 
+		 	*  Metodo que procesa el resultado del metodo anterior, almacenando la lista resultante en la 
 			* variable vetesC. Que corresponde a la lista veterinarios que existen en el sistema.
+			* @author  "Jimmy Muñoz"
 			* @param event Evento
 			*/
 			private function getTiposV(event:ResultEvent):void
@@ -203,10 +199,9 @@
 			
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  13 Octubre
-			* Metodo que se comunica con la capa logica, para obtener un listado con los nombres de los 
+		 	* Metodo que se comunica con la capa logica, para obtener un listado con los nombres de los 
 			* veterinarios y ayudantes del sistema esto lo hace a traves de la clase AddCirugiaService. 
+			* @author  "Jimmy Muñoz"
 			*/
 			private function getTiposAyudantes():void
 			{
@@ -216,11 +211,10 @@
 			}
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  13 Octubre
-			* Metodo que procesa el resultado del metodo anterior, almacenando la lista resultante en la 
+		 	* Metodo que procesa el resultado del metodo anterior, almacenando la lista resultante en la 
 			* variable ayudantesC. Que corresponde a la lista de veterinarios y ayudantes que existen en 
-			 * el sistema.
+			* el sistema.
+			* @author  "Jimmy Muñoz"
 			* @param event Evento
 			*/
 			private function getTiposA(event:ResultEvent):void
@@ -230,11 +224,10 @@
 			
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  13 Octubre
-			* Metodo que procesa los datos ingresados en este panel, y muestra el panel 
+		 	* Metodo que procesa los datos ingresados en este panel, y muestra el panel 
 			* en donde se realiza el registro de cirugia, cargando los datos correspondientes, 
 			* para que el otro panel posea todos los datos.
+			* @author  "Jimmy Muñoz"
 			*/
 			private function regCiru():void
 			{
@@ -274,9 +267,8 @@
 			}
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  13 Octubre
-			* Metodo que inicializa todos los valores y variables de este panel.
+		 	* 	 Metodo que inicializa todos los valores y variables de este panel.
+		 	* @author  "Jimmy Muñoz"
 			*/
 			public function iniciarPanel():void
 			{
@@ -298,9 +290,8 @@
 			}
 			
 			/**
-		 	* 	@author  "Jimmy Muñoz"
-			* 	@Fecha  13 Octubre
-			* Metodo que inicializa los valores de los tipos de cirugias, veterinarios y ayudantes.
+		 	* Metodo que inicializa los valores de los tipos de cirugias, veterinarios y ayudantes.
+		 	* @author  "Jimmy Muñoz"
 			*/
 			public function iniciarPanel1():void
 			{
@@ -310,10 +301,9 @@
 			}
 			
 			/**
-			*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
-			* Metodo que inicializa los valores de los clientes del sistema, para seleccionarlo 
+			*  Metodo que inicializa los valores de los clientes del sistema, para seleccionarlo 
 			 * ingresando su apellido. Llamando a la funcion de BusquedaService.
+			 * @author  "Jimmy Muñoz"
 			 */
 		   private function getAllClientes():void
 		   {
@@ -327,10 +317,9 @@
 		   }
 		   
 		   /**
-			*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
 			* Metodo que almacena el resultado del metodo anterior en el arraycollection cliente2.
 			* Y llama a la funcion concatena.
+			 * @author  "Jimmy Muñoz"
 			*/
 		   private function getAllClientesResult(event:ResultEvent):void
 		   {
@@ -339,10 +328,9 @@
 		   }
 		   
 		   /**
-			*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
 			* Metodo que concatena el apellido paterno, con el apellido materno, y el nombre, para mostrarlo 
 			* en el autocomplete, para buscar al cliente por el apellido.
+			 * @author  "Jimmy Muñoz"
 			*/
 		   private function concatena():void
 		   {
@@ -360,11 +348,10 @@
 		   }
 		   
 		   /**
-			*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
-			* Metodo que busca al cliente, al momento de soltar el autocomplete del apellido, 
+			*   Metodo que busca al cliente, al momento de soltar el autocomplete del apellido, 
 			 * procesando los datos, partiendo el texto, y guardandolo en el nombreN, apellidomN
 			 * y en apellidopN.
+			 * @author  "Jimmy Muñoz"
 			 */
 		   private function buscarCliente2():void
 		   {
@@ -411,10 +398,9 @@
 		   }
 		   
 		   /**
-		   	*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
-		   	* Función para obtener el dígito verificador, y para guardarlo en 
+		   	*  Función para obtener el dígito verificador, y para guardarlo en 
 		   	* el input dedicado a almacenar esa variable.
+		   	 * @author  "Jimmy Muñoz"
 			*/
 		   private function sacaDigito():void{        			
         			
@@ -458,9 +444,8 @@
      		}
 		   	
 		   	/**
-		   	*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
 		   	* Metodo que retorna al panel principal de clinica.
+		   	 * @author  "Jimmy Muñoz"
 			*/
      		private function vuelve():void
      		{
@@ -469,9 +454,8 @@
      		}
 			
 			/**
-		   	*   @author  "Jimmy Muñoz"
-			* 	@Fecha  02 Noviembre
 		   	* Metodo que permite, que la busqueda se realice mediante el ingreso del apellido.
+		   	 * @author  "Jimmy Muñoz"
 			*/
 			private function permite():void
      		{
@@ -491,7 +475,7 @@
 	<mx:Label x="457.25" y="38" text="-" width="14.75" textAlign="center"/>
 	<fc:AutoComplete id="inputClienteNombre" typedTextChange="{getAllClientes()}" x="90" y="38" width="210" dataProvider="{clientes}" labelField="nombre" visible="true" enter="{focusSale()}" focusOut="{buscarCliente2()}"/>
 	<mx:TextInput  restrict="0-9" x="370" y="38" width="90" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="470" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
+	<mx:TextInput x="470" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)" enter="{focusSale()}"/>
 	
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente:" width="110" fontWeight="bold"/>

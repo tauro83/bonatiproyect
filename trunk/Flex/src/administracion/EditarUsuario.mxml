@@ -4,8 +4,8 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Usuario" x="241" y="133">
 	<mx:Script>
 		<![CDATA[
-		//=======================================================================
-			// FECHA: CREACIÓN: 21 Septiembre
+			//=======================================================================
+			// FECHA: CREACIÓN: 21/09/09
 			// AUTOR: jimmy muñoz
 			// Panel de selección de usuario, para proceder a editar los datos de éste.
 			//=======================================================================
@@ -30,11 +30,10 @@
 			public var newRegUsuar:EditUsuarioUpdate;
 					
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Metodo que obtiene los datos del datagrid, en el cual se muestran
+		 	 * 	Metodo que obtiene los datos del datagrid, en el cual se muestran
 			 * los datos de los usuarios, para procesar los datos del usuario seleccionado, esto 
-			 * enviandolo al panel EditUsuarioUpdate, dejandolo visible, y a este panel invisible.		 		
+			 * enviandolo al panel EditUsuarioUpdate, dejandolo visible, y a este panel invisible.
+			 * @author  "Jimmy Muñoz"		 		
 			 * */
 			public function editarUser(event:Event):void
 			{
@@ -93,11 +92,10 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Metodo que recibe el panel EditUsuario (newRegUsuar), para almacenarlo, 
+		 	 * 	 Metodo que recibe el panel EditUsuario (newRegUsuar), para almacenarlo, 
 			 * inicializa la variable personService, para poder llamar a los metodos de este
-			 * para lograr comunicarse con las clases y metodos de java.	 		
+			 * para lograr comunicarse con las clases y metodos de java.
+			 * @author  "Jimmy Muñoz"	 		
 			 * */
 			public function getAllUsuarios():void
 			{
@@ -110,11 +108,10 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+		 	 * 	Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
 			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
-			 * del datagrid, para mostrar los datos de los usuarios que existen en el sistema.	 		
+			 * del datagrid, para mostrar los datos de los usuarios que existen en el sistema.	 
+			 * @author  "Jimmy Muñoz"		
 			 * */
 			private function getAllUsuariosEResult(event:ResultEvent):void
 			{
@@ -125,12 +122,11 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Metodo que consulta si se cumple las devidas condiciones para editar un usuario, 
+		 	 * 	Metodo que consulta si se cumple las devidas condiciones para editar un usuario, 
 			 * llamando al metodo itsOk, si esto se cumple procesa los datos que fueron ingresados en el objeto
 			 *  person para ser eviados a los metodos de la clase person service, para enviarlos a las otras
-			 * capas, y guardar los cambios.		 		
+			 * capas, y guardar los cambios.
+			 * @author  "Jimmy Muñoz"		 		
 			 * */
 			public function insertUsuarioE():void
 			{
@@ -156,10 +152,9 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Metodo que recibe el resultado del metodo anterior, el cual actualiza los 
-			 * datos del usuario seleccionado, y verifica si se almaceno correctamente.		 		
+		 	 * 	Metodo que recibe el resultado del metodo anterior, el cual actualiza los 
+			 * datos del usuario seleccionado, y verifica si se almaceno correctamente.	
+			 * @author  "Jimmy Muñoz"	 		
 			 * */
 			private function insertUsuarioEResult(event:ResultEvent):void
 			{
@@ -176,10 +171,9 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
-			 * 	@Fecha  28 Septiembre
-			 *  @Descripcion Metodo que recibe el resultado del metodo anterior, el cual actualiza los 
-			 * datos del usuario seleccionado, y verifica si se almaceno correctamente.		 		
+		 	 * 	Metodo que recibe el resultado del metodo anterior, el cual actualiza los 
+			 * datos del usuario seleccionado, y verifica si se almaceno correctamente.
+			 * @author  "Jimmy Muñoz"		 		
 			 * */
 			private function cancelando():void
 			{

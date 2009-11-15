@@ -62,9 +62,9 @@
 		   	private function vuelve():void
 		    {
 		    	this.setVisible(false,false);
-		    	Application.application.addVacuna1.labelMessage.text="";
-		    	Application.application.addVacuna1.iniciarPanel1();
-		    	Application.application.addVacuna1.setVisible(true,false);
+		    	Application.application.addPelu1.labelMessage.text="";
+		    	Application.application.addPelu1.iniciarPanel1();
+		    	Application.application.addPelu1.setVisible(true,false);
 		    }
 		    
 		    /**
@@ -350,7 +350,7 @@
 	<mx:List x="450" y="200" width="284" height="135" id="serviciosList" dataProvider="{serviciosAdds}"></mx:List>
 	
 	<mx:Button x="522" y="353" label="Registrar" enabled="false" visible="true" id="registrar" click="registrarPeluqueria()" width="102" height="23"/>
-	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" visible="true" click="vuelve()" width="102" height="23"/>
+	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" visible="true" click="{vuelve()}" width="102" height="23"/>
 	<mx:Label x="450" y="50" text="Mascota:" width="63.95"/>
 	
 	<mx:Label x="25" y="50" text="Descripción:" width="86"/>
