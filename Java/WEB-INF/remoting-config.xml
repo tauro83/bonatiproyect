@@ -234,5 +234,11 @@
               <source>Administracion.GetAllHoteleriaService</source>
             </properties>
         </destination>
+  	
+<destination id="anularPeluqueria"> 
+  	 	 <properties>
+  			  <source>Administracion.anularPeluqueria</source>
+  		 </properties>
+  	</destination>
 
 </service>
