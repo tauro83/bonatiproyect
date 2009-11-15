@@ -570,10 +570,10 @@
 	<!--Autor: Esteban{ -->
 	<ns1:PeluqueriaIni x="241" y="134" id="peluqueriaIni" visible="false">
 	</ns1:PeluqueriaIni>
-	<ns6:AnuCatalogo x="240" y="133" visible="false" id="AnuCatalogo">
-	</ns6:AnuCatalogo>
-	<ns6:EliCatalogo x="240" y="133" visible="false" id="EliCatalogo">
-	</ns6:EliCatalogo>
+	<peluqueria:AnuCatalogo x="240" y="133" visible="false" id="AnuCatalogo">
+	</peluqueria:AnuCatalogo>
+	<peluqueria:EliCatalogo x="240" y="133" visible="false" id="EliCatalogo">
+	</peluqueria:EliCatalogo>
 	<ns4:Policlinico x="240" y="133" visible="false" id="policlinicoIni">
 	</ns4:Policlinico>
 	<ns4:vacunacionA x="240" y="133" visible="false" id="vacunacionA">
