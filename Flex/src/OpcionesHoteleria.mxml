@@ -12,6 +12,7 @@
 				Application.application.setInvisible();
 				this.visible = true;
 				Application.application.editarHoteleria.visible=true;
+				Application.application.editarHoteleria.iniciarPanel();
 			}
 			public function verEliminarHotel():void{
 				Application.application.setInvisible();
