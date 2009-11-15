@@ -41,6 +41,8 @@
 				<mensaje key="19">Ingrese Email Correctamente</mensaje>
 				<mensaje key="20">Ingrese un email que coincida con el anterior</mensaje>
 				<mensaje key="21">Ingrese el Rut</mensaje>
+				<mensaje key="22">Seleccione un Catalogo para editar</mensaje>
+				<mensaje key="23">Ingrese un precio máyor</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="Pregunta">
@@ -77,6 +79,7 @@
 				<mensaje key="19">Cambios realizados con éxito</mensaje>
 				<mensaje key="20">Ha cancelado la edición de datos</mensaje>
 				<mensaje key="21">Estadísticas por rango de fecha para Clinica</mensaje>
+				<mensaje key="22">Se ha editado el Catalogo exitosamente</mensaje>
 			</mensajes>
 		</tipoMensaje>			
 	</tipos>

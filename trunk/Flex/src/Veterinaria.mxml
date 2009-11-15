@@ -657,7 +657,7 @@
 	<!--Autor: Camilo{ -->
 
 	<ns1:EditCatalogo  x="241" y="134" id="editCatalogo"  visible="false">
-	</ns1:EditCatalogo>
+	</ns1:EditCatalogo>   
 	<ns1:EditCatalogoBusqueda 	x="241" y="134" id="editCatalogoBusqueda" visible="false">
 	</ns1:EditCatalogoBusqueda>
 	<ns1:PanelPeluqueria x="0" y="134" id="panelPeluqueria" visible="false">
