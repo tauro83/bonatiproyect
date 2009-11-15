@@ -243,6 +243,9 @@
             	<!--Autor: Andres G.}-->
             	
             	<!--Autor: Esteban{ -->
+            	peluqueriaIni.setVisible(false,false);
+            	AnuCatalogo.setVisible(false,false);
+         		EliCatalogo.setVisible(false,false);
             	purgCirugia.setVisible(false,false);
             	purgCirugiaV.setVisible(false,false);
             	login2.setVisible(false,false);
@@ -565,6 +568,12 @@
 	<!--Autor: }nicolas-->
 	
 	<!--Autor: Esteban{ -->
+	<ns1:PeluqueriaIni x="241" y="134" id="peluqueriaIni" visible="false">
+	</ns1:PeluqueriaIni>
+	<ns6:AnuCatalogo x="240" y="133" visible="false" id="AnuCatalogo">
+	</ns6:AnuCatalogo>
+	<ns6:EliCatalogo x="240" y="133" visible="false" id="EliCatalogo">
+	</ns6:EliCatalogo>
 	<ns4:Policlinico x="240" y="133" visible="false" id="policlinicoIni">
 	</ns4:Policlinico>
 	<ns4:vacunacionA x="240" y="133" visible="false" id="vacunacionA">
