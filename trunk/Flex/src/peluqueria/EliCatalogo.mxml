@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:fc="http://www.adobe.com/2006/fc" layout="absolute" width="779" height="466" borderColor="#15ad8f" title="Anular Catálogo">
+	<mx:Script>
+		<![CDATA[
+		//=======================================================================
+		// FECHA CREACIÓN: 10-11-09
+		// AUTOR: Esteban Cruz
+		// Comentario: Se encarga de buscar los catalogos que desea eliminar, 
+		// para ello una vez buscado de forma dinamica, los selecciona y 
+		// y luego se eliminan
+		//=======================================================================
+				
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+            import mx.core.Application;
+			
+			import transferObjects.CatPeluqueria;
+			import services.CatalogoService; 
+			[Bindable]
+			private var catalogos:ArrayCollection;
+			
+			
+			/**
+			 * Evento del boton "Volver", la cual redirige la página
+			 * a la estipulada por defecto
+			 * @author "Esteban Cruz"
+			 */
+			public function actionVolver():void
+			{
+            	this.visible=false;
+            	Application.application.peluqueriaIni.setVisible(true,false);
+			}
+			
+			/**
+			 * Se obtienen todos los catalogos que están registrados en 
+			 * la base de datos para ser mostrados dentro del datagrid
+			 * @author "Esteban Cruz"
+			 */
+			public function getAllCatalogos():void
+		    {
+		   		var catalogoService:CatalogoService = new CatalogoService();
+		   		catalogoService.addEventListener(ResultEvent.RESULT,getAllCatalogosResult);
+				catalogoService.getAllCatalogos();
+		    }
+		   
+		    /**
+			 * Una vez obtenidos todos los catalogos que están registrados 
+			 * en la base de datos, son mostrados dentro del datagrid
+			 * @author "Esteban Cruz"
+			 */
+		    public function getAllCatalogosResult(event:ResultEvent):void
+		    {
+		   		catalogos = event.result as ArrayCollection;
+		    }
+			
+			/**
+			 * Se eliminan los catalogos que están seleccionados en el
+			 * grid, desde la base de datos
+			 * @author "Esteban Cruz"
+			 */
+			public function eliminar(nombre:String, servicio:String):void
+			{
+				var cata:CatPeluqueria = new CatPeluqueria();
+				cata.nombre=nombre;
+				cata.servicio=servicio;
+				
+				var catalogoService:CatalogoService = new CatalogoService();
+				catalogoService.eliminar(cata);
+			}
+
+            /**
+			 * Mensaje para eliminar los catalogos que están seleccionados
+			 * en el grid, desde este mismo
+			 * @author "Esteban Cruz"
+			 */
+           	private function deleteRow():void 
+           	{
+				Alert.show("¿Está seguro que desea eliminar los catálogos? ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			}
+			
+			/**
+			 * Se eliminar los catalogos que están seleccionados en el
+			 * grid, desde este mismo
+			 * @author "Esteban Cruz"
+			 */
+			private function removeTaskRecord():void
+            {
+                var allRows:int = catalogos.length;
+                var cata:CatPeluqueria = new CatPeluqueria();
+                
+                for (var i:int = 0; i < allRows; i++){
+                    if (catalogos[i].sel)
+                	{
+                        cata = catalogos[i] as CatPeluqueria;
+                        eliminar(cata.nombre, cata.servicio);
+                        
+                        catalogos.removeItemAt(i);
+                        allRows = catalogos.length;
+                        tablaCatalogos.dataProvider = catalogos;
+                        i=-1;
+                    }   
+                }
+                barraMsj.text="Catálogos eliminados";              
+            }
+			
+			/**
+			 * Una vez seleccionado SÍ o NO en el mensaje
+			 * se llama a la función que elimina
+			 * @author "Esteban Cruz"
+			 */
+			private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+         	
+         	/**
+			 * Se seleccionan todos los catalogos existentes
+			 * en el grid
+			 * @author "Esteban Cruz"
+			 */
+         	private function selectAll():void{
+                var allRows:int = catalogos.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        catalogos[i].sel = true;
+                    else
+                        catalogos[i].sel = false;
+                }
+                tablaCatalogos.dataProvider = catalogos;
+            }
+            
+            /**
+			 * Se selecciona un tipo de filtro de búsqueda
+			 * @author "Esteban Cruz"
+			 */
+            private function seleccionarBusqueda (event:Event):void
+            {
+            	inputServicio.setVisible(false,false);
+            	inputNombre.setVisible(false,false);
+				textBuscar.setVisible(true, false);
+				getAllCatalogos();
+            	switch (combobox.selectedLabel)
+				{
+				case 'Nombre':		
+					inputNombre.setVisible(true,false);
+				break; 
+				case 'Servicio':
+					inputServicio.setVisible(true,false);
+				break;
+				}
+            } 
+           	
+		]]>
+	</mx:Script>
+	
+	<!-- Tabla con datos -->
+	<mx:DataGrid x="25" y="62" width="709" height="283" id="tablaCatalogos" dataProvider="{catalogos}" toolTip="Seleccione los catálogos que desea eliminar">
+		<mx:columns>
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>		
+			<mx:DataGridColumn width="100" headerText="Nombre" dataField="nombre" draggable="false"/>
+			<mx:DataGridColumn width="100" headerText="Servicio" dataField="servicio" draggable="false"/>
+			<mx:DataGridColumn width="80" headerText="Precio" dataField="precio" draggable="false"/>
+			<mx:DataGridColumn width="409" headerText="Descripción" dataField="descripcion" id="descripcion" draggable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:CheckBox x="25" y="36" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
+	<mx:Label x="47" y="36" text="Seleccionar todo"/>
+	
+	<!-- Elementos -->
+	<mx:Text x="535" y="10" text="Buscar" id="textBuscar" visible="false"/>
+	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
+	<mx:Button x="522" y="354" label="Eliminar" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Elimina los catalogos seleccionados"/>
+	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
+	<mx:Text x="25" y="10" id="textFiltrar" text="Filtrar por"/>
+	
+	<!-- Combobox -->
+	<mx:ComboBox x="91" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccionar-"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Servicio"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	
+   <!-- AutoComplete -->
+   <fc:AutoComplete id="inputNombre" x="584" y="8" width="150" dataProvider="{catalogos}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda"/>
+   <fc:AutoComplete id="inputServicio" x="584" y="8" width="150" dataProvider="{catalogos}" labelField="servicio" visible="false" toolTip="ingrese texto para búsqueda"/>
+</mx:Panel>
