@@ -13,7 +13,7 @@ package services
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
 	
-	import transferObjects.vacunacionesObj;
+	import transferObjects.Vacunacion;
 	/**
 	 * Clase encargada de realizar la conexión entre la capa
 	 * lógica y la interfaz gráfica
