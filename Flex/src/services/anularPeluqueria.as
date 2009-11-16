@@ -56,6 +56,11 @@ package services
 			this.getOperation("eliminar").send(estado);
 		}
 		
+		public function deseliminar(estado:String):void
+		{
+			this.getOperation("deseliminar").send(estado);
+		}
+		
 		/**
 		 * Se obtienen todas las vacunaciones que están registradas en la base de datos
 		 */ 
@@ -70,6 +75,11 @@ package services
 		public function getAllVacunacionesU(nombreMascota:String):void
 		{
 			this.getOperation("getAllVacunacionesU").send(nombreMascota);
+		}
+		
+		public function getAllVacunacionesA():void
+		{
+			this.getOperation("getAllVacunacionesA").send();
 		}
 	}
 }
