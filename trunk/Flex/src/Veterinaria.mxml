@@ -276,6 +276,7 @@
 		    	anularPel2.setVisible(false,false);
 		    	eliminarPel.setVisible(false,false);
 		    	eliminarPel2.setVisible(false,false);
+		    	deseliminarPel.setVisible(false,false);
 		 	<!--Autor: }Nicolas -->
 			
 		 		
@@ -698,6 +699,8 @@
 	</ns1:EliminarRegPeluqueria>	
 	<ns1:EliminarRegPeluqueria2 x="241" y="134" id="eliminarPel2" visible="false" borderColor="#15AD8F">
 	</ns1:EliminarRegPeluqueria2>	
+	<ns1:deseliminarPeluqueria x="241" y="134" id="deseliminarPel" visible="false" borderColor="#15AD8F">
+	</ns1:deseliminarPeluqueria>
 	
 	<!--Autor: }nicolas-->
 	
