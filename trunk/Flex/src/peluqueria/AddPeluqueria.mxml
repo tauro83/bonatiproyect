@@ -95,11 +95,17 @@
 		    				newPeluqueria.fecha = this.fechahoy.selectedDate;
 		    				var i:int;
 		    				var largo:int = this.serviciosAdds.length;
+		    				
 		    				newPeluqueria.tiposServicios = new ArrayCollection();
+		    				newPeluqueria.tiposNombres = new ArrayCollection();
 		    				for(i=0;i<largo;i++){
-		    					var cat1:CatPeluqueria = serviciosAdds.pop();
-		    					
-		    					newPeluqueria.tiposServicios.addItem("");
+		    					var textNom:String = serviciosAdds.pop();
+		    					var cat2:CatPeluqueria = new CatPeluqueria();
+		    					var listaCat:Array = textNom.split(" ",2);
+		    					cat2.nombre = listaCat.pop();
+		    					cat2.servicio = listaCat.pop();
+		    					newPeluqueria.tiposServicios.addItem(cat2.servicio);
+		    					newPeluqueria.tiposNombres.addItem(cat2.nombre);
 		    				}
 		    				newPeluqueria.descripcion = this.descripcionV.text;	
 		    				
@@ -109,9 +115,9 @@
 		    				var newAddServ:AddPeluqueriaService = new AddPeluqueriaService();
 		    				newAddServ.addPeluqueria(newPeluqueria);
 		    				this.setVisible(false,false);
-		    				Application.application.addVacuna1.iniciarPanel1();
-		    				Application.application.addVacuna1.labelMessage.text="Vacunación Registrada con éxito.";
-		    				Application.application.addVacuna1.setVisible(true,false);
+		    				Application.application.addPelu1.iniciarPanel1();
+		    				Application.application.addPelu1.labelMessage.text="Atención de peluqueria Registrada con éxito.";
+		    				Application.application.addPelu1.setVisible(true,false);
 							
 		    			}
 		    					

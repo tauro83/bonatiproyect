@@ -1,5 +1,6 @@
 package transferObjects
 {
+	import mx.collections.ArrayCollection;
 	[Bindable]
     [RemoteClass(alias="TransferObjects.Peluqueria")]
 	public class Peluqueria
@@ -8,10 +9,11 @@ package transferObjects
 		public var nombreMascota:String;
 		public var responsable:String;
 		public var servicio:String;
-		public var fecha:String;
+		public var fecha:Date;
 		public var costo:String;
 		public var descripcion:String;
-		
+		public var tiposServicios:ArrayCollection;
+		public var tiposNombres:ArrayCollection;
 
 	}
 }
