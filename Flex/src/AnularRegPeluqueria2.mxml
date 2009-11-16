@@ -31,6 +31,7 @@
 			{
             	Application.application.anularPel2.setVisible(false,false);
             	Application.application.anularPel.setVisible(true,false);
+            	Application.application.anularPel.limpiarTodo();
 			}
 			
 			/**
@@ -70,10 +71,10 @@
            	private function deleteRow():void 
            	{
          		if(motivo.text==""){
-         			Alert.show("Debe ingresar un motivo para anular la vacunación","Campo incompleto");
+         			Alert.show("Debe ingresar un motivo para anular el(los) registro(s) de peluquería","Campo incompleto");
          		}
          		else{
-					Alert.show("¿Está seguro que desea anular la(s) vacunacion(es)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+					Alert.show("¿Está seguro que desea anular el(los) registro(s) de peluquería? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
          		}
 			}
 			
@@ -99,7 +100,7 @@
                     }   
                 }
                 motivo.text="";
-                barraMsj.text="Vacunacion(es) anulada(s)";              
+                barraMsj.text="Registro(s) de peluquería eliminado";              
             }
 			
 			/**
@@ -141,6 +142,10 @@
                 }
                 tablaVacunaciones.dataProvider = vacunaciones;
             }
+            
+            public function limpiarTodo():void{
+            	todo.selected=false;
+            }
            	
 		]]>
 	</mx:Script>
@@ -154,11 +159,13 @@
                         </mx:Component>
              	</mx:itemRenderer>
             </mx:DataGridColumn>		
-			<mx:DataGridColumn width="90" headerText="Costo" dataField="costo" id="costo" draggable="false"/>
-			<mx:DataGridColumn width="200" headerText="Descripción" dataField="descripcion" id="descripcion" draggable="false"/>
-			<mx:DataGridColumn width="120" headerText="Servicio" dataField="servicio" id="servicio" draggable="false"/>
-			<mx:DataGridColumn width="120" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
-			<mx:DataGridColumn width="99" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>
+			<mx:DataGridColumn width="60" headerText="Costo" dataField="costo" id="costo" draggable="false"/>
+			<mx:DataGridColumn width="250" headerText="Descripción" dataField="descripcion" id="descripcion" draggable="false"/>
+			<mx:DataGridColumn width="70" headerText="Servicio" dataField="servicio" id="servicio" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>
+			<mx:DataGridColumn width="100" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
+			<mx:DataGridColumn width="130" headerText="Nombre Catalogo" dataField="nombreCatalogo" id="nombreCatalogo" draggable="false"/>		
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:CheckBox x="25" y="152" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
