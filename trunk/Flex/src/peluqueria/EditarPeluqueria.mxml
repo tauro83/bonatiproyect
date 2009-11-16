@@ -30,7 +30,7 @@
 		    import services.configuracionServices;
 		    import pabellon.EditCirugiaService;
 		    import pabellon.EditarConsultaService;
-		   
+		    import transferObjects.Peluqueria;
 			
 			[Bindable]
 			private var files:ArrayCollection=new ArrayCollection();
