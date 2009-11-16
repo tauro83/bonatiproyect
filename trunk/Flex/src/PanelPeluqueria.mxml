@@ -2,17 +2,18 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Opciones del módulo" borderColor="#15AD8F">
 	<mx:Accordion x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Peluquería" width="100%" height="100%">
-			<mx:LinkButton x="50" y="70" label="Anular" click="verAnularPeluqueria()" textAlign="left"/>
-			<mx:LinkButton x="50" y="100" label="Eliminar" click="verEliminarPeluqueria()" textAlign="left"/>
+			<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" id="linkRegPel" click="{muestrarReg()}"/>
+			<mx:LinkButton x="50" y="40" label="Anular" click="verAnularPeluqueria()" textAlign="left"/>
+			<mx:LinkButton x="50" y="70" label="Eliminar" click="verEliminarPeluqueria()" textAlign="left"/>
 		</mx:Canvas>
 		<mx:Canvas label="Catálogo" width="100%"  height="100%">
-			<mx:LinkButton x="10" y="10" label="Registrar" click="regcatalogo()" textAlign="left" id="regCatalogo"/>
-			<mx:LinkButton x="10" y="40" label="Editar" textAlign="left" click="EditCatalogo()" id="ediCatalogo"/>
+			<mx:LinkButton x="50" y="10" label="Registrar" click="regcatalogo()" textAlign="left" id="regCatalogo"/>
+			<mx:LinkButton x="50" y="40" label="Editar" textAlign="left" click="EditCatalogo()" id="ediCatalogo"/>
 			<mx:LinkButton x="50" y="70" label="Anular" click="anularCatalogo()"/>
-			<mx:LinkButton x="50" y="40" label="Eliminar" click="eliminarCatalogo()"/>
+			<mx:LinkButton x="50" y="100" label="Eliminar" click="eliminarCatalogo()"/>
 		</mx:Canvas>
 		<mx:Canvas label="Estadísticas" width="100%" height="100%">
-			<mx:LinkButton x="10" y="10" label="Estadísticas" click="estadisticasMes()" textAlign="left"/>
+			<mx:LinkButton x="50" y="10" label="Estadísticas" click="estadisticasMes()" textAlign="left"/>
 		</mx:Canvas>
 	</mx:Accordion>
 	 <mx:Script>
@@ -68,6 +69,13 @@
          	Application.application.setInvisible();
          	Application.application.panelPeluqueria.setVisible(true,false);
             Application.application.EliCatalogo.setVisible(true,false);
+         }
+         
+         private function muestrarReg():void{
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.addPelu1.iniciarPanel();
+         	Application.application.addPelu1.setVisible(true,false);
          }
          
 	 	]]>
