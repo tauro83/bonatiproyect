@@ -14,7 +14,7 @@
 			import administracion.EditClienteUpdate;
 			import administracion.EditCitaUpdate;
 			import administracion.UsuarioEditService;
-			
+			import transferObjects.Peluqueria;
 			import mx.events.CloseEvent;           
   			import flash.display.Sprite;
 		    import flash.events.*;
