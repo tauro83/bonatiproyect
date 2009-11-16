@@ -21,6 +21,8 @@ package transferObjects
 		public var hora:String;
 		public var fecha:String;
 		public var descripcion:String;
+		public var responsable:String;
+		public var nombreCatalogo:String;
 		public var estado:String;
 	}
 }
