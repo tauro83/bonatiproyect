@@ -55,6 +55,23 @@ public class anularPeluqueria {
 		return vacunaciones;
     }
 	
+	public List<anuPeluqueria> getAllVacunacionesA()
+    {
+		List<anuPeluqueria> vacunaciones = new ArrayList<anuPeluqueria>();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
+			vacunaciones = vacunacionBD.getAllVacunacionesA();
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return vacunaciones;
+    }
+	
 	/**
 	 * Anula todas las vacunaciones solicitadas por el usuario
 	 * de la base de datos
@@ -92,6 +109,23 @@ public class anularPeluqueria {
 			Connection connection=DBConnectionManager.getConnection();
 			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
 			result = vacunacionBD.eliminar(estado);
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+    	return result;
+    }
+	
+	public int deseliminar(String estado)
+    {
+		int result = 0;
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
+			result = vacunacionBD.deseliminar(estado);
 			connection.close();
 		} 
     	catch (SQLException e) 
