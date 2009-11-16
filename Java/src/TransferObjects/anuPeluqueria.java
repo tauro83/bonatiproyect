@@ -13,6 +13,8 @@ public class anuPeluqueria {
 	 private String descripcion;
 	 private String costo;
 	 private String estado;
+	 private String responsable;
+	 private String nombreCatalogo;
 	 
 	 public String getRutCliente() {
 		return rutCliente;
@@ -85,6 +87,18 @@ public class anuPeluqueria {
 	}
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
+	}
+	public void setResponsable(String responsable) {
+		this.responsable = responsable;
+	}
+	public String getResponsable() {
+		return responsable;
+	}
+	public void setNombreCatalogo(String nombreCatalogo) {
+		this.nombreCatalogo = nombreCatalogo;
+	}
+	public String getNombreCatalogo() {
+		return nombreCatalogo;
 	}
 	
 
