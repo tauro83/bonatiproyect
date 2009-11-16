@@ -1,8 +1,6 @@
 package TransferObjects;
 
-import java.util.ArrayList;
 import java.util.List;
-import TransferObjects.tiposCir;
 
 public class Cirugia {
 

@@ -19,7 +19,7 @@ create table peluqueria(
 	costo char(20),
 	descripcion CHAR(200),
 	estado Boolean default true,
-	constraint PK_peluqueriaR primary key (mascotaNombre,hora,clienteRut,fecha,servicio),
+	constraint PK_peluqueriaR primary key (mascotaNombre,hora,clienteRut,fecha,servicio,nombre),
 	CONSTRAINT PK_catalogo FOREIGN KEY (servicio, nombre)
       REFERENCES catpeluqueria (servicio, nombre) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION

@@ -1,14 +1,19 @@
 package TransferObjects;
 
+import java.sql.Date;
+import java.util.List;
+
 public class Peluqueria {
 	
 	private String rutCliente;
 	private String nombreMascota;
 	private String responsable;
 	private String servicio;
-	private String fecha;
+	private Date fecha;
 	private String costo;
 	private String descripcion;
+	private List<String> tiposServicios;
+	private List<String> tiposNombres;
 	
 	public void setRutCliente(String rutCliente) {
 		this.rutCliente = rutCliente;
@@ -34,10 +39,10 @@ public class Peluqueria {
 	public String getServicio() {
 		return servicio;
 	}
-	public void setFecha(String fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 	public void setCosto(String costo) {
@@ -51,6 +56,18 @@ public class Peluqueria {
 	}
 	public String getDescripcion() {
 		return descripcion;
+	}
+	public void setTiposServicios(List<String> tiposservicios) {
+		this.tiposServicios = tiposservicios;
+	}
+	public List<String> getTiposServicios() {
+		return tiposServicios;
+	}
+	public void setTiposNombres(List<String> tiposNombres) {
+		this.tiposNombres = tiposNombres;
+	}
+	public List<String> getTiposNombres() {
+		return tiposNombres;
 	}
 
 

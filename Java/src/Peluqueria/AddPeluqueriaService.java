@@ -13,17 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import AdministracionBD.UsuarioEditBD;
+import PeluqueriaBD.AddPeluqueriaBD;
+import PeluqueriaBD.GetCatalogosBD;
 import PoliclinicoBD.AddVacunacionBD;
+import TransferObjects.CatPeluqueria;
 import TransferObjects.Cliente;
-import TransferObjects.ConfiguracionVacuna;
 import TransferObjects.Mascota;
+import TransferObjects.Peluqueria;
 import TransferObjects.Usuario;
 import Bd.DBConnectionManager;
-import ConfiguracionBD.ConfigurarBD;
-import TransferObjects.Vacunacion;
 
 public class AddPeluqueriaService {
-	ArrayList<ConfiguracionVacuna> vacc = new ArrayList<ConfiguracionVacuna>();
+	ArrayList<CatPeluqueria> catalogoss = new ArrayList<CatPeluqueria>();
 	public List<Usuario> persons; //Lista en la cual se almacenan los datos de los usuarios del sistema.
 	/**
 	 * Metodo que llama a la funcion addPeluqueria, de la clase AddPeluqueriaDB, que se encuentra en el paquete 
@@ -38,15 +39,15 @@ public class AddPeluqueriaService {
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 * @throws SQLException 
 	 */
-	public int AddPeluqueria(Vacunacion nuevaVac) throws SQLException
+	public int AddPeluqueria(Peluqueria nuevaPel) throws SQLException
  {	
-		getConfiguracionVacuna();
+		getCatalogosPel();
 		/**
 		 * En este proceso se divide en nombre del veterinario y del ayudante para acceder a la base de
 		 * datos, para en los procesos posteriores procesar dicha informacion 
 		 */
 		this.getAllUsuariosE();
-		String nombreVet = nuevaVac.getVeterinario();
+		String nombreVet = nuevaPel.getResponsable();
 		String nombres[] = nombreVet.split(" ");
 		
 		
@@ -68,7 +69,7 @@ public class AddPeluqueriaService {
 			 * para ver cual es el veterinario correspondiente.			
 			 */
 			if(nombre.equals(nombres[0]) && nombre2.equals(nombres[1])){
-				nuevaVac.setVeterinario(u.getUsuario().trim());
+				nuevaPel.setResponsable(u.getUsuario().trim());
 			}
 		}
 		
@@ -80,8 +81,8 @@ public class AddPeluqueriaService {
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
-			AddVacunacionBD vacunaBd = new AddVacunacionBD(connection);
-			result = vacunaBd.addVacunacion(nuevaVac,vacc);		
+			AddPeluqueriaBD peluqBd = new AddPeluqueriaBD(connection);
+			result = peluqBd.addPeluqueria(nuevaPel,catalogoss);		
 			connection.close();
 		} catch (SQLException e) 
 		{
@@ -97,10 +98,10 @@ public class AddPeluqueriaService {
 	 * la capa ConfiguracionBD
 	 * @return una lista con todas las tuplas del tipo enviado como parametro
 	 */
-	public void getConfiguracionVacuna() throws SQLException{
+	public void getCatalogosPel() throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
-		ConfigurarBD conBD = new ConfigurarBD(connection);
-		vacc = conBD.getConfiguracionesVacunas();
+		GetCatalogosBD conBD = new GetCatalogosBD(connection);
+		catalogoss = conBD.getCatalgosBD();
 		connection.close();
 	}
 	
