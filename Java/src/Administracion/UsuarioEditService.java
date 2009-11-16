@@ -1,3 +1,10 @@
+//=======================================================================
+// FECHA CREACIÓN: 20/09/09
+// AUTOR:Jimmy Muñoz
+// Comenetario: Esta Clase desarrolla la conexion entre java y flex, enviando
+// y recibiendo datos.
+//======================================================================
+
 package Administracion;
 
 
@@ -14,9 +21,9 @@ public class UsuarioEditService
 {
 
 	/**
-	 * @autor Jimmy Muñoz
 	 * Metodo que llama a la funcion con el mismo nombre que se encuentra en la 
 	 * clase que se conecta con la base de datos.
+	 * @autor Jimmy Muñoz
 	 * @param Usuario contiene los datos de la persona que se quiere editar.
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
@@ -37,8 +44,8 @@ public class UsuarioEditService
     }
 
 	/**
-	 * Autor: Jimmy Muñoz
 	 * Solicita a la clase que se conecta con la base de datos, los datos de cada usuario.
+	 * @autor Jimmy Muñoz
 	 * @param
 	 * @return Lista con objetos de la clase Usuario
 	 */

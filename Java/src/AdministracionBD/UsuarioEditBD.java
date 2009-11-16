@@ -1,3 +1,10 @@
+//=======================================================================
+// FECHA CREACIÓN: 20/09/09
+// AUTOR:Jimmy Muñoz
+// Comenetario: Esta Clase desarrolla la conexion entre java y la base
+// de datos postgret en nuestreo caso, almacenando los datos de los usuarios, y recuperando datos.
+//======================================================================
+
 package AdministracionBD;
 
 import java.sql.Connection;
@@ -19,8 +26,8 @@ public class UsuarioEditBD
 
 	
 	/**
-	 * Autor: Jimmy Muñoz
 	 * Realiza las Querys para comunicarse con la base de datos.
+	 * @autor  Jimmy Muñoz
 	 * @param Connection, que permite conectarse con la base de datos.
 	 * @return void. Solo captura algun error si es que hubiera en la base de datos.
 	 */
@@ -52,8 +59,8 @@ public class UsuarioEditBD
 	
 	
 	/**
-	 * Autor: Jimmy Muñoz
 	 * Ingresa a una nueva persona a la base de datos
+	 * @autor  Jimmy Muñoz
 	 * @param person contiene los datos de la persona que se quiere ingresar
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
@@ -87,7 +94,7 @@ public class UsuarioEditBD
 	/**
 	 * Procesa los datos obtenidos de la base de datos para ser retornados a la capa 1
 	 * con los datos de cada usuario en el sistema.
-	 * @param 
+	 * @autor  Jimmy Muñoz
 	 * @return Una lista de objetos de la clase Usuario.
 	 */
     public List<Usuario> getAllUsuariosE()

@@ -1,3 +1,10 @@
+//=======================================================================
+// FECHA CREACIÓN: 27/10/09
+// AUTOR:Jimmy Muñoz
+// Comenetario: Esta Clase desarrolla la conexion entre java y la base
+// de datos postgret en nuestreo caso, almacenando los datos de los usuarios, y recuperando datos.
+//======================================================================
+
 package PoliclinicoBD;
 
 import java.sql.Connection;
@@ -26,7 +33,9 @@ public class AddVacunacionBD {
 	
 	/**
 	 * Constructor de AddCirugiaBD
-	 * En el cual se declaran las query, para realizar las diferentes acciones, tanto de solicitud, como de insercion.
+	 * En el cual se declaran las query, para realizar las diferentes acciones, 
+	 * tanto de solicitud, como de insercion.
+	 * @autor  Jimmy Muñoz
 	 * @param connection Enlace para la conexion a la base de datos
 	 */
 	public AddVacunacionBD(Connection connection){
@@ -54,12 +63,14 @@ public class AddVacunacionBD {
 	}
 	
 	/**
-	 * Autor: Jimmy Muñoz
-	 * Metodo que se comunica con la base de datos, en el cual se registra una nueva cirugia, para esto primero se
-	 * captura la hora del sistema, para realizar el registro, esto se almacena en la variable t.
-	 * Luego se prepara el statement add en el cual se le ingresan todos los datos para realizar la insercion en la cirugia.
-	 * Una vez completada la insercion anterior, se procede a insertar los diagnosticos, y los tipos de cirugia en la tabla 
-	 * diagnostico.
+	 * Metodo que se comunica con la base de datos, en el cual se registra una nueva cirugia, 
+	 * para esto primero se captura la hora del sistema, para realizar el registro, esto se 
+	 * almacena en la variable t.
+	 * Luego se prepara el statement add en el cual se le ingresan todos los datos para realizar
+	 * la insercion en la cirugia.
+	 * Una vez completada la insercion anterior, se procede a insertar los diagnosticos, y los 
+	 * tipos de cirugia en la tabla diagnostico.
+	 * @autor  Jimmy Muñoz
 	 * @param Cirugia, nuevaCir, que representa la cirugia que sera almacenada o registrada en la base de datos.
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
@@ -106,9 +117,9 @@ public class AddVacunacionBD {
     }
     
     /**
-	 * Autor: Jimmy Muñoz
 	 * Metodo que obtiene el costo que tiene una determinada vacuna. Y asigna el valor de caducidad 
 	 * para posteriormente generar el date que se almacenara.
+	 * @autor  Jimmy Muñoz
 	 * @param tc: el nombre de la vacuna que se quiere registrar. vacunas: listado de vacunas 
 	 * registradas en el sistema.
 	 * @return El costo de la vacuna, en formato String.
@@ -127,8 +138,8 @@ public class AddVacunacionBD {
     }
     
     /**
-	 * Autor: Jimmy Muñoz
 	 * Metodo que genera la fecha de caducidad, que corresponde a cada vacuna.
+	 * @autor  Jimmy Muñoz
 	 * @param fechaHoy, que es la fecha que fue seleccionada en la capa 1.
 	 * @return fechaCaducidad, que es la fecha que se obtuvo de agregarle la 
 	 * caducidad de la vacuna a la fecha actual.
@@ -151,9 +162,9 @@ public class AddVacunacionBD {
 	
     
     /**
-	 * Autor: Jimmy Muñoz
 	 * Metodo que se comunica con la base de datos, y que solicita todos los clientes existentes, y luego compara los rut,
 	 * para verificar si el cliente existe.
+	 * @autor  Jimmy Muñoz
 	 * @param El rut del cliente, en una varibale String..
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
@@ -181,10 +192,10 @@ public class AddVacunacionBD {
 	
     
     /**
-	 * Autor: Jimmy Muñoz
 	 * Metodo que se comunica con la base de datos, y que recibe los datos de las mascotas existentes en el sistema, 
 	 * que pertenecen al cliente, del rut ingresado, los cuales va añadiendo a un objeto de tipos Mascota, para luego 
 	 * se agregados a una lista del tipo Mascota.
+	 * @autor  Jimmy Muñoz
 	 * @param El rut del cliente del cual se quieren obtener las mascotas.
 	 * @return Lista con las mascotas del sistema que pertenecen a este cliente, esto en una lista de objetos Mascota.
 	 */

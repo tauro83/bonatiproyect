@@ -1,3 +1,10 @@
+//=======================================================================
+// FECHA CREACIÓN: 13/10/09
+// AUTOR:Jimmy Muñoz
+// Comenetario: Esta Clase desarrolla la conexion entre java y la base
+// de datos postgret en nuestreo caso, almacenando los datos de los usuarios, y recuperando datos.
+//======================================================================
+
 package PabellonBD;
 
 import java.sql.Connection;
@@ -23,7 +30,9 @@ public class AddCirugiaBD {
 	
 	/**
 	 * Constructor de AddCirugiaBD
-	 * En el cual se declaran las query, para realizar las diferentes acciones, tanto de solicitud, como de insercion.
+	 * En el cual se declaran las query, para realizar las diferentes acciones, tanto de solicitud, 
+	 * como de insercion.
+	 * @autor  Jimmy Muñoz
 	 * @param connection Enlace para la conexion a la base de datos
 	 */
 	public AddCirugiaBD(Connection connection){
@@ -55,12 +64,12 @@ public class AddCirugiaBD {
 	}
 	
 	/**
-	 * Autor: Jimmy Muñoz
 	 * Metodo que se comunica con la base de datos, en el cual se registra una nueva cirugia, para esto primero se
 	 * captura la hora del sistema, para realizar el registro, esto se almacena en la variable t.
 	 * Luego se prepara el statement add en el cual se le ingresan todos los datos para realizar la insercion en la cirugia.
 	 * Una vez completada la insercion anterior, se procede a insertar los diagnosticos, y los tipos de cirugia en la tabla 
 	 * diagnostico.
+	 * @autor  Jimmy Muñoz
 	 * @param Cirugia, nuevaCir, que representa la cirugia que sera almacenada o registrada en la base de datos.
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
@@ -118,9 +127,9 @@ public class AddCirugiaBD {
 	
     
     /**
-	 * Autor: Jimmy Muñoz
 	 * Metodo que se comunica con la base de datos, y que solicita todos los clientes existentes, y luego compara los rut,
 	 * para verificar si el cliente existe.
+	 * @autor  Jimmy Muñoz
 	 * @param El rut del cliente, en una varibale String..
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado.
 	 */
@@ -145,10 +154,10 @@ public class AddCirugiaBD {
     
     
     /**
-	 * Autor: Jimmy Muñoz
 	 * Metodo que se comunica con la base de datos, y que recibe los datos de las mascotas existentes en el sistema, 
 	 * que pertenecen al cliente, del rut ingresado, los cuales va añadiendo a un objeto de tipos Mascota, para luego 
 	 * se agregados a una lista del tipo Mascota.
+	 * @autor  Jimmy Muñoz
 	 * @param El rut del cliente del cual se quieren obtener las mascotas.
 	 * @return Lista con las mascotas del sistema que pertenecen a este cliente, esto en una lista de objetos Mascota.
 	 */
