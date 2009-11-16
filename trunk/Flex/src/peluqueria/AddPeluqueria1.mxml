@@ -24,6 +24,8 @@
 			import services.Validacion;
 			import Policlinico.AddVacunacionService;
 			import mx.controls.Alert;
+			import services.GetCatalogos;
+			import transferObjects.CatPeluqueria;
 			
 			[Bindable]
 		    public var clienteBD:Cliente;
@@ -55,8 +57,52 @@
 		      
 		   [Bindable]private var servicios:ArrayCollection;
 			private var confs:configuracionServices= new configuracionServices();
-
+			
+			[Bindable]private var listCatalogosP:ArrayCollection;
+			[Bindable]private var listCatP:ArrayCollection;
 					
+			/** 
+         	 *  Metodo que obtiene todas los items del catalogo
+         	 *  Los cuales seran utilizados para seleccionarlos y luego editarlos.
+         	 * @author  "Jimmy Muñoz"
+			 * */
+			public function getAllCatalogo():void
+			{	
+				var getCatServices:GetCatalogos = new GetCatalogos();
+				getCatServices.getCatalogo();
+				getCatServices.addEventListener(ResultEvent.RESULT,getAllCatalogoR);							
+			}
+			/**
+			 *  Metodo que asigna el retorno del metodo anterior a una lista la cual sera cargada en
+			 *  el grid.
+			 * 	@author  "Jimmy Muñoz"
+			 * */
+			public function getAllCatalogoR(event:ResultEvent):void
+			{				
+				listCatalogosP = event.result as ArrayCollection;	
+				concatenaCatP();
+			}
+			
+			/**
+			* Metodo que concatena el apellido paterno, con el apellido materno, y el nombre, para mostrarlo 
+			* en el autocomplete, para buscar al cliente por el apellido.
+		 	* 	@author  "Jimmy Muñoz"
+			*/
+		   private function concatenaCatP():void
+		   {
+		   		
+		   		var i:int;
+		   		var max:int = listCatalogosP.length;
+		   		var catalog:CatPeluqueria;
+		   		var catalog2:CatPeluqueria;
+		   		
+		   		for(i=0;i<max;i++){
+		   			catalog= listCatalogosP.getItemAt(i,0) as CatPeluqueria;
+		   			catalog2 = new CatPeluqueria();
+		   			catalog2.nombre = ""+catalog.servicio.split(" ",1).pop()+" "+catalog.nombre.split(" ",1).pop();
+		   			listCatP.addItem(catalog2);
+		   		}
+		   }
 			
 			/**
 			 * Funcion que busca un cliente, en la base de datos, para esto primero verifica 
@@ -204,14 +250,13 @@
 					nuevapeluqueria.clienteRut2=this.rutClienteDVInput.text;
 					nuevapeluqueria.veterinarios2=this.vetesS;
 					nuevapeluqueria.ayudantes2=this.ayudantesS;
-					nuevapeluqueria.ayudantes3=this.ayudantesS;
-										
+					nuevapeluqueria.ayudantes3=this.ayudantesS;				
 					var i:int;
-					var large:int = servicios.length;
+					var large:int = listCatP.length;
 					
 					for(i=0;i<large;i++){
-						var vac:ConfiguracionVacuna = this.servicios.getItemAt(i,0) as ConfiguracionVacuna;
-						var text2:String = vac.nombre;
+						var tipoPel:CatPeluqueria = this.listCatP.getItemAt(i,0) as CatPeluqueria;
+						var text2:String = tipoPel.nombre;
 
 						nuevapeluqueria.tiposServ1.push(text2);
 					}
@@ -241,11 +286,14 @@
 				editaP=true;
 				this.cargarDatos();
 				this.getTiposVeterinarios();
+				this.getAllCatalogo();
 				this.mascotas=new ArrayCollection();
 				this.dg.doubleClickEnabled=true;
 				this.labelMessage.text="";
 				this.rutClienteInput.text="";
-				this.rutClienteDVInput.text="";				
+				this.rutClienteDVInput.text="";
+				this.listCatP = new ArrayCollection();
+				this.listCatalogosP = new ArrayCollection();				
 			}
 			
 			/**

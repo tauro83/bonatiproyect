@@ -12,7 +12,7 @@ package peluqueria
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
 	
-	import transferObjects.Vacunacion;
+	import transferObjects.Peluqueria;
 
 
 	public class AddPeluqueriaService extends RemoteObject
@@ -48,9 +48,9 @@ package peluqueria
 		 	 * 	@author  "Jimmy Muñoz"
 			 * 	@Param Recibe como parametro un objeto de la clase Usuario, para enviarlo a la capa2. 		
 			 * */
-		public function addPeluqueria(vacuna:Vacunacion):void
+		public function addPeluqueria(peluqueria:Peluqueria):void
 		{
-			this.getOperation("addPeluqueria").send(vacuna);
+			this.getOperation("addPeluqueria").send(peluqueria);
 		}
 		
 		/**

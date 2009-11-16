@@ -678,8 +678,8 @@
 	</ns1:PanelPeluqueria>
 	<ns1:GraficosPeluqueria x="241" y="134" id="graficosPeluqueria" visible="false">
 	</ns1:GraficosPeluqueria>
-	<ns1:Peluqueria x="241" y="134" id="peluqueria1" visible="false">
-	</ns1:Peluqueria>
+	<ns1:PeluqueriaIni x="241" y="134" id="peluqueria1" visible="false">
+	</ns1:PeluqueriaIni>
 	
 	<!--Autor: } Camilo -->
 	
