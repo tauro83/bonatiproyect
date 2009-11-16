@@ -16,7 +16,7 @@
             import mx.rpc.events.ResultEvent;
             import mx.core.Application;
 			
-			import transferObjects.vacunacionesObj;
+			import transferObjects.Vacunacion;
 			import services.VacunacionService;
 			[Bindable]
 			private var vacunaciones:ArrayCollection;
@@ -83,13 +83,13 @@
 			private function removeTaskRecord():void
             {
                 var allRows:int = vacunaciones.length;
-                var vacu:vacunacionesObj = new vacunacionesObj();
+                var vacu:Vacunacion = new Vacunacion();
                 
                 for (var i:int = 0; i < allRows; i++){
                     if (vacunaciones[i].sel)
                 	{
-                        vacu = vacunaciones[i] as vacunacionesObj;
-                        anular(vacu.tipo);
+                        vacu = vacunaciones[i] as Vacunacion;
+                        //anular(vacu.tipo);
                         
                         vacunaciones.removeItemAt(i);
                         allRows = vacunaciones.length;
@@ -115,13 +115,13 @@
 			 * datos, y se insertan en los campos correspondientes
 			 * Cliente y Mascota
 			 */
-			public function setDatos(vacu:vacunacionesObj):void
+			public function setDatos(vacu:Vacunacion):void
 			{
-				getAllVacunacionesU(vacu.rutCliente);
-         		cNom.text=vacu.nombreCliente;
-         		cRut.text=vacu.rutCliente;
-         		cApP.text=vacu.apellidoPaterno;
-         		mNom.text=vacu.nombreMascota;
+				getAllVacunacionesU(vacu.clienteRut);
+         		cNom.text=vacu.clienteNombre;
+         		cRut.text=vacu.clienteRut;
+         		cApP.text=vacu.clienteApellido;
+         		mNom.text=vacu.mascotaNombre;
          		mRaz.text=vacu.raza;
          		mSex.text=vacu.sexo;
          	}

@@ -13,7 +13,7 @@
             import mx.rpc.events.ResultEvent;
             import mx.core.Application;
 			
-			import transferObjects.vacunacionesObj;
+			import transferObjects.Vacunacion;
 			import services.VacunacionService;
 			
 			[Bindable]
@@ -117,7 +117,7 @@
             {
             	if(tablaVacunaciones.selectedItem){
             		this.setVisible(false,false);            	 	
-            		Application.application.vacunacionE2.setDatos(tablaVacunaciones.selectedItem as vacunacionesObj);
+            		//Application.application.vacunacionE2.setDatos(tablaVacunaciones.selectedItem as vacunacionesObj);
             		Application.application.vacunacionE2.setVisible(true,false);
             	}
             }
@@ -149,20 +149,20 @@
 	<!-- Tabla con datos -->
 	<mx:DataGrid x="10" y="62" width="739" height="280" id="tablaVacunaciones" dataProvider="{vacunaicones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
 		<mx:columns>		
-			<mx:DataGridColumn headerText="Nombre" dataField="nombreCliente" id="nombreCliente" draggable="false"/>
-			<mx:DataGridColumn headerText="Apellido paterno" dataField="apellidoPaterno" id="apellidoPaterno" draggable="false"/>
-			<mx:DataGridColumn headerText="Rut" dataField="rutCliente" id="rutCliente" draggable="false"/>
-			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota" id="nombreMascota" draggable="false"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="clienteNombre" id="nombreCliente" draggable="false"/>
+			<mx:DataGridColumn headerText="Apellido paterno" dataField="clienteApellido" id="apellidoPaterno" draggable="false"/>
+			<mx:DataGridColumn headerText="Rut" dataField="clienteRut" id="rutCliente" draggable="false"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="mascotaNombre" id="nombreMascota" draggable="false"/>
 			<mx:DataGridColumn headerText="Raza" dataField="raza" id="raza" draggable="false"/>
 			<mx:DataGridColumn headerText="Sexo" dataField="sexo" id="sexo" draggable="false"/>
 		</mx:columns>
 	</mx:DataGrid>
 	
 	<!-- AutoComplete -->
-	<fc:AutoComplete id="inputNombreCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombreCliente" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="inputApellidoPaterno" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="apellidoPaterno" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="inputRutCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="rutCliente" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="inputNombreMascota" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombreMascota" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputNombreCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="clienteNombre" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputApellidoPaterno" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="clienteApellido" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputRutCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="clienteRut" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputNombreMascota" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="mascotaNombre" visible="false" toolTip="ingrese texto para búsqueda"/>
 	<fc:AutoComplete id="inputRaza" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="raza" visible="false" toolTip="ingrese texto para búsqueda"/>
 	<fc:AutoComplete id="inputSexo" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="sexo" visible="false" toolTip="ingrese texto para búsqueda"/>
 	
