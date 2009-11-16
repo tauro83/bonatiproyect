@@ -23,6 +23,7 @@
 		    import services.configuracionServices;
 			import services.Validacion;
 			import Policlinico.AddVacunacionService;
+			import mx.controls.Alert;
 			
 			[Bindable]
 		    public var clienteBD:Cliente;
@@ -33,11 +34,11 @@
 		    [Bindable]
 		    public var ayudantesS:ArrayCollection;
 		    [Bindable]
-			private var clientes:ArrayCollection = new ArrayCollection();
+			private var clientesP:ArrayCollection = new ArrayCollection();
 			[Bindable]
-			private var cliente2:ArrayCollection;
+			private var cliente2P:ArrayCollection;
 			[Bindable]
-			public var edita:Boolean;
+			public var editaP:Boolean;
 			[Bindable]
 			public var rutEnvi:String ="";
 		    [Bindable]
@@ -82,7 +83,7 @@
         	}
         	
         	/**
-			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio 
+			 * Metodo que gestiona la comunicacion con la capa logica, a traves del servicio 
 			 * AddVacunaonService el cual envia las solicitudes, y devuelve los resultados.
 		 	 * 	@author  "Jimmy Muñoz"
 			 */
@@ -94,7 +95,7 @@
 			
 			
 			/**
-			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio 
+			 * Metodo que gestiona la comunicacion con la capa logica, a traves del servicio 
 			 * AddvacunacionService el cual envia las solicitudes, y devuelve los resultados. 
 			 * Se procesa el resultado del metodo 
 			 * anterior.
@@ -109,8 +110,8 @@
         			
         		}
         		else{
-        			this.inputClienteNombre.text = clienteBD.apellido.split(" ",1).pop()+" "+clienteBD.apellido2.split(" ",1).pop()+" "+clienteBD.nombre.split(" ",1).pop();
-        			this.nomEnvi = this.inputClienteNombre.text;
+        			this.inputClienteNombreP.text = clienteBD.apellido.split(" ",1).pop()+" "+clienteBD.apellido2.split(" ",1).pop()+" "+clienteBD.nombre.split(" ",1).pop();
+        			this.nomEnvi = this.inputClienteNombreP.text;
         			this.rutEnvi = this.rutClienteInput.text;
         			labelMessage.text = "Se ha accedido al cliente "+clienteBD.nombre;
         			ini();
@@ -230,13 +231,14 @@
 			 */
 			public function iniciarPanel():void
 			{
+				this.clientesP = new ArrayCollection();
+				this.cliente2P = new ArrayCollection();
 				this.nomEnvi="";
 				this.rutEnvi="";
-				this.inputClienteNombre.text="";
-				this.inputClienteNombre.typedText="";
-				this.clientes = new ArrayCollection();
-				this.cliente2 = new ArrayCollection();
-				edita=true;
+				editaP=false;
+				this.inputClienteNombreP.text="";
+				this.inputClienteNombreP.typedText="";
+				editaP=true;
 				this.cargarDatos();
 				this.getTiposVeterinarios();
 				this.mascotas=new ArrayCollection();
@@ -263,14 +265,14 @@
 			 * ingresando su apellido. Llamando a la funcion de BusquedaService.
 		 	 * 	@author  "Jimmy Muñoz"
 			 */
-		   private function getAllClientes():void
+		   private function getAllClientesP():void
 		   {
-		   		if(edita){
+		   		if(editaP){
 		   			this.labelMessage.text="";
 		   			var busquedaService:BusquedaService = new BusquedaService();
-		   			busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
+		   			busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResultP);
 					busquedaService.getAllClientes();
-					this.edita=false;
+					this.editaP=false;
 		   		}
 		   }
 		   
@@ -279,10 +281,10 @@
 			 * Y llama a la funcion concatena.
 		 	 * 	@author  "Jimmy Muñoz"
 			 */
-		   private function getAllClientesResult(event:ResultEvent):void
+		   private function getAllClientesResultP(event:ResultEvent):void
 		   {
-		   		cliente2 = event.result as ArrayCollection;
-		   		concatena();
+		   		cliente2P = event.result as ArrayCollection;
+		   		concatenaP();
 		   }
 		   
 		   /**
@@ -290,20 +292,20 @@
 			* en el autocomplete, para buscar al cliente por el apellido.
 		 	* 	@author  "Jimmy Muñoz"
 			*/
-		   private function concatena():void
+		   private function concatenaP():void
 		   {
 		   		
 		   		var i:int;
-		   		var max:int = cliente2.length;
+		   		var max:int = cliente2P.length;
 		   		var cli:Cliente;
 		   		var cli2:Cliente;
 		   		
 		   		
 		   		for(i=0;i<max;i++){
-		   			cli= cliente2.getItemAt(i,0) as Cliente;
+		   			cli= cliente2P.getItemAt(i,0) as Cliente;
 		   			cli2 = new Cliente();
 		   			cli2.nombre = ""+cli.apellido+" "+cli.apellido2+" "+cli.nombre;
-		   			clientes.addItem(cli2);
+		   			clientesP.addItem(cli2);
 		   		}
 		   		
 		   }
@@ -316,16 +318,16 @@
 			*/
 		   private function buscarCliente2():void
 		   {
-		   	  if(this.nomEnvi != this.inputClienteNombre.text){
+		   	  if(this.nomEnvi != this.inputClienteNombreP.text){
 		   		dg.setFocus();
 		   		this.labelMessage.text="";
-		   		var nombre:String = inputClienteNombre.text;
-		   		if(inputClienteNombre.text != ""){
-		   			var largo:int = cliente2.length;
+		   		var nombre:String = inputClienteNombreP.text;
+		   		if(inputClienteNombreP.text != ""){
+		   			var largo:int = cliente2P.length;
 		   			var i:int;
 		   			var sss:Array;
 		   			
-		   			sss = inputClienteNombre.text.split(" ",3);
+		   			sss = inputClienteNombreP.text.split(" ",3);
 
 		   			
 		   			/**
@@ -340,11 +342,11 @@
 		   			 * encuentran en el arreglo de clientes.
 			 		*/
 		   			for(i=0;i<largo;i++){
-		   				var newCli:Cliente = cliente2.getItemAt(i,0) as Cliente;
+		   				var newCli:Cliente = cliente2P.getItemAt(i,0) as Cliente;
 		   				if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
 		   					this.rutClienteInput.text=newCli.rut.substring(0,8);
 		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
-		   					this.nomEnvi = this.inputClienteNombre.text;
+		   					this.nomEnvi = this.inputClienteNombreP.text;
         					this.rutEnvi = this.rutClienteInput.text;
 		   					sacaDigito();
 		   					ini();
@@ -352,7 +354,7 @@
 		   				}
 
 		   			}
-		   			this.inputClienteNombre.text=this.nomEnvi;
+		   			this.inputClienteNombreP.text=this.nomEnvi;
 		   			this.rutClienteInput.text=this.rutEnvi;
 		   		}
 		   	  }
@@ -447,7 +449,7 @@
 			*/
 			private function permite():void
      		{
-     			edita = true;
+     			editaP = true;
      		}
      		
      		
@@ -467,7 +469,7 @@
 	
 	<mx:Label x="330" y="38" text="Rut:" width="31"/>
 	<mx:Label x="458.25" y="38" text="-" width="14.75" textAlign="center"/>
-	<fc:AutoComplete id="inputClienteNombre" typedTextChange="{getAllClientes()}" x="90" y="38" width="210" dataProvider="{clientes}" labelField="nombre" visible="true" enter="{focusSale()}" focusOut="{buscarCliente2()}"/>
+	<fc:AutoComplete id="inputClienteNombreP" typedText="" typedTextChange="{getAllClientesP()}" x="90" y="38" width="210" dataProvider="{clientesP}" labelField="nombre" visible="true" enter="{focusSale()}" focusOut="{buscarCliente2()}"/>
 	<mx:TextInput  restrict="0-9" x="370" y="38" width="90" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
 	<mx:TextInput x="470" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="{buscarCliente(event)}" enter="{focusSale()}"/>
 	

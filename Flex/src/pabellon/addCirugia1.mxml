@@ -33,11 +33,11 @@
 		    [Bindable]
 		    public var ayudantesC:ArrayCollection;
 		    [Bindable]
-			private var clientes:ArrayCollection = new ArrayCollection();
+			private var clientesC:ArrayCollection = new ArrayCollection();
 		    [Bindable]
-			private var cliente2:ArrayCollection;
+			private var cliente2C:ArrayCollection;
 		    [Bindable]
-			public var edita:Boolean;
+			public var editaC:Boolean;
 			[Bindable]
 			public var rutEnvi:String ="";
 		    [Bindable]
@@ -104,8 +104,8 @@
         			
         		}
         		else{
-        			this.inputClienteNombre.text = clienteBD.apellido.split(" ",1).pop()+" "+clienteBD.apellido2.split(" ",1).pop()+" "+clienteBD.nombre.split(" ",1).pop();
-        			this.nomEnvi = this.inputClienteNombre.text;
+        			this.inputClienteNombreC.text = clienteBD.apellido.split(" ",1).pop()+" "+clienteBD.apellido2.split(" ",1).pop()+" "+clienteBD.nombre.split(" ",1).pop();
+        			this.nomEnvi = this.inputClienteNombreC.text;
         			this.rutEnvi = this.rutClienteInput.text;
         			labelMessage.text = "Se ha accedido al cliente "+clienteBD.nombre;
         			ini();
@@ -272,21 +272,24 @@
 			*/
 			public function iniciarPanel():void
 			{
+				this.clientesC = new ArrayCollection();
+				this.cliente2C = new ArrayCollection();
 				this.nomEnvi="";
 				this.rutEnvi="";
-				this.inputClienteNombre.text="";
-				this.inputClienteNombre.typedText="";
-				this.clientes = new ArrayCollection();
-				this.cliente2 = new ArrayCollection();
-				edita=true;
+				editaC=false;
+				this.inputClienteNombreC.text="";
+				this.inputClienteNombreC.typedText="";
+				this.rutClienteInput.text="";
+				this.rutClienteDVInput.text="";
+				editaC=true;
 				this.getTiposCirugias();
 				this.getTiposVeterinarios();
 				this.getTiposAyudantes();
 				this.mascotas=new ArrayCollection();
 				this.dg.doubleClickEnabled=true;
 				this.labelMessage.text="";
-				this.rutClienteInput.text="";
-				this.rutClienteDVInput.text="";
+							
+				
 			}
 			
 			/**
@@ -307,12 +310,12 @@
 			 */
 		   private function getAllClientes():void
 		   {
-		   		if(edita){
+		   		if(editaC){
 		   			this.labelMessage.text="";
 		   			var busquedaService:BusquedaService = new BusquedaService();
 		   			busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
 					busquedaService.getAllClientes();
-					this.edita=false;
+					this.editaC=false;
 				}		   		
 		   }
 		   
@@ -323,7 +326,7 @@
 			*/
 		   private function getAllClientesResult(event:ResultEvent):void
 		   {
-		   		cliente2 = event.result as ArrayCollection;
+		   		cliente2C = event.result as ArrayCollection;
 		   		concatena();
 		   }
 		   
@@ -335,15 +338,15 @@
 		   private function concatena():void
 		   {
 		   		var i:int;
-		   		var max:int = cliente2.length;
+		   		var max:int = cliente2C.length;
 		   		var cli:Cliente;
 		   		var cli2:Cliente;
 		   		
 		   		for(i=0;i<max;i++){
-		   			cli = cliente2.getItemAt(i,0) as Cliente;
+		   			cli = cliente2C.getItemAt(i,0) as Cliente;
 		   			cli2 = new Cliente();
 		   			cli2.nombre = ""+cli.apellido+" "+cli.apellido2+" "+cli.nombre;
-		   			clientes.addItem(cli2);
+		   			clientesC.addItem(cli2);
 		   		}
 		   }
 		   
@@ -355,17 +358,17 @@
 			 */
 		   private function buscarCliente2():void
 		   {
-		   		if(this.nomEnvi != this.inputClienteNombre.text){
+		   		if(this.nomEnvi != this.inputClienteNombreC.text){
 		   			dg.setFocus();
 		   			this.labelMessage.text="";
-		   			var nombre:String = inputClienteNombre.text;
+		   			var nombre:String = inputClienteNombreC.text;
 		   		
-		   			if(inputClienteNombre.text != "" || inputClienteNombre.selectedLabel != ""){
-		   				var largo:int = cliente2.length;
+		   			if(inputClienteNombreC.text != "" || inputClienteNombreC.selectedLabel != ""){
+		   				var largo:int = cliente2C.length;
 		   				var i:int;
 		   				var sss:Array;
 		   			
-		   				sss = inputClienteNombre.text.split(" ",3);
+		   				sss = inputClienteNombreC.text.split(" ",3);
 		   		
 		   				/**
 		   				 * obtiene los datos de la division del nombre seleccionado.
@@ -379,11 +382,11 @@
 		   				 * encuentran en el arreglo de clientes.
 			 			*/
 		   				for(i=0;i<largo;i++){
-		   					var newCli:Cliente = cliente2.getItemAt(i,0) as Cliente;
+		   					var newCli:Cliente = cliente2C.getItemAt(i,0) as Cliente;
 		   					if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
 		   						this.rutClienteInput.text=newCli.rut.substring(0,8);
 		   						labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
-		   						this.nomEnvi = this.inputClienteNombre.text;
+		   						this.nomEnvi = this.inputClienteNombreC.text;
         						this.rutEnvi = this.rutClienteInput.text;
 		   						sacaDigito();
 		   						ini();
@@ -391,7 +394,7 @@
 		   					}
 
 		   				}
-		   				this.inputClienteNombre.text=this.nomEnvi;
+		   				this.inputClienteNombreC.text=this.nomEnvi;
 		   				this.rutClienteInput.text=this.rutEnvi;
 		   			}
 		   		}
@@ -459,7 +462,7 @@
 			*/
 			private function permite():void
      		{
-     			edita = true;
+     			editaC = true;
      		}
 			
 			private function focusSale():void
@@ -473,7 +476,7 @@
 	
 	<mx:Label x="330" y="38" text="Rut:" width="31"/>
 	<mx:Label x="457.25" y="38" text="-" width="14.75" textAlign="center"/>
-	<fc:AutoComplete id="inputClienteNombre" typedTextChange="{getAllClientes()}" x="90" y="38" width="210" dataProvider="{clientes}" labelField="nombre" visible="true" enter="{focusSale()}" focusOut="{buscarCliente2()}"/>
+	<fc:AutoComplete id="inputClienteNombreC" x="90" y="38" typedTextChange="{getAllClientes()}" width="210" dataProvider="{clientesC}" labelField="nombre" visible="true" enter="{focusSale()}" focusOut="{buscarCliente2()}"/>
 	<mx:TextInput  restrict="0-9" x="370" y="38" width="90" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
 	<mx:TextInput x="470" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)" enter="{focusSale()}"/>
 	
