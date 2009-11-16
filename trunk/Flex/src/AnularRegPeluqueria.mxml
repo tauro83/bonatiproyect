@@ -8,7 +8,7 @@
             import mx.rpc.events.ResultEvent;
             import mx.core.Application;
 			import services.anularPeluqueria;
-			import transferObjects.vacunacionesObj;
+			
 			
 			[Bindable]
 			private var vacunaicones:ArrayCollection;
