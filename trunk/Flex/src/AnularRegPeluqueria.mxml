@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Anular Registro Peluquería" xmlns:fc="http://www.adobe.com/2006/fc" borderColor="#15ad8f">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Anular Registro Peluquería" xmlns:fc="http://www.adobe.com/2006/fc" borderColor="#15AD8F">
 		 <mx:Script>
         <![CDATA[
         	import transferObjects.anuPeluqueria;   
@@ -55,6 +55,19 @@
 				}
             }
             
+            public function limpiarTodo():void{
+            	inputSexo.setVisible(false,false);
+            	inputRaza.setVisible(false,false);
+            	inputNombreMascota.setVisible(false,false);
+            	inputRutCliente.setVisible(false,false);
+            	inputApellidoPaterno.setVisible(false,false);
+            	inputNombreCliente.setVisible(false,false);
+            	combobox.selectedItem="-Seleccionar-";
+            	textBuscar.setVisible(false,false);
+            	this.vacunaicones = new ArrayCollection();
+          
+            }
+            
             /**
 			 * Se obtienen todas las vacunaciones que están registradas en 
 			 * la base de datos para ser mostrados dentro del datagrid
@@ -97,7 +110,7 @@
 			private function volver():void
             {
             	this.setVisible(false,false);
-            	Application.application.policlinicoIni.setVisible(true,false);
+            	Application.application.peluqueriaIni.setVisible(true,false);
             }
             
 	 	]]>
