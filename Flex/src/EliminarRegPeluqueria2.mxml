@@ -29,8 +29,9 @@
 			 */
 			public function actionVolver():void
 			{
-            	Application.application.anularPel2.setVisible(false,false);
-            	Application.application.anularPel.setVisible(true,false);
+            	Application.application.eliminarPel2.setVisible(false,false);
+            	Application.application.eliminarPel.setVisible(true,false);
+            	Application.application.eliminarPel2.limpiarTodo();
 			}
 			
 			/**
@@ -69,12 +70,8 @@
 			 */
            	private function deleteRow():void 
            	{
-         		if(motivo.text==""){
-         			Alert.show("Debe ingresar un motivo para anular la vacunación","Campo incompleto");
-         		}
-         		else{
-					Alert.show("¿Está seguro que desea anular la(s) vacunacion(es)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
-         		}
+			    Alert.show("¿Está seguro que desea eliminar el registro(s) de peluquería? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+       
 			}
 			
 			/**
@@ -90,7 +87,7 @@
                     if (vacunaciones[i].sel)
                 	{
                         vacu = vacunaciones[i] as anuPeluqueria;
-                        eliminar(vacu.costo);
+                        eliminar(vacu.hora);
                        
                         vacunaciones.removeItemAt(i);
                         allRows = vacunaciones.length;
@@ -98,8 +95,7 @@
                         i=-1;
                     }   
                 }
-                motivo.text="";
-                barraMsj.text="Vacunacion(es) anulada(s)";              
+                barraMsj.text="Registro(s) de peluquería eliminado";              
             }
 			
 			/**
@@ -141,11 +137,15 @@
                 }
                 tablaVacunaciones.dataProvider = vacunaciones;
             }
+            
+            public  function limpiarTodo():void{
+            	todo.selected=false;
+            }
            	
 		]]>
 	</mx:Script>
 <!-- Tabla con datos -->
-	<mx:DataGrid x="25" y="178" width="709" height="134" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
+	<mx:DataGrid x="25" y="178" width="709" height="167" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
 			 	<mx:itemRenderer>
@@ -154,11 +154,13 @@
                         </mx:Component>
              	</mx:itemRenderer>
             </mx:DataGridColumn>		
-			<mx:DataGridColumn width="90" headerText="Costo" dataField="costo" id="costo" draggable="false"/>
-			<mx:DataGridColumn width="200" headerText="Descripción" dataField="descripcion" id="descripcion" draggable="false"/>
-			<mx:DataGridColumn width="120" headerText="Servicio" dataField="servicio" id="servicio" draggable="false"/>
-			<mx:DataGridColumn width="120" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
-			<mx:DataGridColumn width="99" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>
+			<mx:DataGridColumn width="60" headerText="Costo" dataField="costo" id="costo" draggable="false"/>
+			<mx:DataGridColumn width="250" headerText="Descripción" dataField="descripcion" id="descripcion" draggable="false"/>
+			<mx:DataGridColumn width="70" headerText="Servicio" dataField="servicio" id="servicio" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>
+			<mx:DataGridColumn width="100" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
+			<mx:DataGridColumn width="130" headerText="Nombre Catalogo" dataField="nombreCatalogo" id="nombreCatalogo" draggable="false"/>		
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:CheckBox x="25" y="152" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
@@ -182,7 +184,5 @@
 	<mx:Text x="478.4" y="61.9" id="mRaz" width="150"/>
 	<mx:Text x="478.4" y="87.95" id="mSex" width="150"/>
 	<mx:Button x="522" y="354" label="Eliminar" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula la(s) vacunacion(es) seleccionada(s)"/>
-	<mx:TextInput x="76" y="320" width="658" id="motivo" toolTip="Ingrese el motivo por el cual desea anular la(s) vacunacion(es)"/>
-	<mx:Text x="25" y="322" text="Motivo" fontWeight="bold"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
 </mx:Panel>

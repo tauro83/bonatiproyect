@@ -58,6 +58,19 @@
 				}
             }
             
+            public function limpiarTodo():void{
+            	inputSexo.setVisible(false,false);
+            	inputRaza.setVisible(false,false);
+            	inputNombreMascota.setVisible(false,false);
+            	inputRutCliente.setVisible(false,false);
+            	inputApellidoPaterno.setVisible(false,false);
+            	inputNombreCliente.setVisible(false,false);
+            	combobox.selectedItem="-Seleccionar-";
+            	textBuscar.setVisible(false,false);
+            	this.vacunaicones = new ArrayCollection();
+          
+            }
+            
             /**
 			 * Se obtienen todas las vacunaciones que están registradas en 
 			 * la base de datos para ser mostrados dentro del datagrid
@@ -100,7 +113,7 @@
 			private function volver():void
             {
             	this.setVisible(false,false);
-            	Application.application.policlinicoIni.setVisible(true,false);
+            	Application.application.peluqueriaIni.setVisible(true,false);
             }
             
               /**
