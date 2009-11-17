@@ -245,12 +245,15 @@
             	<!--Autor: Andres G.}-->
             	
             	<!--Autor: Esteban{ -->
+            	pabellonIni.setVisible(false,false);
             	policlinicoIni.setVisible(false,false);
             	peluqueriaIni.setVisible(false,false);
             	AnuCatalogo.setVisible(false,false);
          		EliCatalogo.setVisible(false,false);
-            	purgCirugia.setVisible(false,false);
-            	purgCirugiaV.setVisible(false,false);
+            	cirugiaA.setVisible(false,false);
+            	cirugiaA2.setVisible(false,false);
+            	cirugiaE.setVisible(false,false);
+            	cirugiaE2.setVisible(false,false);
             	login2.setVisible(false,false);
          		login3.setVisible(false,false);
          		vacunacionA.setVisible(false,false);
@@ -275,11 +278,11 @@
 		 	<!--Autor: Nicolas{ -->
 		    	rConsulta.setVisible(false,false);
 		    	rConsulta2.setVisible(false, false);
-		    	anularPel.setVisible(false,false);
-		    	anularPel2.setVisible(false,false);
+		    	//anularPel.setVisible(false,false);
+		    	//anularPel2.setVisible(false,false);
 		    	eliminarPel.setVisible(false,false);
 		    	eliminarPel2.setVisible(false,false);
-		    	deseliminarPel.setVisible(false,false);
+		    	//deseliminarPel.setVisible(false,false);
 		 	<!--Autor: }Nicolas -->
 			
 		 		
@@ -588,10 +591,16 @@
 	</ns4:vacunacionE>
 	<ns4:vacunacionE2 x="240" y="133" visible="false" id="vacunacionE2">
 	</ns4:vacunacionE2>
-	<ns3:purgCirugia x="240" y="133" visible="false" id="purgCirugia">
-	</ns3:purgCirugia>
-	<ns3:purgCirugiaV x="240" y="133" visible="false" id="purgCirugiaV">
-	</ns3:purgCirugiaV>
+	<ns3:cirugiaA x="240" y="133" visible="false" id="cirugiaA">
+	</ns3:cirugiaA>
+	<ns3:cirugiaA2 x="240" y="133" visible="false" id="cirugiaA2">
+	</ns3:cirugiaA2>
+	<ns3:cirugiaE x="240" y="133" visible="false" id="cirugiaE">
+	</ns3:cirugiaE>
+	<ns3:cirugiaE2 x="240" y="133" visible="false" id="cirugiaE2">
+	</ns3:cirugiaE2>
+	<ns3:PabellonIni x="240" y="133" visible="false" id="pabellonIni">
+	</ns3:PabellonIni>
 	<ns1:LoginIniciar x="241" y="134" id="login2" visible="true" borderColor="#15AD8F">
 	</ns1:LoginIniciar>
 	<ns1:LoginCerrar x="241" y="134" id="login3" visible="false" borderColor="#15AD8F">
@@ -698,16 +707,16 @@
 	</ns1:PurgarPreOperatorio>
 	<ns1:RegistrarConsulta x="241" y="134" id="registroConsulta" visible="false" borderColor="#15AD8F">
 	</ns1:RegistrarConsulta>
-	<ns1:AnularRegPeluqueria x="241" y="134" id="anularPel" visible="false" borderColor="#15AD8F">
+	<!--<ns1:AnularRegPeluqueria x="241" y="134" id="anularPel" visible="false" borderColor="#15AD8F">
 	</ns1:AnularRegPeluqueria>
 	<ns1:AnularRegPeluqueria2 x="241" y="134" id="anularPel2" visible="false" borderColor="#15AD8F">
-	</ns1:AnularRegPeluqueria2>
+	</ns1:AnularRegPeluqueria2>-->
 	<ns1:EliminarRegPeluqueria x="241" y="134" id="eliminarPel" visible="false" borderColor="#15AD8F">
 	</ns1:EliminarRegPeluqueria>	
 	<ns1:EliminarRegPeluqueria2 x="241" y="134" id="eliminarPel2" visible="false" borderColor="#15AD8F">
 	</ns1:EliminarRegPeluqueria2>	
-	<ns1:deseliminarPeluqueria x="241" y="134" id="deseliminarPel" visible="false" borderColor="#15AD8F">
-	</ns1:deseliminarPeluqueria>
+	<!--<ns1:deseliminarPeluqueria x="241" y="134" id="deseliminarPel" visible="false" borderColor="#15AD8F">
+	</ns1:deseliminarPeluqueria>-->
 	
 	<!--Autor: }nicolas-->
 	
