@@ -245,6 +245,7 @@
             	<!--Autor: Andres G.}-->
             	
             	<!--Autor: Esteban{ -->
+            	policlinicoIni.setVisible(false,false);
             	peluqueriaIni.setVisible(false,false);
             	AnuCatalogo.setVisible(false,false);
          		EliCatalogo.setVisible(false,false);
