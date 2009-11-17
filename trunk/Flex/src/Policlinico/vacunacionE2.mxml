@@ -74,7 +74,7 @@
 			 */
            	private function deleteRow():void 
            	{
-				Alert.show("¿Está seguro que desea eliminar la(s) vacunacion(es)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+				Alert.show("¿Está seguro que desea eliminar la(s) vacunacion(es)? ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
 			}
 			
 			/**
@@ -149,7 +149,7 @@
 	</mx:Script>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid x="25" y="178" width="709" height="167" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
+	<mx:DataGrid x="25" y="178" width="709" height="167" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea eliminar">
 		<mx:columns>	
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
 			 	<mx:itemRenderer>
