@@ -255,5 +255,11 @@
   			  <source>Administracion.anularPreoperatorio</source>
   		 </properties>
   	</destination>
+  	<destination id="EditHoteleriaService"> 
+  	 	 <properties>
+  			  <source>Hoteleria.EditHoteleriaService</source>
+  		 </properties>
+  	</destination>
+
 
 </service>
