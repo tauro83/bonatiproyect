@@ -74,7 +74,7 @@ public class EditarPeluServiceBD
     		insert.setString(2, pelu.getNombreMascota());
     		insert.setString(3, pelu.getResponsable());
     		insert.setString(4, pelu.getServicio());
-    		insert.setString(5, pelu.getFecha());
+    		//insert.setString(5, pelu.getFecha());
 			insert.setString(6, pelu.getCosto());
     		insert.setString(7, pelu.getDescripcion());
     	
@@ -111,7 +111,7 @@ public class EditarPeluServiceBD
     			pelu.setNombreMascota(result.getString(2));
     			pelu.setResponsable(result.getString(3));
     			pelu.setServicio(result.getString(4));
-    			pelu.setFecha(result.getString(5));
+    			//pelu.setFecha(result.getString(5));
     			pelu.setCosto(result.getString(6));
     			pelu.setDescripcion(result.getString(7));
     			  
