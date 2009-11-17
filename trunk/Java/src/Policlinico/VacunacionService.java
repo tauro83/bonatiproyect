@@ -22,6 +22,7 @@ public class VacunacionService
 	/**
 	 * Trata de obtener todos las vacunaciones registrados en la base de datos
 	 * @return Lista con todos las vacunaciones registrados
+	 * @author  "Esteban Cruz"
 	 */
 	public List<Vacunacion> getAllVacunaciones()
     {
@@ -44,6 +45,7 @@ public class VacunacionService
 	 * Trata de obtener todos las vacunaciones registrados en la base de datos
 	 * de un cliente determinado
 	 * @return Lista con todos las vacunaciones registrados
+	 * @author  "Esteban Cruz"
 	 */
 	public List<Vacunacion> getAllVacunacionesU(String rut, String nombre)
     {
@@ -67,6 +69,7 @@ public class VacunacionService
 	 * de la base de datos
 	 * @param 0=activado, 1=desactivo, 2=anulado
 	 * @return 1 si ha anulado correctamente y 0 de lo contrario
+	 * @author  "Esteban Cruz"
 	 */
 	public int anular(String nombre, String fecha, String hora)
     {
@@ -90,6 +93,7 @@ public class VacunacionService
 	 * de la base de datos
 	 * @param 0=activado, 1=desactivo, 2=anulado
 	 * @return 1 si ha eliminado correctamente y 0 de lo contrario
+	 * @author  "Esteban Cruz"
 	 */
 	public int eliminar(String nombre, String fecha, String hora)
     {
