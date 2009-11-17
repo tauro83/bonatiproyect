@@ -228,15 +228,15 @@
 	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
 	
 	<!-- AutoComplete -->
-	<fc:AutoComplete id="idA" x="59" y="10" width="150" dataProvider="{avisos}" labelField="ID" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="nombre" x="59" y="10" width="150" dataProvider="{avisos}" labelField="Nombre" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="apellido" x="59" y="10" width="150" dataProvider="{avisos}" labelField="Apellido Paterno" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="codCel" x="59" y="10" width="150" dataProvider="{avisos}" labelField="Cod Celular" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="cel" x="59" y="10" width="150" dataProvider="{avisos}" labelField="Nro Celular" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="codTel" x="59" y="10" width="150" dataProvider="{avisos}" labelField="Cod Teléfono" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="tel" x="59" y="10" width="150" dataProvider="{avisos}" labelField="Nro Teléfono" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="asunto" x="59" y="10" width="150" dataProvider="{avisos}" labelField="Asunto" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="descripcion" x="59" y="10" width="150" dataProvider="{avisos}" labelField="Descripción" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="idA" x="59" y="10" width="150" dataProvider="{avisos}" labelField="id" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="nombre" x="59" y="10" width="150" dataProvider="{avisos}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="apellido" x="59" y="10" width="150" dataProvider="{avisos}" labelField="apaterno" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="codCel" x="59" y="10" width="150" dataProvider="{avisos}" labelField="celular0" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="cel" x="59" y="10" width="150" dataProvider="{avisos}" labelField="celular" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="codTel" x="59" y="10" width="150" dataProvider="{avisos}" labelField="telefono0" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="tel" x="59" y="10" width="150" dataProvider="{avisos}" labelField="telefono" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="asunto" x="59" y="10" width="150" dataProvider="{avisos}" labelField="asunto" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="descripcion" x="59" y="10" width="150" dataProvider="{avisos}" labelField="descripción" visible="false" toolTip="ingrese texto para búsqueda"/>
 	
 	
 	<mx:DataGrid x="30" y="50" width="700" height="299" id="Tabla" enabled="true" dataProvider="{avisos}" itemDoubleClick="editarAviso(event)">
