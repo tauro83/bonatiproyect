@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*" xmlns:ns5="hoteleria.*" xmlns:peluqueria="peluqueria.*"> 
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*" xmlns:ns5="hoteleria.*" xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*"> 
 
     <mx:Script>
         <![CDATA[        
@@ -216,6 +216,8 @@
             	purgPost.setVisible(false,false);
             	purgusuario.setVisible(false,false);
             	regCatalogo.setVisible(false,false);
+            	editarAvisoList.setVisible(false,false);
+            	editarAviso.setVisible(false,false);
             	
             	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
@@ -614,6 +616,10 @@
 	</ns1:PurgarPostOperatorio>
 	<ns1:RegistroCatalogo x="241" y="134" id="regCatalogo" visible="false" borderColor="#15AD8F">
 	</ns1:RegistroCatalogo>
+	<ns6:EditarAvisoList x="241" y="134" id="editarAvisoList" visible="false" borderColor="#15AD8F">
+	</ns6:EditarAvisoList>
+	<ns6:EditarAviso x="241" y="134" id="editarAviso" visible="false" borderColor="#15AD8F">
+	</ns6:EditarAviso>
 	
 	<mx:Image x="365" y="0" width="174" height="104" source="../fotos-animales-perros-peq.jpg" autoLoad="true"/>
 	<mx:TextArea x="0" y="0" width="366" height="104" borderStyle="none" fontFamily="Arial" editable="false" fontSize="27" fontWeight="bold" fontStyle="normal" backgroundColor="#FFFFFF" color="#0202CB" themeColor="#0060FF" borderColor="#FFFFFF" enabled="true" wordWrap="false"/>
