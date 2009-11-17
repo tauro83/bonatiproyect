@@ -4,7 +4,7 @@
         	//=======================================================================
 			// FECHA: CREACIÓN: 11/11/09
 			// AUTOR: Jimmy Muñoz
-			// Comentarios: Formulario para obtener datos del cliente y sus mascotas.
+			// Formulario para obtener datos del cliente y sus mascotas.
 			//=======================================================================
 			
         	import mx.events.FlexEvent;
