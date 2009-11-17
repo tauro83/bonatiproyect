@@ -6,6 +6,7 @@ create table Vacunacion(
 	responsable CHAR(20) not null references Usuario(usuario) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
 	fecha date not null,
 	costo char(20),
+	estado char(2),
 	fechacaducidad date,
 	descripcion CHAR(200),
 	servicio character varying(20) NOT NULL DEFAULT 'Pabellon'::character varying,
