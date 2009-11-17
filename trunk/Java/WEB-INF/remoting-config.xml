@@ -156,9 +156,9 @@
                 </properties>
         </destination>
 		
-		<destination id="PurgCirugiaService">
+		<destination id="CirugiaService">
 			<properties>
-			  <source>Pabellon.PurgCirugiaService</source>
+			  <source>Pabellon.CirugiaService</source>
 			</properties>
 		</destination>
 
