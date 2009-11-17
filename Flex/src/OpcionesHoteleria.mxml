@@ -6,7 +6,10 @@
 			import mx.core.Application;
 
 			public function verRegistrarHotel():void{
-				
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.registrarHoteleria.visible=true;
+				Application.application.registrarHoteleria.currentState='Registros';
 			}
 			public function verEditarHotel():void{
 				Application.application.setInvisible();
