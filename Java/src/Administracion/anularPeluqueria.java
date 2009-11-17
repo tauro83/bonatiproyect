@@ -7,9 +7,8 @@ import java.util.List;
 
 import AdministracionBD.anularPeluqueriaBD;
 import Bd.DBConnectionManager;
-import PoliclinicoBD.VacunacionBD;
 import TransferObjects.anuPeluqueria;
-import TransferObjects.vacunacionesObj;
+
 
 public class anularPeluqueria {
 	/**
