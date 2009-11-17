@@ -250,5 +250,10 @@
   			<source>Peluqueria.AECatPeluqueriaService</source> 
   		</properties>
   	</destination>
+  	<destination id="anularPreoperatorio"> 
+  	 	 <properties>
+  			  <source>Administracion.anularPreoperatorio</source>
+  		 </properties>
+  	</destination>
 
 </service>
