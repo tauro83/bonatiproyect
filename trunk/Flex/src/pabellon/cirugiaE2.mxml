@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15ad8f" title="Eliminar Vacunación">
+	<mx:Script>
+		<![CDATA[
+		//=======================================================================
+		// FECHA CREACIÓN: 14-10-09
+		// AUTOR: Esteban Cruz
+		// Comentario: Una vez seleccionado un cliente, se visualiza su información 
+		// detalla junto a sus cirugias para poder eliminar la deseada
+		//=======================================================================
+				
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+            import mx.core.Application;
+			
+			import transferObjects.Cirugia;
+			import services.CirugiaService;
+			[Bindable]
+			private var cirugias:ArrayCollection;
+			
+			
+			/**
+			 * Evento del boton "Volver", el cual redirige la página
+			 * a anterior (listado de clientes con cirugias citadas)
+			 * @author  "Esteban Cruz"
+			 */
+			public function actionVolver():void
+			{
+            	Application.application.cirugiaE2.setVisible(false,false);
+            	Application.application.cirugiaE.setVisible(true,false);
+            	Application.application.cirugiaE.getAllCirugias();
+			}
+			
+			/**
+			 * Se obtienen todas las cirugias que están registradas en 
+			 * la base de datos para ser mostrados dentro del datagrid
+			 * @author  "Esteban Cruz"
+			 */
+			public function getAllCirugiasU(rut:String, nombre:String):void
+		    {
+		   		var cirugiaService:CirugiaService = new CirugiaService();
+		   		cirugiaService.addEventListener(ResultEvent.RESULT,getAllCirugiasResult);
+				cirugiaService.getAllCirugiasU(rut, nombre);
+		    }
+		   
+		    /**
+			 * Una vez obtenidas todas las cirugias que están registradas 
+			 * en la base de datos, son mostrados dentro del datagrid
+			 * @author  "Esteban Cruz"
+			 */
+		    public function getAllCirugiasResult(event:ResultEvent):void
+		    {
+		   		cirugias = event.result as ArrayCollection;
+		    }
+			
+			/**
+			 * Se eliminan las cirugias que están seleccionadas en el
+			 * grid, desde la base de datos
+			 * @author  "Esteban Cruz"
+			 */
+			public function eliminarCirugia(nombre:String, fecha:String, hora:String):void
+			{
+				test.text="ENTRO0";
+				var cirugiaService:CirugiaService = new CirugiaService();
+				cirugiaService.eliminarCirugia(nombre, fecha, hora);
+				test.text="ENTRO1";
+				
+			}
+
+            /**
+			 * Mensaje para eliminar las cirugias que están seleccionadas
+			 * en el grid, desde este mismo
+			 * @author  "Esteban Cruz"
+			 */
+           	private function deleteRow():void 
+           	{
+				Alert.show("¿Está seguro que desea eliminar la(s) cirugia(s)? ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			}
+			
+			/**
+			 * Se eliminan las cirugias que están seleccionadas en el
+			 * grid, desde este mismo
+			 * @author  "Esteban Cruz"
+			 */
+			private function removeTaskRecord():void
+            {
+                var allRows:int = cirugias.length;
+                var ciru:Cirugia = new Cirugia();
+                test.text="REMOVE 0 "
+                for (var i:int = 0; i < allRows; i++){
+                	test.text="REMOVE 0 "
+                    if (cirugias[i].sel)
+                	{
+                		test.text="REMOVE 1";
+                        ciru = cirugias[i] as Cirugia;
+                        eliminarCirugia(ciru.mascotaNombre,ciru.fecha,ciru.hora);
+                        
+                        cirugias.removeItemAt(i);
+                        allRows = cirugias.length;
+                        tablaCirugias.dataProvider = cirugias;
+                        i=-1;
+                    }   
+                }
+                barraMsj.text="Cirugia(es) eliminada(s)";              
+            }
+			
+			/**
+			 * Una vez seleccionado SÍ o NO en el mensaje
+			 * se llama a la función que elimina
+			 * @author  "Esteban Cruz"
+			 */
+			private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+			
+			/**
+			 * Se toma el objeto cliente con sus respectivos 
+			 * datos, y se insertan en los campos correspondientes
+			 * Cliente y Mascota
+			 * @author  "Esteban Cruz"
+			 */
+			public function setDatos(ciru:Cirugia):void
+			{
+				getAllCirugiasU(ciru.clienteRut, ciru.mascotaNombre);
+         		cNom.text=ciru.clienteNombre;
+         		cRut.text=ciru.clienteRut;
+         		cApP.text=ciru.clienteApellido;
+         		mNom.text=ciru.mascotaNombre;
+         		mRaz.text=ciru.mascotaRaza;
+         		mSex.text=ciru.mascotaSexo;
+         	}
+         	
+         	/**
+			 * Se seleccionan todas las cirugias existentes
+			 * en el grid
+			 * @author  "Esteban Cruz"
+			 */
+         	private function selectAll():void{
+                var allRows:int = cirugias.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        cirugias[i].sel = true;
+                    else
+                        cirugias[i].sel = false;
+                }
+                tablaCirugias.dataProvider = cirugias;
+            }
+            
+		]]>
+	</mx:Script>
+	
+	<!-- Tabla con datos -->
+	<mx:DataGrid x="25" y="178" width="709" height="167" id="tablaCirugias" dataProvider="{cirugias}" toolTip="Seleccion la(s) cirugia(s) que desea eliminar">
+		<mx:columns>	
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>	
+			<mx:DataGridColumn width="140" headerText="Veterinario" dataField="veterinario" draggable="false"/>
+			<mx:DataGridColumn width="261" headerText="Diagnóstico" dataField="diagnostico" draggable="false"/>
+			<mx:DataGridColumn width="120" headerText="Servicio" dataField="servicio" draggable="false"/>
+			<mx:DataGridColumn width="99" headerText="Hora" dataField="hora" draggable="false"/>
+			<mx:DataGridColumn width="99" headerText="Fecha" dataField="fecha" draggable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- Elementos -->
+	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
+	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
+	<mx:Label x="25" y="36" text="Nombre:" width="78"/>
+	<mx:Label x="25" y="10" text="Cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="405" y="10" text="Mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="25" y="87.95" text="Rut:" width="78"/>
+	<mx:Label x="405" y="87.95" text="Sexo:" width="78"/>
+	<mx:Label x="405" y="36" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="25" y="62" text="Apellido Paterno:" width="103"/>
+	<mx:Label x="405" y="61.9" text="Raza:" width="78"/>
+	<mx:Text x="25" y="124" text="Vacunaciones&#xa;" fontWeight="bold" height="20"/>
+	<mx:Text x="135" y="62" id="cApP" width="150"/>
+	<mx:Text x="135" y="36" id="cNom" width="150"/>
+	<mx:Text x="135" y="87.95" id="cRut" width="150"/>
+	<mx:Text x="478.4" y="36" id="mNom" width="150"/>
+	<mx:Text x="478.4" y="61.9" id="mRaz" width="150"/>
+	<mx:Text x="478.4" y="87.95" id="mSex" width="150"/>
+	<mx:Button x="522" y="354" label="Eliminar" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Elimina la(s) cirugia(s) seleccionada(s)"/>
+	<mx:CheckBox x="25" y="152" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
+	<mx:Label x="47" y="152" text="Seleccionar todo"/>
+	<mx:Text x="328" y="36" text="TEST" id="test"/>
+	
+</mx:Panel>
