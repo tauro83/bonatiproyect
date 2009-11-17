@@ -14,11 +14,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import TransferObjects.vacunacionesObj;
+import TransferObjects.Vacunacion;
+import TransferObjects.Cliente;
+import TransferObjects.Mascota;
 
 public class VacunacionBD {
 	
 	PreparedStatement selectAllVacunaciones;
+	PreparedStatement selectAllClientes;
+	PreparedStatement selectAllMascotas;
 	PreparedStatement setEstado;
 	
 	/**
@@ -29,17 +33,26 @@ public class VacunacionBD {
 	{
 		try 
 		{
-			String query="";
+			String query="", queryCliente="", queryMascota="";
 			
-			query = "SELECT nombreCliente, apellidoPaterno, rutCliente, " +
-					"nombreMascota, tipo, veterinario, raza, sexo, servicio, " +
-					"hora, fechaCirugia, descripcion, estado " +
+			query = "SELECT clienterut, mascotanombre, hora, " +
+					"descripcion, responsable, servicio, estado, fecha " +
 					"FROM vacunacion;";
 			selectAllVacunaciones = connection.prepareStatement(query);
 			
+			queryCliente = "SELECT nombre, apaterno "+
+							"FROM clientepresencial "+
+							"WHERE rut = ? ;";
+			selectAllClientes = connection.prepareStatement(queryCliente);
+			
+			queryMascota = "SELECT raza, sexo "+
+							"FROM mascota "+
+							"WHERE nombre = ? AND rut = ? ;";
+			selectAllMascotas = connection.prepareStatement(queryMascota);
+			
 			query = "UPDATE vacunacion " +
 					"SET estado = ? " + 
-					"WHERE tipo = ?;";
+					"WHERE mascotanombre=? and fecha=? and hora=? ;";
 			setEstado = connection.prepareStatement(query);
 		}
 		catch (SQLException e) 
@@ -52,43 +65,48 @@ public class VacunacionBD {
 	 * Trata de obtener todos las vacunaciones registrados en la base de datos
 	 * @return Lista con todas las vacunaciones registradas
 	 */
-	 public List<vacunacionesObj> getAllVacunaciones()
+	 public List<Vacunacion> getAllVacunaciones()
 	    {	
-	    	List<vacunacionesObj> vacunaciones = new ArrayList<vacunacionesObj>();
-	    	vacunacionesObj vacu;
+	    	List<Vacunacion> vacunaciones = new ArrayList<Vacunacion>();
+	    	Vacunacion vacu;
+	    	Cliente clie;
+	    	Mascota masc;
 	    	try 
 	    	{
 	    		ResultSet result = selectAllVacunaciones.executeQuery();
 	    		while(result.next())
 	    		{  
-	    			vacu = new vacunacionesObj();
+	    			vacu = new Vacunacion();
+	    			clie = new Cliente();
+	    			masc = new Mascota();
+	    			ResultSet cliente; 
+		    		ResultSet mascota; 
 	    			
-	    			vacu.setNombreCliente(result.getString(1).trim());
-	    			vacu.setApellidoPaterno(result.getString(2).trim());
-	    			vacu.setRutCliente(result.getString(3).trim());
-	    			vacu.setNombreMascota(result.getString(4).trim());
-	    			vacu.setTipo(result.getString(5).trim());
-	    			vacu.setVeterinario(result.getString(6).trim());
-	    			vacu.setRaza(result.getString(7).trim());
-	    			vacu.setSexo(result.getString(8).trim());
-	    			vacu.setServicio(result.getString(9).trim());
-	    			vacu.setHora(result.getString(10).trim());
-	    			vacu.setFechaVacu(result.getString(11).trim());
-	    			vacu.setDescripcion(result.getString(12).trim());
-	    			vacu.setEstado(result.getString(13).trim());
+	    			vacu.setClienteRut(result.getString(1).trim());
+	    			vacu.setMascotaNombre(result.getString(2).trim());
+	    			vacu.setEstado(result.getString(7).trim());
 	    			
-	    			String rut2 = vacu.getRutCliente().trim();
-	    			//Verifica que no se repitan los clientes
-	    			int bandera = 0;
-	    			for(int i=0;i<vacunaciones.size();i++){
-	    				if(rut2.equals(vacunaciones.get(i).getRutCliente()))
-	    				{
-	    					bandera=1;
-	    				}
+	    			selectAllMascotas.setString(2, vacu.getClienteRut());
+	    			selectAllMascotas.setString(1, vacu.getMascotaNombre());
+	    			mascota = selectAllMascotas.executeQuery();
+	    			while(mascota.next()){
+	    				masc.setRaza(mascota.getString(1).trim());
+	    				vacu.setMascotaRaza(masc.getRaza());
+	    				masc.setSexo(mascota.getString(2).trim());
+	    				vacu.setMascotaSexo(masc.getSexo());
 	    			}
-	    			if(bandera==0)
+	    			
+	    			selectAllClientes.setString(1, vacu.getClienteRut());
+	    			cliente = selectAllClientes.executeQuery();
+	    			while(cliente.next()){
+	    				clie.setNombre(cliente.getString(1).trim());
+	    				vacu.setClienteNombre(clie.getNombre());
+	    				clie.setApellido(cliente.getString(2).trim());
+	    				vacu.setClienteApellido(clie.getApellido());
+	    			}
+	    			if(vacu.getEstado().equals("0"))
 	    			{
-	    				vacunaciones.add(vacu);
+	    				vacunaciones.add(vacu);	
 	    			}
 	    		}
 			} 
@@ -104,36 +122,31 @@ public class VacunacionBD {
 	  * de un cliente determinado
 	  * @return Lista con todas las vacunaciones registradas
 	  */
-	 public List<vacunacionesObj> getAllVacunacionesU(String rut)
+	 public List<Vacunacion> getAllVacunacionesU(String rut, String nombre)
 	 {
-		 	List<vacunacionesObj> vacunaciones = new ArrayList<vacunacionesObj>();
-		 	vacunacionesObj vacu;
-		 	
+		 	List<Vacunacion> vacunaciones = new ArrayList<Vacunacion>();
+		 	Vacunacion vacu;
 	    	try 
 	    	{
 	    		ResultSet result = selectAllVacunaciones.executeQuery();
 	    		while(result.next())
 	    		{  
-	    			vacu = new vacunacionesObj();
+	    			vacu = new Vacunacion();
 	    			
-	    			vacu.setNombreCliente(result.getString(1).trim());
-	    			vacu.setApellidoPaterno(result.getString(2).trim());
-	    			vacu.setRutCliente(result.getString(3).trim());
-	    			vacu.setNombreMascota(result.getString(4).trim());
-	    			vacu.setTipo(result.getString(5).trim());
-	    			vacu.setVeterinario(result.getString(6).trim());
-	    			vacu.setRaza(result.getString(7).trim());
-	    			vacu.setSexo(result.getString(8).trim());
-	    			vacu.setServicio(result.getString(9).trim());
-	    			vacu.setHora(result.getString(10).trim());
-	    			vacu.setFechaVacu(result.getString(11).trim());
-	    			vacu.setDescripcion(result.getString(12).trim());
-	    			vacu.setEstado(result.getString(13).trim());
+	    			vacu.setClienteRut(result.getString(1).trim());
+	    			vacu.setMascotaNombre(result.getString(2).trim());
+	    			vacu.setHora(result.getString(3).trim());
+	    			vacu.setDescripcion(result.getString(4).trim());
+	    			vacu.setVeterinario(result.getString(5).trim());
+	    			vacu.setServicio(result.getString(6).trim());
+	    			vacu.setEstado(result.getString(7).trim());
+	    			vacu.setFechaS(result.getString(8).trim());
 
-	    			String rut2 = vacu.getRutCliente().trim();
-	    			String estado2 = vacu.getEstado().trim();
+	    			String rut2 = vacu.getClienteRut();
+	    			String nombre2 = vacu.getMascotaNombre();
+	    			String estado2 = vacu.getEstado();
 	    			
-	    			if(rut2.equals(rut) && estado2.equals("0"))
+	    			if(rut2.equals(rut) && estado2.equals("0") && nombre2.equals(nombre))
 	    			{
 	    				vacunaciones.add(vacu);
 	    			}
@@ -152,12 +165,14 @@ public class VacunacionBD {
 	  * @param 0=activado, 1=desactivo, 2=anulado
 	  * @return 1 si ha anulado correctamente y 0 de lo contrario
 	  */
-	 public int anular(String estado)
+	 public int anular(String nombre, String fecha, String hora)
 	 {
 		 int result = 0;
 		 try {
 			setEstado.setString(1, "2");
-			setEstado.setString(2, estado);
+			setEstado.setString(2, nombre);
+			setEstado.setString(3, fecha);
+			setEstado.setString(4, hora);
 			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
@@ -173,12 +188,14 @@ public class VacunacionBD {
 	  * @param 0=activado, 1=desactivo, 2=anulado
 	  * @return 1 si ha elimina correctamente y 0 de lo contrario
 	  */
-	 public int eliminar(String estado)
+	 public int eliminar(String nombre, String fecha, String hora)
 	 {
 		 int result = 0;
 		 try {
 			setEstado.setString(1, "1");
-			setEstado.setString(2, estado);
+			setEstado.setString(2, nombre);
+			setEstado.setString(3, fecha);
+			setEstado.setString(4, hora);
 			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
