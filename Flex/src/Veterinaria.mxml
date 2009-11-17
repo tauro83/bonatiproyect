@@ -694,16 +694,16 @@
 	</ns1:PurgarPreOperatorio>
 	<ns1:RegistrarConsulta x="241" y="134" id="registroConsulta" visible="false" borderColor="#15AD8F">
 	</ns1:RegistrarConsulta>
-	<!--<ns1:AnularRegPeluqueria x="241" y="134" id="anularPel" visible="false" borderColor="#15AD8F">
+	<ns1:AnularRegPeluqueria x="241" y="134" id="anularPel" visible="false" borderColor="#15AD8F">
 	</ns1:AnularRegPeluqueria>
 	<ns1:AnularRegPeluqueria2 x="241" y="134" id="anularPel2" visible="false" borderColor="#15AD8F">
-	</ns1:AnularRegPeluqueria2>-->
+	</ns1:AnularRegPeluqueria2>
 	<ns1:EliminarRegPeluqueria x="241" y="134" id="eliminarPel" visible="false" borderColor="#15AD8F">
 	</ns1:EliminarRegPeluqueria>	
 	<ns1:EliminarRegPeluqueria2 x="241" y="134" id="eliminarPel2" visible="false" borderColor="#15AD8F">
 	</ns1:EliminarRegPeluqueria2>	
-	<!--<ns1:deseliminarPeluqueria x="241" y="134" id="deseliminarPel" visible="false" borderColor="#15AD8F">
-	</ns1:deseliminarPeluqueria>-->
+	<ns1:deseliminarPeluqueria x="241" y="134" id="deseliminarPel" visible="false" borderColor="#15AD8F">
+	</ns1:deseliminarPeluqueria>
 	
 	<!--Autor: }nicolas-->
 	
