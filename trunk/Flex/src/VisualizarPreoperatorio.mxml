@@ -1,186 +1,224 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllDatos()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Pre-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Anular Pre-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
-			import services.PreoperatorioService;
-			import transferObjects.Preoperatorio;
 			
-			import mx.collections.ArrayCollection;
-			import mx.controls.Alert;
-			import transferObjects.Mascota2;
-			import mx.rpc.events.ResultEvent;
-			import flash.events.MouseEvent;
-            import mx.events.FlexEvent;
+        	//=======================================================================
+			// FECHA CREACIÓN: 16/11/09
+			// AUTOR: Nicolas Delgado
+			// Panel en el cual se muestran el nombre del cliente , apellido, rut,
+			// nombre de la mascota, raza, sexo, de las mascotas que poseen registro
+			//de peluquería y todos las registro que posean estado 0.
+			//=======================================================================
+			
+        	import transferObjects.anuPreoperatorio;
+         	import mx.collections.ArrayCollection;
             import mx.rpc.events.ResultEvent;
-			import mx.rpc.events.FaultEvent;
-			import mx.core.Application;
-			
-			[Bindable]
-			private var atencionesPre:ArrayCollection;
-			
-			
-			
-			
-			private function getAllDatos():void
-			{
-				var visualizarPreoperatorio:PreoperatorioService = new PreoperatorioService();
-				visualizarPreoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
-				visualizarPreoperatorio.getAllDatos();
-			}	
-			
-		    private function getAllDatosResult(event:ResultEvent):void
-			{
-				atencionesPre = event.result as ArrayCollection;
-			}
+            import mx.core.Application;
+			import services.anularPreoperatorio;
+		
 			
 			/**
-         	 * Función de prueba que llena el datagrid sin necesidad de ir a la base de datos, para 
-         	 * el ingreso de ellos al interior del datagrid. 
-         	 */	
-         	 
-		   /*private function updateTable():void
-            {
-            	atencionesPre = new ArrayCollection;
-				atencionesPre.addItem({nomMascota:"alf", razaMascota:"San Bernardo", sexoMascota:"macho", rut:"16727045", nombre:"Jose", apellidoPaterno:"León"});
-            	atencionesPre.addItem({nomMascota:"boby", razaMascota:"Pastor Alemán", sexoMascota:"macho", rut:"16127599", nombre:"Natalie", apellidoPaterno:"Allende"});
-            	atencionesPre.addItem({nomMascota:"lazy", razaMascota:"Fox Terry", sexoMascota:"hembra", rut:"9342012", nombre:"Alexis", apellidoPaterno:"Fuenzalida"});
-            	atencionesPre.addItem({nomMascota:"cachupin", razaMascota:"Pastor Alemán", sexoMascota:"macho", rut:"6547893", nombre:"Juan", apellidoPaterno:"Aravena"});
-            	atencionesPre.addItem({nomMascota:"gaby", razaMascota:"poodle", sexoMascota:"hembra", rut:"102231001", nombre:"Magdalena", apellidoPaterno:"Campos"});
-            	atencionesPre.addItem({nomMascota:"Napoleón", razaMascota:"poodle", sexoMascota:"macho", rut:"3456234", nombre:"Irma", apellidoPaterno:"Briones"});
-            	tablaPreoperatorio.doubleClickEnabled=true;
-            	tablaPreoperatorio.dataProvider = atencionesPre;
-            	
-            }*/
-            
-			/**
-			 * Esta funcion es llamada al momento que se hace doble click sobre un elemento del data grid 
-			 * o al momento de presionar el botón visualizar, esta función llega al panel PurgarPreOperatorio de manera interna
-			 * sin necesidad de pasar por el panel Veterinaria, en donde se podra realizar la purgación de los datos de un 
-			 * preoperatorio.		
+			 * Esta variable se encarga de obtener desde la base datos los datos asociado 
+			 * a un registro de peluqueria de todas las mascota que alguna vez se han 
+			 * realizado una atención.
 			 */
 			 
-			public function editarAtencionPreoperatorio():void
-			{
-				
-				if(tablaPreoperatorio.selectedItem){					
-					var newPurgarPre:PurgarPreOperatorio = Application.application.purgarPre; // LLama a la componente del Preoperatorio.
-					var newMascota:Mascota2 = new Mascota2();
-					newMascota.nombre = tablaPreoperatorio.selectedItem.nombreMascota;
-					newMascota.raza = tablaPreoperatorio.selectedItem.raza;
-					newMascota.sexo = tablaPreoperatorio.selectedItem.sexo;
-					newMascota.rut = tablaPreoperatorio.selectedItem.rut;
-					newMascota.nombreDueno = tablaPreoperatorio.selectedItem.nombre;
-					newMascota.apellidoPaterno = tablaPreoperatorio.selectedItem.apellidoPaterno;
-					
-					
-					this.setVisible(false,false);
-					
-					newPurgarPre.resetVars();
-					newPurgarPre.nombreMascota.text = newMascota.nombre;
-					newPurgarPre.raza.text = newMascota.raza;
-					newPurgarPre.sexo.text = newMascota.sexo;
-					newPurgarPre.rut.text = newMascota.rut;
-					newPurgarPre.nombre.text = newMascota.nombreDueno;
-					newPurgarPre.apellidoPaterno.text = newMascota.apellidoPaterno;
-					
-					newPurgarPre.setVisible(true,false);
+			[Bindable]
+			private var vacunaicones:ArrayCollection;
 
-				}
 
-			}
-			/**
-			 * Al momento de presionar el boton cancelar la operación se muestra un panel que solo tiene el 
-			 * mensaje "seleccione una opcion del menú" que sera el panel principal del menu de clinica.
-			 * 
-			 */
-			private function cancelando():void
-			{
-				this.setVisible(false,false);
-				Application.application.panel2.setVisible(true,false);
-			}
-			
-			
-			private function seleccionarBusqueda(event:Event):void
-            {
-            	setInvisibleInput();
-            	getAllDatos();
-				switch (combobox1.selectedLabel){
-				case 'Nombre Mascota':		
-					inputNombreMas.setVisible(true,false);
-				break; 
-				case 'Raza':		
-					inputRaza.setVisible(true,false);
-				break; 
-				case 'Sexo':		
-					inputSexo.setVisible(true,false);
-				break; 
-				case 'Rut':		
-					inputRut.setVisible(true,false);
-				break;
-				case 'Nombre Cliente':
-					inputNombreCliente.setVisible(true,false); 	
-				break;
-				case 'Apellido Paterno':
-					inputApellidoPaterno.setVisible(true,false); 	
-				break;
-				}
-            }
-
-		    private function setInvisibleInput ():void
-            {
-            	inputNombreMas.setVisible(false,false);
-            	inputRaza.setVisible(false,false);
-            	inputSexo.setVisible(false,false);
-            	inputRut.setVisible(false,false);
+            /**
+			* Se hace visible el input correspondiente a la opción
+			* elegida en el combobox, las cuales pueden ser por el nombre del cliente,
+			* rut, apellido, nombre de la mascota, sexo raza.
+			*/
+            private function seleccionarBusqueda (event:Event):void
+            {   
             	inputNombreCliente.setVisible(false,false);
-            	inputApellidoPaterno.setVisible(false,false);
+				inputApellidoPaterno.setVisible(false,false);
+				inputRutCliente.setVisible(false,false);
+				inputNombreMascota.setVisible(false,false);
+				inputNombreMascota.setVisible(false,false);
+				inputRaza.setVisible(false,false);
+				inputSexo.setVisible(false,false);
+				textBuscar.setVisible(true, false);
+				
+            	switch (combobox.selectedLabel)
+				{
+					
+			    /**
+			    * El usuario Selecciona la opcion Nombre del Cliente
+			    */
+				case 'Nombre cliente':		
+					inputNombreCliente.setVisible(true,false);
+					getAllVacunaciones();
+				break; 
+				
+			    /**
+			    * El usuario Selecciona la opcion Apellido del Cliente
+			    */
+				case 'Apellido paterno':
+					inputApellidoPaterno.setVisible(true,false);
+					getAllVacunaciones();
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opcion Rut del Cliente
+			    */				
+				case 'Rut cliente':
+					inputRutCliente.setVisible(true,false);
+					getAllVacunaciones();
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opcion Nombre de la Mascota
+			    */
+				case 'Nombre mascota':
+					inputNombreMascota.setVisible(true,false);
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opcion Raza de la Mascota
+			    */
+				case 'Raza':
+					inputRaza.setVisible(true,false);
+				break;
+			    /**
+			    * El usuario Selecciona la opcion Sexo de la Mascota
+			    */				
+				case 'Sexo':
+					inputSexo.setVisible(true,false);
+				break;
+				}
             }
-			
-			
-		]]>
-	</mx:Script>
+            
+            /**
+            * Este metodo se encarga de dejar limpia la pantalla una vez que
+            * el usuario se salga del panel, se dejan sin información los 
+            * datagrid, textInput y ComboBox. 
+            */
+            
+            public function limpiarTodo():void{
+            	inputSexo.setVisible(false,false);
+            	inputRaza.setVisible(false,false);
+            	inputNombreMascota.setVisible(false,false);
+            	inputRutCliente.setVisible(false,false);
+            	inputApellidoPaterno.setVisible(false,false);
+            	inputNombreCliente.setVisible(false,false);
+            	combobox.selectedItem="-Seleccionar-";
+            	textBuscar.setVisible(false,false);
+            	this.vacunaicones = new ArrayCollection();
+          
+            }
+            
+            /**
+			* Se obtienen todos los registro de peluquería que están registrados en 
+			* la base de datos, que serán mostrados por el datagrid del panel, en este
+			* panel seran mostrados solamente el Nombre del cliente, apellido, rut, nombre
+			* de la mascota,raza y sexo, y en el panel siguiente serán mostrados los
+			* de un registro de peluquería.
+			*/
+			public function getAllVacunaciones():void
+		    {
+		   		var vacunacionService:anularPreoperatorio = new anularPreoperatorio();
+		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
+				vacunacionService.getAllVacunaciones();
+		    }
+		   
+		    /**
+			* Una vez obtenidas todos los registro de la peluquería que están registradas 
+			* en la base de datos, son mostrados dentro del datagrid,en este
+			* panel seran mostrados solamente el Nombre del cliente, apellido, rut, nombre
+			* de la mascota,raza y sexo, y en el panel siguiente serán mostrados los
+			* de un registro de peluquería.
+			*/
+            
+            public function getAllVacunacionesResult(event:ResultEvent):void
+		    {
+		   		vacunaicones = event.result as ArrayCollection;
+		    }
+		    
+		    /**
+		    * Una vez seleccionado un cliente, se procede a visualizar la siguiente 
+			* ventana (componente), con los datos correspondientes al cliente 
+			* seleccionado y los datos de los registro de peluquería que posee la mascota
+			* al interior del servicio de peluquería.
+			*/
+		    public function visualizarVacunaciones(event:Event):void
+            {
+            	if(tablaVacunaciones.selectedItem){
+            		this.setVisible(false,false);            	 	
+            		Application.application.anularPre2.setDatos(tablaVacunaciones.selectedItem as anuPreoperatorio);
+            		Application.application.anularPre2.setVisible(true,false);
+            	}
+            }
+            
+			/**
+			 * Evento del boton "Volver", el cual redirige a la página
+			 * a la estipulada por defecto por  el modulo de peluquería.
+			 */
+			private function volver():void
+            {
+            	this.setVisible(false,false);
+            	Application.application.peluqueriaIni.setVisible(true,false);
+            }
+            
+	 	]]>
+    </mx:Script>
 	
-	<!-- AutoComplete para cada parametro -->
-	<!-- input Usuario -->
-	<fc:AutoComplete id="inputNombreMas" x="59" y="10" width="150" dataProvider="{atencionesPre}" labelField="nombreMascota" visible="false"/>
-	<fc:AutoComplete id="inputRaza" x="59" y="10" width="150" dataProvider="{atencionesPre}" labelField="raza" visible="false"/>
-	<fc:AutoComplete id="inputSexo" x="59" y="10" width="150" dataProvider="{atencionesPre}" labelField="sexo" visible="false"/>
-	<fc:AutoComplete id="inputRut" x="59" y="10" width="150" dataProvider="{atencionesPre}" labelField="rut" visible="false"/>
-	<fc:AutoComplete id="inputNombreCliente" x="59" y="10" width="150" dataProvider="{atencionesPre}" labelField="nombre" visible="false"/>
-    <fc:AutoComplete id="inputApellidoPaterno" x="59" y="10" width="150" dataProvider="{atencionesPre}" labelField="apellidoPaterno" visible="false"/>
-
-	<!--DataGrid Con los datos de la mascota y cliente-->
-	<mx:DataGrid x="10" y="64" width="739" id="tablaPreoperatorio" enabled="true" height="278" dataProvider="{atencionesPre}" click="editarAtencionPreoperatorio()">
-		<mx:columns>
-			<mx:DataGridColumn headerText="Nombre" dataField="nombre" width="90"/>
-			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellidoPaterno" width="90"/>
-			<mx:DataGridColumn headerText="Rut" dataField="rut" width="90"/>
-			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota" width="80"/>
-			<mx:DataGridColumn headerText="Raza" dataField="raza" width="80"/>
-			<mx:DataGridColumn headerText="Sexo" dataField="sexo" width="60"/>
-			
-	     </mx:columns>
-	</mx:DataGrid>
-	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="350" click="editarAtencionPreoperatorio()" cornerRadius="6"/>
-	<mx:Label x="159" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Button x="647" y="350" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
-	<mx:Label x="10" y="43" text="Cliente" width="97" fontWeight="bold"/>
-	<mx:Label x="416" y="43" text="Mascota" width="98" fontWeight="bold"/>
-	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
-	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
+	<!-- Botón Visualizar -->
+	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
 	
-	<mx:ComboBox x="283" y="10" width="150" id="combobox1" change="seleccionarBusqueda(event)">
+	<mx:Text x="10" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
+	<mx:Text x="382" y="36" text="Mascota" fontWeight="bold"/>
+	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
+	<mx:Text x="10" y="10" id="textFiltrar" text="Filtrar por"/>
+	
+	<!-- Botón Cancelar -->
+	<mx:Button x="647" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()"/>
+	
+	<!-- Opciones de busqueda -->
+	<mx:ComboBox x="76" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
 		<mx:ArrayCollection>
-			<mx:Object label="-Seleccione-"/>
-			<mx:Object label="Nombre Mascota"/>
+			<mx:Object label="-Seleccionar-"/>
+			<mx:Object label="Nombre cliente"/>
+			<mx:Object label="Apellido paterno"/>
+			<mx:Object label="Rut cliente"/> 
+			<mx:Object label="Nombre mascota"/> 
 			<mx:Object label="Raza"/> 
-			<mx:Object label="Sexo"/> 
-			<mx:Object label="Rut"/> 
-			<mx:Object label="Nombre Cliente"/> 
-			<mx:Object label="Apellido Paterno"/>  
+			<mx:Object label="Sexo"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
 	
-
-
+	<!-- Tabla con datos -->
+	<mx:DataGrid x="10" y="62" width="739" height="280" id="tablaVacunaciones" dataProvider="{vacunaicones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
+		<mx:columns>		
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreCliente" id="nombreCliente" draggable="false"/>
+			<mx:DataGridColumn headerText="Apellido paterno" dataField="apellido" id="apellido" draggable="false"/>
+			<mx:DataGridColumn headerText="Rut" dataField="rutCliente" id="rutCliente" draggable="false"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota" id="nombreMascota" draggable="false"/>
+			<mx:DataGridColumn headerText="Raza" dataField="raza" id="raza" draggable="false"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="sexo" id="sexo" draggable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
 	
+	<!-- AutoComplete -->
+	
+	<!-- Nombre Del Cliente -->
+	<fc:AutoComplete id="inputNombreCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombreCliente" visible="false" toolTip="ingrese texto para búsqueda" />
+	
+	<!-- Apellido Del Cliente -->
+	<fc:AutoComplete id="inputApellidoPaterno" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="apellido" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Rut Del Cliente -->
+	<fc:AutoComplete id="inputRutCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="rutCliente" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Nombre De La Mascota -->
+	<fc:AutoComplete id="inputNombreMascota" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombreMascota" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Raza De La Mascota -->
+	<fc:AutoComplete id="inputRaza" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="raza" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Sexo De La Mascota -->
+	<fc:AutoComplete id="inputSexo" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="sexo" visible="false" toolTip="ingrese texto para búsqueda"/>
 </mx:Panel>
