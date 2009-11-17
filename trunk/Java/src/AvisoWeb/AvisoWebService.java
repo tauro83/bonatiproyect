@@ -1,3 +1,10 @@
+//=======================================================================
+// FECHA CREACIÓN: 08/11/09
+// AUTOR: Erwin Díaz
+// Comentarios: Encargada de enviar y recibir datos entre la interfaz
+//				y la capa lógica
+//=======================================================================
+
 package AvisoWeb;
 
 import java.sql.Connection;
@@ -5,47 +12,57 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import TransferObjects.Usuario;
+
+import AvisoWeb.AvisoWeb;
+import AvisoWeb.AvisoWebServiceBD;
 import Bd.DBConnectionManager;
-import TransferObjects.AvisoWeb;
+
 
 public class AvisoWebService {
 
 	/**
-	 * Trata de obtener todos los avisos web registrados en la base de datos
-	 * @return Lista con todos los avisos web registrados
-	 * @author Esteban Cruz
+	 * Trata de editar el aviso registrado en la base de datos
+	 * @return Resultado de la operación realizada
 	 */
-	public List<AvisoWeb> getAllAvisosWeb()
+	public int upAvisoWeb(AvisoWeb aviso)
     {
-		List<AvisoWeb> avisosweb = new ArrayList<AvisoWeb>();
-    	try 
+		int result = 0;
+		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
-			//Funcion
+			AvisoWebServiceBD personDB= new AvisoWebServiceBD(connection);
+			result = personDB.upAvisoWebBD(aviso);		
+			
 			connection.close();
 		} 
     	catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
-		return avisosweb;
+		return result;
     }
+
+	
 	
 	/**
-	 * Crea la conexion a la base de datos para registrar un aviso web
-	 * @param usuario contiene los datos del aviso web que se quiere ingresar
-	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
-	 * @author  Esteban Cruz
+	 * Trata de obtener todos los avisos registrados en la base de datos
+	 * @return Lista con todos los avisos registrados
 	 */
-	public int addAvisoWeb(AvisoWeb usuario){
-		int result=0;
-		try{
+	public List<AvisoWeb> getAllAvisoWeb()
+    {
+    	List<AvisoWeb> persons=new ArrayList<AvisoWeb>();
+    	try 
+		{
 			Connection connection=DBConnectionManager.getConnection();
-			//Funcion
+			AvisoWebServiceBD personDB= new AvisoWebServiceBD(connection);
+			persons= personDB.getAllAvisoWebBD();		
 			connection.close();
-		} catch (SQLException e){
+		} 
+    	catch (SQLException e) 
+		{
 			e.printStackTrace();
 		}
-		return result;
+		return persons;
     }
 }
