@@ -397,7 +397,132 @@
 				break;	
 				}
             }
+            
+            /**
+		    *  Selecciona cualquier elemento del input Usuario
+			*  @author  "Esteban Cruz"
+			**/
+            public function inputUsuarioNombreS(event:Event):void
+			{
+				inputUsuarioNombre.text=inputUsuarioNombre.selectedLabel;
+			}
+			 public function inputUsuarioCargoS(event:Event):void
+			{
+				inputUsuarioCargo.text=inputUsuarioCargo.selectedLabel;
+			}
+			 public function inputUsuarioApS(event:Event):void
+			{
+				inputUsuarioAp.text=inputUsuarioAp.selectedLabel;
+			}
+			 public function inputUsuarioAmS(event:Event):void
+			{
+				inputUsuarioAm.text=inputUsuarioAm.selectedLabel;
+			}
+			 public function inputUsuarioServicioS(event:Event):void
+			{
+				inputUsuarioServicio.text=inputUsuarioServicio.selectedLabel;
+			}
 			
+			/**
+		    *  Selecciona cualquier elemento del input Cliente
+			*  @author  "Esteban Cruz"
+			**/
+            public function inputClienteNombreS(event:Event):void
+			{
+				inputClienteNombre.text=inputClienteNombre.selectedLabel;
+			}
+			 public function inputClienteRutS(event:Event):void
+			{
+				inputClienteRut.text=inputClienteRut.selectedLabel;
+			}
+			 public function inputClienteTelS(event:Event):void
+			{
+				inputClienteTel.text=inputClienteTel.selectedLabel;
+			}
+			 public function inputClienteEmailS(event:Event):void
+			{
+				inputClienteEmail.text=inputClienteEmail.selectedLabel;
+			}
+			 public function inputClienteApellidoS(event:Event):void
+			{
+				inputClienteApellido.text=inputClienteApellido.selectedLabel;
+			}
+			public function inputClienteApellido2S(event:Event):void
+			{
+				inputClienteApellido2.text=inputClienteApellido2.selectedLabel;
+			}
+			
+			/**
+		    *  Selecciona cualquier elemento del input Mascota
+			*  @author  "Esteban Cruz"
+			**/
+            public function inputMascotaNombreS(event:Event):void
+			{
+				inputMascotaNombre.text=inputMascotaNombre.selectedLabel;
+			}
+			 public function inputMascotaRutS(event:Event):void
+			{
+				inputMascotaRut.text=inputMascotaRut.selectedLabel;
+			}
+			 public function inputMascotaRazaS(event:Event):void
+			{
+				inputMascotaRaza.text=inputMascotaRaza.selectedLabel;
+			}
+			 public function inputMascotaClaseS(event:Event):void
+			{
+				inputMascotaClase.text=inputMascotaClase.selectedLabel;
+			}
+			 public function inputMascotaSexoS(event:Event):void
+			{
+				inputMascotaSexo.text=inputMascotaSexo.selectedLabel;
+			}
+			
+			/**
+		    *  Selecciona cualquier elemento del input Atencion
+			*  @author  "Esteban Cruz"
+			**/
+            public function inputAtencionClienteS(event:Event):void
+			{
+				inputAtencionCliente.text=inputAtencionCliente.selectedLabel;
+			}
+			 public function inputAtencionMascotaS(event:Event):void
+			{
+				inputAtencionMascota.text=inputAtencionMascota.selectedLabel;
+			}
+			 public function inputAtencionFechaS(event:Event):void
+			{
+				inputAtencionFecha.text=inputAtencionFecha.selectedLabel;
+			}
+			 public function inputAtencionHoraS(event:Event):void
+			{
+				inputAtencionHora.text=inputAtencionHora.selectedLabel;
+			}
+			 public function inputAtencionServicoS(event:Event):void
+			{
+				inputAtencionServico.text=inputAtencionServico.selectedLabel;
+			}
+			
+			/**
+		    *  Selecciona cualquier elemento del input Producto
+			*  @author  "Esteban Cruz"
+			**/
+            public function inputProductoNombreS(event:Event):void
+			{
+				inputProductoNombre.text=inputProductoNombre.selectedLabel;
+			}
+			 public function inputProductoCodigoS(event:Event):void
+			{
+				inputProductoCodigo.text=inputProductoCodigo.selectedLabel;
+			}
+			 public function inputProductoPrecioS(event:Event):void
+			{
+				inputProductoPrecio.text=inputProductoPrecio.selectedLabel;
+			}
+			 public function inputProductoCategoriaS(event:Event):void
+			{
+				inputProductoCategoria.text=inputProductoCategoria.selectedLabel;
+			}
+
 		]]>
 	</mx:Script>
 	
@@ -417,39 +542,39 @@
 
 	<!-- AutoComplete para cada parametro -->
 	<!-- input Usuario -->
-	<fc:AutoComplete id="inputUsuarioNombre" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="nombre" visible="false"/>
-	<fc:AutoComplete id="inputUsuarioCargo" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="cargo" visible="false"/>
-	<fc:AutoComplete id="inputUsuarioAp" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="apellidoPaterno" visible="false"/>
-	<fc:AutoComplete id="inputUsuarioAm" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="apellidoMaterno" visible="false"/>
-	<fc:AutoComplete id="inputUsuarioServicio" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="servicio" visible="false"/>
+	<fc:AutoComplete close="inputUsuarioNombreS(event)" id="inputUsuarioNombre" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete close="inputUsuarioCargoS(event)" id="inputUsuarioCargo" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="cargo" visible="false"/>
+	<fc:AutoComplete close="inputUsuarioApS(event)" id="inputUsuarioAp" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="apellidoPaterno" visible="false"/>
+	<fc:AutoComplete close="inputUsuarioAmS(event)" id="inputUsuarioAm" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="apellidoMaterno" visible="false"/>
+	<fc:AutoComplete close="inputUsuarioServicioS(event)" id="inputUsuarioServicio" x="572" y="24" width="150" dataProvider="{usuarios}" labelField="servicio" visible="false"/>
 	
 	<!-- input Cliente -->
-	<fc:AutoComplete id="inputClienteNombre" x="572" y="24" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
-	<fc:AutoComplete id="inputClienteRut" x="572" y="24" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
-	<fc:AutoComplete id="inputClienteTel" x="572" y="24" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
-	<fc:AutoComplete id="inputClienteEmail" x="572" y="24" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
-	<fc:AutoComplete id="inputClienteApellido" x="572" y="24" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
-	<fc:AutoComplete id="inputClienteApellido2" x="572" y="24" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
+	<fc:AutoComplete close="inputClienteNombreS(event)" id="inputClienteNombre" x="572" y="24" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete close="inputClienteRutS(event)" id="inputClienteRut" x="572" y="24" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
+	<fc:AutoComplete close="inputClienteTelS(event)" id="inputClienteTel" x="572" y="24" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
+	<fc:AutoComplete close="inputClienteEmailS(event)" id="inputClienteEmail" x="572" y="24" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
+	<fc:AutoComplete close="inputClienteApellidoS(event)" id="inputClienteApellido" x="572" y="24" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
+	<fc:AutoComplete close="inputClienteApellido2S(event)" id="inputClienteApellido2" x="572" y="24" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
 	
 	<!-- input Mascota -->
-	<fc:AutoComplete id="inputMascotaNombre" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="nombre" visible="false"/>
-	<fc:AutoComplete id="inputMascotaRut" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="rutCliente" visible="false"/>
-	<fc:AutoComplete id="inputMascotaRaza" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="raza" visible="false"/>
-	<fc:AutoComplete id="inputMascotaClase" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="claseAnimal" visible="false"/>
-	<fc:AutoComplete id="inputMascotaSexo" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="sexo" visible="false"/>
+	<fc:AutoComplete close="inputMascotaNombreS(event)" id="inputMascotaNombre" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete close="inputMascotaRutS(event)" id="inputMascotaRut" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="rutCliente" visible="false"/>
+	<fc:AutoComplete close="inputMascotaRazaS(event)" id="inputMascotaRaza" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="raza" visible="false"/>
+	<fc:AutoComplete close="inputMascotaClaseS(event)" id="inputMascotaClase" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="claseAnimal" visible="false"/>
+	<fc:AutoComplete close="inputMascotaSexoS(event)" id="inputMascotaSexo" x="572" y="24" width="150" dataProvider="{mascotas}" labelField="sexo" visible="false"/>
 	
 	<!-- input Atencion -->
-	<fc:AutoComplete id="inputAtencionCliente" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="clienteRut" visible="false"/>
-	<fc:AutoComplete id="inputAtencionMascota" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="mascotaNombre" visible="false"/>
-	<fc:AutoComplete id="inputAtencionFecha" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="sfecha" visible="false"/>
-	<fc:AutoComplete id="inputAtencionHora" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="hora" visible="false"/>
-	<fc:AutoComplete id="inputAtencionServico" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="servicio" visible="false"/>
+	<fc:AutoComplete close="inputAtencionClienteS(event)" id="inputAtencionCliente" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="clienteRut" visible="false"/>
+	<fc:AutoComplete close="inputAtencionMascotaS(event)" id="inputAtencionMascota" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="mascotaNombre" visible="false"/>
+	<fc:AutoComplete close="inputAtencionFechaS(event)" id="inputAtencionFecha" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="sfecha" visible="false"/>
+	<fc:AutoComplete close="inputAtencionHoraS(event)" id="inputAtencionHora" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="hora" visible="false"/>
+	<fc:AutoComplete close="inputAtencionServicoS(event)" id="inputAtencionServico" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="servicio" visible="false"/>
 	
 	<!-- input Producto -->
-	<fc:AutoComplete id="inputProductoNombre" x="572" y="24" width="150" dataProvider="{productos}" labelField="nombre" visible="false"/>
-	<fc:AutoComplete id="inputProductoCodigo" x="572" y="24" width="150" dataProvider="{productos}" labelField="codigo" visible="false"/>
-	<fc:AutoComplete id="inputProductoPrecio" x="572" y="24" width="150" dataProvider="{productos}" labelField="precio" visible="false"/>
-	<fc:AutoComplete id="inputProductoCategoria" x="572" y="24" width="150" dataProvider="{productos}" labelField="categoria" visible="false"/>
+	<fc:AutoComplete close="inputProductoNombreS(event)" id="inputProductoNombre" x="572" y="24" width="150" dataProvider="{productos}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete close="inputProductoCodigoS(event)" id="inputProductoCodigo" x="572" y="24" width="150" dataProvider="{productos}" labelField="codigo" visible="false"/>
+	<fc:AutoComplete close="inputProductoPrecioS(event)" id="inputProductoPrecio" x="572" y="24" width="150" dataProvider="{productos}" labelField="precio" visible="false"/>
+	<fc:AutoComplete close="inputProductoCategoriaS(event)" id="inputProductoCategoria" x="572" y="24" width="150" dataProvider="{productos}" labelField="categoria" visible="false"/>
 	
 	<!-- Mascota: combobox y grid -->
 	<mx:ComboBox x="254" y="24" id="comboboxMascota" width="150" visible="false" change="seleccionarMascota(event)">
