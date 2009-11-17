@@ -260,6 +260,15 @@
   			  <source>Hoteleria.EditHoteleriaService</source>
   		 </properties>
   	</destination>
-
-
+	<destination id="RegistHoteleriaService"> 
+  	 	 <properties>
+  			  <source>Hoteleria.RHoteleriaService</source>
+  		 </properties>
+  	</destination>
+  
 </service>
+
+
+
+
+	
