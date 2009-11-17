@@ -1,7 +1,7 @@
 //=======================================================================
 // FECHA: CREACIÓN: 27-10-09
 // AUTOR: Esteban Cruz
-// Clase para anular o eliminar una cirugía desde la base de datos, además, 
+// Clase para anular o eliminar una vacunacion desde la base de datos, además, 
 // dentro de esta se puede buscar el listado de todas las vacunaciones existentes
 //=======================================================================
 
@@ -28,6 +28,7 @@ public class VacunacionBD {
 	/**
 	 * Se declaran las consultas hacia la base de datos
 	 * @param connection Conexión obtenida con la base de datos
+	 * @author  "Esteban Cruz"
 	 */
 	public VacunacionBD(Connection connection)
 	{
@@ -64,6 +65,7 @@ public class VacunacionBD {
 	/**
 	 * Trata de obtener todos las vacunaciones registrados en la base de datos
 	 * @return Lista con todas las vacunaciones registradas
+	 * @author  "Esteban Cruz"
 	 */
 	 public List<Vacunacion> getAllVacunaciones()
 	    {	
@@ -121,6 +123,7 @@ public class VacunacionBD {
 	  * Trata de obtener todos las vacunaciones registrados en la base de datos
 	  * de un cliente determinado
 	  * @return Lista con todas las vacunaciones registradas
+	  * @author  "Esteban Cruz"
 	  */
 	 public List<Vacunacion> getAllVacunacionesU(String rut, String nombre)
 	 {
@@ -164,6 +167,7 @@ public class VacunacionBD {
 	  * de la base de datos
 	  * @param 0=activado, 1=desactivo, 2=anulado
 	  * @return 1 si ha anulado correctamente y 0 de lo contrario
+	  * @author  "Esteban Cruz"
 	  */
 	 public int anular(String nombre, String fecha, String hora)
 	 {
@@ -187,6 +191,7 @@ public class VacunacionBD {
 	  * de la base de datos
 	  * @param 0=activado, 1=desactivo, 2=anulado
 	  * @return 1 si ha elimina correctamente y 0 de lo contrario
+	  * @author  "Esteban Cruz"
 	  */
 	 public int eliminar(String nombre, String fecha, String hora)
 	 {
