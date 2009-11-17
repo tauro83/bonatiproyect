@@ -12,8 +12,6 @@ package services
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	
-	import transferObjects.Vacunacion;
 	/**
 	 * Clase encargada de realizar la conexión entre la capa
 	 * lógica y la interfaz gráfica
@@ -34,6 +32,7 @@ package services
 		}
 		/**
 		 * @param event Evento recogido en caso de una falla en la llamada hacia la capa lógica
+		 * @author  "Esteban Cruz"
 		 */ 
 		private function faultHandler(event:FaultEvent):void
 		{
@@ -41,23 +40,26 @@ package services
 		}
 		/**
 		 * Se anula una vacunación, cambiandole el estado a 2
+		 * @author  "Esteban Cruz"
 		 */ 
-		public function anular(estado:String):void
+		public function anular(nombre:String, fecha:String, hora:String):void
 		{
-			this.getOperation("anular").send(estado);
+			this.getOperation("anular").send(nombre, fecha, hora);
 			
 		}
 		
 		/**
 		 * Se elimina una vacunación, cambiandole el estado a 1
+		 * @author  "Esteban Cruz"
 		 */ 
-		public function eliminar(estado:String):void
+		public function eliminar(nombre:String, fecha:String, hora:String):void
 		{
-			this.getOperation("eliminar").send(estado);
+			this.getOperation("eliminar").send(nombre, fecha, hora);
 		}
 		
 		/**
 		 * Se obtienen todas las vacunaciones que están registradas en la base de datos
+		 * @author  "Esteban Cruz"
 		 */ 
 		public function getAllVacunaciones():void
 		{
@@ -66,10 +68,11 @@ package services
 		
 		/**
 		 * Se obtienen todas las vacunaciones que están registradas en la base de datos
+		 * @author  "Esteban Cruz"
 		 */ 
-		public function getAllVacunacionesU(rut:String):void
+		public function getAllVacunacionesU(rut:String, nombre:String):void
 		{
-			this.getOperation("getAllVacunacionesU").send(rut);
+			this.getOperation("getAllVacunacionesU").send(rut, nombre);
 		}
 	}
 }

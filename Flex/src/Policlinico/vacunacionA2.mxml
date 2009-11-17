@@ -25,27 +25,31 @@
 			/**
 			 * Evento del boton "Volver", el cual redirige la página
 			 * a anterior (listado de clientes con cirugias acitadas)
+			 * @author  "Esteban Cruz"
 			 */
 			public function actionVolver():void
 			{
             	Application.application.vacunacionA2.setVisible(false,false);
             	Application.application.vacunacionA.setVisible(true,false);
+            	Application.application.vacunacionA.getAllVacunaciones();
 			}
 			
 			/**
 			 * Se obtienen todas las vacunaciones que están registradas en 
 			 * la base de datos para ser mostrados dentro del datagrid
+			 * @author  "Esteban Cruz"
 			 */
-			public function getAllVacunacionesU(rut:String):void
+			public function getAllVacunacionesU(rut:String, nombre:String):void
 		    {
 		   		var vacunacionService:VacunacionService = new VacunacionService();
 		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
-				vacunacionService.getAllVacunacionesU(rut);
+				vacunacionService.getAllVacunacionesU(rut, nombre);
 		    }
 		   
 		    /**
 			 * Una vez obtenidas todas las vacunaciones que están registradas 
 			 * en la base de datos, son mostrados dentro del datagrid
+			 * @author  "Esteban Cruz"
 			 */
 		    public function getAllVacunacionesResult(event:ResultEvent):void
 		    {
@@ -55,16 +59,18 @@
 			/**
 			 * Se anulan las vacunaciones que están seleccionadas en el
 			 * grid, desde la base de datos
+			 * @author  "Esteban Cruz"
 			 */
-			public function anular(estado:String):void
+			public function anular(nombre:String, fecha:String, hora:String):void
 			{
 				var vacunacionService:VacunacionService = new VacunacionService();
-				vacunacionService.anular(estado);
+				vacunacionService.anular(nombre, fecha, hora);
 			}
 
             /**
 			 * Mensaje para anular las vacunaciones que están seleccionadas
 			 * en el grid, desde este mismo
+			 * @author  "Esteban Cruz"
 			 */
            	private function deleteRow():void 
            	{
@@ -79,6 +85,7 @@
 			/**
 			 * Se anulan las vacunaciones que están seleccionadas en el
 			 * grid, desde este mismo
+			 * @author  "Esteban Cruz"
 			 */
 			private function removeTaskRecord():void
             {
@@ -89,7 +96,7 @@
                     if (vacunaciones[i].sel)
                 	{
                         vacu = vacunaciones[i] as Vacunacion;
-                        //anular(vacu.tipo);
+                        anular(vacu.mascotaNombre,vacu.fechaS,vacu.hora);
                         
                         vacunaciones.removeItemAt(i);
                         allRows = vacunaciones.length;
@@ -104,6 +111,7 @@
 			/**
 			 * Una vez seleccionado SÍ o NO en el mensaje
 			 * se llama a la función que anula
+			 * @author  "Esteban Cruz"
 			 */
 			private function delRowHandler(evt:CloseEvent):void {
 			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
@@ -114,21 +122,23 @@
 			 * Se toma el objeto cliente con sus respectivos 
 			 * datos, y se insertan en los campos correspondientes
 			 * Cliente y Mascota
+			 * @author  "Esteban Cruz"
 			 */
 			public function setDatos(vacu:Vacunacion):void
 			{
-				getAllVacunacionesU(vacu.clienteRut);
+				getAllVacunacionesU(vacu.clienteRut, vacu.mascotaNombre);
          		cNom.text=vacu.clienteNombre;
          		cRut.text=vacu.clienteRut;
          		cApP.text=vacu.clienteApellido;
          		mNom.text=vacu.mascotaNombre;
-         		mRaz.text=vacu.raza;
-         		mSex.text=vacu.sexo;
+         		mRaz.text=vacu.mascotaRaza;
+         		mSex.text=vacu.mascotaSexo;
          	}
          	
          	/**
 			 * Se seleccionan todas las vacunaciones existentes
 			 * en el grid
+			 * @author  "Esteban Cruz"
 			 */
          	private function selectAll():void{
                 var allRows:int = vacunaciones.length;
@@ -154,12 +164,11 @@
                         </mx:Component>
              	</mx:itemRenderer>
             </mx:DataGridColumn>		
-			<mx:DataGridColumn width="121" headerText="Tipo vacuna" dataField="tipo" id="tipo" draggable="false"/>
-			<mx:DataGridColumn width="140" headerText="Veterinario" dataField="veterinario" id="veterinario" draggable="false"/>
-			<mx:DataGridColumn width="140" headerText="Descripción" dataField="descripcion" id="descripcion" draggable="false"/>
-			<mx:DataGridColumn width="120" headerText="Servicio" dataField="servicio" id="servicio" draggable="false"/>
-			<mx:DataGridColumn width="99" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
-			<mx:DataGridColumn width="99" headerText="Fecha" dataField="fechaVacu" id="fechaVacu" draggable="false"/>
+			<mx:DataGridColumn width="140" headerText="Veterinario" dataField="veterinario" draggable="false"/>
+			<mx:DataGridColumn width="261" headerText="Descripción" dataField="descripcion" draggable="false"/>
+			<mx:DataGridColumn width="120" headerText="Servicio" dataField="servicio" draggable="false"/>
+			<mx:DataGridColumn width="99" headerText="Hora" dataField="hora" draggable="false"/>
+			<mx:DataGridColumn width="99" headerText="Fecha" dataField="fechaS" draggable="false"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:CheckBox x="25" y="152" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>

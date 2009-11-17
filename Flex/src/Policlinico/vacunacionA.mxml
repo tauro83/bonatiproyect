@@ -19,7 +19,10 @@
 			[Bindable]
 			private var vacunaicones:ArrayCollection;
 			
-			
+			/**
+			 * Reinicia los elementos del componente
+			 * @author  "Esteban Cruz"
+			 */
 			public function iniciar():void
 			{
 				combobox.selectedIndex=0;
@@ -42,6 +45,7 @@
 			/**
 			 * Evento del boton "Volver", el cual redirige la página
 			 * a la estipulada por defecto
+			 * @author  "Esteban Cruz"
 			 */
 			private function volver():void
             {
@@ -52,6 +56,7 @@
             /**
 			 * Se hace visible el input correspondiente a la opción
 			 * elegida en el combobox
+			 * @author  "Esteban Cruz"
 			 */
             private function seleccionarBusqueda (event:Event):void
             {   
@@ -90,6 +95,7 @@
 			/**
 			 * Se obtienen todas las vacunaciones que están registradas en 
 			 * la base de datos para ser mostrados dentro del datagrid
+			 * @author  "Esteban Cruz"
 			 */
 			public function getAllVacunaciones():void
 		    {
@@ -101,6 +107,7 @@
 		    /**
 			 * Una vez obtenidas todas las vacunaciones que están registradas 
 			 * en la base de datos, son mostrados dentro del datagrid
+			 * @author  "Esteban Cruz"
 			 */
 		    public function getAllVacunacionesResult(event:ResultEvent):void
 		    {
@@ -111,6 +118,7 @@
 			 * Una vez seleccionado un cliente, se procede a visualizar
 			 * la siguiente ventana (componente), con los datos 
 			 * correspondientes al cliente seleccionado
+			 * @author  "Esteban Cruz"
 			 */
 		    public function visualizarVacunaciones(event:Event):void
             {
@@ -120,6 +128,36 @@
             		Application.application.vacunacionA2.setVisible(true,false);
             	}
             }
+            
+            /**
+			 * Cumplen la finalidad de poder seleccionar correctamente
+			 * cualquier elemento desde el input
+			 * @author  "Esteban Cruz"
+			 */
+            public function closeInputSexo(event:Event):void
+			{
+				inputSexo.text=inputSexo.selectedLabel;
+			}
+			public function closeInputRaza(event:Event):void
+			{
+				inputRaza.text=inputRaza.selectedLabel;
+			}
+			public function closeInputNombreM(event:Event):void
+			{
+				inputNombreMascota.text=inputNombreMascota.selectedLabel;
+			}
+			public function closeInputRut(event:Event):void
+			{
+				inputRutCliente.text=inputRutCliente.selectedLabel;
+			}
+			public function closeInputNombreC(event:Event):void
+			{
+				inputNombreCliente.text=inputNombreCliente.selectedLabel;
+			}
+			public function closeInputApellido(event:Event):void
+			{
+				inputApellidoPaterno.text=inputApellidoPaterno.selectedLabel;
+			}
 			
 		]]>
 	</mx:Script>
@@ -148,21 +186,21 @@
 	<!-- Tabla con datos -->
 	<mx:DataGrid x="10" y="62" width="739" height="280" id="tablaVacunaciones" dataProvider="{vacunaicones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
 		<mx:columns>		
-			<mx:DataGridColumn headerText="Nombre" dataField="clienteNombre" id="nombreCliente" draggable="false"/>
-			<mx:DataGridColumn headerText="Apellido paterno" dataField="clienteApellido" id="apellidoPaterno" draggable="false"/>
-			<mx:DataGridColumn headerText="Rut" dataField="clienteRut" id="rutCliente" draggable="false"/>
-			<mx:DataGridColumn headerText="Nombre" dataField="mascotaNombre" id="nombreMascota" draggable="false"/>
-			<mx:DataGridColumn headerText="Raza" dataField="raza" id="raza" draggable="false"/>
-			<mx:DataGridColumn headerText="Sexo" dataField="sexo" id="sexo" draggable="false"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="clienteNombre" draggable="false"/>
+			<mx:DataGridColumn headerText="Apellido paterno" dataField="clienteApellido" draggable="false"/>
+			<mx:DataGridColumn headerText="Rut" dataField="clienteRut" draggable="false"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="mascotaNombre" draggable="false"/>
+			<mx:DataGridColumn headerText="Raza" dataField="mascotaRaza" id="raza" draggable="false"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="mascotaSexo" id="sexo" draggable="false"/>
 		</mx:columns>
 	</mx:DataGrid>
 	
 	<!-- AutoComplete -->
-	<fc:AutoComplete id="inputNombreCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="clienteNombre" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="inputApellidoPaterno" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="clienteApellido" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="inputRutCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="clienteRut" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="inputNombreMascota" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="mascotaNombre" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="inputRaza" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="raza" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="inputSexo" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="sexo" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputNombreCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="clienteNombre" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputNombreC(event)"/>
+	<fc:AutoComplete id="inputApellidoPaterno" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="clienteApellido" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputApellido(event)"/>
+	<fc:AutoComplete id="inputRutCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="clienteRut" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputRut(event)"/>
+	<fc:AutoComplete id="inputNombreMascota" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="mascotaNombre" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputNombreM(event)"/>
+	<fc:AutoComplete id="inputRaza" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="mascotaRaza" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputRaza(event)"/>
+	<fc:AutoComplete id="inputSexo" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="mascotaSexo" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputSexo(event)"/>
 	
 </mx:Panel>
