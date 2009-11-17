@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registros Hoteleria" xmlns:ns1="com.adobe.flex.extras.controls.*" currentState="Registros" xmlns:ns2="util.*">
+	
+	<mx:Script>
+        <![CDATA[
+        	import transferObjects.Hoteleria;
+		 	
+		 	import mx.events.FlexMouseEvent;
+			import mx.controls.Text;
+			import mx.rpc.events.ResultEvent;
+            public var selectedItem:Object;
+            import mx.core.Application;
+            import mx.controls.Alert;
+            import mx.collections.ArrayCollection;
+            import services.citaServices;
+			import transferObjects.Cita;
+			import transferObjects.Cliente; 
+			import administracion.GetAllHoteleriaService;
+			import services.AddMascotaService;  
+			
+			
+			private var ct:citaServices = new citaServices();
+			private var c1:Cita;
+			
+			 [Bindable]
+			private var clientes:ArrayCollection;
+			
+			[Bindable]
+			private var hotelerias:ArrayCollection;
+		 	
+		 	
+		 	   [Bindable]
+            public var usuarios:ArrayCollection = new ArrayCollection(
+                [{label:"--Seleccione--"}, 
+                {label:"cbonati"}, 
+                  {label:"Patricio Castro"} ]);
+                 
+                 
+                 [Bindable]
+            public var mascotas:ArrayCollection = new ArrayCollection(
+                [{label:"--Seleccione--"}, 
+                {label:"dog"}, 
+                  {label:"otro"} ]); 
+                  
+                 [Bindable]
+            public var caniles:ArrayCollection = new ArrayCollection(
+                [{label:"--Ninguno--"}, 
+                {label:"1"}, 
+                  {label:"2"},
+                  {label:"3"},
+                  {label:"4"},
+                  {label:"5"},
+                  {label:"6"},
+                  {label:"7"},
+                  {label:"8"},
+                  {label:"9"},
+                  {label:"10"} ]);
+                  
+                   	private function cancelarOperacion():void{
+         		if(this.currentState == "EditarHoteleria"){
+         			currentState = "";
+         		}
+         		else{
+         			this.visible = false;
+         			Application.application.panelHoteleria.visible = true;
+         			
+         		}
+         	}
+                  
+             public function registrar():void
+             {
+             	var rc:String = clienteRutName.rutClienteInput.text + clienteRutName.rutClienteDVInput.text;
+             	var alojar:Hoteleria = new Hoteleria();
+             	
+             	alojar.cliente         = rc;
+             	alojar.mascota         = mascotasList.selectedLabel.split(" ", 1).pop();
+             	alojar.fechaIngreso    = fecha1.selectedDate;
+             	alojar.fechaSalida     = fecha2.selectedDate;
+             	alojar.canil           = parseInt(canilIntput.selectedLabel.split(" ", 1).pop());
+             	alojar.costo           = costoIntput.costo.text;
+             	alojar.comentario      = comentarioCuadro.text; 
+             	alojar.responsable     = "cb";            	
+             	
+             	var rH: RegistHoteleriaService = new RegistHoteleriaService();
+             	
+				rH.addEventListener(ResultEvent.RESULT,registHoteleriaResult);
+				rH.registrarHoteleria(alojar);
+            
+          //  this.currentState='RegistroHoteleria'; 	
+             }  
+                
+                
+                         	/**
+	 * @Fecha  03 Octubre
+	 *  @Descripcion Metodo que rec activos del sistema
+	 *  consulta todos los registros de clientes en la base de datos.
+	 
+	 	**/	
+			
+			private function registHoteleriaResult(event:ResultEvent):void
+			{
+				var message:String= event.result as String;	
+				var msj:String = "";
+				if(message=="1"){
+					msj = " fue Registrado"; 					
+    		 	}
+				else{
+					 msj= "fallo"; 				
+				}		
+					labelMessage.text=msj;
+			}   
+		 	 	
+		  /**
+			 * se obtienen todos los registros de hoteleria
+			 */
+			
+			public function getAllHotel():void
+			{
+				var getAllService:GetAllHoteleriaService = new GetAllHoteleriaService();
+				getAllService.addEventListener(ResultEvent.RESULT,getAllServiceResult);
+				getAllService.getAllHoteleria();
+			}
+		 		/**
+			 * Obtiene el resultado del llamado a la capa dos y tres
+			 * del sistema
+			 */
+			private function getAllServiceResult(event:ResultEvent):void
+			{
+				hotelerias = event.result as ArrayCollection;
+			}
+			
+		 	
+		/**
+			* Funcion que llama a retornar todas las mascotas de un cliente para ser vistas en el combobox
+			* @author  Sebastian Arancibia
+			*/
+			private function getMascotas():void{
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(clienteRutName.rutClienteInput.text+clienteRutName.rutClienteDVInput.text);
+			}
+			
+			/**
+			* Funcion que obtiene todas las mascotas de un cliente
+			* @param event Evento proveniente de la llamada a addMascotaService
+			* @author  Sebastian Arancibia
+			*/
+			private function getAddMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+			}
+			
+	
+	
+	 ]]>
+       
+    </mx:Script>
+	
+	<mx:states>
+		<mx:State name="Registros">
+			<mx:SetProperty target="{Tabla}" name="enabled" value="false"/>
+			<mx:SetProperty target="{textinput1}" name="x" value="667"/>
+			<mx:SetProperty target="{textinput1}" name="y" value="34"/>
+			<mx:SetProperty target="{label2}" name="x" value="542"/>
+			<mx:SetProperty target="{label2}" name="y" value="36"/>
+			<mx:SetProperty target="{textinput1}" name="editable" value="false"/>
+			<mx:SetProperty target="{textinput1}" name="enabled" value="false"/>
+			<mx:AddChild position="lastChild">
+				<mx:CheckBox x="714" y="34" label="Checkbox" width="18" selected="false" toolTip="Ignorar"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{button2}" name="x" value="657"/>
+			<mx:SetProperty target="{button1}" name="x" value="577"/>
+			<mx:SetProperty target="{button1}" name="width" value="72"/>
+		</mx:State>
+		<mx:State name="RegistroHoteleria">
+			<mx:RemoveChild target="{label1}"/>
+			<mx:RemoveChild target="{textinput1}"/>
+			<mx:RemoveChild target="{label2}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="572" y="368" label="Registrar" id="button0" click="{registrar()}" enabled="true"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="659" y="368" label="Cancelar" id="button3" click="{currentState='Registros'}"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="22" y="10" text="Cliente:" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="22" y="64" text="Mascota:" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="22" y="140" text="Hoteleria:" fontWeight="bold" id="label5"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Form width="290" height="124" y="166" verticalGap="8" paddingBottom="0" paddingRight="0" paddingTop="5" right="447">
+					<mx:FormItem label="Ingreso:                                    " width="267" required="false">
+						<mx:DateField width="161" id="fecha1" editable="true" showToday="true" formatString="DD/MM/YYYY"/>
+					</mx:FormItem>
+					
+					<mx:FormItem label="Salida:" width="265" required="false">
+						<mx:DateField width="161" id="fecha2" editable="true" formatString="DD/MM/YYYY"/>
+					</mx:FormItem>
+					
+					<mx:FormItem label="Canil:" width="268">
+						<ns2:Caniles id="canilIntput"/>
+					</mx:FormItem>
+					<mx:FormItem label="Costo:" width="267" required="false">
+						<ns2:Precio id="costoIntput">
+						</ns2:Precio>
+					</mx:FormItem>
+					
+				</mx:Form>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Form width="280" height="34" y="90" verticalGap="8" paddingBottom="0" paddingRight="0" paddingTop="5" right="457">
+					<mx:FormItem label="Nombre:" width="263" height="27" horizontalAlign="left" required="false">
+						<mx:ComboBox id="mascotasList" labelField="label" width="159" dataProvider="{mascotas}"></mx:ComboBox>
+					</mx:FormItem>
+					
+				</mx:Form>
+			</mx:AddChild>
+			<mx:RemoveChild target="{button1}"/>
+			<mx:RemoveChild target="{button2}"/>
+			<mx:SetProperty name="title" value="Nuevo Registro Hoteleria"/>
+			<mx:SetProperty target="{labelMessage}" name="x" value="184.5"/>
+			<mx:SetProperty target="{labelMessage}" name="y" value="398"/>
+			<mx:AddChild position="lastChild">
+				<ns2:BuscadorNombreRut id="clienteRutName" x="22" y="26">
+				</ns2:BuscadorNombreRut>
+			</mx:AddChild>
+			<mx:RemoveChild target="{Tabla}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="342.25" y="155" text="Comentario:" width="93" height="22"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextArea x="429" y="154" id="comentarioCuadro" width="296" height="113"/>
+			</mx:AddChild>
+		</mx:State>
+	</mx:states>
+	<mx:DataGrid x="27" y="75" width="705" id="Tabla" enabled="true" height="257" creationComplete="{getAllHotel()}">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Fecha Ingreso" dataField="fechaIngreso" width="35"/>
+			<mx:DataGridColumn headerText="Fecha Salida" dataField="fechaSalida" width="35"/>
+			<mx:DataGridColumn headerText="Cliente" dataField="cliente" width="50"/>
+			<mx:DataGridColumn headerText="Mascota" dataField="mascota" width="60"/>
+			<mx:DataGridColumn headerText="Hora" dataField="hora" width="20"/>
+			<mx:DataGridColumn headerText="Caníl" dataField="canil" width="20"/>
+			<mx:DataGridColumn headerText="Costo" dataField="costo" width="30"/>
+			<mx:DataGridColumn headerText="Comentario" dataField="diagnostico" visible="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Label x="27" y="34" text="Registros Actuales:" fontWeight="bold" id="label1"/>
+	<mx:Button x="667" y="340" label="Nuevo" id="button1" click="{currentState='RegistroHoteleria'}"/>
+	<mx:Button x="596" y="340" label="Cancelar" id="button2" click="cancelarOperacion()"/>
+	<mx:Label x="572" y="34" text="Caniles Disponibles:" fontWeight="bold" id="label2"/>
+	<mx:TextInput x="697" y="32" width="31" text="5" id="textinput1"/>
+	<mx:Label x="194" y="388" width="390" id="labelMessage"/>
+	
+	<mx:transitions>
+       <mx:Transition fromState="*" toState="*">
+          <mx:Move target="{Tabla}" />
+       </mx:Transition>
+    </mx:transitions>
+	
+</mx:Panel>
