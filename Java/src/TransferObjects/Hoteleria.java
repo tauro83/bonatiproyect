@@ -16,6 +16,10 @@ public class Hoteleria {
 	private int diasEstadia;//número de días que dura la estadía, calculado a partir						// de la fecha de ingreso y la de salida
 	private boolean eliminado;
 	
+	private Date nuevaFechaIngreso;
+	private Date nuevaFechaSalida;
+	private int nuevoCanil;
+	
 	/**
 	 * Establece un nuevo valor para la variable servicio
 	 * @param s nuevo valor a asignar
@@ -183,5 +187,29 @@ public class Hoteleria {
 	 */
 	public boolean getEliminado(){
 		return this.eliminado;
+	}
+	
+	
+	
+	/**
+	 * Retorna el valor correspondiente a la variable comentario
+	 * @return comentarios hechos relacionados con la estadía de la mascota.
+	 */
+	public Date getNuevaFechaIngreso(){
+		return this.nuevaFechaIngreso;
+	}
+	/**
+	 * Retorna el valor correspondiente a la variable diasEstadia
+	 * @return número de días que la mascota estará en hotel.
+	 */
+	public Date getNuevaFechaSalida(){
+		return this.nuevaFechaSalida;
+	}
+	/**
+	 * Retorna el valor correspondiente a la variable eliminado
+	 * @return valor booleano que nos indica si el registro está eliminado o no.
+	 */
+	public int getNuevoCanil(){
+		return this.nuevoCanil;
 	}
 }
