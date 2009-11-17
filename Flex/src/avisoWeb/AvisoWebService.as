@@ -12,7 +12,6 @@ package avisoWeb
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	import transferObjects.UsuarioElim;
 	/**
 	 * Clase encargada de realizar la conexión entre la capa
 	 * lógica y la interfaz gráfica
@@ -36,7 +35,7 @@ package avisoWeb
 		 */ 
 		private function faultHandler(event:FaultEvent):void
 		{
-			Alert.show("Error en UsuarioElimService, Detalle: "+event.fault.message);
+			Alert.show("Error en AvisoWebService, Detalle: "+event.fault.message);
 		}
 		/**
 		 * Se obtienen todos los usuarios que están registrados en la base de datos
@@ -45,9 +44,9 @@ package avisoWeb
 		{
 			this.getOperation("getAllAvisoWeb").send();
 		}
-		public function addAvisoWeb(user:Usuario):void
+		public function upAvisoWeb(aviso:AvisoWeb):void
 		{
-			this.getOperation("addAvisoWeb").send(user);
+			this.getOperation("upAvisoWeb").send(aviso);
 		}
 		
 	}
