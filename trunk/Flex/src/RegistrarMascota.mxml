@@ -57,7 +57,7 @@
         		
         		
         		ini(event);
-        		var Numero:String = rutClienteInput.text;
+        		/*var Numero:String = rutClienteInput.text;
         		var Dv:String = rutClienteDVInput.text;
 				var suma:int = 0;
 				var rut:String = Numero;
@@ -97,7 +97,8 @@
 						rutClienteDVInput.text = "K";
 					}
 					getCliente(rutClienteInput.text + rutClienteDVInput.text);
-				}		
+				}*/
+				getCliente(rutClienteInput.text + rutClienteDVInput.text);	
         	}
         	
 			/**

@@ -16,6 +16,7 @@
 				<mensaje key="12">Error al restaurar Mascota</mensaje>
 				<mensaje key="13">Cita previamente, cambie los parametros</mensaje>
 				<mensaje key="14">Cliente previamente registrado</mensaje>
+				<mensaje key="15">Registro no modificado</mensaje>
 			</mensajes>
 		</tipoMensaje>	
 		<tipoMensaje name="Advertencia">
@@ -80,6 +81,7 @@
 				<mensaje key="20">Ha cancelado la edición de datos</mensaje>
 				<mensaje key="21">Estadísticas por rango de fecha para Clinica</mensaje>
 				<mensaje key="22">Se ha editado el Catalogo exitosamente</mensaje>
+				<mensaje key="23">Se ha editado el Registro exitosamente</mensaje>
 			</mensajes>
 		</tipoMensaje>			
 	</tipos>

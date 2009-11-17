@@ -6,30 +6,32 @@ package util
 	/**
 	 * Permite verificar los tests que estan disponibles segun la configuración del archivo "properties/AvailableTests.xml"
 	 **/
-	public class Properties
+	public class PropiedadesCanil
 	{
-		[Embed(source="properties.xml")]
+		[Embed(source="caniles.xml")]
 		[Bindable]
 		public static var settingClass:Class;
-		
-		
+	
+				
 		/**
 		 * Obtiene un mensaje segun el tipo, el lenguaje y el identificador especificado de los definidos en el xml 
 		 **/
-		public static function  getMensaje(tipoMensaje:String,key:String):String
+		 import mx.controls.Alert;
+		public static function  getCaniles(key:String):String
 		{
+			Alert.show("legaaaaaaa");
 			try
 			{
 				var xml:XML = new XML(settingClass.data)
-				for each (var _tipoMensaje:XML in xml.tipos.tipoMensaje)
+				for each (var _tipoPropiedad:XML in xml.tipos.tipoPropiedad)
 				{
-					if( _tipoMensaje.@name == tipoMensaje)
+					if( _tipoPropiedad.@name == "Canil")
 					{
-						for each (var mensaje:XML in _tipoMensaje.mensajes.mensaje)
+						for each (var propiedad:XML in _tipoPropiedad.propiedades.propiedad)
 						{
-							if(mensaje.@key == key)
+							if(propiedad.@key == key)
 							{
-								return mensaje.toString();
+								return propiedad.toString();
 							}
 						} 
 					}
@@ -41,6 +43,5 @@ package util
 			}
 			return "Mensaje No encontrado";
 		}
-
 	}
 }
