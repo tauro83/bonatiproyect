@@ -1,7 +1,7 @@
 //=======================================================================
 // FECHA CREACIÓN:  13/10/09
 // AUTOR: Jimmy Muñoz
-// …. Clase que conecta con capa 2
+// Clase que conecta con capa 2
 //=======================================================================
 
 package pabellon

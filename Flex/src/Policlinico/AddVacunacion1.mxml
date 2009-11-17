@@ -1,6 +1,12 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registro Vacunación" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
         <![CDATA[
+           	//=======================================================================
+			// FECHA: CREACIÓN: 27/10/09
+			// AUTOR: jimmy muñoz
+			// Panel de selección de usuario, para proceder a editar los datos de éste.
+			//=======================================================================
+			
         	import mx.events.FlexEvent;
         	import transferObjects.ConfiguracionVacuna;
         	import transferObjects.Cliente;

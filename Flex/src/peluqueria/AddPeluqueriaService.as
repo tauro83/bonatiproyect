@@ -1,7 +1,7 @@
 //=======================================================================
 // FECHA CREACIÓN:  11/11/2009
 // AUTOR: Jimmy Muñoz
-// Comentarios: Clase que conecta con capa 2
+// Clase que conecta con capa 2
 //=======================================================================
 
 package peluqueria

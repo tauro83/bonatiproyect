@@ -6,7 +6,7 @@
         	//=======================================================================
 			// FECHA: CREACIÓN: 11/11/09
 			// AUTOR: Jimmy Muñoz
-			// Comentarios: Formulario y validacion de la edicion de un usuario en el sistema.
+			// Formulario y validacion de la edicion de un usuario en el sistema.
 			//=======================================================================
 			
 			import transferObjects.CatPeluqueria;
