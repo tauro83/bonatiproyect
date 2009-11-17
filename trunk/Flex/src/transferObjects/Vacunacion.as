@@ -5,16 +5,19 @@
 package transferObjects
 {
 	import mx.collections.ArrayCollection;
-	
+	import mx.controls.CheckBox;
 	
 	[Bindable]
     [RemoteClass(alias="TransferObjects.Vacunacion")]
     
 	public class Vacunacion
 	{
+		public var checkbox:CheckBox = new CheckBox;
+		public var sel:Boolean;
 		public var clienteRut:String;
 		public var mascotaNombre:String;
 		public var hora:String;
+		public var fechaS:String;
 		public var fecha:Date;
 		public var fechaCaducidad:Date;
 		public var costo:String;
@@ -24,7 +27,8 @@ package transferObjects
 		public var estado:String;
 		public var clienteNombre:String;
 		public var clienteApellido:String;
-		public var raza:String;
-		public var sexo:String;
+		public var mascotaRaza:String;
+		public var mascotaSexo:String;
+		public var servicio:String;
 	}
 }
