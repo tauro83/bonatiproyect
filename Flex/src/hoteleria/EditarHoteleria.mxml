@@ -1,28 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Registro Hoteleria" xmlns:ns1="com.adobe.flex.extras.controls.*">
+<mx:Panel initialize="iniciarPanel()" xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Registro Hoteleria" xmlns:ns1="com.adobe.flex.extras.controls.*" xmlns:fc="http://www.adobe.com/2006/fc" xmlns:ns2="util.*">
 		 <mx:Script>
         <![CDATA[
-        //=======================================================================
-		// FECHA CREACIÓN:  09/11/2009
-		// AUTOR: Sebastian Arancibia
-		// …. Componente de editar registro de hoteleria
-		//=======================================================================
+        	
+	        //=======================================================================
+			// FECHA CREACIÓN:  09/11/2009
+			// AUTOR: Sebastian Arancibia
+			// …. Componente de editar registro de hoteleria
+			//=======================================================================
         	import mx.core.Application;
+        	import transferObjects.Alojamiento;
+        	import transferObjects.Cliente;
+        	import mx.rpc.events.ResultEvent;
+			import services.EliminarHoteleriaService;
+			import administracion.GetAllHoteleriaService;
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.formatters.DateFormatter;
+			import services.BusquedaService;
+			import pabellon.AddCirugiaService;
+			import mx.events.ValidationResultEvent;   
+			import services.Validacion;
+			import services.AddMascotaService;  
+			import util.Properties;
+			import transferObjects.Hoteleria;
+
+			/**
+			* Variables Utilizadas
+			*/
+		    [Bindable]public var mascotas:ArrayCollection = new ArrayCollection();
+			[Bindable]private var hotelerias:ArrayCollection;
+			[Bindable]private var hoteleriasOriginal:ArrayCollection;
+			[Bindable]private var clientes:ArrayCollection = new ArrayCollection();
+			[Bindable]private var cliente2:ArrayCollection;
         
-         	private function editarHoteleria():void{
+        	/**
+        	* @author  Sebastian Arancibia
+			* Funcion que cambia de estado a Editar Hoteleria, se cambian y llenan atributos de este
+			* estado, se capturan datos de la tabla seleccionada para su edicion
+			* Para el caso del costo se agrega el valor bruto y luego se formatea
+			*/
+         	private function editarHoteleria():void{         		
          		currentState="EditarHoteleria";
+         		labelMessage.text = "";
+         		
+         		var rutCliente:String = Tabla.selectedItem.cliente.split(" ", 1).pop();
+         		var largo:int = rutCliente.length;
+         		buscadorCliente.rutClienteInput.text = rutCliente.substring(0,largo-1);
+         		buscadorCliente.rutClienteDVInput.text = rutCliente.charAt(largo-1);
+         		buscadorCliente.llenarApellido();
+         		
+         		listaMascotas.text = Tabla.selectedItem.mascota.split(" ",1).pop();
+         		
+         		buscadorCliente.rutClienteInput.enabled = false;
+         		buscadorCliente.rutClienteDVInput.enabled = false;
+         		buscadorCliente.inputClienteNombre.enabled = false;
+         		listaMascotas.enabled = false;
+         		
+         		fecha.selectedDate = Tabla.selectedItem.fechaIngreso;
+         		fecha0.selectedDate = Tabla.selectedItem.fechaSalida;         		
+         		numeroCanil.text = Tabla.selectedItem.canil;
+         		cuadroComentario.text = Tabla.selectedItem.comentario;
+         		
+				costoInput.costo.text = Tabla.selectedItem.costo.split(" ",1).pop();
+				costoInput.formatear();
+         		
+         		
          	}
+         	
+           /**
+        	* @author  Sebastian Arancibia
+			* Funcion que es llamada por el boton cancelar, en el caso de que este en el estado
+			* EditarHoteleria este vuelve al estado base, pero en el caso de que este en el estado base
+			* este vuelve a la ventana por defecto del modulo donde se inica un mensaje de lo que debe hacer
+			*/
          	private function cancelarOperacion():void{
+         		/*
+         		* Si esta en el estado EditarHoteleria vuelve a la busqueda de atenciones
+         		* que esta disponible en el estado base
+         		*/
          		if(this.currentState == "EditarHoteleria"){
-         			currentState = "";
+					iniciarPanel();
          		}
+         		/*
+         		* Si esta en el caso base vuelve al mensaje por defecto del modulo
+         		*/
          		else{
          			this.visible = false;
          			Application.application.panelHoteleria.visible = true;
          			
          		}
          	}
-         
+         	
+         	/**
+        	* @author  Sebastian Arancibia
+			* Funcion que es llamada al iniciar iniciar el panel, en este se blanquean los datos,
+			* Se buscan todas las atenciones y son cargadas a la tabla hoteleria
+			* Se reactivan opciones como el rut del cliente, nombre de este y nombre de la mascota
+			*/
+         	private function iniciarPanel():void{
+         		getAllHotel();
+     		    currentState = "";
+     		    registrar.visible = false;
+     			buscadorCliente.rutClienteInput.enabled = true;
+         		buscadorCliente.rutClienteDVInput.enabled = true;
+         		buscadorCliente.inputClienteNombre.enabled = true;
+         		listaMascotas.enabled = true;
+         		
+         		buscadorCliente.rutClienteInput.text = "";
+         		buscadorCliente.rutClienteDVInput.text = "";
+         		buscadorCliente.inputClienteNombre.text = "";
+         		listaMascotas.text = "";
+         		fecha.text = "";
+     			fecha0.text = "";
+     			
+     			filtrar();
+         	}
+         	
+         	/**
+         	 * @author  Sebastian Arancibia
+			 * Funcion que llama a todas las atenciones de hoteleria a la base de datos
+			 * para ser cargada a la tabla de hotelerias para disponerlas, en el caso de que
+			 * se filtren solo se ocultan, pero no se vuelven a buscar
+			 */
+			public function getAllHotel():void
+			{
+				var getAllService:GetAllHoteleriaService = new GetAllHoteleriaService();
+				getAllService.addEventListener(ResultEvent.RESULT,getAllServiceResult);
+				getAllService.getAllHoteleria();
+			}
+			/**
+			 * @author  Sebastian Arancibia
+			 * Obtiene el resultado del llamado a la capa dos y tres
+			 * del sistema
+			 * @param event evento resultante de la llamada a todas las atenciones de hoteleria en la base de
+			 * datos, en el caso correcto es una lista de registros de hoteleria
+			 */
+			private function getAllServiceResult(event:ResultEvent):void
+			{
+				hoteleriasOriginal = event.result as ArrayCollection;
+				hotelerias = hotelerias = new ArrayCollection(hoteleriasOriginal.source.slice(0,hoteleriasOriginal.length));
+			}
+			/**
+			 * Funcion que cambia el formato de la fecha para una mejor lectura del datagrid
+			 * @param item Objeto en la tabla que se quiere formatear
+			 * @param column Columna que se quiere formatear del datagrid
+			 * @return fecha formateada
+			 */
+			private function doLabel(item:Object, column:DataGridColumn):String {
+				var dateFormatted:DateFormatter = new DateFormatter();
+				dateFormatted.formatString = "DD/MM/YYYY";
+				var rawDate:Date = new Date(item[column.dataField]);
+				return dateFormatted.format(rawDate) as String;
+			}
+			 
+			/**
+			* Funcion que llama a retornar todas las mascotas de un cliente para ser vistas en el combobox
+			* @author  Sebastian Arancibia
+			*/
+			private function getMascotas():void{
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteDVInput.text);
+			}
+			
+			/**
+			* Funcion que obtiene todas las mascotas de un cliente
+			* @param event Evento proveniente de la llamada a addMascotaService
+			* @author  Sebastian Arancibia
+			*/
+			private function getAddMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+			}
+			/**
+			 * @author  Sebastian Arancibia
+			 * Funcion que filtra todas atenciones de Hoteleria segun los componentes ingresados
+			 * Unicamente filtra si no esta en el estado EditarHoteleria
+			 */
+			private function filtrar():void{
+				if(this.currentState != "EditarHoteleria"){
+					var rc:String = buscadorCliente.rutClienteInput.text + buscadorCliente.rutClienteDVInput.text;
+					
+					hotelerias = new ArrayCollection(hoteleriasOriginal.source.slice(0,hoteleriasOriginal.length));
+					
+					/*
+					 * Filtra para el caso en que hayan datos del cliente y mascotas ingresados 
+					 */
+					if(rc != "" && listaMascotas.text != ""){
+						for(var i:int=0; i<hotelerias.length; i++){
+							var rch:String = hotelerias.getItemAt(i).cliente.split(" ", 1).pop();
+							var m:String = hotelerias.getItemAt(i).mascota.split(" ", 1).pop();
+							
+							if(rc != rch || listaMascotas.text.split(" ",1).pop() != m){
+								hotelerias.removeItemAt(i);
+								i--;
+							}
+						}
+					}
+					/*
+					 * Filtra para el caso en que se haya ingresado la fecha de entrada
+					 */
+					if(fecha.text != ""){
+						for(i=0; i<hotelerias.length; i++){					
+							if(hotelerias.getItemAt(i).fechaIngreso.toString() != fecha.selectedDate.toString()){
+								hotelerias.removeItemAt(i);
+								i--;
+							}
+						}
+					}
+					/*
+					 * Filtra para el caso en que se haya ingresado la fecha de salida
+					 */
+					if(fecha0.text != ""){
+						for(i=0; i<hotelerias.length; i++){						
+							if(hotelerias.getItemAt(i).fechaSalida.toString() != fecha0.selectedDate.toString()){
+								hotelerias.removeItemAt(i);
+								i--;
+							}
+						}
+					}
+				}
+			}
+			/**
+			 * @author  Sebastian Arancibia
+			 * Funcion que llama a dos funciones: filtrar y buscar mascotas
+			 */
+			public function mascotasFiltrar():void{
+				getMascotas();
+				filtrar();
+			}
+			
+			/**
+			 * @author  Sebastian Arancibia
+			 * Funcion que guarda el registro de hoteleria editada
+			 */
+			private function guardarNuevaHoteleria():void{
+				
+				var h:Hoteleria = new Hoteleria;
+				
+				var canilA:int = Tabla.selectedItem.canil;
+				var fechaIA:Date = Tabla.selectedItem.fechaIngreso;
+				var fechaSA:Date = Tabla.selectedItem.fechaSalida;
+				
+				h.canil = parseInt(numeroCanil.text);
+				h.cliente = Tabla.selectedItem.cliente;
+				h.comentario = cuadroComentario.text;
+				h.costo = costoInput.costoBruto;
+				
+				h.fechaIngreso = fecha.selectedDate;
+				h.fechaSalida = fecha0.selectedDate;
+				h.hora = Tabla.selectedItem.hora;
+				h.mascota = Tabla.selectedItem.mascota;
+				h.responsable = Tabla.selectedItem.responsable;
+				h.servicio = Tabla.selectedItem.servicio;
+				h.diasEstadia = Tabla.selectedItem.diasEstadia;
+				h.eliminado = Tabla.selectedItem.eliminado;
+				
+				var editHoteleriaService:EditHoteleriaService = new EditHoteleriaService();
+				editHoteleriaService.addEventListener(ResultEvent.RESULT,editHoteleriaResult);
+				editHoteleriaService.editarHoteleria(h, fechaIA, fechaSA, canilA);
+				
+				
+			}
+			
+			/**
+			 * @author Sebastian Arancibia
+			 * Obtiene el resultado del llamado a la capa dos y tres
+			 * del sistema
+			 * @event Eventro producido por la consulta
+			 */
+			private function editHoteleriaResult(event:ResultEvent):void{
+				var result:int;
+			   	result = event.result as int;
+			   	
+			    if(result > 0 ){
+			   	  //labelMessage.text = "Registro Modificado correctamente";
+			   	  labelMessage.text = Properties.getMensaje("Informacion", "23");
+			   	  iniciarPanel();
+			   	  
+			   }
+			   else{
+			      //labelMessage.text = "Registro no modificado";
+			      labelMessage.text = Properties.getMensaje("Error", "15");
+			   }
+			   	
+			}
+			
+				   
          ]]>
        
     </mx:Script>
@@ -30,71 +294,70 @@
 		<mx:State name="EditarHoteleria">
 			<mx:RemoveChild target="{Tabla}"/>
 			<mx:RemoveChild target="{label1}"/>
-			<mx:SetProperty target="{fecha0}" name="x" value="112.75"/>
-			<mx:SetProperty target="{fecha0}" name="y" value="215"/>
-			<mx:SetProperty target="{fecha}" name="x" value="112.75"/>
-			<mx:SetProperty target="{fecha}" name="y" value="185"/>
-			<mx:SetProperty target="{label2}" name="x" value="22"/>
-			<mx:SetProperty target="{label2}" name="y" value="155"/>
-			<mx:SetProperty target="{responsable}" name="x" value="112.75"/>
-			<mx:SetProperty target="{responsable}" name="y" value="153"/>
+			<mx:SetProperty target="{fecha0}" name="x" value="91"/>
+			<mx:SetProperty target="{fecha0}" name="y" value="188"/>
+			<mx:SetProperty target="{fecha}" name="x" value="91"/>
+			<mx:SetProperty target="{fecha}" name="y" value="158"/>
 			<mx:SetProperty target="{label3}" name="x" value="22"/>
-			<mx:SetProperty target="{label3}" name="y" value="185"/>
+			<mx:SetProperty target="{label3}" name="y" value="158"/>
 			<mx:SetProperty target="{label4}" name="x" value="22"/>
-			<mx:SetProperty target="{label4}" name="y" value="215"/>
+			<mx:SetProperty target="{label4}" name="y" value="188"/>
 			<mx:SetProperty target="{label5}" name="x" value="22"/>
 			<mx:SetProperty target="{label5}" name="y" value="132"/>
 			<mx:AddChild relativeTo="{label3}" position="before">
-				<mx:Label x="22" y="245" text="Caníl:" width="73" height="22" id="label0"/>
-			</mx:AddChild>
-			<mx:AddChild position="lastChild">
-				<mx:ComboBox x="113.75" y="245" width="65"></mx:ComboBox>
+				<mx:Label x="22" y="218" text="Caníl:" width="73" height="22" id="label0"/>
 			</mx:AddChild>
 			<mx:AddChild relativeTo="{label0}" position="before">
 				<mx:Label x="342.25" y="155" text="Comentario:" width="93" height="22" id="label6"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextArea x="429" y="154" width="296" height="113"/>
+				<mx:TextArea x="429" y="154" width="296" height="113" id="cuadroComentario"/>
 			</mx:AddChild>
-			<mx:SetProperty target="{responsable}" name="width" value="188"/>
 			<mx:AddChild position="lastChild">
-				<mx:Button x="514" y="358" label="Guardar" cornerRadius="6" width="102" height="23" click="cancelarOperacion()"/>
+				<mx:Button x="514" y="358" label="Guardar" cornerRadius="6" width="102" height="23" click="guardarNuevaHoteleria()"/>
 			</mx:AddChild>
 			<mx:RemoveChild target="{registrar}"/>
+			<mx:AddChild relativeTo="{label3}" position="before">
+				<mx:Label x="22" y="248" text="Costo:" width="61" height="22" id="label2"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<ns2:Precio x="91" y="248" id="costoInput">
+				</ns2:Precio>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<ns2:Caniles x="91" y="216" id="numeroCanil"/>
+			</mx:AddChild>
 		</mx:State>
 	</mx:states>
-	<mx:DataGrid x="22" y="186" width="705" id="Tabla" enabled="true" height="164">
+	<mx:DataGrid x="22" y="186" width="705" id="Tabla" enabled="true" height="164" dataProvider="{hotelerias}" itemDoubleClick="editarHoteleria()" doubleClickEnabled="true" itemClick="registrar.visible=true">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Fecha Ingreso" dataField="veterinario" width="35"/>
-			<mx:DataGridColumn headerText="Fecha Salida" dataField="ayudante" width="35"/>
-			<mx:DataGridColumn headerText="Cliente" dataField="clienteRut" width="50"/>
-			<mx:DataGridColumn headerText="Mascota" dataField="mascotaNombre" width="60"/>
-			<mx:DataGridColumn headerText="Hora" dataField="hora" width="20"/>
-			<mx:DataGridColumn headerText="Caníl" dataField="fecha" width="20"/>
-			<mx:DataGridColumn headerText="Costo" dataField="costo" width="30"/>
-			<mx:DataGridColumn headerText="Comentario" dataField="diagnostico" visible="false"/>
+			<mx:DataGridColumn width="70" headerText="Nombre" dataField="mascota" id="mascota" draggable="false"/>
+			<mx:DataGridColumn width="80" headerText="Rut Cliente" dataField="cliente" id="cliente" draggable="false"/>
+			<mx:DataGridColumn width="40" headerText="Canil" dataField="canil" id="canil" draggable="false"/>
+			<mx:DataGridColumn width="100" headerText="Fecha Ingreso" dataField="fechaIngreso" id="fechaIngreso" labelFunction="doLabel"/>
+			<mx:DataGridColumn width="90" headerText="Hora Ingreso" dataField="hora" id="hora" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Fecha Salida" dataField="fechaSalida" id="fechaSalida" labelFunction="doLabel"/>
+			<mx:DataGridColumn headerText="Comentarios" dataField="comentario" id="comentario" draggable="false"/>
+			<mx:DataGridColumn id="servicio" visible="false"/>
+			<mx:DataGridColumn id="responsable" visible="false"/>
+			<mx:DataGridColumn id="costo" visible="false"/>
+			<mx:DataGridColumn id="diasEstadia" visible="false"/>
+			<mx:DataGridColumn id="eliminado" visible="false"/>
 		</mx:columns>
 	</mx:DataGrid>
+	<ns2:BuscadorNombreRut x="22" y="33" id="buscadorCliente" keyFocusChange="mascotasFiltrar()" mouseFocusChange="mascotasFiltrar()">
+	</ns2:BuscadorNombreRut>
+	<mx:ComboBox change="filtrar()" id="listaMascotas" x="90" y="85" width="210.75" dataProvider="{mascotas}" labelField="nombre"></mx:ComboBox>
 	<mx:Label x="22" y="160" text="Registros:" fontWeight="bold" id="label1"/>
 	<mx:Label x="22" y="10" text="Cliente:" fontWeight="bold"/>
 	<mx:Label x="342.25" y="62" text="Hoteleria:" fontWeight="bold" id="label5"/>
 	<mx:Label x="22" y="64" text="Mascota:" fontWeight="bold"/>
-	<mx:Label x="342.25" y="34" text="Rut:" width="55.75"/>
-	<mx:Label x="22" y="34" text="Apellido:" width="55.75"/>
 	<mx:Label x="22" y="87" text="Nombre:" width="55.75"/>
-	<mx:Label x="532.5" y="34" text="-" width="14.75" textAlign="center"/>
-	<mx:TextInput  restrict="0-9" x="429" y="32" width="100.5" id="rutClienteInput" maxChars="9"/>
-	<mx:TextInput x="548.5" y="32" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9"/>
-	<mx:Label x="342.25" y="85" text="Responsable:" width="93" height="22" id="label2"/>
-	<mx:Label x="342.25" y="115" text="Entrada:" width="61" height="20" id="label3"/>
-	<mx:DateField x="429" y="113" width="161" id="fecha" editable="true"/>
-	<mx:Label x="342.25" y="145" text="Salida:" width="61" height="20" id="label4"/>
-	<mx:DateField x="429" y="143" width="161" id="fecha0" editable="true"/>
-	<mx:ComboBox x="429" y="81" width="161" id="responsable">
-	</mx:ComboBox>
-	<mx:ComboBox id="dg2" x="112.75" y="85" width="188"></mx:ComboBox>
-	<ns1:AutoComplete x="112.75" y="32" width="188"/>
-	<mx:Button x="514" y="358" label="Editar" visible="true" id="registrar" click="editarHoteleria()" width="102" height="23"/>
+	<mx:Label x="342.25" y="90" text="Entrada:" width="61" height="20" id="label3"/>
+	<mx:DateField x="429" y="88" width="161" id="fecha" editable="true" formatString="DD/MM/YYYY" change="filtrar()"/>
+	<mx:Label x="342.25" y="120" text="Salida:" width="61" height="20" id="label4"/>
+	<mx:DateField x="429" y="118" width="161" id="fecha0" editable="true" formatString="DD/MM/YYYY" change="filtrar()"/>
+	<mx:Button x="514" y="358" label="Editar" id="registrar" click="editarHoteleria()" width="102" height="23" visible="false"/>
 	<mx:Button x="624" y="358" label="Cancelar" width="103" id="cancelar" visible="true" height="23" click="cancelarOperacion()"/>
-	
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 </mx:Panel>

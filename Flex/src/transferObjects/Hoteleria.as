@@ -1,7 +1,7 @@
 //=======================================================================
 // FECHA CREACIÓN: 10/09/2009
 // AUTOR: Sebastian Arancibia
-// …. Clase que contiene los atributos del objeto mascota
+// …. Clase que contiene los atributos del objeto hoteleria
 //=======================================================================
 
 
@@ -12,7 +12,7 @@ package transferObjects{
     [RemoteClass(alias="TransferObjects.Hoteleria")]
 	
 	/**
-	 * Clase utilizada para representar el objeto Mascota
+	 * Clase utilizada para representar el objeto Hoteleria
 	 *
 	 * @author  Sebastian Arancibia
 	 * @version 0.1, 22/09/09
@@ -29,7 +29,7 @@ package transferObjects{
 		public var fechaSalida:Date;
 		public var comentario:String;
 		public var diasEstadia:int;
-		//public var eliminado:Boolean;
+		public var eliminado:Boolean;
 		
 		//DatosParaEdicion
 		public var nuevaFechaIngreso:Date;
