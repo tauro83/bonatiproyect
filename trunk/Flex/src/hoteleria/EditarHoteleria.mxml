@@ -274,14 +274,14 @@
 			   	result = event.result as int;
 			   	
 			    if(result > 0 ){
-			   	  //labelMessage.text = "Registro Modificado correctamente";
-			   	  labelMessage.text = Properties.getMensaje("Informacion", "23");
+			   	  labelMessage.text = "Registro Modificado correctamente";
+			   	  //labelMessage.text = Properties.getMensaje("Informacion", "19");
 			   	  iniciarPanel();
 			   	  
 			   }
 			   else{
-			      //labelMessage.text = "Registro no modificado";
-			      labelMessage.text = Properties.getMensaje("Error", "15");
+			      labelMessage.text = "Registro no modificado";
+			      //labelMessage.text = Properties.getMensaje("Error", "15");
 			   }
 			   	
 			}
