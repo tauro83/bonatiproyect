@@ -2,13 +2,14 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Peluqueria" xmlns:ns1="*">
 	<mx:Script>
         <![CDATA[
-        	import transferObjects.CatPeluqueria;
+        	
         	//=======================================================================
 			// FECHA: CREACIÓN: 11/11/09
 			// AUTOR: Jimmy Muñoz
 			// Comentarios: Formulario y validacion de la edicion de un usuario en el sistema.
 			//=======================================================================
 			
+			import transferObjects.CatPeluqueria;
         	import mx.events.CalendarLayoutChangeEvent;
         	import transferObjects.Vacunacion;
         	import mx.collections.Sort;
