@@ -17,6 +17,8 @@
 				<mensaje key="13">Cita previamente, cambie los parametros</mensaje>
 				<mensaje key="14">Cliente previamente registrado</mensaje>
 				<mensaje key="15">Registro no modificado</mensaje>
+				<mensaje key="16">El servicio no puede ser modificado</mensaje>
+				<mensaje key="17">El nombre no puede ser modificado</mensaje>
 			</mensajes>
 		</tipoMensaje>	
 		<tipoMensaje name="Advertencia">
@@ -43,7 +45,7 @@
 				<mensaje key="20">Ingrese un email que coincida con el anterior</mensaje>
 				<mensaje key="21">Ingrese el Rut</mensaje>
 				<mensaje key="22">Seleccione un Catalogo para editar</mensaje>
-				<mensaje key="23">Ingrese un precio máyor</mensaje>
+				<mensaje key="23">Ingrese un precio mayor</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="Pregunta">
