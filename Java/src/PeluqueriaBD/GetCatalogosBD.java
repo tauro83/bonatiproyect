@@ -52,7 +52,7 @@ public class GetCatalogosBD {
     			cat.setNombre(result.getString(2));
     			cat.setServicio(result.getString(1));
     			cat.setPrecio(result.getInt(3)+"");
-    			cat.setDescripcion(result.getString(4));
+    			cat.setDescripcion(result.getString(4).trim());
     			catalogos.add(cat);
     		}
     	}
@@ -60,13 +60,14 @@ public class GetCatalogosBD {
     	{
 			e.printStackTrace();
 		}
- 	
+	   	connection.close();
 	   	return catalogos;
 	}
 	
 	/**
 	 * Obtiene los catalogos desde la BD
 	 * @return una lista de catalogos, la cual es llamda desde la capa 2
+	 * @param c es un catalogo el cual fue modificado.
 	 */
 	public void editCatalogoBD(CatPeluqueria c) throws SQLException
 	{

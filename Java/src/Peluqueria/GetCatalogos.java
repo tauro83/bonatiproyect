@@ -41,6 +41,7 @@ public class GetCatalogos {
 	
 	/**
 	 * Metodo que se comunica con la capa 3 y envia un nuevo catalogo
+	 * @param c es un objeto catalogo peluqueria, ya editado, el cual es enviado a la capa 3
 	 */
 	public static void editCatalogo(CatPeluqueria c)
 	{
