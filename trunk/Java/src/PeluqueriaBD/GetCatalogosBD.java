@@ -75,9 +75,10 @@ public class GetCatalogosBD {
 		String query="";	
 		query = "UPDATE catpeluqueria SET precio=?, descripcion=? WHERE nombre='"+ c.nombre.trim()+"' and servicio='"+c.servicio.trim()+"';";
 
-		
+		String pre = c.precio.trim().replace("$", "");
+		pre = pre.replace(".", "");
 		insert = connection.prepareStatement(query);
-		insert.setInt(1, Integer.parseInt(c.precio.trim().replace("$", "")));
+		insert.setInt(1, Integer.parseInt(pre));
 		insert.setString(2, c.descripcion.trim());	
 		
 		try 
