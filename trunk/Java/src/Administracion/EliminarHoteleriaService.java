@@ -8,6 +8,10 @@ package Administracion;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
+
+import AdministracionBD.EliminarHoteleriaServiceBD;
+import Bd.DBConnectionManager;
 
 /**
  * Clase que elimina un registro de hoteleria (la mascota retira la mascota,
@@ -26,9 +30,13 @@ public class EliminarHoteleriaService {
 	 * @param fechaSalida Fecha de salida de la mascota del hotel
 	 * @param canil Número del canil donde la mascota se hospedó
 	 * @return Entero que determina si la acción se realizó correctamente o no.
+	 * @throws SQLException 
 	 */
-	public int eliminarHoteleria(Date fechaIngreso, Date fechaSalida, int canil){
+	public int eliminarHoteleria(Date fechaIngreso, Date fechaSalida, int canil) throws SQLException{
 		int result=0;
+		conn = DBConnectionManager.getConnection();
+		EliminarHoteleriaServiceBD object = new EliminarHoteleriaServiceBD(conn);
+		result =object.eliminarHoteleria(fechaIngreso, fechaSalida, canil);
 		return result;
 	}
 
