@@ -1,7 +1,7 @@
 //=======================================================================
 // FECHA CREACIÓN: 10 de Noviembre de 2009
 // AUTOR: Sebastian Arancibia
-// …. Clase para la comunicacion entre flex y java 
+// …. Clase para la comunicacion entre java y base de datos 
 //=======================================================================
 
 
