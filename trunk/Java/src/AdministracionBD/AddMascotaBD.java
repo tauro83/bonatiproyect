@@ -156,7 +156,7 @@ public class AddMascotaBD{
     	try{
     		ResultSet result = selectAll.executeQuery();
     		while(result.next()){
-    			if(rutCliente.equals(result.getString(1).substring(0, 9))){
+    			if(rutCliente.equals(result.getString(1).trim())){
     				mascota= new Mascota();
 
 	    			mascota.setRutCliente(result.getString(1));
