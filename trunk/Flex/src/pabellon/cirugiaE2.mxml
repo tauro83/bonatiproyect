@@ -6,7 +6,7 @@
 		// FECHA CREACIÓN: 14-10-09
 		// AUTOR: Esteban Cruz
 		// Comentario: Una vez seleccionado un cliente, se visualiza su información 
-		// detalla junto a sus cirugias para poder eliminar la deseada
+		// detalla junto a sus cirugías para poder eliminar la deseada
 		//=======================================================================
 				
 			import mx.controls.Alert;
@@ -24,7 +24,7 @@
 			
 			/**
 			 * Evento del boton "Volver", el cual redirige la página
-			 * a anterior (listado de clientes con cirugias citadas)
+			 * a anterior (listado de clientes con cirugías citadas)
 			 * @author  "Esteban Cruz"
 			 */
 			public function actionVolver():void
@@ -35,7 +35,7 @@
 			}
 			
 			/**
-			 * Se obtienen todas las cirugias que están registradas en 
+			 * Se obtienen todas las cirugíaas que están registradas en 
 			 * la base de datos para ser mostrados dentro del datagrid
 			 * @author  "Esteban Cruz"
 			 */
@@ -47,7 +47,7 @@
 		    }
 		   
 		    /**
-			 * Una vez obtenidas todas las cirugias que están registradas 
+			 * Una vez obtenidas todas las cirugías que están registradas 
 			 * en la base de datos, son mostrados dentro del datagrid
 			 * @author  "Esteban Cruz"
 			 */
@@ -57,7 +57,7 @@
 		    }
 			
 			/**
-			 * Se eliminan las cirugias que están seleccionadas en el
+			 * Se eliminan las cirugías que están seleccionadas en el
 			 * grid, desde la base de datos
 			 * @author  "Esteban Cruz"
 			 */
@@ -71,7 +71,7 @@
 			}
 
             /**
-			 * Mensaje para eliminar las cirugias que están seleccionadas
+			 * Mensaje para eliminar las cirugías que están seleccionadas
 			 * en el grid, desde este mismo
 			 * @author  "Esteban Cruz"
 			 */
