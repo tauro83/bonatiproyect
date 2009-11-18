@@ -63,11 +63,8 @@
 			 */
 			public function eliminarCirugia(nombre:String, fecha:String, hora:String):void
 			{
-				test.text="ENTRO0";
 				var cirugiaService:CirugiaService = new CirugiaService();
 				cirugiaService.eliminarCirugia(nombre, fecha, hora);
-				test.text="ENTRO1";
-				
 			}
 
             /**
@@ -89,12 +86,9 @@
             {
                 var allRows:int = cirugias.length;
                 var ciru:Cirugia = new Cirugia();
-                test.text="REMOVE 0 "
                 for (var i:int = 0; i < allRows; i++){
-                	test.text="REMOVE 0 "
                     if (cirugias[i].sel)
                 	{
-                		test.text="REMOVE 1";
                         ciru = cirugias[i] as Cirugia;
                         eliminarCirugia(ciru.mascotaNombre,ciru.fecha,ciru.hora);
                         
@@ -192,6 +186,5 @@
 	<mx:Button x="522" y="354" label="Eliminar" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Elimina la(s) cirugia(s) seleccionada(s)"/>
 	<mx:CheckBox x="25" y="152" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
 	<mx:Label x="47" y="152" text="Seleccionar todo"/>
-	<mx:Text x="328" y="36" text="TEST" id="test"/>
 	
 </mx:Panel>
