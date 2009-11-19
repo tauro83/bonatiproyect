@@ -54,7 +54,8 @@
 			 private function editCatalogo():void
 			 {
 				var catEnvio:CatPeluqueria = new CatPeluqueria();
-			 	
+			 	if(prec.costoBruto.length>3)
+			 	{
 			 			catEnvio.nombre 		= this.nom.text; 
 					 	catEnvio.descripcion 	= this.des.text;
 					 	catEnvio.precio 		= this.prec.costoBruto;
@@ -62,6 +63,11 @@
 					 	catService.editCatalogo(catEnvio);
 					 	catService.addEventListener(ResultEvent.RESULT,editCatalogoR);	
 					 	labelMessage.text = "";
+				}
+				else
+				{
+					labelMessage.text = Properties.getMensaje("Advertencia", "23");
+				}
 				
 			 }
 			 /**
