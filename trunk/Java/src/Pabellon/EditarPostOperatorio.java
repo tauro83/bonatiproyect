@@ -25,12 +25,6 @@ public class EditarPostOperatorio {
 	 * de datos a través de DBConnectionManager
 	 */
 	public EditarPostOperatorio(){
-		try{    		
-			connection=DBConnectionManager.getConnection();
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
 		
 	}
 	/**
@@ -41,6 +35,7 @@ public class EditarPostOperatorio {
 	 * @throws SQLException
 	 */
 	public int editarPostOperatorio(List l) throws SQLException{
+		connection=DBConnectionManager.getConnection();
 		EditarPostOperatorioBD object = new EditarPostOperatorioBD(connection);
 		
 		

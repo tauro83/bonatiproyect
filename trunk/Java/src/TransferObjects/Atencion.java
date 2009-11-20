@@ -8,13 +8,15 @@
 
 package TransferObjects;
 
+import java.sql.Date;
+
 public class Atencion {
 
 	private String clienteRut;
 	private String mascotaNombre;
 	private String servicio;
 	private String hora;
-	private String fecha;
+	private Date fecha;
 	private String costo;
 	private String sfecha;
 	
@@ -94,14 +96,14 @@ public class Atencion {
 	/**
 	 *  retorna la fecha
 	 */
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 	/**
 	 *  Asigna la fecha
 	 */
-	public void setFecha(String  string) {
-		this.fecha = string;
+	public void setFecha(Date  d) {
+		this.fecha = d;
 	}
 	/**
 	 *  retorna el costo
