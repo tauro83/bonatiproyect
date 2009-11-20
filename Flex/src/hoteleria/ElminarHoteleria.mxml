@@ -63,8 +63,9 @@
 			}
 			private function retirarResult(event:ResultEvent):void{
            		labelMessage.text="Mascota(s) retirada(s)";
-           		getAllHotel();
            		eliminarHoteleria.enabled=false;
+           		getAllHotel();
+           		
 			}
 			/**
 			 * Borra el mensaje que se muestra en la etiqueta de mensajes del panel
@@ -138,7 +139,7 @@
   	</mx:Script>	
 	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" fontWeight="bold" textAlign="center"/>
 	
-	<mx:DataGrid x="25" y="67" width="715" height="266" id="tablaUsuarios" dataProvider="{hotelerias}" click="Activar()">
+	<mx:DataGrid x="25" y="67" width="715" height="266" id="tablaUsuarios" dataProvider="{hotelerias}" click="Activar()" toolTip="Lista de las mascotas alojadas en hotelería">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
 			 	<mx:itemRenderer>

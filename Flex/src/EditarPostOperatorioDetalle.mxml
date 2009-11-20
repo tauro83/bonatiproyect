@@ -22,6 +22,7 @@
 			import mx.rpc.events.ResultEvent;
 			import mx.core.Application;
 			import pabellon.EditarPostOperatorio;
+			import mx.formatters.DateFormatter;
 			[Bindable]
 			private var atencion:PostOperatorio;
 			
@@ -32,7 +33,14 @@
 				apellidoPaterno.text = post.apellidoDueño;
 				rut.text = post.rut;
 				hora.text = post.hora;
-				fecha.text = post.fecha.toDateString();
+				
+				//formateamos la fecha antes de mostrarla
+				var dateFormatted:DateFormatter = new DateFormatter();
+				dateFormatted.formatString = "DD/MM/YYYY";
+				var fecha2:String = dateFormatted.format(post.fecha) as String;
+				
+				fecha.text = fecha2;
+				
 				costo.text = post.costo;
 				nomMascota.text = post.nombreMascota;
 				medicamentos.text = post.medicamentos;
@@ -40,6 +48,8 @@
 				alimentos.text = post.alimentos;
 				
 			} 
+			
+			
 			//guarda todos los datos en un arreglo, para poder pasarlo a java
 			//y guardar la informacion en la base de datos        	
  			private function guardarDatos():void{
@@ -49,7 +59,6 @@
 				atencion.apellidoDueño =apellidoPaterno.text;
 				atencion.rut = rut.text;
 				atencion.hora = hora.text;
-				atencion.fecha = new Date(fecha.text);
 				atencion.costo = costo.text;
 				atencion.nombreMascota = nomMascota.text;
 				atencion.medicamentos = medicamentos.text;
@@ -73,11 +82,11 @@
             //oyente para el evento de guardado de datos
             private function editarPostOResult(event:ResultEvent):void{
 				if(event.result!=0){
-					Alert.show("Datos guardados correctamente");
+					txt.text="Datos guardados correctamente";
 					setData(atencion);//actualiza los nuevos datos para mostrarlos
 				}
 				else{
-					Alert.show("Error en la actualizacion de datos");
+					txt.text="Error en la actualizacion de datos";
 				}
 				
 			}
@@ -86,6 +95,7 @@
  			// (EditarPostOperatorio)
  			private function cancelando():void{
 				this.setVisible(false,false);
+				txt.text="";
 				Application.application.EditarPostO.setVisible(true,false);
 				Application.application.EditarPostO.iniData();
 			}
@@ -98,7 +108,7 @@
 	<mx:Label x="24.1" y="111.95" text="Nombre Mascota:" width="103.9" height="17.931034"/>
 	<mx:Label x="24.1" y="175.95" text="Medicamentos:" width="103.899994" height="19.900002"/>
 	<mx:Label x="343.1" y="175.95" text="Alimentos:" width="86.899994" height="19.900002"/>
-	<mx:Label x="187" y="383" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:Label x="187" y="383" width="407" height="17" id="txt" fontWeight="bold" textAlign="center"/>
 	<mx:Label x="24.15" y="62" text="Apellido:" width="78"/>
 	<mx:Label x="343.1" y="61.95" text="Fecha:" width="78"/>
 	<mx:Label x="343.1" y="38" text="Hora:" width="78"/>
