@@ -21,7 +21,7 @@ public class PostOperatorio extends Atencion{
 	public PostOperatorio(String hora, Date fecha, String cost){
 		super();
 		this.setHora(hora);
-//		this.setFecha(fecha);
+		setFecha(fecha);
 		this.setCosto(cost);
 	}
 
