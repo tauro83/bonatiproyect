@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="iniData()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Post-Operatorio">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="iniData()" activate="iniData()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Post-Operatorio">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -19,6 +19,7 @@
 			import mx.core.Application;
 			import pabellon.GetAllPostOperatorio;
 			import transferObjects.PostOperatorio;
+			import mx.formatters.DateFormatter;
 			
 			[Bindable]
 			private var postOperatorios:ArrayCollection;
@@ -50,7 +51,6 @@
 			 */
 			 
 			public function editarAtencion():void{
-				
 				if(tablaDatos.selectedItem){				
 					var atencion:PostOperatorio = tablaDatos.selectedItem as PostOperatorio;	
 					Application.application.EditarPostODetalle.setData(atencion);
@@ -58,7 +58,7 @@
 					Application.application.EditarPostODetalle.visible=true;
 				}
 				else{
-					Alert.show("Atencion!: Primero debe seleccionar una atención.");
+					txt.text="Primero debe seleccionar una atención.";
 				}
 
 			}
@@ -73,6 +73,15 @@
 				this.setVisible(false,false);
 				Application.application.panel2.setVisible(true,false);
 			}
+			/**
+			 *Cambia el formato de la fecha para una mejor lectura del datagrid
+			 */
+			private function doLabel(item:Object, column:DataGridColumn):String {
+				var dateFormatted:DateFormatter = new DateFormatter();
+				dateFormatted.formatString = "DD/MM/YYYY";
+				var rawDate:Date = new Date(item[column.dataField]);
+				return dateFormatted.format(rawDate) as String;
+			}
 			
 		]]>
 	</mx:Script>
@@ -80,7 +89,7 @@
 		<mx:toolTip>Mascotas registradas en el sistema que tienen atenciones de post-operatorio </mx:toolTip>
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre Mascota" dataField="nombreMascota"/>
-			<mx:DataGridColumn headerText="Fecha Atención" dataField="fecha"/>
+			<mx:DataGridColumn headerText="Fecha Atención" dataField="fecha" labelFunction="doLabel"/>
 			<mx:DataGridColumn headerText="Hora Atención" dataField="hora"/>
 			<mx:DataGridColumn headerText="Nombre Dueño" dataField="nombreDueño"/>
 			<mx:DataGridColumn headerText="Apellido" dataField="apellidoDueño"/>
@@ -93,7 +102,7 @@
 	
 	<mx:Button label="Editar Ficha" id="visualizar"  click="editarAtencion()" height="23" width="102" x="478" y="328" cornerRadius="6" toolTip="Visualizar mascota seleccionada"/>
 	<mx:Label x="10" y="10" text="Lista de mascotas que tienen fichas de post-operatorio" fontWeight="bold"/>
-	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="txt" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="588" y="328" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6" toolTip="Regresa al panel anterior"/>
 	
 

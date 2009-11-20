@@ -15,5 +15,6 @@ package transferObjects{
 		public var rut:String;
 		public var apellidoDueño:String;
 		
+		
 	}
 }
