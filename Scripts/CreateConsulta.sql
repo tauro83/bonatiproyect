@@ -1,6 +1,6 @@
 CREATE TABLE consulta
 (
-  anamnesis character(100),
+  anamnesis character(300),
   servicio character(20) NOT NULL,
   hora character(20) NOT NULL,
   fecha character(20) NOT NULL,
