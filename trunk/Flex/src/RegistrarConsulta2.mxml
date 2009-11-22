@@ -2,37 +2,45 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" xmlns:ns1="*" title="Registrar Consulta" borderColor="#15ad8f">
 <mx:Script>
 		<![CDATA[
-			import mx.events.CalendarLayoutChangeEvent;
-			import services.AddConsultaService;
-			import transferObjects.Consulta;
-			import services.configuracionServices;
-		
 //============================================================================
 // FECHA: CREACIÃ“N: 26-10-09
 // AUTOR: Nicolas Delgado
 // Esta componente se encarga de registrar una consulta realizada en el policlinico
 // De la mascota seleccionada en el estado anterior.
 //=============================================================================
+
+			import mx.events.CalendarLayoutChangeEvent;
+			import services.AddConsultaService;
+			import transferObjects.Consulta;
+			import services.configuracionServices;
+		    import mx.controls.Alert;
 			import mx.collections.ArrayCollection;
 			import transferObjects.Mascota;
 			import mx.rpc.events.ResultEvent;
 		    import mx.core.Application;		
 		    import mx.events.ValidationResultEvent;            
             private var vResult:ValidationResultEvent;	
-						
+			
+			/**
+			 * Este metodo se encarga de pasar el objeto de una consulta a la capa dos 
+			 * para que luego este sea ingredo a la base de datos del sistema.
+			 *  **/			
 
              public function registrarConsulta():void{
              	this.labelMessage.text="";
              	var addconsult:Consulta=new Consulta();
-             	addconsult.rut=this.rutClienteInput1.text+this.rutClienteDVInput1.text;
-             	addconsult.costo=this.costo.text;
-             	addconsult.nombre=this.nombre.text;
-             	addconsult.responsable=this.responsable.text;
-             	addconsult.servicio=this.servicio.text;
+             	
+             	
+             	addconsult.rut=this.rutClienteInput1.text+this.rutClienteDVInput1.text;/**se concatena el digito con el digito identicador
+             	 																	   *de un rut. **/
+             	addconsult.costo=this.costo.text;/**Ingresa el costo de una atencion**/
+             	addconsult.nombre=this.nombre.text;/**Ingresa el nombre de la mascota a cual se le estaba atendiendo**/
+             	addconsult.responsable=this.responsable.text;/**Ingresa el nombre del responsable que atendio a una mascota**/
+             	addconsult.servicio=this.servicio.text;/**Ingresa el nombre del servicio al cual se esta realizan una atencion una mascota**/
              	addconsult.fecha=fecha.selectedDate.date +"/"+ (fecha.selectedDate.month+1) +"/"+ fecha.selectedDate.fullYear;
-             	addconsult.anamnesis=this.anamnesis.text;
+             	addconsult.anamnesis=this.anamnesis.text;/**Ingresa los sintomas que posee una mascota, porque asistio a una consulta**/
              	var newconsulta:AddConsultaService = new AddConsultaService();
-             	newconsulta.AddConsulta(addconsult);
+             	newconsulta.AddConsulta(addconsult);/**manda el objeto a la capa dos**/
              	newconsulta.addEventListener(ResultEvent.RESULT,registroConsultaResultado);
 
 		    	this.setVisible(false,false);
@@ -40,7 +48,10 @@
 		    	Application.application.rConsulta.setVisible(true,false);
              }
              
-             
+             /**
+             * Este metodo se encarga de recibir el resultado desde base de datos para poder el cual nos
+             * entregara si la consulta fue registrada exitosamente o no desde esta.
+             * **/
              
              private function registroConsultaResultado(event:ResultEvent):void
 			 {
@@ -55,9 +66,10 @@
 
             
             
-            /*
+            /**
             * Este metodo se encarga de limpiar todos los parametros de un registro de una consulta una vez que la consulta sea 
-            * registrada o cancelada*/
+            * registrada o cancelada
+            * **/
             
             public function limpiar():void{
 				responsable.text="";
@@ -67,40 +79,30 @@
 				anamnesis.text="";
 				labelMessage.text= " ";
 			}
+			
+			/**
+			 * Este metodo se encarga de cambiar el precio de una consulta a medida que el usuario va
+			 * ingresando el precio de esta
+			 * **/
 						
 			public function validaciones():void{
-				costo.addEventListener(KeyboardEvent.KEY_UP,validarCosto);
+				costo.addEventListener(KeyboardEvent.KEY_DOWN,validarCosto);
 			}
 			
-			/*
+			/**
 			 *Este metodo se encarga de traspasar todo el precio de una consulta a miles,agregandole un cero una vez 
 			 *que el usuario sobre pase los mil pesos. 
 			 **/
 			
 			public function validarCosto(event:Event):void{
-
-				if(costo.text.length==4){
-			      
-			      costo.text=costo.text.substring(0,1)+"."+costo.text.substring(1,2)+costo.text.substring(2,3)+costo.text.substring(3,4);
-			      
-				}
 				
-				if(costo.text.length==6){
+			      costo.text=makeNumberFormat(costo.text, ".");
 				
-			      costo.text=costo.text.substring(0,1)+costo.text.substring(2,3)+"."+costo.text.substring(3,4)+costo.text.substring(4,5)+costo.text.substring(5,6);
-				}
-				
-				if(costo.text.length==7){
-				
-			      costo.text=costo.text.substring(0,1)+costo.text.substring(1,2)+costo.text.substring(3,4)+"."+costo.text.substring(4,5)+costo.text.substring(5,6)+costo.text.substring(6,7);
-				}
-				
-				if(costo.text.length==8){
-				
-			      costo.text=costo.text.substring(0,1)+"."+costo.text.substring(1,2)+costo.text.substring(2,3)+costo.text.substring(4,5)+"."+costo.text.substring(5,6)+costo.text.substring(6,7)+costo.text.substring(7,8);
-				}
 			}
 			
+			/**
+			 * Este metodo se encarga de  de volver al otro menu cuando el usuario selecciona el boton cancelar
+			 * **/
 			public function volver():void
 			{
             	Application.application.rConsulta2.setVisible(false,false);
@@ -108,47 +110,96 @@
             	limpiar();
 			}
 			
-
+			
+			/**
+			 * Esta metodo se encarga de mostrar el precio de una atencion a un cliente con 
+			 * un formato por ejemplo 123.234 para que se pueda seguir un estandar al interior 
+			 * del sistema.
+			 * **/
+			public function makeNumberFormat (value : Object, separator : String):String{
+				var str : Array = value.toString ().split ("");
+				var i : Number = 0;
+				var count : Number = 0
+				var tmpArray : Array = []
+				var back : String = ""
+				str.reverse ();
+				while (str [i])
+				{
+					if ((count % 4) == 0)
+					{
+						tmpArray.push (separator)
+					} 
+					
+					else
+					{
+						tmpArray.push (str [i])
+						i ++
+					}
+					
+					count ++
+					}
+					
+					tmpArray.reverse ();
+					i = 0;
+					while (tmpArray [i])
+					{
+						back += tmpArray [i];
+						i ++
+					}
+					return back.substr (0, back.length - 1);
+			}  
+			
             
 		]]>
+		
 	</mx:Script>
-	<mx:Label x="43" y="109" text="Responsable:"/>
-	<mx:ComboBox x="133" y="107" id="responsable" width="160">
+	<mx:Label x="25" y="10" text="Cliente" fontWeight="bold"/>
+	
+	<mx:Label x="25" y="38" text="Rut:" width="37" id="label2"/>
+	<mx:Label x="242.5" y="36" text="-" width="14.75" textAlign="center" id="label6"/>
+	<mx:TextInput x="115" y="34" width="130.5" id="rutClienteInput1"   editable="false"/>
+	<mx:TextInput restrict="0-9 K" x="253.5" y="34" width="19.5" id="rutClienteDVInput1"  editable="false"/>
+	
+	<mx:Label x="488" y="10" text="Mascota" fontWeight="bold"/>
+	
+	<mx:Label x="488" y="38" text="Nombre:"/>
+	<mx:TextInput x="574" y="36" id="nombre" editable="false" enabled="true" width="160"/>
+	
+	<mx:Label x="25" y="72" text="Consulta" fontWeight="bold"/>
+	
+	<mx:Label x="25" y="107" text="Responsable:"/>
+	<mx:ComboBox x="115" y="105" id="responsable" width="160">
 		<mx:ArrayCollection>
 		<mx:Object label=" "/>
 		<mx:Object label="Claudio Bonati"/>
 		<mx:Object label="Patricio Castro"/>
 		</mx:ArrayCollection>	
 	</mx:ComboBox>
-	<mx:Label x="43" y="155" text="Fecha:"/>
-	<mx:Label x="43" y="198" text="Anamnesis:"/>
-	<mx:TextArea x="133" y="197" width="583" height="137" id="anamnesis"/>
-	<mx:TextInput x="551" y="153" width="165" id="costo" click="validaciones()"/>
-	<mx:Label x="470" y="109" text="Servicio:"/>
-	<mx:ComboBox x="556" y="107" id="servicio" width="160">
+	
+	<mx:Label x="488" y="109" text="Servicio:"/>
+	<mx:ComboBox x="574" y="107" id="servicio" width="160">
 		<mx:ArrayCollection>
 		<mx:Object label=" "/>
 		<mx:Object label="Policlinico I"/>
 		<mx:Object label="Policlinico II"/>
 		</mx:ArrayCollection>	
 	</mx:ComboBox>
-	<mx:Button x="522" y="353" label="Registrar" visible="true" id="registrar" click="registrarConsulta()" cornerRadius="6"/>
-	<mx:Button x="632" y="353" label="Cancelar" width="84" id="cancelar" visible="true" cornerRadius="6" click="volver()"/>
-	<mx:Label x="470" y="155" text="Costo:" width="52"/>
-	<mx:Label x="43" y="10" text="Cliente" fontWeight="bold"/>
-	<mx:Label x="43" y="36" text="Rut:" width="37" id="label2"/>
-	<mx:Label x="262.5" y="38" text="-" width="14.75" textAlign="center" id="label6"/>
-	<mx:TextInput x="135" y="36" width="130.5" id="rutClienteInput1"   editable="false"/>
-	<mx:TextInput restrict="0-9 K" x="273.5" y="36" width="19.5" id="rutClienteDVInput1"  editable="false"/>
-	<mx:Label x="470" y="10" text="Mascota" fontWeight="bold"/>
-	<mx:Label x="470" y="38" text="Nombre:"/>
-	<mx:TextInput x="556" y="36" id="nombre" editable="false" enabled="true" width="160"/>
-	<mx:Label x="43" y="74" text="Consulta" fontWeight="bold"/>
+	
+	<mx:Label x="25" y="153" text="Fecha:"/>
+	<mx:DateField x="115" y="151" width="160" id="fecha"/>
+	
+	<mx:Label x="488" y="155" text="Costo:" width="52" />
+	<mx:TextInput x="574" y="153" width="165" id="costo" focusOut="validarCosto(event)"/>
+	
+	<mx:Label x="25" y="198" text="Anamnesis:"/>
+	<mx:TextArea x="115" y="197" width="619" height="137" id="anamnesis"/>
+
+	
+	<mx:Button x="522" y="353" label="Registrar" visible="true" id="registrar" click="registrarConsulta()" cornerRadius="6" width="102" height="23"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="102" id="cancelar" visible="true" cornerRadius="6" click="volver()" height="23"/>
+
+
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:DateField x="133" y="153" width="160" id="fecha"/>
-	<mx:CurrencyFormatter id="usdFormatter" precision="0" 
-        currencySymbol="$" decimalSeparatorFrom="."
-        decimalSeparatorTo="." useNegativeSign="true" 
-        useThousandsSeparator="true" alignSymbol="left"/>
+
 	
 </mx:Panel>
