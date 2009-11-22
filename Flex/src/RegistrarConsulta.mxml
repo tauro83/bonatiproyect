@@ -2,14 +2,19 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15ad8f" title="Registro Consulta" xmlns:ns1="*" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
         <![CDATA[
+        
+//============================================================================
+// FECHA: CREACIÃ“N: 26-10-09
+// AUTOR: Nicolas Delgado
+// Esta componente se encarga de buscar a los clieentes con sus respectivas mascotas
+// para luego poder hacer el registro de una consulta en base de datos.
+//=============================================================================        
         	import transferObjects.Consulta;
         	import services.AddConsultaService;
         	import transferObjects.Cliente;
         	import services.AddMascotaService;
         	import mx.controls.DateField;
-        	import mx.controls.Alert;
             import mx.collections.ArrayCollection;
-        	import mx.controls.Alert;
 			import mx.events.CloseEvent;
 			import mx.events.ValidationResultEvent;            
   			import flash.display.Sprite;
@@ -29,35 +34,48 @@
 			private var files:ArrayCollection=new ArrayCollection();
 		    private var vResult:ValidationResultEvent;
 		    public var clienteBD:Cliente;
-		    [Bindable]
-		    public var tiposV:ArrayCollection;
-		    [Bindable]
-		    public var vetesV:ArrayCollection;
-		    [Bindable]
-		    public var ayudantesV:ArrayCollection;
+		    
+		    /**
+			* Lista de mascotas del cliente asociado con un cliente
+			*/
+
 		    [Bindable]
 			private var clientes:ArrayCollection;
 		    
 		    /**
-			* Lista de amscotas del cliente asociado
+			* Lista de cliente cuando es buscado por el rut
 			*/
 		    [Bindable] 
 		    public var mascotas:ArrayCollection = new ArrayCollection();
 		    
+		    /**
+			* Lista de cliente cuando es buscado por los nombre y apellido
+			*/		    
+		    [Bindable]
+			private var cliente2:ArrayCollection;
+			
 		    [Bindable] 
 		    public var cliente:Person;
 		    private var rw:validarRut=new validarRut();  
-
+			
+			/**
+			 * Este metodo se encarga de obtenerlos parametros del rut y se lo pasa
+			 * a la capa dos para que este sea buscado en la base de datos, una vez encontrado este metodo
+			 * se encara de arrojar dinamicamente los apellidos y nombre del cliente buscado
+			 * **/
 
         	private function buscarCliente(event:Event):void{
-        		if(rutClienteDVInput.text != "" && rutClienteInput.text != ""){
+
         			ini();
-        			if(rutClienteDVInput.text != "" && rutClienteInput.text != ""){
-        			//ini();
+        			if(rutClienteInput.text != ""){
         			var c:String;
-        			c= rw.Valida_Rut(rutClienteDVInput.text,rutClienteInput.text);
-				
-					if(c!="TRUE"){
+        			c= "TRUE";
+					/**
+					 * Si esta funcion es distinto a true el rut es validado y enviada a la funcion getCliente
+					 * para que sea buscado en la base de datos mientras que si
+					 * el rut es false no es valido como un rut.
+					 * **/
+					if(c=="TRUE"){
 						labelMessage.text = " ";
 						rutClienteInput.errorString = "";
 						getCliente(rutClienteInput.text);
@@ -68,18 +86,27 @@
 						
 					}
         	}
-        		}
+      
         	}
         	
-        	
+        	/**
+        	 * Este metodo se encarga de pasar el rut obtenido en la funcion buscarCliente
+        	 * y pasaselo al metodo getClienteResult que nos entregara el resultado de la busqueda
+        	 * **/
         	
         	private function getCliente(rutCliente:String):void{
+        		
 				var addvacService:AddConsultaService = new AddConsultaService();
 				addvacService.addEventListener(ResultEvent.RESULT,getClienteResult);
-				addvacService.getCliente(rutCliente);
-			}		
-			
-
+				addvacService.getCliente(rutCliente);	
+			}	
+				
+			/**
+        	 * Este metodo se encarga de pasar el resultado final obtenido de la busqueda realizada en base 
+        	 * de datos la cual es entregada en un arraylist mencionando todos los clientes con el rut que encontro 
+        	 * en base de datos
+        	 * **/
+        	 
 			public function getClienteResult(event:ResultEvent):void{
 				clienteBD = event.result as Cliente;
 				
@@ -94,6 +121,11 @@
         		}
 			}
         	
+        	/**
+        	 * Este metodo se encarga de resetiar la lista de mascota en caso que halla sido utilizada 
+        	 * con anterioridad en el sistema, para no tener problemas con mascotas que no correspondan 
+        	 * al cliente.
+        	 * **/
 
 	        private function ini():void{
 	        	
@@ -102,24 +134,35 @@
 				mascotas.refresh();
 	        }
 	         
-        	
+        	/**
+        	 * Este metodo se encarga de obtener todas las mascotas que se encuentran registradas con 
+        	 * ese rut asociado, en base de datos.
+        	 * **/
         					
 			public function getMascotas():void{
 				var addvacService:AddConsultaService=new AddConsultaService();
 				addvacService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				/**
+				 * Esta condicion nos permite poder realizar un filtro de  todos los Rut que posean  
+				 * 8 digitos y digito identificador, porque tambien se da el caso que rut posea 7 digitos y 1 
+				 * digito identificador
+				 * **/
 				if(rutClienteInput.text.length>=8){
-				addvacService.getMascotas(rutClienteInput.text);
+				    addvacService.getMascotas(rutClienteInput.text);
 				}
 				else{
 					addvacService.getMascotas(rutClienteInput.text+rutClienteDVInput.text);
 				}
 			}
 			
+			/**
+			 * Esta funcion se encarga de recibir todos las mascotas que fueron encontradas en base de 
+			 * datos y tambien se encarga de msotrarla por pantalla
+			 * **/
 
 			public function getAddMascotasResult(event:ResultEvent):void{
 				mascotas = event.result as ArrayCollection;
 			}
-			
 			
 			
 			/**
@@ -139,7 +182,8 @@
 						consul.rutClienteDVInput1.text="K";
 					}
 					else{
-						consul.rutClienteDVInput1.text=this.rutClienteDVInput.text;
+						   consul.rutClienteDVInput1.text=this.rutClienteDVInput.text;
+						
 					}
 					
 					consul.nombre.text=dg.selectedItem.nombre;
@@ -152,31 +196,11 @@
 				
 			}
 			
-		   
-		   public function buscarCliente2():void
-		   {
-		   		this.labelMessage.text="";
-		   		var nombre:String = inputClienteNombre.text;
-		   		if(inputClienteNombre.text != ""){
-		   			var largo:int = clientes.length;
-		   			var i:int;
-		   			
-		   			
-		   			for(i=0;i<largo;i++){
-		   				var newCli:Cliente = clientes.getItemAt(i,0) as Cliente;
-		   				if(nombre == newCli.nombre){
-		   					
-		   					this.rutClienteInput.text=newCli.rut;
-		   					this.rutClienteDVInput.text=newCli.rut2;
-		   					sacaDigito();
-		   					ini();
-		   					break;
-		   				}
-
-		   			}
-		   		}
-		 
-		   }
+		   /**
+		   * Esta metodo se encarga  verificar que el digito identificador corresponda a un rut valido 
+		   * dentro del sistema nacional y lo envia para que sea mostrado por pantalla al usuario una vez que 
+		   * este realice una busqueda solamente por nombre
+		   * **/
 		   
 		   private function sacaDigito():void{        			
         		if(this.rutClienteDVInput.text==""){	
@@ -212,6 +236,7 @@
 					if(Resto == 10){
 						this.rutClienteDVInput.text="K";	
 					}
+					
 					else{
 						this.rutClienteDVInput.text=""+Resto;	
 					}
@@ -219,14 +244,141 @@
         		}
      		}
      		
+     	   /**
+     	   * Este metodo se encarga de pasar el nombre, apellido paterno y materno a la capa 2 para que esta 
+     	   * pueda ser buscada en base de datos y nos entregue todos los resultado encontrados en ella
+     	   * **/
+     	   
+		   public function getAllClientes():void
+		   {
+		   		var busquedaService:BusquedaService = new BusquedaService();
+		   		busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
+				busquedaService.getAllClientes();
+		   }
+		   
+		   /**
+		   * Este metodo se encarga de entregar una lista con todos los clientes encontrados en base datos 
+		   * correspondiente al nombre , apellido paterno y apellido materno buscado en la base de datos por la
+		   * capa 2.
+		   * **/
+		   
+		   public function getAllClientesResult(event:ResultEvent):void
+		   {
+		   		cliente2 = event.result as ArrayCollection;
+		   		concatena();
+		   }
+		   
+		   
+		   /**
+		   * Esta funcion se encarga de juntar el nombre, apellido pater y apellido materno de un usuario para que 
+		   * pueda ser pueda ser seleccionado por el usuario, en la cual se mostraran todos los usuario que se 
+		   * encuentra en base de datos.
+		   * **/
+		   public function concatena():void
+		   {
+		   		clientes = new ArrayCollection();
+		   		var i:int;
+		   		var max:int = cliente2.length;
+		   		
+		   		for(i=0;i<max;i++){
+		   			var cli:Cliente = cliente2.getItemAt(i,0) as Cliente;
+		   			var cli2:Cliente = new Cliente();
+		   			cli2.nombre =cli.apellido+" "+cli.apellido2+" "+cli.nombre;
+		   			clientes.addItem(cli2);
+		   		}
+		   		clientes.refresh();
+		   }
+		   
+		  public function buscarCliente2():void
+		   {
+		   		this.labelMessage.text="";
+		   		var nombre:String = inputClienteNombre.text;
+		   		if(inputClienteNombre.text != "" || inputClienteNombre.selectedLabel != ""){
+		   			var largo:int = cliente2.length;
+		   			var i:int;
+		   			var sss:Array;
+		   			if(inputClienteNombre.selectedLabel != ""){
+		   				sss = inputClienteNombre.selectedLabel.split(" ",3);
+		   			}
+		   			else{
+		   				sss = inputClienteNombre.text.split(" ",3);
+		   			}
+		   			
+		   			/**
+		   			 * obtiene los datos de la division del nombre seleccionado.
+			 		*/
+		   			var nombreN:String = sss.pop();
+		   			var apellidomN:String = sss.pop();
+		   			var apellidopN:String = sss.pop();
+		   			
+		   			/**
+		   			 * Compara los datos obtenidos de la division, con los que se 
+		   			 * encuentran en el arreglo de clientes.
+			 		*/
+		   			for(i=0;i<largo;i++){
+		   				var newCli:Cliente = cliente2.getItemAt(i,0) as Cliente;
+		   				if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
+		   					/**
+							 * Esta condicion nos permite poder realizar un filtro de  todos los Rut que posean  
+							 * 8 digitos y digito identificador, porque tambien se da el caso que rut posea 7 
+							 * digitos y 1 digito identificador.
+		   					 * **/
+		   					
+		   					if(newCli.rut.length>8){
+		   						this.rutClienteInput.text=newCli.rut.substring(0,8);
+		   						this.rutClienteDVInput.text=newCli.rut.substring(8,9);
+		   						labelMessage.text = "Se ha accedido al cliente "+newCli.nombre+" "+newCli.apellido+" "+newCli.apellido2;
+		   						//sacaDigito();
+		   						ini();
+		   						break;
+		   					}
+		   					
+		   					else{
+		   						this.rutClienteInput.text=newCli.rut.substring(0,8);
+		   						labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
+		   						//sacaDigito();
+		   						ini();
+		   						break;
+		   					}
+		   					
+		   				}
 
+		   			}
+		   		}
+		 
+		   }
+		   
+		   /**
+		   * Este metodo nos permite poder seleccionar el primer elemento que aparece en un autocomplete 
+		   * o poder seleccionar cualquier objeto que sea mostrado por el autocomplete
+		   * **/
+		    public function Seleccionar(event:Event):void
+			{
+			    if(inputClienteNombre.selectedIndex==0)
+			    {
+			    	inputClienteNombre.text=inputClienteNombre.selectedLabel;
+			    }
+			}
+			
+			 /**
+			 * Este metodo se encarga de limpiar todo el panel de registro de una consulta una vez que no es utilizado
+			 * **/
+			public function iniciarPanel():void
+			{
+				this.mascotas=new ArrayCollection();
+				this.labelMessage.text="";
+				this.rutClienteInput.text="";
+				this.rutClienteDVInput.text="";
+				this.inputClienteNombre.text="";
+				
+			}
 				
         ]]>
     </mx:Script>
 	
 	<mx:Label x="330" y="38" text="Rut:" width="32"/>
 	<mx:Label x="460.25" y="38" text="-" width="14.75" textAlign="center"/>
-	<fc:AutoComplete id="inputClienteNombre" x="90" y="38" width="150" dataProvider="{clientes}" labelField="nombre" visible="true"/>
+	<fc:AutoComplete id="inputClienteNombre" x="90" y="38" width="150" dataProvider="{clientes}" labelField="nombre" visible="true" click="getAllClientes()" focusOut="buscarCliente2()" close="Seleccionar(event)"/>
 	<mx:TextInput  restrict="0-9" x="370" y="38" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
 	<mx:TextInput x="471.75" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	
@@ -246,7 +398,6 @@
 			<mx:Label x="129" y="155" width="165" text="{dg.selectedItem.raza}"/>
 			<mx:Label x="129" y="181" width="165" text="{dg.selectedItem.sexo}"/>
 	</mx:Panel>	
-
 	
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente:" width="84.75" fontWeight="bold"/>
@@ -260,8 +411,8 @@
 	    </mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="522" y="353" label="Visualizar" visible="true" id="registrar" click="regCons()" width="102" height="23"/>
-	<mx:Button x="632" y="353" label="Cancelar" width="103" id="cancelar" visible="true" height="23"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="103" id="cancelar" visible="true" height="23" click="iniciarPanel()"/>
 	
 	<mx:Label x="25" y="65" text="Mascotas:" width="112.75" fontWeight="bold"/>
-	<mx:Label x="25" y="38" text="Nombre:" width="64"/>
+	<mx:Label x="25" y="38" text="Apellido:" width="64"/>
 </mx:Panel>
