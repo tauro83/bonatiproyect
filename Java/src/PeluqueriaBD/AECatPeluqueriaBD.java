@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TransferObjects.CatPeluqueria;
-import TransferObjects.Usuario;
 
 public class AECatPeluqueriaBD {
 	
