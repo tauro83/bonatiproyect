@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc" title="Anular Vacunación">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc" title="Anular Cirugía">
 	<mx:Script>
 		<![CDATA[
 		//=======================================================================
@@ -164,15 +164,15 @@
 	</mx:Script>
 	
 	<!-- Elementos -->
-	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarCirugias(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
-	<mx:Text x="10" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
-	<mx:Text x="382" y="36" text="Mascota" fontWeight="bold"/>
-	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
-	<mx:Text x="10" y="10" id="textFiltrar" text="Filtrar por"/>
-	<mx:Button x="647" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()"/>
+	<mx:Button x="522" y="350" label="Visualizar" click="{visualizarCirugias(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Text x="25" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
+	<mx:Text x="394" y="36" text="Mascota" fontWeight="bold"/>
+	<mx:Text x="535" y="10" text="Buscar" id="textBuscar" visible="false"/>
+	<mx:Text x="25" y="10" id="textFiltrar" text="Filtrar por"/>
+	<mx:Button x="632" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()"/>
 	
 	<!-- Opciones de busqueda -->
-	<mx:ComboBox x="76" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
+	<mx:ComboBox x="91" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Nombre cliente"/>
@@ -185,7 +185,7 @@
 	</mx:ComboBox>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid x="10" y="62" width="739" height="280" id="tablaCirugias" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="visualizarCirugias(event)" >
+	<mx:DataGrid x="25" y="62" width="709" height="280" id="tablaCirugias" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="visualizarCirugias(event)" >
 		<mx:columns>		
 			<mx:DataGridColumn headerText="Nombre" dataField="clienteNombre" draggable="false"/>
 			<mx:DataGridColumn headerText="Apellido paterno" dataField="clienteApellido" draggable="false"/>
@@ -197,11 +197,11 @@
 	</mx:DataGrid>
 	
 	<!-- AutoComplete -->
-	<fc:AutoComplete id="inputNombreCliente" x="599" y="8" width="150" dataProvider="{cirugias}" labelField="clienteNombre" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputNombreC(event)"/>
-	<fc:AutoComplete id="inputApellidoPaterno" x="599" y="8" width="150" dataProvider="{cirugias}" labelField="clienteApellido" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputApellido(event)"/>
-	<fc:AutoComplete id="inputRutCliente" x="599" y="8" width="150" dataProvider="{cirugias}" labelField="clienteRut" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputRut(event)"/>
-	<fc:AutoComplete id="inputNombreMascota" x="599" y="8" width="150" dataProvider="{cirugias}" labelField="mascotaNombre" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputNombreM(event)"/>
-	<fc:AutoComplete id="inputRaza" x="599" y="8" width="150" dataProvider="{cirugias}" labelField="mascotaRaza" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputRaza(event)"/>
-	<fc:AutoComplete id="inputSexo" x="599" y="8" width="150" dataProvider="{cirugias}" labelField="mascotaSexo" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputSexo(event)"/>
+	<fc:AutoComplete id="inputNombreCliente" x="584" y="8" width="150" dataProvider="{cirugias}" labelField="clienteNombre" visible="true" toolTip="ingrese texto para búsqueda" close="closeInputNombreC(event)"/>
+	<fc:AutoComplete id="inputApellidoPaterno" x="584" y="8" width="150" dataProvider="{cirugias}" labelField="clienteApellido" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputApellido(event)"/>
+	<fc:AutoComplete id="inputRutCliente" x="584" y="8" width="150" dataProvider="{cirugias}" labelField="clienteRut" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputRut(event)"/>
+	<fc:AutoComplete id="inputNombreMascota" x="584" y="8" width="150" dataProvider="{cirugias}" labelField="mascotaNombre" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputNombreM(event)"/>
+	<fc:AutoComplete id="inputRaza" x="584" y="8" width="150" dataProvider="{cirugias}" labelField="mascotaRaza" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputRaza(event)"/>
+	<fc:AutoComplete id="inputSexo" x="584" y="8" width="150" dataProvider="{cirugias}" labelField="mascotaSexo" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputSexo(event)"/>
 	
 </mx:Panel>
