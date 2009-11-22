@@ -163,7 +163,7 @@
 	</mx:Script>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid x="25" y="62" width="709" height="250" id="tablaCatalogos" dataProvider="{catalogos}" toolTip="Seleccione los catálogos que desea anular">
+	<mx:DataGrid x="25" y="88" width="709" height="224" id="tablaCatalogos" dataProvider="{catalogos}" toolTip="Seleccione los catálogos que desea anular">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
 			 	<mx:itemRenderer>
@@ -202,4 +202,5 @@
    <!-- AutoComplete -->
    <fc:AutoComplete id="inputNombre" x="584" y="8" width="150" dataProvider="{catalogos}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda"/>
    <fc:AutoComplete id="inputServicio" x="584" y="8" width="150" dataProvider="{catalogos}" labelField="servicio" visible="false" toolTip="ingrese texto para búsqueda"/>
+   <mx:Text x="25" y="62" text="Catálogo" fontWeight="bold"/>
 </mx:Panel>
