@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Nuevo Diagnóstico" x="241" y="133" initialize="getAllUsuarios()">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Cirugía" x="241" y="133" initialize="getAllUsuarios()" xmlns:ns1="util.*">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -64,7 +64,7 @@
 					veterinario = responsable.selectedItem.usuario;
 				}
 				//llama a la funcion para editar la cirugia
-				editCirugiaService.getCirugias(rutClienteInput.text, dg2.text.split(" ",1).pop(), veterinario, fechaSeleccionada);
+				editCirugiaService.getCirugias(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteDVInput.text, dg2.text.split(" ",1).pop(), veterinario, fechaSeleccionada);
 			}
 			
 			/**
@@ -86,8 +86,8 @@
 				if(selectedRow.fecha != null){
 					busqueda.visible = false;
 					edicion.visible = true;
-					edicionRutClienteInput.text = rutClienteInput.text;
-					edicionRutClienteDVInput.text = rutClienteDVInput.text;
+					edicionRutClienteInput.text = buscadorCliente.rutClienteInput.text;
+					edicionRutClienteDVInput.text = buscadorCliente.rutClienteDVInput.text;
 					edicionNombreMascotaInput.text = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
 					labelMessage.text = "Ingrese el nuevo diagnóstico";
 					
@@ -131,7 +131,7 @@
 			*/
 			 private function buscarCliente():void{
         		//Revisa el correcto ingreso del rut
-        		var Numero:String = rutClienteInput.text;
+        		/*var Numero:String = rutClienteInput.text;
         		var Dv:String = rutClienteDVInput.text;
 				var suma:int = 0;
 				var rut:String = Numero;
@@ -159,18 +159,18 @@
 						NumMag =1;	
 					}	
 				}
+				*/
+				//Resto = 11-(suma%11);
+				//if(DigVer[Resto] != Dv.toUpperCase()){
+				//	labelMessage.text = "El Rut que ha ingresado es incorrecto.";
+				//	mascotas = new ArrayCollection();
 				
-				Resto = 11-(suma%11);
-				if(DigVer[Resto] != Dv.toUpperCase()){
-					labelMessage.text = "El Rut que ha ingresado es incorrecto.";
-					mascotas = new ArrayCollection();
-				
-				}
-				else{
+				//}
+				//else{
 					labelMessage.text = "";
-					rutClienteInput.errorString = "";
-					getCliente(rutClienteInput.text);
-				}		
+					//rutClienteInput.errorString = "";
+					getCliente(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteInput.text);
+				//}		
         	}
 			/**
 			 * 
@@ -208,8 +208,8 @@
 				edicion.visible = true;
 				
 				//Completa formulario dos de la edicion de cirugia
-				edicionRutClienteInput.text = rutClienteInput.text;
-				edicionRutClienteDVInput.text = rutClienteDVInput.text;
+				edicionRutClienteInput.text = buscadorCliente.rutClienteInput.text;
+				edicionRutClienteDVInput.text = buscadorCliente.rutClienteDVInput.text;
 				edicionNombreMascotaInput.text = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
 				
 				//Funcion que llena la tabla de diagnosticos con los respectivos datos
@@ -276,32 +276,36 @@
             		responsables.addItem({label:(nombre + " " + apellido), usuario: usuarios.getItemAt(i).usuario.split(" ",1)});
             	}
             	responsable.dataProvider = responsables;
-			} 
+			}
+			 
 			/**
-			 * Funcion que captura todos las mascotas del sistema
-			 * 
-			 */ 
+			 * @author  Sebastian Arancibia
+			 * Funcion que llama a dos funciones: filtrar y buscar mascotas
+			 */
+			public function mascotasFiltrar():void{
+				getMascotas();
+				buscarCirugias();	
+			}
+			
+			/**
+			* Funcion que llama a retornar todas las mascotas de un cliente para ser vistas en el combobox
+			* @author  Sebastian Arancibia
+			*/
 			private function getMascotas():void{
 				var addMascotaService:AddMascotaService = new AddMascotaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addMascotaService.getMascotas(rutClienteInput.text);
+				addMascotaService.getMascotas(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteDVInput.text);
 			}
 			
 			/**
 			* Funcion que obtiene todas las mascotas de un cliente
-			* @param event Evento
+			* @param event Evento proveniente de la llamada a addMascotaService
+			* @author  Sebastian Arancibia
 			*/
 			private function getAddMascotasResult(event:ResultEvent):void{
-				var masc:ArrayCollection = event.result as ArrayCollection;
-				mascotas = new ArrayCollection();
-				mascotas.addItem({label:""});
-				for(var i:int = 0; i<masc.length;i++){
-					mascotas.addItem({label:masc.getItemAt(i).nombre});
-				}
-				
-				
-				mascotas.refresh();
+				mascotas = event.result as ArrayCollection;
 			}
+	
 			/**
 			 * Funcion que los diagnosticos del sistema
 			 * 
@@ -313,7 +317,7 @@
 				var d:Diagnostico = new Diagnostico();
 				var date:Date = new Date();
 				
-				d.clienteRut = rutClienteInput.text;
+				d.clienteRut = buscadorCliente.rutClienteInput.text;// rutClienteInput.text;
 				d.diagnostico = diagC.text;
 				d.mascotaNombre = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
 				d.nuevaFecha = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
@@ -361,24 +365,20 @@
 	
 	<!-- Botones -->
 	
-	<mx:Button label="Diagnosticar" height="23" width="102" x="511" y="393" cornerRadius="6" visible="false" id="editar" click="editarCirugiaB()"/>
+	<mx:Button label="Diagnosticar" height="23" width="102" x="511" y="331" cornerRadius="6" visible="false" id="editar" click="editarCirugiaB()"/>
 
 	<!-- Datos de Busqueda -->
 	
 	<mx:Label x="33" y="153" text="Cirugías:" fontWeight="bold"/>
 	<mx:Label x="33" y="10" text="Cliente:" fontWeight="bold"/>
-	<mx:Label x="33" y="64" text="Cirugía:" fontWeight="bold"/>
-	<mx:Label x="330" y="13" text="Mascota:" fontWeight="bold"/>
+	<mx:Label x="352" y="72" text="Cirugía:" fontWeight="bold"/>
+	<mx:Label x="33" y="72" text="Mascota:" fontWeight="bold"/>
 	<mx:Button x="621" y="331" label="Cancelar" width="102" height="23" cornerRadius="6"/>
-	<mx:Label x="56.25" y="38" text="Rut:" width="55.75"/>
-	<mx:Label x="351.6" y="38" text="Nombre:" width="55.75"/>
-	<mx:Label x="250.5" y="38" text="-" width="14.75" textAlign="center"/>
-	<mx:TextInput  restrict="0-9" x="147" y="36" width="100.5" id="rutClienteInput" maxChars="9"/>
-	<mx:TextInput x="266.5" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente()"/>
-	<mx:Label x="55.25" y="95" text="Responsable:" width="93" height="22"/>
-	<mx:Label x="351.6" y="93" text="Fecha:" width="55.75" height="20"/>
-	<mx:DateField x="464" y="91" width="161" id="fecha" change="seleccionarFecha()" editable="true"/>
-	<mx:ComboBox x="146" y="93" dataProvider="{responsables}" width="139" id="responsable" change="buscarCirugias()">
+	<mx:Label x="33.2" y="97" text="Nombre:" width="55.75"/>
+	<mx:Label x="352" y="97" text="Responsable:" width="93" height="22"/>
+	<mx:Label x="352" y="134" text="Fecha:" width="55.75" height="20"/>
+	<mx:DateField x="444.75" y="132" width="161" id="fecha" change="seleccionarFecha()" editable="true"/>
+	<mx:ComboBox x="444.75" y="95" dataProvider="{responsables}" width="139" id="responsable" change="buscarCirugias()">
 	</mx:ComboBox>
 		<mx:DataGrid  color="0x323232" width="189" rowCount="3" y="126" x="454" variableRowHeight="true" dataProvider="{mascotas}"  visible="false" height="84" change="tablaSeleccionada = true">
 		    <mx:columns>
@@ -386,7 +386,9 @@
 		        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" visible="false" width="100"/>
 		    </mx:columns>
 		</mx:DataGrid>
-		<mx:ComboBox id="dg2" x="464" y="36" dataProvider="{mascotas}" width="161" change="buscarCirugias()"></mx:ComboBox>
+		<mx:ComboBox id="dg2" x="106" y="95" dataProvider="{mascotas}" width="207" change="buscarCirugias()" labelField="nombre"></mx:ComboBox>
+		<ns1:BuscadorNombreRut x="33" y="36" keyFocusChange="mascotasFiltrar()" mouseFocusChange="mascotasFiltrar()" id="buscadorCliente">
+		</ns1:BuscadorNombreRut>
 	</mx:Canvas>
 	
 	<mx:Canvas x="0" y="0" width="759" height="426" visible="false" id="edicion">
