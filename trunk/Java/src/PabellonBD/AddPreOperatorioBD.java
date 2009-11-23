@@ -22,8 +22,8 @@ public class AddPreOperatorioBD {
 			
 			
 			String query="";			
-			query = "INSERT INTO preoperatorio(idpreoperatorio,observaciones,sintomas,diagnostico,fecha,hora,responsable,ayudante) "+
-					"VALUES (?, ?, ?, ?,?,? ,?,?);";			
+			query = "INSERT INTO preoperatorio(rut, nombre,observaciones,sintomas,diagnostico,fecha,hora,responsable,ayudante) "+
+					"VALUES (?, ?, ?, ?,?,? ,?,?,?);";			
 			insert = con.prepareStatement(query);
 			
 		} 
@@ -49,27 +49,28 @@ public class AddPreOperatorioBD {
 			
 			
 			
-			insert.setString(1, u.idpreoperatorio);
-			insert.setString(2, u.observaciones);
-			insert.setString(3, u.sintomas);
-			insert.setString(4, u.diagnostico);
-			insert.setString(5, u.fecha);
-			insert.setString(6, u.hora);
-			insert.setString(7, u.responsable);		
-			insert.setString(8, u.ayudante);
+			insert.setString(1, u.rut);
+			insert.setString(2, u.nombre);
+			insert.setString(3, u.observaciones);
+			insert.setString(4, u.sintomas);
+			insert.setString(5, u.diagnostico);
+			insert.setString(6, u.fecha);
+			insert.setString(7, u.hora);
+			insert.setString(8, u.responsable);		
+			insert.setString(9, u.ayudante);
 			
 			result=insert.executeUpdate();
 			
 			System.out.print(result);
 			
-			System.out.print(u.idpreoperatorio);
-			System.out.print(u.observaciones);
-			System.out.print(u.sintomas);
-			System.out.print(u.diagnostico);
-			System.out.print(u.fecha);
-			System.out.print(u.hora);
-			System.out.print(u.responsable);
-			System.out.print(u.ayudante);
+//			System.out.print(u.idpreoperatorio);
+//			System.out.print(u.observaciones);
+//			System.out.print(u.sintomas);
+//			System.out.print(u.diagnostico);
+//			System.out.print(u.fecha);
+//			System.out.print(u.hora);
+//			System.out.print(u.responsable);
+//			System.out.print(u.ayudante);
 		} 
     	catch (SQLException e) 
     	{
