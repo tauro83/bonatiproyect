@@ -49,7 +49,7 @@ public class anularPreoperatorioBD {
 			
 			query = "UPDATE preoperatorio " +
 					"SET estado = ? " + 
-					"WHERE hora = ?;";
+					"WHERE estado = ? AND nombre= ? AND hora= ?;";
 			setEstado = connection.prepareStatement(query);
 		}
 		catch (SQLException e) 
@@ -85,7 +85,7 @@ public class anularPreoperatorioBD {
 	    			vacu.setHora(result.getString(3).trim());
 	    			vacu.setFecha(result.getString(4).trim());
 	    			vacu.setSintomas(result.getString(5).trim());
-	    			vacu.setEstado(result.getString(6).trim());
+	    			vacu.setEstado(result.getInt(6));
 	    			vacu.setResponsable(result.getString(7).trim());
 	    			vacu.setAyudante(result.getString(8).trim());
 	    			vacu.setObservaciones(result.getString(9).trim());
@@ -178,19 +178,19 @@ public class anularPreoperatorioBD {
 	    			vacu.setHora(result.getString(3).trim());
 	    			vacu.setFecha(result.getString(4).trim());
 	    			vacu.setSintomas(result.getString(5).trim());
-	    			vacu.setEstado(result.getString(6).trim());
+	    			vacu.setEstado(result.getInt(6));
 	    			vacu.setResponsable(result.getString(7).trim());
 	    			vacu.setAyudante(result.getString(8).trim());
 	    			vacu.setObservaciones(result.getString(9).trim());
 	    			
 	    			String rut2 = vacu.getNombreMascota().trim();
-	    			String estado2 = vacu.getEstado().trim();
+	    			Integer estado2 = vacu.getEstado();
 	    			
 	    			/**
 	    			 * Esta condicción se encarga de buscar todos los registro de peluquería 
 	    			 * que posean estado 0 y posean el mismo nombre.
 	    			 */
-	    			if(rut2.equals(nombreMascota) && estado2.equals("0"))
+	    			if(rut2.equals(nombreMascota) && estado2==0)
 	    			{
 	    				
 	    				vacunaciones.add(vacu);
@@ -232,18 +232,18 @@ public class anularPreoperatorioBD {
 	    			vacu.setHora(result.getString(3).trim());
 	    			vacu.setFecha(result.getString(4).trim());
 	    			vacu.setSintomas(result.getString(5).trim());
-	    			vacu.setEstado(result.getString(6).trim());
+	    			vacu.setEstado(result.getInt(6));
 	    			vacu.setResponsable(result.getString(7).trim());
 	    			vacu.setAyudante(result.getString(8).trim());
 	    			vacu.setObservaciones(result.getString(9).trim());
 	    			
-	    			String estado2 = vacu.getEstado().trim();
+	    			Integer estado2 = vacu.getEstado();
 	    			
 	    			/**
 	    			 * Esta condicción se encarga de buscar todos los registro de peluquería 
 	    			 * que posean estado 1.
 	    			 */
-	    			if(estado2.equals("1"))
+	    			if(estado2==1)
 	    			{
 	    				
 	    				vacunaciones.add(vacu);
@@ -263,12 +263,14 @@ public class anularPreoperatorioBD {
 	* @param 0=activado, 1=desactivo, 2=anulado
 	* @return 2 si ha anulado correctamente y 0 de lo contrario
 	*/
-	 public int anular(String estado)
+	 public int anular(Integer estado, String nombreMascota,String hora)
 	 {
 		 int result = 0;
 		 try {
-			setEstado.setString(1, "2");
-			setEstado.setString(2, estado);
+			setEstado.setInt(1, 2);
+			setEstado.setInt(2, estado);
+			setEstado.setString(3, nombreMascota);
+			setEstado.setString(4, hora);
 			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
@@ -284,12 +286,12 @@ public class anularPreoperatorioBD {
 	* @param 0=activado, 1=desactivo, 2=anulado
 	* @return 1 si ha eliminado correctamente y 0 de lo contrario
 	*/
-	 public int eliminar(String estado)
+	 public int eliminar(Integer estado)
 	 {
 		 int result = 0;
 		 try {
-			setEstado.setString(1, "1");
-			setEstado.setString(2, estado);
+			setEstado.setInt(1, 1);
+			setEstado.setInt(2, estado);
 			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
@@ -306,12 +308,12 @@ public class anularPreoperatorioBD {
 	* @return 0 si ha deseliminado correctamente y 1 de lo contrario.
 	*/
 	 
-	 public int deseliminar(String estado)
+	 public int deseliminar(Integer estado)
 	 {
 		 int result = 0;
 		 try {
-			setEstado.setString(1, "0");
-			setEstado.setString(2, estado);
+			setEstado.setInt(1, 0);
+			setEstado.setInt(2, estado);
 			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
