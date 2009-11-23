@@ -75,8 +75,8 @@ public class PostOperatorioBD {
 	    			postOperatorio.medicamentos = result.getString(1).trim();
 	    			postOperatorio.alimentos = result.getString(2).trim();
 	    			postOperatorio.observaciones = result.getString(3).trim();
-	    			postOperatorio.hora = result.getString(4).trim();
-	    			postOperatorio.fecha = result.getString(5).trim();
+	    			postOperatorio.shora = result.getString(4).trim();
+	    			postOperatorio.stfecha = result.getString(5).trim();
 	    			postOperatorios.add(postOperatorio);
 	    			
 	    		}
