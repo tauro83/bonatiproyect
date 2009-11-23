@@ -230,15 +230,16 @@
 				busqueda.visible = false;
 				edicion.visible = true;
 				
-				//Completa formulario dos de la edicion de cirugia
-				edicionRutClienteInput.text = buscadorCliente.rutClienteInput.text;
-				edicionRutClienteDVInput.text = buscadorCliente.rutClienteDVInput.text;
-				edicionNombreMascotaInput.text = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
+				var s:String =  Tabla.selectedItem.clienteRut.split(" ",1).pop();
 				
-				//Funcion que llena la tabla de diagnosticos con los respectivos datos
+				edicionRutClienteInput.text = s.substring(0,s.length-1);
+				edicionRutClienteDVInput.text = s.charAt(s.length-1);
+				
+				edicionNombreMascotaInput.text = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
+				labelMessage.text = "Ingrese el nuevo diagnóstico";
+				
 				llenarTablaDiagnosticos();
 				
-				labelMessage.text = "Ingrese el nuevo diagnóstico";
 			}
 			/**
 			 * Funcion que llena la tabla de diagnosticos con los respectivos datos 
