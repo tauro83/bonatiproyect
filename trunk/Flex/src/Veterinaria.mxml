@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*" xmlns:ns5="hoteleria.*" xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*"> 
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*" xmlns:ns5="hoteleria.*" xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*"> 
 
     <mx:Script>
         <![CDATA[        
@@ -249,6 +249,9 @@
          		<!--Autor: }Esteban -->   
          		
          		<!--Autor: Sebastian{ -->
+         		opcionesPetshop.setVisible(false,false);
+         		panelPetshop.setVisible(false, false);
+         		
 		    	bitacora.setVisible(false,false);
 		    	agenda2.setVisible(false, false);
 		    	editarCirugia.setVisible(false, false);
@@ -310,6 +313,13 @@
 				setInvisible();
                 panelOpciones.setVisible(true,false);
             	login2.setVisible(true,false);
+            }
+            
+            private function mostrarPetshop():void{
+            	setInvisible();
+            	panelPetshop.visible = true;
+            	opcionesPetshop.visible = true;	
+            
             }
             
             private function mostrarBusqueda():void
@@ -628,7 +638,7 @@
 	<mx:Button enabled="false" x="170" y="104" label="Agenda" width="171" height="30" cornerRadius="4" id="botonAgenda" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
 	<mx:Button enabled="false" x="340" y="104" label="Clínica" width="171" height="30" cornerRadius="4" id="botonClinica" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
 	<mx:Button enabled="false" x="510" y="104" label="Peluquería" width="171" height="30" id="botonPeluqueria" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
-	<mx:Button enabled="false" x="680" y="104" label="Pet Shop" width="171" height="30" id="botonPetshop" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="680" y="104" label="Pet Shop" width="171" height="30" id="botonPetshop" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12" click="mostrarPetshop()"/>
 	<mx:Button enabled="false" x="850" y="104" label="Hotelería" width="170" height="30" id="botonHotel" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
 	<mx:Button enabled="false" x="0" y="104" label="Administración" height="30" width="171" id="botonAdmin" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
 	<ns2:EditUsuarioUpdate x="241" y="134" id="AdEditarUsuar3" visible="false">
@@ -748,5 +758,9 @@
 		</peluqueria:EditarPeluqueria>
 		<peluqueria:EditarPeluqueriaUpdate x="241" y="134" visible="false" id="editaPelUPdate">
 		</peluqueria:EditarPeluqueriaUpdate>
+		<ns7:OpcionesPetshop x="0" y="134" visible="false" id="opcionesPetshop">
+		</ns7:OpcionesPetshop>
+		<ns7:PanelPetshop x="241" y="134" visible="false" id="panelPetshop">
+		</ns7:PanelPetshop>
 	<!--Autor: }Sebastian-->
 </mx:Application>
