@@ -8,11 +8,11 @@
 
 package hoteleria
 {
+	import mx.controls.Alert;
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	import mx.controls.Alert;
 	
 	import transferObjects.Hoteleria;
 	
@@ -53,13 +53,9 @@ package hoteleria
 		{
 			this.getOperation("registrarHoteleria").send(alojar);
 		}
-		
-				/**
-		 * Se obtienen todos los clientes que están registrados en la base de datos
-		 */ 
-		public function getClientesActivos():void
+		public function consultar(rut:String, nombre:String):void
 		{
-			this.getOperation("getClientesActivos").send();
+		this.getOperation("consultar").send(rut,nombre);
 		}
 
 	}
