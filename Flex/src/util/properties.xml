@@ -76,14 +76,26 @@
 				<mensaje key="13">Se ha eliminado la Mascota exitosamente</mensaje>
 				<mensaje key="14">Se ha purgado la Mascota exitosamente</mensaje>
 				<mensaje key="15">Se ha restaurado Mascota exitosamente</mensaje>
-				<mensaje key="16">Usuario(s) eliminado(s) exitosamente</mensaje>
-				<mensaje key="17">Usuario(s) purgado(s) exitosamente</mensaje>
+				<mensaje key="16">Se ha eliminado el Usuario exitosamente</mensaje>
+				<mensaje key="17">Se ha purgado el Usuario exitosamente</mensaje>
 				<mensaje key="18">No se ha editado el usuario</mensaje>
-				<mensaje key="19">Cambios realizados con éxito</mensaje>
+				<mensaje key="19">Se han realizado los cambios exitosamente</mensaje>
 				<mensaje key="20">Ha cancelado la edición de datos</mensaje>
 				<mensaje key="21">Estadísticas por rango de fecha para Clinica</mensaje>
 				<mensaje key="22">Se ha editado el Catalogo exitosamente</mensaje>
 				<mensaje key="23">Se ha editado el Registro exitosamente</mensaje>
+			</mensajes>
+		</tipoMensaje>
+		<tipoMensaje name="ToolTip">
+			<mensajes>
+				<mensaje key="1">Seleccione los catálogos que desea anular</mensaje>
+				<mensaje key="2">Seleccione las vacunaciones que desea anular</mensaje>
+				<mensaje key="3">Seleccione las cirugías que desea anular</mensaje>
+				<mensaje key="4">Anula los catálogos seleccionados</mensaje>
+				<mensaje key="5">Anula las vacunaciones seleccionadas</mensaje>
+				<mensaje key="6">Anula las cirugías seleccionadas</mensaje>
+				<mensaje key="7">Vuelve al panel anterior</mensaje>
+				<mensaje key="7">Ingrese un motivo por el cual desea anular</mensaje>
 			</mensajes>
 		</tipoMensaje>			
 	</tipos>
