@@ -1,5 +1,5 @@
 //=======================================================================
-// FECHA CREACIÓN: 09-10-09
+// FECHA CREACIÓN: 16-11-09
 // AUTOR: Nicolas Delgado 
 // Comentario: Clase que se encarga de realizar la conexion entre la capa
 // lógica y la interfaz
@@ -17,7 +17,7 @@ package services
 	/**
 	 * Clase encargada de realizar la conexión entre la capa
 	 * lógica y la interfaz gráfica
-	 * @autor Esteban Cruz
+	 * @autor Nicolas Delgado
 	 */
 	public class anularPeluqueria extends RemoteObject
 	{
@@ -39,44 +39,57 @@ package services
 		{
 			Alert.show("Error en anularPeluqueria, Detalle: "+event.fault.message);
 		}
+		
 		/**
-		 * Se anula una vacunación, cambiandole el estado a 2
-		 */ 
-		public function anular(estado:String):void
+		* Este metodo envia el estado de un registro de peluquería y si este se encuentra en 0 
+		* es cambiado a 2.
+		*/ 
+		public function anular(estado:int,nombreMascota:String,hora:String):void
 		{
-			this.getOperation("anular").send(estado);
+			this.getOperation("anular").send(estado,nombreMascota,hora);
 			
 		}
 		
 		/**
-		 * Se elimina una vacunación, cambiandole el estado a 1
-		 */ 
-		public function eliminar(estado:String):void
+		* Este metoso envia el estado de un registro de peluquería y si este se encuentra en 0 
+		* es cambiado 1.
+		*/  
+		public function eliminar(estado:int,nombreMascota:String,hora:String):void
 		{
-			this.getOperation("eliminar").send(estado);
-		}
-		
-		public function deseliminar(estado:String):void
-		{
-			this.getOperation("deseliminar").send(estado);
+			this.getOperation("eliminar").send(estado,nombreMascota,hora);
 		}
 		
 		/**
-		 * Se obtienen todas las vacunaciones que están registradas en la base de datos
-		 */ 
+		* Este metoso envia el estado de un registro de peluquería y si este se encuentra en 1 
+		* es cambiado 0.
+		*/  
+		public function deseliminar(estado:int,nombreMascota:String,hora:String):void
+		{
+			this.getOperation("deseliminar").send(estado,nombreMascota,hora);
+		}
+		
+		/**
+		* Este metodo se encar de obtener todos los registro de peluquería que se encuentran al 
+		* interior de la base de datos. 
+		*/ 
 		public function getAllVacunaciones():void
 		{
 			this.getOperation("getAllVacunaciones").send();
 		}
 		
 		/**
-		 * Se obtienen todas las vacunaciones que están registradas en la base de datos
-		 */ 
+		* Este metodo se encar de obtener todos los registro de peluquería que se encuentran al 
+		* interior de la base de datos. 
+		*/ 
 		public function getAllVacunacionesU(nombreMascota:String):void
 		{
 			this.getOperation("getAllVacunacionesU").send(nombreMascota);
 		}
 		
+		/**
+		* Este metodo se encar de obtener todos los registro de peluquería que se encuentran al 
+		* interior de la base de datos. 
+		*/ 
 		public function getAllVacunacionesA():void
 		{
 			this.getOperation("getAllVacunacionesA").send();
