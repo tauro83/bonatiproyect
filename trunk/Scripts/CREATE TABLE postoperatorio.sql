@@ -1,20 +1,16 @@
-CREATE TABLE postoperatorio
+CREATE TABLE atencionpostoperatorio
 (
-  idpostoperatorio character(8) NOT NULL,
-  observaciones character(50),
-  sintomas character(50),
-  diagnostico character(50),
-  fecha character(10) NOT NULL,
-  hora time without time zone NOT NULL,
-  clienterut character(9) NOT NULL,
-  mascotanombre character(50) NOT NULL,
-  responsable character(30),
-  alimento character(50),
-  medicamento character(50),
-  ayudante character(30),
-  estado integer,
-  CONSTRAINT pk_postoperatorio PRIMARY KEY (idpostoperatorio, fecha, hora)
+  medicamentos character(50),
+  alimentos character(50),
+  indicaciones character(50),
+  servicio character varying(20) NOT NULL DEFAULT 'Pabellon'::character varying,
+  hora character(10) NOT NULL,
+  fecha date NOT NULL,
+  costo character(50),
+  nombremascota character(50),
+  rut character(9),
+  apellido character(50),
+  nombrecliente character(50),
+  estado character(1),
+  CONSTRAINT atencionpostoperatorio_pkey PRIMARY KEY (hora, fecha, servicio)
 )
-
-INSERT INTO postoperatorio(idpostoperatorio,observaciones,sintomas,diagnostico,fecha,hora,clienterut,mascotanombre,responsable,alimento,medicamento,ayudante,estado)
-VALUES('1','observaciones del postoperatorio','síntomas que tiene la mascota','diagnóstico dela mascota','01/09/09','12:30:00','162989243','Estela','','','','','1');
