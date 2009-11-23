@@ -17,7 +17,10 @@ public class CatPeluqueria {
 	public String precio;
 	public String descripcion;
 	private String estado;
-    
+    /**
+     * @return obtiene el estado del catálogo
+     * 
+     */
 	 public String getEstado() {
 			return estado;
 	 }
