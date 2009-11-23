@@ -53,7 +53,8 @@
 			public function preOpeModificado():void
 			{
 				    
-					preope.idpreoperatorio = pacotilla.rut;
+					preope.rut             = pacotilla.rut;
+					preope.nombre          = nombre.text; 
 					preope.observaciones   = observaciones.text;
 					preope.sintomas        = sintomas.text;
 					preope.diagnostico     = diagnostico.text;
