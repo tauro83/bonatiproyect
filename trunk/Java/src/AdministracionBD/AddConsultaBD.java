@@ -12,14 +12,23 @@ import TransferObjects.Cliente;
 import TransferObjects.Consulta;
 import TransferObjects.Mascota;
 
-
+/**
+ * @author Nicolas Delgado
+ *  Clase entidad Consulta de una atencion, encapsula informacion de una consulta.
+ *  Solo contiene los metodos para hacer get/set de los atributos.
+ *  		
+ **/
 
 public class AddConsultaBD {
 	PreparedStatement add;
 	PreparedStatement selectAll;
 	PreparedStatement getAllClientes;
 
-	
+	/**
+	 * Este metodo se encarga de realizar las conexion a base de datos, para poder realizar las consultas
+	 * a la base de datos, tanto de ingreso como obtencion de datos.
+	 * 
+	 */
 
 	public AddConsultaBD(Connection connection){
 		
@@ -35,7 +44,7 @@ public class AddConsultaBD {
 					"FROM mascota;";			
 			selectAll = connection.prepareStatement(query);
 			
-			query = "SELECT rut, nombre " +
+			query = "SELECT rut, nombre, aPaterno, aMaterno " +
 					"FROM clientepresencial;";
 			
 			getAllClientes= connection.prepareStatement(query);
@@ -48,6 +57,12 @@ public class AddConsultaBD {
 		}
 	}
 	
+	/**
+	 * Este metodo se encarga de ingresar a base de datos una consulta realizada por una mascota
+	 * 
+	 * @return este metodo nos retorna un int, señalandonos si la mascota fue registrada en base de
+	 * datos.
+	 */
 
 	public int addConsulta(Consulta consulta3) throws SQLException
 	{
@@ -83,6 +98,13 @@ public class AddConsultaBD {
     	return result2;
     }
 	
+	/**
+	 * Este metodo se encarga de recibir el rut del cliente que fue enviado desde la capa uno, por el
+	 * cual se realiza la busqueda al interior de la base de datos.	  
+	 *  
+	 * @return Este metodo retorna un lista, el cual nos muestra a todo los clientes que se encuentran
+	 * con ese rut en base de datos.
+	 */
     
 	public Cliente getCliente(String rutCliente){
     	Cliente cliente = null;
@@ -95,14 +117,14 @@ public class AddConsultaBD {
     				s = result.getString(1).substring(0, 8);
 	    			if(s.equals(rutCliente)){
 	    				cliente.setRut(result.getString(1));
-	    				cliente.setNombre(result.getString(2));
+	    				cliente.setNombre(result.getString(4).trim()+" "+ result.getString(3).trim()+"  "+result.getString(2).trim());
 	    			}
     			}
     			else{
-    				s = result.getString(1).substring(0, 7);
+    				s = result.getString(1).substring(0, 8);
     				if(s.equals(rutCliente)){    					
 	    				cliente.setRut(result.getString(1));
-	    				cliente.setNombre(result.getString(2));
+	    				cliente.setNombre(result.getString(4).trim()+" "+ result.getString(3).trim()+"  "+result.getString(2).trim());
 	    			}
     			}
     			
@@ -114,7 +136,14 @@ public class AddConsultaBD {
     	return cliente;
 	}
     
-
+	/**
+	 * Este metodo se encarga de mostrar todas las mascotas que se encuentran asociado a un 
+	 * cliente seleccionado anteriormente.  
+	 *  
+	 * @return Este metodo retorna un lista, con todas las mascotas que corresponden al cliente
+	 * que fue seleccionado anteriormente.
+	 */
+	
     public List<Mascota> getAllMascotas(){
     	List<Mascota> mascotas=new ArrayList<Mascota>();
     	Mascota mascota;
@@ -140,7 +169,14 @@ public class AddConsultaBD {
     	return mascotas;
     }
     
-
+	/**
+	 * Este metodo se encarga de mostrar todas las mascotas que se encuentran asociado a un 
+	 * cliente seleccionado anteriormente.  
+	 *  
+	 * @return Este metodo retorna un lista, con todas las mascotas que corresponden al cliente
+	 * que fue seleccionado anteriormente.
+	 */
+    
     public List<Mascota> getMascotas(String rutCliente){
     	List<Mascota> mascotas=new ArrayList<Mascota>();
     	Mascota mascota;
