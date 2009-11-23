@@ -1,20 +1,19 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllDatos()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Atención Post-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Atención Post-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
-			// FECHA: CREACIÓN: 11 Octubre
+			// FECHA CREACIÓN: 11/10/09
 			// AUTOR: Erwin Díaz
 			// Comentarios: Muestra datos de la mascota con sus respectivas atenciones
 			// en post-operatorio
 			//=======================================================================
 		
-//			import services.PostoperatorioService;
-//			import transferObjects.Postoperatorio;
+			import services.PostOperatorioService;
+			import transferObjects.PostOperatorio;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import transferObjects.Mascota2;
-			import mx.rpc.events.ResultEvent;
 			import flash.events.MouseEvent;
             import mx.events.FlexEvent;
             import mx.rpc.events.ResultEvent;
@@ -29,11 +28,11 @@
 			 * registradas en la base de datos
 			 * 
 			 */
-			private function getAllDatos():void
+			public function getAllDatos():void
 			{
-//				var visualizarPostoperatorio:PostoperatorioService = new PostoperatorioService();
-//				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
-//				visualizarPostoperatorio.getAllDatos();
+				var visualizarPostoperatorio:PostOperatorioService = new PostOperatorioService();
+				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+				visualizarPostoperatorio.getAllPostOperatorio();
 			}	
 			/**
 			 * Obtiene el evento del resultado de la consulta
@@ -41,6 +40,7 @@
 			 */
 		    private function getAllDatosResult(event:ResultEvent):void
 			{
+				Tabla.doubleClickEnabled=true;
 				atenciones = event.result as ArrayCollection;
 			}
 			
@@ -119,30 +119,26 @@
 			 */
 			public function editarAtencion():void
 			{
-				//Alert.show(Tabla.selectedItem);
-				
 				if(Tabla.selectedItem){					
 					var newPurgarPost:PurgarPostOperatorio = Application.application.purgPost;
-					var newMascota:Mascota2 = new Mascota2();
-					newMascota.nombre = Tabla.selectedItem.nombreMascota;
+					var newMascota:PostOperatorio = new PostOperatorio();
+					newMascota.nombreMascota = Tabla.selectedItem.nombreMascota;
 					newMascota.raza = Tabla.selectedItem.raza;
 					newMascota.sexo = Tabla.selectedItem.sexo;
-					newMascota.rut = Tabla.selectedItem.rut;
-					newMascota.nombreDueno = Tabla.selectedItem.nombre;
-					newMascota.apellidoPaterno = Tabla.selectedItem.apellidoPaterno;
+					newMascota.nombreCliente = Tabla.selectedItem.nombreCliente;
+					newMascota.apellido = Tabla.selectedItem.apellido;
+					newMascota.clienterut = Tabla.selectedItem.clienterut;
 					
 					
 					this.setVisible(false,false);
-					//var mascota:Mascota2 = atenciones.removeItemAt(Tabla.selectedIndex) as Mascota2;
 					newPurgarPost.resetVars();
-					newPurgarPost.nomMascota.text = newMascota.nombre;
+					newPurgarPost.nomMascota.text = newMascota.nombreMascota;
 					newPurgarPost.razaMascota.text = newMascota.raza;
 					newPurgarPost.sexoMascota.text = newMascota.sexo;
-					newPurgarPost.rut.text = newMascota.rut;
-					newPurgarPost.nombre.text = newMascota.nombreDueno;
-					newPurgarPost.apellidoPaterno.text = newMascota.apellidoPaterno;
-					
-					//newPurgarPost.tablaAtenciones.dataProvider = atenciones;
+					newPurgarPost.nombre.text = newMascota.nombreCliente;
+					newPurgarPost.apellidoPaterno.text = newMascota.apellido;
+					newPurgarPost.clienterut.text = newMascota.clienterut;
+					newPurgarPost.getAllDatos();
 					newPurgarPost.setVisible(true,false);
 
 				}
@@ -165,16 +161,15 @@
 	
 	
 	<!-- AutoComplete para cada parametro -->
-	<!-- input Usuario -->
-	<fc:AutoComplete id="inputNombreMas" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="nombreMascota" visible="false"/>
-	<fc:AutoComplete id="inputRaza" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="raza" visible="false"/>
-	<fc:AutoComplete id="inputSexo" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="sexo" visible="false"/>
-	<fc:AutoComplete id="inputRut" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="rut" visible="false"/>
-	<fc:AutoComplete id="inputNombreCliente" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="nombre" visible="false"/>
-    <fc:AutoComplete id="inputApellidoPaterno" x="59" y="10" width="150" dataProvider="{atenciones}" labelField="apellidoPaterno" visible="false"/>
+	<fc:AutoComplete id="inputNombreMas" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="nombreMascota" visible="false"/>
+	<fc:AutoComplete id="inputRaza" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="raza" visible="false"/>
+	<fc:AutoComplete id="inputSexo" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="sexo" visible="false"/>
+	<fc:AutoComplete id="inputNombreCliente" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="nombre" visible="false"/>
+    <fc:AutoComplete id="inputApellidoPaterno" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="apellidoPaterno" visible="false"/>
+	<fc:AutoComplete id="inputRut" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="clienterut" visible="false"/>
+	
 
-
-	<mx:ComboBox x="283" y="10" width="150" id="comboBox" change="seleccionarBusqueda(event)">
+	<mx:ComboBox x="96" y="24" width="150" id="comboBox" change="seleccionarBusqueda(event)">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Nombre Mascota"/>
@@ -189,26 +184,26 @@
 
 	
 	
-	<mx:DataGrid x="10" y="64" width="739" id="Tabla" enabled="true" height="278" dataProvider="{atenciones}" itemDoubleClick="editarAtencion()">
+	<mx:DataGrid x="30" y="82" width="719" id="Tabla" enabled="true" height="260" dataProvider="{atenciones}" itemDoubleClick="editarAtencion()">
 		<mx:toolTip>Muestra las mascotas registradas en el sistema que tienen atenciones de post-operatorio no bloqueadas</mx:toolTip>
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota"/>
 			<mx:DataGridColumn headerText="Raza" dataField="raza" width="100"/>
 			<mx:DataGridColumn headerText="Sexo" dataField="sexo" width="100"/>
-			<mx:DataGridColumn headerText="Rut" dataField="rut" width="80"/>
-			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
-			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellidoPaterno"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreCliente"/>
+			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellido"/>
+			<mx:DataGridColumn headerText="Rut" dataField="clienterut"/>
 			
 			
 	     </mx:columns>
 	</mx:DataGrid>
 	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="350" click="editarAtencion()" cornerRadius="6" toolTip="Visualizar mascota seleccionada"/>
-	<mx:Label x="10" y="43" text="Mascota" fontWeight="bold"/>
-	<mx:Label x="339.5" y="43" text="Cliente" fontWeight="bold"/>
+	<mx:Label x="30" y="56" text="Mascota" fontWeight="bold"/>
+	<mx:Label x="373.5" y="56" text="Cliente" fontWeight="bold"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="647" y="350" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6" toolTip="Regresa al panel anterior"/>
-	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
-	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
+	<mx:Label x="518" y="26" text="Buscar"/>
+	<mx:Text x="30" y="26" id="textFiltrar" text="Filtrar por"/>
 	
 
 
