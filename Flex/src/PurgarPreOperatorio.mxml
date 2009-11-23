@@ -84,10 +84,10 @@
            	private function deleteRow():void 
            	{
          		if(motivo.text==""){
-         			Alert.show("Debe ingresar un motivo para anular el(los) registro(s) de peluquería","Campo incompleto");
+         			Alert.show("Debe ingresar un motivo para anular el(los) registro(s) de preoperatorio","Campo incompleto");
          		}
          		else{
-					Alert.show("¿Está seguro que desea anular el(los) registro(s) de peluquería? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+					Alert.show("¿Está seguro que desea anular el(los) registro(s) de preoperatorio? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
          		}
 			}
 			
@@ -106,7 +106,7 @@
                     if (vacunaciones[i].sel)
                 	{
                         vacu = vacunaciones[i] as anuPreoperatorio;
-                        anular(vacu.idpreoperatorio);
+                        anular(vacu.hora);
                        
                         vacunaciones.removeItemAt(i);
                         allRows = vacunaciones.length;
@@ -115,7 +115,7 @@
                     }   
                 }
                 motivo.text="";
-                barraMsj.text="Registro(s) de peluquería eliminado";              
+                barraMsj.text="Registro(s) de Preoperatorio anulado";              
             }
 			
 			/**
@@ -181,13 +181,12 @@
                         </mx:Component>
              	</mx:itemRenderer>
             </mx:DataGridColumn>		
-			<mx:DataGridColumn width="60" headerText="Costo" dataField="costo" id="costo" draggable="false"/>
-			<mx:DataGridColumn width="250" headerText="Descripción" dataField="descripcion" id="descripcion" draggable="false"/>
-			<mx:DataGridColumn width="70" headerText="Servicio" dataField="servicio" id="servicio" draggable="false"/>
+			<mx:DataGridColumn width="60" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
+			<mx:DataGridColumn width="70" headerText="Ayudante" dataField="ayudante" id="ayudante" draggable="false"/>
+			<mx:DataGridColumn width="250" headerText="Sintomas" dataField="sintomas" id="sintomas" draggable="false"/>
 			<mx:DataGridColumn width="90" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
 			<mx:DataGridColumn width="90" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>
-			<mx:DataGridColumn width="100" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
-			<mx:DataGridColumn width="130" headerText="Nombre Catalogo" dataField="nombreCatalogo" id="nombreCatalogo" draggable="false"/>		
+			<mx:DataGridColumn width="130" headerText="Observaciones" dataField="observaciones" id="observaciones" draggable="false"/>		
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:CheckBox x="25" y="152" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
