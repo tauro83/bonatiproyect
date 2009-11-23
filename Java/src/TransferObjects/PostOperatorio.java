@@ -17,6 +17,8 @@ public class PostOperatorio extends Atencion{
 	public String responsable;
 	public String fecha;
 	public String hora;
+	public String stfecha;
+	public String shora;
 	public String ayudante;
 	public String alimentos;
 	public String clienterut;
@@ -29,6 +31,7 @@ public class PostOperatorio extends Atencion{
 	private String indicaciones;
 	private String nombreDueño;
 	private String rut;
+	
 	private String apellidoDueño;
 	
 	
