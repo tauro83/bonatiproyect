@@ -13,7 +13,6 @@ public class anuPreoperatorio {
 	public String diagnostico;
 	public String  fecha;
 	public String  hora;
-	public String idpreoperatorio;
 	public String responsable;
 	public String ayudante;
 	public String rutCliente;
@@ -53,12 +52,6 @@ public class anuPreoperatorio {
 	}
 	public void setHora(String hora) {
 		this.hora = hora;
-	}
-	public String getIdpreoperatorio() {
-		return idpreoperatorio;
-	}
-	public void setIdpreoperatorio(String idpreoperatorio) {
-		this.idpreoperatorio = idpreoperatorio;
 	}
 	public String getResponsable() {
 		return responsable;
