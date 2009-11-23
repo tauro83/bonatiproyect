@@ -8,6 +8,7 @@
 package transferObjects
 {
 	import mx.controls.CheckBox;
+	import mx.core.ByteArrayAsset;
 	
 	[Bindable]
     [RemoteClass(alias="TransferObjects.CatPeluqueria")]
@@ -24,5 +25,6 @@ package transferObjects
 		public var nombre:String;
 		public var precio:String;
 		public var descripcion:String;
+		public var estado:String;
 	}
 }
