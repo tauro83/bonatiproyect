@@ -13,6 +13,7 @@ CREATE TABLE preoperatorio
   hora character(10) NOT NULL,
   responsable character(30),
   ayudante character(30),
+  estado character(1),
   CONSTRAINT pk_preoperatorio PRIMARY KEY (rut, fecha, hora)
 ) 
 WITHOUT OIDS;
