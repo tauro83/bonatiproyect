@@ -2,14 +2,10 @@ package Hoteleria;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import HoteleriaBD.RegistHoteleriaBD;
-import AdministracionBD.AddCitaBD;
 import Bd.DBConnectionManager;
-import TransferObjects.Cliente;
-import TransferObjects.Hoteleria;;;
+import TransferObjects.Hoteleria;
 
 public class RegistHoteleriaService {
 	
@@ -22,23 +18,13 @@ public class RegistHoteleriaService {
 		
 	
 	
-	public List<Cliente> getClientesActivos()
+	public boolean consultar(String rut, String nombre) throws SQLException
     {
-    	List<Cliente> clientes=new ArrayList<Cliente>();
-    	try 
-		{
-			Connection connection=DBConnectionManager.getConnection();
-			AddCitaBD addCitaBD= new AddCitaBD(connection);
-			clientes= addCitaBD.getClientesActivosE();		
-			connection.close();
-		} 
-    	catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		return clientes;
+		Connection connection = DBConnectionManager.getConnection();
+		RegistHoteleriaBD hot = new RegistHoteleriaBD(connection);
+		return hot.consultar(rut,nombre);
     }
-	}
+}
 	
 
 
