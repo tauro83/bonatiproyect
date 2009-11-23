@@ -107,11 +107,11 @@ public class anuPreoperatorio {
 	public void setCosto(String costo) {
 		this.costo = costo;
 	}
-	public String getEstado() {
+	public Integer getEstado() {
 		return estado;
 	}
-	public void setEstado(String estado) {
+	public void setEstado(Integer estado) {
 		this.estado = estado;
 	}
-	public String estado;
+	public Integer estado;
 }
