@@ -11,6 +11,6 @@ CREATE TABLE atencionpostoperatorio
   rut character(9),
   apellido character(50),
   nombrecliente character(50),
-  estado character(1),
+  estado integer,
   CONSTRAINT atencionpostoperatorio_pkey PRIMARY KEY (hora, fecha, servicio)
 )
