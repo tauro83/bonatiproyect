@@ -42,6 +42,13 @@ package services
 		/**
 		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos
 		 */ 
+		public function elimAtencion(hora:String, rut:String, nomMascota:String):void
+		{
+			this.getOperation("elimAtencion").send(hora, rut, nomMascota);
+		}
+		/**
+		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos
+		 */ 
 		public function getAllPostOperatorio():void
 		{
 			this.getOperation("getAllPostOperatorio").send();
