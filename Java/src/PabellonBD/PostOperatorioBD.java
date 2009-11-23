@@ -19,6 +19,7 @@ public class PostOperatorioBD {
 	
 	PreparedStatement selectAllPostoperatorio;
 	PreparedStatement selectAllPostoperatorio2;
+	PreparedStatement elimReg;
 	
 	/**
 	 * Se declaran las consultas hacia la base de datos
@@ -45,12 +46,41 @@ public class PostOperatorioBD {
 			
 			selectAllPostoperatorio2 = connection.prepareStatement(query);
 			
+			query = "UPDATE atencionpostoperatorio "+
+			   "SET estado = '1' " +
+			   "WHERE atencionpostoperatorio.hora = ? and " +
+			   "atencionpostoperatorio.rut = ? and atencionpostoperatorio.nombremascota = ?;";
+			elimReg = connection.prepareStatement(query);
+		
+			
 		}
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Trata de obtener todos las cirugías registrados en la base de datos
+	 * @return Lista con todas las cirugías registradas
+	 */
+	public int elimAtencionBD(String hora, String rut, String nomMascota)
+    {
+    	int result=0;
+    	try 
+    	{
+    		elimReg.setString(1, hora);
+    		elimReg.setString(2, rut);
+    		elimReg.setString(3, nomMascota);
+    		elimReg.executeQuery();
+    		result= elimReg.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	return result;
+    }
 	
 	/**
 	 * Trata de obtener todos las cirugías registrados en la base de datos

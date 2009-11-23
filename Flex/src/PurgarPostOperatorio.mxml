@@ -27,7 +27,7 @@
 			 * elimina una fila dentro de la tabla
 			 */
            	private function deleteRow():void {
-			 Alert.show("Está seguro que desea anular atención ","Confirme anular ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			 Alert.show("Está seguro que desea Eliminar la atención ","Confirme Eliminar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
 			}
 			/**
 			 * Es la funcion que es llamada desde el mensaje de confirmación de la tarea
@@ -41,8 +41,22 @@
 			 */
 			private function removeTaskRecord():void
             {
-                            
+            	if(tablaAtenciones.selectedItem){
+            		//Alert.show(tablaAtenciones.selectedItem.hora.toString());
+            		var elimItem:PostOperatorioService = new PostOperatorioService();
+					elimItem.addEventListener(ResultEvent.RESULT,deleteAtencionResult);
+					elimItem.elimAtencion(tablaAtenciones.selectedItem.shora.toString(),
+					this.clienterut.text.toString(), this.nomMascota.text.toString());
+					
+            	}
             }
+            private function deleteAtencionResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				Alert.show(result.toString());
+			    //labelMessage.text = "Atención eliminada con éxito";
+				getAllDatos();
+			}
 
 			/**
 			 * Obtiene todos los datos desde la base de datos
@@ -103,14 +117,14 @@
 	<mx:DataGrid x="24" y="144" width="710" height="197" id="tablaAtenciones" dataProvider="{atenciones}" itemDoubleClick="{deleteRow()}">
 		<mx:toolTip>Se muestran todas las atenciones que no han sido bloquedas</mx:toolTip>
 		<mx:columns>
+			<mx:DataGridColumn width="60" headerText="Hora" dataField="shora" id="hora" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="60" headerText="Fecha" dataField="stfecha" id="fecha" sortable="false" draggable="false"/>
 			<mx:DataGridColumn width="70" headerText="Medicamentos" dataField="medicamentos" id="medicamento" sortable="false" draggable="false"/>
 			<mx:DataGridColumn width="90" headerText="Alimentos" dataField="alimentos" id="alimento" sortable="false" draggable="false"/>
 			<mx:DataGridColumn width="180" headerText="Observaciones" dataField="observaciones" id="indicaciones" sortable="false" draggable="false"/>
-			<mx:DataGridColumn width="60" headerText="Hora" dataField="shora" id="hora" sortable="false" draggable="false"/>
-			<mx:DataGridColumn width="60" headerText="Fecha" dataField="stfecha" id="fecha" sortable="false" draggable="false"/>
 			</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="523" y="350" label="Anular" id="purgarAtenciones" click="{deleteRow()}" toolTip="Elimina la o las Atenciones Purga el o los elementos seleccionados" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="523" y="350" label="Eliminar" id="purgarAtenciones" click="{deleteRow()}" toolTip="Elimina la o las Atenciones Purga el o los elementos seleccionados" width="102" height="23" cornerRadius="6"/>
 	<mx:Button x="647" y="350" label="Cancelar" id="cancelar" toolTip="Cnacela la operación y regresa al panel anterior" width="102" height="23" cornerRadius="6"/>
 	<mx:Label x="24.15" y="62" text="Apellido:" width="78"/>
 	<mx:Label x="24" y="117" text="Atenciones Post-Operatorio" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
