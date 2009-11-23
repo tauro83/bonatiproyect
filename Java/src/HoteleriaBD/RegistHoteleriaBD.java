@@ -4,15 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
-import TransferObjects.Cliente;
 import TransferObjects.Hoteleria;
 
 public class RegistHoteleriaBD {
 	PreparedStatement selectActivos;
+	PreparedStatement consultar;
 	PreparedStatement insertar;
 	Connection connection;
 	Connection conn;
@@ -34,6 +32,12 @@ public class RegistHoteleriaBD {
 	
 		selectActivos = connection.prepareStatement(query);
 		
+		query = "SELECT eliminado "+
+		"FROM atencionalojamiento where cliente=? AND mascota=? AND eliminado='FALSE';";
+
+	
+		consultar = connection.prepareStatement(query);
+
 		} 
 		catch (SQLException e) 
 		{
@@ -74,45 +78,34 @@ public class RegistHoteleriaBD {
 			
 		}
     	
-    	if(result.length()==1){
-    		return "1";
-    		
-    	}
-    	else {
-    		return   "0";  	
-		}
+//    	if(result.length()==1){
+//    		return "1";
+//    		
+//    	}
+//    	else {
+//    		return   "0";  	
+//		}
+    	return result;
 	}
-	
-	public List<Cliente> getClientesActivosE()
+	public boolean consultar(String rut, String nombre)throws SQLException
     {
-    	List<Cliente> clientes=new ArrayList<Cliente>();
-    	Cliente cliente;
-    	try 
+		ResultSet result = null;
+		boolean resultado = false;
+	try 
     	{
-    		ResultSet result = selectActivos.executeQuery();
-    		while(result.next())
-    		{
-    			cliente= new Cliente();
-   
-    			cliente.setNombre(result.getString(1));
-    			cliente.setApellido(result.getString(2));
-    		    cliente.setApellido2(result.getString(3));
-    	    	cliente.setRut(result.getString(4));
-    			cliente.setTelefono2(result.getString(5));
-    			cliente.setCelular2(result.getString(6));
-    			cliente.setDireccion(result.getString(7));
-    			cliente.setRegion(result.getString(8));
-    			cliente.setComuna(result.getString(9));
-    			cliente.setEmail(result.getString(10));
-    			
-    			clientes.add(cliente);
-    		}
-		} 
-    	catch (SQLException e) 
-    	{
-			e.printStackTrace();
-		}
-    	return clientes;
-    }
+		consultar.setString(1, rut);
+		consultar.setString(2, nombre);
+		result= consultar.executeQuery();
+		resultado = result.getBoolean(1);
+	} 
+	catch (SQLException e) 
+	{
+		e.printStackTrace();
+	}
+	return resultado;
+	
+}
+		
+    
 	
 }
