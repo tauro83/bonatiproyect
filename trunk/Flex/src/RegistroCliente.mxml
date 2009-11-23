@@ -595,7 +595,7 @@
 	
 	<!-- Direccion -->	
 	<mx:Label x="24" y="210" text="Dirección:" width="97"/>
-	<mx:TextInput  restrict="0-9 # A-Z a-z" x="143" y="208" width="201" id="direccion" maxChars="60"/>
+	<mx:TextInput  restrict="0-9 # A-Z a-z" x="143" y="208" width="201" id="direccion" maxChars="200"/>
 	
 	<!-- Regiones -->	
 	<mx:Label x="24" y="260" text="Región:" width="112"/>
