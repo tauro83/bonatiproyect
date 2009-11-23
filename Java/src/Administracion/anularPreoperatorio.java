@@ -93,14 +93,14 @@ public class anularPreoperatorio {
 	 * @param 0=activado, 1=desactivo, 2=anulado
 	 * @return 2 si ha anulado correctamente y 0 de lo contrario
 	 */
-	public int anular(String estado)
+	public int anular(Integer estado,String nombreMascota,String hora)
     {
 		int result = 0;
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			anularPreoperatorioBD vacunacionBD= new anularPreoperatorioBD(connection);
-			result = vacunacionBD.anular(estado);
+			result = vacunacionBD.anular(estado, nombreMascota, hora);
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -116,7 +116,7 @@ public class anularPreoperatorio {
 	 * @param 0=activado, 1=desactivo, 2=anulado
 	 * @return 1 si ha eliminado correctamente y 0 de lo contrario
 	 */
-	public int eliminar(String estado)
+	public int eliminar(Integer estado)
     {
 		int result = 0;
     	try 
@@ -140,7 +140,7 @@ public class anularPreoperatorio {
 	 * @param 0=activado, 1=desactivo, 2=anulado
 	 * @return 0 si ha deseliminado correctamente y 1 de lo contrario.
 	 */
-	public int deseliminar(String estado)
+	public int deseliminar(Integer estado)
     {
 		int result = 0;
     	try 
