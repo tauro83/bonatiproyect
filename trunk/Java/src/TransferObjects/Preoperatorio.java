@@ -7,7 +7,8 @@ public class Preoperatorio {
 	public String diagnostico;
 	public String  fecha;
 	public String  hora;
-	public String idpreoperatorio;
+	public String rut;
+	public String nombre;
 	public String responsable;
 	public String ayudante;
 	
@@ -41,12 +42,19 @@ public class Preoperatorio {
 	public void setHora(String hora) {
 		this.hora = hora;
 	}
-	public void setIdpreoperatorio(String idpreoperatorio) {
-		this.idpreoperatorio = idpreoperatorio;
+	public void setRut(String rut) {
+		this.rut = rut;
 	}
-	public String getIdpreoperatorio() {
-		return idpreoperatorio;
+	public String getRut() {
+		return rut;
 	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	
 	public void setResponsable(String responsable) {
 		this.responsable = responsable;
 	}
