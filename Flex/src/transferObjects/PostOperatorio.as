@@ -23,6 +23,8 @@ package transferObjects{
 		public var clienterut:String;
 		public var nombreCliente:String;
 		public var apellido:String;
+		public var stfecha:String;
+		public var shora:String;
 		public var sexo:String;
 		public var raza:String;
 		public var estado:int;
