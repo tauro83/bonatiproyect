@@ -1,3 +1,10 @@
+//=======================================================================
+// FECHA CREACIÓN: 16/11/09
+// AUTOR: Nicolas Delgado 
+// Clase encargada de declarar los scripts que luego serán
+// ejecutados en la base de datos
+//=======================================================================
+
 package AdministracionBD;
 
 import java.sql.Connection;
@@ -42,7 +49,7 @@ public class anularPeluqueriaBD {
 			
 			query = "UPDATE peluqueria " +
 					"SET estado = ? " + 
-					"WHERE hora = ?;";
+					"WHERE estado = ? AND mascotanombre= ? AND hora= ?;";
 			setEstado = connection.prepareStatement(query);
 		}
 		catch (SQLException e) 
@@ -52,8 +59,11 @@ public class anularPeluqueriaBD {
 	}
 	
 	/**
-	 * Trata de obtener todos las vacunaciones registrados en la base de datos
-	 * @return Lista con todas las vacunaciones registradas
+	 * Este metodo obteniene todos los registros de peluquería que se encuentran
+	 * en la base de datos del sistema, este metodo se encarga de filtrar por el nombre
+	 * apelido, rut , nombre de la mascota,raza y sexo para arrojar esto datos en el primer
+	 * panel.
+	 * @return Lista con todos los registros de peluquería.
 	 */
 	 public List<anuPeluqueria> getAllVacunaciones()
 	    {	
@@ -77,7 +87,7 @@ public class anularPeluqueriaBD {
 	    			vacu.setFecha(result.getString(5).trim());
 	    			vacu.setCosto(result.getString(6).trim());
 	    			vacu.setDescripcion(result.getString(7).trim());
-	    			vacu.setEstado(result.getString(8).trim());
+	    			vacu.setEstado(result.getInt(8));
 	    			vacu.setResponsable(result.getString(9).trim());
 	    			vacu.setNombreCatalogo(result.getString(10).trim());
 	    			
@@ -143,11 +153,13 @@ public class anularPeluqueriaBD {
 	    	return vacunaciones;
 	    }
 	 
-	 /**
-	  * Trata de obtener todos las vacunaciones registrados en la base de datos
-	  * de un cliente determinado
-	  * @return Lista con todas las vacunaciones registradas
-	  */
+	/**
+	* Este metodo obteniene todos los registros de peluquería que se encuentran
+	* en la base de datos del sistema, este metodo se encarga de filtrar por el costo,
+	* decripcion,servicio, responsable, hora, fecha, responsable y nombre del catalogo que 
+	* seran mostrados en el segundo panel.
+	* @return Lista con todos los registros de peluquería.
+	*/
 	 public List<anuPeluqueria> getAllVacunacionesU(String nombreMascota)
 	 {
 		 	List<anuPeluqueria> vacunaciones = new ArrayList<anuPeluqueria>();
@@ -155,6 +167,9 @@ public class anularPeluqueriaBD {
 		 	
 	    	try 
 	    	{
+	    		/**
+	    		 * Inicializa la consulta sql de la tabla de peluquería.
+	    		 */
 	    		ResultSet result = selectAllVacunaciones.executeQuery();
 	    		while(result.next())
 	    		{  
@@ -167,14 +182,18 @@ public class anularPeluqueriaBD {
 	    			vacu.setFecha(result.getString(5).trim());
 	    			vacu.setCosto(result.getString(6).trim());
 	    			vacu.setDescripcion(result.getString(7).trim());
-	    			vacu.setEstado(result.getString(8).trim());
+	    			vacu.setEstado(result.getInt(8));
 	    			vacu.setResponsable(result.getString(9).trim());
 	    			vacu.setNombreCatalogo(result.getString(10).trim());
 	    			
 	    			String rut2 = vacu.getNombreMascota().trim();
-	    			String estado2 = vacu.getEstado().trim();
+	    			Integer estado2 = vacu.getEstado();
 	    			
-	    			if(rut2.equals(nombreMascota) && estado2.equals("0"))
+	    			/**
+	    			 * Esta condicción se encarga de buscar todos los registro de peluquería 
+	    			 * que posean estado 0 y posean el mismo nombre.
+	    			 */
+	    			if(rut2.equals(nombreMascota) && estado2==0)
 	    			{
 	    				
 	    				vacunaciones.add(vacu);
@@ -188,6 +207,14 @@ public class anularPeluqueriaBD {
 	    	return vacunaciones;
 	 }
 	 
+	/**
+	* Este metodo obteniene todos los registros de peluquería que se encuentran
+	* en la base de datos del sistema, este metodo se encarga de filtrar por el costo,
+	* decripcion,servicio, responsable, hora, fecha, responsable y nombre del catalogo que 
+	* seran mostrados en el panel de deseliminar y se encarga de bucar todos los registro 
+	* que posean estado 1.
+	* @return Lista con todos los registros de peluquería.
+	*/
 	 public List<anuPeluqueria> getAllVacunacionesA()
 	 {
 		 	List<anuPeluqueria> vacunaciones = new ArrayList<anuPeluqueria>();
@@ -195,6 +222,9 @@ public class anularPeluqueriaBD {
 		 	
 	    	try 
 	    	{
+	    		/**
+	    		 * Inicializa la consulta sql de la tabla de peluquería.
+	    		 */
 	    		ResultSet result = selectAllVacunaciones.executeQuery();
 	    		while(result.next())
 	    		{  
@@ -207,13 +237,17 @@ public class anularPeluqueriaBD {
 	    			vacu.setFecha(result.getString(5).trim());
 	    			vacu.setCosto(result.getString(6).trim());
 	    			vacu.setDescripcion(result.getString(7).trim());
-	    			vacu.setEstado(result.getString(8).trim());
+	    			vacu.setEstado(result.getInt(8));
 	    			vacu.setResponsable(result.getString(9).trim());
 	    			vacu.setNombreCatalogo(result.getString(10).trim());
 	    			
-	    			String estado2 = vacu.getEstado().trim();
+	    			Integer estado2 = vacu.getEstado();
 	    			
-	    			if(estado2.equals("1"))
+	    			/**
+	    			 * Esta condicción se encarga de buscar todos los registro de peluquería 
+	    			 * que posean estado 1.
+	    			 */
+	    			if(estado2==1)
 	    			{
 	    				
 	    				vacunaciones.add(vacu);
@@ -226,22 +260,21 @@ public class anularPeluqueriaBD {
 			}
 	    	return vacunaciones;
 	 }
-	 
-	 
-	 
-	 
-	 /**
-	  * Anula todas las vacunaciones solicitadas por el usuario
-	  * de la base de datos
-	  * @param 0=activado, 1=desactivo, 2=anulado
-	  * @return 1 si ha anulado correctamente y 0 de lo contrario
-	  */
-	 public int anular(String estado)
+	  
+	/**
+	* Anula todos los registros de peluquería solicitados por el usuario
+	* de la base de datos.
+	* @param 0=activado, 1=desactivo, 2=anulado
+	* @return 2 si ha anulado correctamente y 0 de lo contrario
+	*/
+	 public int anular(Integer estado,String nombreMascota,String hora)
 	 {
 		 int result = 0;
 		 try {
-			setEstado.setString(1, "2");
-			setEstado.setString(2, estado);
+			setEstado.setInt(1, 2);
+			setEstado.setInt(2, estado);
+			setEstado.setString(3, nombreMascota);
+			setEstado.setString(4, hora);
 			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
@@ -251,18 +284,20 @@ public class anularPeluqueriaBD {
 		 return result; 
 	 }
 	 
-	 /**
-	  * Elimina todas las vacunaciones solicitadas por el usuario
-	  * de la base de datos
-	  * @param 0=activado, 1=desactivo, 2=anulado
-	  * @return 1 si ha elimina correctamente y 0 de lo contrario
-	  */
-	 public int eliminar(String estado)
+	/**
+	* Elimina todos los registros de peluquería solicitados por el usuario
+	* de la base de datos.
+	* @param 0=activado, 1=desactivo, 2=anulado
+	* @return 1 si ha eliminado correctamente y 0 de lo contrario
+	*/
+	 public int eliminar(Integer estado,String nombreMascota,String hora)
 	 {
 		 int result = 0;
 		 try {
-			setEstado.setString(1, "1");
-			setEstado.setString(2, estado);
+				setEstado.setInt(1, 1);
+				setEstado.setInt(2, estado);
+				setEstado.setString(3, nombreMascota);
+				setEstado.setString(4, hora);
 			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
@@ -271,13 +306,22 @@ public class anularPeluqueriaBD {
 		 }
 		 return result; 
 	 }
+
+	/**
+	* Deselimina todos los registros de peluquería solicitados por el usuario
+	* de la base de datos.
+	* @param 0=activado, 1=desactivo, 2=anulado
+	* @return 0 si ha deseliminado correctamente y 1 de lo contrario.
+	*/
 	 
-	 public int deseliminar(String estado)
+	 public int deseliminar(Integer estado,String nombreMascota,String hora)
 	 {
 		 int result = 0;
 		 try {
-			setEstado.setString(1, "0");
-			setEstado.setString(2, estado);
+				setEstado.setInt(1, 0);
+				setEstado.setInt(2, estado);
+				setEstado.setString(3, nombreMascota);
+				setEstado.setString(4, hora);
 			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
