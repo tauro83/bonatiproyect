@@ -1,5 +1,5 @@
 <!--@Author Erwin Díaz-->
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  layout="absolute"  width="779" height="466" title="Purgar Atención Post-Operatorio" borderColor="#15AD8F" >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  layout="absolute"  width="779" height="466" title="Eliminar Atención Post-Operatorio" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -103,12 +103,11 @@
 	<mx:DataGrid x="24" y="144" width="710" height="197" id="tablaAtenciones" dataProvider="{atenciones}" itemDoubleClick="{deleteRow()}">
 		<mx:toolTip>Se muestran todas las atenciones que no han sido bloquedas</mx:toolTip>
 		<mx:columns>
-			<mx:DataGridColumn width="70" headerText="ID" dataField="idpostoperatorio" id="idpostoperatorio" sortable="false" draggable="false"/>
 			<mx:DataGridColumn width="70" headerText="Medicamentos" dataField="medicamentos" id="medicamento" sortable="false" draggable="false"/>
 			<mx:DataGridColumn width="90" headerText="Alimentos" dataField="alimentos" id="alimento" sortable="false" draggable="false"/>
 			<mx:DataGridColumn width="180" headerText="Observaciones" dataField="observaciones" id="indicaciones" sortable="false" draggable="false"/>
-			<mx:DataGridColumn width="60" headerText="Hora" dataField="hora" id="hora" sortable="false" draggable="false"/>
-			<mx:DataGridColumn width="60" headerText="Fecha" dataField="fecha" id="fecha" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="60" headerText="Hora" dataField="shora" id="hora" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="60" headerText="Fecha" dataField="stfecha" id="fecha" sortable="false" draggable="false"/>
 			</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="523" y="350" label="Anular" id="purgarAtenciones" click="{deleteRow()}" toolTip="Elimina la o las Atenciones Purga el o los elementos seleccionados" width="102" height="23" cornerRadius="6"/>

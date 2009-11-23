@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Atención Post-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Eliminar Atención Post-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
