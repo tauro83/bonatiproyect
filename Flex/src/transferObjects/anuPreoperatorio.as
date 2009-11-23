@@ -33,7 +33,7 @@ package transferObjects
 		public var hora:String; // representa la hora en que fue realizada la atención.
 		public var fecha:String; // representa la fecha en que fue realizada la atención.
 		public var responsable:String; // representa a la person aque presto el servicio.
-		public var estado:String; // representa el estado en que se encuentra el registro de peluquería.
+		public var estado:int; // representa el estado en que se encuentra el registro de peluquería.
 		public var ayudante:String;
 		public var diagnostico:String;
 		public var observaciones:String;
