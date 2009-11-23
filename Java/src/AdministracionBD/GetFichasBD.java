@@ -122,7 +122,7 @@ public class GetFichasBD {
     			at.setMascotaNombre(result.getString(2));
     			at.setServicio(result.getString(3));
     			at.setHora(result.getString(4));
-    			at.setFecha(result.getString(5));
+    			at.setSfecha(result.getString(5));
     			at.setCosto("$"+result.getString(6));
     			atenciones.add(at);
     		}
