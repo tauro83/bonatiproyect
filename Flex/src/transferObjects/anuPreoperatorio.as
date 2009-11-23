@@ -30,7 +30,6 @@ package transferObjects
 		public var sexo:String; // representa al sexo de la mascota
 		public var nombreMascota:String; // representa al nombre de la mascota
 		public var costo:String; // representa el costo de la atencion de un registro de peluquería
-		public var idpreoperatorio:String; // representa el nombre del servicio
 		public var hora:String; // representa la hora en que fue realizada la atención.
 		public var fecha:String; // representa la fecha en que fue realizada la atención.
 		public var responsable:String; // representa a la person aque presto el servicio.
