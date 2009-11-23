@@ -40,7 +40,7 @@ package pabellon
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="EditCirugiaService";
-			this.source="Clinica.EditCirugiaService";
+			this.source="Pabellon.EditCirugiaService";
 			
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}

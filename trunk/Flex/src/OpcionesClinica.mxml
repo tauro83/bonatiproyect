@@ -46,6 +46,7 @@
 				Application.application.setInvisible();
 				this.visible = true;
 				Application.application.editarCirugia.visible = true;
+				Application.application.editarCirugia.iniciarPanel();
 			}
 
 			public function verPurgarPreoperatorio():void{

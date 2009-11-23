@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Cirugía" x="241" y="133" initialize="getAllUsuarios()" xmlns:ns1="util.*">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Cirugía" x="241" y="133" initialize="iniciarPanel()" xmlns:ns1="util.*">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -48,7 +48,24 @@
 				 {label:"Estenosis traqueal"}, {label:"Ortopédica"}, {label:"Partos y cesaria"}, {label:"Tiroidectomía (por tumores)"}, {label:"De tumor"}] );
 
 			
-			
+			public function iniciarPanel():void{
+				buscadorCliente.inputClienteNombre.text = "";
+				buscadorCliente.rutClienteDVInput.text = "";
+				buscadorCliente.rutClienteInput.text = "";
+				dg2.text = "";
+				responsable.text = "";
+				fecha.text = "";
+				fechaSeleccionada = null;
+				busqueda.visible = true;
+				edicion.visible = false;
+				labelMessage.text = "";
+				
+				
+				
+				getAllUsuarios();
+				buscarCirugias();
+				
+			}
 			//Funcion que busca las cirugias para retornarlas a la tabla
 			public function buscarCirugias():void{
 				//Crea clase para la conexion con la capa de java	
@@ -86,8 +103,14 @@
 				if(selectedRow.fecha != null){
 					busqueda.visible = false;
 					edicion.visible = true;
-					edicionRutClienteInput.text = buscadorCliente.rutClienteInput.text;
-					edicionRutClienteDVInput.text = buscadorCliente.rutClienteDVInput.text;
+					//edicionRutClienteInput.text = buscadorCliente.rutClienteInput.text;
+					//edicionRutClienteDVInput.text = buscadorCliente.rutClienteDVInput.text;
+					
+					var s:String =  Tabla.selectedItem.clienteRut.split(" ",1).pop();
+					
+					edicionRutClienteInput.text = s.substring(0,s.length-1);
+					edicionRutClienteDVInput.text = s.charAt(s.length-1);
+					
 					edicionNombreMascotaInput.text = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
 					labelMessage.text = "Ingrese el nuevo diagnóstico";
 					
@@ -317,7 +340,7 @@
 				var d:Diagnostico = new Diagnostico();
 				var date:Date = new Date();
 				
-				d.clienteRut = buscadorCliente.rutClienteInput.text;// rutClienteInput.text;
+				d.clienteRut = Tabla.selectedItem.clienteRut.split(" ",1).pop();
 				d.diagnostico = diagC.text;
 				d.mascotaNombre = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
 				d.nuevaFecha = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
@@ -342,6 +365,11 @@
 				else
 				   labelMessage.text="El diágnostico no fue guardado";
 				   
+			}
+			
+			private function volver2():void{
+				this.visible = false
+     			Application.application.panelClinicaPrincipal.visible = true;
 			}					
 		]]>
 	</mx:Script>
@@ -373,11 +401,11 @@
 	<mx:Label x="33" y="10" text="Cliente:" fontWeight="bold"/>
 	<mx:Label x="352" y="72" text="Cirugía:" fontWeight="bold"/>
 	<mx:Label x="33" y="72" text="Mascota:" fontWeight="bold"/>
-	<mx:Button x="621" y="331" label="Cancelar" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="621" y="331" label="Cancelar" width="102" height="23" cornerRadius="6" click="volver2()"/>
 	<mx:Label x="33.2" y="97" text="Nombre:" width="55.75"/>
 	<mx:Label x="352" y="97" text="Responsable:" width="93" height="22"/>
 	<mx:Label x="352" y="134" text="Fecha:" width="55.75" height="20"/>
-	<mx:DateField x="444.75" y="132" width="161" id="fecha" change="seleccionarFecha()" editable="true"/>
+	<mx:DateField x="444.75" y="132" width="161" id="fecha" change="seleccionarFecha()" editable="true" formatString="DD/MM/YYYY"/>
 	<mx:ComboBox x="444.75" y="95" dataProvider="{responsables}" width="139" id="responsable" change="buscarCirugias()">
 	</mx:ComboBox>
 		<mx:DataGrid  color="0x323232" width="189" rowCount="3" y="126" x="454" variableRowHeight="true" dataProvider="{mascotas}"  visible="false" height="84" change="tablaSeleccionada = true">
