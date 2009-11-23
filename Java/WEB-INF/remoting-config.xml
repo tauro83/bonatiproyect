@@ -270,6 +270,12 @@
   			  <source>Pabellon.EditarConsultaService</source>
   		 </properties>
   	</destination>
+  	<destination id="PostOperatorioService">
+           	<properties>
+           			<source>Pabellon.PostOperatorioService</source>
+           	</properties>
+    </destination>       
+        
 
 	
   

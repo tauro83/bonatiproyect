@@ -9,10 +9,24 @@ import java.sql.Date;
 //=======================================================================
 public class PostOperatorio extends Atencion{
 
-	private String medicamentos;
-	private String alimentos;
+	public String idpostoperatorio;
+	public String medicamentos;
+	public String observaciones;
+	public String sintomas;
+	public String diagnostico;
+	public String responsable;
+	public String fecha;
+	public String hora;
+	public String ayudante;
+	public String alimentos;
+	public String clienterut;
+	public String nombreMascota;
+	public String nombreCliente;
+	public String apellido;
+	public String sexo;
+	public String raza;
+	public int estado;
 	private String indicaciones;
-	private String nombreMascota;
 	private String nombreDueño;
 	private String rut;
 	private String apellidoDueño;
