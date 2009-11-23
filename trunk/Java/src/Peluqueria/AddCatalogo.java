@@ -25,10 +25,21 @@ public class AddCatalogo {
 	 * @return Este metodo retorna un string, que indica si el usuario fue registrado
 	 * Correctamente a la BD.
 	 */
-	public static String addCatalogo(CatPeluqueria u) throws SQLException{
-		Connection connection=DBConnectionManager.getConnection();
-		AddCatalogoBD addCat = new AddCatalogoBD(connection);
-		System.out.println("llega______---->");
-		return addCat.addCatalogo(u);
-	}
+	public String addCatalogo(CatPeluqueria u)
+    {
+		String result = "0";
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			AddCatalogoBD personDB = new AddCatalogoBD(connection);
+			result = personDB.regCatalogo(u);		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
+    }
+
 }

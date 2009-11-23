@@ -9,7 +9,6 @@ package PeluqueriaBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import TransferObjects.CatPeluqueria;
 
 /**
@@ -18,15 +17,25 @@ import TransferObjects.CatPeluqueria;
  *
  */
 public class AddCatalogoBD{
-
-	Connection connection;
+	
+	PreparedStatement insert;
 	/**
 	 * 
 	 * @param connection Establece la conexion con la base de datos
 	 */
 	public AddCatalogoBD(Connection connection)
 	{
-		this.connection = connection;
+		try 
+		{
+			String query="";			
+			query = "INSERT INTO catpeluqueria (servicio, nombre, precio, descripcion) "+
+			"VALUES (?, ?, ?, ?);";			
+			insert = connection.prepareStatement(query);
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * 
@@ -34,35 +43,22 @@ public class AddCatalogoBD{
 	 * @return Resultado de la conexión
 	 * @throws SQLException
 	 */
-	public String addCatalogo(CatPeluqueria u) throws SQLException
-	{
+	public String regCatalogo(CatPeluqueria person)
+    {
 		String result = null;
-		int aux = 0;
-		PreparedStatement insert;
-		String query="";			
-		query = "INSERT INTO Catpeluqueria (servicio, nombre, precio, descripcion) "+
-				"VALUES (?, ?, ?, ?);";			
-		insert = connection.prepareStatement(query);
-		
-		insert.setString(1, u.servicio);		
-		insert.setString(2, u.nombre);
-		Integer.parseInt(u.precio, aux);
-		insert.setInt(3, aux);
-		insert.setString(4, u.descripcion);	
-		
 		try 
     	{
-			System.out.println("intenta sdfsdfsd______---->");
-			
+			insert.setString(1, person.servicio);
+			insert.setString(2, person.nombre);
+			int aux = Integer.parseInt(person.precio);
+			insert.setInt(3, aux);
+			insert.setString(4, person.descripcion);
 			result=""+insert.executeUpdate();
 		} 
     	catch (SQLException e) 
     	{
 			e.printStackTrace();
-			result = " "+e.toString(); 
-			
 		}
-    	
     	if(result.length()==1){
     		return "1";
     		
@@ -70,6 +66,6 @@ public class AddCatalogoBD{
     	else {
     		return   "0";  	
 		}
-	}
-	
+    	
+    }
 }
