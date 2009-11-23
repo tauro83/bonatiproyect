@@ -47,7 +47,7 @@ create table ClientePresencial
     aMaterno CHAR(20),
 	correo CHAR(40),
 	estado bool,
-	domicilio CHAR(40),
+	domicilio CHAR(200),
 	comuna CHAR(20),
     region CHAR(20),
 	constraint PK_rut primary key (rut)
