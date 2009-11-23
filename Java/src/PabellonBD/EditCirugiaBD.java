@@ -50,8 +50,8 @@ public class EditCirugiaBD
 			//Consulta a Base de Datos			
 			selectDiagnostico = connection.prepareStatement(query);
 			
-			query = "INSERT INTO diagnosticos(clienterut, mascotanombre, hora, fecha, diagnostico, nuevafecha, nuevahora, tipocirugia) "+
-			"VALUES (?, ?, ?, ?, ?, ?, ?, ?);";				
+			query = "INSERT INTO diagnosticos(clienterut, mascotanombre, hora, fecha, diagnostico, nuevafecha, nuevahora, tipocirugia, id) "+
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";				
 			addDiagnostico = connection.prepareStatement(query);
 			//Consulta a Base de Datos
 		} 
@@ -167,7 +167,6 @@ public class EditCirugiaBD
 			//Pasa de hora de string a time
 			String[] comp = diagnostico.hora.split(":");
     		Time time = new Time(Integer.parseInt(comp[0]), Integer.parseInt(comp[1]), Integer.parseInt(comp[2]));
-			
     		addDiagnostico.setTime(3, time);
 			addDiagnostico.setString(4, diagnostico.fecha);
 			addDiagnostico.setString(5, diagnostico.diagnostico);
@@ -179,9 +178,9 @@ public class EditCirugiaBD
     		int minutos = c.get(Calendar.MINUTE);
     		int segundos = c.get(Calendar.SECOND);
     		Time t = new Time(hora, minutos, segundos);
-			
     		addDiagnostico.setTime(7, t);
 			addDiagnostico.setString(8, diagnostico.tipoCir);
+			addDiagnostico.setString(9, "0");
 			
 			result= addDiagnostico.executeUpdate();
 		} 
