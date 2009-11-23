@@ -20,7 +20,8 @@ package transferObjects
 		public var diagnostico:String;
 		public var fecha:String;
 		public var hora:String;
-		public var idpreoperatorio:String;
+		public var rut:String;
+		public var nombre:String;
 		public var responsable:String;
 		public var ayudante:String;
 		/*
