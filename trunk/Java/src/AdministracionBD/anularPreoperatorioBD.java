@@ -32,8 +32,8 @@ public class anularPreoperatorioBD {
 			String query="";
 			
 			query = "SELECT rut, " +
-					"nombremascota, " +
-					"hora, fecha, costo, sintomas, estado, responsable, ayudante, idpreoperatorio " +
+					"nombre, " +
+					"hora, fecha, sintomas, estado, responsable, ayudante, observaciones " +
 					"FROM preoperatorio;";
 			selectAllVacunaciones = connection.prepareStatement(query);
 			
@@ -49,7 +49,7 @@ public class anularPreoperatorioBD {
 			
 			query = "UPDATE preoperatorio " +
 					"SET estado = ? " + 
-					"WHERE idpreoperatorio = ?;";
+					"WHERE hora = ?;";
 			setEstado = connection.prepareStatement(query);
 		}
 		catch (SQLException e) 
@@ -84,12 +84,11 @@ public class anularPreoperatorioBD {
 	    			vacu.setNombreMascota(result.getString(2).trim());
 	    			vacu.setHora(result.getString(3).trim());
 	    			vacu.setFecha(result.getString(4).trim());
-	    			vacu.setCosto(result.getString(5).trim());
-	    			vacu.setSintomas(result.getString(6).trim());
-	    			vacu.setEstado(result.getString(7).trim());
-	    			vacu.setResponsable(result.getString(8).trim());
-	    			vacu.setAyudante(result.getString(9).trim());
-	    			vacu.setIdpreoperatorio(result.getString(10).trim());
+	    			vacu.setSintomas(result.getString(5).trim());
+	    			vacu.setEstado(result.getString(6).trim());
+	    			vacu.setResponsable(result.getString(7).trim());
+	    			vacu.setAyudante(result.getString(8).trim());
+	    			vacu.setObservaciones(result.getString(9).trim());
 	    			
 	    			String rut2 = vacu.getNombreMascota().trim();
 	    			String rut3=vacu.getRutCliente().trim();
@@ -178,12 +177,11 @@ public class anularPreoperatorioBD {
 	    			vacu.setNombreMascota(result.getString(2).trim());
 	    			vacu.setHora(result.getString(3).trim());
 	    			vacu.setFecha(result.getString(4).trim());
-	    			vacu.setCosto(result.getString(5).trim());
-	    			vacu.setSintomas(result.getString(6).trim());
-	    			vacu.setEstado(result.getString(7).trim());
-	    			vacu.setResponsable(result.getString(8).trim());
-	    			vacu.setAyudante(result.getString(9).trim());
-	    			vacu.setIdpreoperatorio(result.getString(10).trim());
+	    			vacu.setSintomas(result.getString(5).trim());
+	    			vacu.setEstado(result.getString(6).trim());
+	    			vacu.setResponsable(result.getString(7).trim());
+	    			vacu.setAyudante(result.getString(8).trim());
+	    			vacu.setObservaciones(result.getString(9).trim());
 	    			
 	    			String rut2 = vacu.getNombreMascota().trim();
 	    			String estado2 = vacu.getEstado().trim();
@@ -233,12 +231,11 @@ public class anularPreoperatorioBD {
 	    			vacu.setNombreMascota(result.getString(2).trim());
 	    			vacu.setHora(result.getString(3).trim());
 	    			vacu.setFecha(result.getString(4).trim());
-	    			vacu.setCosto(result.getString(5).trim());
-	    			vacu.setSintomas(result.getString(6).trim());
-	    			vacu.setEstado(result.getString(7).trim());
-	    			vacu.setResponsable(result.getString(8).trim());
-	    			vacu.setAyudante(result.getString(9).trim());
-	    			vacu.setIdpreoperatorio(result.getString(10).trim());
+	    			vacu.setSintomas(result.getString(5).trim());
+	    			vacu.setEstado(result.getString(6).trim());
+	    			vacu.setResponsable(result.getString(7).trim());
+	    			vacu.setAyudante(result.getString(8).trim());
+	    			vacu.setObservaciones(result.getString(9).trim());
 	    			
 	    			String estado2 = vacu.getEstado().trim();
 	    			
