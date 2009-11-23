@@ -32,15 +32,16 @@ public class PostOperatorioBD {
 
 			query = "SELECT mascota.nombre, mascota.raza, mascota.sexo, " +
 			"clientepresencial.nombre, clientepresencial.apaterno, clientepresencial.rut " +
-			"FROM mascota, " +
-			"clientepresencial WHERE clientepresencial.rut = mascota.rut;";
+			"FROM mascota, clientepresencial, atencionpostoperatorio " +
+			"WHERE clientepresencial.rut = atencionpostoperatorio.rut and " +
+			"mascota.rut = atencionpostoperatorio.rut and mascota.nombre = atencionpostoperatorio.nombremascota;";
 	
 			selectAllPostoperatorio = connection.prepareStatement(query);
 			
-			query = "SELECT postoperatorio.idpostoperatorio, postoperatorio.medicamento, postoperatorio.alimento, " +
-					"postoperatorio.observaciones, postoperatorio.hora, postoperatorio.fecha " +
-					"FROM postoperatorio " +
-					"WHERE postoperatorio.mascotanombre = ? and postoperatorio.clienterut = ? and postoperatorio.estado = 0;";
+			query = "SELECT atencionpostoperatorio.medicamentos, atencionpostoperatorio.alimentos, " +
+					"atencionpostoperatorio.indicaciones, atencionpostoperatorio.hora, atencionpostoperatorio.fecha " +
+					"FROM atencionpostoperatorio " +
+					"WHERE atencionpostoperatorio.nombremascota = ? and atencionpostoperatorio.rut = ? and atencionpostoperatorio.estado = 0;";
 			
 			selectAllPostoperatorio2 = connection.prepareStatement(query);
 			
@@ -71,12 +72,11 @@ public class PostOperatorioBD {
 	    		while(result.next())
 	    		{  
 	    			postOperatorio = new PostOperatorio();
-	    			postOperatorio.idpostoperatorio = result.getString(1).trim();
-	    			postOperatorio.medicamentos = result.getString(2).trim();
-	    			postOperatorio.alimentos = result.getString(3).trim();
-	    			postOperatorio.observaciones = result.getString(4).trim();
-	    			postOperatorio.hora = result.getString(5).trim();
-	    			postOperatorio.fecha = result.getString(6).trim();
+	    			postOperatorio.medicamentos = result.getString(1).trim();
+	    			postOperatorio.alimentos = result.getString(2).trim();
+	    			postOperatorio.observaciones = result.getString(3).trim();
+	    			postOperatorio.hora = result.getString(4).trim();
+	    			postOperatorio.fecha = result.getString(5).trim();
 	    			postOperatorios.add(postOperatorio);
 	    			
 	    		}
