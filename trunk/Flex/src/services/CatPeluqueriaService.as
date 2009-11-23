@@ -38,7 +38,6 @@ package services
 			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
-			trace("llega hasta la conexion");
 			this.destination="AddCatalogo";
 			this.source="Peluqueria.AddCatalogo";			
 		}
