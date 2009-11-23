@@ -202,38 +202,9 @@
 			* en donde se realiza la edicion, cargando los datos correspondientes, 
 			* para que el otro panel posea todos los datos.
 			*/
-			public function regConsulta():void
-			{
-					Application.application.editarPelu.setVisible(false,false);
-					Application.application.editaPelUPdate.setVisible(true,false);
-					//newPeluUpdate.carga(newCPeluqueria);
-					
-				if(dg.selectedItem){
-					var newPeluUpdate:EditarPeluqueriaUpdate = Application.application.editarPeluUpdate;
-					newCPeluqueria = new Peluqueria;
-					/*
-					newConsulta.anamnesis   = dg.selectedItem.anamnesis;
-					newConsulta.costo       = dg.selectedItem.costo;
-					newConsulta.fecha	    = dg.selectedItem.fecha;
-					newConsulta.hora        = dg.selectedItem.hora;
-					newConsulta.nombre      = dg.selectedItem.nombre;
-					newConsulta.responsable = dg.selectedItem.responsable;
-					newConsulta.rut			= dg.selectedItem.rut;
-					newConsulta.servicio    = dg.selectedItem.servicio;
-					
-					
-					*/
-					Application.application.editarPelu.setVisible(false,false);
-					newPeluUpdate.carga(newCPeluqueria);
-					Application.application.editarPeluUpdate.setVisible(true,false);
-					
-				}
+			
 				
-				else{
-					this.labelMessage.text="Seleccione un Registro peluqueria para editar.";
-				}
-				
-			}
+			
 			
 			/**
 		 	* 	@author  Raul Lopez
@@ -436,7 +407,7 @@
 	<mx:TextInput x="563.5" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut=" buscarCliente(event)"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente:" width="84.75" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="162" x="25" variableRowHeight="true" dataProvider="{consultas}" itemDoubleClick = "{regConsulta()}"  visible="true" height="182">
+	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="162" x="25" variableRowHeight="true" dataProvider="{consultas}" visible="true" height="182" click="{ mira()}">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="rut" headerText="Rut" width="100"/>
@@ -453,6 +424,6 @@
 	<mx:Label x="22" y="64" text="Mascotas:" fontWeight="bold" width="67"/>
 	<mx:Label x="22" y="87" text="Nombre:" width="55.75"/>
 	<mx:ComboBox id="dg2" x="90" y="85" width="177"></mx:ComboBox>
-	<mx:Button x="506" y="353" label="Visualizar" width="103" id="cancelar0" visible="true" height="23" click=" mira()"/>
+	<mx:Button x="506" y="353" label="Visualizar" width="103" id="cancelar0" visible="true" height="23" click="{ mira()}"/>
 	
 </mx:Panel>
