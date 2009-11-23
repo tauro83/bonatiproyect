@@ -42,9 +42,9 @@ package services
 		* Este metodo envia el estado de un registro de peluquería y si este se encuentra en 0 
 		* es cambiado a 2.
 		*/ 
-		public function anular(estado:int,nombreMascota:String,rutCliente:String):void
+		public function anular(estado:int,nombreMascota:String,hora:String):void
 		{
-			this.getOperation("anular").send(estado,nombreMascota,rutCliente);
+			this.getOperation("anular").send(estado,nombreMascota,hora);
 			
 		}
 		
@@ -52,9 +52,9 @@ package services
 		* Este metoso envia el estado de un registro de peluquería y si este se encuentra en 0 
 		* es cambiado 1.
 		*/  
-		public function eliminar(estado:int,nombreMascota:String,rutCliente:String):void
+		public function eliminar(estado:int,nombreMascota:String,hora:String):void
 		{
-			this.getOperation("eliminar").send(estado,nombreMascota,rutCliente);
+			this.getOperation("eliminar").send(estado,nombreMascota,hora);
 		}
 		
 		/**
