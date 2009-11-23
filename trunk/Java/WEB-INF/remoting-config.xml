@@ -265,6 +265,13 @@
   			  <source>Hoteleria.RHoteleriaService</source>
   		 </properties>
   	</destination>
+	<destination id="EditarConsultaService"> 
+  	 	 <properties>
+  			  <source>Pabellon.EditarConsultaService</source>
+  		 </properties>
+  	</destination>
+
+	
   
 </service>
 
