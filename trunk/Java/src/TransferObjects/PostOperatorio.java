@@ -38,6 +38,8 @@ public class PostOperatorio extends Atencion{
 		setFecha(fecha);
 		this.setCosto(cost);
 	}
+	public PostOperatorio(){
+	}
 
 	public String getNombreDueño(){
 		return this.nombreDueño;
