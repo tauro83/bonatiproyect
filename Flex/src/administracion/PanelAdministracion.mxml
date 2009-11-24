@@ -4,33 +4,33 @@
 	
 	<mx:Accordion styleName="Accordion1" x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Cliente" width="100%" height="100%" borderColor="#F5F5F5" themeColor="#FFFFFF">
-				<mx:LinkButton x="10" y="10" label="Registrar" textAlign="left" click="registrarCliente()" fontWeight="bold"/>
-				<mx:LinkButton x="10" y="40" label="Editar" id="edCliente" textAlign="left"/>
-				<mx:LinkButton x="10" y="70" label="Eliminar" textAlign="left" id="linkEliminarClnte"/>	
-				<mx:LinkButton x="10" y="100" label="Purgar" textAlign="left" id="linkPurgarClnte"/>
+				<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="registrarCliente()" fontWeight="bold"/>
+				<mx:LinkButton x="50" y="40" label="Editar" id="edCliente" textAlign="left"/>
+				<mx:LinkButton x="50" y="70" label="Eliminar" textAlign="left" id="linkEliminarClnte"/>	
+				<mx:LinkButton x="50" y="100" label="Purgar" textAlign="left" id="linkPurgarClnte"/>
 		</mx:Canvas>
 		<mx:Canvas label="Mascota" width="100%" height="100%">
-			<mx:LinkButton x="10" y="10" label="Registrar" textAlign="left" click="registrarMascota()"/>
-			<mx:LinkButton x="10" y="40" label="Editar" id="linkEditarMascota" click="editarMascota()" width="66" textAlign="left"/>
-			<mx:LinkButton x="10" y="70" label="Eliminar" textAlign="left" click="eliminarMascota()"/>
-			<mx:LinkButton x="10" y="100" label="Purgar" textAlign="left" click="purgarMascota()"/>
+			<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="registrarMascota()"/>
+			<mx:LinkButton x="50" y="40" label="Editar" id="linkEditarMascota" click="editarMascota()" width="66" textAlign="left"/>
+			<mx:LinkButton x="50" y="70" label="Eliminar" textAlign="left" click="eliminarMascota()"/>
+			<mx:LinkButton x="50" y="100" label="Purgar" textAlign="left" click="purgarMascota()"/>
 		</mx:Canvas>
 		<mx:Canvas label="Ficha" width="100%" height="100%">
-			<mx:LinkButton x="10" y="10" label="Visualizar" textAlign="left" click="visualizarFicha()"/>
-			<mx:LinkButton x="10" y="40" label="Bitácora" textAlign="left" height="17" click="bitacoraFicha()"/>
+			<mx:LinkButton x="50" y="10" label="Visualizar" textAlign="left" click="visualizarFicha()"/>
+			<mx:LinkButton x="50" y="40" label="Bitácora" textAlign="left" height="17" click="bitacoraFicha()"/>
 			
 		</mx:Canvas>
 		<mx:Canvas label="Usuario" width="100%" height="100%">
-			<mx:LinkButton x="10" y="10" label="Registrar" textAlign="left" click="registrarUsuario()"/>
-			<mx:LinkButton x="10" y="40" label="Editar" id="linkEditarUsAd" click="editarUsuario()" width="66" textAlign="left"/>
-			<mx:LinkButton x="10" y="70" label="Eliminar" textAlign="left" click="eliminarUsuario()" id="linkEliminarUsAd"/>
-			<mx:LinkButton x="10" y="100" label="Purgar" textAlign="left" id="linkPurgarUsAd" click="purgarUsuario()"/>
+			<mx:LinkButton x="50" y="10" label="Registrar" textAlign="left" click="registrarUsuario()"/>
+			<mx:LinkButton x="50" y="40" label="Editar" id="linkEditarUsAd" click="editarUsuario()" width="66" textAlign="left"/>
+			<mx:LinkButton x="50" y="70" label="Eliminar" textAlign="left" click="eliminarUsuario()" id="linkEliminarUsAd"/>
+			<mx:LinkButton x="50" y="100" label="Purgar" textAlign="left" id="linkPurgarUsAd" click="purgarUsuario()"/>
 		</mx:Canvas>
 		<mx:Canvas label="Configuración" width="100%" height="100%">
-			<mx:LinkButton x="10" y="10" label="Mascotas" textAlign="left" click="configurarMascota()"/>
-			<mx:LinkButton x="10" y="40" label="Usuarios" textAlign="left"  click="configurarUsuario()"/>
-			<mx:LinkButton x="10" y="70" label="Servicios" textAlign="left"  click="configurarServicios()"/>
-			<mx:LinkButton x="10" y="100" label="Vacunas" textAlign="left"  click="configurarVacunas()"/>
+			<mx:LinkButton x="50" y="10" label="Mascotas" textAlign="left" click="configurarMascota()"/>
+			<mx:LinkButton x="50" y="40" label="Usuarios" textAlign="left"  click="configurarUsuario()"/>
+			<mx:LinkButton x="50" y="70" label="Servicios" textAlign="left"  click="configurarServicios()"/>
+			<mx:LinkButton x="50" y="100" label="Vacunas" textAlign="left"  click="configurarVacunas()"/>
 		</mx:Canvas>
 	</mx:Accordion>
 	 <mx:Script>
