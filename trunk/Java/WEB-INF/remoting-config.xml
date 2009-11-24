@@ -285,5 +285,9 @@
            			<source>Petshop.AddProducto</source>
            	</properties>
     </destination>
-	
+    <destination id="editarProducto1">
+           	<properties>
+           			<source>Administracion.editarProducto1</source>
+           	</properties>
+    </destination>	
 </service>
