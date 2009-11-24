@@ -276,6 +276,7 @@
 		    	deseliminarPel.setVisible(false,false);
 			anularPre.setVisible(false,false);
 			anularPre2.setVisible(false,false);
+			eliminarweb.setVisible(false,false);
 		 	<!--Autor: }Nicolas -->
 			
 		 		
@@ -722,7 +723,8 @@
 	</ns1:EliminarRegPeluqueria2>	
 	<ns1:deseliminarPeluqueria x="241" y="134" id="deseliminarPel" visible="false" borderColor="#15AD8F">
 	</ns1:deseliminarPeluqueria>
-	
+      <ns1:Elimarweb x="241" y="134" id="eliminarweb" visible="false" borderColor="#15AD8F">
+	</ns1:Elimarweb>
 	<!--Autor: }nicolas-->
 	
 	<!--Autor: Cristian Bravo{ -->
