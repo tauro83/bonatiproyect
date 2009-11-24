@@ -257,6 +257,7 @@
 		    	editarCirugia.setVisible(false, false);
 		    	registroControl.setVisible(false, false);
 		    	editarHoteleria.setVisible(false, false);
+		    	registrarPago.setVisible(false, false);
 		 		<!--Autor: }Sebastian -->   
 		 		
 		 	    <!--Autor: Cristian{ -->
@@ -762,5 +763,7 @@
 		</ns7:OpcionesPetshop>
 		<ns7:PanelPetshop x="241" y="134" visible="false" id="panelPetshop">
 		</ns7:PanelPetshop>
+		<ns7:RegistrarPago x="241" y="134" visible="false" id="registrarPago">
+		</ns7:RegistrarPago>
 	<!--Autor: }Sebastian-->
 </mx:Application>
