@@ -1,0 +1,23 @@
+CREATE TABLE pago
+(
+  fecha date NOT NULL,
+  hora time without time zone NOT NULL,
+  estado integer,
+  total integer,
+  CONSTRAINT pk_pago PRIMARY KEY (fecha, hora)
+) 
+WITHOUT OIDS;
+ALTER TABLE pago OWNER TO postgres;
+
+
+CREATE TABLE detallepago
+(
+  fecha date NOT NULL,
+  hora time without time zone NOT NULL,
+  codigoproducto character(20) NOT NULL,
+  cantidad integer,
+  subtotal integer,
+  CONSTRAINT pk_detallepago PRIMARY KEY (fecha, hora, codigoproducto)
+) 
+WITHOUT OIDS;
+ALTER TABLE detallepago OWNER TO postgres;
