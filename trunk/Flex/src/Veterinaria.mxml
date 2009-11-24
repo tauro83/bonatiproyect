@@ -188,6 +188,8 @@
             	regCatalogo.setVisible(false,false);
             	editarAvisoList.setVisible(false,false);
             	editarAviso.setVisible(false,false);
+            	AnulPost.setVisible(false,false);
+            	AnulPostD.setVisible(false,false);
             	
             	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
@@ -575,6 +577,10 @@
 	</ns6:EditarAvisoList>
 	<ns6:EditarAviso x="241" y="134" id="editarAviso" visible="false" borderColor="#15AD8F">
 	</ns6:EditarAviso>
+	<ns1:anulPostOLista x="241" y="134" id="AnulPost" visible="false" borderColor="#15AD8F">
+	</ns1:anulPostOLista>
+	<ns1:anulPost x="241" y="134" id="AnulPostD" visible="false" borderColor="#15AD8F">
+	</ns1:anulPost>
 	
 	<mx:Image x="365" y="0" width="174" height="104" source="../fotos-animales-perros-peq.jpg" autoLoad="true"/>
 	<mx:TextArea x="0" y="0" width="366" height="104" borderStyle="none" fontFamily="Arial" editable="false" fontSize="27" fontWeight="bold" fontStyle="normal" backgroundColor="#FFFFFF" color="#0202CB" themeColor="#0060FF" borderColor="#FFFFFF" enabled="true" wordWrap="false"/>
