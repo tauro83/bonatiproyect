@@ -89,6 +89,7 @@
 			   {
 			   	  Application.application.panelClinicaIni.labelMessage.text ="El post operatorio ha sido ingresado exitosamente";
 			   	  this.setVisible(false,false);
+			   	  Application.application.regPreoOp1.setVisible(false,false);
 			   	  Application.application.panelClinicaIni.setVisible(true,false);
 			     
 			   }
