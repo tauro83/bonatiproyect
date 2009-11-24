@@ -20,6 +20,14 @@
 				 this.visible = true;
 				 Application.application.regProducto.visible = true;				 
 			}
+
+			public function ediProducto():void
+			{
+				 Application.application.setInvisible();
+				 this.visible = true;
+				 Application.application.editProducto.visible = true;	
+				 Application.application.editProducto.limpiarTodo();  			 
+			}
 			
 		]]>
 	</mx:Script>
@@ -32,6 +40,7 @@
 		</mx:Canvas>
 		<mx:Canvas label="Producto" width="100%" height="100%">
 			<mx:LinkButton x="50" y="10" label="Registrar" click="regProducto()"/>
+			<mx:LinkButton x="10" y="40" label="Editar" click="ediProducto()"/>
 		</mx:Canvas>
 	    </mx:Accordion>
 		
