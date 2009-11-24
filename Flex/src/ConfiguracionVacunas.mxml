@@ -9,6 +9,7 @@
 			
 			import mx.events.IndexChangedEvent;
 			import transferObjects.ConfiguracionVacuna; 
+			import util.Properties; 
 			import mx.core.Application;
 			import mx.controls.Alert;
 			import mx.rpc.events.ResultEvent; 
@@ -92,7 +93,7 @@
 					cv.descripcion = desc.text;
 					cv.caducidad = cadu.text;				
 					confs.regConfiguracionVacuna(cv);
-					ltexto.text = "Vacuna registrada exitosamente";	
+					ltexto.text = Properties.getMensaje("Informacion", "25");
 					nomb.text = "";
 					prec.text = "";
 					desc.text = "";
@@ -100,7 +101,7 @@
 					especieInput.text = "";
 					this.cargarDatos();
 				}else{
-					ltexto.text = "Complete los datos solicitados antes de registrar";	
+					ltexto.text = Properties.getMensaje("Advertencia", "24");
 				}
 					
 			}
@@ -113,7 +114,7 @@
 				confs.elimConfiguracionVacuna(especieInput.text);				
 				this.cargarDatos();
 				especieInput.text = "";
-				ltexto.text = "Vacuna eliminada exitosamente";									
+				ltexto.text = Properties.getMensaje("Informacion", "26");								
 			}			
 			
 		]]>
