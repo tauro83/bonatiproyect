@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="util.*" title="Eliminar Producto">
+	<mx:states>
+		<mx:State name="PurgarRestaurar">
+			<mx:RemoveChild target="{eliminarCliente}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="601" y="369" enabled="false" label="Purgar" id="purgarCliente" click="{deleteRow()}"  toolTip="Cuidado!!, esto eliminara los clientes seleccionados para siempre"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="511" y="369" enabled="false" id="reactivarCliente" label="Reactivar" click="{Reactivar()}" width="82"/>
+			</mx:AddChild>
+		</mx:State>
+	</mx:states>
+	<mx:Label x="169" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="577" y="369" enabled="false" label="Eliminar" id="eliminarCliente" click="{deleteRow()}"  toolTip="Elimina el o los clientes seleccionados"/>
+	<mx:Button x="674" y="369" label="Cancelar" id="cancelar" toolTip="Cancela la operación" click="cancelando()"/>
+	<mx:CheckBox x="20.5" y="78" id="todo" click="{seleccionarTodo()}"/>
+	<mx:Label x="42.5" y="78" text="Seleccionar todo"/>
+	<mx:DataGrid x="20.5" y="114" width="718" height="244">
+		<mx:columns>
+		<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" >
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>
+			<mx:DataGridColumn headerText="Código" dataField="codigo" width="80"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre" width="120"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" />
+			<mx:DataGridColumn headerText="Cantidad" dataField="cantidad" width="70"/>
+			<mx:DataGridColumn headerText="Subtotal" dataField="subtotal" width="70"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<ns1:BuscadorNombreRut x="20.5" y="29" width="718">
+	</ns1:BuscadorNombreRut>
+	
+</mx:Panel>
