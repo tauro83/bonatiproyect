@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:fc="http://www.adobe.com/2006/fc" title="Visualizar Registros Atención Peluquería">
 	
 	<mx:Script>
         <![CDATA[
+        	import transferObjects.Usuario;
         
         	//=======================================================================
 			// FECHA: CREACIÓN: 11/11/09
@@ -40,6 +41,8 @@
 		    import pabellon.EditCirugiaService;
 		    import pabellon.EditarConsultaService;
 		    import transferObjects.Peluqueria;
+			import services.GetCatalogos;
+			import transferObjects.CatPeluqueria;
 			
 			[Bindable]
 			private var files:ArrayCollection=new ArrayCollection();
@@ -83,7 +86,54 @@
 			[Bindable]private var listCatP:ArrayCollection;
 			[Bindable]
 			public var edita:Boolean;
-
+			[Bindable]
+			public var peluqueros:ArrayCollection;
+			
+			
+			/** 
+         	 *  Metodo que obtiene todas los items del catalogo
+         	 *  Los cuales seran utilizados para seleccionarlos y luego editarlos.
+         	 * @author  "Raul Lopez"
+			 * */
+			public function getAllCatalogo():void
+			{	
+				var getCatServices:GetCatalogos = new GetCatalogos();
+				getCatServices.getCatalogo();
+				getCatServices.addEventListener(ResultEvent.RESULT,getAllCatalogoR);							
+			}
+			/**
+			 *  Metodo que asigna el retorno del metodo anterior a una lista la cual sera cargada en
+			 *  el grid.
+			 * 	@author  "Raul Lopez"
+			 * */
+			public function getAllCatalogoR(event:ResultEvent):void
+			{				
+				listCatalogosP = event.result as ArrayCollection;	
+				concatenaCatP();
+			}
+			
+			/**
+			* Metodo que concatena el apellido paterno, con el apellido materno, y el nombre, para mostrarlo 
+			* en el autocomplete, para buscar al cliente por el apellido.
+		 	* 	@author  "Raul Lopez"
+			*/
+		   private function concatenaCatP():void
+		   {
+		   		
+		   		var i:int;
+		   		var max:int = listCatalogosP.length;
+		   		var catalog:CatPeluqueria;
+		   		var catalog2:CatPeluqueria;
+		   		
+		   		for(i=0;i<max;i++){
+		   			catalog= listCatalogosP.getItemAt(i,0) as CatPeluqueria;
+		   			catalog2 = new CatPeluqueria();
+		   			catalog2.nombre = ""+catalog.servicio.split(" ",1).pop()+" "+catalog.nombre.split(" ",1).pop();
+		   			listCatP.addItem(catalog2);
+		   		}
+		   }
+			
+			
 			/** 
 			 * Funcion que busca un cliente, en la base de datos, para esto primero verifica 
 			 * si el rut esta ingresado correctamente, en caso de estar incorrecto lo informa por pantalla.
@@ -168,11 +218,34 @@
         			
         		}
 			}
+			
+			/**
+			 * Metodo que se comunica con la capa logica, para obtener un listado con los nombres de los 
+			 * veterinarios esto lo hace a traves de la clase AddVacunacionService. 
+		 	 * @author  "Raul Lopez"
+			 */
+			private function getTiposVeterinarios():void
+			{
+				var addpelService:AddPeluqueriaService = new AddPeluqueriaService();
+				addpelService.addEventListener(ResultEvent.RESULT,getTiposV);
+				addpelService.getTiposPeluqueros();
+			}
+			
+			/**
+			 * Metodo que procesa el resultado del metodo anterior, almacenando la lista resultante en la 
+			 * variable vetesC. Que corresponde a la lista veterinarios que existen en el sistema.
+		 	 * @author  "Raul Lopez"
+			 * @param event Evento
+			 */
+			private function getTiposV(event:ResultEvent):void
+			{
+				vetesV = event.result as ArrayCollection;
+			}
         	
 			/**
 			* Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
 			* de la comunicacion con la capa logica.
-		 	* 	@author  Raul Lopez
+		 	* 	@author  "Raul Lopez"
 			* @param event Evento
 			*/
 	        private function ini():void{
@@ -272,11 +345,24 @@
 				this.edita = true;
 				this.mascotas=new ArrayCollection();
 				this.mascotas2=new ArrayCollection();
-				this.dg.doubleClickEnabled=true;
+				this.Tabla.doubleClickEnabled=true;
 				this.labelMessage.text="";
 				this.rutClienteInput.text="";
 				this.rutClienteDVInput.text="";
 				this.inputClienteNombre.text="";
+				this.getTiposVeterinarios();
+				this.getAllCatalogo();
+				this.getResp();
+			}
+			
+			/**
+			 * Metodo que inicializa los valores de los tipos de vacunas, veterinarios y ayudantes.
+		 	 * 	@author  "Jimmy Muñoz"
+			 */
+			public function iniciarPanel1():void
+			{
+				this.getTiposVeterinarios();
+				this.getResp();
 			}
 			
 			/**
@@ -363,8 +449,7 @@
 		   					this.rutClienteInput.text=newCli.rut.substring(0,8);
 		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre+" "+newCli.apellido;
 		   					sacaDigito();
-		   					//getConsultas();
-		   					//Alert.show("buscarCliente2");
+		   					
 		   					ini();
 		   					
 		   					
@@ -431,13 +516,70 @@
      		}
      		
      		public function mira():void{
-     			if(dg.selectedItem){
-     		  		this.visible = false;
-     		  		this.reset();
-     		  		Application.application.editaPelUPdate.setVisible(true,false);
+     			if(Tabla.selectedItem){
+     		  		
+     		  		var editPel:EditarPeluqueriaUpdate = Application.application.editaPelUPdate;
+     		  		editPel.iniciarPanel();
+     		  		var itm:int = Tabla.selectedIndex;
+     		  		var listCont2:Array = new Array();
+     		  		listCont2 = Tabla.selectedItem.nombreMascota.split(" ",1);
+					var nombre:String = listCont2.pop();
+					editPel.nombreMascota=nombre;
+					editPel.nombMasc.text=nombre;
+					editPel.clienteRut=this.rutClienteInput.text;
+					editPel.clienteRut2=this.rutClienteDVInput.text;
+									
+					var i:int;
+					var large:int = listCatP.length;
+					
+					for(i=0;i<large;i++){
+						var tipoPel:CatPeluqueria = this.listCatP.getItemAt(i,0) as CatPeluqueria;
+						var text2:String = tipoPel.nombre;
+						var texx:String = Tabla.selectedItem.servicio.split(" ",1).pop();
+						var texx2:String = Tabla.selectedItem.nombre.split(" ",1).pop();
+						var texx3:String = texx.concat(" "+texx2);
+						if(text2 != texx3){
+							editPel.tiposServ1.push(text2);
+						}
+					}
+					
+					var s:String = Tabla.selectedItem.responsable.split(" ",1).pop();
+					var k:int;
+					var klarge:int = peluqueros.length;
+					
+					for(k=0;k<klarge;k++){
+						var user:Usuario = peluqueros.getItemAt(k,0) as Usuario;
+						if(s==user.usuario.split(" ",1).pop()){
+							var sUsr:String = user.nombre.split(" ",1).pop();
+							var sUsr2:String = user.apellidoPaterno.split(" ",1).pop();
+							
+							var sConcat:String = sUsr.concat(" "+sUsr2);
+							editPel.veterinariosC.text = sConcat;
+						}
+					}
+					
+					editPel.fechahoy.selectedDate = Tabla.selectedItem.fecha;
+					
+					
+					this.visible = false;
+     		  		editPel.descripcionV.text = Tabla.selectedItem.descripcion;
+     		  		editPel.setVisible(true,false);
      				
      			}
+     			
      		}
+     		
+     		public function getResp():void{
+     			
+				var adpel:AddPeluqueriaService = new AddPeluqueriaService();
+				adpel.addEventListener(ResultEvent.RESULT,getRespResult);
+				adpel.getResponsable();
+     		}
+     		
+     		public function getRespResult(event:ResultEvent):void{
+     			peluqueros = event.result as ArrayCollection;
+     		}
+     		
      		public function reset():void{
      			peluquerias = new ArrayCollection();
      			inputClienteNombre.text = "";
@@ -451,7 +593,7 @@
 			*/
      		private function focusSale():void
      		{
-     			dg.setFocus();
+     			Tabla.setFocus();
 
      		}
      		
@@ -467,16 +609,20 @@
 	<mx:TextInput x="563.5" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut=" buscarCliente(event)"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente:" width="84.75" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="162" x="25" variableRowHeight="true" dataProvider="{peluquerias}" visible="true" height="182" itemDoubleClick="{mira()}">
-	    <mx:columns>
-	        <mx:DataGridColumn dataField="nombreMascota" headerText="Nombre" editable="true" width="100"/>
-	        <mx:DataGridColumn dataField="rutCliente" headerText="Rut" width="100"/>
-	        <mx:DataGridColumn dataField="responsable" headerText="Responsable" width="100"/>
-	        <mx:DataGridColumn dataField="servicio" headerText="Servicio" width="100"/>
-	        <mx:DataGridColumn dataField="fecha" headerText="Fecha" width="100"/>
-	        <mx:DataGridColumn dataField="hora" headerText="Hora" width="100"/>
-	        <mx:DataGridColumn dataField="costo" headerText="Costo" width="100"/>
-	    </mx:columns>
+	
+	<mx:DataGrid x="25" y="158" width="710" id="Tabla" enabled="true" height="178" dataProvider="{peluquerias}" itemDoubleClick="mira()">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre mascota" dataField="nombreMascota" visible="false"/>
+			<mx:DataGridColumn headerText="Rut" dataField="rutCliente" visible="false"/>
+			<mx:DataGridColumn headerText="Responsable" dataField="responsable"/>
+			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="fecha"/>
+			<mx:DataGridColumn headerText="Hora" dataField="hora"/>
+			<mx:DataGridColumn headerText="Costo" dataField="costo" visible="false"/>
+			<mx:DataGridColumn headerText="Descripcion" dataField="descripcion" visible="false"/>
+			
+		</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="632" y="353" label="Cancelar" width="103" id="cancelar" visible="true" height="23" click=" cancela()"/>
 	<mx:Label x="25" y="136" text="Registros:" width="112.75" fontWeight="bold"/>
