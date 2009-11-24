@@ -121,9 +121,8 @@ public class AddPeluqueriaBD {
     public String getCosto(String tc,String tc2, ArrayList<CatPeluqueria> catalogos){
     	int largo = catalogos.size();
     	String costo = "0";
-    	System.out.println("size "+largo);
     	for(int i=0;i<largo;i++){
-    		System.out.println("tc2nom: "+tc2+". cat nombre: "+catalogos.get(i).getNombre()+". tc serv: "+tc+". catServ: "+catalogos.get(i).getServicio()+".");
+    		
     		if(tc2.equals(catalogos.get(i).getNombre().trim()) && tc.equals(catalogos.get(i).getServicio().trim())){
     			return catalogos.get(i).getPrecio();
     		}
