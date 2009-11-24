@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:fc="http://www.adobe.com/2006/fc" title="Visualizar Registros Peluquería">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:fc="http://www.adobe.com/2006/fc" title="Visualizar Registros Atención Peluquería">
 	
 	<mx:Script>
         <![CDATA[
+        
+        	//=======================================================================
+			// FECHA: CREACIÓN: 11/11/09
+			// AUTOR: Raul Lopez
+			// Formulario para obtener datos del cliente y sus mascotas.
+			//=======================================================================
+			
+        	import mx.events.CollectionEvent;
+        	import transferObjects.Mascota;
         	import transferObjects.Consulta;
         	import services.AddConsultaService;
         	import transferObjects.ConfiguracionVacuna;
@@ -49,7 +58,7 @@
 			
 			//editando para cargar las consultas
 			[Bindable]
-			private var consultas:ArrayCollection = new ArrayCollection;
+			private var peluquerias:ArrayCollection = new ArrayCollection();
 			
 		    [Bindable]
 			private var consultas2:ArrayCollection;
@@ -59,6 +68,8 @@
 			*/
 		    [Bindable] 
 		    public var mascotas:ArrayCollection = new ArrayCollection();
+		    [Bindable] 
+		    public var mascotas2:ArrayCollection = new ArrayCollection();
 		    
 		    [Bindable] 
 		    public var cliente:Person;
@@ -68,14 +79,17 @@
 			
 			[Bindable]
 			public var newCPeluqueria:Peluqueria;
+			[Bindable]private var listCatalogosP:ArrayCollection;
+			[Bindable]private var listCatP:ArrayCollection;
+			[Bindable]
+			public var edita:Boolean;
 
-			/** Raul Lopez
-		 	 * 	@author  
-			 * 	@Fecha  10 Noviembre
+			/** 
 			 * Funcion que busca un cliente, en la base de datos, para esto primero verifica 
 			 * si el rut esta ingresado correctamente, en caso de estar incorrecto lo informa por pantalla.
 			 * En caso contrario realiza las llamadas a la capa de java, la cual procesara la soliitud, y 
 			 * retornara si el cliente existe o no.
+		 	 * 	@author  "Raul Lopez"
 			 * @param event Evento
 			 */
         	private function buscarCliente(event:Event):void{
@@ -122,10 +136,9 @@
         	}
         	
         	/**
-		 	 * 	@author Raul Lopez
-			 * 	@Fecha  10 Noviembre
 			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
 			 * el cual envia las solicitudes, y devuelve los resultados.
+		 	 * 	@author Raul Lopez
 			 */
         	private function getCliente(rutCliente:String):void{
 				var addConsultaService:AddConsultaService = new AddConsultaService();
@@ -135,11 +148,10 @@
 			
 			
 			/**
-		 	 * 	@author Raul Lopez
-			 * 	@Fecha  10 Noviembre
 			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
 			 * el cual envia las solicitudes, y devuelve los resultados. Se procesa el resultado del metodo 
 			 * anterior.
+		 	 * 	@author Raul Lopez
 			 * @param event Evento
 			 */
 			public function getClienteResult(event:ResultEvent):void{
@@ -158,64 +170,108 @@
 			}
         	
 			/**
-		 	* 	@author  Raul Lopez
-			* 	@Fecha  10 Noviembre
 			* Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
 			* de la comunicacion con la capa logica.
+		 	* 	@author  Raul Lopez
 			* @param event Evento
 			*/
 	        private function ini():void{
-	     
-	           	consultas.removeAll();
-	           	getConsultas();
-	           	consultas.refresh();
-	           	
-				
+	           	mascotas.removeAll();
+	           	getMascotas();
+				mascotas.refresh();
 	        }
 	         
-	
-			public function getConsultas():void{
-				//Alert.show("entro getConsultas");
-				var addConsultaService:EditarConsultaService = new EditarConsultaService();
-				addConsultaService.addEventListener(ResultEvent.RESULT,getEditConsultasResult);
-				
-				addConsultaService.getAllConsultas(rutClienteInput.text+rutClienteDVInput.text);
-				//Alert.show("no coopera");
+        	
+        					
+					
+			/**
+			 * Metodo que realiza la comunicacion a la capa logica a traves de AddVacunaService,
+			 * solicitando todas las mascotas que le pertenescan a un determinado cliente.
+		 	 * 	@author  "Raul Lopez"
+			 */
+			private function getMascotas():void{
+				var addpelService:AddPeluqueriaService = new AddPeluqueriaService();
+				addpelService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addpelService.getMascotas(rutClienteInput.text);
 			}
 			
+			/**
+			 * Metodo que realiza la comunicacion a la capa logica a traves de AddVacunacionService,
+			 * solicitando todas las mascotas que le pertenescan a un determinado cliente. 
+			 * Se almacena el resultado del metodo anterior en la variable mascotas.
+		 	 * @author  "Raul Lopez"
+			 * @param event Evento
+			 */
+			private function getAddMascotasResult(event:ResultEvent):void{
+				var newMasc:Mascota = new Mascota();
+				newMasc.nombre = "";
+
+
+				mascotas2 = event.result as ArrayCollection;
+				mascotas2.addItemAt(newMasc,0);
+				mascotas = mascotas2;
+				
+			}	        
+	        
+	        /**
+	        * Metodo que procesa si solicita, a la base de datos, los datos de atenciones de peluqueria 
+	        * existentes, asociadas a una mascota. Para esto se verifica si el usuario selecciono un mascota
+	        * de la lista, si se eligio una, se realiza la consulta, si no, se le pide que seleccione una.
+	        * @author "Raul Lopez"
+	        */
+	       	public function busca():void{
+	       		if(dg2.selectedLabel!=""){
+	       			this.labelMessage.text="";
+	       			var nombre:String = dg2.selectedLabel
+	       			getPeluquerias(nombre,rutClienteInput.text);
+	       		}
+	       		else{
+	       			this.labelMessage.text="Seleccione una mascota, para ver sus atenciones.";
+	       			this.peluquerias = new ArrayCollection();
+	       		}
+	       	}  
 			
-			public function getEditConsultasResult(event:ResultEvent):void{
+			/**
+	        * Metodo que se comunica con EditarPeluService, para obtener los datos de las atenciones 
+	        * registradas, enviandole los respectivos datos para obtener dichos datos.
+	        * @author "Raul Lopez"
+	        */
+			public function getPeluquerias(nombreMasc:String, rut:String):void{
 				
-				consultas = event.result as ArrayCollection;
-				
-				//Alert.show("getEditConsultasResult");
-				
-				
+				var edPeluqService:EditarPeluService = new EditarPeluService();
+				edPeluqService.addEventListener(ResultEvent.RESULT,getPeluqueriasResult);
+				edPeluqService.getAllPeluquerias(rutClienteInput.text,nombreMasc);
 			}
 			
+			 /**
+	        * Metodo en el cual se almacena el resultado del metodo anterior, en el ArrayCollection, 
+	        * que representa las atenciones de la mascota.
+	        * @author "Raul Lopez"
+	        */
+			public function getPeluqueriasResult(event:ResultEvent):void{
+				
+				peluquerias = event.result as ArrayCollection;				
+				
+			}			
 			
 			
 			/**
-		 	* 	@author  Raul Lopez
-			* 	@Fecha  10 Noviembre
-			* Metodo que procesa los datos ingresados en este panel, y muestra el panel 
-			* en donde se realiza la edicion, cargando los datos correspondientes, 
-			* para que el otro panel posea todos los datos.
-			*/
-			
-				
-			
-			
-			/**
-		 	* 	@author  Raul Lopez
-			* 	@Fecha  10 Noviembre
 			* Metodo que inicializa todos los valores y variables de este panel.
+			 * @author  Raul Lopez
 			*/
 			public function iniciarPanel():void
 			{
-				cargarDatos();
-				
+				this.edita = false;
+				this.listCatP = new ArrayCollection();
+				this.listCatalogosP = new ArrayCollection();	
+				peluquerias = new ArrayCollection();
+				cliente2 = new ArrayCollection();
+				clientes = new ArrayCollection();
+				inputClienteNombre.typedText = "";
+				inputClienteNombre.text = "";
+				this.edita = true;
 				this.mascotas=new ArrayCollection();
+				this.mascotas2=new ArrayCollection();
 				this.dg.doubleClickEnabled=true;
 				this.labelMessage.text="";
 				this.rutClienteInput.text="";
@@ -223,19 +279,26 @@
 				this.inputClienteNombre.text="";
 			}
 			
-		
+			/**
+			 * Metodo que inicializa los valores de los clientes del sistema, para seleccionarlo 
+			 * ingresando su apellido. Llamando a la funcion de BusquedaService.
+		 	 * 	@author  "Raul Lopez"
+			 */
 		   public function getAllClientes():void
 		   {
-		   		var busquedaService:BusquedaService = new BusquedaService();
-		   		busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
-				busquedaService.getAllClientes();
+		   		if(edita){
+		   			this.labelMessage.text="";
+		   			var busquedaService:BusquedaService = new BusquedaService();
+		   			busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
+					busquedaService.getAllClientes();
+					this.edita=false;
+		   		}
 		   }
 		   
 		   /**
-			*   @author  Raul Lopez
-			* 	@Fecha  10 Noviembre
 			* Metodo que almacena el resultado del metodo anterior en el arraycollection cliente2.
 			* Y llama a la funcion concatena.
+			 * @author  Raul Lopez
 			*/
 		   public function getAllClientesResult(event:ResultEvent):void
 		   {
@@ -245,14 +308,12 @@
 		   }
 		   
 		   /**
-			*   @author  Raul Lopez
-			* 	@Fecha  10 Noviembre
 			* Metodo que concatena el apellido paterno, con el apellido materno, y el nombre, para mostrarlo 
 			* en el autocomplete, para buscar al cliente por el apellido.
+			*   @author  Raul Lopez
 			*/
 		   public function concatena():void
 		   {
-		   		clientes = new ArrayCollection();
 		   		var i:int;
 		   		var max:int = cliente2.length;
 		   		
@@ -262,15 +323,13 @@
 		   			cli2.nombre = ""+cli.apellido+" "+cli.apellido2+" "+cli.nombre;
 		   			clientes.addItem(cli2);
 		   		}
-		   		clientes.refresh();
 		   }
 		   
 		   /**
-			*   @author  Raul Lopez
-			* 	@Fecha  10 Noviembre
 			* Metodo que busca al cliente, al momento de soltar el autocomplete del apellido, 
 			 * procesando los datos, partiendo el texto, y guardandolo en el nombreN, apellidomN
 			 * y en apellidopN.
+			 * @author  Raul Lopez
 			 */
 		   public function buscarCliente2():void
 		   {
@@ -302,7 +361,7 @@
 		   				var newCli:Cliente = cliente2.getItemAt(i,0) as Cliente;
 		   				if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
 		   					this.rutClienteInput.text=newCli.rut.substring(0,8);
-		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
+		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre+" "+newCli.apellido;
 		   					sacaDigito();
 		   					//getConsultas();
 		   					//Alert.show("buscarCliente2");
@@ -319,10 +378,9 @@
 		   
 		   
 		   /**
-		   	*   @author  Raul Lopez
-			* 	@Fecha  10 Noviembre
 		   	* Función para obtener el dígito verificador, y para guardarlo en 
 		   	* el input dedicado a almacenar esa variable.
+		   	 * @author  Raul Lopez
 			*/
 		   private function sacaDigito():void{        			
         			
@@ -364,17 +422,7 @@
         		
      		}
      		
-     		public function cargarDatos():void
-     		{ 
-     			confs.getConfiguracioneVacunas();
-     			confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
-     		} 
-     		
-     		public function cargarDatosR(event:ResultEvent):void
-     		{
-     			vacunas = event.result as ArrayCollection; 
-     		}
-     		
+     		     		
      		public function cancela():void{
      		
      		   this.visible = false;
@@ -383,16 +431,28 @@
      		}
      		
      		public function mira():void{
-     		
-     		  this.visible = false;
-     		  this.reset();
-     		  Application.application.editaPelUPdate.setVisible(true,false);
+     			if(dg.selectedItem){
+     		  		this.visible = false;
+     		  		this.reset();
+     		  		Application.application.editaPelUPdate.setVisible(true,false);
+     				
+     			}
      		}
      		public function reset():void{
-     			consultas = new ArrayCollection();
+     			peluquerias = new ArrayCollection();
      			inputClienteNombre.text = "";
      		    rutClienteInput.text = "";
      		    rutClienteDVInput.text = "";
+     		}
+     		
+     		/**
+		   	* Metodo que quita el focus al rut o al nombre.
+		 	 * 	@author  "Raul Lopez"
+			*/
+     		private function focusSale():void
+     		{
+     			dg.setFocus();
+
      		}
      		
 				
@@ -402,15 +462,15 @@
 	
 	<mx:Label x="421.75" y="38" text="Rut:" width="32"/>
 	<mx:Label x="552" y="38" text="-" width="14.75" textAlign="center"/>
-	<fc:AutoComplete id="inputClienteNombre" x="90" y="38" width="177" dataProvider="{clientes}" labelField="nombre" visible="true" click="getAllClientes()" focusOut="buscarCliente2()"/>
+	<fc:AutoComplete id="inputClienteNombre" x="90" y="38" width="210" dataProvider="{clientes}" labelField="nombre" visible="true" typedTextChange="{getAllClientes()}" focusOut="{buscarCliente2()}" enter="{focusSale()}"/>
 	<mx:TextInput  restrict="0-9" x="461.75" y="38" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
 	<mx:TextInput x="563.5" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut=" buscarCliente(event)"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente:" width="84.75" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="162" x="25" variableRowHeight="true" dataProvider="{consultas}" visible="true" height="182" click="{ mira()}">
+	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="162" x="25" variableRowHeight="true" dataProvider="{peluquerias}" visible="true" height="182" itemDoubleClick="{mira()}">
 	    <mx:columns>
-	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
-	        <mx:DataGridColumn dataField="rut" headerText="Rut" width="100"/>
+	        <mx:DataGridColumn dataField="nombreMascota" headerText="Nombre" editable="true" width="100"/>
+	        <mx:DataGridColumn dataField="rutCliente" headerText="Rut" width="100"/>
 	        <mx:DataGridColumn dataField="responsable" headerText="Responsable" width="100"/>
 	        <mx:DataGridColumn dataField="servicio" headerText="Servicio" width="100"/>
 	        <mx:DataGridColumn dataField="fecha" headerText="Fecha" width="100"/>
@@ -421,9 +481,9 @@
 	<mx:Button x="632" y="353" label="Cancelar" width="103" id="cancelar" visible="true" height="23" click=" cancela()"/>
 	<mx:Label x="25" y="136" text="Registros:" width="112.75" fontWeight="bold"/>
 	<mx:Label x="25" y="38" text="Apellido:" width="64"/>
-	<mx:Label x="22" y="64" text="Mascotas:" fontWeight="bold" width="67"/>
-	<mx:Label x="22" y="87" text="Nombre:" width="55.75"/>
-	<mx:ComboBox id="dg2" x="90" y="85" width="177"></mx:ComboBox>
-	<mx:Button x="506" y="353" label="Visualizar" width="103" id="cancelar0" visible="true" height="23" click="{ mira()}"/>
+	<mx:Label x="25" y="64" text="Mascotas:" fontWeight="bold" width="67"/>
+	<mx:Label x="25" y="87" text="Nombre:" width="55.75"/>
+	<mx:ComboBox id="dg2" x="90" y="85" width="177" dataProvider="{mascotas}" labelField="nombre" close="{busca()}"></mx:ComboBox>
+	<mx:Button x="522" y="353" label="Visualizar" width="103" id="cancelar0" visible="true" height="23" click="{ mira()}"/>
 	
 </mx:Panel>
