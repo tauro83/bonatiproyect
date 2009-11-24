@@ -164,7 +164,7 @@
 			 * @autor Erwin Díaz
 			 */
             private function fileRef_select(evt:Event):void {
-               fileRef.load();
+               //fileRef.load();
                 
             }
             /**
@@ -173,7 +173,7 @@
             * @autor Erwin Díaz
             */
              private function fileReference_complete(evt:Event):void {
-              imagen.source = fileRef.data;
+              //imagen.source = fileRef.data;
             }
 
 				
