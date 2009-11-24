@@ -284,10 +284,16 @@
            	<properties>
            			<source>Petshop.AddProducto</source>
            	</properties>
-    </destination>
+    </destination> 
     <destination id="editarProducto1">
            	<properties>
            			<source>Administracion.editarProducto1</source>
            	</properties>
     </destination>	
+	
+	<destination id="EditarPeluService">
+           	<properties>
+           			<source>Peluqueria.EditarPeluService</source>
+           	</properties>
+    </destination>
 </service>
