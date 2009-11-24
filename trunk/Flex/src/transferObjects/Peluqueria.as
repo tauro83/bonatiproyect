@@ -11,6 +11,8 @@ package transferObjects
 		public var servicio:String;
 		public var fecha:Date;
 		public var costo:String;
+		public var hora:String;
+		public var nombre:String;
 		public var descripcion:String;
 		public var tiposServicios:ArrayCollection;
 		public var tiposNombres:ArrayCollection;
