@@ -90,6 +90,14 @@ package peluqueria
 		public function getTiposPeluqueros():void{
 			this.getOperation("getTiposPeluqueros").send();
 		}
+		
+		/**
+		 * metodo que obtiene el nombre de un peluquero.
+		 * 	@author  "Jimmy Muñoz"	 		
+		* */
+		public function getResponsable():void{
+			this.getOperation("getResponsable").send();
+		}
 
 
 	}
