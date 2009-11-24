@@ -259,6 +259,8 @@
 		    	deseliminarPel.setVisible(false,false);
 			anularPre.setVisible(false,false);
 			anularPre2.setVisible(false,false);
+			editProducto2.setVisible(false,false);
+			editProducto.setVisible(false,false);
 		 	<!--Autor: }Nicolas -->
 			
 		 		
@@ -665,7 +667,10 @@
 	</ns1:EliminarRegPeluqueria2>	
 	<ns1:deseliminarPeluqueria x="241" y="134" id="deseliminarPel" visible="false" borderColor="#15AD8F">
 	</ns1:deseliminarPeluqueria>
-	
+	<ns1:EditarProducto x="241" y="134" id="editProducto" visible="false" borderColor="#15AD8F">
+	</ns1:EditarProducto>
+	<ns1:EditarProducto2 x="241" y="134" id="editProducto2" visible="false" borderColor="#15AD8F">
+	</ns1:EditarProducto2>
 	<!--Autor: }nicolas-->
 	
 	<!--Autor: Cristian Bravo{ -->
