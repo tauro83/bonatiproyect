@@ -12,6 +12,8 @@ public class Peluqueria {
 	private Date fecha;
 	private String costo;
 	private String descripcion;
+	private String nombre;
+	private String hora;
 	private List<String> tiposServicios;
 	private List<String> tiposNombres;
 	
@@ -68,6 +70,18 @@ public class Peluqueria {
 	}
 	public List<String> getTiposNombres() {
 		return tiposNombres;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setHora(String hora) {
+		this.hora = hora;
+	}
+	public String getHora() {
+		return hora;
 	}
 
 
