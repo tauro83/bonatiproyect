@@ -84,6 +84,7 @@
 				<mensaje key="21">Estadísticas por rango de fecha para Clinica</mensaje>
 				<mensaje key="22">Se ha editado el Catalogo exitosamente</mensaje>
 				<mensaje key="23">Se ha editado el Registro exitosamente</mensaje>
+				<mensaje key="24">Se ha registrado el Producto exitosamente</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="ToolTip">
