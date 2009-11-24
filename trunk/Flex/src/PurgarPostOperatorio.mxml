@@ -53,8 +53,7 @@
             private function deleteAtencionResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
-				Alert.show(result.toString());
-			    //labelMessage.text = "Atención eliminada con éxito";
+				ltexto.text = "Atención eliminada con éxito";
 				getAllDatos();
 			}
 
