@@ -8,9 +8,8 @@ package util
 	 **/
 	public class Properties
 	{
-		[Embed(source="properties.xml")]
-		[Bindable]
-		public static var settingClass:Class;
+		[Bindable][Embed(source="properties.xml")]
+		[Bindable]public static var settingClass:Class;
 		
 		
 		/**
