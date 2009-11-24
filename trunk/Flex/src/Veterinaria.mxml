@@ -124,6 +124,7 @@
 
             public function setInvisible ():void
             {   
+            	regProducto.setVisible(false,false);
              	editCatalogo.setVisible(false,false);
             	editCatalogoBusqueda.setVisible(false,false);
             	confVacunas.setVisible(false,false);
@@ -699,7 +700,8 @@
 	</ns1:GraficosPeluqueria>
 	<ns1:PeluqueriaIni x="241" y="134" id="peluqueria1" visible="false">
 	</ns1:PeluqueriaIni>
-	
+	<ns7:RegistrarProducto x="241" y="134" id="regProducto"  visible="false">		
+	</ns7:RegistrarProducto>
 	<!--Autor: } Camilo -->
 	
 	<!--Autor: nicolas}-->

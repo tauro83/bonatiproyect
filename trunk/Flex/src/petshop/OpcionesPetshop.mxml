@@ -4,7 +4,8 @@
 	<mx:Script>
 		<![CDATA[
 			import mx.core.Application;
-
+			
+			
 			public function verRegistrarPago():void{
 			
 			    Application.application.setInvisible();
@@ -12,6 +13,14 @@
 				//Application.application.iniciar();
 				Application.application.registrarPago.visible = true;	
 			}
+			
+			public function regProducto():void
+			{
+				 Application.application.setInvisible();
+				 this.visible = true;
+				 Application.application.regProducto.visible = true;				 
+			}
+			
 		]]>
 	</mx:Script>
 	
@@ -20,6 +29,7 @@
 			<mx:LinkButton x="10" y="10" label="Registrar" click="verRegistrarPago()"/>
 		</mx:Canvas>
 		<mx:Canvas label="Producto" width="100%" height="100%">
+			<mx:LinkButton x="10" y="10" label="Registrar" click="regProducto()"/>
 		</mx:Canvas>
 	    </mx:Accordion>
 		
