@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="776" height="466" title="Editar Producto" borderColor="#15AD8F" xmlns:ns1="util.*" xmlns:fc="http://www.adobe.com/2006/fc" >
+	 <mx:Script>
+        <![CDATA[
+        
+        	//=======================================================================
+			// FECHA CREACIÓN: 16/11/09
+			// AUTOR: Nicolas Delgado
+			// Panel en el cual se muestran el nombre del cliente , apellido, rut,
+			// nombre de la mascota, raza, sexo, de las mascotas que poseen registro
+			//de peluquería y todos las registro que posean estado 0.
+			//=======================================================================
+			
+        	import transferObjects.Producto;
+         	import mx.collections.ArrayCollection;
+            import mx.rpc.events.ResultEvent;
+            import mx.core.Application;
+			import services.editarProducto1;
+		
+			
+			/**
+			 * Esta variable se encarga de obtener desde la base datos los datos asociado 
+			 * a un registro de peluqueria de todas las mascota que alguna vez se han 
+			 * realizado una atención.
+			 */
+			 
+			[Bindable]
+			private var vacunaicones:ArrayCollection;
+
+
+            /**
+			* Se hace visible el input correspondiente a la opción
+			* elegida en el combobox, las cuales pueden ser por el nombre del cliente,
+			* rut, apellido, nombre de la mascota, sexo raza.
+			*/
+            private function seleccionarBusqueda (event:Event):void
+            {   
+            	inputNombreProducto.setVisible(false,false);
+				inputCategoria.setVisible(false,false);
+				inputPrecio.setVisible(false,false);
+				inputDescripcion.setVisible(false,false);
+				inputCodigoBarra.setVisible(false,false);
+				textBuscar.setVisible(true, false);
+				getAllVacunaciones();
+				
+            	switch (combobox.selectedLabel)
+				{
+					
+			    /**
+			    * El usuario Selecciona la opcion Nombre del Cliente
+			    */
+				case 'Nombre Producto':		
+					inputNombreProducto.setVisible(true,false);
+					inputNombreProducto.selectedItem=false;
+					
+				break; 
+				
+			    /**
+			    * El usuario Selecciona la opcion Apellido del Cliente
+			    */
+				case 'Categoria':
+					inputCategoria.setVisible(true,false);
+					inputCategoria.selectedItem=false;
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opcion Rut del Cliente
+			    */				
+				case 'Precio':
+					inputPrecio.setVisible(true,false);
+					inputPrecio.selectedItem=false;
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opcion Nombre de la Mascota
+			    */
+				case 'Descripcion':
+					inputDescripcion.setVisible(true,false);
+					inputDescripcion.selectedItem=false;
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opcion Raza de la Mascota
+			    */
+				case 'Codigo Barra':
+					inputCodigoBarra.setVisible(true,false);
+					inputCodigoBarra.selectedItem=false;
+				break;
+				}
+            }
+            
+            /**
+            * Este metodo se encarga de dejar limpia la pantalla una vez que
+            * el usuario se salga del panel, se dejan sin información los 
+            * datagrid, textInput y ComboBox. 
+            */
+            
+            public function limpiarTodo():void{
+            	inputNombreProducto.setVisible(false,false);
+				inputCategoria.setVisible(false,false);
+				inputPrecio.setVisible(false,false);
+				inputDescripcion.setVisible(false,false);
+				inputCodigoBarra.setVisible(false,false);
+            	combobox.selectedItem="-Seleccionar-";
+            	textBuscar.setVisible(false,false);
+            	this.vacunaicones = new ArrayCollection();
+          
+            }
+            
+            /**
+			* Se obtienen todos los registro de peluquería que están registrados en 
+			* la base de datos, que serán mostrados por el datagrid del panel, en este
+			* panel seran mostrados solamente el Nombre del cliente, apellido, rut, nombre
+			* de la mascota,raza y sexo, y en el panel siguiente serán mostrados los
+			* de un registro de peluquería.
+			*/
+			public function getAllVacunaciones():void
+		    {
+		   		var vacunacionService:editarProducto1 = new editarProducto1();
+		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
+				vacunacionService.getAllVacunaciones();
+		    }
+		   
+		    /**
+			* Una vez obtenidas todos los registro de la peluquería que están registradas 
+			* en la base de datos, son mostrados dentro del datagrid,en este
+			* panel seran mostrados solamente el Nombre del cliente, apellido, rut, nombre
+			* de la mascota,raza y sexo, y en el panel siguiente serán mostrados los
+			* de un registro de peluquería.
+			*/
+            
+            public function getAllVacunacionesResult(event:ResultEvent):void
+		    {
+		   		vacunaicones = event.result as ArrayCollection;
+		    }
+		    
+		    /**
+		    * Una vez seleccionado un cliente, se procede a visualizar la siguiente 
+			* ventana (componente), con los datos correspondientes al cliente 
+			* seleccionado y los datos de los registro de peluquería que posee la mascota
+			* al interior del servicio de peluquería.
+			*/
+		    public function visualizarVacunaciones(event:Event):void
+            {
+            	if(tablaVacunaciones.selectedItem){
+            		this.setVisible(false,false);            	 	
+            		Application.application.editProducto2.setDatos(tablaVacunaciones.selectedItem as Producto);
+            		Application.application.editProducto2.setVisible(true,false);
+            	}
+            }
+            
+			/**
+			 * Evento del boton "Volver", el cual redirige a la página
+			 * a la estipulada por defecto por  el modulo de peluquería.
+			 */
+			private function volver():void
+            {
+            	this.setVisible(false,false);
+            	Application.application.peluqueriaIni.setVisible(true,false);
+            }
+            
+            /**
+			*  Corrige error de seleccionar el primero elemento del autocomplete
+			*  Del textInput del Nombre Del Cliente, apellido, rut, nombre mascota,
+			*  Raza y Sexo.
+			* */
+		    public function Seleccionar(event:Event):void
+			{
+			    if(inputNombreProducto.selectedIndex==0)
+			    {
+			    	inputNombreProducto.text=inputNombreProducto.selectedLabel;
+			    }
+			    if(inputPrecio.selectedIndex==0)
+			    {
+			    	inputPrecio.text==inputPrecio.selectedLabel;
+			    }
+			    if(inputCategoria.selectedIndex==0)
+			    {
+			    	inputCategoria.text=inputCategoria.selectedLabel;
+			    }
+			    if(inputDescripcion.selectedIndex==0)
+			    {
+			    	inputDescripcion.text==inputDescripcion.selectedLabel;
+			    }
+			    if(inputCodigoBarra.selectedIndex==0)
+			    {
+			    	inputCodigoBarra.text=inputCodigoBarra.selectedLabel;
+			    }
+
+			}
+			
+			
+            
+	 	]]>
+    </mx:Script>
+	
+	<!-- Botón Visualizar -->
+	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
+	<mx:Text x="10" y="10" id="textFiltrar" text="Filtrar por"/>
+	
+	<!-- Botón Cancelar -->
+	<mx:Button x="647" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" />
+	
+	<!-- Opciones de busqueda -->
+	<mx:ComboBox x="76" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccionar-"/>
+			<mx:Object label="Nombre Producto"/>
+			<mx:Object label="Categoria"/>
+			<mx:Object label="Codigo Barra"/> 
+			<mx:Object label="Descripcion"/> 
+			<mx:Object label="Precio"/> 
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	
+	<!-- Tabla con datos -->
+	<mx:DataGrid x="10" y="62" width="739" height="280" id="tablaVacunaciones" dataProvider="{vacunaicones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
+		<mx:columns>		
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre" id="nombre" draggable="false"/>
+			<mx:DataGridColumn headerText="Categoría" dataField="categoria" id="categoria" draggable="false"/>
+			<mx:DataGridColumn headerText="Codigo Barra" dataField="codigo" id="codigo" draggable="false"/>
+			<mx:DataGridColumn headerText="Descripcion" dataField="descripcion" id="descripcion" draggable="false"/>
+			<mx:DataGridColumn headerText="Precio" dataField="precio" id="precio" draggable="false"/>
+			
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- AutoComplete -->
+	
+	<!-- Nombre Del Producto -->
+	<fc:AutoComplete id="inputNombreProducto" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda" />
+	
+	<!-- Precio -->
+	<fc:AutoComplete id="inputPrecio" close="Seleccionar(event)" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="precio" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Categoria -->
+	<fc:AutoComplete id="inputCategoria" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="categoria" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Codigo de Barra -->
+	<fc:AutoComplete id="inputCodigoBarra" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="codigo" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Descripcion -->
+	<fc:AutoComplete id="inputDescripcion" x="599" close="Seleccionar(event)" y="8" width="150" dataProvider="{vacunaicones}" labelField="descripcion" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+</mx:Panel>
