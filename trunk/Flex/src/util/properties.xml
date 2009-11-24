@@ -47,6 +47,8 @@
 				<mensaje key="22">Seleccione un Catalogo para editar</mensaje>
 				<mensaje key="23">Ingrese un precio mayor</mensaje>
 				<mensaje key="24">Ingrese todos los datos solicitados antes de registrar</mensaje>
+				<mensaje key="25">Ingrese un Cargo antes de registrar</mensaje>
+				<mensaje key="26">Ingrese un Servicio antes de registrar</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="Pregunta">
@@ -88,6 +90,10 @@
 				<mensaje key="24">Se ha registrado el Producto exitosamente</mensaje>
 				<mensaje key="25">Se ha registrado la Vacuna exitosamente</mensaje>
 				<mensaje key="26">Se ha eliminado la Vacuna exitosamente</mensaje>
+				<mensaje key="27">Se ha eliminado el Cargo exitosamente</mensaje>
+				<mensaje key="28">Se ha registrado el Cargo exitosamente</mensaje>
+				<mensaje key="29">Se ha registrado el Servicio exitosamente</mensaje>				
+				<mensaje key="30">Se ha eliminado el Servicio exitosamente</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="ToolTip">

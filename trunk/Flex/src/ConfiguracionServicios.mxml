@@ -10,7 +10,9 @@
 			import mx.core.Application;
 			import mx.collections.ArrayCollection;   
 			import mx.rpc.events.ResultEvent;
-			import services.configuracionServices;
+			import services.configuracionServices;			
+			import util.Properties;
+			
 			[Bindable]private var servicios:ArrayCollection;
 			private var confs:configuracionServices= new configuracionServices();
 			
@@ -81,11 +83,11 @@
 				if(nombre.length>0){
 					confs.regConfiguracion("Servicio", especieInput.text);
 					this.cargarDatos();
-					ltexto.text = "Servicio registrado exitosamente";
+					ltexto.text = Properties.getMensaje("Informacion", "29");
 					especieInput.text = "";
 				}
 				else{
-					ltexto.text = "Ingrese un servicio antes de registrar";
+					ltexto.text = Properties.getMensaje("Advertencia", "26");
 				}
 				especieInput.text = "";			
 				
@@ -98,7 +100,7 @@
 			{
 				confs.elimConfiguracion("Servicio", especieInput.text);
 				this.cargarDatos();
-				ltexto.text = "Servicio eliminado exitosamente";
+				ltexto.text = Properties.getMensaje("Informacion", "30");
 				especieInput.text = "";
 			}
 			/** 

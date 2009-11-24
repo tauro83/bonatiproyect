@@ -11,6 +11,7 @@
 			import mx.collections.ArrayCollection;   
 			import mx.rpc.events.ResultEvent;
 			import services.configuracionServices;
+			import util.Properties;
 			[Bindable]private var cargos:ArrayCollection;
 			private var confs:configuracionServices= new configuracionServices();
 			
@@ -68,7 +69,6 @@
             		eliminar.enabled = true;  
             		ltexto.text = "";
             	}		
-            			
 			}
 			/** 
 			 *  Envia una configuracion y muestra un mensaje de confirmacion de la accion.
@@ -81,10 +81,10 @@
 				if(nombre.length>0){
 					confs.regConfiguracion("Cargo", especieInput.text);
 					this.cargarDatos();
-					ltexto.text = "Cargo registrado exitosamente";
+					ltexto.text = Properties.getMensaje("Informacion", "28");
 				}
 				else{
-					ltexto.text = "Ingrese un cargo antes de registrar";
+					ltexto.text = Properties.getMensaje("Advertencia", "25");
 				}
 				especieInput.text = "";		
 			}
@@ -96,7 +96,7 @@
 			{
 				confs.elimConfiguracion("Cargo", especieInput.text);
 				this.cargarDatos();
-				ltexto.text = "Cargo eliminado exitosamente";
+				ltexto.text = Properties.getMensaje("Informacion", "27");
 				especieInput.text = "";
 			}
 			/** 
