@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Bd.DBConnectionManager;
 import TransferObjects.Peluqueria;
 
 public class EditarPeluServiceBD 
@@ -28,7 +27,6 @@ public class EditarPeluServiceBD
 		conn = connection;
 		try 
 		{
-			System.out.println("entro acacacacacacacacacac");
 			String query="";
 			
 			query = "UPDATE consulta"+
@@ -41,8 +39,8 @@ public class EditarPeluServiceBD
 			"WHERE rut = ?;";
 			selectOne = connection.prepareStatement(query);
 			
-			query = "SELECT anamnesis, servicio, hora, fecha, costo,  rut, nombre, responsable "+
-			"FROM consulta where rut = ?;";
+			query = "SELECT servicio, nombre, clienterut, mascotanombre, hora, responsable, fecha, costo, descripcion "+
+			"FROM peluqueria;";
 
 			selectAll = connection.prepareStatement(query);
 		} 
@@ -96,28 +94,30 @@ public class EditarPeluServiceBD
     public List<Peluqueria> getAllPeluquerias(String rutCliente, String nombreMascota)
     {
     	List<Peluqueria> peluquerias=new ArrayList<Peluqueria>();
-
+    	System.out.println("llego");
     	try 
     	{
-    		selectAll.setString(1, rutCliente);
-    		selectAll.setString(1, nombreMascota);
+    		
     		ResultSet result = selectAll.executeQuery();
     		while(result.next())
-    		{
-    			  //System.out.println("rut: "+rutCliente+".");
-    		  
-    			Peluqueria pelu= new Peluqueria();
-    			pelu.setRutCliente(result.getString(1));
-    			pelu.setNombreMascota(result.getString(2));
-    			pelu.setResponsable(result.getString(3));
-    			pelu.setServicio(result.getString(4));
-    			//pelu.setFecha(result.getString(5));
-    			pelu.setCosto(result.getString(6));
-    			pelu.setDescripcion(result.getString(7));
+    		{	
+    			if(rutCliente.equals(result.getString(3).substring(0, 8)) && nombreMascota.equals(result.getString(4)) ){
+    			  
+    				//servicio, nombre, clienterut, mascotanombre, hora, 
+    				Peluqueria pelu= new Peluqueria();
+    				pelu.setServicio(result.getString(1));
+    				pelu.setNombre(result.getString(2));
+    				pelu.setRutCliente(result.getString(3));
+    				pelu.setNombreMascota(result.getString(4));
+    				pelu.setHora(result.getString(5));
+    				pelu.setResponsable(result.getString(6));
+    				pelu.setFecha(result.getDate(7));
+    				pelu.setCosto(result.getString(8));
+    				pelu.setDescripcion(result.getString(9));
     			  
    
-    			  peluquerias.add(pelu);
-    		
+    				peluquerias.add(pelu);
+    			}
     		}
 		} 
     	catch (SQLException e) 
