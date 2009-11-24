@@ -15,7 +15,7 @@
 			<mx:DataGridColumn headerText="Subtotal" dataField="subtotal" width="70"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Label x="19" y="9" text="Productos:" fontWeight="bold"/>
+	<mx:Label x="19" y="9" text="Detalle Producto:" fontWeight="bold"/>
 	<mx:Label x="627" y="328" text="Total:" fontWeight="bold"/>
 	<mx:Button x="662" y="357" label="Cancelar"/>
 	<mx:Button x="590" y="357" label="Pagar"/>
