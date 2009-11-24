@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Pago" xmlns:ns1="com.adobe.flex.extras.controls.*"  xmlns:ns2="util.*">
+	
+	<mx:Script>
+        <![CDATA[
+	 ]]>
+       
+    </mx:Script>
+	<mx:DataGrid x="19" y="35" width="718" height="285">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Código" dataField="codigo" width="80"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre" width="120"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion"/>
+			<mx:DataGridColumn headerText="Cantidad" dataField="cantidad" width="70"/>
+			<mx:DataGridColumn headerText="Subtotal" dataField="subtotal" width="70"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Label x="19" y="9" text="Productos:" fontWeight="bold"/>
+	<mx:Label x="627" y="328" text="Total:" fontWeight="bold"/>
+	<mx:Button x="662" y="357" label="Cancelar"/>
+	<mx:Button x="590" y="357" label="Pagar"/>
+	<mx:Label x="668" y="328" text="$0.000.000" width="69"/>
+	<mx:Label x="167" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	
+</mx:Panel>
