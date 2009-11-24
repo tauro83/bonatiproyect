@@ -46,6 +46,7 @@
 				<mensaje key="21">Ingrese el Rut</mensaje>
 				<mensaje key="22">Seleccione un Catalogo para editar</mensaje>
 				<mensaje key="23">Ingrese un precio mayor</mensaje>
+				<mensaje key="24">Ingrese todos los datos solicitados antes de registrar</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="Pregunta">
@@ -85,6 +86,8 @@
 				<mensaje key="22">Se ha editado el Catalogo exitosamente</mensaje>
 				<mensaje key="23">Se ha editado el Registro exitosamente</mensaje>
 				<mensaje key="24">Se ha registrado el Producto exitosamente</mensaje>
+				<mensaje key="25">Se ha registrado la Vacuna exitosamente</mensaje>
+				<mensaje key="26">Se ha eliminado la Vacuna exitosamente</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="ToolTip">
