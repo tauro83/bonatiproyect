@@ -141,8 +141,8 @@ public class AddPeluqueriaService {
  	List<Mascota> mascotas=new ArrayList<Mascota>();
  	try {
 			Connection connection=DBConnectionManager.getConnection();
-			AddVacunacionBD vacunaBd = new AddVacunacionBD(connection);
-			mascotas= vacunaBd.getMascotas(rutCliente);		
+			AddPeluqueriaBD peluqueriaBd = new AddPeluqueriaBD(connection);
+			mascotas= peluqueriaBd.getMascotas(rutCliente);		
 			connection.close();
 		} 
  	catch (SQLException e) {
@@ -226,4 +226,51 @@ public class AddPeluqueriaService {
 			e.printStackTrace();
 		}
  }
-}
+
+ /**
+* Metodo que llama a la funcion getAllUsuariosE, de esta clase, la cual se comunica con 
+* la base de datos cargando los datos de los usuarios del sistema.
+* Posterior a esto, comienza a procesar los datos obtenidos para enviarlo como resultado 
+* a la capa de flex, para esto concatena el nombre y el apellido del usuario que tenga 
+* como cargo Veterinario, y este resultado de la concatenacion es añadido a la lista que 
+* se retornara hacia la capa 1.
+* @autor  Jimmy Muñoz
+* @param No recibe parametro.
+* @return Listado de String con los nombres de los veterinarios.
+*/
+public List<Usuario> getResponsable(){
+			List<Usuario> cirus=new ArrayList<Usuario>();
+			
+			/**
+			 * En este codigo se llama a la base de datos para obtener los datos de los usuarios
+			 * y guardarlos en la variable persosns.
+			 */
+			this.getAllUsuariosE();
+			
+			int n = persons.size();
+			/**
+			 * En este codigo se se procesa los datos de todos los usuarios que fueron devueltos del llamado anterior.
+			 * para ser retornado a la capa1.
+			 */
+			for(int i=0;i<n;i++){
+				Usuario u = persons.get(i); 
+				/**
+				 * Se borran los espacios en blanco obtenidos de la base de datos.
+				 * de la variable cargo. Para comparar, pues solo debe retornar los que tengan como cargo Veterinario.
+				 */
+				String cargo = u.getCargo().trim();
+				if(cargo.equals("Peluquero")){
+					/**
+					 * Se 
+					 */
+					
+					cirus.add(u);
+				}
+			}
+
+			return cirus;	
+		}
+
+	}
+
+
