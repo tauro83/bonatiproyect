@@ -274,11 +274,12 @@
            	<properties>
            			<source>Pabellon.PostOperatorioService</source>
            	</properties>
-    </destination>       
-        
-
-	
-  
+    </destination>
+    <destination id="avisoWeb1">
+           	<properties>
+           			<source>Administracion.avisoWeb1</source>
+           	</properties>
+    </destination>
 </service>
 
 
