@@ -280,9 +280,10 @@
            			<source>Administracion.avisoWeb1</source>
            	</properties>
     </destination>
-</service>
-
-
-
-
+	<destination id="AddProducto">
+           	<properties>
+           			<source>Petshop.AddProducto</source>
+           	</properties>
+    </destination>
 	
+</service>
