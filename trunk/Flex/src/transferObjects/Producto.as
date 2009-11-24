@@ -6,5 +6,7 @@ package transferObjects
 		public var categoria:String;
 		public var codigo:String;
 		public var precio:String;
+		//Agregada por CAVG
+		public var descripcion:String;
 	}
 }

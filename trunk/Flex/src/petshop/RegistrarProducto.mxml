@@ -2,27 +2,68 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" title="Registrar Producto" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="util.*">
 	<mx:Script>
 		<![CDATA[
-			import mx.core.Application;
 			//=======================================================================
 			// FECHA: CREACIÓN: 23/11/09
 			// AUTOR: Camilo Verdugo
 			// Componente que registra un producto del area de pet-shop
 			//=======================================================================
+			import mx.core.Application;			
+			import util.Properties; 
+			import transferObjects.Producto;
+			import petshop.regProducto;
+			import mx.rpc.events.ResultEvent;
+			private var rprod:regProducto;
+			private var prod:Producto;
+			
+		
+			private function registrar():void
+			{				
+				if(nomb.text.length>3){
+					if(prec.costoBruto.length>3){
+						rprod				= new regProducto();
+						prod.nombre 		= nomb.text;
+						prod.precio 		= prec.costo.text;
+						prod.categoria 		= cate.selectedLabel.toString();
+						prod.codigo 		= cbar.text;
+						prod.descripcion 	= desc.text;
+						
+						rprod.registrarProducto(prod);
+					 	rprod.addEventListener(ResultEvent.RESULT,registrarR);	
+					 	this.resetInputs();
+					}
+					else
+					{
+						mens.text = Properties.getMensaje("Advertencia", "23");
+					}
+				}
+				else{
+					mens.text = Properties.getMensaje("Advertencia", "4");	
+				}
+				
+				
+			}
+			
+			private function registrarR(event:ResultEvent):void
+			{
+				mens.text	=  Properties.getMensaje("Informacion","24");
+				this.resetInputs()
+			}
 			
 			
-			//nombre[char],	
-			//Precio[Money],
-			//descripcion[char],
-			//categoria[char],
-			//clientePresencialRut[rut],
-			//codigoBarra[int]
+			private function resetInputs():void
+			{
+				mens.text 		= "";
+				
+				nomb.text 		= "";
+				prec.costo.text	= "";
+				desc.text 		= "";
+				cbar.text		= "";
+			}
 			private function cancelar():void
 			{
 				Application.application.panelPetshop.setVisible(true,false);
-				//Application.application.editCatalogoBusqueda.reset();
-				//Application.application.editCatalogoBusqueda.getAllCatalogo();
 				this.setVisible(false,false);
-				mens.text = "";
+				this.resetInputs();
 			}
 
 		]]>
@@ -36,9 +77,15 @@
 	<ns1:Precio x="120" y="72" width="161" id="prec">
 	</ns1:Precio>
 	<mx:Label x="25" y="203" text="Descripción:"/>
-	<mx:TextArea x="121" y="202" id="des" maxChars="160" width="277" height="103"/>
+	<mx:TextArea x="121" y="202" id="desc" maxChars="160" width="277" height="103"/>
 	<mx:Label x="25" y="115" text="Categoria:" width="69" />
-	<mx:Label x="25" y="161" text="Codigo barra:" width="88" />
-	<mx:TextInput x="121" y="159"/>
-	<mx:ComboBox x="121" y="113"></mx:ComboBox>
+	<mx:Label x="25" y="161" text="Codigo barra:" width="88"  />
+	<mx:TextInput x="121" y="159" id="cbar" restrict="0-9"/>
+	<mx:ComboBox x="121" y="113" id="cate" >
+		<mx:ArrayCollection>
+	         	<mx:Object label="Alimento" data="a"/>
+	         	<mx:Object label="Medicamento" data="b"/>
+	            <mx:Object label="Otro" data="c"/>
+	    </mx:ArrayCollection>
+	</mx:ComboBox>
 </mx:Panel>
