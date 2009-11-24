@@ -49,9 +49,30 @@ package services
 		/**
 		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos
 		 */ 
+		public function anulAtencion(hora:String, rut:String, nomMascota:String):void
+		{
+			this.getOperation("anulAtencion").send(hora, rut, nomMascota);
+		}
+		/**
+		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos
+		 */ 
+		public function getAllPostOperatorioAnul():void
+		{
+			this.getOperation("getAllPostOperatorioAnul").send();
+		}
+		/**
+		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos
+		 */ 
 		public function getAllPostOperatorio():void
 		{
 			this.getOperation("getAllPostOperatorio").send();
+		}
+		/**
+		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos
+		 */ 
+		public function getAllPostNull(nombreMascota:String, clienterut:String):void
+		{
+			this.getOperation("getAllPostNull").send(nombreMascota,clienterut);
 		}
 		/**
 		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos

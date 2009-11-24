@@ -1,5 +1,5 @@
 <!--@Author Erwin Díaz-->
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  layout="absolute"  width="779" height="466" title="Eliminar Atención Post-Operatorio" borderColor="#15AD8F" >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  layout="absolute"  width="779" height="466" title="Anular Atención Post-Operatorio" borderColor="#15AD8F" >
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -26,10 +26,10 @@
 			
 			
 			/**
-			 * elimina una fila dentro de la tabla
+			 * Anula una fila dentro de la tabla
 			 */
            	private function deleteRow():void {
-			 Alert.show("Está seguro que desea Eliminar la atención ","Confirme Eliminar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			 Alert.show("Está seguro que desea Anular la atención ","Confirme Anular ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
 			}
 			/**
 			 * Es la funcion que es llamada desde el mensaje de confirmación de la tarea
@@ -44,10 +44,9 @@
 			private function removeTaskRecord():void
             {
             	if(tablaAtenciones.selectedItem){
-            		//Alert.show(tablaAtenciones.selectedItem.hora.toString());
             		var elimItem:PostOperatorioService = new PostOperatorioService();
 					elimItem.addEventListener(ResultEvent.RESULT,deleteAtencionResult);
-					elimItem.elimAtencion(tablaAtenciones.selectedItem.shora.toString(),
+					elimItem.anulAtencion(tablaAtenciones.selectedItem.shora.toString(),
 					this.clienterut.text.toString(), this.nomMascota.text.toString());
 					
             	}
@@ -55,7 +54,7 @@
             private function deleteAtencionResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
-				ltexto.text = "Atención eliminada con éxito";
+				ltexto.text = "Atención Anulada con éxito";
 				getAllDatos();
 			}
 
@@ -67,7 +66,7 @@
 			{
 				var visualizarPostoperatorio:PostOperatorioService = new PostOperatorioService();
 				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
-				visualizarPostoperatorio.getAllPostOperatorio2(this.nomMascota.text.toString(),this.clienterut.text.toString());
+				visualizarPostoperatorio.getAllPostNull(this.nomMascota.text.toString(),this.clienterut.text.toString());
 			}	
 			/**
 			 * Obtiene la lista con los objetos desde la base de datos
@@ -112,8 +111,8 @@
 			private function cancelando():void
 			{
 				this.setVisible(false,false);
-				Application.application.PurgarPostOperatorio1.getAllDatos();
-				Application.application.PurgarPostOperatorio1.setVisible(true,false);
+				Application.application.AnulPost.getAllDatos();
+				Application.application.AnulPost.setVisible(true,false);
 			}
 			
          	]]> 
@@ -136,7 +135,7 @@
 			<mx:DataGridColumn width="180" headerText="Observaciones" dataField="observaciones" id="indicaciones" sortable="false" draggable="false"/>
 			</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="523" y="350" label="Eliminar" id="purgarAtenciones" click="{deleteRow()}" toolTip="Elimina la seleccionada" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="523" y="350" label="Anular" id="purgarAtenciones" click="{deleteRow()}" toolTip="Elimina la seleccionada" width="102" height="23" cornerRadius="6"/>
 	<mx:Button x="647" y="350" label="Cancelar" click="cancelando()" id="cancelar" toolTip="Cancela la operación y regresa al panel anterior" width="102" height="23" cornerRadius="6"/>
 	<mx:Label x="24.15" y="62" text="Apellido:" width="78"/>
 	<mx:Label x="24" y="117" text="Atenciones Post-Operatorio" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
