@@ -6,6 +6,7 @@ public class Producto {
 	public String codigo;
 	public String precio;
 	public String categoria;
+	public String descripcion;
 	
 	public String getNombre() {
 		return nombre;
@@ -30,5 +31,12 @@ public class Producto {
 	}
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+	public void setDescripcion(String desc)
+	{
+		this.descripcion = desc;
+	}
+	public String getDescripcion(){
+		return this.descripcion;
 	}
 }
