@@ -139,26 +139,12 @@
             	graficosPeluqueria.setVisible(false,false);            	
             	panel2.setVisible(false,false);
                 panelOpciones.setVisible(false,false);
-				atenRealizadas2.setVisible(false,false);
                 agenda2.setVisible(false,false);
-				pelCatalogo2.setVisible(false,false);
-                pelEstadistica2.setVisible(false,false);
-				pelEstaSave2.setVisible(false,false);
-                pelListaEspera2.setVisible(false,false);
-				pelNewAtencion2.setVisible(false,false);
-                ageNewCita2.setVisible(false,false);
-                cliFindatencion2.setVisible(false,false);
-				cliFindVacuna2.setVisible(false,false);
-                cliNewAtencion2.setVisible(false,false);
 				
                 cliRegistroPO2.setVisible(false,false);
 				cliRegistroPreO2.setVisible(false,false);
-				petVisualVent2.setVisible(false,false);
                 opcionesClinica1.setVisible(false,false); 
                 petOpciones1.setVisible(false,false);
-                petEstadisticasg2.setVisible(false,false);
-            	petVisualVenta2.setVisible(false,false);
-            	
             	AdmOpciones1.setVisible(false,false);
             	AdEditarUsuar2.setVisible(false,false);
             	AdRegistrarRazas2.setVisible(false,false);
@@ -168,9 +154,6 @@
 				AdmIngreso2.setVisible(false,false);        	
             	hotelOpciones.setVisible(false,false);
             	menuAgenda1.setVisible(false,false);
-            	panelDesbloqueo.setVisible(false,false);
-            	cliNewAtention2.setVisible(false,false);
-            	agAviso2.setVisible(false,false);
             	login2.setVisible(false,false);
             	busqueda2.setVisible(false,false);
             	huespedAgregado2.setVisible(false,false);
@@ -276,7 +259,6 @@
 		    	deseliminarPel.setVisible(false,false);
 			anularPre.setVisible(false,false);
 			anularPre2.setVisible(false,false);
-			eliminarweb.setVisible(false,false);
 		 	<!--Autor: }Nicolas -->
 			
 		 		
@@ -454,41 +436,12 @@
 	</ns1:opciones>
 	<ns1:Agenda x="241" y="134" visible="false" id="agenda2">
 	</ns1:Agenda>
-	<ns1:AtencionesRealizadas x="241" y="134" visible="false" id="atenRealizadas2">
-	</ns1:AtencionesRealizadas>
-	<ns1:Catalogos x="241" y="134" visible="false" id="pelCatalogo2">
-	</ns1:Catalogos>
-	<ns1:Estadisticas x="241" y="134" id="pelEstadistica2" visible="false">
-	</ns1:Estadisticas>
-	<ns1:EstadisticasGuardadas x="241" y="134" id="pelEstaSave2" visible="false">
-	</ns1:EstadisticasGuardadas>
-	<ns1:ListaEspera x="241" y="134" id="pelListaEspera2" visible="false">
-	</ns1:ListaEspera>
-	<ns1:NuevaAtencion x="241" y="134" id="pelNewAtencion2" visible="false">
-	</ns1:NuevaAtencion>
-	<ns1:Nueva_Cita x="241" y="134" id="ageNewCita2" visible="false">
-	</ns1:Nueva_Cita>
-	<ns1:PanelBuscarAtencion x="241" y="134" id="cliFindatencion2" visible="false">
-	</ns1:PanelBuscarAtencion>
-	<ns1:PanelBuscarVacuna x="241" y="134" id="cliFindVacuna2" visible="false">
-	</ns1:PanelBuscarVacuna>
-	<ns1:PanelNuevaAtencion x="241" y="134" id="cliNewAtencion2" visible="false">
-	</ns1:PanelNuevaAtencion>
-	<ns1:PanelNuevaAtencion2 x="241" y="134" id="cliNewAtention2" visible="false">
-	</ns1:PanelNuevaAtencion2>
-	
 	<ns1:RegistroPostOperatorio x="241" y="134" id="cliRegistroPO2" visible="false">
 	</ns1:RegistroPostOperatorio>
 	<ns1:RegistroPreOperatorio x="241" y="134" id="cliRegistroPreO2" visible="false">
-	</ns1:RegistroPreOperatorio>	
-	<ns1:VisualizarVenta x="241" y="134" id="petVisualVent2" visible="false">
-	</ns1:VisualizarVenta>
+	</ns1:RegistroPreOperatorio>
 	<ns1:OpcionesClinica x="0" y="134" id="opcionesClinica1" visible="false">
 	</ns1:OpcionesClinica>
-	<ns1:EstadisticasGuardadasventas x="241" y="134" id="petEstadisticasg2" visible="false">
-	</ns1:EstadisticasGuardadasventas>
-	<ns1:VisualizarVenta x="241" y="134" id="petVisualVenta2" visible="false">
-	</ns1:VisualizarVenta>	
 	<ns2:PanelAdministracion x="0" y="134" id="AdmOpciones1" visible="false">
 	</ns2:PanelAdministracion>
 	<ns1:RegistroRazas2 x="241" y="134" id="AdRegistrarRazas2" visible="false">
@@ -524,19 +477,8 @@
 	</mx:TextArea>
 	<ns1:MenuAgenda x="0" y="134" visible="false" id="menuAgenda1">
 	</ns1:MenuAgenda>
-
-
-
     <!--<ns1:EditarCita x="241" y="134" id="editarCita" visible="false">
 	</ns1:EditarCita>-->
-
-
-	<ns1:Bloquearydesbloquear x="241" y="134" id="panelDesbloqueo" visible="false">
-	</ns1:Bloquearydesbloquear>
-	<ns1:Aviso x="241" y="134" id="agAviso2" visible="false">
-	</ns1:Aviso>
-	<ns1:NuevoItem x="440" y="205.4" id="pelNuevoItem" visible="false">
-	</ns1:NuevoItem>
 	<ns1:BusquedaGeneral x="241" y="134" id="busqueda2" visible="false">
 	</ns1:BusquedaGeneral>
 	<ns1:huespedAgregado x="241" y="134" id="huespedAgregado2" visible="false">
@@ -723,8 +665,7 @@
 	</ns1:EliminarRegPeluqueria2>	
 	<ns1:deseliminarPeluqueria x="241" y="134" id="deseliminarPel" visible="false" borderColor="#15AD8F">
 	</ns1:deseliminarPeluqueria>
-      <ns1:Elimarweb x="241" y="134" id="eliminarweb" visible="false" borderColor="#15AD8F">
-	</ns1:Elimarweb>
+	
 	<!--Autor: }nicolas-->
 	
 	<!--Autor: Cristian Bravo{ -->
