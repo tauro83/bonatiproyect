@@ -3,6 +3,7 @@
 	
 	<mx:Script>
         <![CDATA[
+        	import mx.controls.Text;
         	import transferObjects.Usuario;
         
         	//=======================================================================
@@ -557,10 +558,11 @@
 							editPel.veterinariosC.text = sConcat;
 						}
 					}
+					var dat:Date = Tabla.selectedItem.fecha;
 					
-					editPel.fechahoy.selectedDate = Tabla.selectedItem.fecha;
-					
-					
+					editPel.fechahoy.selectedDate = dat;
+					var mes:int = dat.month+1;
+					editPel.fechahoy.text = dat.date+"/"+mes+"/"+dat.fullYear;
 					this.visible = false;
      		  		editPel.descripcionV.text = Tabla.selectedItem.descripcion;
      		  		editPel.setVisible(true,false);
@@ -617,7 +619,7 @@
 			<mx:DataGridColumn headerText="Responsable" dataField="responsable"/>
 			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
-			<mx:DataGridColumn headerText="Fecha" dataField="fecha"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="fecha" visible="false"/>
 			<mx:DataGridColumn headerText="Hora" dataField="hora"/>
 			<mx:DataGridColumn headerText="Costo" dataField="costo" visible="false"/>
 			<mx:DataGridColumn headerText="Descripcion" dataField="descripcion" visible="false"/>

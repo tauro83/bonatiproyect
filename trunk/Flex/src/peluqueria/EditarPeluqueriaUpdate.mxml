@@ -112,9 +112,9 @@
 		    				var newAddServ:AddPeluqueriaService = new AddPeluqueriaService();
 		    				newAddServ.addPeluqueria(newPeluqueria);
 		    				this.setVisible(false,false);
-		    				Application.application.addPelu1.iniciarPanel1();
-		    				Application.application.addPelu1.labelMessage.text="Atención de peluqueria Registrada con éxito.";
-		    				Application.application.addPelu1.setVisible(true,false);
+		    				Application.application.editaPelu.iniciarPanel1();
+		    				Application.application.editaPelu.labelMessage.text="Atención de peluqueria Editada con éxito.";
+		    				Application.application.editaPelu.setVisible(true,false);
 							
 		    			}
 		    					
@@ -332,7 +332,6 @@
 		    	servicios = new ArrayCollection();
 		    	this.serviciosAdds =new Array();
 		    	this.descripcionV.text="";
-				this.fechahoy.selectedDate = null;
 
 		    }
 				

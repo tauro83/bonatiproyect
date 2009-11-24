@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registro Peluqueria" xmlns:fc="http://www.adobe.com/2006/fc">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registro Peluquería" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
         <![CDATA[
         	//=======================================================================
@@ -248,9 +248,7 @@
 					nuevapeluqueria.nombMasc.text=nombre;
 					nuevapeluqueria.clienteRut=this.rutClienteInput.text;
 					nuevapeluqueria.clienteRut2=this.rutClienteDVInput.text;
-					nuevapeluqueria.veterinarios2=this.vetesS;
-					nuevapeluqueria.ayudantes2=this.ayudantesS;
-					nuevapeluqueria.ayudantes3=this.ayudantesS;				
+					nuevapeluqueria.veterinarios2=this.vetesS;			
 					var i:int;
 					var large:int = listCatP.length;
 					
@@ -284,7 +282,6 @@
 				this.inputClienteNombreP.text="";
 				this.inputClienteNombreP.typedText="";
 				editaP=true;
-				this.cargarDatos();
 				this.getTiposVeterinarios();
 				this.getAllCatalogo();
 				this.mascotas=new ArrayCollection();
@@ -393,7 +390,7 @@
 		   				var newCli:Cliente = cliente2P.getItemAt(i,0) as Cliente;
 		   				if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
 		   					this.rutClienteInput.text=newCli.rut.substring(0,8);
-		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
+		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre+" "+newCli.apellido;
 		   					this.nomEnvi = this.inputClienteNombreP.text;
         					this.rutEnvi = this.rutClienteInput.text;
 		   					sacaDigito();
@@ -491,16 +488,7 @@
      			Application.application.panelClinicaPrincipal.setVisible(true,false);
      		}
 			
-			/**
-		   	* Metodo que permite, que la busqueda se realice mediante el ingreso del apellido.
-		 	 * 	@author  "Jimmy Muñoz"
-			*/
-			private function permite():void
-     		{
-     			editaP = true;
-     		}
-     		
-     		
+			     		
      		/**
 		   	* Metodo que quita el focus al rut o al nombre.
 		 	 * 	@author  "Jimmy Muñoz"
