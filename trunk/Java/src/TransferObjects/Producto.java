@@ -8,6 +8,12 @@ public class Producto {
 	public String categoria;
 	public String descripcion;
 	
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -31,12 +37,5 @@ public class Producto {
 	}
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
-	}
-	public void setDescripcion(String desc)
-	{
-		this.descripcion = desc;
-	}
-	public String getDescripcion(){
-		return this.descripcion;
 	}
 }
