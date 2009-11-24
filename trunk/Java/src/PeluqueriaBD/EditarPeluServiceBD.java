@@ -2,6 +2,7 @@ package PeluqueriaBD;
 
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -104,6 +105,7 @@ public class EditarPeluServiceBD
     			if(rutCliente.equals(result.getString(3).substring(0, 8)) && nombreMascota.equals(result.getString(4)) ){
     			  
     				//servicio, nombre, clienterut, mascotanombre, hora, 
+    				Date fecha;
     				Peluqueria pelu= new Peluqueria();
     				pelu.setServicio(result.getString(1));
     				pelu.setNombre(result.getString(2));
@@ -111,7 +113,8 @@ public class EditarPeluServiceBD
     				pelu.setNombreMascota(result.getString(4));
     				pelu.setHora(result.getString(5));
     				pelu.setResponsable(result.getString(6));
-    				pelu.setFecha(result.getDate(7));
+    				fecha = result.getDate(7);
+    				pelu.setFecha(fecha);
     				pelu.setCosto(result.getString(8));
     				pelu.setDescripcion(result.getString(9));
     			  
