@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Peluqueria" xmlns:ns1="*">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Peluquería" xmlns:ns1="*">
 	<mx:Script>
         <![CDATA[
         	
@@ -41,10 +41,6 @@
 			public var hora:String;
 			[Bindable]
 			public var veterinarios2:ArrayCollection;
-			[Bindable]
-			public var ayudantes2:ArrayCollection;
-			[Bindable]
-			public var ayudantes3:ArrayCollection;
 			[Bindable]
 			public var tiposServ1:Array;
 
@@ -331,8 +327,6 @@
 		    	this.fechahoy.text="";
 		    	this.Servicios1.doubleClickEnabled=true;
 		    	this.tiposServ1 = new Array();
-		    	this.ayudantes2 = new ArrayCollection();
-		    	this.ayudantes3 = new ArrayCollection();
 		    	this.veterinarios2 =new ArrayCollection();
 		    	servicios = new ArrayCollection();
 		    	this.serviciosAdds =new Array();
