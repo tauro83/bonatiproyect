@@ -3,6 +3,13 @@
 	
 	<mx:Script>
         <![CDATA[
+        
+        	//=======================================================================
+			// FECHA: CREACIÓN: 22 Noviembre
+			// AUTOR: Sebastian Arancibia
+			// Panel de registro de pago, dentro de esta se pueden realizar 
+			// los pagos con el detalle necesario
+			//=======================================================================
 	 ]]>
        
     </mx:Script>
