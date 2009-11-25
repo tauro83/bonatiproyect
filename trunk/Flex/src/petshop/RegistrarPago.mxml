@@ -10,10 +10,17 @@
 			// Panel de registro de pago, dentro de esta se pueden realizar 
 			// los pagos con el detalle necesario
 			//=======================================================================
+			import mx.core.Application;
+			
+			public function cancelar():void{
+				this.visible = false;
+				Application.application.panelPetshop.visible = true;
+				
+			}
 	 ]]>
        
     </mx:Script>
-	<mx:DataGrid x="19" y="35" width="718" height="285">
+	<mx:DataGrid x="19" y="45" width="718" height="275">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Código" dataField="codigo" width="80"/>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre" width="120"/>
@@ -22,11 +29,13 @@
 			<mx:DataGridColumn headerText="Subtotal" dataField="subtotal" width="70"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Label x="19" y="9" text="Detalle Producto:" fontWeight="bold"/>
+	<mx:Label x="19" y="19" text="Detalle Producto:" fontWeight="bold"/>
 	<mx:Label x="627" y="328" text="Total:" fontWeight="bold"/>
-	<mx:Button x="662" y="357" label="Cancelar"/>
+	<mx:Button x="662" y="357" label="Cancelar" click="cancelar()"/>
 	<mx:Button x="590" y="357" label="Pagar"/>
 	<mx:Label x="668" y="328" text="$0.000.000" width="69"/>
 	<mx:Label x="167" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="520" y="19" text="Código:"/>
+	<mx:TextInput x="577" y="17"/>
 	
 </mx:Panel>
