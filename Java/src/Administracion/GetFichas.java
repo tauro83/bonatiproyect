@@ -49,9 +49,7 @@ public class GetFichas {
 		 */
 		public Cliente getCliente(String rut)
 		{
-			Cliente c = new Cliente();
-			c.setNombre("defecto");
-		
+			Cliente c = new Cliente();		
 		try 
 			{
 	    		connection=DBConnectionManager.getConnection();
