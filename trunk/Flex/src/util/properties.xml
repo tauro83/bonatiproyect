@@ -6,15 +6,15 @@
 				<mensaje key="2">Cliente no registrado</mensaje>
 				<mensaje key="3">Mascota no registrada</mensaje>
 				<mensaje key="4">El Rut que ha ingresado es incorrecto</mensaje>
-				<mensaje key="5">Los emails no son iguales, ingreselos nuevamente</mensaje>
-				<mensaje key="6">Las contraseñas no coinciden, ingresela nuevamente</mensaje>
+				<mensaje key="5">Los emails no son iguales, ingr&#233;selos nuevamente</mensaje>
+				<mensaje key="6">Las contrase&#241;as no coinciden, ingr&#233;sela nuevamente</mensaje>
 				<mensaje key="7">Corrija los datos antes de registrar</mensaje>
 				<mensaje key="8">Usuario previamente registrado, elija otro nombre de usuario</mensaje>
 				<mensaje key="9">Error al eliminar Cita</mensaje>
 				<mensaje key="10">Error al eliminar Mascota</mensaje>
 				<mensaje key="11">Error al purgar Mascota</mensaje>
 				<mensaje key="12">Error al restaurar Mascota</mensaje>
-				<mensaje key="13">Cita previamente, cambie los parametros</mensaje>
+				<mensaje key="13">Cita previamente, cambie los par&#225;metros</mensaje>
 				<mensaje key="14">Cliente previamente registrado</mensaje>
 				<mensaje key="15">Registro no modificado</mensaje>
 				<mensaje key="16">El servicio no puede ser modificado</mensaje>
@@ -26,20 +26,20 @@
 			<mensajes>
 				<mensaje key="1">No tiene permisos suficientes</mensaje>
 				<mensaje key="2">Seleccione un Usuario para editar</mensaje>
-				<mensaje key="3">No ha ingresado información en todos los campos</mensaje>
-				<mensaje key="4">Ingrese un nombre más largo</mensaje>
-				<mensaje key="5">Ingrese un apellido más largo</mensaje>
-				<mensaje key="6">Ingrese un Apellido Paterno mas largo</mensaje>
-				<mensaje key="7">Ingrese un Apellido Materno mas largo</mensaje>
-				<mensaje key="8">Ingrese un nombre de usuario más largo</mensaje>
-				<mensaje key="9">Ingrese una contraseña que coincida con la anterior</mensaje>
-				<mensaje key="10">Ingrese dirección más larga</mensaje>
+				<mensaje key="3">No ha ingresado informaci&#243;n en todos los campos</mensaje>
+				<mensaje key="4">Ingrese un nombre m&#225;s largo</mensaje>
+				<mensaje key="5">Ingrese un apellido m&#225;s largo</mensaje>
+				<mensaje key="6">Ingrese un Apellido Paterno m&#225;s largo</mensaje>
+				<mensaje key="7">Ingrese un Apellido Materno m&#225;s largo</mensaje>
+				<mensaje key="8">Ingrese un nombre de usuario m&#225;s largo</mensaje>
+				<mensaje key="9">Ingrese una contrase&#241;a que coincida con la anterior</mensaje>
+				<mensaje key="10">Ingrese dirección m&#225;s larga</mensaje>
 				<mensaje key="11">Ingrese un nombre de usuario sin espacios en blanco y mas largo</mensaje>
-				<mensaje key="12">Ingrese una contraseña mas larga y sin espacios en blanco</mensaje>
-				<mensaje key="13">Seleccione un servicio específico para poder Agendar</mensaje>
+				<mensaje key="12">Ingrese una contrase&#241;a mas larga y sin espacios en blanco</mensaje>
+				<mensaje key="13">Seleccione un servicio espec&#237;fico para poder Agendar</mensaje>
 				<mensaje key="14">Seleccione un elemento</mensaje>
 				<mensaje key="15">Ingrese una fecha inicio anterior a la actual</mensaje>
-				<mensaje key="16">La fecha de inicio, debe ser anterior a la fecha de término</mensaje>
+				<mensaje key="16">La fecha de inicio, debe ser anterior a la fecha de t&#233;rmino</mensaje>
 				<mensaje key="17">Ingrese Solamente Letras</mensaje>
 				<mensaje key="18">Ingrese Solamente Numeros</mensaje>
 				<mensaje key="19">Ingrese Email Correctamente</mensaje>
@@ -52,18 +52,18 @@
 				<mensaje key="26">Ingrese un Servicio antes de registrar</mensaje>
 				<mensaje key="27">Ingrese una especie antes de registrar</mensaje>				
 				<mensaje key="28">Ingrese una fecha inicio anterior a la actual</mensaje>				
-				<mensaje key="29">Ingrese una fecha de inicio, anterior a la fecha de término</mensaje>
+				<mensaje key="29">Ingrese una fecha de inicio, anterior a la fecha de t&#233;rmino</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="Pregunta">
 			<mensajes>
 				<mensaje key="1">Confirme eliminación</mensaje>
 				<mensaje key="2">Confirme purgar</mensaje>
-				<mensaje key="3">¿Está seguro que desea eliminar Cliente?</mensaje>
-				<mensaje key="4">¿Está seguro que desea eliminar Usuario?</mensaje>
-				<mensaje key="5">¿Está seguro que desea purgar Mascota?</mensaje>
-				<mensaje key="6">¿Está seguro que desea purgar Usuario?</mensaje>
-				<mensaje key="7">¿Está seguro que desea reactivar Usuario?</mensaje>
+				<mensaje key="3">¿Est&#225; seguro que desea eliminar Cliente?</mensaje>
+				<mensaje key="4">¿Est&#225; seguro que desea eliminar Usuario?</mensaje>
+				<mensaje key="5">¿Est&#225; seguro que desea purgar Mascota?</mensaje>
+				<mensaje key="6">¿Est&#225; seguro que desea purgar Usuario?</mensaje>
+				<mensaje key="7">¿Est&#225; seguro que desea reactivar Usuario?</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="Informacion">
@@ -88,7 +88,7 @@
 				<mensaje key="18">No se ha editado el usuario</mensaje>
 				<mensaje key="19">Se han realizado los cambios exitosamente</mensaje>
 				<mensaje key="20">Ha cancelado la edición de datos</mensaje>
-				<mensaje key="21">Estadísticas por rango de fecha para Clinica</mensaje>
+				<mensaje key="21">Estad&#237;sticas por rango de fecha para Cl&#237;nica</mensaje>
 				<mensaje key="22">Se ha editado el Catalogo exitosamente</mensaje>
 				<mensaje key="23">Se ha editado el Registro exitosamente</mensaje>
 				<mensaje key="24">Se ha registrado el Producto exitosamente</mensaje>
