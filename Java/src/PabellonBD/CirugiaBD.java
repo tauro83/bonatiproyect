@@ -38,7 +38,8 @@ public class CirugiaBD {
 			
 			query = "SELECT clienterut, mascotanombre, hora, " +
 					"diagnostico, responsable, servicio, estado, fecha " +
-					"FROM cirugia;";
+					"FROM cirugia " +
+					"WHERE estado = 0;";
 			selectAllCirugias = connection.prepareStatement(query);
 			
 			queryCliente = "SELECT nombre, apaterno "+
@@ -86,7 +87,6 @@ public class CirugiaBD {
 	    			
 		    		ciru.setClienteRut(result.getString(1).trim());
 		    		ciru.setMascotaNombre(result.getString(2).trim());
-		    		ciru.setEstado(result.getString(7).trim());
 	    			
 	    			selectAllMascotas.setString(2, ciru.getClienteRut());
 	    			selectAllMascotas.setString(1, ciru.getMascotaNombre());
@@ -106,10 +106,8 @@ public class CirugiaBD {
 	    				clie.setApellido(cliente.getString(2).trim());
 	    				ciru.setClienteApellido(clie.getApellido());
 	    			}
-	    			if(ciru.getEstado().equals("0"))
-	    			{
-	    				cirugias.add(ciru);	
-	    			}
+
+	    			cirugias.add(ciru);	
 	    		}
 			} 
 	    	catch (SQLException e) 
@@ -142,14 +140,12 @@ public class CirugiaBD {
 	    			ciru.setDiagnostico(result.getString(4).trim());
 	    			ciru.setVeterinario(result.getString(5).trim());
 	    			ciru.setServicio(result.getString(6).trim());
-	    			ciru.setEstado(result.getString(7).trim());
 	    			ciru.setFecha(result.getString(8).trim());
 
 	    			String rut2 = ciru.getClienteRut();
 	    			String nombre2 = ciru.getMascotaNombre();
-	    			String estado2 = ciru.getEstado();
 	    			
-	    			if(rut2.equals(rut) && estado2.equals("0") && nombre2.equals(nombre))
+	    			if(rut2.equals(rut) && nombre2.equals(nombre))
 	    			{
 	    				cirugias.add(ciru);
 	    			}
@@ -173,7 +169,7 @@ public class CirugiaBD {
 	 {
 		 int result = 0;
 		 try {
-			setEstado.setString(1, "2");
+			setEstado.setInt(1, 2);
 			setEstado.setString(2, nombre);
 			setEstado.setString(3, fecha);
 			setEstado.setString(4, hora);
@@ -197,7 +193,7 @@ public class CirugiaBD {
 	 {
 		 int result = 0;
 		 try {
-			setEstado.setString(1, "1");
+			setEstado.setInt(1, 1);
 			setEstado.setString(2, nombre);
 			setEstado.setString(3, fecha);
 			setEstado.setString(4, hora);

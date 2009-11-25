@@ -16,14 +16,7 @@ public class CatPeluqueria {
 	public String nombre;
 	public String precio;
 	public String descripcion;
-	private String estado;
-    /**
-     * @return obtiene el estado del catálogo
-     * 
-     */
-	 public String getEstado() {
-			return estado;
-	 }
+
 	/**
 	 * 
 	 * @return nombre Nombre tipo de servicio del catálogo
@@ -80,10 +73,6 @@ public class CatPeluqueria {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
-	public void setEstado(String estado) {
-		this.estado = estado;
-    }
 
 	
 }

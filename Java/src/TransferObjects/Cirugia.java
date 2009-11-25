@@ -11,7 +11,6 @@ public class Cirugia {
 	private String clienteApellido;
 	private String mascotaSexo;
 	private String mascotaRaza;
-	private String estado;
 	private String servicio;
 	private String mascotaNombre;
 	private String hora;
@@ -25,9 +24,6 @@ public class Cirugia {
 	private String diagnostico;
 	private List<String> tiposCirugias;
 	
-	public String getEstado() {
-		return estado;
-	}
 	public String getMascotaRaza() {
 		return mascotaRaza;
 	}
@@ -57,9 +53,6 @@ public class Cirugia {
 	}
 	public void setMascotaSexo(String mascotaSexo) {
 		this.mascotaSexo = mascotaSexo;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
 	}
 	public void setClienteRut(String clienteRut) {
 		this.clienteRut = clienteRut;

@@ -17,13 +17,9 @@ public class Vacunacion {
 	private String costo;
 	private String veterinario;
 	private String descripcion;
-	private String estado;
 	private String servicio;
 	private List<String> tiposVacunas;
 	
-	public String getEstado() {
-		return estado;
-	}
 	public String getFechaS() {
 		return fechaS;
 	}
@@ -59,9 +55,6 @@ public class Vacunacion {
 	}
 	public void setMascotaSexo(String mascotaSexo) {
 		this.mascotaSexo = mascotaSexo;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
 	}
 	public void setClienteRut(String clienteRut) {
 		this.clienteRut = clienteRut;

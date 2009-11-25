@@ -38,7 +38,8 @@ public class VacunacionBD {
 			
 			query = "SELECT clienterut, mascotanombre, hora, " +
 					"descripcion, responsable, servicio, estado, fecha " +
-					"FROM vacunacion;";
+					"FROM vacunacion " +
+					"WHERE estado = 0;";
 			selectAllVacunaciones = connection.prepareStatement(query);
 			
 			queryCliente = "SELECT nombre, apaterno "+
@@ -86,7 +87,6 @@ public class VacunacionBD {
 	    			
 	    			vacu.setClienteRut(result.getString(1).trim());
 	    			vacu.setMascotaNombre(result.getString(2).trim());
-	    			vacu.setEstado(result.getString(7).trim());
 	    			
 	    			selectAllMascotas.setString(2, vacu.getClienteRut());
 	    			selectAllMascotas.setString(1, vacu.getMascotaNombre());
@@ -106,10 +106,8 @@ public class VacunacionBD {
 	    				clie.setApellido(cliente.getString(2).trim());
 	    				vacu.setClienteApellido(clie.getApellido());
 	    			}
-	    			if(vacu.getEstado().equals("0"))
-	    			{
-	    				vacunaciones.add(vacu);	
-	    			}
+	    			
+	    			vacunaciones.add(vacu);	
 	    		}
 			} 
 	    	catch (SQLException e) 
@@ -142,14 +140,12 @@ public class VacunacionBD {
 	    			vacu.setDescripcion(result.getString(4).trim());
 	    			vacu.setVeterinario(result.getString(5).trim());
 	    			vacu.setServicio(result.getString(6).trim());
-	    			vacu.setEstado(result.getString(7).trim());
 	    			vacu.setFechaS(result.getString(8).trim());
 
 	    			String rut2 = vacu.getClienteRut();
 	    			String nombre2 = vacu.getMascotaNombre();
-	    			String estado2 = vacu.getEstado();
 	    			
-	    			if(rut2.equals(rut) && estado2.equals("0") && nombre2.equals(nombre))
+	    			if(rut2.equals(rut) && nombre2.equals(nombre))
 	    			{
 	    				vacunaciones.add(vacu);
 	    			}
@@ -173,7 +169,7 @@ public class VacunacionBD {
 	 {
 		 int result = 0;
 		 try {
-			setEstado.setString(1, "2");
+			setEstado.setInt(1, 2);
 			setEstado.setString(2, nombre);
 			setEstado.setString(3, fecha);
 			setEstado.setString(4, hora);
@@ -197,7 +193,7 @@ public class VacunacionBD {
 	 {
 		 int result = 0;
 		 try {
-			setEstado.setString(1, "1");
+			setEstado.setInt(1, 1);
 			setEstado.setString(2, nombre);
 			setEstado.setString(3, fecha);
 			setEstado.setString(4, hora);
