@@ -19,6 +19,7 @@
 				<mensaje key="15">Registro no modificado</mensaje>
 				<mensaje key="16">El servicio no puede ser modificado</mensaje>
 				<mensaje key="17">El nombre no puede ser modificado</mensaje>
+				<mensaje key="18">El nombre de usuario ha sido previamente registrado</mensaje>
 			</mensajes>
 		</tipoMensaje>	
 		<tipoMensaje name="Advertencia">
@@ -49,6 +50,9 @@
 				<mensaje key="24">Ingrese todos los datos solicitados antes de registrar</mensaje>
 				<mensaje key="25">Ingrese un Cargo antes de registrar</mensaje>
 				<mensaje key="26">Ingrese un Servicio antes de registrar</mensaje>
+				<mensaje key="27">Ingrese una especie antes de registrar</mensaje>				
+				<mensaje key="28">Ingrese una fecha inicio anterior a la actual</mensaje>				
+				<mensaje key="29">Ingrese una fecha de inicio, anterior a la fecha de término</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="Pregunta">
@@ -94,6 +98,8 @@
 				<mensaje key="28">Se ha registrado el Cargo exitosamente</mensaje>
 				<mensaje key="29">Se ha registrado el Servicio exitosamente</mensaje>				
 				<mensaje key="30">Se ha eliminado el Servicio exitosamente</mensaje>
+				<mensaje key="31">Se ha registrado la Especie exitosamente</mensaje>							
+				<mensaje key="32">Se ha eliminado la Especie exitosamente</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="ToolTip">
