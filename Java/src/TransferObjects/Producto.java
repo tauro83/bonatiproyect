@@ -1,3 +1,9 @@
+//=======================================================================
+// FECHA CREACIÓN: 24/11/09
+// AUTOR: Esteban Cruz
+// DESCRIPCION: TransferObject que se encarga de recibir los datos
+//=======================================================================
+
 package TransferObjects;
 
 public class Producto {
