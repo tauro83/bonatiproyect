@@ -96,8 +96,8 @@
  			private function cancelando():void{
 				this.setVisible(false,false);
 				txt.text="";
-				Application.application.EditarPostO.setVisible(true,false);
-				Application.application.EditarPostO.iniData();
+				Application.application.editarPostO.setVisible(true,false);
+				Application.application.editarPostO.iniData();
 			}
          	]]> 
  	</mx:Script>

@@ -71,7 +71,7 @@
 			private function cancelando():void
 			{
 				this.setVisible(false,false);
-				Application.application.panel2.setVisible(true,false);
+				Application.application.panelClinicaIni.setVisible(true,false);
 			}
 			/**
 			 *Cambia el formato de la fecha para una mejor lectura del datagrid
