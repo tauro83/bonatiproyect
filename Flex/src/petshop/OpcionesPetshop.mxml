@@ -36,21 +36,23 @@
 				 Application.application.editProducto.visible = true;	
 				 Application.application.editProducto.limpiarTodo();  			 
 			}
-			
+
 			public function verAnuPago():void
 			{
 				 Application.application.setInvisible();
 				 this.visible = true;
+				 Application.application.anuPago.resetVar();
+				 Application.application.anuPago.getAllPagos();
 				 Application.application.anuPago.visible = true; 			 
 			}
-			
 			public function verElimPago():void
 			{
 				 Application.application.setInvisible();
 				 this.visible = true;
+				 Application.application.anuPago.resetVar();
+				 Application.application.elimPago.getAllPagos();
 				 Application.application.elimPago.visible = true;  			 
 			}
-			
 			public function verActPago():void
 			{
 				 Application.application.setInvisible();
