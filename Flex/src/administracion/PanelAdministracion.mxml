@@ -77,6 +77,7 @@
          {
          	Application.application.setInvisible();
          	this.visible = true;
+         	Application.application.AdRegUsuario2.iniciar();
          	Application.application.AdRegUsuario2.resetVars();
           	Application.application.AdRegUsuario2.visible = true;
          }
