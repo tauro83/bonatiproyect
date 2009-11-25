@@ -24,7 +24,6 @@ package transferObjects
 		public var veterinario:String;
 		public var descripcion:String;
 		public var tiposVacunas:ArrayCollection;
-		public var estado:String;
 		public var clienteNombre:String;
 		public var clienteApellido:String;
 		public var mascotaRaza:String;

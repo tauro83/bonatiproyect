@@ -25,6 +25,5 @@ package transferObjects
 		public var nombre:String;
 		public var precio:String;
 		public var descripcion:String;
-		public var estado:String;
 	}
 }

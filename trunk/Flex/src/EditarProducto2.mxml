@@ -18,20 +18,20 @@
         import mx.rpc.events.ResultEvent;	
     
     	[Bindable]
-		private var vacunaciones:ArrayCollection;
+		private var productos:ArrayCollection;
 	
 		/**
 		* Se toma el objeto producto con sus respectivos 
 		* datos, y se insertan en los campos correspondientes
 		* @author Esteban Cruz
 		*/
-		public function setDatos(vacu:Producto):void
+		public function setDatos(prod:Producto):void
 		{
-        	nomb.text=vacu.nombre;
-        	des.text=vacu.descripcion;
-        	prec.text=vacu.precio;
-        	cat.text=vacu.categoria;
-        	cod.text=vacu.codigo;
+        	nomb.text=prod.nombre;
+        	des.text=prod.descripcion;
+        	prec.text=prod.precio;
+        	cat.text=prod.categoria;
+        	cod.text=prod.codigo;
      	}
      
      	/**
@@ -55,9 +55,9 @@
 				/**
 				 * Se llama a la función
 				 */ 
-				var editHoteleriaService:editarProducto1 = new editarProducto1();
-				editHoteleriaService.addEventListener(ResultEvent.RESULT,editProductoResult);
-				editHoteleriaService.modificarProducto(p.descripcion,p.categoria,p.precio,p.nombre,p.codigo);
+				var editProductoService:editarProducto1 = new editarProducto1();
+				editProductoService.addEventListener(ResultEvent.RESULT,editProductoResult);
+				editProductoService.modificarProducto(p.descripcion,p.categoria,p.precio,p.nombre,p.codigo);
 							
 		}
 		
@@ -86,7 +86,6 @@
 			 */ 
 			else{
 			   mens.text = "Registro no modificado";
-			      //labelMessage.text = Properties.getMensaje("Error", "15");
 			   } 	
 			}
 		/**
@@ -108,8 +107,8 @@
     
 	<mx:TextInput x="120" y="33" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="nomb"  enabled="true" maxChars="20"/>
 	<mx:Label x="25" y="35" text="Nombre:" width="69" />
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="632" label="Cancelar" y="353" id="volver" click="Actionvolver()" />
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="522" label="Editar" y="353" click="guardarProducto()"/>
+	<mx:Button width="102" height="25" x="632" label="Cancelar" y="353" id="volver" click="Actionvolver()" />
+	<mx:Button width="102" height="25" x="522" label="Editar" y="353" click="guardarProducto()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	<mx:Label x="25" y="72" text="Precio:"/>
 	<mx:Label x="25" y="203" text="Descripción:"/>
@@ -121,8 +120,11 @@
 			<mx:ArrayCollection>
 			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Comida"/>
-			<mx:Object label="Juguetes"/>			
+			<mx:Object label="Ropa"/>
+			<mx:Object label="Juguetes"/>	
+			<mx:Object label="Accesorios"/>			
 			<mx:Object label="Medicamento"/>
+			<mx:Object label="Otros"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
 	<mx:TextInput x="120" y="70" width="163" id="prec"/>
