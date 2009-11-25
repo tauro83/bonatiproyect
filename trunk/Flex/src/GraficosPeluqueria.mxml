@@ -7,7 +7,7 @@
 		// AUTOR: Camilo Verdugo
 		// Componente que tiene un grafico  y muestra las estadisticas de Peluqueria
 		//=======================================================================
-		
+		import util.Properties; 
 		import mx.messaging.channels.StreamingAMFChannel;
 		import mx.collections.ArrayCollection;
 		import mx.rpc.events.ResultEvent;
@@ -82,11 +82,13 @@
 					     mens.text = "";  
 					}else
 					{
-						 mens.text = "Ingrese una fecha inicio anterior a la actual"; 
+						 mens.text = Properties.getMensaje("Advertencia", "28");
+						 // "Ingrese una fecha inicio anterior a la actual"; 
 					}
 				}
 				else{
-					mens.text ="La fecha de inicio, debe ser anterior a la fecha de término";
+					mens.text = Properties.getMensaje("Advertencia", "29");
+					//"La fecha de inicio, debe ser anterior a la fecha de término";
 				}
 			}
 		}

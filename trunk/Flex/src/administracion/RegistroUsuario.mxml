@@ -7,7 +7,7 @@
 			// AUTOR: Camilo Verdugo
 			// Comentarios: Formulario y validacion del registro de un usuario de sistema
 			//=======================================================================
-		
+			import util.Properties;
 			import mx.events.FlexMouseEvent;
 			import mx.controls.Text;
 			import mx.controls.Alert;
@@ -56,7 +56,8 @@
 				}
 				else
 				{
-					mens.text = "Corrija los datos antes de registrar";
+					mens.text = Properties.getMensaje("Error", "7");
+					//"Corrija los datos antes de registrar";
 				}			
 			}
 			
@@ -129,7 +130,8 @@
 				else
 				{
 					vNombre		= false;
-					mens.text = "Ingrese un nombre más largo";
+					mens.text =  Properties.getMensaje("Advertencia", "4");
+					//"Ingrese un nombre más largo";
 				}	
 			}
 			
@@ -147,7 +149,8 @@
 				else
 				{
 					vUsuario	= false;
-					mens.text =  "Ingrese un nombre de usuario más largo";
+					mens.text =  Properties.getMensaje("Advertencia", "8");
+					//"Ingrese un nombre de usuario más largo";
 				}
 				
 			}
@@ -166,7 +169,8 @@
 				else
 				{
 					vContrasena	= false;
-					mens.text = "Ingrese una contraseña sin espacios en blanco y más larga";
+					mens.text = Properties.getMensaje("Advertencia", "12");
+					//"Ingrese una contraseña sin espacios en blanco y más larga";
 				}	
 				
 			}
@@ -185,7 +189,8 @@
 				else
 				{
 					vRContrasena = false;	
-					mens.text = "Ingrese una contraseña que coincida con la anterior"		
+					mens.text =  Properties.getMensaje("Advertencia", "9");
+					//"Ingrese una contraseña que coincida con la anterior"		
 				}
 			}
 			
@@ -234,7 +239,8 @@
 				else
 				{
 					vApaterno = false;	
-					mens.text = "Ingrese un apellido paterno más largo";			
+					mens.text = Properties.getMensaje("Advertencia", "6");
+					//"Ingrese un apellido paterno más largo";			
 				}
 			}
 			
@@ -248,11 +254,13 @@
 				var message:String= event.result as String;	
 				var msj:String = "";
 				if(message=="1"){
-					msj = nomb.text + " "+ apat.text+" fue Registrado";
+					msj = Properties.getMensaje("Informacion", "5");
+					//Se ha registrado el usuario
 				 	resetVars(); 					
     		 	}
 				else{
-					msj = "Usuario previamente registrado, elija otro nombre de usuario";			
+					msj = Properties.getMensaje("Error", "18");
+					//"Usuario previamente registrado, elija otro nombre de usuario";			
 				}		
 				mens.text = msj;	
 			}	
