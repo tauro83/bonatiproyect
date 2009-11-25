@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Anular Pago" xmlns:ns1="com.adobe.flex.extras.controls.*"  xmlns:ns2="util.*">
+  <mx:Script>
+	 <![CDATA[
+	 
+	 	import services.AddMascotaService;
+        	import mx.controls.DateField;
+        	import mx.controls.Alert;
+            import mx.collections.ArrayCollection;
+        	import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.ValidationResultEvent;            
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
+		    import mx.rpc.events.ResultEvent;
+			import mx.controls.Image;
+			import services.MascotaService;
+		    import transferObjects.Mascota;
+		    import services.PersonService;
+		    import transferObjects.Person;
+		    import transferObjects.Cirugia;
+		    import mx.core.Application;
+		    import pabellon.AddCirugiaService;
+			
+	 	  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha   12/09/2009
+			 *  @Descripción Metodo que cancela la operacion de editar una mascota
+			 */
+			
+			  private function cancelarAction():void{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+			
+				  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha   12/09/2009
+			 *  @Descripción Metodo que cancela la operacion de editar una mascota
+			 */
+			
+			  private function editando():void{
+				this.setVisible(false,false);
+				Application.application.editarPago2.setVisible(true,false);
+			}
+			
+			/**
+			* Este metodo se encarga de borrar todo los registro de peluquería seleccionado
+			* por el usuario, los cuales pueden ser uno o mas, para la eliminación de un 
+			* registro de peluquería se debera enviar la hora que definira como identificador
+			* unico.
+			*/
+         	private function selectAll():void{
+                /*var allRows:int = vacunaciones.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        vacunaciones[i].sel = true;
+                    else
+                        vacunaciones[i].sel = false;
+                }
+                tablaVacunaciones.dataProvider = vacunaciones;*/
+            }
+            
+            	/**
+			* Este metodo se encarga de mostrar un pop-up que señala la acción 
+			* eliminar un registro de peluquería que están seleccionadas
+			* en el grid.
+			*/
+            private function anularAction():void{
+			    Alert.show("¿Está seguro que desea anular el registro(s) de pago? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+       
+			
+            }
+            
+            /**
+			* Una vez seleccionado SÍ o NO en el mensaje
+			* se llama a la función que eliminar por si el usuario esta seguro
+			* si desea eliminar el registro de la peluquería. 
+			*/
+			private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+			
+			/**
+			* Este metodo se encarga de borrar todo los registro de peluquería seleccionado
+			* por el usuario, los cuales pueden ser uno o mas, para la eliminación de un 
+			* registro de peluquería se debera enviar la hora que definira como identificador
+			* unico.
+			*/
+			private function removeTaskRecord():void
+            {
+                /*var allRows:int = vacunaciones.length;
+                var vacu:anuPeluqueria= new anuPeluqueria();
+                
+                for (var i:int = 0; i < allRows; i++){
+                    if (vacunaciones[i].sel)
+                	{
+                        vacu = vacunaciones[i] as anuPeluqueria;
+                        eliminar(vacu.estado,vacu.nombreMascota,vacu.hora);
+                       
+                        vacunaciones.removeItemAt(i);
+                        allRows = vacunaciones.length;
+                        tablaVacunaciones.dataProvider = vacunaciones;
+                        i=-1;
+                    }   
+                }*/
+                labelMessage.text="Registro(s) de pago anulado";              
+            }
+			
+       ]]>
+    </mx:Script>     
+	
+	<mx:DataGrid x="25" y="72" width="709" height="265">
+
+		<mx:columns>
+			<mx:DataGridColumn width="10" headerText="" dataField="checkbox" id="checkbox" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>
+			<mx:DataGridColumn headerText="Fecha" dataField="fecha" width="80"/>
+			<mx:DataGridColumn headerText="Hora" dataField="hora" width="120"/>
+			<mx:DataGridColumn headerText="Total" dataField="total" width="70"/>
+		</mx:columns>
+	</mx:DataGrid>
+<mx:Button x="632" y="353" label="Cancelar" width="102" id="cancelar" visible="true" click="{cancelarAction()}" height="23"/>
+	<mx:Button x="522" y="353" label="Anular" width="102" id="anular" visible="true" click="{anularAction()}" height="23"/>
+	<mx:Label x="167" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:ComboBox x="120" y="7"></mx:ComboBox>
+	<mx:CheckBox x="25" y="46" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
+	<mx:Label x="45" y="46" text="Seleccionar todo"/>
+	<mx:Text x="25" y="9" id="textFiltrar" text="Filtrar por"/>
+</mx:Panel>
