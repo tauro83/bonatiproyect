@@ -10,7 +10,7 @@ package Petshop;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import Petshop.Producto;
+import TransferObjects.Producto;
 import Petshop.PetshopBD;
 import Bd.DBConnectionManager;
 
