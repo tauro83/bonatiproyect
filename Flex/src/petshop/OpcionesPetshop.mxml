@@ -59,6 +59,20 @@
 				 this.visible = true;
 				 Application.application.activarPago.visible = true;  			 
 			}
+			public function anularProducto():void{
+			     Application.application.setInvisible();
+			     this.visible = true;
+			     Application.application.eliminarPulgarProducto.visible = true;
+			     Application.application.eliminarPulgarProducto.currentState = 'PurgarRestaurar';
+			}
+			public function anulaRestauraProducto():void{
+			     Application.application.setInvisible();
+			     this.visible = true;
+			     Application.application.eliminarPulgarProducto.visible = true;
+			     Application.application.eliminarPulgarProducto.currentState = '';
+			       
+			
+			}
 			
 		]]>
 	</mx:Script>
@@ -74,6 +88,8 @@
 		<mx:Canvas label="Producto" width="100%" height="100%">
 			<mx:LinkButton x="50" y="10" label="Registrar" click="regProducto()"/>
 			<mx:LinkButton x="50" y="40" label="Editar" click="ediProducto()"/>
+			<mx:LinkButton x="50" y="100" label="Purgar" click="anularProducto()"/>
+			<mx:LinkButton x="50" y="70" label="Eliminar" click="{anulaRestauraProducto()}"/>
 		</mx:Canvas>
 	    </mx:Accordion>
 		
