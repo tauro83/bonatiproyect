@@ -15,6 +15,7 @@
 			import services.configuracionServices;
 			import transferObjects.Configuracion;
 			import mx.controls.Alert;
+			import util.Properties; 
 			[Bindable]private var especies:ArrayCollection;
 			private var confs:configuracionServices= new configuracionServices();
 		
@@ -84,9 +85,11 @@
 				if(nombre.length>0 && existeNombre(nombre)==false){
 					confs.regConfiguracion("Especie", especieInput.text);
 					this.cargarDatos();
-					ltexto.text = "Especie registrada exitosamente";
+					ltexto.text = Properties.getMensaje("Informacion", "31");
+					//"Especie registrada exitosamente";
 				}else{
-					ltexto.text = "Ingrese una especie antes de registrar";
+					ltexto.text = Properties.getMensaje("Advertencia", "27");
+					//"Ingrese una especie antes de registrar";
 				}
 				especieInput.text = "";				
 			}
@@ -116,7 +119,8 @@
 			{
 				confs.elimConfiguracion("Especie", especieInput.text);
 				this.cargarDatos();
-				ltexto.text = "Especie eliminada exitosamente";
+				ltexto.text = Properties.getMensaje("Informacion","32");
+				//"Especie eliminada exitosamente";
 				especieInput.text = "";
 			}
 			/** 

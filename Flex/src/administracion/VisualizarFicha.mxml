@@ -99,7 +99,7 @@
 	<mx:DataGrid x="25" y="178.25" width="709" height="157" dataProvider="{atenciones}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
-			<mx:DataGridColumn headerText="Fecha" dataField="fecha"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="sfecha"/>
 			<mx:DataGridColumn headerText="Hora" dataField="hora"/>
 			<mx:DataGridColumn headerText="Costo" dataField="costo"/>
 		</mx:columns>
