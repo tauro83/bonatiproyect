@@ -33,7 +33,8 @@ public class AECatPeluqueriaBD {
 			String query="";
 			
 			query = "SELECT nombre, servicio, precio, descripcion, estado " +
-					"FROM catpeluqueria;";
+					"FROM catpeluqueria " +
+					"WHERE estado = 0;";
 			selectAllCatalogos = connection.prepareStatement(query);
 			
 			query = "UPDATE catpeluqueria " +
@@ -67,14 +68,8 @@ public class AECatPeluqueriaBD {
 	    			cata.setServicio(result.getString(2).trim());
 	    			cata.setPrecio(result.getString(3).trim());
 	    			cata.setDescripcion(result.getString(4).trim());
-	    			cata.setEstado(result.getString(5).trim());
-	    			
-	    			String estado2 = cata.getEstado().trim();
-	    			
-	    			if(estado2.equals("0"))
-	    			{
-	    				catalogos.add(cata);
-	    			}
+	    				
+	    			catalogos.add(cata);
 	    		}
 			} 
 	    	catch (SQLException e) 
@@ -95,7 +90,7 @@ public class AECatPeluqueriaBD {
 	 {
 		 int result = 0;
 		 try {
-			setEstado.setString(1, "2");
+			setEstado.setInt(1, 2);
 			setEstado.setString(2, cata.getNombre());
 			setEstado.setString(3, cata.getServicio());
 			setEstado.executeQuery();
@@ -118,7 +113,7 @@ public class AECatPeluqueriaBD {
 	 {
 		 int result = 0;
 		 try {
-			setEstado.setString(1, "1");
+			setEstado.setInt(1, 1);
 			setEstado.setString(2, cata.getNombre());
 			setEstado.setString(3, cata.getServicio());
 			setEstado.executeQuery();
