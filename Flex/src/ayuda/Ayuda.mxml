@@ -46,6 +46,7 @@
 				{nameT:"Editar Registro de Hotelería"},
 				{nameT:"Editar Registro Peluquería"},
 				{nameT:"Registrar Peluqueria"},
+				{nameT:"Registrar Pago"},
 				{nameT:"Registrar Producto"}
 							
 			]);
@@ -85,6 +86,7 @@
 				eliCatPel.visible=false;
            		anuCatPel.visible=false;
            		regProducto.visible= false;
+           		addPag.visible = false;
            	}
            	
            	/**
@@ -201,6 +203,9 @@
 					case "Registrar Producto":
 						regProducto.visible= true;
 					break;
+					case "Registrar Pago":
+						addPag.visible= true;
+					break;
 				}
            	}
            
@@ -285,4 +290,6 @@
 	</ns1:anuCatPel>
 	<ns1:addProducto id="regProducto" x="345" y="50" visible="false">		
 	</ns1:addProducto>
+	<ns1:addPag x="345" y="50" visible="false" id="addPag">
+	</ns1:addPag>
 </mx:TitleWindow>
