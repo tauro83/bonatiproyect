@@ -47,7 +47,9 @@
 				{nameT:"Editar Registro Peluquería"},
 				{nameT:"Registrar Peluqueria"},
 				{nameT:"Registrar Pago"},
-				{nameT:"Registrar Producto"}
+				{nameT:"Registrar Producto"},
+				{nameT:"Eliminar Pago"},
+				{nameT:"Anular Pago"}
 							
 			]);
            	
@@ -87,6 +89,8 @@
            		anuCatPel.visible=false;
            		regProducto.visible= false;
            		addPag.visible = false;
+           		elimPagAyu.visible = false;
+           		anuPagAyu.visible = false;
            	}
            	
            	/**
@@ -206,6 +210,12 @@
 					case "Registrar Pago":
 						addPag.visible= true;
 					break;
+					case "Eliminar Pago":
+						elimPagAyu.visible= true;
+					break;
+					case "Anular Pago":
+						anuPagAyu.visible= true;
+					break;
 				}
            	}
            
@@ -292,4 +302,8 @@
 	</ns1:addProducto>
 	<ns1:addPag x="345" y="50" visible="false" id="addPag">
 	</ns1:addPag>
+	<ns1:anuPagoayu x="345" y="50" id="anuPagAyu" visible="false">
+	</ns1:anuPagoayu>
+	<ns1:elimPagoAyu x="345" y="50" id="elimPagAyu" visible="false">
+	</ns1:elimPagoAyu>
 </mx:TitleWindow>
