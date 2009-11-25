@@ -171,6 +171,7 @@
 				panelClinicaIni.setVisible(false,false);
 				editaPelu.setVisible(false,false);
 				editaPelUPdate.setVisible(false,false);
+				eliminarPulgarProducto.setVisible(false,false);
 				<!--Autor: }Raul Lopez -->
 				
 				<!--Autor: }Vitoxone {-->
@@ -748,5 +749,7 @@
 		</ns6:anularWebaviso>
 		<ns7:ActivarPago x="240" y="133" id="activarPago" visible="false">
 		</ns7:ActivarPago>
+		<ns7:EliminarPulgarProducto x="241" y="134" visible="false" id="eliminarPulgarProducto">
+		</ns7:EliminarPulgarProducto>
 	<!--Autor: }Sebastian-->
 </mx:Application>

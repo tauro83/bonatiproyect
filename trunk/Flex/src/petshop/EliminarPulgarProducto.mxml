@@ -126,6 +126,7 @@
 			<mx:AddChild position="lastChild">
 				<mx:Button x="511" y="369" enabled="false" id="reactivarCliente" label="Reactivar"  width="82"/>
 			</mx:AddChild>
+			<mx:SetProperty name="title" value="Purgar Producto"/>
 		</mx:State>
 	</mx:states>
 	<mx:Label x="169" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
@@ -149,7 +150,10 @@
 			<mx:DataGridColumn headerText="Subtotal" dataField="subtotal" width="70"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<ns1:BuscadorNombreRut x="20.5" y="29" width="718">
-	</ns1:BuscadorNombreRut>
+	<mx:Label x="20.5" y="27" text="Filtrar:"/>
+	<mx:TextInput x="92.5" y="49" width="140" id="rut" enabled="true" maxChars="8"/>
+	<mx:Label x="20.5" y="51" text="Categoria:"/>
+	<mx:TextInput x="494.5" y="49" width="140" id="rut0" enabled="true" maxChars="8"/>
+	<mx:Label x="433.5" y="51" text="Nombre:"/>
 	
 </mx:Panel>

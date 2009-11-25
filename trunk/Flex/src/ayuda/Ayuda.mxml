@@ -49,7 +49,8 @@
 				{nameT:"Registrar Pago"},
 				{nameT:"Registrar Producto"},
 				{nameT:"Eliminar Pago"},
-				{nameT:"Anular Pago"}
+				{nameT:"Anular Pago"},
+				{nameT:"Eliminar Producto"}
 							
 			]);
            	
@@ -91,6 +92,7 @@
            		addPag.visible = false;
            		elimPagAyu.visible = false;
            		anuPagAyu.visible = false;
+           		eliminaProducto.visible= false;
            	}
            	
            	/**
@@ -216,6 +218,9 @@
 					case "Anular Pago":
 						anuPagAyu.visible= true;
 					break;
+					case "Eliminar Producto":
+						eliminaProducto.visible= true;
+					break;
 				}
            	}
            
@@ -306,4 +311,6 @@
 	</ns1:anuPagoayu>
 	<ns1:elimPagoAyu x="345" y="50" id="elimPagAyu" visible="false">
 	</ns1:elimPagoAyu>
+	<ns1:elimProducto x="345" y="50" id="eliminaProducto" visible="false">
+	</ns1:elimProducto>
 </mx:TitleWindow>
