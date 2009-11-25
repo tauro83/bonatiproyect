@@ -1,3 +1,13 @@
+//=======================================================================
+// FECHA CREACIÓN: 24-11-09
+// AUTOR: Esteban Cruz
+// Clase encargada de consultar a la base de datos y llamar a la  
+// funcion para editar los datos solicitados por el usuario
+// en la base de datos. Para ello se consta de 2 funciones 
+// principalmente, una que lista los productos y otra que modifica
+// los valores del registro
+//=======================================================================
+
 package AdministracionBD;
 
 import java.sql.Connection;
@@ -17,6 +27,7 @@ public class editarProductoBD {
 	/**
 	 * Se declaran las consultas hacia la base de datos
 	 * @param connection Conexión obtenida con la base de datos
+	 * @author Esteban Cruz
 	 */
 	public editarProductoBD(Connection connection)
 	{
@@ -36,6 +47,9 @@ public class editarProductoBD {
 			update = connection.prepareStatement(query);
 			
 		}
+		/**
+		* Captura el error
+		*/
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
@@ -43,11 +57,10 @@ public class editarProductoBD {
 	}
 	
 	/**
-	 * Este metodo obteniene todos los registros de peluquería que se encuentran
-	 * en la base de datos del sistema, este metodo se encarga de filtrar por el nombre
-	 * apelido, rut , nombre de la mascota,raza y sexo para arrojar esto datos en el primer
-	 * panel.
-	 * @return Lista con todos los registros de peluquería.
+	 * Este metodo obteniene todos los registros de producto que se encuentran
+	 * en la base de datos del sistema
+	 * @return Lista con todos los registros de productos
+	 * @author Esteban Cruz
 	 */
 	 public List<Producto> getAllVacunaciones()
 	    {	
@@ -70,6 +83,9 @@ public class editarProductoBD {
 	    			
 	    		}
 			} 
+			/**
+			* Captura el error
+			*/
 	    	catch (SQLException e) 
 	    	{
 				e.printStackTrace();
@@ -77,9 +93,17 @@ public class editarProductoBD {
 	    	return vacunaciones;
 	    }
 	 
+		/**
+		* Trata de modificar los datos solicitados por el usuario en la base de datos
+		* @return 1 si se realiza correctamente, 0 en caso contrario
+		* @author Esteban Cruz
+		*/
 	    public int modificarProducto(String nombre,String descripcion,String precio,String categoria,String codigo)
 	    {
 	    	int result=0;
+			/**
+			* Trata de cambiar los valores dados por el usuario
+			*/
 	    	try 
 	    	{
 	    		//Insercion de a la base de datos
@@ -94,6 +118,9 @@ public class editarProductoBD {
 					
 				result= update.executeUpdate();
 			} 
+			/**
+			* Captura el error
+			*/
 	    	catch (SQLException e) 
 	    	{
 				e.printStackTrace();
