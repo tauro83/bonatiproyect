@@ -18,7 +18,12 @@
             	<properties>
               			<source>AvisoWeb.AvisoWebService</source>
             	</properties>
-        </destination>       
+        </destination> 
+        <destination id="ElimPagoService"> 
+             <properties>
+             	<source>Petshop.ElimPagoService</source>
+             </properties>
+        </destination>      
         <destination id="GetCatalogos">
             <properties>
               <source>Peluqueria.GetCatalogos</source>
