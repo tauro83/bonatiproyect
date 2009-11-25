@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Pago" xmlns:ns1="com.adobe.flex.extras.controls.*"  xmlns:ns2="util.*">
+
+	<mx:Button x="644" y="357" label="Cancelar" width="93"/>
+	<mx:Button x="554" y="357" label="Editar" width="82"/>
+	<mx:Label x="167" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="10" y="36" text="Fecha:" width="69" />
+	<mx:Label x="10" y="71" text="Hora:" width="104" />
+	<mx:Label x="10" y="108" text="Total:" width="104" />
+	<mx:Label x="407" y="194" text="Cantidad:" width="104" />
+	<mx:Label x="10" y="10" text="Pago:" fontWeight="bold"/>
+	<mx:Label x="10" y="160" text="Detalle Pago:" fontWeight="bold"/>
+	<mx:TextInput x="112" y="71"  width="146" height="18" id="hora"/>
+	<mx:Label x="10" y="234" text="Hora:" width="104" />
+	<mx:TextInput x="112" y="234" width="146" height="18" id="horaDetalle"/>
+	<mx:TextInput x="476" y="194"  width="146" height="18" id="cantidad"/>
+	<mx:Label x="407" y="234" text="Total:" width="104" />
+	<mx:TextInput x="476" y="234"  width="146" height="18" id="total"/>
+	<mx:TextInput x="112" y="273"  width="146" height="18" id="idProducto1"/>
+	<mx:TextInput x="112" y="108"  width="146" height="18" id="total2"/>
+	<mx:DateField x="112" y="34" width="160" id="fechaPago"/>
+	<mx:DateField x="112" y="192" width="160" id="fechadetalle"/>
+	<mx:Label x="10" y="196" text="Fecha:" width="69" />
+	<mx:Label x="10" y="273" text="Id Producto:" width="82" id="idProducto" />
+</mx:Panel>
