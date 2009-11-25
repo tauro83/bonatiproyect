@@ -19,7 +19,7 @@
 			import services.editarProducto1;
 			 
 			[Bindable]
-			private var vacunaicones:ArrayCollection;
+			private var productos:ArrayCollection;
 
             /**
 			* Se hace visible el input correspondiente a la opción
@@ -95,7 +95,7 @@
 				inputCodigoBarra.setVisible(false,false);
             	combobox.selectedItem="-Seleccionar-";
             	textBuscar.setVisible(false,false);
-            	this.vacunaicones = new ArrayCollection();
+            	this.productos = new ArrayCollection();
           
             }
             
@@ -108,9 +108,9 @@
 			*/
 			public function getAllVacunaciones():void
 		    {
-		   		var vacunacionService:editarProducto1 = new editarProducto1();
-		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
-				vacunacionService.getAllVacunaciones();
+		   		var productoService:editarProducto1 = new editarProducto1();
+		   		productoService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
+				productoService.getAllVacunaciones();
 		    }
 		   
 		    /**
@@ -123,7 +123,7 @@
             
             public function getAllVacunacionesResult(event:ResultEvent):void
 		    {
-		   		vacunaicones = event.result as ArrayCollection;
+		   		productos = event.result as ArrayCollection;
 		    }
 		    
 		    /**
@@ -131,11 +131,11 @@
 			* ventana (componente), con los datos correspondientes al producto 
 			* seleccionado y los datos de los registro del producto
 			*/
-		    public function visualizarVacunaciones(event:Event):void
+		    public function visualizarProductos(event:Event):void
             {
-            	if(tablaVacunaciones.selectedItem){
+            	if(tablaProductos.selectedItem){
             		this.setVisible(false,false);            	 	
-            		Application.application.editProducto2.setDatos(tablaVacunaciones.selectedItem as Producto);
+            		Application.application.editProducto2.setDatos(tablaProductos.selectedItem as Producto);
             		Application.application.editProducto2.setVisible(true,false);
             	}
             }
@@ -179,14 +179,12 @@
 			    }
 
 			}
-			
-			
-            
+			     
 	 	]]>
     </mx:Script>
 	
 	<!-- Botón Visualizar -->
-	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarProductos(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
 	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
 	<mx:Text x="10" y="10" id="textFiltrar" text="Filtrar por"/>
 	
@@ -206,7 +204,7 @@
 	</mx:ComboBox>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid x="10" y="62" width="739" height="280" id="tablaVacunaciones" dataProvider="{vacunaicones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
+	<mx:DataGrid x="10" y="62" width="739" height="280" id="tablaProductos" dataProvider="{productos}" doubleClickEnabled="true" itemDoubleClick="visualizarProductos(event)" >
 		<mx:columns>		
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre" id="nombre" draggable="false"/>
 			<mx:DataGridColumn headerText="Categoría" dataField="categoria" id="categoria" draggable="false"/>
@@ -220,18 +218,18 @@
 	<!-- AutoComplete -->
 	
 	<!-- Nombre Del Producto -->
-	<fc:AutoComplete id="inputNombreProducto" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda" />
+	<fc:AutoComplete id="inputNombreProducto" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productos}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda" />
 	
 	<!-- Precio -->
-	<fc:AutoComplete id="inputPrecio" close="Seleccionar(event)" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="precio" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputPrecio" close="Seleccionar(event)" x="599" y="8" width="150" dataProvider="{productos}" labelField="precio" visible="false" toolTip="ingrese texto para búsqueda"/>
 	
 	<!-- Categoria -->
-	<fc:AutoComplete id="inputCategoria" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="categoria" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputCategoria" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productos}" labelField="categoria" visible="false" toolTip="ingrese texto para búsqueda"/>
 	
 	<!-- Codigo de Barra -->
-	<fc:AutoComplete id="inputCodigoBarra" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="codigo" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputCodigoBarra" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productos}" labelField="codigo" visible="false" toolTip="ingrese texto para búsqueda"/>
 	
 	<!-- Descripcion -->
-	<fc:AutoComplete id="inputDescripcion" x="599" close="Seleccionar(event)" y="8" width="150" dataProvider="{vacunaicones}" labelField="descripcion" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputDescripcion" x="599" close="Seleccionar(event)" y="8" width="150" dataProvider="{productos}" labelField="descripcion" visible="false" toolTip="ingrese texto para búsqueda"/>
 	
 </mx:Panel>

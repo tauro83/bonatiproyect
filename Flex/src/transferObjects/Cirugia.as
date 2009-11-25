@@ -25,7 +25,6 @@ package transferObjects
 		public var ayudante:String;
 		public var diagnostico:String;
 		public var tiposCirugias:ArrayCollection;
-		public var estado:String;
 		public var clienteNombre:String;
 		public var clienteApellido:String;
 		public var mascotaRaza:String;
