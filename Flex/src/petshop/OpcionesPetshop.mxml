@@ -14,6 +14,14 @@
 				Application.application.registrarPago.visible = true;	
 			}
 			
+			public function verEditarPago():void{
+			
+			    Application.application.setInvisible();
+				this.visible = true;
+				//Application.application.iniciar();
+				Application.application.editarPago.visible = true;	
+			}
+			
 			public function regProducto():void
 			{
 				 Application.application.setInvisible();
@@ -35,6 +43,7 @@
 	<mx:Accordion styleName="Accordion1" x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Pago" width="100%" height="100%">
 			<mx:LinkButton x="50" y="10" label="Registrar" click="verRegistrarPago()"/>
+			<mx:LinkButton x="50" y="40" label="Editar"  click="verEditarPago()" />
 			<mx:LinkButton x="50" y="61" label="Anular" />
 			<mx:LinkButton x="50" y="91" label="Eliminar"/>
 		</mx:Canvas>
