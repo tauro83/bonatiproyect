@@ -20,6 +20,8 @@
 		    import mx.core.Application;		
 		    import mx.events.ValidationResultEvent;            
             private var vResult:ValidationResultEvent;	
+            
+            public var costoBruto:String;
 			
 			/**
 			 * Este metodo se encarga de pasar el objeto de una consulta a la capa dos 
@@ -33,7 +35,7 @@
              	
              	addconsult.rut=this.rutClienteInput1.text+this.rutClienteDVInput1.text;/**se concatena el digito con el digito identicador
              	 																	   *de un rut. **/
-             	addconsult.costo=this.costo.text;/**Ingresa el costo de una atencion**/
+             	addconsult.costo=costoBruto;/**Ingresa el costo de una atencion**/
              	addconsult.nombre=this.nombre.text;/**Ingresa el nombre de la mascota a cual se le estaba atendiendo**/
              	addconsult.responsable=this.responsable.text;/**Ingresa el nombre del responsable que atendio a una mascota**/
              	addconsult.servicio=this.servicio.text;/**Ingresa el nombre del servicio al cual se esta realizan una atencion una mascota**/
@@ -95,8 +97,8 @@
 			 **/
 			
 			public function validarCosto(event:Event):void{
-				
-			      costo.text=makeNumberFormat(costo.text, ".");
+				  costoBruto = costo.text;
+			      costo.text="$"+makeNumberFormat(costo.text, ".");
 				
 			}
 			
@@ -148,6 +150,9 @@
 					}
 					return back.substr (0, back.length - 1);
 			}  
+			public function borrarCosto():void{
+				costo.text = "";
+			}
 			
             
 		]]>
@@ -189,7 +194,7 @@
 	<mx:DateField x="115" y="151" width="160" id="fecha"/>
 	
 	<mx:Label x="488" y="155" text="Costo:" width="52" />
-	<mx:TextInput x="574" y="153" width="165" id="costo" focusOut="validarCosto(event)"/>
+	<mx:TextInput x="574" y="153" width="165" id="costo" focusOut="validarCosto(event)" focusIn="borrarCosto()" restrict="0-9"/>
 	
 	<mx:Label x="25" y="198" text="Anamnesis:"/>
 	<mx:TextArea x="115" y="197" width="619" height="137" id="anamnesis"/>

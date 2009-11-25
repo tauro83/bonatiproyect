@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Consulta" x="-96" y="161">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Consulta" x="-96" y="161" xmlns:ns1="util.*">
 	
 	 <mx:Script>
         <![CDATA[
@@ -66,7 +66,8 @@
 				    responsable.text = consultilla.responsable;
 				    servicio.text   = consultilla.servicio;
 				    fecha.text	= consultilla.fecha;
-				    costo.text= consultilla.costo;
+				    costoInput.costo.text= consultilla.costo.split(" ", 1).pop();
+				    costoInput.formatear();
 				    anamnesis.text = consultilla.anamnesis;
 				    
 			}
@@ -82,7 +83,7 @@
 					consultaAuxEditado.responsable  = responsable.text;
 					consultaAuxEditado.servicio     = servicio.text;
 					consultaAuxEditado.fecha        = fecha.text;
-					consultaAuxEditado.costo        = costo.text;
+					consultaAuxEditado.costo        = costoInput.costoBruto;
 					consultaAuxEditado.anamnesis    = anamnesis.text;
 					carga1();
 					
@@ -165,45 +166,6 @@
 			    
 			}
 			
-
-		   /**
-			 * Funcion que valida el costo ingresado, esto se refiere a  darle el formato
-			 * estandart de precios de en territorio
-			 * 
-			 */ 
-			
-	       public function validaciones():void{
-				costo.addEventListener(KeyboardEvent.KEY_UP,validarCosto);
-			}
-	       
-	       /**
-			 * Funcion que valida el costo ingresado, esto se refiere a  darle el formato
-			 * estandart de precios de en territorio
-			 * 
-			 */ 
-	       public function validarCosto(event:Event):void{
-
-				if(costo.text.length==4){
-			      
-			      costo.text=costo.text.substring(0,1)+"."+costo.text.substring(1,2)+costo.text.substring(2,3)+costo.text.substring(3,4);
-			      
-				}
-				
-				if(costo.text.length==6){
-				
-			      costo.text=costo.text.substring(0,1)+costo.text.substring(2,3)+"."+costo.text.substring(3,4)+costo.text.substring(4,5)+costo.text.substring(5,6);
-				}
-				
-				if(costo.text.length==7){
-				
-			      costo.text=costo.text.substring(0,1)+costo.text.substring(1,2)+costo.text.substring(3,4)+"."+costo.text.substring(4,5)+costo.text.substring(5,6)+costo.text.substring(6,7);
-				}
-				
-				if(costo.text.length==8){
-				
-			      costo.text=costo.text.substring(0,1)+"."+costo.text.substring(1,2)+costo.text.substring(2,3)+costo.text.substring(4,5)+"."+costo.text.substring(5,6)+costo.text.substring(6,7)+costo.text.substring(7,8);
-				}
-			}
 			
 			/**
 			 * Funcion que vuelve al panel de inicio al momento de de cancelar
@@ -269,7 +231,7 @@
 			private function iniListener2():Boolean
 			{
 				var aux:Boolean=false;
-				if(anamnesis.text== "" || costo.text== ""){
+				if(anamnesis.text== "" || costoInput.costo.text== ""){
 				     aux=false;
 				}   
 				else{
@@ -303,12 +265,13 @@
 	<mx:Label x="176" y="373" width="407" textAlign="center" id="mensaje" fontWeight="bold" height="17"/>
 	<mx:Label x="25" y="105" text="Servicio:"/>
 	<mx:Label x="457" y="105" text="Costo:"/>
-	<mx:TextInput x="518" y="103" width="165" id="costo" click="validaciones()"/>
 	<mx:Button x="606" y="302" label="Cancelar" cornerRadius="6" width="102" height="23" click=" cancela()"/>
 	<mx:ComboBox x="133" y="103" id="servicio" dataProvider="{servicios}" width="160" editable="false" enabled="false">
 	</mx:ComboBox>
 	<mx:Label x="25" y="26" text="Mascota:"/>
 	<mx:TextInput x="133" y="24" width="160" id="mascota"  enabled="true" editable="false"/>
 	<mx:ComboBox id="responsable" x="133" y="59" dataProvider="{usuarios2}"></mx:ComboBox>
+	<ns1:Precio x="518" y="105" id="costoInput">
+	</ns1:Precio>
 	
 </mx:Panel>
