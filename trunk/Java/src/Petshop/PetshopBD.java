@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import Petshop.Producto;
+import TransferObjects.Producto;
 /**
  * Clase en la que se declaran las consultas hacia la base de datos
  * @author Erwin Díaz
@@ -28,8 +28,8 @@ public class PetshopBD {
 		try 
 		{
 			String query="";			
-			query = "INSERT INTO producto(nombre, precio, categoria, codigo) "+
-			"VALUES (?, ?, ?, ?);";
+			query = "INSERT INTO producto(nombre, precio, categoria, codigo, descripcion) "+
+			"VALUES (?, ?, ?, ?, ?);";
 			insert = connection.prepareStatement(query);
 		} 
 		catch (SQLException e) 
@@ -52,6 +52,8 @@ public class PetshopBD {
 			insert.setString(2, person.precio);
 			insert.setString(3, person.categoria);
 			insert.setString(4, person.codigo);
+			insert.setString(5, person.descripcion);
+			
 			result=""+insert.executeUpdate();
 		} 
     	catch (SQLException e) 
