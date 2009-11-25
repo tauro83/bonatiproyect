@@ -70,13 +70,13 @@
             public var diaAgenda:ArrayCollection = new ArrayCollection(
                 [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
                  {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
-                 {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]); 
+                 {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}, {hora:"20:00"}]); 
                  
             [Bindable]
             public var semanaAgenda:ArrayCollection = new ArrayCollection(
                 [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
                  {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
-                 {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]); 
+                 {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}, {hora:"20:00"}]); 
                  
              /**
 			 * Funcion para asignar agenda dependiendo de la fecha seleccionada
@@ -264,6 +264,7 @@
                 llenarItemDia(citass, "18:30");
                 llenarItemDia(citass, "19:00");
                 llenarItemDia(citass, "19:30");
+                llenarItemDia(citass, "20:00");
                 
                 agendaDia.dataProvider = diaAgenda;
 			} 
