@@ -51,6 +51,13 @@
 				 Application.application.elimPago.visible = true;  			 
 			}
 			
+			public function verActPago():void
+			{
+				 Application.application.setInvisible();
+				 this.visible = true;
+				 Application.application.activarPago.visible = true;  			 
+			}
+			
 		]]>
 	</mx:Script>
 	
@@ -58,8 +65,9 @@
 		<mx:Canvas label="Pago" width="100%" height="100%">
 			<mx:LinkButton x="50" y="10" label="Registrar" click="verRegistrarPago()"/>
 			<mx:LinkButton x="50" y="40" label="Editar"  click="verEditarPago()"/>
-			<mx:LinkButton x="50" y="70" label="Anular" click="verAnuPago()"/>
-			<mx:LinkButton x="50" y="100" label="Eliminar" click="verElimPago()"/>
+			<mx:LinkButton x="50" y="70" label="Anular" click="{verAnuPago()}"/>
+			<mx:LinkButton x="50" y="100" label="Desactivar" click="{verElimPago()}"/>
+			<mx:LinkButton x="50" y="130" label="Activar" click="{verActPago()}"/>
 		</mx:Canvas>
 		<mx:Canvas label="Producto" width="100%" height="100%">
 			<mx:LinkButton x="50" y="10" label="Registrar" click="regProducto()"/>

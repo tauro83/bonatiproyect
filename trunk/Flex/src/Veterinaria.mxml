@@ -204,6 +204,11 @@
             	
             	elimPago.setVisible(false,false);
             	anuPago.setVisible(false,false);
+            	
+            	eliminarweb.setVisible(false,false);
+            	actWebaviso.setVisible(false,false);
+				anuWebaviso.setVisible(false,false);
+				activarPago.setVisible(false,false);
             	<!--Autor: }Jimmy Muñoz -->
             	
             	<!--Autor: Andres G.{-->
@@ -735,5 +740,13 @@
 		</ns7:AnularPago>
 		<ns7:EliminarPago x="241" y="133" id="elimPago" visible="false">
 		</ns7:EliminarPago>
+		<ns6:EliminarWebaviso x="240" y="133" id="eliminarweb" visible="false">
+		</ns6:EliminarWebaviso>
+		<ns6:activarWebaviso x="240" y="133" id="actWebaviso" visible="false">
+		</ns6:activarWebaviso>
+		<ns6:anularWebaviso x="240" y="133" visible="false" id="anuWebaviso">
+		</ns6:anularWebaviso>
+		<ns7:ActivarPago x="240" y="133" id="activarPago" visible="false">
+		</ns7:ActivarPago>
 	<!--Autor: }Sebastian-->
 </mx:Application>
