@@ -18,6 +18,7 @@ package transferObjects
 	public var checkbox:CheckBox = new CheckBox;
 		public var sel:Boolean;
 	//****************************
+	
 			 public var nombre:String;
 			 public	var apellido:String;
 			 public	var apellido2:String;

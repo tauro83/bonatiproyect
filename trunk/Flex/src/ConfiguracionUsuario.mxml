@@ -81,10 +81,10 @@
 				if(nombre.length>0){
 					confs.regConfiguracion("Cargo", especieInput.text);
 					this.cargarDatos();
-					ltexto.text = Properties.getMensaje("Informacion", "28");
+					ltexto.text = Properties.getMensaje("Informacion","28");
 				}
 				else{
-					ltexto.text = Properties.getMensaje("Advertencia", "25");
+					ltexto.text = Properties.getMensaje("Advertencia","25");
 				}
 				especieInput.text = "";		
 			}
@@ -96,7 +96,7 @@
 			{
 				confs.elimConfiguracion("Cargo", especieInput.text);
 				this.cargarDatos();
-				ltexto.text = Properties.getMensaje("Informacion", "27");
+				ltexto.text = Properties.getMensaje("Informacion","27");
 				especieInput.text = "";
 			}
 			/** 
