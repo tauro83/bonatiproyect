@@ -10,26 +10,30 @@
 			import mx.core.Application;			
 			import util.Properties; 
 			import transferObjects.Producto;
-			import petshop.regProducto;
+			import petshop.PetshopService;
 			import mx.rpc.events.ResultEvent;
-			private var rprod:regProducto;
-			private var prod:Producto;
+			private var rprod:PetshopService;
+			private var producto:Producto;
 			
-		
+			/**
+		 	 *  Método que crea una instancia del transferObject catalogo,
+			 *  posterior a la validacion de datos  y lo envia a usuarioServices		 		
+			 * */
 			private function registrar():void
 			{				
-				if(nomb.text.length>3){
-					if(prec.costoBruto.length>3){
-						rprod				= new regProducto();
-						prod.nombre 		= nomb.text;
-						prod.precio 		= prec.costo.text;
-						prod.categoria 		= cate.selectedLabel.toString();
-						prod.codigo 		= cbar.text;
-						prod.descripcion 	= desc.text;
+				if(nombre.text.length>3){
+					if(precio.costoBruto.length>0){
+						producto				= new Producto();
+						producto.nombre 		= nombre.text;
+						producto.precio 		= precio.costo.text;
+						producto.categoria 		= categorias.selectedLabel.toString();
+						producto.codigo 		= codBarra.text;
+						producto.descripcion 	= descripcion.text;
 						
-						rprod.registrarProducto(prod);
-					 	rprod.addEventListener(ResultEvent.RESULT,registrarR);	
-					 	this.resetInputs();
+						rprod				= new PetshopService();
+						rprod.addEventListener(ResultEvent.RESULT,registroProdResultado);	
+					 	rprod.regProducto(producto);
+					 	this.resetVars();
 					}
 					else
 					{
@@ -42,50 +46,81 @@
 				
 				
 			}
-			
-			private function registrarR(event:ResultEvent):void
+			/**
+		 	 * 	@author  Erwin Díaz
+			 *  retorna el resultado de la accion que se realizo:Registro.		
+			 * */
+			private function registroProdResultado(event:ResultEvent):void
 			{
-				mens.text	=  Properties.getMensaje("Informacion","24");
-				this.resetInputs()
-			}
-			
-			
-			private function resetInputs():void
+				var message:int= event.result as int;	
+				var msj:String = "";
+				if(message==1){
+					mens.text	=  Properties.getMensaje("Informacion","24");
+					this.resetVars()
+			 	}
+				else{
+					msj = "";				
+				}		
+				mens.text = msj;
+					
+			}	
+			/**
+			 * Se resetean las variables del panel incluyendo el
+			 * contenido del mensaje y la etiqueta seleccionada del combobox
+			 * @autor Erwin Díaz
+			 */
+			private function resetVars():void
 			{
-				mens.text 		= "";
+				mens.text 			= "";
 				
-				nomb.text 		= "";
-				prec.costo.text	= "";
-				desc.text 		= "";
-				cbar.text		= "";
+				nombre.text 		= "";
+				precio.costo.text	= "";
+				descripcion.text 	= "";
+				codBarra.text		= "";
+				categorias.selectedIndex = 0;
 			}
 			private function cancelar():void
 			{
 				Application.application.panelPetshop.setVisible(true,false);
 				this.setVisible(false,false);
-				this.resetInputs();
+				this.resetVars();
 			}
+			/**
+            * Función encargada de habilitar el botón registrar
+            * si el combobox mantiene seleccionada la etiqueta "--Seleccione--"
+            * el botón "Registrar" permanecerá desabilitado
+            * @autor Erwin Díaz
+            */
+            private function activarBoton():void
+            {
+            	if(categorias.selectedLabel != '--Seleccione--'){
+            		regist.enabled=true;
+            	}
+            	else 
+            		regist.enabled=false;
+            }
 
 		]]>
 	</mx:Script>
-	<mx:TextInput x="120" y="8" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="nomb"  enabled="true" maxChars="20"/>
-	<mx:Label x="25" y="10" text="Nombre:" width="69" />
+	<mx:TextInput x="122" y="28" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="nombre"  enabled="true" maxChars="20"/>
+	<mx:Label x="27" y="30" text="Nombre:" width="69" />
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="632" label="Cancelar" y="353" click="cancelar()"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="522" label="Registrar" y="353"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="522" id="regist" label="Registrar" y="353" enabled="false" click="registrar()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
-	<mx:Label x="25" y="46" text="Precio:"/>
-	<ns1:Precio x="120" y="46" width="161" id="prec">
+	<mx:Label x="27" y="66" text="Precio:"/>
+	<ns1:Precio x="122" y="66" width="161" id="precio">
 	</ns1:Precio>
-	<mx:Label x="25" y="169" text="Descripción:"/>
-	<mx:TextArea x="121" y="168" id="desc" maxChars="160" width="309" height="106"/>
-	<mx:Label x="25" y="88" text="Categoria:" width="69" />
-	<mx:Label x="25" y="131" text="Codigo barra:" width="88"  />
-	<mx:TextInput x="121" y="129" id="cbar" restrict="0-9"/>
-	<mx:ComboBox x="121" y="86" id="cate" >
+	<mx:Label x="27" y="189" text="Descripción:"/>
+	<mx:TextArea x="123" y="188" id="descripcion" maxChars="160" width="611" height="131"/>
+	<mx:Label x="27" y="108" text="Categoria:" width="69" />
+	<mx:Label x="27" y="151" text="Codigo barra:" width="88"  />
+	<mx:TextInput x="123" y="149" id="codBarra" restrict="0-9"/>
+	<mx:ComboBox x="123" y="106" id="categorias" close="activarBoton()" toolTip="Seleccione una categoría para continuar">
 		<mx:ArrayCollection>
-	         	<mx:Object label="Alimento" data="a"/>
-	         	<mx:Object label="Medicamento" data="b"/>
-	            <mx:Object label="Otro" data="c"/>
+	         	<mx:Object label="--Seleccione--" data="a"/>
+	         	<mx:Object label="Alimento" data="b"/>
+	         	<mx:Object label="Medicamento" data="c"/>
+	            <mx:Object label="Otro" data="d"/>
 	    </mx:ArrayCollection>
 	</mx:ComboBox>
 </mx:Panel>

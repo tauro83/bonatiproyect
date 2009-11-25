@@ -12,6 +12,8 @@ package petshop
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
+	import transferObjects.Producto;
+	
 	/**
 	 * Clase encargada de realizar la conexión entre la capa
 	 * lógica y la interfaz gráfica
