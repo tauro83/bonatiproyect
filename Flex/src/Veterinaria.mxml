@@ -201,6 +201,9 @@
             	
             	addPelu1.setVisible(false,false);
             	addPeluq.setVisible(false,false);
+            	
+            	elimPago.setVisible(false,false);
+            	anuPago.setVisible(false,false);
             	<!--Autor: }Jimmy Muñoz -->
             	
             	<!--Autor: Andres G.{-->
@@ -728,5 +731,9 @@
 		
 		<ns7:EditarPAgo2 x="241" y="134" visible="false" id="editarPago2">
 		</ns7:EditarPAgo2>
+		<ns7:AnularPago x="241" y="133" id="anuPago" visible="false">
+		</ns7:AnularPago>
+		<ns7:EliminarPago x="241" y="133" id="elimPago" visible="false">
+		</ns7:EliminarPago>
 	<!--Autor: }Sebastian-->
 </mx:Application>
