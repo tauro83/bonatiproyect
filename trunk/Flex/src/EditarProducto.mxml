@@ -4,11 +4,12 @@
         <![CDATA[
         
         	//=======================================================================
-			// FECHA CREACIÓN: 16/11/09
-			// AUTOR: Nicolas Delgado
-			// Panel en el cual se muestran el nombre del cliente , apellido, rut,
-			// nombre de la mascota, raza, sexo, de las mascotas que poseen registro
-			//de peluquería y todos las registro que posean estado 0.
+			// FECHA CREACIÓN: 24/11/09
+			// AUTOR: Esteban Cruz
+			// Panel en el cual se muestran los productos existentes en la base 
+			// de datos, junto a todos sus parametros como: nombre, precio, catalogo, 
+			// codigo barra y descripción. Luego se selecciona uno de ellos para 
+			// poder ser editado
 			//=======================================================================
 			
         	import transferObjects.Producto;
@@ -16,22 +17,14 @@
             import mx.rpc.events.ResultEvent;
             import mx.core.Application;
 			import services.editarProducto1;
-		
-			
-			/**
-			 * Esta variable se encarga de obtener desde la base datos los datos asociado 
-			 * a un registro de peluqueria de todas las mascota que alguna vez se han 
-			 * realizado una atención.
-			 */
 			 
 			[Bindable]
 			private var vacunaicones:ArrayCollection;
 
-
             /**
 			* Se hace visible el input correspondiente a la opción
-			* elegida en el combobox, las cuales pueden ser por el nombre del cliente,
-			* rut, apellido, nombre de la mascota, sexo raza.
+			* elegida en el combobox, las cuales pueden ser por el nombre,
+			* precio, categoría, descripción, codigo barra.
 			*/
             private function seleccionarBusqueda (event:Event):void
             {   
@@ -47,7 +40,7 @@
 				{
 					
 			    /**
-			    * El usuario Selecciona la opcion Nombre del Cliente
+			    * El usuario Selecciona la opción nombre producto
 			    */
 				case 'Nombre Producto':		
 					inputNombreProducto.setVisible(true,false);
@@ -56,7 +49,7 @@
 				break; 
 				
 			    /**
-			    * El usuario Selecciona la opcion Apellido del Cliente
+			    * El usuario Selecciona la opción categoría
 			    */
 				case 'Categoria':
 					inputCategoria.setVisible(true,false);
@@ -64,7 +57,7 @@
 				break;
 				
 			    /**
-			    * El usuario Selecciona la opcion Rut del Cliente
+			    * El usuario Selecciona la opción precio
 			    */				
 				case 'Precio':
 					inputPrecio.setVisible(true,false);
@@ -72,7 +65,7 @@
 				break;
 				
 			    /**
-			    * El usuario Selecciona la opcion Nombre de la Mascota
+			    * El usuario Selecciona la opción descripción
 			    */
 				case 'Descripcion':
 					inputDescripcion.setVisible(true,false);
@@ -80,7 +73,7 @@
 				break;
 				
 			    /**
-			    * El usuario Selecciona la opcion Raza de la Mascota
+			    * El usuario Selecciona la opción código barra
 			    */
 				case 'Codigo Barra':
 					inputCodigoBarra.setVisible(true,false);
@@ -94,7 +87,6 @@
             * el usuario se salga del panel, se dejan sin información los 
             * datagrid, textInput y ComboBox. 
             */
-            
             public function limpiarTodo():void{
             	inputNombreProducto.setVisible(false,false);
 				inputCategoria.setVisible(false,false);
@@ -108,11 +100,11 @@
             }
             
             /**
-			* Se obtienen todos los registro de peluquería que están registrados en 
+			* Se obtienen todos los registros de productos que están registrados en 
 			* la base de datos, que serán mostrados por el datagrid del panel, en este
-			* panel seran mostrados solamente el Nombre del cliente, apellido, rut, nombre
-			* de la mascota,raza y sexo, y en el panel siguiente serán mostrados los
-			* de un registro de peluquería.
+			* panel seran mostrados solamente el Nombre, precio, categoría, 
+			* descripción y código de barra, y en el panel siguiente serán mostrados los
+			* de un registro de producto seleccionado.
 			*/
 			public function getAllVacunaciones():void
 		    {
@@ -122,11 +114,11 @@
 		    }
 		   
 		    /**
-			* Una vez obtenidas todos los registro de la peluquería que están registradas 
+			* Una vez obtenidas todos los registros productos que están registradas 
 			* en la base de datos, son mostrados dentro del datagrid,en este
-			* panel seran mostrados solamente el Nombre del cliente, apellido, rut, nombre
-			* de la mascota,raza y sexo, y en el panel siguiente serán mostrados los
-			* de un registro de peluquería.
+			* panel seran mostrados solamente Nombre, precio, categoría, 
+			* descripción y código de barra, y en el panel siguiente serán mostrados los
+			* de un registro de producto seleccionado.
 			*/
             
             public function getAllVacunacionesResult(event:ResultEvent):void
@@ -136,9 +128,8 @@
 		    
 		    /**
 		    * Una vez seleccionado un cliente, se procede a visualizar la siguiente 
-			* ventana (componente), con los datos correspondientes al cliente 
-			* seleccionado y los datos de los registro de peluquería que posee la mascota
-			* al interior del servicio de peluquería.
+			* ventana (componente), con los datos correspondientes al producto 
+			* seleccionado y los datos de los registro del producto
 			*/
 		    public function visualizarVacunaciones(event:Event):void
             {
@@ -151,7 +142,7 @@
             
 			/**
 			 * Evento del boton "Volver", el cual redirige a la página
-			 * a la estipulada por defecto por  el modulo de peluquería.
+			 * a la estipulada por defecto por  el modulo de Pet-Shop.
 			 */
 			private function volver():void
             {
@@ -161,8 +152,8 @@
             
             /**
 			*  Corrige error de seleccionar el primero elemento del autocomplete
-			*  Del textInput del Nombre Del Cliente, apellido, rut, nombre mascota,
-			*  Raza y Sexo.
+			*  Del textInput del nombre, precio, código de barra, descripción
+			*  y categoría
 			* */
 		    public function Seleccionar(event:Event):void
 			{

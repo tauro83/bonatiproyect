@@ -1,3 +1,9 @@
+//=======================================================================
+// FECHA CREACIÓN: 24/11/09
+// AUTOR: Esteban Cruz
+// DESCRIPCION: TransferObject que se encarga de recibir los datos
+//=======================================================================
+
 package transferObjects
 {
 	import mx.controls.CheckBox;
@@ -7,8 +13,6 @@ package transferObjects
     
 	public class Producto
 	{
-
-		
 		public var nombre:String;
 		public var categoria:String;
 		public var codigo:String;
