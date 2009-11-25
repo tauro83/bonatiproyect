@@ -29,7 +29,11 @@
 	  			<source>Configuracion.Configurar</source>
 	  		</properties>
   		</destination>
-        
+        <destination id="PetshopService"> 
+             <properties>
+             	<source>Petshop.PetshopService</source>
+             </properties>
+        </destination>
         <destination id="UsuarioEditService">
             <properties>
               <source>Administracion.UsuarioEditService</source>
