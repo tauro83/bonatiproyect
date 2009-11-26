@@ -271,7 +271,7 @@
   	</destination>
 	<destination id="RegistHoteleriaService"> 
   	 	 <properties>
-  			  <source>Hoteleria.RHoteleriaService</source>
+  			  <source>Hoteleria.RegistHoteleriaService</source>
   		 </properties>
   	</destination>
 	<destination id="EditarConsultaService"> 
