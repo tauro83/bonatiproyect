@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="cargarClientes()" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="com.adobe.flex.extras.controls.*" title="Registro cita" x="191" y="90">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="com.adobe.flex.extras.controls.*" title="Registro cita" x="191" y="90" xmlns:ns2="util.*">
 	
 	<mx:Script>
         <![CDATA[
@@ -25,9 +25,7 @@
 			private var ct:citaServices = new citaServices();
 			private var c1:Cita;
 			
-			[Bindable]
-			private var clientes:ArrayCollection;
-			private var mascotas:ArrayCollection;
+			[Bindable] private var mascotas:ArrayCollection;
 		
             
             
@@ -50,63 +48,9 @@
             public var horas:ArrayCollection = new ArrayCollection(
                 [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
                  {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
-                 {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]);
-                 
-            	/**
-	 * 	@Fecha  03 Octubre
-	 *  @Descripcion Metodo que consulta todos los registros de clientes en la base de datos
-	 
-	 	**/ 
-			public function cargarClientes():void
-			{
-			    var citaservices: citaServices = new citaServices();
-				citaservices.addEventListener(ResultEvent.RESULT,getClientesResult);
-				citaservices.getClientesActivos();
-			}
-            
-            
-            	/**
-	 * @Fecha  03 Octubre
-	 *  @Descripcion Metodo que recibe un ArrayCollection con las clientes activos del sistema
-	 *  consulta todos los registros de clientes en la base de datos.
-	 
-	 	**/	
-			
-			private function getClientesResult(event:ResultEvent):void
-			{
-				var i:int=0;
-				clientes = event.result as ArrayCollection;
-				for(i=0; i<clientes.length; i++){
-					clientes.getItemAt(i).nombre= clientes.getItemAt(i).nombre.split(" ",1).pop() + " " + clientes.getItemAt(i).apellido.split(" ",1).pop() + " " + clientes.getItemAt(i).apellido2;
-					
-					/* clientes.get(i).nombre= clientes.get(i).nombre.split(" ",1).pop() + " " + clientes.get(i).apellido.split(" ",1).pop() + " " + clientes.get(i).apellido2.split(" ",1).pop();  */ 
-				}
-				
-				
-				autoClientes.dataProvider=clientes;
-				autoClientes.labelField= "rut";
-			}
-			
-              private function AsignarNombre():void
-            {
-            		if(autoClientes.selectedItem != false){
-            			autoClienteN.text = autoClientes.selectedItem.nombre.split(" ",1).pop() + " " + autoClientes.selectedItem.apellido.split(" ",1).pop() + " " + autoClientes.selectedItem.apellido2;
-            			cargarMascotas();
-            			} 
-            	
-            }
-            
-            
-            private function asignarRut():void
-            {
-            	if(autoClienteN.selectedItem != false){
-            			autoClientes.text = autoClienteN.selectedItem.rut;
-            		    cargarMascotas();
-            			} 
-            }
-             
-            
-            
+                 {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]);    
+
+		    
             /**
 		 	 * 	@author  "Victor SIlva"
 			 * 	@Fecha  03 Octubre
@@ -115,10 +59,10 @@
 			 * */
 			private function registrarCita():void
 			{								 
-	
+	         var rut:String = clienteRutname.rutClienteInput.text + clienteRutname.rutClienteDVInput.text;
 					
 					c1					= new Cita();
-					c1.cliente 			= autoClientes.text
+					c1.cliente 			= rut;
 					c1.mascota      	= listMascotas.selectedLabel;
 					c1.fecha        	= fecha.text;
 					c1.hora				= hora.text
@@ -162,32 +106,13 @@
 			    Application.application.agenda2.labelMessage.text="Usted ha cancelado la operación";
 			    
 			}
-            
-             public function Seleccionar(event:Event = null):void
-			{
-			    if(Application.application.registrarCita.autoClientes.selectedIndex == "0")
-			    {
-			   Application.application.registrarCita.autoClientes.text=autoClientes.selectedLabel;
-			    }
-			    
-			}
-			
-			
-			
-		    public function Seleccionar2(event:Event = null):void
-			{
-			    if(Application.application.registrarCita.autoClienteN.selectedIndex == "0")
-			    {
-			    Application.application.registrarCita.autoClienteN.text=autoClienteN.selectedLabel;
-			    }
-			    
-			} 
+             
 			
 			public function cargarMascotas():void
 			{
 			 var citaservices: citaServices = new citaServices();
 				citaservices.addEventListener(ResultEvent.RESULT,getMascotasResult);
-				citaservices.getMascotas(Application.application.registrarCita.autoClientes.text);
+				citaservices.getMascotas(clienteRutname.rutClienteInput.text + clienteRutname.rutClienteDVInput.text);
 				
 				
 			}
@@ -208,8 +133,6 @@
        ]]>
        
     </mx:Script>
-	
-	<mx:Label x="10" y="20" text="Rut Cliente:" width="145"/>
 	<mx:Label x="10" y="100" text="Nombre Mascota:" width="145"/>
 	<mx:Label x="10" y="146" text="Fecha         :" width="145"/>
 	<mx:Label x="10" y="196" text="Hora          :" width="145"/>
@@ -226,12 +149,10 @@
 	<mx:Label id="encargado" x="10" y="303" text="Responsable :" width="145"/>
 	<mx:ComboBox x="163" y="301" id="usuarioNombre" width="160" labelField="nombre" activate="false"></mx:ComboBox>
 	<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
-	
-	<ns1:AutoComplete x="163" y="18"   id="autoClientes" dataProvider="{clientes}" labelField="rut" close="AsignarNombre(), Seleccionar()"/>
-	<mx:Label x="10" y="61" text="Nombre Cliente:" width="145"/>
-	<ns1:AutoComplete x="163" y="59" id="autoClienteN" dataProvider="{clientes}" labelField="nombre" close="asignarRut(),Seleccionar2()" />
-	<mx:ComboBox x="163" y="98" id="listMascotas" labelField="nombre" resize="false" >
+	<mx:ComboBox x="163" y="98" id="listMascotas" labelField="nombre" resize="false"  dataProvider="{mascotas}">
 	</mx:ComboBox>
 	<mx:TextInput id="usuario" x="163" y="331" visible="false"/>
+	<ns2:BuscadorNombreRut id="clienteRutname" x="10" y="44" mouseFocusChange="{cargarMascotas()}">
+	</ns2:BuscadorNombreRut>
 
 </mx:Panel>
