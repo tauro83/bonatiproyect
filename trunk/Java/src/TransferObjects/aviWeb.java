@@ -1,3 +1,10 @@
+
+//======================================================================
+// FECHA  CREACIÓN: 08/11/09
+// AUTOR: Cristian Bravo
+// Comentarios: Clase que representa al objeto de un Aviso Web
+//=======================================================================
+
 package TransferObjects;
 
 public class aviWeb {
