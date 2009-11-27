@@ -18,10 +18,11 @@
 			<mx:LinkButton x="50" y="10" label="Estadísticas" click="estadisticasMes()" textAlign="left"/>		
 		</mx:Canvas>
 		<mx:Canvas label="Web Aviso" width="100%" height="100%">
+		    <mx:LinkButton x="50" y="70" label=" Registrar" click="webRegistro()" textAlign="left" id="regAvisoWeb"/>
 			<mx:LinkButton x="50" y="10" label="Web Aviso" click="web()" textAlign="left" id="regCatalogo0"/>
 			<mx:LinkButton x="50" y="100" label="Desactivar" click="{webDesactivar()}" textAlign="left" id="eliminarweb"/>
 			<mx:LinkButton x="50" y="40" label="Anular" id="anularWA" click="{webAnular()}" />
-			<mx:LinkButton x="50" y="70" label="Activar" id="activar" click="{webActivar()}"/>
+			<mx:LinkButton x="50" y="130" label="Activar" id="activar" click="{webActivar()}"/>
 		</mx:Canvas>
 	</mx:Accordion>
 	 <mx:Script>
@@ -135,6 +136,15 @@
          	this.visible = true;
          	Application.application.anuWebaviso.visible = true;
          } 
+         
+         private function webRegistro():void
+          {
+         	Application.application.setInvisible();
+            Application.application.panelPeluqueria.setVisible(true,false);
+            Application.application.registarAviso.setVisible(true,false);
+         }
+
+
          
 	 	]]>
     </mx:Script>
