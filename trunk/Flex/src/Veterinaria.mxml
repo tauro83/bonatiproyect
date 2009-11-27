@@ -274,6 +274,7 @@
 			anularPre2.setVisible(false,false);
 			editProducto2.setVisible(false,false);
 			editProducto.setVisible(false,false);
+			registarAviso.setVisible(false,false);
 		 	<!--Autor: }Nicolas -->
 			
 		 		
@@ -751,5 +752,7 @@
 		</ns7:ActivarPago>
 		<ns7:EliminarPulgarProducto x="241" y="134" visible="false" id="eliminarPulgarProducto">
 		</ns7:EliminarPulgarProducto>
+		<ns6:registrarAviso2 x="241" y="134" id="registarAviso" visible="false" borderColor="#15AD8F">
+	    </ns6:registrarAviso2>
 	<!--Autor: }Sebastian-->
 </mx:Application>
