@@ -168,6 +168,4 @@ CREATE TABLE preoperatorio
   ayudante character(30),
   estado integer DEFAULT '0',
   CONSTRAINT pk_preoperatorio PRIMARY KEY (rut, fecha, hora)
-) 
-WITHOUT OIDS;
-ALTER TABLE preoperatorio OWNER TO postgres1;
+);
