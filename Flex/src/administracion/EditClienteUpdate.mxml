@@ -160,7 +160,8 @@
 			   {
 			      //Alert.show("ok");
 			      Application.application.ediCliUp.setVisible(false,false);
-			  	  Application.application.panelEditaCLi.mensaje2.text="Sus cambios se realizaron con éxito";
+			  	  Application.application.panelEditaCLi.labelMessage.text="Sus cambios se realizaron con éxito";
+			  	  Application.application.panelEditaCLi.reiniciar();
 			 	  Application.application.panelEditaCLi.setVisible(true,false);
 			   }
 			   else
@@ -309,7 +310,8 @@
 			{
 			    
 			  Application.application.ediCliUp.setVisible(false,false);
-			  Application.application.panelEditaCLi.mensaje2.text="Usted ha cancelado la edición de datos";
+			  Application.application.panelEditaCLi.labelMessage.text="Usted ha cancelado la edición de datos";
+			  Application.application.panelEditaCLi.reiniciar();
 			  Application.application.panelEditaCLi.setVisible(true,false);
 			}
 			
@@ -756,11 +758,11 @@
 	
 	
 	<mx:Label x="20" y="30" text="Nombre:" width="97" />
-	<mx:TextInput restrict="A-Z a-z - ´"   x="125" y="28" width="201" id="nombre"  click="{iniListener()}" enabled="true"  maxChars="12"/>
+	<mx:TextInput restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" x="125" y="28" width="201" id="nombre"  click="{iniListener()}" enabled="true"  maxChars="12"/>
 	<mx:Label x="20" y="79" text="Apellido Paterno:" width="112" />
-	<mx:TextInput  x="125" y="77" width="201" id="apellido" click="{iniListener()}" enabled="true" maxChars="12"/>
+	<mx:TextInput restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" x="125" y="77" width="201" id="apellido" click="{iniListener()}" enabled="true" maxChars="12"/>
 	<mx:Label x="20" y="128" text="Apellido Materno:" width="112" />
-	<mx:TextInput  x="125" y="126" width="201" id="apellido2" click="{iniListener()}" enabled="true" maxChars="12"/>
+	<mx:TextInput  restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" x="125" y="126" width="201" id="apellido2" click="{iniListener()}" enabled="true" maxChars="12"/>
 	<mx:Label x="20" y="177" text="Rut:" width="97"/>
 	<mx:TextInput x="125" y="175" width="140" id="rut" enabled="true" maxChars="8" editable="false"/>
 	<mx:Label x="169" y="275" text="-" textAlign="center"/>
@@ -768,13 +770,13 @@
 	<mx:Label x="20" y="226" text="Teléfono Fijo:" width="97"/>
 	<mx:TextInput  x="125" y="224" width="40" id="telefono" enabled="true" maxChars="2"/>
 	<mx:Label x="268" y="177" text="-" textAlign="center"/>
-	<mx:TextInput  x="190" y="224" width="136" id="telefono2" enabled="true" maxChars="10"/>
+	<mx:TextInput restrict="0-9" x="190" y="224" width="136" id="telefono2" enabled="true" maxChars="10"/>
 	<mx:Label x="20" y="275" text="Celular:" width="97"/>
-	<mx:TextInput  x="125" y="273" width="40" id="celular" enabled="true" maxChars="1"/>
+	<mx:TextInput  restrict="0-9" x="125" y="273" width="40" id="celular" enabled="true" maxChars="1"/>
 	<mx:Label x="169" y="226" text="-" textAlign="center"/>
-	<mx:TextInput  x="190" y="273" width="136" id="celular2" enabled="true" maxChars="7"/>
+	<mx:TextInput restrict="0-9" x="190" y="273" width="136" id="celular2" enabled="true" maxChars="7"/>
 	<mx:Label x="413" y="30" text="Dirección:" width="97"/>
-	<mx:TextInput x="540" y="28" width="201" id="direccion" click="{iniListener()}" enabled="true" maxChars="20"/>
+	<mx:TextInput restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú 0-9" x="540" y="28" width="201" id="direccion" click="{iniListener()}" enabled="true" maxChars="200"/>
 	<mx:Label x="413" y="79" text="Región:" width="112"/>
 	<mx:ComboBox x="540" y="77" width="201" id="region"  close = "selRegion(event);">
 	</mx:ComboBox>
@@ -782,10 +784,10 @@
 	<mx:ComboBox x="540" y="126" width="201" id="comuna">
 	</mx:ComboBox>
 	<mx:Label x="413" y="177" text="E-Mail:" width="97"/>
-	<mx:TextInput x="539" y="175" width="201" id="email" enabled="true" maxChars="20"/>
+	<mx:TextInput x="539" y="175" width="201" id="email" enabled="true" maxChars="40"/>
 	<mx:Label x="413" y="226" text="Confirmación E-mail:" width="132"/>
-	<mx:TextInput x="539" y="224" width="201" id="email2" click="{iniListener()}" enabled="true" maxChars="20"/>
-	<mx:Button x="557" y="302" width="102" label="Cancelar" id="cancelarClienteIng" click="cancela()" height="23" cornerRadius="6">
+	<mx:TextInput x="539" y="224" width="201" id="email2" click="{iniListener()}" enabled="true" maxChars="40"/>
+	<mx:Button x="557" y="302" width="102" label="Cancelar" id="cancelarClienteIng" click="{cancela()}" height="23" cornerRadius="6">
 	</mx:Button>
 	<mx:Button x="413" y="302" width="102" label="Guardar" id="guardaEditCliente" click="{verificaEdicion()}" height="23" cornerRadius="6">
 	</mx:Button>
