@@ -1,41 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" initialize="resetVars()" borderColor="#15AD8F"  >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" initialize="resetVars()" borderColor="#15AD8F" xmlns:fc="http://www.adobe.com/2006/fc" >
 	
 		<mx:Script>
 		<![CDATA[
-			import administracion.UsuarioEditService;
-			import mx.events.ListEvent;
-		/*
-			import administracion.UsuarioEditService;
-			import mx.rpc.events.ResultEvent;
-			import services.usuarioServices;
-			import mx.controls.Alert;
-			import mx.collections.ArrayCollection;   
-	    */
-	    	import mx.collections.ArrayCollection;
-			import mx.controls.Alert;
-			import transferObjects.Usuario;
-			import transferObjects.Cliente;
-			import mx.rpc.events.ResultEvent;
-			import administracion.UsuarioEditService;
-			import administracion.ClienteEditService;
-			import administracion.EditClienteUpdate;
+		
+			//=======================================================================
+			// FECHA CREACIÓN: 06/10/09
+			// AUTOR: Esteban Cruz
+			// Panel de busqueda del sistema, dentro de esta se pueden realizar 
+			// busquedas para: Mascota, Cliente, Atencion, Producto, Aviso, Usuario
+			//=======================================================================
 			
+			import mx.binding.utils.ChangeWatcher;
+			import mx.collections.ArrayCollection;
+			import mx.rpc.events.ResultEvent;
+			import services.BusquedaService;
+			import mx.events.CloseEvent;
+			import mx.events.DropdownEvent;
+			import mx.core.Application;
+			import mx.controls.dataGridClasses.DataGridColumn;
 			import flash.events.MouseEvent;
             import mx.events.FlexEvent;
             import mx.rpc.events.ResultEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
-			import mx.core.Application;
 			
+			import transferObjects.Cliente;
+
 			[Bindable]
 			private var clientes:ArrayCollection;
+			
+			[Bindable]
+			private var nuevaRut2:String;
+			
+			[Bindable]
+			public var newCli:Cliente;
 			//private var clientillo:ClienteService;
 			private var clienteAux:Cliente;
 			private var clienteAuxEditado:Cliente;
 			public var newCli2:EditClienteUpdate;
 			//var newCli2:EditClienteUpdate = Application.application.ediCliUp;
-		
+			
 			/**
 			 * @author  "Raul Lopez"
 			 * @Fecha  20 Septiembre
@@ -45,21 +50,8 @@
 			public function editClientillo(clientillo:Cliente):void
 			
 			{
-					/*
-					Alert.show(clientillo.nombre);
-					Alert.show(clientillo.apellido);
-					Alert.show(clientillo.apellido2);
-					Alert.show(clientillo.rut);
-					Alert.show(clientillo.rut2);
-					Alert.show(clientillo.telefono);
-					Alert.show(clientillo.telefono2);
-					Alert.show(clientillo.celular);
-					Alert.show(clientillo.celular2);
-					Alert.show(clientillo.region);
-					Alert.show(clientillo.comuna);
-					Alert.show(clientillo.direccion);
-					Alert.show(clientillo.email);
-					*/
+					
+	
 					var newCli2:EditClienteUpdate = Application.application.ediCliUp; 		
 				    var list1:Array= new Array();
 					list1 = clientillo.nombre.split(" ",1);
@@ -89,8 +81,10 @@
 				    list1 = clientillo.celular2.split(" ",1); 
 				    newCli2.celular2.text  = list1.pop();
 				    
-				    list1 = clientillo.direccion.split(" ",1);
-				    newCli2.direccion.text = list1.pop();
+				
+				    //list1 = clientillo.direccion.split(" ",1);
+				    //newCli2.direccion.text = list1.pop();
+				    newCli2.direccion.text   = clientillo.direccion;
 				    
 				    list1 = clientillo.region.split(" ",1);
 				    newCli2.region.text = list1.pop();
@@ -114,40 +108,17 @@
 					
 
 			}
-	    
+			
+			
+			
 			/**
-			 * @author  "Raul Lopez"
-			 * @Fecha  20 Septiembre
-			 * @Funcion que recibe de la base datos todos los clientes existentes, esto se recibe y se realiza una b?squeda del rut del cliente
-			 * para de este obtener sus datos.
-		    */
-			public function getAllClientes():void
-			{
-				var personService:ClienteEditService = new ClienteEditService();
-				personService.addEventListener(ResultEvent.RESULT,getAllClientesEResult);
-				personService.getAllClientesE();
-				
-			}
-			/**
-			 * @author  "Raul Lopez"
-			 * @Fecha  20 Septiembre
-			 * @Funcion que copia el conjunto de clientes recibidos en un arrayColecction llamado clientes
-			 */
-			private function getAllClientesEResult(event:ResultEvent):void
-			{
-				clientes = event.result as ArrayCollection;
-				
-			}
-	    
-
-		
-		/**
 			 * @author  "Raul Lopez"
 			 * @Fecha  20 Septiembre
 			 * @Funcion que verifica si el rut del cliente que se busca existe, de ser asi envia el objeto que es solicitado
 		*/
 		private function ctm():void
 		{
+			
 			var i:int;
 			var j:int;
 			var res:int=0;
@@ -157,7 +128,7 @@
 			var list2:Array = new Array();
 			var list3:Array = new Array();
 			var nuevaRut:String;
-			var nuevaRut2:String;
+			//var nuevaRut2:String;
 			var codVerif:String;
 			///////////////////////
 			var AuxcodCiudad:String;
@@ -170,15 +141,18 @@
 			var codCel:String;
 			var numCel:String;
 			//////////////////////
-			getAllClientes();
+			getAllCliente();
 			//Alert.show("hola1 .."+clientes.length+"...");
 			for(i=0;i<clientes.length;i++)
 			{
 				list = clientes[i].rut.split(" ",1);
 				nuevaRut  = list.pop();
 				
-			    nuevaRut2 = rut.text.concat(rut2.text);
+			    //nuevaRut2 = rut.text.concat(rut2.text);
+			    //nuevaRut2 = gridCliente.selectedItem.rut;
 			    codVerif  = nuevaRut2.charAt(8);
+			    
+			   
 			
 				if(nuevaRut == nuevaRut2)
 				{
@@ -226,7 +200,6 @@
 				Alert.show("Cliente no se encuentra en Base de Datos");
 			}
 		 }
-		 
 		 /**
 			 * @author  "Raul Lopez"
 			 * @Fecha  20 Septiembre
@@ -234,9 +207,9 @@
 		*/
 		 public function resetVars():void
 			{
-				rut.text  = "";
-				rut2.text = "";
-				mensaje2.text = "";
+				//rut.text  = "";
+				//rut2.text = "";
+				labelMessage.text = "";
 				
 
 			}
@@ -246,19 +219,276 @@
 		   Application.application.panelEditaCLi.setVisible(true,false);
 		}
 		
+			/**
+			 *  Sale de la búsqueda
+			 *  @author  "Esteban Cruz"
+			 **/
+			private function volver():void
+            {
+            	Application.application.setInvisible();
+            	Application.application.agenda2.setVisible(true,false);
+            	Application.application.menuAgenda1.setVisible(true,false);
+            }
+            
+            /**
+             *  Reinicia el panel de busqueda
+			 *  @author  "Esteban Cruz"
+			 **/
+            public function reiniciar():void
+            {
+            	
+            	comboboxCliente.selectedIndex=0;
+            	gridCliente.dataProvider=null;
+            	inputClienteEmail.dataProvider=null;
+            	inputClienteNombre.dataProvider=null;
+            	inputClienteTel.dataProvider=null;
+            	inputClienteRut.dataProvider=null;
+            	inputClienteApellido.dataProvider=null;
+            	inputClienteApellido2.dataProvider=null;
+            	
+            	
+            	textBuscar.visible=false;
+            	setInvisibleInput();
+            }
+            		
+			/**
+			 *  Hace invisible a todos los elementos del componente
+			 *  @author  "Esteban Cruz"
+			 **/
+			private function setInvisibleInput ():void
+            {
+            	
+            	
+            	inputClienteEmail.setVisible(false,false);
+            	inputClienteNombre.setVisible(false,false);
+            	inputClienteTel.setVisible(false,false);
+            	inputClienteRut.setVisible(false,false);
+            	inputClienteApellido.setVisible(false,false);
+            	inputClienteApellido2.setVisible(false,false);
+            	
+            }
+            
+            /**
+			 *  Hace visible los elementos correspondientes al objeto
+			 *  que se selecciono desde el 1er combobox
+			 *  @author  "Esteban Cruz"
+			 **/
+			private function seleccionarBusqueda (event:Event):void
+            {   
+            	
+				comboboxCliente.setVisible(false,false);
+				gridCliente.setVisible(false,false);
+				reiniciar();
+            	switch (combobox.selectedLabel)
+				{
+				
+				case 'Cliente':
+					comboboxCliente.setVisible(true,false);
+					gridCliente.setVisible(true,false);
+				break;
+				}
+            }
 
+		   /**
+			 * @author  "Raul Lopez"
+			 * @Fecha  20 Septiembre
+			 * @Funcion que recibe de la base datos todos los clientes existentes, esto se recibe y se realiza una b?squeda del rut del cliente
+			 * para de este obtener sus datos.
+		    */
+			public function getAllCliente():void
+			{
+				var personService:ClienteEditService = new ClienteEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllClienteEResult);
+				personService.getAllClientesE();
+				
+			}
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  20 Septiembre
+			 * @Funcion que copia el conjunto de clientes recibidos en un arrayColecction llamado clientes
+			 */
+			private function getAllClienteEResult(event:ResultEvent):void
+			{
+				clientes = event.result as ArrayCollection;
+				
+			}
+		   
+		   
+		   /**
+		    *  Busca todos los clientes existentes en la base de datos
+			*  @author  "Esteban Cruz"
+			**/
+		   public function getAllClientes():void
+		   {
+		   		var busquedaService:BusquedaService = new BusquedaService();
+		   		busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
+				busquedaService.getAllClientes();
+		   }
+		   
+		   public function getAllClientesResult(event:ResultEvent):void
+		   {
+		   		clientes = event.result as ArrayCollection;
+		   }
+		   
+		    /**
+		    *  Combobox de cliente
+			*  @author  "Esteban Cruz"
+			**/
+		   private function seleccionarCliente (event:Event):void
+            {
+            	setInvisibleInput();
+            	getAllClientes();
+            	textBuscar.setVisible(true, false);
+            	switch (comboboxCliente.selectedLabel){
+				case 'E-mail':		
+					inputClienteEmail.setVisible(true,false);
+				break; 
+				case 'Nombre':		
+					inputClienteNombre.setVisible(true,false);
+				break; 
+				case 'Teléfono':		
+					inputClienteTel.setVisible(true,false);
+				break; 
+				case 'Rut':		
+					inputClienteRut.setVisible(true,false);
+				break; 	
+				case 'Apellido materno':		
+					inputClienteApellido2.setVisible(true,false);
+				break; 	
+				case 'Apellido paterno':		
+					inputClienteApellido.setVisible(true,false);
+				break; 	
+				}
+            }
+		   
+		  
+		  
+            
+			
+			/**
+		    *  Selecciona cualquier elemento del input Cliente
+			*  @author  "Esteban Cruz"
+			**/
+            public function inputClienteNombreS(event:Event):void
+			{
+				inputClienteNombre.text=inputClienteNombre.selectedLabel;
+			}
+			 public function inputClienteRutS(event:Event):void
+			{
+				inputClienteRut.text=inputClienteRut.selectedLabel;
+			}
+			 public function inputClienteTelS(event:Event):void
+			{
+				inputClienteTel.text=inputClienteTel.selectedLabel;
+			}
+			 public function inputClienteEmailS(event:Event):void
+			{
+				inputClienteEmail.text=inputClienteEmail.selectedLabel;
+			}
+			 public function inputClienteApellidoS(event:Event):void
+			{
+				inputClienteApellido.text=inputClienteApellido.selectedLabel;
+				
+			}
+			public function inputClienteApellido2S(event:Event):void
+			{
+				inputClienteApellido2.text=inputClienteApellido2.selectedLabel;
+			}
+			
+			public function editaCliente(event:Event):void
+			{
+				
+				if(gridCliente.selectedItem){
+					var newClienteUpdate:EditClienteUpdate = Application.application.ediCliUp;
+					newCli = new Cliente;
+					newCli.nombre         = gridCliente.selectedItem.nombre;
+					newCli.apellido       = gridCliente.selectedItem.apellidoPaterno;
+					newCli.apellido2	  = gridCliente.selectedItem.apellidoMaterno;
+					newCli.rut        	  = gridCliente.selectedItem.rut;
+					newCli.telefono       = gridCliente.selectedItem.telefono;
+					newCli.celular        = gridCliente.selectedItem.celular;
+					newCli.direccion	  = gridCliente.selectedItem.direccion;
+					newCli.region         = gridCliente.selectedItem.region;
+					newCli.comuna		  = gridCliente.selectedItem.comuna;
+					newCli.email          = gridCliente.selectedItem.email;
+					newCli.estado         = gridCliente.selectedItem.estado;
+					
+					
+					Application.application.panelEditaCLi.setVisible(false,false);
+					newClienteUpdate.carga(newCli);
+					Application.application.ediCliUp.setVisible(true,false);
+					
+				}
+				else{
+					this.labelMessage.text="Seleccione un Cliente para editar.";
+				}
+				
+			}
+			public function rut():void{
+			
+			   rutClienteInput.text = gridCliente.selectedItem.rut;
+			   nuevaRut2 = gridCliente.selectedItem.rut;
+			   ctm();
+			}
+			
+			
+			
+			
 
 		]]>
 	</mx:Script>
 	
-	<mx:Canvas y="35" height="46" cornerRadius="6" borderStyle="solid" borderColor="#FEFEFE" id="canvas2" width="738" x="11">
-	</mx:Canvas>
-	<mx:Label x="10" y="100" text="Rut:" width="97"/>
-	<mx:TextInput x="115" y="98" width="140" id="rut" enabled="true" maxChars="8"/>
-	<mx:TextInput x="280" y="98" width="36" id="rut2" enabled="true" enter="{ctm()}" maxChars="1"/>
-	<mx:Label x="258" y="100" text="-" textAlign="center"/>
-	<mx:Button x="403" y="98" label="Buscar" width="77" click="{ctm(),resetVars()}"/>
-	<mx:Label x="169" y="372" width="407" height="17" id="mensaje2" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="632" y="353" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()" height="23"/>
+	<mx:ComboBox x="96" y="24" width="150" id="combobox" change="seleccionarBusqueda(event)" >
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccionar-"/>
+			<mx:Object label="Cliente"/> 
+			
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:Text x="30" y="26" id="textFiltrar" text="Filtrar por"/>
+	<mx:Text x="523" y="26" text="Buscar" id="textBuscar" visible="false"/>
+
+	<!-- AutoComplete para cada parametro -->
 	
+	<!-- input Cliente -->
+	<fc:AutoComplete close="inputClienteNombreS(event)" id="inputClienteNombre" x="572" y="24" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete close="inputClienteRutS(event)" id="inputClienteRut" x="572" y="24" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
+	<fc:AutoComplete close="inputClienteTelS(event)" id="inputClienteTel" x="572" y="24" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
+	<fc:AutoComplete close="inputClienteEmailS(event)" id="inputClienteEmail" x="572" y="24" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
+	<fc:AutoComplete close="inputClienteApellidoS(event)" id="inputClienteApellido" x="572" y="24" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
+	<fc:AutoComplete close="inputClienteApellido2S(event)" id="inputClienteApellido2" x="572" y="24" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
+	
+	<!-- Cliente: combobox y grid -->
+	<mx:ComboBox x="254" y="24" id="comboboxCliente" width="150" visible="false" change="seleccionarCliente(event)">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccionar-"/>
+			<mx:Object label="Apellido materno"/>
+			<mx:Object label="Apellido paterno"/>
+			<mx:Object label="E-mail"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Rut"/>
+			<mx:Object label="Teléfono"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	
+	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridCliente" visible="true" dataProvider="{clientes}" click="{rut()}">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Apellido paterno" dataField="apellido"/>
+			<mx:DataGridColumn headerText="Apellido materno" dataField="apellido2"/>
+			<mx:DataGridColumn headerText="Rut" dataField="rut"/>
+			<mx:DataGridColumn headerText="E-mail" dataField="email"/>
+			<mx:DataGridColumn headerText="Teléfono" dataField="telefono"/>
+			<mx:DataGridColumn headerText="Celular" dataField="celular" visible="false"/>
+			<mx:DataGridColumn headerText="Direccion" dataField="direccion" visible="false"/>
+			<mx:DataGridColumn headerText="Region" dataField="region" visible="false"/>
+			<mx:DataGridColumn headerText="Comuna" dataField="comuna" visible="false"/>
+			<mx:DataGridColumn headerText="Estado" dataField="estado" visible="false"/>
+			
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:TextInput  restrict="0-9" x="46" y="363" width="90.5" id="rutClienteInput" maxChars="9" visible="false"/>
 	
 </mx:Panel>
