@@ -19,7 +19,8 @@
 				<mensaje key="15">Registro no modificado</mensaje>
 				<mensaje key="16">El servicio no puede ser modificado</mensaje>
 				<mensaje key="17">El nombre no puede ser modificado</mensaje>
-				<mensaje key="18">El nombre de usuario ha sido previamente registrado</mensaje>
+				<mensaje key="18">El nombre de usuario ha sido previamente registrado</mensaje>	
+				<mensaje key="19">Error al editar el aviso</mensaje>			
 			</mensajes>
 		</tipoMensaje>	
 		<tipoMensaje name="Advertencia">
@@ -33,7 +34,7 @@
 				<mensaje key="7">Ingrese un Apellido Materno m&#225;s largo</mensaje>
 				<mensaje key="8">Ingrese un nombre de usuario m&#225;s largo</mensaje>
 				<mensaje key="9">Ingrese una contrase&#241;a que coincida con la anterior</mensaje>
-				<mensaje key="10">Ingrese dirección m&#225;s larga</mensaje>
+				<mensaje key="10">Ingrese direcci&#243;n m&#225;s larga</mensaje>
 				<mensaje key="11">Ingrese un nombre de usuario sin espacios en blanco y mas largo</mensaje>
 				<mensaje key="12">Ingrese una contrase&#241;a mas larga y sin espacios en blanco</mensaje>
 				<mensaje key="13">Seleccione un servicio espec&#237;fico para poder Agendar</mensaje>
@@ -53,6 +54,7 @@
 				<mensaje key="27">Ingrese una especie antes de registrar</mensaje>				
 				<mensaje key="28">Ingrese una fecha inicio anterior a la actual</mensaje>				
 				<mensaje key="29">Ingrese una fecha de inicio, anterior a la fecha de t&#233;rmino</mensaje>
+				<mensaje key="30">Ingrese al menos un numero de tel&#233;fono</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="Pregunta">
@@ -100,16 +102,17 @@
 				<mensaje key="30">Se ha eliminado el Servicio exitosamente</mensaje>
 				<mensaje key="31">Se ha registrado la Especie exitosamente</mensaje>							
 				<mensaje key="32">Se ha eliminado la Especie exitosamente</mensaje>
+				<mensaje key="33">Se ha editado el Aviso exitosamente</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="ToolTip">
 			<mensajes>
-				<mensaje key="1">Seleccione los catálogos que desea anular</mensaje>
+				<mensaje key="1">Seleccione los cat&#225;logos que desea anular</mensaje>
 				<mensaje key="2">Seleccione las vacunaciones que desea anular</mensaje>
-				<mensaje key="3">Seleccione las cirugías que desea anular</mensaje>
-				<mensaje key="4">Anula los catálogos seleccionados</mensaje>
+				<mensaje key="3">Seleccione las cirug&#237;as que desea anular</mensaje>
+				<mensaje key="4">Anula los cat&#225;logos seleccionados</mensaje>
 				<mensaje key="5">Anula las vacunaciones seleccionadas</mensaje>
-				<mensaje key="6">Anula las cirugías seleccionadas</mensaje>
+				<mensaje key="6">Anula las cirug&#237;as seleccionadas</mensaje>
 				<mensaje key="7">Vuelve al panel anterior</mensaje>
 				<mensaje key="7">Ingrese un motivo por el cual desea anular</mensaje>
 			</mensajes>
