@@ -5,8 +5,9 @@
 			//=======================================================================
 			// FECHA CREACIÓN: 09/11/09
 			// AUTOR: Erwin Díaz
-			// Comentarios: Registra los avisos que realiza un cliente en la 
-			// 				página web
+			// Comentarios: Registra los avisos que realiza un cliente en la página web
+			// Camilo Verdugo: Correciones: Solicitud de ingreso de un fono obligatoriamente,
+			// mensajes de sistema estandarizados
 			//=======================================================================
 		
 			import flash.display.Sprite;
@@ -20,6 +21,7 @@
 			import services.Mensajes;
 			import avisoWeb.AvisoWeb;
 			import avisoWeb.AvisoWebService;
+			import util.Properties;
 			
 			private var idAviso:int;
 			private var avisoWebService:AvisoWebService;
@@ -31,23 +33,30 @@
 			/**
 		 	 * 	@author  Erwin Díaz
 			 *  Método que crea una instancia del transferObject AvisoWeb,
-			 *  posterior a la validacion de datos  y lo envia a AvisoWebService		 		
+			 *  posterior a la validacion de datos  y lo envia a AvisoWebService			 *  	 		
 			 * */
 			private function registrar():void
 			{					
-				mens.text = "está registrando";			 
-				aviso			  	= new AvisoWeb();
-				aviso.id			= this.idAviso;
-				aviso.telefono0		= this.telefono0.text.toString();
-				aviso.telefono		= this.telefono.text.toString();
-				aviso.celular0		= this.celular0.text.toString();
-				aviso.celular		= this.celular.text.toString();
-				aviso.asunto		= this.asunto.text.toString();
-				aviso.descripcion	= this.descripcion.text.toString();
-				
-				avisoWebService = new AvisoWebService();
-				avisoWebService.addEventListener(ResultEvent.RESULT,registroAvisoResultado);																					
-				avisoWebService.upAvisoWeb(aviso);				
+				if((telefono0.text.length>1 && telefono.text.length>5) || celular0.text.length>1 && celular.text.length>5 ){
+					
+					mens.text = Properties.getMensaje("Informacion", "33");			 
+					aviso			  	= new AvisoWeb();
+					aviso.id			= this.idAviso;
+					aviso.telefono0		= this.telefono0.text.toString();
+					aviso.telefono		= this.telefono.text.toString();
+					aviso.celular0		= this.celular0.text.toString();
+					aviso.celular		= this.celular.text.toString();
+					aviso.asunto		= this.asunto.text.toString();
+					aviso.descripcion	= this.descripcion.text.toString();
+					
+					avisoWebService = new AvisoWebService();
+					avisoWebService.addEventListener(ResultEvent.RESULT,registroAvisoResultado);																					
+					avisoWebService.upAvisoWeb(aviso);		
+				}
+				else{
+					mens.text = Properties.getMensaje("Advertencia", "30");
+				}
+						
 			}
 			
 			/**
@@ -59,13 +68,13 @@
 				var message:int= event.result as int;	
 				var msj:String = "";
 				if(message==1){
-					msj = nomb.text +" "+ apaterno.text +" fue Editado";
+					msj = Properties.getMensaje("Advertencia", "30");
 				 	Application.application.editarAvisoList.labelMessage.text = nomb.text +" "+ apaterno.text +" fue Editado";
 					resetVars(); 		
 				 	cancelando();		
     		 	}
-				else{
-					msj = nomb.text + " " + apaterno.text+" no fue Editado";				
+				else{ 
+					msj = Properties.getMensaje("Error", "19");				
 				}		
 				mens.text = msj;
 					
@@ -134,7 +143,6 @@
 	<mx:Button x="594" y="366" width="120" label="Cancelar" id="cancelarCatalogo" click="cancelando()" height="25" cornerRadius="6" toolTip="Cancelar la edición de aviso">
 	</mx:Button>
 	<mx:TextArea x="138" y="265" height="79" width="576" toolTip="Descripción del aviso" id="descripcion"/>
-	<mx:Image x="424" y="28" width="256" height="193" source="../Imagenes/globeAviso.png"/>
-	<mx:Text x="139" y="36" text="" width="200" height="18" id="nomb"/>
-	<mx:Text x="138" y="77" text="" width="200" height="18" id="apaterno"/>
+	<mx:TextInput x="138" y="34" id="nomb" editable="false" width="201"/>
+	<mx:TextInput x="138" y="75" id="apaterno" editable="false" width="201"/>
 </mx:Panel>
