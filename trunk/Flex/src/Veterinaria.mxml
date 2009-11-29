@@ -413,7 +413,7 @@
  			private function editarCliente(event:Event):void
  			{
    				setInvisible();
-   				panelEditaCLi.mensaje2.text="";
+   				//panelEditaCLi.labelMessage.text="";
    				AdmOpciones1.setVisible(true,false);
    				panelEditaCLi.setVisible(true,false);
               
