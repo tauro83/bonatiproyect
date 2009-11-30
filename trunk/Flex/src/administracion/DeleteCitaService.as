@@ -1,7 +1,7 @@
 //=======================================================================
-// FECHA CREACIÓN:  28/09/2009
+// FECHA CREACIï¿½N:  28/09/2009
 // AUTOR: Raul Lopez
-// …. Clase que conecta con capa 2
+// ï¿½. Clase que conecta con capa 2
 //=======================================================================
 
 package administracion
@@ -52,8 +52,8 @@ package administracion
 			 * para eliminarlo de la base de datos. Llamando al metodo correspondiente.
 			 * 	@Param Recibe como parametro el rut del cliente, para encontrar la cita a eliminar, para enviarlo a la capa2. 		
 			 * */
-		public function purgarCita(cliente:String):void{
-			this.getOperation("purgarCita").send(cliente);
+		public function purgarCita(fecha:String, hora:String, servicio:String, responsable:String):void{
+			this.getOperation("purgarCita").send( fecha, hora, servicio, responsable);
 		}
 
 	}

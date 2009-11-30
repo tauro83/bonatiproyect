@@ -33,6 +33,10 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
 			import mx.core.Application;
+			import services.MascotaService;
+			import transferObjects.Mascota;
+			import services.citaServices;
+			private var ct:citaServices = new citaServices();
 			
 			[Bindable]
 			private var clientes:ArrayCollection;
@@ -42,7 +46,18 @@
 			public var clienteAuxEditado:Cita;
 			public var newCli2:EditClienteUpdate;
 			//var newCli2:EditClienteUpdate = Application.application.ediCliUp;
+			[Bindable]
+			public var fech:String;
+			[Bindable]
+			public var hor:String;
+			[Bindable]
+			public var servi:String;
+			[Bindable]
+			public var respon:String;
+			[Bindable] private var mascotas:ArrayCollection;
 			
+			
+			private var c1:Cita;
 			
 			public var citi:Cita;
 			
@@ -55,14 +70,24 @@
 			 */ 
 			public function carga(clientillo:Cita):void
 			{       //asigno el cliente entregado desde panel EditarCliente
+			        
 				    clienteAuxEditado = clientillo;
-				    nombre.text = clientillo.cliente;
+				    rut.text = clientillo.cliente;
 				    hora.text   = clientillo.hora;
 				    fecha.text	= clientillo.fecha;
 				    responsable.text = clientillo.usuario;
-				    mascota.text= clientillo.mascota;
+				    listMascotas.text= clientillo.mascota;
 				    servicio.text=clientillo.servicio;
-				    //nombre.enabled=false;
+				    //le asigno las inicales de responsable (primera letra nombre mas el apellido)
+				    clienteAuxEditado.usuario = iniciales();
+				    
+				    fech    	= clientillo.fecha;
+				    hor     	= clientillo.hora;
+				    servi 		= clientillo.servicio;
+				    respon 		= clienteAuxEditado.usuario;
+				    
+				    
+				    //Alert.show(respon);
 				    
 			}
 			
@@ -76,14 +101,42 @@
 			public function clienteModificado():void
 			{
 					
-					clienteAuxEditado.cliente  = nombre.text;
-					clienteAuxEditado.mascota = mascota.text;
+					clienteAuxEditado.cliente  = rut.text;
+					clienteAuxEditado.mascota = listMascotas.text;
 					clienteAuxEditado.fecha =  fecha.text;
 					clienteAuxEditado.hora       = hora.text;
 					clienteAuxEditado.servicio 	 	= servicio.text;
-					clienteAuxEditado.usuario = responsable.selectedItem.usuario;
+					clienteAuxEditado.usuario  = iniciales();
+					//var la:String = iniciales();
+					//Alert.show(la);
 					carga1();
 					
+			}
+			public function iniciales():String{
+			   var usuarillo:Array  = new Array();
+			   var usuarillo2:Array  = new Array();
+			   var usuarillo3:Array  = new Array();
+			   var nombreUsu:String;
+			   var apaternoUsu:String;
+			   var aux:String
+			   var i:int;
+			   for(i = 0; i<usuarios.length ; i++){
+						
+					usuarillo = usuarios[i].nombre.split(" ",1);
+					nombreUsu  = usuarillo.pop();
+						
+					usuarillo2 = usuarios[i].apellidoPaterno.split(" ",1);
+					apaternoUsu= usuarillo2.pop();
+					if(responsable.text == nombreUsu + " " + apaternoUsu){
+						usuarillo3 = usuarios[i].usuario.split(" ",1);
+						aux = usuarillo3.pop();
+						//clienteAuxEditado.usuario = aux;
+						
+						
+					}
+				}
+				return aux;
+			
 			}
 			/**
 			 * @author  "Raul Lopez"
@@ -98,7 +151,7 @@
 			  
 			  var auxiliar:EditarCitaService = new EditarCitaService();
 			  auxiliar.addEventListener(ResultEvent.RESULT,carga1Result);
-			  auxiliar.insertCitaE(clienteAuxEditado);
+			  auxiliar.insertCitaE(clienteAuxEditado, fech, hor, servi, respon);
 			  
 			}
 			public function carga1Result(event:ResultEvent):void
@@ -107,7 +160,8 @@
 			   res = event.result as int;
 			   if(res > 0)
 			   {
-			   	  
+			   	  //linea esitada
+			   	  Application.application.agenda2.iniciarAgenda();
 			   	  Application.application.agenda2.labelMessage.text ="La cita ha sido modificada exitosamente";
 			   	  this.setVisible(false,false);
 			   	  Application.application.agenda2.setVisible(true,false);
@@ -197,6 +251,9 @@
 		   
 		   [Bindable]
 		   private var usuarios2:ArrayCollection;
+		   
+		   [Bindable]
+		   private var inicalesUsuarios2:ArrayCollection;
 	       
 	       [Bindable]
 			private var responsableSeleccionado:String;
@@ -233,11 +290,14 @@
 			 * */
 			private function getAllUsuariosEResult(event:ResultEvent):void
 			{
+				
 				usuarios = event.result as ArrayCollection;	
 				usuarios2 = new ArrayCollection();
 				responsableSeleccionado = usuarios.getItemAt(0).usuario.split(" ",1).pop();
 				for(var i:int = 0; i<usuarios.length; i++){
 					usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
+				    
+				    
 				}					
 			}
 			
@@ -343,32 +403,57 @@
         		
         		//servicios.addItem({label:" "});
         		servicios.addItem({label:"Pabellón"});
-        		servicios.addItem({label:"Cirugía"});
+        		servicios.addItem({label:"Peluquería"});
+        		servicios.addItem({label:"Policlínico"});
 				servicios.addItem({label:"Atención a Domicilio"});
         		
 
         		servicio.dataProvider = servicios;			
 			}
 			
+		
+			public function cargarMascotas():void
+			{
+			 var citaservices: citaServices = new citaServices();
+				citaservices.addEventListener(ResultEvent.RESULT,getMascotasResult);
+				citaservices.getMascotas(rut.text);
+				
+				
+			}
+			
+			private function getMascotasResult(event:ResultEvent):void
+			{
+				var i:int;
+				mascotas = event.result as ArrayCollection;
+				listMascotas.dataProvider = mascotas;
+				for(i<0; i<mascotas.length; i++){
+					mascotas.getItemAt(i).nombre= mascotas.getItemAt(i).nombre.split(" ",1);
+					
+				}
+				listMascotas.labelField = 'nombre';
+			}
+			
        ]]>
        
     </mx:Script>
 	
-	
-	<mx:TextInput x="163" y="64" width="140" id="nombre" enabled="true" maxChars="20" editable="false"/>
-	<mx:Label x="10" y="66" text="Nombre         :" width="145"/>
-	<mx:Label x="10" y="152" text="Fecha           :" width="145"/>
-	<mx:Label x="10" y="202" text="Hora             :" width="145"/>
-	<mx:DateField x="163" y="150" width="115" id="fecha"/>
-	<mx:Label x="10" y="315" text="Servicio        :" width="145"/>
+	<mx:TextInput id="usuario" x="425" y="279" visible="false"/>
+	<mx:TextInput x="163" y="66" width="140" id="rut" enabled="true" maxChars="20" editable="false"/>
+	<mx:Label x="10" y="68" id="labelRut" text="Rut Cliente    :" width="145"/>
+	<mx:Label x="10" y="154" text="Fecha           :" width="145"/>
+	<mx:Label x="10" y="256" text="Hora             :" width="145"/>
+	<mx:DateField x="163" y="152" width="115" id="fecha"/>
+	<mx:Label x="10" y="301" text="Servicio         :" width="145"/>
 	<mx:Button x="590" y="347" label="Cancelar" width="112" click="{cancelarEditaCita()}"/>
 	<mx:Button x="425" y="347" label="Guardar " width="123" click="{clienteModificado()} "/>
-	<mx:Label x="10" y="260" text="Responsable :" width="145"/>
-	<mx:Label x="10" y="111" text="Mascota:" width="112"/>
-	<mx:ComboBox x="163" y="109" width="160" id="mascota"/>
-	<mx:ComboBox x="163" y="313" id="servicio"  width="160" close = "selServicios();">
+	<mx:Label x="10" y="205" text="Responsable :" width="145"/>
+	<mx:Label x="10" y="113" text="Mascotas      :" width="123"/>
+	<mx:ComboBox x="163" y="299" id="servicio"  width="160" close = " selServicios();">
 	</mx:ComboBox>
-	<mx:ComboBox id="responsable" x="163" y="258" dataProvider="{usuarios2}" change ="asignarResponsable(event)"></mx:ComboBox>
-	<mx:ComboBox id="hora" x="163" y="200" width="160" dataProvider="{horasLibres}"/>
+	<mx:ComboBox id="responsable" x="163" y="203" dataProvider="{usuarios2}" change ="asignarResponsable(event)"></mx:ComboBox>
+	<mx:ComboBox id="hora" x="163" y="254" width="160" dataProvider="{horasLibres}"/>
+	<mx:ComboBox x="163" y="111" id="listMascotas" labelField="nombre" resize="false"  dataProvider="{mascotas}">
+	</mx:ComboBox>
+	
 	
 </mx:Panel>
