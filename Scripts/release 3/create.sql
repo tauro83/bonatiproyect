@@ -38,21 +38,6 @@ create table Vacunacion(
 	constraint PK_vacuna primary key (mascotaNombre,hora,clienteRut,fecha,vacuna)
 );
 
-CREATE TABLE avisoweb
-(
-  id integer NOT NULL,
-  nombre character(20) NOT NULL,
-  apaterno character(20) NOT NULL,
-  telefono0 character(4),
-  telefono character(20),
-  celular0 character(4),
-  celular character(20),
-  asunto character(50),
-  descripcion character(160),
-  estado integer DEFAULT '0',
-  CONSTRAINT avisoweb_pkey PRIMARY KEY (nombre, id)
-);
-
 CREATE TABLE postoperatorio
 (
   idpostoperatorio character(8) NOT NULL,
