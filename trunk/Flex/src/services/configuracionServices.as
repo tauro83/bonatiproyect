@@ -12,7 +12,8 @@ package services
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
-	import mx.rpc.remoting.mxml.RemoteObject;	
+	import mx.rpc.remoting.mxml.RemoteObject;
+	
 	import transferObjects.ConfiguracionVacuna;
 	
 	/** 
@@ -50,10 +51,20 @@ package services
 		 * @param tipo indica que configuracion esta solicitando, los tipos pueden ser:
 		 * Servicio, Especie, Cargo, obteniendo las configuraciones para cada uno de esos tipos
 		 */		
+		public function getRazas(especie:String):void
+		{
+			this.getOperation("getRazas").send(especie);
+		}
+		
+		/**
+		 * @param tipo indica que configuracion esta solicitando, los tipos pueden ser:
+		 * Servicio, Especie, Cargo, obteniendo las configuraciones para cada uno de esos tipos
+		 */		
 		public function getConfiguraciones(tipo:String):void
 		{
 			this.getOperation("getConfiguracion").send(tipo);
 		}
+		
 		
 		/**
 		 * obtenien un arrayCollection de vacunas, las cuales seran cargadas en el popup  
@@ -73,6 +84,18 @@ package services
 		public function regConfiguracion(tipo:String, nombre:String):void
 		{
 			this.getOperation("regConfiguracion").send(tipo,nombre);
+		}
+		
+		/**
+		 * Registrar configuracion
+		 * @param tipo indica que configuracion esta solicitando, los tipos pueden ser:
+		 * Servicio, Especie, Cargo, obteniendo las configuraciones para cada uno de esos tipos
+		 * @param nombre valor que sera seteado en la configuracion, por ejemplo: Policlinico, Ayudante
+		 * segun corresponda el tipo especificado 
+		 */		
+		public function regRaza(especie:String, raza:String):void
+		{
+			this.getOperation("regRaza").send(especie,raza);
 		}
 		/**
 		 * Eliminar configuracion
@@ -101,6 +124,10 @@ package services
 		public function elimConfiguracionVacuna(nombre:String):void
 		{
 			this.getOperation("elimConfiguracionVacuna").send(nombre);
+		}
+		public function elimRaza(especie:String, raza:String):void
+		{
+			this.getOperation("elimRaza").send(especie, raza);
 		}
 	}
 }
