@@ -27,6 +27,13 @@ public class Configurar {
 		
 	}
 	
+	public static ArrayList<Configuracion> getRazas(String especie) throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		ConfigurarBD conBD = new ConfigurarBD(connection);			
+		return conBD.getRazas(especie);
+		
+	}
+	
 	/**
 	 * Obtiene una lista de todas las vacunas
 	 * @param tipo obtiene las configuraciones que corresponden a las vacunas, desde de 
@@ -51,6 +58,17 @@ public class Configurar {
 		conBD.regConfiguracion(tipo,nombre);
 	}
 	/**
+	 * Registrar la configuracion
+	 * @param tipo obtiene las configuraciones de la capa ConfiguracionBD, los tipos pueden ser
+	 * Especies, Servicios, Cargos
+	 * @param nombre corresponde al dato segun el tipo que se desea registrar
+	 */
+	public static void regRaza(String especie, String raza) throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		ConfigurarBD conBD = new ConfigurarBD(connection);
+		conBD.regRaza(especie,raza);
+	}
+	/**
 	 * Eliminar la configuracion especificando el nombre de la configuracion y el nombre del dato
 	 * @param tipo obtiene las configuraciones de la capa ConfiguracionBD, los tipos pueden ser
 	 * Especies, Servicios, Cargos
@@ -61,6 +79,19 @@ public class Configurar {
 		ConfigurarBD conBD = new ConfigurarBD(connection);
 		conBD.elimConfiguracion(tipo,nombre);
 	}
+	
+	/**
+	 * Eliminar la configuracion especificando el nombre de la configuracion y el nombre del dato
+	 * @param tipo obtiene las configuraciones de la capa ConfiguracionBD, los tipos pueden ser
+	 * Especies, Servicios, Cargos
+	 * @param nombre corresponde al dato segun el tipo que se desea eliminar
+	 */
+	public static void elimRaza(String especie, String raza) throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		ConfigurarBD conBD = new ConfigurarBD(connection);
+		conBD.elimRaza(especie,raza);
+	}
+	
 	/**
 	 * Elimina una configuracion de vacuna
 	 * @param corresponde al nombre de la vacuna que se desea eliminar
