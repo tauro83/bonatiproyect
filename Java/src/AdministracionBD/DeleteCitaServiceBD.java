@@ -23,7 +23,8 @@ public class DeleteCitaServiceBD {
 			
 			String query="";
 			query = "DELETE FROM cita " +
-					"WHERE rutcliente = ?;";
+			"WHERE fecha = ? AND hora = ? AND servicio = ? AND responsable = ?;";
+			
 			deleteCita = connection.prepareStatement(query);
 
 			
@@ -42,13 +43,18 @@ public class DeleteCitaServiceBD {
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
 
-	public int purgarCita(String cliente){
-		System.out.println(cliente);
+	public int purgarCita(String fecha, String hora, String servicio, String responsable){
+		
 		int result=0;
     	try 
     	{
-    		deleteCita.setString(1, cliente);
+    		deleteCita.setString(1, fecha);
+    		deleteCita.setString(2, hora);
+    		deleteCita.setString(3, servicio);
+    		deleteCita.setString(4, responsable);
+    		
 			deleteCita.executeQuery();
+			
 			result= deleteCita.executeUpdate();
 		} 
     	catch (SQLException e) 

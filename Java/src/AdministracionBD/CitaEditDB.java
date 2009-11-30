@@ -16,13 +16,7 @@ public class CitaEditDB
 	PreparedStatement selectAll;
 	PreparedStatement selectOne;
 	Connection conn;
-	String rutillo;
-	String rut;
-	String hora;
-	String servicio;
-	String responsable;
-	
-	
+		
 	/**
 	 * @autor: Raúl López
 	 * Realiza las Querys para comunicarse con la base de datos.
@@ -36,10 +30,10 @@ public class CitaEditDB
 		try 
 		{
 			String query="";
-			
+			System.out.println("Entro a editar la CITA");
 			query = "UPDATE cita"+
-			   " SET rutcliente=?, nombremascota=?, fecha=?,hora=?,servicio=?, responsable=? "+
-				 "WHERE fecha = ?" +" AND hora = ?" +" AND servicio = ?" +" AND responsable = ?;";
+			   " SET rutcliente = ?, nombremascota = ?, fecha =?, hora = ?,servicio = ?, responsable = ? "+
+				 "WHERE fecha = ? AND hora = ? AND servicio = ? AND responsable = ?;";
 			insert = connection.prepareStatement(query);
 			
 			
@@ -57,7 +51,7 @@ public class CitaEditDB
 	 * @return void. Solo captura algun error si es que hubiera en la base de datos.
 	 */
 	
-	
+	/*
 	public CitaEditDB(Connection connection, String rut)
 	{
 		this.rut= rut;
@@ -79,28 +73,30 @@ public class CitaEditDB
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 
 	/**@autor: Raúl López
 	 * Ingresa a una nuevacita a la base de datos
 	 * @param person contiene los datos de la cita que se quiere ingresar
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
-    public int insertCitaE(Cita person)
+    public int insertCitaE(Cita person, String fech, String hor, String servi, String respon)
     {
     	
     	int result=0;
     	try 
     	{
-    		
-    		
-    		/*System.out.println(person.getCliente()+".");
+    		/*
+    		System.out.println(person.getCliente()+".");
     		System.out.println(person.getFecha()+".");
     		System.out.println(person.getHora()+".");
-    		System.out.println(person.getMascota()+".");
-    		System.out.println(person.getServicio()+".");
-    		System.out.println(person.getUsuario()+".");
     		*/
+    		
+    		System.out.println(fech);
+    		System.out.println(hor);
+    		System.out.println(servi);
+    		System.out.println(respon);
+    		
     		insert.setString(1, person.getCliente());
 			insert.setString(2, person.getMascota());
 			insert.setString(3, person.getFecha());
@@ -108,9 +104,15 @@ public class CitaEditDB
 			insert.setString(5, person.getServicio());
 			insert.setString(6, person.getUsuario());
 			
+			insert.setString(7, fech);
+			insert.setString(8, hor);
+			insert.setString(9, servi);
+			insert.setString(10, respon);
 			
 			
-			result= insert.executeUpdate();
+			result = insert.executeUpdate();
+			
+			System.out.println(+result);
 			
     		
 		} 
