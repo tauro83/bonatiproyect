@@ -290,12 +290,40 @@
 				responsables.addItem({label:"Todos"});
 				for(i=0; i < usuarios.length; i++){
             		var nombre:String = usuarios.getItemAt(i).nombre.split(" ",1);
+            		//Alert.show(nombre);
             		var apellido:String = usuarios.getItemAt(i).apellidoPaterno.split(" ",1);
             		datosUsuarios.addItem({usuario:usuarios.getItemAt(i).usuario.split(" ",1), nombre:nombre, apellido:apellido});
             		responsables.addItem({label:(nombre + " " + apellido)});
             	}
             	usuarioInput.dataProvider = responsables;
 			}  
+			
+			public function iniciales():String{
+			   var usuarillo:Array  = new Array();
+			   var usuarillo2:Array  = new Array();
+			   var usuarillo3:Array  = new Array();
+			   var nombreUsu:String;
+			   var apaternoUsu:String;
+			   var aux:String
+			   var i:int;
+			   for(i = 0; i<usuarios.length ; i++){
+						
+					usuarillo = usuarios[i].nombre.split(" ",1);
+					nombreUsu  = usuarillo.pop();
+						
+					usuarillo2 = usuarios[i].apellidoPaterno.split(" ",1);
+					apaternoUsu= usuarillo2.pop();
+					if(agendaDia.selectedItem.responsable == nombreUsu + " " + apaternoUsu){
+						usuarillo3 = usuarios[i].usuario.split(" ",1);
+						aux = usuarillo3.pop();
+						//clienteAuxEditado.usuario = aux;
+						
+						
+					}
+				}
+				return aux;
+			
+			}
             /**
 			 * Funcion que inicia la agenda
 			 * 
@@ -348,8 +376,11 @@
 					newCita.servicio= agendaDia.selectedItem.servicio;
 					newCita.usuario = agendaDia.selectedItem.responsable;
 					
+					
 				    Application.application.agenda2.setVisible(false,false);
-					newCitaUpdate.carga(newCita);				    				    
+				    
+					newCitaUpdate.carga(newCita);			
+					newCitaUpdate.cargarMascotas();	    				    
 				    Application.application.editarCita.setVisible(true,false);
 				    
 			 	}
@@ -399,11 +430,11 @@
 			private function deleteCita(event:Event):void{
    				if(agendaDia.selectedItem!=null){
    					
-   					
+   					var respon:String = iniciales();
    					//Alert.show("¿Está seguro que desea eliminar los datos seleccionados? ","Confirme eliminación ", Alert.YES | Alert.NO);
    					var citaService:DeleteCitaService=new DeleteCitaService();
 					citaService.addEventListener(ResultEvent.RESULT,deleteCitaResult);
-					citaService.purgarCita(agendaDia.selectedItem.cliente);
+					citaService.purgarCita(agendaDia.selectedItem.fecha, agendaDia.selectedItem.hora, agendaDia.selectedItem.servicio, respon);
    				}
    				else{
    					labelMessage.text="Debe primero seleccionar un elemento";
@@ -415,6 +446,8 @@
 				var result:int = event.result as int ;
 				if(result < 1)
 				{
+				   //linea editada
+				   iniciarAgenda();
 				   labelMessage.text="Cita Eliminada!";
 				   //getAllMascotas();
 				}
@@ -427,8 +460,8 @@
 			////////////////////////////////////////////////////////////////////////////////
  		]]>
  	</mx:Script>		
-	<mx:DateChooser id="calendario" x="10" y="37" width="182" height="153" yearNavigationEnabled="true"
-		initialize="iniciarCalendario()" change="cambioFecha()"/>
+	<mx:DateChooser id="calendario" x="10" y="35" width="182" height="153" yearNavigationEnabled="true"
+		initialize=" iniciarCalendario()" change="cambioFecha()"/>
         <mx:LinkBar color="0x0050AA" horizontalAlign="right" width="98" dataProvider="{tiposCalendario}" x="651" y="10"/>
         <mx:ViewStack id="tiposCalendario" width="550" height="268" x="200" y="35">
             <mx:VBox id="dia" label="Día" width="100%" height="100%">
@@ -469,7 +502,7 @@
         <mx:ComboBox id="servicioInput" x="10" y="280" width="182" close="{asignarAgenda(event)};">
 		</mx:ComboBox>
         <mx:Button id="agendar" x="674" y="311" label="Agendar" visible="false" click="{seleccionarCita()}"/>
-        <mx:Button id="eliminar" x="674" y="311" label="Eliminar" visible="false" click="deleteCita(event)"/>
+        <mx:Button id="eliminar" x="674" y="311" label="Eliminar" visible="false" click="{deleteCita(event)}"/>
         <mx:Button x="606" y="311" label="Editar" id="ctm" visible="false"/>
         <mx:Button id="bloquear" x="200" y="311" label="Bloquear Día" click="bloquearDia()" visible="false"/>
         <mx:Button id="desbloquear" x="200" y="311" label="Desbloquear Día" click="desbloquearDia()" visible="false"/>

@@ -1,7 +1,7 @@
 //=======================================================================
-// FECHA CREACIÓN:  28/09/2009
+// FECHA CREACIï¿½N:  28/09/2009
 // AUTOR: Raul Lopez
-// …. Clase que conecta con capa 2
+// ï¿½. Clase que conecta con capa 2
 //=======================================================================
 
 package administracion
@@ -59,9 +59,9 @@ package administracion
 			 * para almacenarlo en la base de datos. Llamando al metodo correspondiente.
 			 * 	@Param Recibe como parametro un objeto de la clase Cita, para enviarlo a la capa2. 		
 			 * */
-		public function insertCitaE(person:Cita):void
+		public function insertCitaE(person:Cita, fecha:String, hora:String, servicio:String, responsable:String):void
 		{
-			this.getOperation("insertCitaE").send(person);
+			this.getOperation("insertCitaE").send(person, fecha, hora, servicio, responsable);
 		}
 		
 			/**
