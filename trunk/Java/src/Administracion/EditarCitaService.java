@@ -22,15 +22,15 @@ import Bd.DBConnectionManager;
 	 */
 public class EditarCitaService {
 	
-	public int insertCitaE(Cita person)
+	public int insertCitaE(Cita person,String fech, String hor, String servi, String respon)
     {
 		int result=0;
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
-			CitaEditDB personDB= new CitaEditDB(connection, person.cliente);
+			CitaEditDB personDB= new CitaEditDB(connection);
 			//,person.cliente
-			result= personDB.insertCitaE(person);		
+			result= personDB.insertCitaE(person, fech, hor, servi, respon);		
 			connection.close();
 		} catch (SQLException e) 
 		{

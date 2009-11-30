@@ -24,12 +24,12 @@ public class DeleteCitaService {
 	 * @param String rut cliente......
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
-	public int purgarCita(String cliente){
+	public int purgarCita(String fecha, String hora, String servicio, String responsable){
 		int result=0;
 		
 		try{			
 			DeleteCitaServiceBD citaDB= new DeleteCitaServiceBD(connection);
-			result= citaDB.purgarCita(cliente);	
+			result= citaDB.purgarCita(fecha, hora, servicio, responsable);	
 			connection.close();
 			
 		}
