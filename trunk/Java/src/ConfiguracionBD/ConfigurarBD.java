@@ -10,11 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import TransferObjects.Configuracion;
 import TransferObjects.ConfiguracionVacuna;
+import TransferObjects.Mascota;
 
 public class ConfigurarBD {
 	PreparedStatement selectAll;
+	PreparedStatement selectRazas;
 	Connection connection;
 	
 	/**
@@ -23,6 +27,40 @@ public class ConfigurarBD {
 	 */
 	public ConfigurarBD(Connection connection){
 		this.connection = connection;
+	}
+	
+	/**
+	 * obtiene la configuraciones 
+	 * @param tipo es la diferencia entre las distintas configuraciones registradas en el sistema
+	 * las configuraciones pueden ser: Servicio, Especie, Cargo
+	 * @return una lista de configuraciones segun el tipo del argumento
+	 * @throws SQLException 
+	 */
+	public ArrayList<Configuracion> getRazas(String especie) throws SQLException{
+    	ArrayList<Configuracion> razas=new ArrayList<Configuracion>();
+    	Configuracion configuracion;
+
+		String query="";	
+		/**Consulta a la base de datos, Selecciona todas las mascotas registradas en la base de datos*/
+		query = "SELECT nombre " +
+				"FROM raza " +
+				"WHERE especie = ?;";
+		selectRazas = connection.prepareStatement(query);
+
+    	try{
+    		selectRazas.setString(1, especie.trim());
+    		ResultSet result = selectRazas.executeQuery();
+    		while(result.next()){
+    			configuracion = new Configuracion();
+    			configuracion.setNombre(result.getString(1));
+    			razas.add(configuracion);
+    		}
+		} 
+    	catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return razas;
+		
 	}
 	
 	/**
@@ -136,6 +174,35 @@ public class ConfigurarBD {
 		}
     	connection.close(); 
 	}
+	/**
+	 * registra una nueva configuracion especificando el tipo
+	 * @param tipo es la diferencia entre las distintas configuraciones registradas en el sistema
+	 * las configuraciones pueden ser: Servicio, Especie, Cargo
+	 * @param nombre es el valor de la configuracion segun el tipo.
+	 */
+	public void regRaza(String especie, String raza) throws SQLException
+	{
+		String query = "";
+		
+		query = "INSERT INTO raza(especie, nombre) VALUES (?, ?);";
+
+				
+		PreparedStatement insert;
+		insert = connection.prepareStatement(query);
+		
+		insert.setString(1, especie.trim());
+		insert.setString(2, raza);
+		
+		try 
+    	{
+			insert.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	connection.close(); 
+	}
 	
 	/**
 	 * Elimina la configuracion indicada por el tipo y el nombre
@@ -187,6 +254,34 @@ public class ConfigurarBD {
 		PreparedStatement insert;
 		insert = connection.prepareStatement(query);
 		insert.setString(1, nombre);
+		
+		try 
+    	{
+			insert.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+			out = "0";
+		}
+    	connection.close(); 
+    	return out;
+	}
+	
+	/**
+	 * Elimina la configuracion de la vacuna
+	 * @param nombre es el valor de la vacuna que sera eliminada
+	 */
+	public String elimRaza(String especie, String raza) throws SQLException
+	{
+		String query = "";
+		query = "DELETE FROM Raza WHERE especie = ? AND nombre = ?;";
+		String out = "1";
+		
+		PreparedStatement insert;
+		insert = connection.prepareStatement(query);
+		
+		insert.setString(1, especie);
+		insert.setString(2, raza);
 		
 		try 
     	{
