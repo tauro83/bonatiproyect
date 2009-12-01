@@ -31,9 +31,7 @@ public class EliminarProductoBD {
 				       
 				 "WHERE codigo = ?;";
 
-		query = "SELECT nombre, apaterno,amaterno, rut, telefono, celular, domicilio, region, comuna, correo "+
-			"FROM clientepresencial where estado='TRUE';";
-			
+		
 				
 			selectActivos = connection.prepareStatement(query);
 			
