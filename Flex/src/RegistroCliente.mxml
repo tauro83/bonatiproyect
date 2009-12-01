@@ -10,6 +10,7 @@
 // Clinica Veterinaria.
 // 
 //=======================================================================
+		import util.Properties;
 		import mx.controls.Text;
 		import mx.controls.Alert;
 		import mx.rpc.events.ResultEvent;	
@@ -24,7 +25,7 @@
 		import services.Validacion;
 		import mx.core.Application;
 		import services.Validaremail;
-		import util.Properties;
+		
 		       
 		
         
@@ -109,7 +110,7 @@
 				    	}
 				    	
 				    	else{
-							labelMessage.text = Properties.getMensaje("Error", "19");
+							labelMessage.text = "Corregir E-mail";
 						}
 				    }
 								
@@ -177,14 +178,17 @@
 					msj = nombre.text + " "+ apellido.text+Properties.getMensaje("Informacion", "3");
 				 	limpiarTodo(); 					
     		 	}
+    		 	
+    		 	if(message=="2"){
+    		 		msj="El Rut ya se encuentra registrado";
+    		 		limpiarRut();
+    		 		
+    		 	}
+    		 	
 				else{
-					if(email.text!="" && email.text==email2.text){
-						 	
-					}
-					else{
-						msj= Properties.getMensaje("Advertencia", "19");
-					}
-					  				
+					
+					msj= Properties.getMensaje("Error", "7");
+				
 				}		
 					labelMessage.text=msj;
 			}
@@ -402,8 +406,8 @@
 				direccion.text="";
 				email.text = "";
 				email2.text = "";	
-				region.text="";	
-				comunas.text="";	
+				region.selectedItem="";	
+				comunas.selectedItem="";	
 				labelMessage.text ="";
 				Check.selection=null;
 				valor=0;
@@ -437,12 +441,15 @@
 			{
 			
 			if(Check.selectedValue=="Antiguo"){
-	 		   c="TRUE";	 		  
+	 		   c="TRUE";	
+	 		   valor=1;
+	 		   labelMessage.text ="antiguo";		  
 	 		}
 			
 				
 			if(Check.selectedValue=="Nuevo"){
 				valor=2;
+				labelMessage.text ="nuevo";		
 	 		}	 		
 	 		
 			}
