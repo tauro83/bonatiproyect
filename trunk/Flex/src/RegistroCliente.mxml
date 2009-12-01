@@ -442,14 +442,12 @@
 			
 			if(Check.selectedValue=="Antiguo"){
 	 		   c="TRUE";	
-	 		   valor=1;
-	 		   labelMessage.text ="antiguo";		  
+	 		   valor=1;		  
 	 		}
 			
 				
 			if(Check.selectedValue=="Nuevo"){
-				valor=2;
-				labelMessage.text ="nuevo";		
+				valor=2;		
 	 		}	 		
 	 		
 			}
