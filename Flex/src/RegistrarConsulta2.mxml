@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" xmlns:ns1="*" title="Registrar Consulta" borderColor="#15ad8f">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllUsuarios()" layout="absolute" width="779" height="466" xmlns:ns1="*" title="Registrar Consulta" borderColor="#15ad8f">
 <mx:Script>
 		<![CDATA[
 //============================================================================
@@ -18,8 +18,18 @@
 			import transferObjects.Mascota;
 			import mx.rpc.events.ResultEvent;
 		    import mx.core.Application;		
-		    import mx.events.ValidationResultEvent;            
+		    import mx.events.ValidationResultEvent;    
+		    import administracion.UsuarioEditService;        
             private var vResult:ValidationResultEvent;	
+            
+            [Bindable]
+            private var usuarios:ArrayCollection;
+			[Bindable]
+			private var usuarios2:ArrayCollection;
+			[Bindable]
+			private var responsableSeleccionado:String;
+			
+			[Bindable]         
             
             public var costoBruto:String;
 			
@@ -74,9 +84,9 @@
             * **/
             
             public function limpiar():void{
-				responsable.text="";
+				responsable.selectedItem="";
 				fecha.text="";
-				servicio.text="";
+				servicio.selectedItem="";
 				costo.text="";
 				anamnesis.text="";
 				labelMessage.text= " ";
@@ -154,6 +164,25 @@
 				costo.text = "";
 			}
 			
+		      
+			public function getAllUsuarios():void
+			{
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();
+				
+			}
+			
+			private function getAllUsuariosEResult(event:ResultEvent):void
+			{
+				usuarios = event.result as ArrayCollection;	
+				usuarios2 = new ArrayCollection();
+				responsableSeleccionado = usuarios.getItemAt(0).usuario.split(" ",1).pop();
+				//usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ","").pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" "," ").pop(), usuario:usuarios.getItemAt(i).usuario.split(" "," ").pop()});
+				for(var i:int = 0; i<usuarios.length; i++){
+					usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
+				}					
+			}
             
 		]]>
 		
@@ -173,12 +202,7 @@
 	<mx:Label x="25" y="72" text="Consulta" fontWeight="bold"/>
 	
 	<mx:Label x="25" y="107" text="Responsable:"/>
-	<mx:ComboBox x="115" y="105" id="responsable" width="160">
-		<mx:ArrayCollection>
-		<mx:Object label=" "/>
-		<mx:Object label="Claudio Bonati"/>
-		<mx:Object label="Patricio Castro"/>
-		</mx:ArrayCollection>	
+	<mx:ComboBox x="115" y="105" id="responsable" width="160" dataProvider="{usuarios2}" >
 	</mx:ComboBox>
 	
 	<mx:Label x="488" y="109" text="Servicio:"/>
@@ -191,7 +215,7 @@
 	</mx:ComboBox>
 	
 	<mx:Label x="25" y="153" text="Fecha:"/>
-	<mx:DateField x="115" y="151" width="160" id="fecha"/>
+	<mx:DateField x="115" y="151" width="160" id="fecha" formatString="DD/MM/YYYY"/>
 	
 	<mx:Label x="488" y="155" text="Costo:" width="52" />
 	<mx:TextInput x="574" y="153" width="165" id="costo" focusOut="validarCosto(event)" focusIn="borrarCosto()" restrict="0-9"/>

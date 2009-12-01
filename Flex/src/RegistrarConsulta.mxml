@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15ad8f" title="Registro Consulta" xmlns:ns1="*" xmlns:fc="http://www.adobe.com/2006/fc">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15ad8f" title="Registro Consulta" xmlns:ns1="*" xmlns:fc="http://www.adobe.com/2006/fc" xmlns:ns2="util.*">
 	<mx:Script>
         <![CDATA[
         
@@ -28,6 +28,7 @@
 		    import services.BusquedaService;
 		    import services.AddConsultaService;
 		    import services.validarRut;
+
 		   
 			
 			[Bindable]
@@ -58,68 +59,6 @@
 		    public var cliente:Person;
 		    private var rw:validarRut=new validarRut();  
 			
-			/**
-			 * Este metodo se encarga de obtenerlos parametros del rut y se lo pasa
-			 * a la capa dos para que este sea buscado en la base de datos, una vez encontrado este metodo
-			 * se encara de arrojar dinamicamente los apellidos y nombre del cliente buscado
-			 * **/
-
-        	private function buscarCliente(event:Event):void{
-
-        			ini();
-        			if(rutClienteInput.text != ""){
-        			var c:String;
-        			c= "TRUE";
-					/**
-					 * Si esta funcion es distinto a true el rut es validado y enviada a la funcion getCliente
-					 * para que sea buscado en la base de datos mientras que si
-					 * el rut es false no es valido como un rut.
-					 * **/
-					if(c=="TRUE"){
-						labelMessage.text = " ";
-						rutClienteInput.errorString = "";
-						getCliente(rutClienteInput.text);
-					}
-					
-					else{
-                         labelMessage.text = "El Rut que ha ingresado es incorrecto.";
-						
-					}
-        	}
-      
-        	}
-        	
-        	/**
-        	 * Este metodo se encarga de pasar el rut obtenido en la funcion buscarCliente
-        	 * y pasaselo al metodo getClienteResult que nos entregara el resultado de la busqueda
-        	 * **/
-        	
-        	private function getCliente(rutCliente:String):void{
-        		
-				var addvacService:AddConsultaService = new AddConsultaService();
-				addvacService.addEventListener(ResultEvent.RESULT,getClienteResult);
-				addvacService.getCliente(rutCliente);	
-			}	
-				
-			/**
-        	 * Este metodo se encarga de pasar el resultado final obtenido de la busqueda realizada en base 
-        	 * de datos la cual es entregada en un arraylist mencionando todos los clientes con el rut que encontro 
-        	 * en base de datos
-        	 * **/
-        	 
-			public function getClienteResult(event:ResultEvent):void{
-				clienteBD = event.result as Cliente;
-				
-				if(clienteBD.nombre == null){
-        			labelMessage.text = "Cliente no registrado."
-        			
-        		}
-        		else{
-        			this.inputClienteNombre.text = clienteBD.nombre;
-        			labelMessage.text = "Se ha accedido al Cliente "+clienteBD.nombre;
-        			ini();
-        		}
-			}
         	
         	/**
         	 * Este metodo se encarga de resetiar la lista de mascota en caso que halla sido utilizada 
@@ -139,20 +78,10 @@
         	 * ese rut asociado, en base de datos.
         	 * **/
         					
-			public function getMascotas():void{
-				var addvacService:AddConsultaService=new AddConsultaService();
-				addvacService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				/**
-				 * Esta condicion nos permite poder realizar un filtro de  todos los Rut que posean  
-				 * 8 digitos y digito identificador, porque tambien se da el caso que rut posea 7 digitos y 1 
-				 * digito identificador
-				 * **/
-				if(rutClienteInput.text.length>=8){
-				    addvacService.getMascotas(rutClienteInput.text);
-				}
-				else{
-					addvacService.getMascotas(rutClienteInput.text+rutClienteDVInput.text);
-				}
+			private function getMascotas():void{
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteDVInput.text);
 			}
 			
 			/**
@@ -160,7 +89,7 @@
 			 * datos y tambien se encarga de msotrarla por pantalla
 			 * **/
 
-			public function getAddMascotasResult(event:ResultEvent):void{
+			private function getAddMascotasResult(event:ResultEvent):void{
 				mascotas = event.result as ArrayCollection;
 			}
 			
@@ -176,17 +105,10 @@
 				if(dg.selectedItem){
 					var consul:RegistrarConsulta2 = Application.application.rConsulta2;
 					consul.limpiar();
-					this.labelMessage.text="";
-					consul.rutClienteInput1.text=this.rutClienteInput.text;
-					if(this.rutClienteDVInput.text.substring(0,1)=="k"){
-						consul.rutClienteDVInput1.text="K";
-					}
-					else{
-						   consul.rutClienteDVInput1.text=this.rutClienteDVInput.text;
-						
-					}
-					
+										
 					consul.nombre.text=dg.selectedItem.nombre;
+					consul.rutClienteInput1.text=buscadorCliente.rutClienteInput.text;
+					consul.rutClienteDVInput1.text=buscadorCliente.rutClienteDVInput.text;
 					this.setVisible(false,false);
 					consul.setVisible(true,false);
 				}
@@ -195,54 +117,8 @@
 				}
 				
 			}
-			
-		   /**
-		   * Esta metodo se encarga  verificar que el digito identificador corresponda a un rut valido 
-		   * dentro del sistema nacional y lo envia para que sea mostrado por pantalla al usuario una vez que 
-		   * este realice una busqueda solamente por nombre
-		   * **/
-		   
-		   private function sacaDigito():void{        			
-        		if(this.rutClienteDVInput.text==""){	
-        			var Numero:String = rutClienteInput.text;
-					var suma:int = 0;
-					var rut:String = Numero;
-					var NumMag:int = 2;
-					var Resto:int = 0;
-					var j:int ;
-					var i:int;
-					var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
-					var ParteNumerica:Array = new Array();
-				
-					if (rut.length == 0) { 
-
-					}
-					for ( j =0, i =0; j < rut.length; j++){
-						if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
-							ParteNumerica[i] = rut.charAt(i);
-							++i;
-						}
-					}
-				
-					for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
-						suma += ParteNumerica[i] * NumMag;
-						trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
-						if (NumMag>6){
-							NumMag =1;	
-						}	
-					}
-					
-					Resto = 11-(suma%11);
-					if(Resto == 10){
-						this.rutClienteDVInput.text="K";	
-					}
-					
-					else{
-						this.rutClienteDVInput.text=""+Resto;	
-					}
-					
-        		}
-     		}
+		
+		
      		
      	   /**
      	   * Este metodo se encarga de pasar el nombre, apellido paterno y materno a la capa 2 para que esta 
@@ -289,76 +165,7 @@
 		   		clientes.refresh();
 		   }
 		   
-		  public function buscarCliente2():void
-		   {
-		   		this.labelMessage.text="";
-		   		var nombre:String = inputClienteNombre.text;
-		   		if(inputClienteNombre.text != "" || inputClienteNombre.selectedLabel != ""){
-		   			var largo:int = cliente2.length;
-		   			var i:int;
-		   			var sss:Array;
-		   			if(inputClienteNombre.selectedLabel != ""){
-		   				sss = inputClienteNombre.selectedLabel.split(" ",3);
-		   			}
-		   			else{
-		   				sss = inputClienteNombre.text.split(" ",3);
-		   			}
-		   			
-		   			/**
-		   			 * obtiene los datos de la division del nombre seleccionado.
-			 		*/
-		   			var nombreN:String = sss.pop();
-		   			var apellidomN:String = sss.pop();
-		   			var apellidopN:String = sss.pop();
-		   			
-		   			/**
-		   			 * Compara los datos obtenidos de la division, con los que se 
-		   			 * encuentran en el arreglo de clientes.
-			 		*/
-		   			for(i=0;i<largo;i++){
-		   				var newCli:Cliente = cliente2.getItemAt(i,0) as Cliente;
-		   				if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
-		   					/**
-							 * Esta condicion nos permite poder realizar un filtro de  todos los Rut que posean  
-							 * 8 digitos y digito identificador, porque tambien se da el caso que rut posea 7 
-							 * digitos y 1 digito identificador.
-		   					 * **/
-		   					
-		   					if(newCli.rut.length>8){
-		   						this.rutClienteInput.text=newCli.rut.substring(0,8);
-		   						this.rutClienteDVInput.text=newCli.rut.substring(8,9);
-		   						labelMessage.text = "Se ha accedido al cliente "+newCli.nombre+" "+newCli.apellido+" "+newCli.apellido2;
-		   						//sacaDigito();
-		   						ini();
-		   						break;
-		   					}
-		   					
-		   					else{
-		   						this.rutClienteInput.text=newCli.rut.substring(0,8);
-		   						labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
-		   						//sacaDigito();
-		   						ini();
-		   						break;
-		   					}
-		   					
-		   				}
-
-		   			}
-		   		}
-		 
-		   }
 		   
-		   /**
-		   * Este metodo nos permite poder seleccionar el primer elemento que aparece en un autocomplete 
-		   * o poder seleccionar cualquier objeto que sea mostrado por el autocomplete
-		   * **/
-		    public function Seleccionar(event:Event):void
-			{
-			    if(inputClienteNombre.selectedIndex==0)
-			    {
-			    	inputClienteNombre.text=inputClienteNombre.selectedLabel;
-			    }
-			}
 			
 			 /**
 			 * Este metodo se encarga de limpiar todo el panel de registro de una consulta una vez que no es utilizado
@@ -366,41 +173,20 @@
 			public function iniciarPanel():void
 			{
 				this.mascotas=new ArrayCollection();
-				this.labelMessage.text="";
-				this.rutClienteInput.text="";
-				this.rutClienteDVInput.text="";
-				this.inputClienteNombre.text="";
+				this.labelMessage.text="";			
+				buscadorCliente.inputClienteNombre.text = "";
+			 	buscadorCliente.rutClienteDVInput.text = "";
+			 	buscadorCliente.rutClienteInput.text = "";
 				
 			}
 				
         ]]>
     </mx:Script>
 	
-	<mx:Label x="330" y="38" text="Rut:" width="32"/>
-	<mx:Label x="460.25" y="38" text="-" width="14.75" textAlign="center"/>
-	<fc:AutoComplete id="inputClienteNombre" x="90" y="38" width="150" dataProvider="{clientes}" labelField="nombre" visible="true" click="getAllClientes()" focusOut="buscarCliente2()" close="Seleccionar(event)"/>
-	<mx:TextInput  restrict="0-9" x="370" y="38" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="471.75" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
-	
-	<mx:Panel x="121.5" y="-12" width="585" height="323" layout="absolute"  visible="false" id="ficha">
-			<mx:Label x="10" y="63" text="Nombre:" width="97"/>
-			<mx:Label x="10" y="125" text="Tipo Animal:" width="97"/>
-			<mx:Label x="10" y="95" text="Fecha Nacimiento:" width="114.5"/>
-			<mx:Label x="10" y="155" text="Raza:" width="97"/>
-			<mx:Label x="10" y="181" text="Sexo:" width="97"/>
-			<mx:Label x="172" y="10" width="211" text="{dg.selectedItem.rut}" textAlign="center" id="rutClienteSeleccionado"/>
-			<mx:Label x="172" y="23" width="211" text="{dg.selectedItem.nombre}" textAlign="center"/>
-			<mx:Image x="343" y="61" source="{dg.selectedItem.imagenMascota}" width="209" height="157" id="fichaImagen"/>
-			<mx:Button x="501" y="245" label="Salir" click="ficha.visible=false"/>
-			<mx:Label x="129" y="63" width="165" text="{dg.selectedItem.nombreMascota}"/>
-			<mx:Label x="129" y="95" width="165" text="{dg.selectedItem.fechaNacimiento}"/>
-			<mx:Label x="129" y="125" width="165" text="{dg.selectedItem.tipoAnimal}"/>
-			<mx:Label x="129" y="155" width="165" text="{dg.selectedItem.raza}"/>
-			<mx:Label x="129" y="181" width="165" text="{dg.selectedItem.sexo}"/>
-	</mx:Panel>	
+	<ns2:BuscadorNombreRut x="24" y="26" id="buscadorCliente" keyFocusChange="getMascotas()" mouseFocusChange="getMascotas()">
+	</ns2:BuscadorNombreRut>
 	
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Label x="25" y="10" text="Cliente:" width="84.75" fontWeight="bold"/>
 	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="92" x="25" variableRowHeight="true" dataProvider="{mascotas}"  doubleClickEnabled="true"   itemDoubleClick="regCons()"  visible="true" height="253">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
@@ -414,5 +200,4 @@
 	<mx:Button x="632" y="353" label="Cancelar" width="103" id="cancelar" visible="true" height="23" click="iniciarPanel()"/>
 	
 	<mx:Label x="25" y="65" text="Mascotas:" width="112.75" fontWeight="bold"/>
-	<mx:Label x="25" y="38" text="Apellido:" width="64"/>
 </mx:Panel>
