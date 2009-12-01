@@ -65,13 +65,17 @@ public class AddClienteBD {
     	{
 			e.printStackTrace();
 			result = " "+ e.toString(); 
-			
 		}
     	
     	if(result.length()==1){
     		return "1";
     		
     	}
+    	
+    	if(result.length()>1){
+    		return "2";
+    	}
+    	
     	else {
     		return   "0";  	
 		}
