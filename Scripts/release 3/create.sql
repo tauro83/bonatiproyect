@@ -83,7 +83,17 @@ CREATE TABLE catpeluqueria
   CONSTRAINT catpeluqueria_pkey PRIMARY KEY (servicio, nombre)
 );
 
-create table peluqueria(
+create table atencionpeluqueria(
+	clienteRut CHAR(9) not null references ClientePresencial(rut) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
+	mascotaNombre CHAR(50) not null,
+	hora time not null,
+	responsable CHAR(20) not null references Usuario(usuario) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
+	fecha date not null,
+	estado integer DEFAULT '0',
+	constraint PK_peluqueriaAten primary key (mascotaNombre,hora,clienteRut,fecha,responsable)
+);
+
+create table serviciospeluqueria(
 	servicio CHAR(20) not null,
 	nombre CHAR(20) not null,
 	clienteRut CHAR(9) not null references ClientePresencial(rut) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -91,10 +101,12 @@ create table peluqueria(
 	hora time not null,
 	responsable CHAR(20) not null references Usuario(usuario) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
 	fecha date not null,
+	nuevafecha date not null,
+	nuevahora time not null,
 	costo char(20),
 	descripcion CHAR(200),
 	estado integer DEFAULT '0',
-	constraint PK_peluqueriaR primary key (mascotaNombre,hora,clienteRut,fecha,servicio,nombre),
+	constraint PK_peluqueriaServ primary key (mascotaNombre,hora,clienteRut,fecha,servicio,nombre),
 	CONSTRAINT PK_catalogo FOREIGN KEY (servicio, nombre)
       REFERENCES catpeluqueria (servicio, nombre) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION

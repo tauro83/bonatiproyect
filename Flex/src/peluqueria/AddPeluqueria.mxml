@@ -90,6 +90,7 @@
 		    	
 		    				newPeluqueria.responsable= this.veterinariosC.text;
 		    				newPeluqueria.fecha = this.fechahoy.selectedDate;
+		    				newPeluqueria.fechaAntigua = this.fechahoy.selectedDate;
 		    				var i:int;
 		    				var largo:int = this.serviciosAdds.length;
 		    				
