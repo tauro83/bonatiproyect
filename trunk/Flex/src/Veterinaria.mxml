@@ -275,6 +275,10 @@
 			editProducto2.setVisible(false,false);
 			editProducto.setVisible(false,false);
 			registarAviso.setVisible(false,false);
+			regPostOp.setVisible(false, false);
+			regPostOp1.setVisible(false, false);
+			editarControl.setVisible(false, false);
+
 		 	<!--Autor: }Nicolas -->
 			
 		 		
@@ -754,5 +758,12 @@
 		</ns7:EliminarPulgarProducto>
 		<ns6:registrarAviso2 x="241" y="134" id="registarAviso" visible="false" borderColor="#15AD8F">
 	    </ns6:registrarAviso2>
+	     <ns3:addPostOperatorio x="241" y="134" visible="false" id="regPostOp">
+		</ns3:addPostOperatorio>
+		<ns3:addPostOperatorio1 x="241" y="134" visible="false" id="regPostOp1">
+		</ns3:addPostOperatorio1>
+	    <ns3:EditarControl x="241" y="134" id="editarControl" visible="false">
+	    </ns3:EditarControl>
+
 	<!--Autor: }Sebastian-->
 </mx:Application>
