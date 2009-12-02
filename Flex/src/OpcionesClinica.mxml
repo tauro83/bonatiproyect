@@ -19,7 +19,8 @@
 			public function verRegistrarPostOperatorio():void{
 				Application.application.setInvisible();
 				this.visible = true;
-				Application.application.cliRegistroPO2.visible = true;
+				Application.application.regPostOp1.visible = true;
+
 			}
 			public function verNuevaAtencion():void{
 				Application.application.setInvisible();
@@ -123,7 +124,11 @@
 				Application.application.registroControl.iniciar();
 			}
 			public function verEditarControl():void{
-				//falta implementar
+				 Application.application.setInvisible();
+				this.visible = true;
+				Application.application.editarControl.visible = true;
+				Application.application.editarControl.iniciarPanel();
+
 			}
 			public function verAnularControl():void{
 				Application.application.setInvisible();
