@@ -13,8 +13,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import TransferObjects.aviWeb;
  
@@ -89,9 +87,7 @@ public class RegistroAvisoWebServiceBD {
 			query = "SELECT Max(id) AS id "+
 			"FROM avisoweb";
 			ultimo = connection.prepareStatement(query);
-			System.out.println("LLEGO A RESULTSET  ");
 			ResultSet res= ultimo.executeQuery();
-			System.out.println("RETORNA:  ");
 			res.next();
 			return res.getInt(1); 
 			

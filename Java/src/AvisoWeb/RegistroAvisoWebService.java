@@ -12,7 +12,6 @@ package AvisoWeb;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import AvisoWeb.AvisoWeb;
 import AvisoWeb.RegistroAvisoWebServiceBD;
 import Bd.DBConnectionManager;
 import TransferObjects.aviWeb;
