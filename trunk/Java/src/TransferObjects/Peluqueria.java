@@ -10,10 +10,13 @@ public class Peluqueria {
 	private String responsable;
 	private String servicio;
 	private Date fecha;
+	private String fechaS;
 	private String costo;
 	private String descripcion;
 	private String nombre;
 	private String hora;
+	private Date fechaAntigua;
+	private String horaAntigua;
 	private List<String> tiposServicios;
 	private List<String> tiposNombres;
 	
@@ -82,6 +85,24 @@ public class Peluqueria {
 	}
 	public String getHora() {
 		return hora;
+	}
+	public void setHoraAntigua(String horaAntigua) {
+		this.horaAntigua = horaAntigua;
+	}
+	public String getHoraAntigua() {
+		return horaAntigua;
+	}
+	public void setFechaAntigua(Date fechaAntigua) {
+		this.fechaAntigua = fechaAntigua;
+	}
+	public Date getFechaAntigua() {
+		return fechaAntigua;
+	}
+	public void setFechaS(String fechaS) {
+		this.fechaS = fechaS;
+	}
+	public String getFechaS() {
+		return fechaS;
 	}
 
 

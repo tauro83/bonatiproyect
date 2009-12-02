@@ -19,6 +19,7 @@ import TransferObjects.Mascota;
 
 public class AddPeluqueriaBD {
 	PreparedStatement add;
+	PreparedStatement addServ;
 	PreparedStatement selectAll;
 	PreparedStatement getAllClientes;
 	Connection conn;
@@ -37,9 +38,13 @@ public class AddPeluqueriaBD {
 			
 			String query="";	
 			
-			query = "INSERT INTO Peluqueria(servicio, nombre, clienterut, mascotanombre, hora, responsable, fecha, costo, descripcion) "+
-					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";			
+			query = "INSERT INTO atencionpeluqueria(clienterut, mascotanombre, hora, responsable, fecha) "+
+					"VALUES (?, ?, ?, ?, ?);";			
 			add = connection.prepareStatement(query);
+			
+			query = "INSERT INTO serviciospeluqueria(servicio, nombre, clienterut, mascotanombre, hora, responsable, fecha, nuevafecha, nuevahora, costo, descripcion) "+
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";			
+			addServ = connection.prepareStatement(query);
 			
 			query = "SELECT rut, nombre, fechanacimiento, claseanimal, raza, sexo, estado " +
 					"FROM mascota;";			
@@ -81,24 +86,42 @@ public class AddPeluqueriaBD {
 			
 			List<String> ltN = newPeluq.getTiposNombres();
 			List<String> ltS = newPeluq.getTiposServicios();
+			
+			add.setString(1, newPeluq.getRutCliente());
+			add.setString(2, newPeluq.getNombreMascota());
+			add.setTime(3, t);
+			add.setString(4, newPeluq.getResponsable());
+			add.setDate(5, newPeluq.getFechaAntigua());
+			
+			result2= add.executeUpdate();
+			
 			int n = ltS.size();
 			for(int i=0;i<n;i++){
 				String tipPel = ltS.get(i);
 				String tipNom = ltN.get(i);
 				
+				hora = c.get(Calendar.HOUR_OF_DAY);
+	    		minutos = c.get(Calendar.MINUTE);
+	    		segundos = c.get(Calendar.SECOND);
+	    		
+	    		Time t2 = new Time(hora, minutos, segundos);
+				
 				if(tipPel != null){
+					
 					String costo = getCosto(tipPel,tipNom,catalogos);
-					add.setString(1, tipPel);
-					add.setString(2, tipNom);
-					add.setString(3, newPeluq.getRutCliente());
-					add.setString(4, newPeluq.getNombreMascota());
-					add.setTime(5, t);
-					add.setString(6, newPeluq.getResponsable());
-					add.setDate(7, newPeluq.getFecha());
-					add.setString(8, costo);
-					add.setString(9, newPeluq.getDescripcion());
+					addServ.setString(1, tipPel);
+					addServ.setString(2, tipNom);
+					addServ.setString(3, newPeluq.getRutCliente());
+					addServ.setString(4, newPeluq.getNombreMascota());
+					addServ.setTime(5, t);
+					addServ.setString(6, newPeluq.getResponsable());
+					addServ.setDate(7, newPeluq.getFecha());
+					addServ.setDate(8, newPeluq.getFecha());
+					addServ.setTime(9, t2);
+					addServ.setString(10, costo);
+					addServ.setString(11, newPeluq.getDescripcion());
 
-					result2= add.executeUpdate();
+					result2= addServ.executeUpdate();
 				}
 				
 			}
