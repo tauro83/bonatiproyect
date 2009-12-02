@@ -36,6 +36,7 @@ package avisoWeb
 		}
 		
 		/**
+		 * @author  Cristian Bravo
 		 * @param event Evento recogido en caso de una falla en la llamada hacia la capa lógica
 		 */ 
 		 
@@ -45,6 +46,7 @@ package avisoWeb
 		}
 		
 		/**
+		 * @author  Cristian Bravo
 		 * Se obtienen todos los avisos que están registrados en la base de datos
 		 */ 
 		 
@@ -54,6 +56,7 @@ package avisoWeb
 		}
 		
 		/**
+		 * @author  Cristian Bravo
 		 * Funcion que realiza la conexion para el registro de un aviso web
 		 */ 
 		
@@ -63,6 +66,7 @@ package avisoWeb
 		}
 		
 		/**
+		 * @author  Cristian Bravo
 		 * Funcion que requiere obtener el Id de un aviso web.
 		 */ 
 		

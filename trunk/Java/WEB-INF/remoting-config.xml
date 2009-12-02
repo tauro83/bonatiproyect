@@ -9,7 +9,8 @@
     <default-channels>
         <channel ref="my-amf"/>
     </default-channels>    
-        <destination id="AddUsuario">
+    
+    	<destination id="AddUsuario">
             <properties>
               <source>Administracion.AddUsuario</source>
             </properties>
@@ -249,60 +250,73 @@
             </properties>
         </destination>
   	
-<destination id="anularPeluqueria"> 
-  	 	 <properties>
-  			  <source>Administracion.anularPeluqueria</source>
-  		 </properties>
-  	</destination>
-	<destination id="AECatPeluqueriaService">
-		 <properties>
-  			<source>Peluqueria.AECatPeluqueriaService</source> 
-  		</properties>
-  	</destination>
-  	<destination id="anularPreoperatorio"> 
-  	 	 <properties>
-  			  <source>Administracion.anularPreoperatorio</source>
-  		 </properties>
-  	</destination>
-  	<destination id="EditHoteleriaService"> 
-  	 	 <properties>
-  			  <source>Hoteleria.EditHoteleriaService</source>
-  		 </properties>
-  	</destination>
-	<destination id="RegistHoteleriaService"> 
-  	 	 <properties>
-  			  <source>Hoteleria.RegistHoteleriaService</source>
-  		 </properties>
-  	</destination>
-	<destination id="EditarConsultaService"> 
-  	 	 <properties>
-  			  <source>Pabellon.EditarConsultaService</source>
-  		 </properties>
-  	</destination>
-  	<destination id="PostOperatorioService">
+		<destination id="anularPeluqueria"> 
+  	 		 <properties>
+  				  <source>Administracion.anularPeluqueria</source>
+  			 </properties>
+ 	 	</destination>
+
+		<destination id="AECatPeluqueriaService">
+			 <properties>
+	  			<source>Peluqueria.AECatPeluqueriaService</source> 
+  			</properties>
+ 	 	</destination>
+  
+  		<destination id="anularPreoperatorio"> 
+  		 	 <properties>
+  				  <source>Administracion.anularPreoperatorio</source>
+  		 	</properties>
+  		</destination>
+  	
+	  	<destination id="EditHoteleriaService"> 
+  		 	 <properties>
+  				  <source>Hoteleria.EditHoteleriaService</source>
+  			 </properties>
+  		</destination>
+
+		<destination id="RegistHoteleriaService"> 
+  		 	 <properties>
+  				  <source>Hoteleria.RegistHoteleriaService</source>
+  			 </properties>
+  		</destination>
+		<destination id="EditarConsultaService"> 
+  		 	 <properties>
+  				  <source>Pabellon.EditarConsultaService</source>
+  			 </properties>
+  		</destination>
+  		<destination id="PostOperatorioService">
            	<properties>
            			<source>Pabellon.PostOperatorioService</source>
            	</properties>
-    </destination>
-    <destination id="avisoWeb1">
+	    </destination>
+   	
+   		<destination id="avisoWeb1">
            	<properties>
            			<source>Administracion.avisoWeb1</source>
            	</properties>
-    </destination>
-	<destination id="AddProducto">
+	    </destination>
+	
+		<destination id="AddProducto">
            	<properties>
            			<source>Petshop.AddProducto</source>
            	</properties>
-    </destination> 
-    <destination id="editarProducto1">
+   		 </destination> 
+    
+   		 <destination id="editarProducto1">
            	<properties>
            			<source>Administracion.editarProducto1</source>
            	</properties>
-    </destination>	
+    	</destination>	
 	
-	<destination id="EditarPeluService">
+		<destination id="EditarPeluService">
            	<properties>
            			<source>Peluqueria.EditarPeluService</source>
            	</properties>
-    </destination>
+    	</destination>
+    
+  		<destination id="RegistroAvisoWebService">
+           	<properties>
+           			<source>AvisoWeb.RegistroAvisoWebService</source>
+           	</properties>
+    	</destination>
 </service>
