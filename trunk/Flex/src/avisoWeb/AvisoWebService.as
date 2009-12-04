@@ -27,7 +27,7 @@ package avisoWeb
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="AvisoWebService";
-			this.source="Peluqueria.AvisoWebService";
+			this.source="AvisoWeb.AvisoWebService";
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		/**
@@ -38,12 +38,42 @@ package avisoWeb
 			Alert.show("Error en AvisoWebService, Detalle: "+event.fault.message);
 		}
 		/**
+		 * Función que permite anular un aviso web
+		 * @autor Erwin Díaz
+		 */
+		public function anulAviso(id:String):void
+		{
+			this.getOperation("anulAviso").send(id);
+		}
+		/**
+		 * Función que permite eliminar un aviso web
+		 * @autor Erwin Díaz
+		 */
+		public function delAviso(id:String):void
+		{
+			this.getOperation("delAviso").send(id);
+		}
+		/**
+		 * Función que obtiene todos los avisos que están desactivados.
+		 * @autor Erwin Díaz
+		 */
+		public function getAllAvisoWebA():void
+		{
+			this.getOperation("getAllAvisoWebA").send();
+		}
+		
+		/**
 		 * Se obtienen todos los usuarios que están registrados en la base de datos
+		 * @autor Erwin Díaz
 		 */ 
 		public function getAllAvisoWeb():void
 		{
 			this.getOperation("getAllAvisoWeb").send();
 		}
+		/**
+		 * Actualiza un aviso web
+		 * @autor Erwin Díaz
+		 */
 		public function upAvisoWeb(aviso:AvisoWeb):void
 		{
 			this.getOperation("upAvisoWeb").send(aviso);
