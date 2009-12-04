@@ -22,6 +22,48 @@ import Bd.DBConnectionManager;
 public class AvisoWebService {
 
 	/**
+	 * Trata de desactivar el aviso registrado en la base de datos
+	 * @return Resultado de la operación realizada
+	 */
+	public int delAviso(String id)
+    {
+		int result = 0;
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			AvisoWebServiceBD personDB= new AvisoWebServiceBD(connection);
+			result = personDB.delAvisoBD(id);		
+			
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
+    }
+	/**
+	 * Trata de anular el aviso registrado en la base de datos
+	 * @return Resultado de la operación realizada
+	 */
+	public int anulAviso(String id)
+    {
+		int result = 0;
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			AvisoWebServiceBD personDB= new AvisoWebServiceBD(connection);
+			result = personDB.anulAvisoBD(id);		
+			
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
+    }
+	/**
 	 * Trata de editar el aviso registrado en la base de datos
 	 * @return Resultado de la operación realizada
 	 */
@@ -57,6 +99,26 @@ public class AvisoWebService {
 			Connection connection=DBConnectionManager.getConnection();
 			AvisoWebServiceBD personDB= new AvisoWebServiceBD(connection);
 			persons= personDB.getAllAvisoWebBD();		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return persons;
+    }
+	/**
+	 * Trata de obtener todos los avisos registrados en la base de datos
+	 * @return Lista con todos los avisos registrados
+	 */
+	public List<AvisoWeb> getAllAvisoWebA()
+    {
+    	List<AvisoWeb> persons=new ArrayList<AvisoWeb>();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			AvisoWebServiceBD personDB= new AvisoWebServiceBD(connection);
+			persons= personDB.getAllAvisoWebABD();		
 			connection.close();
 		} 
     	catch (SQLException e) 
