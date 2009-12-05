@@ -1,11 +1,14 @@
 /* CSS file */
-/*
-.Accordion2 {
-   backgroundAlpha: 1;
-   backgroundColor: #ffffff;
-}
-.Accordion1{
-   backgroundAlpha: 0.43;
+.Accordion1 {
+   backgroundAlpha: 0.31;
    backgroundColor: #003399;
 }
-*/
+.Accordion2{
+   backgroundAlpha: 0.39;
+   backgroundColor: #0000ff;
+}
+
+.Accordion3 {
+   backgroundAlpha: 0.69;
+   backgroundColor: #0000ff;
+}
