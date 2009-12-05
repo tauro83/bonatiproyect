@@ -32,7 +32,7 @@ public class ConfigurarBD {
 	/**
 	 * obtiene la configuraciones 
 	 * @param tipo es la diferencia entre las distintas configuraciones registradas en el sistema
-	 * las configuraciones pueden ser: Servicio, Especie, Cargo
+	 * especificament es especie
 	 * @return una lista de configuraciones segun el tipo del argumento
 	 * @throws SQLException 
 	 */
@@ -176,9 +176,8 @@ public class ConfigurarBD {
 	}
 	/**
 	 * registra una nueva configuracion especificando el tipo
-	 * @param tipo es la diferencia entre las distintas configuraciones registradas en el sistema
-	 * las configuraciones pueden ser: Servicio, Especie, Cargo
-	 * @param nombre es el valor de la configuracion segun el tipo.
+	 * @param especie que se quiere asociar la raza
+	 * @param raza que se quiere registrar
 	 */
 	public void regRaza(String especie, String raza) throws SQLException
 	{

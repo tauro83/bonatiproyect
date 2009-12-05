@@ -26,7 +26,12 @@ public class Configurar {
 		return conBD.getConfiguraciones(tipo);
 		
 	}
-	
+	/**
+	 * Obtiene las configuraciones para el tipo enviado
+	 * @param tipo obtiene las configuraciones de la capa ConfiguracionBD, los tipos pueden ser
+	 * Especies, Servicios, Cargos
+	 * @return especie una lista con todas las tuplas del tipo enviado como parametro
+	 */
 	public static ArrayList<Configuracion> getRazas(String especie) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);			
@@ -61,7 +66,8 @@ public class Configurar {
 	 * Registrar la configuracion
 	 * @param tipo obtiene las configuraciones de la capa ConfiguracionBD, los tipos pueden ser
 	 * Especies, Servicios, Cargos
-	 * @param nombre corresponde al dato segun el tipo que se desea registrar
+	 * @param especie corresponde al dato segun el tipo que se desea registrar
+	 * @param raza corresponde al dato tipo raza que se quiere registrar
 	 */
 	public static void regRaza(String especie, String raza) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
