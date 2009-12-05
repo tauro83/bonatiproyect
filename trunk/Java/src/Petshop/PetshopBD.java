@@ -48,8 +48,10 @@ public class PetshopBD {
 		String result = null;
 		try 
     	{
+			String prec =  person.precio.replace(".", "");
+			prec = prec.replace("$", "");
 			insert.setString(1, person.nombre);
-			insert.setString(2, person.precio);
+			insert.setString(2, prec);
 			insert.setString(3, person.categoria);
 			insert.setString(4, person.codigo);
 			insert.setString(5, person.descripcion);
