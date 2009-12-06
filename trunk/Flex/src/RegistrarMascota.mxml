@@ -207,10 +207,11 @@
 				
 				if(nombreCliente == null){
         			//Alert.show("Cliente no registrado!");
-        			labelMessage.text = "Cliente no registrado."
+        			//labelMessage.text = "Cliente no registrado."
+        			labelMessage.text = Properties.getMensaje("Error", "2");
         			datosMascota.visible = false;
         			Application.application.AdmIngreso2.setVisible(true);
-        			Application.application.AdmIngreso2.labelMessage.text = "El cliente ingresado no esta registrado."
+        			Application.application.AdmIngreso2.labelMessage.text = labelMessage.text = Properties.getMensaje("Error", "2");
         			Application.application.AdmIngreso2.rut.text = buscadorCliente.rutClienteInput.text;
         			Application.application.AdmIngreso2.rut2.text = buscadorCliente.rutClienteDVInput.text;
         			this.setVisible(false);
@@ -220,7 +221,7 @@
         		}
         		else{
         			datosMascota.visible = true;
-        			labelMessage.text = "Se ha accedido al cliente " + nombreCliente + " satisfactoriamente.";
+        			labelMessage.text = Properties.getMensaje("Informacion", "1") + " " + nombreCliente;
    
         			ini(event);
         			dg.visible = true;
@@ -253,11 +254,13 @@
 			private function addMascotaServiceResult(event:ResultEvent):void{
 				var result:int = event.result as int ;
 				if(!result>0)
-					labelMessage.text = "Mascota no registrada."
+					//labelMessage.text = "Mascota no registrada."
+					labelMessage.text = Properties.getMensaje("Error", "3");
 				else{
 					getMascotas();
 					mascotas.refresh();
-					labelMessage.text = "La mascota "+ nombreInput.text +" ha sido registrada.";
+					//labelMessage.text = "La mascota "+ nombreInput.text +" ha sido registrada.";
+					labelMessage.text = Properties.getMensaje("Informacion", "4");
 					nombreInput.text = "";
 					fechaNacimientoInput.text = "";
 					claseAnimalInput.text = "";
@@ -282,6 +285,11 @@
             	Application.application.panel2.setVisible(true,false);
             	Application.application.AdmOpciones1.setVisible(true,false);
 				
+			}
+			private function analizar():void{
+				if(buscadorCliente.rutClienteInput.text != ""){
+					buscarCliente(null);
+				}
 			}	
         ]]>
     </mx:Script>
@@ -289,7 +297,7 @@
  
 	<!-- DATOS BUSQUEDA DE CLIENTE PARA REGISTRO DE MASCOTA --> 
 	<mx:Label x="25" y="101" text="Nombre:" width="67" height="22"/>
-	<mx:Label x="25" y="134" text="Fecha Nacimiento:" width="108.75" height="22"/>
+	<mx:Label x="25" y="134" text="Nacimiento:" width="108.75" height="22"/>
 	<mx:Label x="25" y="168" text="Especie:" width="108.75" height="22"/>
 	<mx:Label x="350.5" y="166" text="Raza:" width="43.75" height="22"/>
 	<mx:Label x="350.5" y="132" text="Sexo:" width="51.75" height="22"/>
@@ -341,9 +349,9 @@
 		
 		<!-- OPCIONES PARA SUBIR IMAGEN -->
 	</mx:Canvas>
-	<mx:TextInput restrict="A-Z a-z -" x="139.75" y="99" width="169" id="nombreInput" maxChars="50"/>
-	<mx:DateField x="139.75" y="132" width="169" id="fechaNacimientoInput"/>
-	<mx:ComboBox x="139.75" labelField="nombre" y="166" width="169" id="claseAnimalInput" close="selRazas(event);" dataProvider="{especies}">
+	<mx:TextInput restrict="A-Z a-z -" x="96.75" y="99" width="209" id="nombreInput" maxChars="50" focusIn="analizar()"/>
+	<mx:DateField x="96.75" y="132" width="134" id="fechaNacimientoInput"/>
+	<mx:ComboBox x="96.75" labelField="nombre" y="166" width="209" id="claseAnimalInput" close="selRazas(event);" dataProvider="{especies}">
 	</mx:ComboBox>
 	<mx:ComboBox x="427.25" y="164" width="229" id="razaInput" dataProvider="{razas}" labelField="nombre">
 	</mx:ComboBox>
@@ -358,7 +366,7 @@
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente" fontWeight="bold"/>
 	<mx:Label x="25" y="73" text="Mascota" fontWeight="bold"/>
-	<ns2:BuscadorNombreRut x="25" y="36" id="buscadorCliente" keyFocusChange="buscarCliente(event)">
+	<ns2:BuscadorNombreRut x="26" y="36" id="buscadorCliente" keyFocusChange="buscarCliente(event)">
 	</ns2:BuscadorNombreRut>
 	<!--
 	<mx:TileList x="465.75" y="9" width="200.5" height="135" dataProvider="{files}" itemRenderer="components.ItemRenderer"></mx:TileList>
