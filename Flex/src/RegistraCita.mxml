@@ -64,7 +64,7 @@
 					c1					= new Cita();
 					c1.cliente 			= rut;
 					c1.mascota      	= listMascotas.selectedLabel;
-					c1.fecha        	= fecha.text;
+					c1.fecha        	= fecha.selectedDate.getDate() + "/" + (fecha.selectedDate.getMonth()+1) + "/" +fecha.selectedDate.getFullYear();
 					c1.hora				= hora.text
 					c1.servicio			= servicio.text;
 					c1.usuario			= usuario.text;

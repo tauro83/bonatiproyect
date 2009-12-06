@@ -29,6 +29,7 @@
             import mx.rpc.events.ResultEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
+			import services.configuracionServices;	
 			
 			//raullrich
 			import transferObjects.Cita;
@@ -58,10 +59,11 @@
             import mx.events.FlexEvent;
             import mx.rpc.events.ResultEvent;
 			import mx.rpc.events.FaultEvent;
-			
 			import services.DiaAgendaServices;
 			import administracion.UsuarioEditService;
 			import transferObjects.Usuario;
+			
+			import util.Properties;
 			
 			[Bindable]
 			public var diasBloqueados:ArrayCollection = new ArrayCollection();
@@ -70,13 +72,16 @@
             public var diaAgenda:ArrayCollection = new ArrayCollection(
                 [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
                  {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
-                 {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]); 
+                 {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}, {hora:"20:00"}]); 
                  
             [Bindable]
             public var semanaAgenda:ArrayCollection = new ArrayCollection(
                 [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
                  {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
-                 {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]); 
+                 {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}, {hora:"20:00"}]); 
+             
+            [Bindable]
+            public var servicios:ArrayCollection = new ArrayCollection(); 
                  
              /**
 			 * Funcion para asignar agenda dependiendo de la fecha seleccionada
@@ -95,7 +100,6 @@
             private function bloquearDia():void{
             	diasBloqueados.addItem(fechaOutput.text);
             	this.agendaDia.selectedItem = null;
-            	labelMessage.text = "El día " + fechaOutput.text + " ha sido bloqueado."
             	cambioFecha();
             	
             }
@@ -116,22 +120,13 @@
             	if(diasBloqueados.contains(fechaOutput.text)){
             		fechaBloqueadoOutput.text = "(Bloqueado)";
             		agendaDia.selectable = false;
-            		
-            		//bloquear.visible = false;
-            		//desbloquear.visible = true;
             	}
             	else{
             		agendaDia.selectable = true;
-            		
             		fechaBloqueadoOutput.text = "";		
-            		//bloquear.visible = true;
-            		//desbloquear.visible = false;
             		
             		getDiaAgenda();
-            		
-            		//semanaAgenda = new ArrayCollection();
-            		//getSemanaAgenda();
-            		//agendaSemana.dataProvider = semanaAgenda;
+        
             	}
             
             }
@@ -142,7 +137,6 @@
             private function desbloquearDia():void{
             	var index:int = diasBloqueados.getItemIndex(fechaOutput.text);
             	diasBloqueados.removeItemAt(index);
-            	labelMessage.text = "El día " + fechaOutput.text + " ha sido desbloqueado."
             	cambioFecha();
             }
             /**
@@ -264,6 +258,7 @@
                 llenarItemDia(citass, "18:30");
                 llenarItemDia(citass, "19:00");
                 llenarItemDia(citass, "19:30");
+                llenarItemDia(citass, "20:00");
                 
                 agendaDia.dataProvider = diaAgenda;
 			} 
@@ -332,11 +327,36 @@
             	var fechaActual:Date = new Date();
             	getAllUsuarios();
 			
-            	servicioInput.dataProvider = ["Todos", "Pabellón", "Peluquería", "Policlínico", "Atención a domicilio"];
+            	cargarServicios();
             	servicioOutput.text = "Todos";
             	fechaOutput.text = fechaActual.getDate() + "/" + (fechaActual.getMonth()+1) + "/" +fechaActual.getFullYear();
             	getDiaAgenda();
-            }    
+            } 
+            
+            /** 
+			 *  Obtiene los servicios desde el actionScript
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
+			public function cargarServicios():void
+			{
+				var confs:configuracionServices= new configuracionServices();
+				confs.getConfiguraciones("Servicio");
+				confs.addEventListener(ResultEvent.RESULT,cargarServiciosResult);
+			}
+			
+			/** 
+			 *  Asigna el retorno del llamado de cargarDatos a un
+			 *   arrayCollection para mostrar las configuraciones
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
+			public function cargarServiciosResult(event:ResultEvent):void
+			{
+				servicios = event.result as ArrayCollection;
+				servicios.addItemAt({nombre:"Todos"},0);
+				servicioInput.selectedIndex = 0;
+				
+			}
+               
             /**
 			 * Funcion que inicia el calendario
 			 * 
@@ -360,7 +380,7 @@
 			{
 
 				if(servicioInput.text == "Todos" && agendaDia.selectedItem.mascota == null){
-					labelMessage.text = "Debe seleccionar un servicio específico para poder Agendar.";
+					labelMessage.text = Properties.getMensaje("Advertencia", "13");
 				}
 				else{  
 					
@@ -390,7 +410,12 @@
 			     	Application.application.registrarCita.fecha.data = calendario.selectedDate;
 			     	Application.application.registrarCita.hora.text = agendaDia.selectedItem.hora; 
 			   	 	Application.application.registrarCita.servicio.text = servicioInput.selectedLabel;
-			    	Application.application.registrarCita.fecha.selectedDate = calendario.selectedDate;
+			    	
+			    	if(calendario.selectedDate != null)
+			    		Application.application.registrarCita.fecha.selectedDate = calendario.selectedDate;
+			    	else
+			    		Application.application.registrarCita.fecha.selectedDate = new Date();
+			    		
 			    	Application.application.registrarCita.usuarioNombre.text = usuarioInput.selectedLabel;
 			     	Application.application.registrarCita.usuario.text = usuarios[usuarioInput.selectedIndex-1].usuario;			    }
 			 	
@@ -417,7 +442,7 @@
 						eliminar.visible = true;
 					}
 					else{
-						labelMessage.text = "Debe seleccionar un servicio específico para poder Agendar."
+						labelMessage.text = Properties.getMensaje("Advertencia", "13");
 						agendar.visible = false;
 						ctm.visible = false;
 						eliminar.visible = false;
@@ -437,7 +462,7 @@
 					citaService.purgarCita(agendaDia.selectedItem.fecha, agendaDia.selectedItem.hora, agendaDia.selectedItem.servicio, respon);
    				}
    				else{
-   					labelMessage.text="Debe primero seleccionar un elemento";
+   					labelMessage.text = Properties.getMensaje("Advertencia", "14");
    				}
    				 
    			}
@@ -448,11 +473,11 @@
 				{
 				   //linea editada
 				   iniciarAgenda();
-				   labelMessage.text="Cita Eliminada!";
+				   labelMessage.text = Properties.getMensaje("Informacion", "12");
 				   //getAllMascotas();
 				}
 				else
-				   labelMessage.text="Error en Eliminar Cita";
+				   labelMessage.text = Properties.getMensaje("Error", "9");
 			}
 
 			////////////////////////////////////TERMINA ELIMINAR CITA///////////////////////
@@ -499,7 +524,7 @@
         <mx:ComboBox id="usuarioInput" x="10" y="224" width="182" close="{asignarAgenda(event)};">
 		</mx:ComboBox>
         <mx:Label x="10" y="254" text="Servicio:"/>
-        <mx:ComboBox id="servicioInput" x="10" y="280" width="182" close="{asignarAgenda(event)};">
+        <mx:ComboBox id="servicioInput" x="10" y="280" width="182" close="{asignarAgenda(event)};" dataProvider="{servicios}" labelField="nombre">
 		</mx:ComboBox>
         <mx:Button id="agendar" x="674" y="311" label="Agendar" visible="false" click="{seleccionarCita()}"/>
         <mx:Button id="eliminar" x="674" y="311" label="Eliminar" visible="false" click="{deleteCita(event)}"/>
