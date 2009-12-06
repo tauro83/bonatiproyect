@@ -92,7 +92,7 @@ public class ConfigurarBD {
     		while(result.next())
     		{
     			conf = new Configuracion();
-    			conf.setNombre(result.getString(1));
+    			conf.setNombre(result.getString(1).trim());
     			configuraciones.add(conf);
     		}
 		} 
