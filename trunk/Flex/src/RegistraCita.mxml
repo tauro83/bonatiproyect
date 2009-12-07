@@ -3,6 +3,8 @@
 	
 	<mx:Script>
         <![CDATA[
+        	import services.BitacoraCitaService;
+        	import transferObjects.BitacoraCita;
     
     	//=======================================================================
 			// FECHA: CREACIÓN: 03 Octubre
@@ -88,7 +90,19 @@
 					Application.application.registrarCita.setVisible(false);
 					Application.application.agenda2.setVisible(true);	
 					listMascotas.text = '';
-					Application.application.agenda2.iniciarAgenda();			
+					Application.application.agenda2.iniciarAgenda();
+					
+					var bc:BitacoraCita = new BitacoraCita();
+					bc.cliente = clienteRutname.rutClienteInput.text + clienteRutname.rutClienteDVInput.text;
+					bc.fechaCita = fecha.selectedDate.getDate() + "/" + (fecha.selectedDate.getMonth()+1) + "/" +fecha.selectedDate.getFullYear();		
+    		 		bc.horaCita = hora.text;
+    		 		bc.mascota = listMascotas.selectedLabel;
+    		 		bc.servicio = servicio.text;
+    		 		bc.usuario = Application.application.login2.usuarioActivo;
+    		 		bc.accion = "Registrar";
+    		 		
+    		 		var bcs:BitacoraCitaService = new BitacoraCitaService;
+    		 		bcs.addBitacoraCita(bc);
     		 	}
 				else{
 					msj = "Cita ya esta registrada con la hora, dia y encargado, cambie los parametros"; 				

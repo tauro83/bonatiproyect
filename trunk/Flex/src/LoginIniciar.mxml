@@ -19,6 +19,7 @@
 			import mx.core.Application;
 			
 			public var bar:int;
+			public var usuarioActivo:String;
 			
 			/**
 			 *  Comprueba que exista el login que se esta ingresando,
@@ -62,6 +63,9 @@
             		Application.application.botonAyuda.enabled=true;
             		Application.application.botonLogin.enabled=true;
             		Application.application.botonLogin.label="Cerrar Sesión";
+            		
+            		usuarioActivo = nombre.text;
+            		
             		if(!recordar.selected==true){
             			nombre.text=null;
             			pass.text=null;

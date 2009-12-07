@@ -57,6 +57,9 @@ package services
 		 **/
 		public function getAllBitacoraCita():void{
 			this.getOperation("getAllBitacoraCita").send();
+		}
+		public function addBitacoraCita(bc:BitacoraCita):void{
+			this.getOperation("addBitacoraCita").send(bc);
 		}	
 	}
 }
