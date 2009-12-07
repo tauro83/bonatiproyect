@@ -22,6 +22,9 @@
 			import services.AddMascotaService;
 			import transferObjects.Mascota;
 			import transferObjects.Diagnostico;
+			import services.configuracionServices;
+			import pabellon.AddCirugiaService;
+			import util.Properties;
 			
 			[Bindable]
 			private var cirugias:ArrayCollection = new ArrayCollection();
@@ -40,12 +43,8 @@
 			[Bindable]
 			private var tablaSeleccionada:Boolean = false;
 			[Bindable]
-			private var listaCirugias:ArrayCollection = new ArrayCollection( 
-				[{label:" "}, {label:"De Apéndice"}, {label:"De los aparatos respiratorio"}, {label:"De los aparatos cardiovascular"},
-				 {label:"De ojo"}, {label:"De todo tipo de fractura"},
-				 {label:"Del sistema digestivo"}, {label:"Del sistema tegumentario"},
-				 {label:"Del sistema tegumentario"}, {label:"Del sistema reproductor"}, {label:"Del sistema urinario"}, {label:"Dental"},
-				 {label:"Estenosis traqueal"}, {label:"Ortopédica"}, {label:"Partos y cesaria"}, {label:"Tiroidectomía (por tumores)"}, {label:"De tumor"}] );
+			private var listaCirugias:ArrayCollection = new ArrayCollection();
+
 
 			
 			public function iniciarPanel():void{
@@ -59,13 +58,13 @@
 				busqueda.visible = true;
 				edicion.visible = false;
 				labelMessage.text = "";
-				
-				
-				
+
 				getAllUsuarios();
 				buscarCirugias();
 				
 			}
+			
+			
 			//Funcion que busca las cirugias para retornarlas a la tabla
 			public function buscarCirugias():void{
 				//Crea clase para la conexion con la capa de java	
@@ -103,8 +102,6 @@
 				if(selectedRow.fecha != null){
 					busqueda.visible = false;
 					edicion.visible = true;
-					//edicionRutClienteInput.text = buscadorCliente.rutClienteInput.text;
-					//edicionRutClienteDVInput.text = buscadorCliente.rutClienteDVInput.text;
 					
 					var s:String =  Tabla.selectedItem.clienteRut.split(" ",1).pop();
 					
@@ -112,13 +109,10 @@
 					edicionRutClienteDVInput.text = s.charAt(s.length-1);
 					
 					edicionNombreMascotaInput.text = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
-					labelMessage.text = "Ingrese el nuevo diagnóstico";
+					labelMessage.text = Properties.getMensaje("Advertencia", "31");
 					
 					llenarTablaDiagnosticos();
 					
-				}
-				else{
-					labelMessage.text = "Debe seleccionar un item de cirugía";
 				}
 			}
 			/**
@@ -143,7 +137,7 @@
 				editar.visible=false;
 				//Consulta tipo de retorno
 				if(i==0){
-					labelMessage.text = "Se ha agregado el nuevo diagnóstico";
+					labelMessage.text = Properties.getMensaje("Informacion", "34");
 				}
 				else{
 					labelMessage.text = "";
@@ -153,50 +147,12 @@
 			* Funcion que busca cliente
 			*/
 			 private function buscarCliente():void{
-        		//Revisa el correcto ingreso del rut
-        		/*var Numero:String = rutClienteInput.text;
-        		var Dv:String = rutClienteDVInput.text;
-				var suma:int = 0;
-				var rut:String = Numero;
-				var NumMag:int = 2;
-				var Resto:int = 0;
-				var j:int ;
-				var i:int;
-				var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
-				var ParteNumerica:Array = new Array();
-				
-				if (rut.length == 0) { 
-					//return false; 
-					}
-				for ( j =0, i =0; j < rut.length; j++){
-					if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
-						ParteNumerica[i] = rut.charAt(i);
-						++i;
-					}
-				}
-				
-				for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
-					suma += ParteNumerica[i] * NumMag;
-					trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
-					if (NumMag>6){
-						NumMag =1;	
-					}	
-				}
-				*/
-				//Resto = 11-(suma%11);
-				//if(DigVer[Resto] != Dv.toUpperCase()){
-				//	labelMessage.text = "El Rut que ha ingresado es incorrecto.";
-				//	mascotas = new ArrayCollection();
-				
-				//}
-				//else{
-					labelMessage.text = "";
-					//rutClienteInput.errorString = "";
-					getCliente(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteInput.text);
-				//}		
+				labelMessage.text = "";
+				getCliente(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteInput.text);
         	}
+        	
 			/**
-			 * 
+			 * Retorna el cliente
 			 * */
 			private function getCliente(rutCliente:String):void{
 				var addMascotaService: AddMascotaService = new AddMascotaService();
@@ -213,10 +169,10 @@
 				
 				//retorna null si el cliente no esta registrado en la base de datos
 				if(nombreCliente == null){
-        			labelMessage.text = "Cliente no registrado."
+        			labelMessage.text = Properties.getMensaje("Error", "2");
         		}
         		else{
-        			labelMessage.text = "Se ha accedido al cliente " + nombreCliente + " satisfactoriamente.";
+        			labelMessage.text = Properties.getMensaje("Informacion", "1");
         			getMascotas();
         			buscarCirugias();
         		}
@@ -236,7 +192,7 @@
 				edicionRutClienteDVInput.text = s.charAt(s.length-1);
 				
 				edicionNombreMascotaInput.text = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
-				labelMessage.text = "Ingrese el nuevo diagnóstico";
+				labelMessage.text = Properties.getMensaje("Advertencia", "31");
 				
 				llenarTablaDiagnosticos();
 				
@@ -260,6 +216,8 @@
 			private function getDiagnosticosResult(event:ResultEvent):void{
 				diagnosticos = event.result as ArrayCollection;
             	tablaDiagnosticos.dataProvider = diagnosticos;
+            	listaCirugias = diagnosticos;
+            	listaCirugias.removeItemAt(listaCirugias.length-1);
 			} 
 			/**
 			 * Funcion que captura la fecha y la guarda en un string
@@ -360,11 +318,11 @@
 				
 				if(result>0)
 				{
-				   labelMessage.text="Diágnostico guardado";
+				   labelMessage.text= Properties.getMensaje("Informacion", "34");
 				   llenarTablaDiagnosticos();
 				}
 				else
-				   labelMessage.text="El diágnostico no fue guardado";
+				   labelMessage.text= Properties.getMensaje("Error", "20");
 				   
 			}
 			
@@ -435,7 +393,7 @@
 		<mx:Label x="10" y="61.85" text="Cirugía:" width="110" fontWeight="bold"/>
 		<mx:Label x="10" y="164" text="Diagnósticos:" width="110" fontWeight="bold"/>
 		<mx:Label x="24.55" y="84.85" text="Cirugía:" width="63.4" height="17.931034"/>
-		<mx:ComboBox x="133" y="82.85" width="158.25" id="cirugiasBox" dataProvider="{listaCirugias}"></mx:ComboBox>
+		<mx:ComboBox x="133" y="82.85" width="158.25" id="cirugiasBox" dataProvider="{listaCirugias}" labelField="tipoCir"></mx:ComboBox>
 		<mx:TextArea x="459.45" y="82.85" width="265.55" height="89.95" id="diagC"/>
 		<mx:Label x="9.95" y="10" text="Mascota:" width="127" fontWeight="bold"/>
 		<mx:Label x="24.55" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>

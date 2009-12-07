@@ -26,6 +26,7 @@
 			import Policlinico.AddControlService;
 			import mx.core.Application;
 			import services.BusquedaService;
+			import util.Properties;
 						
 			[Bindable]
 			private var cliente2:ArrayCollection;
@@ -119,7 +120,7 @@
 			 }
 			 
 			 /**
-		 	 * 	@author  "Jimmy Muñoz"
+		 	 * 	@author  "Sebastian Arancibia"
 			 * 	@Fecha  28 Septiembre
 			 *  @Descripcion Metodo que recibe el panel EditUsuario (newRegUsuar), para almacenarlo, 
 			 * inicializa la variable personService, para poder llamar a los metodos de este
@@ -135,7 +136,7 @@
 			}
 			
 			/**
-		 	 * 	@author  "Jimmy Muñoz"
+		 	 * 	@author  "Sebastian Arancibia"
 			 * 	@Fecha  28 Septiembre
 			 *  @Descripcion Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
 			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
@@ -188,7 +189,7 @@
 				}
 				else{
 					//En el caso de que no se eleccione un item en la tabla se imprime en el labelMessage
-					this.labelMessage.text="Seleccione una Mascota para registrar un control.";
+					this.labelMessage.text=Properties.getMensaje("Advertencia", "32");
 				}
             }
             
@@ -237,19 +238,6 @@
             	}
             	
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             
 			/**
 			* Funcion que llama a retornar todas las mascotas de un cliente para ser vistas en el combobox
@@ -336,9 +324,9 @@
 			{
 				var result:int = event.result as int ;
 				if(!result>0)
-					labelMessage.text = "Actual control no registrado."
+					labelMessage.text = Properties.getMensaje("Error", "21");
 				else{
-					labelMessage.text = "Actual control registrado correctamente."
+					labelMessage.text = Properties.getMensaje("Informacion", "35");
 					borrarDatosActualControl();
 					this.currentState = "";
 				}	
@@ -398,9 +386,9 @@
 			{
 				var result:int = event.result as int ;
 				if(!result>0)
-					labelMessage.text = "Próximo control no registrado."
+					labelMessage.text += " - " + Properties.getMensaje("Error", "22");
 				else{
-					labelMessage.text = "Próximo control registrado correctamente."
+					labelMessage.text += " - " + Properties.getMensaje("Informacion", "36");
 					Application.application.agenda2.iniciarAgenda();
 					borrarDatosProximoControl();
 					this.currentState="";
@@ -457,6 +445,7 @@
 				if(!horasOcupadas.contains("18:30")){horasLibres.addItem({label:"18:30"});}
 				if(!horasOcupadas.contains("19:00")){horasLibres.addItem({label:"19:00"});}
 				if(!horasOcupadas.contains("19:30")){horasLibres.addItem({label:"19:30"});}
+				if(!horasOcupadas.contains("20:00")){horasLibres.addItem({label:"20:00"});}
 				
 				horaProximoControl.dataProvider = horasLibres;
 			}
@@ -489,8 +478,7 @@
 				else{
 					registrarNuevoControl.visible = false;
 				}	
-			}
-		   
+			} 
 		   
 		   /**
 			*   @author  "Sebastian Arancibia"
@@ -501,10 +489,7 @@
 		   {
 		   		costoFinal = costo.text;
 		   		costo.text = "$"+makeNumberFormat(costo.text, ".");
-		   }
-
-		   
-			
+		   }	
 		]]>
 	</mx:Script>
 	
@@ -572,12 +557,13 @@
 				<mx:Label x="24" y="271" text="Costo:" width="49" id="label15"/>
 			</mx:AddChild>
 			<mx:RemoveChild target="{label5}"/>
+			<mx:SetProperty target="{labelMessage}" name="width" value="724"/>
 		</mx:State>
 	</mx:states>
 	<mx:Label x="24" y="10" text="Cliente" fontWeight="bold" id="label1"/>
 	<mx:Label x="24" y="10" text="Cliente:" fontWeight="bold" id="label0"/>
 	<mx:Label x="24" y="75" text="Mascotas:" fontWeight="bold" id="label5"/>
-	<mx:Label x="167" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="25" y="399" width="709" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:DataGrid color="0x323232" width="709" rowCount="3" y="96" x="25" variableRowHeight="true" height="251" doubleClickEnabled="true" id="datagrid1" selectable="true" itemDoubleClick="nuevoControl()" itemClick="consultarAccion(event)" dataProvider="{mascotas}">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
