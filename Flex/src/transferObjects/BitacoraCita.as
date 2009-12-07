@@ -6,7 +6,7 @@
 package transferObjects
 {
 	[Bindable]
-    [RemoteClass(alias="transferObjects.BitacoraCita")]
+    [RemoteClass(alias="Agenda.BitacoraCita")]
     
      /**
 	 * Clase utilizada para representar el objeto BitacoraCita correspondiente a las citas modificadas
@@ -41,5 +41,11 @@ package transferObjects
 		
 		/** Servicio de la cita modificada*/
 		public var servicio:String;
+				
+		public function BitacoraCita(){
+			var d:Date = new Date();
+			this.fechaAccion = d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear();
+			this.horaAccion = d.getHours()+":"+d.getMinutes()+":"+d.getSeconds();
+		}
 	}
 }
