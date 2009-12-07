@@ -166,19 +166,6 @@ create table Atencion
 	constraint PK_mascotaNombre primary key (mascotaNombre,hora,servicio)
 );
 
-create table preoperatorio 
-(
-	idpreoperatorio CHAR(8) not null,
-	observaciones CHAR(50),
-	sintomas CHAR(50),
-    diagnostico CHAR(50),
-	fecha CHAR(10),
-	hora CHAR(10),
-    responsable CHAR(30),
-	ayudante CHAR(30),
-	constraint PK_preoperatorio primary key (idpreoperatorio,fecha,hora)
-);
-
 
 CREATE TABLE cita
 (
