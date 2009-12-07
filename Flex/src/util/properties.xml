@@ -20,7 +20,8 @@
 				<mensaje key="16">El servicio no puede ser modificado</mensaje>
 				<mensaje key="17">El nombre no puede ser modificado</mensaje>
 				<mensaje key="18">El nombre de usuario ha sido previamente registrado</mensaje>	
-				<mensaje key="19">Error al editar el aviso</mensaje>			
+				<mensaje key="19">Error al editar el aviso</mensaje>
+				<mensaje key="20">Diagnostico no registrado</mensaje>			
 			</mensajes>
 		</tipoMensaje>	
 		<tipoMensaje name="Advertencia">
@@ -55,6 +56,7 @@
 				<mensaje key="28">Ingrese una fecha inicio anterior a la actual</mensaje>				
 				<mensaje key="29">Ingrese una fecha de inicio, anterior a la fecha de t&#233;rmino</mensaje>
 				<mensaje key="30">Ingrese al menos un numero de tel&#233;fono</mensaje>
+				<mensaje key="31">Ingrese un nuevo diagnostico</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="Pregunta">
@@ -70,7 +72,7 @@
 		</tipoMensaje>
 		<tipoMensaje name="Informacion">
 			<mensajes>
-				<mensaje key="1">Se ha accedido al Cliente</mensaje>
+				<mensaje key="1">Se ha accedido al Cliente exitosamente</mensaje>
 				<mensaje key="2">Se ha registrado la Cita exitosamente</mensaje>
 				<mensaje key="3">Se ha registrado la Cliente exitosamente</mensaje>
 				<mensaje key="4">Se ha registrado la Mascota exitosamente</mensaje>
@@ -103,6 +105,7 @@
 				<mensaje key="31">Se ha registrado la Especie exitosamente</mensaje>							
 				<mensaje key="32">Se ha eliminado la Especie exitosamente</mensaje>
 				<mensaje key="33">Se ha editado el Aviso exitosamente</mensaje>
+				<mensaje key="34">Se ha registrado diagnostico exitosamente</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="ToolTip">
