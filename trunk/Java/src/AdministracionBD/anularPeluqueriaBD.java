@@ -34,7 +34,7 @@ public class anularPeluqueriaBD {
 			query = "SELECT clienterut, " +
 					"mascotanombre, " +
 					"servicio, hora, fecha, costo, descripcion, estado, responsable,nombre " +
-					"FROM peluqueria;";
+					"FROM serviciospeluqueria;";
 			selectAllVacunaciones = connection.prepareStatement(query);
 			
 			query = "SELECT nombre, aPaterno, rut " +
@@ -47,7 +47,7 @@ public class anularPeluqueriaBD {
 			
 			setMascota = connection.prepareStatement(query);
 			
-			query = "UPDATE peluqueria " +
+			query = "UPDATE serviciospeluqueria " +
 					"SET estado = ? " + 
 					"WHERE estado = ? AND mascotanombre= ? AND hora= ?;";
 			setEstado = connection.prepareStatement(query);
