@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import TransferObjects.Mascota;
 import Agenda.BitacoraCita;
 /**
  * @langversion Java
@@ -21,7 +23,7 @@ import Agenda.BitacoraCita;
 public class BitacoraCitaBD
 {
 
-	PreparedStatement selectAll;
+	PreparedStatement selectAll, insert;
 	Connection conn;
 	
 	
@@ -40,6 +42,11 @@ public class BitacoraCitaBD
 			query = "SELECT usuario, accion, fechaaccion, horaaccion, fechacita, horacita, cliente, mascota, servicio "+
 					"FROM bitacora;";
 			selectAll = connection.prepareStatement(query);
+			
+			
+			query = "INSERT INTO bitacora(usuario, accion, fechaaccion, horaaccion, fechacita, horacita, cliente, mascota, servicio) "+
+					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			insert = connection.prepareStatement(query);
 		} 
 		catch (SQLException e) 
 		{
@@ -80,5 +87,33 @@ public class BitacoraCitaBD
 			e.printStackTrace();
 		}
     	return bitacoras;
+    }
+	/**
+	 * Ingresa a una nueva BitacoraCita a la base de datos
+	 * @autor Sebastian Arancibia
+	 * @param bc contiene los datos de la bitacoraCita que se quiere ingresar
+	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
+	 */
+    public int addBitacoraCitaBD(BitacoraCita bc){
+    	int result=0;
+    	try{
+
+			insert.setString(1, bc.usuario);
+			insert.setString(2, bc.accion);
+			insert.setString(3, bc.getFechaAccion());
+			insert.setString(4, bc.horaAccion);
+			insert.setString(5, bc.getFechaCita());
+			insert.setString(6, bc.horaCita);
+			insert.setString(7, bc.getCliente());
+			insert.setString(8, bc.getMascota());
+			insert.setString(9, bc.getServicio());
+			
+			result = insert.executeUpdate();
+		} 
+    	catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	
+    	return result;
     }
 }
