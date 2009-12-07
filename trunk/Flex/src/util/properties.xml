@@ -21,7 +21,9 @@
 				<mensaje key="17">El nombre no puede ser modificado</mensaje>
 				<mensaje key="18">El nombre de usuario ha sido previamente registrado</mensaje>	
 				<mensaje key="19">Error al editar el aviso</mensaje>
-				<mensaje key="20">Diagnostico no registrado</mensaje>			
+				<mensaje key="20">Diagnostico no registrado</mensaje>	
+				<mensaje key="21">Actual Control no registrado</mensaje>
+				<mensaje key="22">Proximo Control no registrado</mensaje>		
 			</mensajes>
 		</tipoMensaje>	
 		<tipoMensaje name="Advertencia">
@@ -57,6 +59,7 @@
 				<mensaje key="29">Ingrese una fecha de inicio, anterior a la fecha de t&#233;rmino</mensaje>
 				<mensaje key="30">Ingrese al menos un numero de tel&#233;fono</mensaje>
 				<mensaje key="31">Ingrese un nuevo diagnostico</mensaje>
+				<mensaje key="32">Seleccione una Mascota para registrar Control</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="Pregunta">
@@ -106,6 +109,8 @@
 				<mensaje key="32">Se ha eliminado la Especie exitosamente</mensaje>
 				<mensaje key="33">Se ha editado el Aviso exitosamente</mensaje>
 				<mensaje key="34">Se ha registrado diagnostico exitosamente</mensaje>
+				<mensaje key="35">Se ha registrado Actual Control exitosamente</mensaje>
+				<mensaje key="36">Se ha registrado Proximo Control exitosamente</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="ToolTip">
