@@ -41,4 +41,21 @@ public class BitacoraCitaService{
 		}
 		return bitacora;
     }
+	/**
+	 * Clase para la conexion entre la capa 2 y la capa de 1
+	 * @param bc Datos para agregar a la bitacora
+	 */
+    public void addBitacoraCita(BitacoraCita bc){
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			BitacoraCitaBD bitacoraCitaBD= new BitacoraCitaBD(connection);
+			bitacoraCitaBD.addBitacoraCitaBD(bc);		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+    }
 }
