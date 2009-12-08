@@ -130,6 +130,7 @@
           	Application.application.setInvisible();
             Application.application.AdmOpciones1.setVisible(true,false);
             Application.application.AdmMascota2.setVisible(true,false);
+            Application.application.AdmMascota2.buscadorCliente.getAllClientes();
           }
           
 
