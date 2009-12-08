@@ -27,7 +27,7 @@
 			* Metodo que inicializa los valores de los clientes del sistema, para seleccionarlo 
 			 * ingresando su apellido. Llamando a la funcion de BusquedaService.
 			 */
-		   private function getAllClientes():void
+		   public function getAllClientes():void
 		   {
 	   			var busquedaService:BusquedaService = new BusquedaService();
 	   			busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
