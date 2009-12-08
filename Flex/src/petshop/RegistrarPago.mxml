@@ -11,22 +11,47 @@
 			// los pagos con el detalle necesario
 			//=======================================================================
 			import mx.core.Application;
+			import mx.collections.ArrayCollection;
+			import transferObjects.DetallePago;
+			import mx.controls.Alert;
+			
+			[Bindable]private var pagos:ArrayCollection;
+			
+			public function iniciarPanel():void{
+				//Alert.show("waaaaaa");
+				var dp:Object = new Object;
+				pagos =  new ArrayCollection();
+				dp.cantidad = 2;
+				dp.codigoProducto = "12345";
+				dp.nombreProducto = "Pendol";
+				dp.descripcion = "Alejar de los ninios"
+				dp.fecha = new Date();
+				dp.hora = "12:34:56";
+				dp.subtotal = 22000;
+				
+				pagos.addItem(dp);
+				pagos.addItem(new Object());
+			
+			}
 			
 			public function cancelar():void{
 				this.visible = false;
 				Application.application.panelPetshop.visible = true;
 				
 			}
+			public function cambiooo():void{
+			Alert.show("cambiooooo");
+			}
 	 ]]>
        
     </mx:Script>
-	<mx:DataGrid x="19" y="45" width="718" height="275">
+	<mx:DataGrid x="19" y="45" width="718" height="275" editable="true" dataProvider="{pagos}" dataChange="cambiooo()">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Código" dataField="codigo" width="80"/>
-			<mx:DataGridColumn headerText="Nombre" dataField="nombre" width="120"/>
-			<mx:DataGridColumn headerText="Descripción" dataField="descripcion"/>
-			<mx:DataGridColumn headerText="Cantidad" dataField="cantidad" width="70"/>
-			<mx:DataGridColumn headerText="Subtotal" dataField="subtotal" width="70"/>
+			<mx:DataGridColumn headerText="Código" dataField="codigoProducto" width="80"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreProducto" width="120" editable="false"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" editable="false"/>
+			<mx:DataGridColumn headerText="Cantidad" dataField="cantidad" width="70" editable="false"/>
+			<mx:DataGridColumn headerText="Subtotal" dataField="subtotal" width="70" editable="false"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="19" y="19" text="Detalle Producto:" fontWeight="bold"/>

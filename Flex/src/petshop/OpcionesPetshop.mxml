@@ -11,7 +11,8 @@
 			    Application.application.setInvisible();
 				this.visible = true;
 				//Application.application.iniciar();
-				Application.application.registrarPago.visible = true;	
+				Application.application.registrarPago.visible = true;
+				Application.application.registrarPago.iniciarPanel();	
 			}
 			
 			public function verEditarPago():void{
