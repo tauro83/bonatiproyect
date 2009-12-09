@@ -533,7 +533,7 @@
 					var i:int;
 					var large:int = listCatP.length;
 					
-					for(i=0;i<large;i++){
+					/*for(i=0;i<large;i++){
 						var tipoPel:CatPeluqueria = this.listCatP.getItemAt(i,0) as CatPeluqueria;
 						var text2:String = tipoPel.nombre;
 						var texx:String = Tabla.selectedItem.servicio.split(" ",1).pop();
@@ -542,6 +542,14 @@
 						if(text2 != texx3){
 							editPel.tiposServ1.push(text2);
 						}
+					}*/
+					
+										
+					for(i=0;i<large;i++){
+						var tipoPel:CatPeluqueria = this.listCatP.getItemAt(i,0) as CatPeluqueria;
+						var text2:String = tipoPel.nombre;
+
+						editPel.tiposServ1.push(text2);
 					}
 					
 					var s:String = Tabla.selectedItem.responsable.split(" ",1).pop();
@@ -560,11 +568,10 @@
 					}
 					var dat:Date = Tabla.selectedItem.fecha;
 					
-					editPel.fechahoy.selectedDate = dat;
-					var mes:int = dat.month+1;
-					editPel.fechahoy.text = dat.date+"/"+mes+"/"+dat.fullYear;
+					editPel.fechaAntigua = dat;
+					editPel.hora = Tabla.selectedItem.hora;
+					//Alert.show("hora: "+editPel.hora+".");
 					this.visible = false;
-     		  		editPel.descripcionV.text = Tabla.selectedItem.descripcion;
      		  		editPel.setVisible(true,false);
      				
      			}
@@ -617,12 +624,9 @@
 			<mx:DataGridColumn headerText="Nombre mascota" dataField="nombreMascota" visible="false"/>
 			<mx:DataGridColumn headerText="Rut" dataField="rutCliente" visible="false"/>
 			<mx:DataGridColumn headerText="Responsable" dataField="responsable"/>
-			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
-			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
-			<mx:DataGridColumn headerText="Fecha" dataField="fecha" visible="false"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="fechaS"/>
+			<mx:DataGridColumn headerText="Fechareal" dataField="fechaAntigua" visible="false"/>
 			<mx:DataGridColumn headerText="Hora" dataField="hora"/>
-			<mx:DataGridColumn headerText="Costo" dataField="costo" visible="false"/>
-			<mx:DataGridColumn headerText="Descripcion" dataField="descripcion" visible="false"/>
 			
 		</mx:columns>
 	</mx:DataGrid>
