@@ -118,19 +118,20 @@
             Application.application.AdmOpciones1.setVisible(true,false);
             Application.application.visualizarFicha.setVisualizarFicha(Application.application.verFicha); 
           }
-          
+/**********************************************************/          
           private function bitacoraFicha():void
           {
           	Application.application.setInvisible();
             Application.application.AdmOpciones1.setVisible(true,false);
-            Application.application.bitacoraEventos.setVisible(true,false);
+            Application.application.bitacoraList.getAllDatos();
+            Application.application.bitacoraList.setVisible(true,false);
           }
+/**********************************************************/
           private function registrarMascota():void
           {
           	Application.application.setInvisible();
             Application.application.AdmOpciones1.setVisible(true,false);
             Application.application.AdmMascota2.setVisible(true,false);
-            Application.application.AdmMascota2.buscadorCliente.getAllClientes();
           }
           
 
