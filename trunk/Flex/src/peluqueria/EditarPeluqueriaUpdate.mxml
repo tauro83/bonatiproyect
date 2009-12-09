@@ -5,7 +5,7 @@
         	
         	//=======================================================================
 			// FECHA: CREACIÓN: 11/11/09
-			// AUTOR: Jimmy Muñoz
+			// AUTOR: Raul Lopez
 			// Formulario y validacion de la edicion de un usuario en el sistema.
 			//=======================================================================
 			
@@ -46,14 +46,15 @@
 
 			[Bindable]
 			public var serviciosAdds:Array;
-		   	private var fechaActual:Date = new Date();
+		   	[Bindable]
+		   	public var fechaAntigua:Date = new Date();
 		   	[Bindable]
 		   	public var servicios:ArrayCollection = new ArrayCollection();
 		   
 		   /**
 		 	 * 	Metodo que realiza la accion de volver al panel anterior, dejando invisible este
 			 * y dejando visible el anterior.	
-		 	 * 	@author  "Jimmy Muñoz"	 		
+		 	 * 	@author  "Raul Lopez"	 		
 			 * */ 
 		   	private function vuelve():void
 		    {
@@ -69,7 +70,7 @@
 			 * con datos erroneos.
 			 * En caso de que se produsca algun error o que falten datos se mostrara por pantalla 
 			 * los mensajes informando de cuales datos faltan por ingresar.
-		 	 * 	@author  "Jimmy Muñoz"		 		
+		 	 * 	@author  "Raul Lopez"		 		
 			 * */ 
 		    private function registrarPeluqueria():void{
 		    	
@@ -90,6 +91,7 @@
 		    	
 		    				newPeluqueria.responsable= this.veterinariosC.text;
 		    				newPeluqueria.fecha = this.fechahoy.selectedDate;
+		    				newPeluqueria.fechaAntigua = fechaAntigua;
 		    				var i:int;
 		    				var largo:int = this.serviciosAdds.length;
 		    				
@@ -105,16 +107,15 @@
 		    					newPeluqueria.tiposNombres.addItem(cat2.nombre);
 		    				}
 		    				newPeluqueria.descripcion = this.descripcionV.text;	
-		    				
+		    				newPeluqueria.horaAntigua = this.hora;
 		    				newPeluqueria.rutCliente = this.clienteRut.concat(this.clienteRut2);;
 		    				newPeluqueria.nombreMascota = this.nombreMascota;
 		    						
-		    				var newAddServ:AddPeluqueriaService = new AddPeluqueriaService();
-		    				newAddServ.addPeluqueria(newPeluqueria);
-		    				this.setVisible(false,false);
-		    				Application.application.editaPelu.iniciarPanel1();
-		    				Application.application.editaPelu.labelMessage.text="Atención de peluqueria Editada con éxito.";
-		    				Application.application.editaPelu.setVisible(true,false);
+		    				var newEditSer:EditarPeluService = new EditarPeluService();
+		    				newEditSer.addEventListener(ResultEvent.RESULT,errorEdit);
+		    				newEditSer.editarPeluqueria(newPeluqueria);
+		    				
+		    				
 							
 		    			}
 		    					
@@ -124,13 +125,26 @@
 		    	
 		    }
 		    
+		    private function errorEdit(event:ResultEvent):void{
+		    	var res:int = event.result as int;
+		    	if(res == 1){
+		    		this.setVisible(false,false);
+		    		Application.application.editaPelu.iniciarPanel1();
+		    		Application.application.editaPelu.labelMessage.text="Atención de peluqueria Editada con éxito.";
+		    		Application.application.editaPelu.setVisible(true,false);
+		    	}
+		    	else{
+		    		this.labelMessage.text = "No se ha podido editar la atención de peluqueria.";
+		    	}
+		    	
+		    }
 		    
 		    		    
 		    /**
 		 	 * 	Metodo que realiza la accion de quitar una vacuna de la lista de vacunas realizadas
 			 * representada por la lista vacunasAdds y volviendo a colocarla disponible en la lista 
 			 * de Vacuanas.
-		 	 * 	@author  "Jimmy Muñoz"
+		 	 * 	@author  "Raul Lopez"
 			 * */ 
 		     private function quitaServ():void
 		    {
@@ -155,7 +169,7 @@
 			 * de vacunas. 
 			 * Esto lo hace comparando las vacunas con el nombre, y luego cuando encuentra la corecta
 			 *  la añade.
-		 	 * 	@author  "Jimmy Muñoz"
+		 	 * 	@author  "Raul Lopez"
 			 *  @Param String representando el nombre del tipo de vacuna.
 			 * */ 
 		    private function renombrarServ2(texto:String):void{
@@ -178,7 +192,7 @@
 		 	 * 	Metodo que realiza la accion de agregar una vacuna de la lista de vacuna(tiposVac1) a la de 
 			 * vacunas realizadas (vacunasAdds), representada por la lista vacunasAdds y volviendo 
 			 * a colocarla disponible en la lista de vacunas.
-		 	 * 	@author  "Jimmy Muñoz"
+		 	 * 	@author  "Raul Lopez"
 			 * */ 
 		    private function guardaPel():void
 		    {
@@ -205,7 +219,7 @@
 			 * vacunas realizadas (vacunasAdds), representada por la lista vacunasAdds y volviendo a 
 			 * colocarla disponible en la lista de vacunas. Esto lo hace comparando las vacunas con el 
 			 * nombre, y luego cuando encuentra la corecta la añade.
-		 	 * 	@author  "Jimmy Muñoz"
+		 	 * 	@author  "Raul Lopez"
 			 *  @Param String representando el nombre del tipo de vacuna.
 			 * */ 
 		    private function renombrarPel(texto:String):void{
@@ -229,7 +243,7 @@
 		 	 * 	Metodo que procesa el orden que se mostrara en la lista de vacunas,
 			 * tanto las agregadas, como las que se muestran para agregar.
 			 * Se ordena por orden alfabetico.
-		 	 * 	@author  "Jimmy Muñoz"
+		 	 * 	@author  "Raul Lopez"
 			 * 	@Param 2 objetos del array, los cales se compararan para guardarlos por orden.
 			 * */ 
 		    private function ordenLetra (a : Object , b : Object , fields : Array = null) : int
@@ -251,7 +265,7 @@
 		    /**
 		 	 * 	Metodo que asigna la forma en que se ordenara la lista de las vacunas que 
 			 * se reciben de la base de datos.
-		 	 * 	@author  "Jimmy Muñoz"
+		 	 * 	@author  "Raul Lopez"
 			 * */ 
 		    private function ordenar () : void
          	{
@@ -264,7 +278,7 @@
          	 /**
 		 	 * 	Metodo que asigna la forma en que se ordenara la lista de las vacunas que 
 			 * se han agregado.
-		 	 * 	@author  "Jimmy Muñoz"
+		 	 * 	@author  "Raul Lopez"
 			 * */ 
          	private function ordenar2 () : void
          	{
@@ -276,7 +290,7 @@
          	
          	/**
 		 	 * Metodo que coloca una mascara en los numeros como los precios.
-		 	 * 	@author  "Jimmy Muñoz"
+		 	 * 	@author  "Raul Lopez"
 			 * 	@Param value es el numero que se necesita aplicar la mascara.
 			 * */ 
          	private function makeNumberFormat (value : Object, separator : String):String{
@@ -320,7 +334,7 @@
 		    /**
 		 	 * 	Metodo que inicializa todos los datos del panel para que 
 			 * no existan datos de registros anteriores.
-		 	 * 	@author  "Jimmy Muñoz"
+		 	 * 	@author  "Raul Lopez"
 			 * */ 
 		    public function iniciarPanel():void
 		    {
@@ -332,6 +346,7 @@
 		    	servicios = new ArrayCollection();
 		    	this.serviciosAdds =new Array();
 		    	this.descripcionV.text="";
+		    	fechaAntigua = new Date();
 
 		    }
 				
@@ -340,10 +355,10 @@
 	<mx:Label x="120" y="175" text="Servicios:" width="63.4" height="18"/>
 	<mx:Label x="25" y="15" text="Responsable:" width="85.45"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:DateField x="540" y="15" width="122" id="fechahoy" formatString="DD/MM/YYYY" editable="false"/>
+	<mx:DateField x="540" y="0" width="122" id="fechahoy" formatString="DD/MM/YYYY" editable="false"/>
 	<mx:TextArea x="120" y="50" width="270" height="115" id="descripcionV" maxChars="200">
 	</mx:TextArea>
-	<mx:TextInput x="540" y="50" width="122" id="nombMasc" editable="false"/>
+	<mx:TextInput x="540" y="37" width="122" id="nombMasc" editable="false"/>
 	
 	<mx:List x="120" y="200" width="270" height="135" id="Servicios1" dataProvider="{tiposServ1}"></mx:List>
 	<mx:Button x="397.25" y="239" label="-&gt;" width="47.55" click="guardaPel()"/>
@@ -352,10 +367,10 @@
 	
 	<mx:Button x="522" y="353" label="Guardar" visible="true" id="registrar" click="{registrarPeluqueria()}" width="102" height="23"/>
 	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" visible="true" click="{vuelve()}" width="102" height="23"/>
-	<mx:Label x="450" y="50" text="Mascota:" width="63.95"/>
+	<mx:Label x="450" y="37" text="Mascota:" width="63.95"/>
 	
 	<mx:Label x="25" y="50" text="Descripción:" width="86"/>
-	<mx:Label x="450" y="15" text="Fecha:" width="64.2"/>
+	<mx:Label x="450" y="2" text="Fecha:" width="64.2"/>
 	<mx:Label x="450" y="175" text="Servicios agregados:" width="138" height="18"/>
 	<mx:TextInput x="118" y="13" id="veterinariosC" editable="false"/>
 	

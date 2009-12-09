@@ -53,6 +53,18 @@ package peluqueria
 		{
 			this.getOperation("getAllPeluquerias").send(rutillo, nombreMascota);
 		}
+		
+		/**
+		 	 * Metodo que envia a la capa 2, el usuario que fue editado, 
+			 * para almacenarlo en la base de datos. Llamando al metodo correspondiente.
+			 * @author  "Raúl López"
+			 * 	@Param Recibe como parametro un objeto de la clase Preoperatorio, para enviarlo a la capa2. 		
+			 * */
+
+		public function editarPeluqueria(pelu:Peluqueria):void
+		{
+			this.getOperation("editarPeluqueria").send(pelu);
+		}
         
 	}
 }
