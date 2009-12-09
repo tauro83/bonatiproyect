@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*" xmlns:ns5="hoteleria.*" xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*"> 
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*" xmlns:ns5="hoteleria.*" xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xmlns:ns8="modbitacora.*"> 
 
     <mx:Script>
         <![CDATA[        
@@ -191,6 +191,7 @@
             	editarAviso.setVisible(false,false);
             	AnulPost.setVisible(false,false);
             	AnulPostD.setVisible(false,false);
+            	bitacoraList.setVisible(false,false);
             	
             	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
@@ -597,6 +598,8 @@
 	</ns1:anulPostOLista>
 	<ns1:anulPost x="241" y="134" id="AnulPostD" visible="false" borderColor="#15AD8F">
 	</ns1:anulPost>
+	<ns8:bitacoraList x="241" y="134" id="bitacoraList" visible="false" borderColor="#15AD8F">
+	</ns8:bitacoraList>
 	
 	<mx:Image x="365" y="0" width="174" height="104" source="../fotos-animales-perros-peq.jpg" autoLoad="true"/>
 	<mx:TextArea x="0" y="0" width="366" height="104" borderStyle="none" fontFamily="Arial" editable="false" fontSize="27" fontWeight="bold" fontStyle="normal" backgroundColor="#FFFFFF" color="#0202CB" themeColor="#0060FF" borderColor="#FFFFFF" enabled="true" wordWrap="false"/>
