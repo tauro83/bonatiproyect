@@ -14,6 +14,11 @@
             <properties>
               <source>Administracion.AddUsuario</source>
             </properties>
+        </destination>
+        <destination id="BitacoraService">
+            	<properties>
+              			<source>Bitacora.BitacoraService</source>
+            	</properties>
         </destination> 
         <destination id="AvisoWebService">
             	<properties>
