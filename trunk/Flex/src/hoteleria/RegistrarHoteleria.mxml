@@ -55,7 +55,21 @@
          		fecha1.text = "";
      			fecha2.text = "";
      			comentarioCuadro.text = "";
+     			labelMessage.text = "";
          	}
+         	public function reset():void{
+         	    getAllHotel();
+         	    clienteRutName.rutClienteInput.text = "";
+         		clienteRutName.rutClienteDVInput.text = "";
+         		clienteRutName.inputClienteNombre.text = "";
+         		mascotasList.text = "";
+         		fecha1.text = "";
+     			fecha2.text = "";
+     			comentarioCuadro.text = "";
+     			labelMessage.text = "";
+     			
+         	}
+         	
        
                  [Bindable]
             public var caniles:ArrayCollection = new ArrayCollection(
@@ -82,8 +96,18 @@
          		}
          	}
                   
+             public function validaFechasNulas():Boolean{
+             	  var ok:Boolean;
+                  if(fecha1.text != "" || fecha2.text!= "")
+                     ok = true;
+                  else
+                    ok  = false;
+                  return ok;
+             
+             }
              public function registrar():void
              {
+              //if(validaFechasNulas == true){
              	var rc:String = clienteRutName.rutClienteInput.text + clienteRutName.rutClienteDVInput.text;
              	var alojar:Hoteleria = new Hoteleria();
              	
@@ -100,9 +124,12 @@
              	
 				rH.addEventListener(ResultEvent.RESULT,registHoteleriaResult);
 				rH.registrarHoteleria(alojar);
-            
-          //  this.currentState='RegistroHoteleria'; 	
-             }  
+            	
+                     //  this.currentState='RegistroHoteleria'; 	
+              }
+             // else
+             //  labelMessage.text = "Ingrese la fecha solicitada";
+             //}  
                 
             /**
 			 *Cambia el formato de la fecha para una mejor lectura del datagrid
@@ -126,16 +153,18 @@
 			   	result = event.result as int;
 			   	
 			    if(result > 0 ){
-			   	  //labelMessage.text = "Registro Modificado correctamente";
-			   	  labelMessage.text = Properties.getMensaje("Informacion", "24");
+			   	  labelMessage.text = "Registro Hotelería modificado correctamente";
+			   	  //labelMessage.text = Properties.getMensaje("Informacion", "24");
 			   	  iniciarPanel();
 			   	  
 			   }
 			   else{
-			      //labelMessage.text = "Registro no modificado";
-			      labelMessage.text = Properties.getMensaje("Informacion", "24");
+			      labelMessage.text = "Registro no modificado";
+			      //labelMessage.text = Properties.getMensaje("Informacion", "24");
+			      
+			      //currentState='Registros';RegistroHoteleria
+			      currentState='RegistroHoteleria';
 			      iniciarPanel();
-			      currentState='Registros';
 			   }
 			}   
 		 	 	
@@ -184,7 +213,8 @@
 			private function verifica():void
 			{
 				if(fecha2.selectedDate <= fecha1.selectedDate){
-					labelMessage.text = Properties.getMensaje("Advertencia", "16");
+					//labelMessage.text = Properties.getMensaje("Advertencia", "16");
+					labelMessage.text = "La fecha de ingreso debe ser anterior a la de salida";
 				}
 			}
 			
@@ -202,7 +232,7 @@
             	    }
          			
          		}
-         		labelMessage.text = "El usuario tiene todas sus mascotas en Hoteleria actualmente";
+         		//labelMessage.text = "El usuario tiene todas sus mascotas en Hoteleria actualmente";
          	}
 	 ]]>
        
@@ -292,7 +322,7 @@
 			</mx:AddChild>
 		</mx:State>
 	</mx:states>
-<mx:DataGrid x="22" y="79" width="705" enabled="true" id="Tabla" height="271" 
+<mx:DataGrid x="22" y="79" width="705" enabled="false" id="Tabla" height="271" editable="false"
 	dataProvider="{hotelerias}"  itemClick="ver.visible=true">
 		<mx:columns>
 			<mx:DataGridColumn width="70" headerText="Nombre" dataField="mascota" id="mascota"/>
