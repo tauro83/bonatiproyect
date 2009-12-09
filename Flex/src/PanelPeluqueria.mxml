@@ -141,6 +141,7 @@
          private function webRegistro():void
           {
          	Application.application.setInvisible();
+         	Application.application.registarAviso.iniciarPanel();
             Application.application.panelPeluqueria.setVisible(true,false);
             Application.application.registarAviso.setVisible(true,false);
          }

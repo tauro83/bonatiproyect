@@ -7,6 +7,8 @@ package Configuracion;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import Bd.DBConnectionManager;
 import TransferObjects.Configuracion;
 import TransferObjects.ConfiguracionVacuna;
@@ -120,4 +122,14 @@ public class Configurar {
 		return conBD.regConfiguracionVacuna(cv);
 	}
 	
+	/**
+	 * Solicita a la base de datos los asuntos de web aviso
+	 * @author  Jimmy Muñoz
+	 * @return el listado de los asuntos de web aviso
+	 */
+	public static List<String> getAsuntos() throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		ConfigurarBD conBD = new ConfigurarBD(connection);
+		return conBD.getAsuntos();
+	}
 }

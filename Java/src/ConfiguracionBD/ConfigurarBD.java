@@ -15,6 +15,7 @@ import java.util.List;
 import TransferObjects.Configuracion;
 import TransferObjects.ConfiguracionVacuna;
 import TransferObjects.Mascota;
+import TransferObjects.Usuario;
 
 public class ConfigurarBD {
 	PreparedStatement selectAll;
@@ -324,6 +325,39 @@ public class ConfigurarBD {
 		}
     	connection.close(); 
     	
+    	return out;
+    	
+	}
+	
+	/**
+	 * Registra la configuracion
+	 * @param cv corresponde a un obtejo que encapsula los datos de una vacuna
+	 * los cuales seran registrados en la base de datos. 
+	 */
+	public List<String> getAsuntos() throws SQLException
+	{
+		List<String> out = new ArrayList<String>();
+		String query = "";
+		
+		query = "SELECT nombre "+
+			"FROM asuntowebaviso;"; 
+		try 
+    	{
+    		selectAll = connection.prepareStatement(query);
+			ResultSet result = selectAll.executeQuery();
+    		while(result.next())
+    		{
+    			
+    			out.add(result.getString(1).trim());
+    			
+    		}
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	connection.close(); 
+		
     	return out;
     	
 	}

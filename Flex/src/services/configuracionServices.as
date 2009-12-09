@@ -129,5 +129,15 @@ package services
 		{
 			this.getOperation("elimRaza").send(especie, raza);
 		}
+		
+		/**
+		 	 * 
+			 *  funcion que solicita los asuntos de los web aviso, para su registro.	
+			 * 	@author  Jimmy Muñoz
+		 */	
+		public function getAsuntos():void
+		{
+			this.getOperation("getAsuntos").send();
+		}
 	}
 }
