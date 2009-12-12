@@ -181,18 +181,27 @@ CREATE TABLE cita
 );
 
 
-create table Cirugia
+CREATE TABLE cirugia
 (
-	clienteRut CHAR(9) not null references ClientePresencial(rut) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
-	mascotaNombre CHAR(50) not null,
-	hora time not null,
-	responsable CHAR(20) not null references Usuario(usuario) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
-	ayudante CHAR(20) not null references Usuario(usuario) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
-	fecha CHAR(10) not null,
-	costo char(20),
-	constraint PK_cirugia primary key (mascotaNombre,hora,clienteRut,fecha)
-	
-);
+  clienterut character(9) NOT NULL,
+  mascotanombre character(50) NOT NULL,
+  hora time without time zone NOT NULL,
+  responsable character(20) NOT NULL,
+  ayudante character(20) NOT NULL,
+  fecha character(10) NOT NULL,
+  costo character(20),
+  estado integer DEFAULT 0,
+  CONSTRAINT pk_cirugia PRIMARY KEY (mascotanombre, hora, clienterut, fecha),
+  CONSTRAINT cirugia_ayudante_fkey FOREIGN KEY (ayudante)
+      REFERENCES usuario (usuario) MATCH FULL
+      ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT cirugia_clienterut_fkey FOREIGN KEY (clienterut)
+      REFERENCES clientepresencial (rut) MATCH FULL
+      ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT cirugia_responsable_fkey FOREIGN KEY (responsable)
+      REFERENCES usuario (usuario) MATCH FULL
+      ON UPDATE CASCADE ON DELETE RESTRICT
+)
 
 create table Diagnosticos(
 	clienteRut CHAR(9) not null,
