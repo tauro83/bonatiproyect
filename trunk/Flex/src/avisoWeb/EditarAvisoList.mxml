@@ -23,8 +23,6 @@
 			private var avisos:ArrayCollection;
 			private var usuars:ArrayCollection;
 			private var usuars2:ArrayCollection;
-			//public var editarAviso:EditarAviso;
-					
 			/**
 		 	 * Metodo que obtiene los datos del datagrid, en el cual se muestran
 			 * los datos de los avisos, para procesar los datos del aviso seleccionado, esto 
@@ -44,7 +42,6 @@
 					newAviso.celular = Tabla.selectedItem.celular;
 					newAviso.asunto = Tabla.selectedItem.asunto;
 					newAviso.descripcion = Tabla.selectedItem.descripcion;
-					//this.setVisible(false,false);
 					Application.application.editarAviso.resetVars();
 					Application.application.editarAviso.setID(newAviso.id);
 					Application.application.editarAviso.nomb.text = newAviso.nombre;
@@ -58,34 +55,9 @@
 					
 					Application.application.regCatalogo.setVisible(false, false);
 					Application.application.editarAviso.setVisible(true, false);
-
-					//editarAviso.setVisible(true,false);
-
-					/*
-					var listCont2:Array = new Array();
-					listCont2 = newAviso.usuario.split(" ",1);
-					editarAviso.usua.text=listCont2.pop();
-					
-					listCont2 = new Array();
-					listCont2 = newAviso.contrasena.split(" ",1);
-					editarAviso.rcon.text = editarAviso.cont.text = listCont2.pop();
-					
-					listCont2 = new Array();
-					listCont2 = newAviso.nombre.split(" ",1);
-					editarAviso.nomb.text = listCont2.pop();
-					
-					listCont2 = new Array();
-					listCont2 = newAviso.apellidoPaterno.split(" ",1);
-					editarAviso.apat.text= listCont2.pop();
-					
-					listCont2 = new Array();
-					listCont2 = newAviso.apellidoMaterno.split(" ",1);
-					editarAviso.amat.text=listCont2.pop();	
-					*/
-					
 				}
 				else{
-					this.labelMessage.text="Seleccione un Usuario para editar.";
+					this.labelMessage.text="Seleccione un Aviso para editar.";
 				}
 
 			}
@@ -97,11 +69,7 @@
 			 * */
 			public function getAllAvisos():void
 			{
-				/*avisos = new ArrayCollection;
-				avisos.addItem({nombre:"Juan Perez", telefono0:"75", telefono:"764356", celular0:"09", celular:"7654564", asunto:"Se venden cachorros", descripcion:"Se venden cachorros pitbull, interesados llamar"});
- 				avisos.addItem({nombre:"Pedro Fuenzalida", telefono0:"75", telefono:"645667", celular0:"09", celular:"4545467", asunto:"Se compran cachorros", descripcion:"Se compran cachorros pitbull, interesados llamar"});
- 				Tabla.dataProvider = avisos;*/
-            	var avisoWebService:AvisoWebService = new AvisoWebService();
+				var avisoWebService:AvisoWebService = new AvisoWebService();
 				avisoWebService.addEventListener(ResultEvent.RESULT,getAllAvisosResult);
 				avisoWebService.getAllAvisoWeb();
 			}
@@ -118,53 +86,6 @@
 							
 								
 			}
-			
-			/**
-		 	 * Metodo que consulta si se cumple las devidas condiciones para editar un usuario, 
-			 * llamando al metodo itsOk, si esto se cumple procesa los datos que fueron ingresados en el objeto
-			 *  person para ser eviados a los metodos de la clase person service, para enviarlos a las otras
-			 * capas, y guardar los cambios.		 		
-			 * */
-			/*public function insertAvisoE():void
-			{
-				if(editarAviso.itsOk()){
-					var person:Usuario= new Usuario();
-					person.nombre=editarAviso.nomb.text;
-					person.apellidoPaterno=editarAviso.apat.text;
-					person.apellidoMaterno=editarAviso.amat.text;
-					person.usuario=editarAviso.usua.text;
-					person.servicio=editarAviso.serv.text;
-					person.cargo=editarAviso.carg.text;
-					person.contrasena=editarAviso.cont.text;
-					person.permisoEditar=editarAviso.pedi.selected;
-					person.permisoEliminar=editarAviso.peli.selected;
-					person.permisoPurgar=editarAviso.ppur.selected;
-					person.permisoRegistrar=editarAviso.preg.selected;
-				
-					var personService:UsuarioEditService=new UsuarioEditService();
-					personService.addEventListener(ResultEvent.RESULT,insertUsuarioEResult);
-					personService.insertUsuarioE(person);
-				}
-				
-			}*/
-			
-			/**
-		 	 * Metodo que recibe el resultado del metodo anterior, el cual actualiza los 
-			 * datos del usuario seleccionado, y verifica si se almaceno correctamente.		 		
-			 * */
-			/*private function insertUsuarioEResult(event:ResultEvent):void
-			{
-				var result:int = event.result as int ;
-				if(result>0)
-				{
-				   this.getAllUsuarios();
-				   Application.application.AdEditarUsuar3.setVisible(false,false);//editarAviso.
-				   this.setVisible(true,false);
-				   labelMessage.text="Aviso editado!";
-				}
-				else
-				   editarAviso.labelMessage.text="Aviso NO editado!";
-			}*/
 			
 			/**
 		 	 * Metodo que recibe el resultado del metodo anterior, el cual actualiza los 
@@ -186,7 +107,6 @@
 				apellido.setVisible(false,false);
 				codTel.setVisible(false,false);
 				tel.setVisible(false,false);
-				codCel.setVisible(false,false);
 				cel.setVisible(false,false);
 				asunto.setVisible(false,false);
 				descripcion.setVisible(false,false);
@@ -201,9 +121,6 @@
 				break; 
 				case 'Apellido Paterno':
 					apellido.setVisible(true,false);
-				break;
-				case 'Código celular':
-					codCel.setVisible(true,false);
 				break;
 				case 'Nro celular':
 					cel.setVisible(true,false);
