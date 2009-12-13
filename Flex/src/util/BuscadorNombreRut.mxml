@@ -84,6 +84,13 @@
 		   		}
 		   		inputClienteNombre.text = "";
 		   }
+		   public function resetvars():void
+		   {
+		   		inputClienteNombre.text = "";
+		   		rutClienteInput.text	= "";
+		   		rutClienteDVInput.text 	= "";
+		   }
+		   
 	
         ]]>
     </mx:Script>

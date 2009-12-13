@@ -24,8 +24,8 @@ package pabellon
 			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
-			this.destination="AddPostOperatorioService";
-			this.source="PostOperatorio.AddpostOperatorioService";
+			this.destination="PostOperatorioService";
+			this.source="Pabellon.PostOperatorioService";
 			
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
@@ -42,17 +42,9 @@ package pabellon
 			Alert.show("Error en AddPostOperatorioService, Detalle: "+event.fault.message);
 		}
 		
-		
-		/**
-		 	 * 	@author  "Raúl López"
-			 * 	@Fecha  14 Octubre
-			 *  @Descripcion Metodo que envia a la capa 2, el usuario que fue editado, 
-			 * para almacenarlo en la base de datos. Llamando al metodo correspondiente.
-			 * 	@Param Recibe como parametro un objeto de la clase Preoperatorio, para enviarlo a la capa2. 		
-			 * */
 		public function AddPostOpe(postope:PostOperatorio):void
 		{
-			this.getOperation("registroPostOperatorio").send(postope);
+			this.getOperation("AddPostOpe").send(postope);
 		}
 	
 
