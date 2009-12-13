@@ -14,10 +14,34 @@ import java.util.List;
 
 import TransferObjects.PostOperatorio;
 import PabellonBD.PostOperatorioBD;
-import AdministracionBD.UsuarioElimBD;
 import Bd.DBConnectionManager;
 
 public class PostOperatorioService{
+	
+	
+	/**
+	 * Inserta un registr de postoperatorio en la base de datos
+	 * @return Resultado de la operación realizada
+	 */
+	public int AddPostOpe(PostOperatorio pos)
+    {
+		int result = 0;
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			PostOperatorioBD personDB= new PostOperatorioBD(connection);
+			result = personDB.AddPostOpeBD(pos);		
+			
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
+    }
+
+	
 	
 	/**
 	 * Elimina un registro en la base de datos

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registro Postoperatorio">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registro Postoperatorio" xmlns:ns1="util.*">
 	
 	
 		<mx:Script>
@@ -48,168 +48,160 @@
 		    [Bindable] 
 		    public var cliente:Person;
 		    
-		    /**
-			* Opciones de seleccion para sexo de la mascota
-			*/
-		    [Bindable]
-            public var sexos:ArrayCollection = new ArrayCollection(
-                [ {label:" ", data:0},
-                  {label:"Macho", data:1}, 
-                  {label:"Hembra", data:2} ]);    
+//		    /**
+//			* Opciones de seleccion para sexo de la mascota
+//			*/
+//		    [Bindable]
+//            public var sexos:ArrayCollection = new ArrayCollection(
+//                [ {label:" ", data:0},
+//                  {label:"Macho", data:1}, 
+//                  {label:"Hembra", data:2} ]);    
+//
+//			/**
+//			* Funcion que busca un cliente
+//			* @param event Evento
+//			*/
+//        	private function buscarCliente(event:Event):void{
+//        		ini(event);
+//        		var Numero:String = rutClienteInput.text;
+//        		var Dv:String = rutClienteDVInput.text;
+//				var suma:int = 0;
+//				var rut:String = Numero;
+//				var NumMag:int = 2;
+//				var Resto:int = 0;
+//				var j:int ;
+//				var i:int;
+//				var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
+//				var ParteNumerica:Array = new Array();
+//				
+//				if (rut.length == 0) { 
+//
+//					}
+//				for ( j =0, i =0; j < rut.length; j++){
+//					if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
+//						ParteNumerica[i] = rut.charAt(i);
+//						++i;
+//					}
+//				}
+//				
+//				for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
+//					suma += ParteNumerica[i] * NumMag;
+//					trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
+//					if (NumMag>6){
+//						NumMag =1;	
+//					}	
+//				}
+//				
+//				Resto = 11-(suma%11);
+//				if(DigVer[Resto] != Dv.toUpperCase()){
+//					labelMessage.text = "El Rut que ha ingresado es incorrecto.";
+//				}
+//				else{
+//					labelMessage.text = "";
+//					rutClienteInput.errorString = "";
+//					getCliente(rutClienteInput.text);
+//				}		
+//        	}
+//        	
+//        	private function getCliente(rutCliente:String):void{
+//				var addMascotaService:AddCirugiaService = new AddCirugiaService();
+//				addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
+//				addMascotaService.getCliente(rutCliente);
+//			}
+//        	
+//			/**
+//			* Funcion que llena la tabla de mascotas asociadas al cliente
+//			* @param event Evento
+//			*/
+//	        private function ini(event:Event):void{
+//	        	
+//	           	mascotas.removeAll();
+//	           	getMascotas();
+//				mascotas.refresh();
+//	         }
+//
+//        	private function alertClickHandler(event:CloseEvent):void {
+//            	if (event.detail==Alert.YES)
+//                	rutClienteInput.visible=false;
+//            	else
+//                	rutClienteInput.visible=true;
+//        	}
+//        	
+//        	/**
+//			* Funcion que llena las opciones de razas segun la clase de animal seleccionada
+//			* @param event Evento
+//			*/
+//        	private function selRazas(event:Event):void {
+//        		var razas:ArrayCollection = new ArrayCollection();
+//    			
+//			}
+//						
+//			/**
+//			* Funcion escucha para agregar mascota
+//			* @param event Evento
+//			*/
+//			private function resultHandler(event:ResultEvent):void{
+//				var message:String= event.result as String;
+//				Alert.show(message);
+//			}
+//			
+//			
+//			/**
+//			* Funcion que llama  a retornar todas las mascotas 
+//			* 
+//			*/
+//			private function getAllMascotas():void{
+//				var mascotaService:AddCirugiaService = new AddCirugiaService();
+//				mascotaService.addEventListener(ResultEvent.RESULT,getAllMascotasResult);
+//				mascotaService.getMascotas(newMascota.rut);
+//			}
+//			
+//			/**
+//			* Funcion que obtiene todas las mascotas anteriormente llamadas
+//			* @param event Evento
+//			*/
+//			public function getAllMascotasResult(event:ResultEvent):void{
+//				mascotas = event.result as ArrayCollection;
+//				//mascotas.refresh();
+//			}
+			
+//			/**
+//			* Funcion que llama a retornar todas las mascotas de un cliente
+//			*/
+//			public function getMascotas():void{
+//				var addMascotaService:AddCirugiaService = new AddCirugiaService();
+//				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+//				addMascotaService.getMascotas(rutClienteInput.text);
+//			}
+//			
+//			/**
+//			* Funcion que obtiene todas las mascotas de un cliente
+//			* @param event Evento
+//			*/
+//			public function getAddMascotasResult(event:ResultEvent):void{
+//				mascotas = event.result as ArrayCollection;
+//				//mascotas.refresh();
+//			}
+//			
 
-			/**
-			* Funcion que busca un cliente
-			* @param event Evento
-			*/
-        	private function buscarCliente(event:Event):void{
-        		ini(event);
-        		var Numero:String = rutClienteInput.text;
-        		var Dv:String = rutClienteDVInput.text;
-				var suma:int = 0;
-				var rut:String = Numero;
-				var NumMag:int = 2;
-				var Resto:int = 0;
-				var j:int ;
-				var i:int;
-				var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
-				var ParteNumerica:Array = new Array();
-				
-				if (rut.length == 0) { 
-
-					}
-				for ( j =0, i =0; j < rut.length; j++){
-					if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
-						ParteNumerica[i] = rut.charAt(i);
-						++i;
-					}
-				}
-				
-				for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
-					suma += ParteNumerica[i] * NumMag;
-					trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
-					if (NumMag>6){
-						NumMag =1;	
-					}	
-				}
-				
-				Resto = 11-(suma%11);
-				if(DigVer[Resto] != Dv.toUpperCase()){
-					labelMessage.text = "El Rut que ha ingresado es incorrecto.";
-				}
-				else{
-					labelMessage.text = "";
-					rutClienteInput.errorString = "";
-					getCliente(rutClienteInput.text);
-				}		
-        	}
-        	
-        	private function getCliente(rutCliente:String):void{
-				var addMascotaService:AddCirugiaService = new AddCirugiaService();
-				addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
-				addMascotaService.getCliente(rutCliente);
-			}
-        	
-			/**
-			* Funcion que llena la tabla de mascotas asociadas al cliente
-			* @param event Evento
-			*/
-	        private function ini(event:Event):void{
-	        	
-	           	mascotas.removeAll();
-	           	getMascotas();
-				mascotas.refresh();
-	         }
-
-        	private function alertClickHandler(event:CloseEvent):void {
-            	if (event.detail==Alert.YES)
-                	rutClienteInput.visible=false;
-            	else
-                	rutClienteInput.visible=true;
-        	}
-        	
-        	/**
-			* Funcion que llena las opciones de razas segun la clase de animal seleccionada
-			* @param event Evento
-			*/
-        	private function selRazas(event:Event):void {
-        		var razas:ArrayCollection = new ArrayCollection();
-    			
-			}
-						
-			/**
-			* Funcion escucha para agregar mascota
-			* @param event Evento
-			*/
-			private function resultHandler(event:ResultEvent):void{
-				var message:String= event.result as String;
-				Alert.show(message);
-			}
-			
-			
-			/**
-			* Funcion que llama  a retornar todas las mascotas 
-			* 
-			*/
-			private function getAllMascotas():void{
-				var mascotaService:AddCirugiaService = new AddCirugiaService();
-				mascotaService.addEventListener(ResultEvent.RESULT,getAllMascotasResult);
-				mascotaService.getMascotas(newMascota.rut);
-			}
-			
-			/**
-			* Funcion que obtiene todas las mascotas anteriormente llamadas
-			* @param event Evento
-			*/
-			public function getAllMascotasResult(event:ResultEvent):void{
-				mascotas = event.result as ArrayCollection;
-				//mascotas.refresh();
-			}
-			
-			/**
-			* Funcion que llama a retornar todas las mascotas de un cliente
-			*/
-			public function getMascotas():void{
-				var addMascotaService:AddCirugiaService = new AddCirugiaService();
-				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addMascotaService.getMascotas(rutClienteInput.text);
-			}
-			
-			/**
-			* Funcion que obtiene todas las mascotas de un cliente
-			* @param event Evento
-			*/
-			public function getAddMascotasResult(event:ResultEvent):void{
-				mascotas = event.result as ArrayCollection;
-				//mascotas.refresh();
-			}
-			
-
-			public function getClienteResult(event:ResultEvent):void{
-				nombreCliente = event.result as String;
-				
-				if(nombreCliente == null){
-        			labelMessage.text = "Cliente no registrado."
-        			Application.application.AdmIngreso2.setVisible(true);
-        			Application.application.AdmIngreso2.labelMessage.text = "El cliente ingresado no esta registrado."
-        			Application.application.AdmIngreso2.rut.text = rutClienteInput.text;
-        			Application.application.AdmIngreso2.rut2.text = rutClienteDVInput.text;
-        			
-        			ini(event);
-        		}
-        		else{
-        			labelMessage.text = "Se ha accedido al cliente "+nombreCliente;
-        			ini(event);
-        		}
-			}
-			public function muestra(event:Event):void
-			{
-				    /*
-				    this.setVisible(false,false);
-					//nuevacir.setVisible(true,false);
-					Application.application.regPreoOp.setVisible(true,false);
-			        */
-			        
-			}
+//			public function getClienteResult(event:ResultEvent):void{
+//				nombreCliente = event.result as String;
+//				
+//				if(nombreCliente == null){
+//        			labelMessage.text = "Cliente no registrado."
+//        			Application.application.AdmIngreso2.setVisible(true);
+//        			Application.application.AdmIngreso2.labelMessage.text = "El cliente ingresado no esta registrado."
+//        			Application.application.AdmIngreso2.rut.text = rutClienteInput.text;
+//        			Application.application.AdmIngreso2.rut2.text = rutClienteDVInput.text;
+//        			
+//        			ini(event);
+//        		}
+//        		else{
+//        			labelMessage.text = "Se ha accedido al cliente "+nombreCliente;
+//        			ini(event);
+//        		}
+//			}
+//			
 			
 			[Bindable]
 			public var newMascota:Mascota2;
@@ -220,17 +212,15 @@
 				   
 					//tomo los datos del datagrid y los copia a un objeto cita
 					var newPostope:addPostOperatorio = Application.application.regPostOp;
-					newMascota     				 = new Mascota2();					
-					newMascota.nombre      	     = dg.selectedItem.nombre;
-					newMascota.fechaNacimiento   = dg.selectedItem.fechaNacimiento;
-					newMascota.raza				 = dg.selectedItem.claseAnimal;
-					newMascota.sexo	     		 = dg.selectedItem.sexo;
-					newMascota.rut				 = rutClienteInput.text;
-					
+					var mascota:Mascota2 = new Mascota2;
+					mascota.nombre			 = dg.selectedItem.nombre;
+					mascota.fechaNacimiento	 = dg.selectedItem.fechaNacimiento;
+					mascota.raza				 = dg.selectedItem.raza;
+					mascota.sexo				 = dg.selectedItem.sexo;
+					Application.application.regPostOp.getrut(this.buscadorCliente.rutClienteInput.text.toString()+this.buscadorCliente.rutClienteDVInput.text.toString(), mascota);
+				    
 				    this.setVisible(false,false);
-					
-					newPostope.carga(newMascota);//se cae esta wea por la conchesumadre
-				    Application.application.regPostOp.setVisible(true,false);
+					Application.application.regPostOp.setVisible(true,false);
 			}
 
 			
@@ -239,31 +229,67 @@
 				this.mascotas=new ArrayCollection();
 				this.dg.doubleClickEnabled=true;
 				this.labelMessage.text="";
-				this.rutClienteInput.text="";
-				this.rutClienteDVInput.text="";
+			}
+			/**
+			 * @author  Sebastian Arancibia
+			 * Funcion que llama a dos funciones: filtrar y buscar mascotas
+			 */
+			public function mascotasFiltrar():void{
+				getMascotas();
+			}
+			/**
+			* Funcion que llama a retornar todas las mascotas de un cliente para ser vistas en el combobox
+			* @author  Sebastian Arancibia
+			*/
+			private function getMascotas():void{
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteDVInput.text);
 			}
 			
+			/**
+			* Funcion que obtiene todas las mascotas de un cliente
+			* @param event Evento proveniente de la llamada a addMascotaService
+			* @author  Sebastian Arancibia
+			*/
+			private function getAddMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+			}
+			/**
+		   	* Metodo que retorna al panel principal de clinica.
+		   	* @author  "Jimmy Muñoz"
+			*/
+     		private function vuelve():void
+     		{
+     			this.setVisible(false,false);
+     			Application.application.panelClinicaPrincipal.setVisible(true,false);
+     		}
+     		/**
+     		 * resetea olas variables
+     		 */
+     		public function resetvars():void
+		   {
+		   		buscadorCliente.resetvars();
+		   		mascotas.removeAll();
+		   }
 				
         ]]>
     </mx:Script>
-	
-	<mx:Label x="10" y="38" text="Rut:" width="84"/>
-	<mx:Label x="173.25" y="40" text="-" width="14.75" textAlign="center"/>
-	<mx:TextInput  restrict="0-9" x="74.75" y="38" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="184.75" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
-	<mx:Button x="545.75" y="369" label="Visualizar" visible="true" id="registrar" />
-	<mx:Button x="635.75" y="369" label="Cancelar" width="84" id="cancelar" visible="true"/>
+	<mx:Button x="523" y="354" label="Visualizar" visible="true" id="registrar"  width="102" height="23"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Label x="10" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="709.75" rowCount="3" y="92" x="10" variableRowHeight="true" dataProvider="{mascotas}" click="{seleccionarPostOpe(event)}" visible="true" height="269">
+	<mx:DataGrid id="dg" color="0x323232" width="686.75" rowCount="3" y="100" x="33" variableRowHeight="true" dataProvider="{mascotas}" click="{seleccionarPostOpe(event)}" visible="true" height="245">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
-	        <mx:DataGridColumn dataField="claseAnimal" headerText="Tipo" width="100"/>
 	        <mx:DataGridColumn dataField="raza" headerText="Raza" width="100"/>
 	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
 	    </mx:columns>
 	</mx:DataGrid>
-	<mx:Label x="10" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
+	<ns1:BuscadorNombreRut x="33" y="36" keyFocusChange="mascotasFiltrar()" mouseFocusChange="mascotasFiltrar()" id="buscadorCliente">
+	</ns1:BuscadorNombreRut>
+	<mx:Label x="33" y="10" text="Cliente:" fontWeight="bold"/>
+	
+	<mx:Label x="33" y="74" text="Mascotas:" width="112.75" fontWeight="bold"/>
+	<mx:Button x="632" y="353" label="Volver" width="102" id="cancelar" visible="true" height="23" click="vuelve()"/>
 	
 </mx:Panel>

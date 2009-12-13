@@ -23,6 +23,8 @@ public class PostOperatorioBD {
 	PreparedStatement selectAllPostNull;
 	PreparedStatement elimReg;
 	PreparedStatement anulReg;
+	PreparedStatement insert;
+	
 	
 	/**
 	 * Se declaran las consultas hacia la base de datos
@@ -77,6 +79,10 @@ public class PostOperatorioBD {
 			   "atencionpostoperatorio.rut = ? and atencionpostoperatorio.nombremascota = ?;";
 			anulReg = connection.prepareStatement(query);
 		
+			query = "INSERT INTO atencionpostoperatorio(hora, fecha, nombremascota, rut, costo, indicaciones) "+
+			   "VALUES(?, ?, ?, ?, ?, ?);";
+			insert = connection.prepareStatement(query);
+			
 			
 		}
 		catch (SQLException e) 
@@ -84,6 +90,38 @@ public class PostOperatorioBD {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	public int AddPostOpeBD(PostOperatorio pos)
+    {
+		String result = null;
+		try 
+    	{
+			insert.setString(1, pos.shora);
+			insert.setString(2, pos.stfecha);
+			insert.setString(3, pos.nombreMascota);
+			insert.setString(4, pos.clienterut);
+			insert.setString(5, pos.costo);
+			insert.setString(6, pos.indicaciones);
+			result=""+insert.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	if(result.length()==1){
+    		return 1;
+    		
+    	}
+    	else {
+    		return   0;  	
+		}
+    	
+    }
+	
+	
+	
 	/**
 	 * Trata de obtener todos las cirugías registrados en la base de datos
 	 * @return Lista con todas las cirugías registradas
