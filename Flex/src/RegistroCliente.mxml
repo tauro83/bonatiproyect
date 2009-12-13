@@ -21,10 +21,10 @@
         import mx.events.ValidationResultEvent; 
         import transferObjects.Cliente;
         import mx.events.CloseEvent;
-		import mx.events.DropdownEvent;
 		import services.Validacion;
 		import mx.core.Application;
 		import services.Validaremail;
+		import flash.events.*;
 		
 		       
 		
@@ -42,7 +42,9 @@
         private var c:String;
         private var rw:validarRut=new validarRut();
         private var valor:int=0;
-
+		
+		[Bindable] 
+		private var regionesChile:ArrayCollection = new ArrayCollection();
         
 		/** 
 		* Este metodo se encarga de de recibir los valores obtenidos en la interfaz del programa y pasarselos
@@ -55,6 +57,8 @@
 		public function sendMessage():void
 			{	
 				var h:Boolean;
+				var te:String;
+				var ce:String;
 				
 				h=e.isEmail(email.text);
 				
@@ -74,16 +78,36 @@
 					}
 									
 				}
-
+				
+				if(telefono.text!="" && telefono2.text=="" || telefono.text=="" && telefono2.text!=""){
+					te="2";
+				}
 				if(telefono.text=="" && telefono2.text==""){
-					telefono.text="0";
+					//telefono.text="0";
+					//telefono2.text="0";
+					te="1";
+				}
+
+				
+				if(telefono.text!="" && telefono2.text!=""){
+					te="1";
+				}
+				
+				if(celular.text!="" && celular2.text=="" || celular.text=="" && celular2.text!=""){
+					ce="2";
 				}
 				
 				if(celular.text=="" && celular2.text==""){
-					celular.text="0";
+					//celular.text="0";
+					//celular2.text="0";
+					ce="1";
 				}
 				
-				if(vNombre==true && vApellido==true && c=="TRUE"){
+				if(celular.text!="" && celular2.text!=""){
+					ce="1";
+				}
+				
+				if(vNombre==true && vApellido==true && c=="TRUE" && te=="1" && ce=="1"){
 				
 				    if(email.text!=""){
 				    	if(h==true && email.text==email2.text ){
@@ -142,7 +166,21 @@
 				
 				else
 				{
-					labelMessage.text = Properties.getMensaje("Error", "7");
+					if(te=="2" || ce=="2"){
+						if(te=="2"){
+						labelMessage.text = "Telefono incorrecto";
+					     }   
+					
+						if(ce=="2"){
+							labelMessage.text = "Celular incorrecto";
+						}
+					}
+					
+					
+					else{
+						labelMessage.text = Properties.getMensaje("Error", "7");
+					}
+					
 				}					
 						
 				
@@ -452,6 +490,16 @@
 	 		
 			}
 			
+			
+			
+			/*public function selComunas(event:Event):void {
+				
+        		//regionesChile = event.result as ArrayCollection;	
+        		
+        		var comunas1:ArrayCollection = new ArrayCollection();
+        		//var regionesBD:Cliente=new Cliente();
+				//regionesBD
+			}*/
 			
 			private function selComunas(event:Event):void {
         		var comunas1:ArrayCollection = new ArrayCollection();
@@ -844,6 +892,25 @@
 			* @author  "Nicolas Delgado"
 			*
 			*/	
+			
+			/*public function selRegiones(event:Event):void {
+				var regionesBD:ClienteService=new ClienteService();
+				regionesBD.addEventListener(ResultEvent.RESULT,cargar);
+				regionesBD.getRegiones();
+			}*/
+			
+			/*public function cargar(event:ResultEvent):void {
+				
+        		regionesChile = event.result as ArrayCollection;	
+        		
+        		//var comunas1:ArrayCollection = new ArrayCollection();
+        		//var regionesBD:Cliente=new Cliente();
+				//regionesBD
+			}*/
+			
+			
+			
+			
         	private function selRegiones(event:Event):void {
         		var regiones:ArrayCollection = new ArrayCollection();
         		regiones.addItem({label:" "});
