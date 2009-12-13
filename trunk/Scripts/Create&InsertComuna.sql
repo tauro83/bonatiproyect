@@ -857,67 +857,67 @@ INSERT INTO comuna(
 
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Colina', '14', 'Región Metropolitana');
+    VALUES ('Colina', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Lampa', '14', 'Región Metropolitana');
+    VALUES ('Lampa', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Til Til', '14', 'Región Metropolitana');
+    VALUES ('Til Til', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Puente Alto', '14', 'Región Metropolitana');
+    VALUES ('Puente Alto', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Pirque', '14', 'Región Metropolitana');
+    VALUES ('Pirque', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('San José de Maipo', '14', 'Región Metropolitana');
+    VALUES ('San José de Maipo', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Buin', '14', 'Región Metropolitana');
+    VALUES ('Buin', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Calera de Tango', '14', 'Región Metropolitana');
+    VALUES ('Calera de Tango', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Paine', '14', 'Región Metropolitana');
+    VALUES ('Paine', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('San Bernardo', '14', 'Región Metropolitana');
+    VALUES ('San Bernardo', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Melipilla', '14', 'Región Metropolitana');
+    VALUES ('Melipilla', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('María Pinto', '14', 'Región Metropolitana');
+    VALUES ('María Pinto', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Curacaví', '14', 'Región Metropolitana');
+    VALUES ('Curacaví', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Alhué', '14', 'Región Metropolitana');
+    VALUES ('Alhué', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('San Pedro', '14', 'Región Metropolitana');
+    VALUES ('San Pedro', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Santiago', '14', 'Región Metropolitana');
+    VALUES ('Santiago', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Talagante', '14', 'Región Metropolitana');
+    VALUES ('Talagante', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('El Monte', '14', 'Región Metropolitana');
+    VALUES ('El Monte', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Isla de Maipo', '14', 'Región Metropolitana');
+    VALUES ('Isla de Maipo', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Padre Hurtado', '14', 'Región Metropolitana');
+    VALUES ('Padre Hurtado', '13', 'Región Metropolitana');
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
-    VALUES ('Peñaflor', '14', 'Región Metropolitana');
+    VALUES ('Peñaflor', '13', 'Región Metropolitana');
 
 INSERT INTO comuna(
             nombre, numregion, nombreregion)
