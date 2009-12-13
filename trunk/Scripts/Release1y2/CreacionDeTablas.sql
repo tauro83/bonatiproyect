@@ -1,7 +1,6 @@
 drop table IF EXISTS Usuario cascade;
 drop table IF EXISTS ClientePresencial cascade;
 drop table IF EXISTS Mascota cascade;
-drop table IF EXISTS Producto cascade;
 drop table IF EXISTS bitacora cascade;
 drop table IF EXISTS atencionpostoperatorio cascade;
 drop table IF EXISTS atencionpedicure cascade;
@@ -66,16 +65,6 @@ create table Mascota
 	CONSTRAINT pk_mascota PRIMARY KEY (nombre,rut),
 	CONSTRAINT fk_mascota_reference_ClientePresencial FOREIGN KEY (rut)	REFERENCES ClientePresencial(rut) MATCH SIMPLE ON UPDATE RESTRICT ON DELETE RESTRICT
 );
-
-CREATE TABLE Producto
-(
-	nombre	CHAR(20),
-	precio CHAR(20),
-	categoria CHAR(20),
-	codigo CHAR(20) primary key
-);
-
-
 
 CREATE TABLE bitacora
 (
