@@ -201,7 +201,7 @@ CREATE TABLE cirugia
   CONSTRAINT cirugia_responsable_fkey FOREIGN KEY (responsable)
       REFERENCES usuario (usuario) MATCH FULL
       ON UPDATE CASCADE ON DELETE RESTRICT
-)
+);
 
 create table Diagnosticos(
 	clienteRut CHAR(9) not null,
