@@ -43,6 +43,17 @@ public class AddClienteBD {
 				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";			
 		insert = connection.prepareStatement(query);
 		
+		if(c.telefono.equals("") && c.telefono2.equals("")){
+			c.telefono="0";
+			c.telefono2="0";
+		}
+		
+		if(c.celular.equals("") && c.celular2.equals("")){
+			c.celular="0";
+			c.celular2="0";
+		}
+		
+		
 		insert.setString(1, c.nombre);
 		insert.setString(2, c.apellido);
 		insert.setString(3, c.apellido2);
