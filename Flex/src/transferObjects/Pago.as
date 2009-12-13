@@ -6,6 +6,7 @@
 //=======================================================================
 package transferObjects
 {
+	import mx.collections.ArrayCollection;
 	import mx.controls.CheckBox;
 	
 	[Bindable]
@@ -17,6 +18,7 @@ package transferObjects
 		public var fecha:String;
 		public var hora:String;
 		public var total:int;
+		public var detalle:ArrayCollection;
 		
 	}
 }

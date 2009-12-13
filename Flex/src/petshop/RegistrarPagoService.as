@@ -7,12 +7,13 @@
 
 package petshop
 {
+	import mx.controls.Alert;
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
-	import mx.rpc.remoting.mxml.RemoteObject;
-	import transferObjects.DetallePago;
 	import mx.rpc.events.FaultEvent;
-	import mx.controls.Alert;
+	import mx.rpc.remoting.mxml.RemoteObject;
+	
+	import transferObjects.Pago;
 	
 	/** 
 	 *  Clase que gesitiona la conexion. Mediante el constructor
@@ -47,9 +48,17 @@ package petshop
 		 * Envia un objeto un producto a la capa 2
 		 * @param p es una instancia del transferObject Pago, instanciado en la capa logica.
 		 * */
-		public function registrarPago(p:DetallePago):void
+		public function registrarPago(p:Pago):void
 		{
-			//this.getOperation("...").send(prod);
+			this.getOperation("addPago").send(p);
+		}
+		/**
+		 * Funcion que dado el codigo del producto, devuelve el producto asociado a este
+		 * @param codigo es el codigo de barras del producto
+		 * */
+		public function getProducto(codigo:String):void
+		{
+			this.getOperation("getProducto").send(codigo);
 		}
 	}
 }
