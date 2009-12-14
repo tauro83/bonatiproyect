@@ -10,6 +10,7 @@
 //=============================================================================
 
 			import mx.events.CalendarLayoutChangeEvent;
+			import util.Properties;
 			import services.AddConsultaService;
 			import transferObjects.Consulta;
 			import services.configuracionServices;
@@ -62,7 +63,7 @@
              	newconsulta.addEventListener(ResultEvent.RESULT,registroConsultaResultado);
 
 		    	this.setVisible(false,false);
-		    	Application.application.rConsulta.labelMessage.text=Properties.getMensaje("Informacion", "37");;
+		    	Application.application.rConsulta.labelMessage.text= Properties.getMensaje("Informacion", "37");;
 		    	Application.application.rConsulta.setVisible(true,false);
              }
              
