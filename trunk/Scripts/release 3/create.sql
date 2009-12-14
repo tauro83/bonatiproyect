@@ -34,7 +34,7 @@ create table Vacunacion(
 	estado integer DEFAULT '0',
 	fechacaducidad date,
 	descripcion CHAR(200),
-	servicio character varying(20) NOT NULL DEFAULT 'Pabellon'::character varying,
+	servicio character varying(20) NOT NULL DEFAULT 'Policlinico'::character varying,
 	constraint PK_vacuna primary key (mascotaNombre,hora,clienteRut,fecha,vacuna)
 );
 
@@ -98,6 +98,7 @@ create table atencionpeluqueria(
 	responsable CHAR(20) not null references Usuario(usuario) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
 	fecha date not null,
 	estado integer DEFAULT '0',
+	servicio character varying(20) NOT NULL DEFAULT 'Peluqueria'::character varying,
 	constraint PK_peluqueriaAten primary key (mascotaNombre,hora,clienteRut,fecha,responsable)
 );
 
