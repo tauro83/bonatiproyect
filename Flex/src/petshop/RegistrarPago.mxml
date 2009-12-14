@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Pago" xmlns:ns1="com.adobe.flex.extras.controls.*"  xmlns:ns2="util.*">
 	
 	<mx:Script>
@@ -16,15 +16,26 @@
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import mx.rpc.events.ResultEvent;
-			import mx.events.*;     
+			import mx.events.*;  
+			import mx.controls.NumericStepper;   
 
 			
 			[Bindable]private var pagos:ArrayCollection;
+			[Bindable]private var numericStepperFac:ClassFactory;
+			
 			
 			private var np:Object;
-			
+			      
+
 			public function iniciarPanel():void{
 				pagos =  new ArrayCollection();
+				
+				totalPago.costo.text = 0 + "";
+				totalPago.formatear();
+				totalPago.costo.editable = false;
+				
+				numericStepperFac = new ClassFactory(NumericStepper);
+                numericStepperFac.properties = {minimum:0, maximum:100, value:1};
 			}
 			
 			public function cancelar():void{
@@ -54,12 +65,16 @@
 				np.cantidad = 1;
 				np.nombre = producto.nombre;
 				np.precio = producto.precio;
+				
+				totalPago.costo.text = (totalPago.costoBruto as int) + np.precio;
 			}
 			
 			public function guardarCambio(evt:Event):void{
 				np = evt.currentTarget.selectedItem;
 				
-				
+				//getProducto(np.nombreProducto);				
+				totalPago.costo.text = (parseInt(totalPago.costoBruto) + 1000) + "";	
+				totalPago.formatear();			
 			}
 			private function agregarNewProducto():void{
 				pagos.addItem(new Object());
@@ -68,7 +83,7 @@
 			private function pagar():void{
 				var pago:Pago = new Pago();
 				pago.detalle = pagos;
-				//pago.total = totalPago.costoBruto;
+				pago.total = totalPago.costoBruto as int;
 			}
 			
 			/**
@@ -78,7 +93,7 @@
 
 				var registrarPagoService:RegistrarPagoService=new RegistrarPagoService();
 				registrarPagoService.addEventListener(ResultEvent.RESULT,registrarPagoResult);
-				//registrarPagoService.addPago(p);
+				registrarPagoService.addPago(p);
 			}
 			
 			/**
@@ -103,13 +118,7 @@
 			<mx:DataGridColumn headerText="Código" dataField="codigoProducto" width="80"/>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombreProducto" width="120" editable="false"/>
 			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" editable="false"/>
-			<mx:DataGridColumn headerText="Cantidad" dataField="cantidad" width="70">
-				<mx:itemEditor>
-         			<mx:Component>
-            			<mx:NumericStepper minimum="0" maximum="99999" stepSize="1"/>
-         			</mx:Component>
-      			</mx:itemEditor>  
-			</mx:DataGridColumn>
+			<mx:DataGridColumn headerText="Cantidad" dataField="cantidad" width="70" editable="true" itemEditor="{numericStepperFac}" editorDataField="value"/>
 			<mx:DataGridColumn headerText="Precio" dataField="precio" width="70" editable="false"/>
 			<mx:DataGridColumn headerText="Subtotal" dataField="subtotal" width="70" editable="false"/>
 		</mx:columns>
