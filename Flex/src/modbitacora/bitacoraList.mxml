@@ -138,7 +138,7 @@
 
 	
 	
-	<mx:DataGrid x="30" y="67" width="719" id="Tabla" enabled="true" height="275" dataProvider="{eventos}" itemDoubleClick="">
+	<mx:DataGrid x="30" y="67" width="719" id="Tabla" enabled="true" height="275" dataProvider="{eventos}" >
 		<mx:toolTip>Muestra el detalle del evento de las mascotas y clientes anulados</mx:toolTip>
 		<mx:columns>
 			<mx:DataGridColumn headerText="Fecha" dataField="fecha" width="100"/>
@@ -148,7 +148,7 @@
 			
 		 </mx:columns>
 	</mx:DataGrid>
-	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="350" click="" cornerRadius="6" toolTip="Visualizar mascota seleccionada"/>
+	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="350"  cornerRadius="6" toolTip="Visualizar mascota seleccionada"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="647" y="350" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6" toolTip="Regresa al panel anterior"/>
 	<mx:Label x="518" y="26" text="Buscar"/>

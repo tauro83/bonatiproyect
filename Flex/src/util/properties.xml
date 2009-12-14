@@ -23,7 +23,8 @@
 				<mensaje key="19">Error al editar el aviso</mensaje>
 				<mensaje key="20">Diagnostico no registrado</mensaje>	
 				<mensaje key="21">Actual Control no registrado</mensaje>
-				<mensaje key="22">Proximo Control no registrado</mensaje>		
+				<mensaje key="22">Proximo Control no registrado</mensaje>	
+				<mensaje key="23">No se puede eliminar la vacuna, otros registros la utilizan</mensaje>	
 			</mensajes>
 		</tipoMensaje>	
 		<tipoMensaje name="Advertencia">

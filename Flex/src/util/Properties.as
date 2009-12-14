@@ -10,7 +10,7 @@ package util
 	{
 		[Bindable][Embed(source="properties.xml")]
 		[Bindable]public static var settingClass:Class;
-		
+		 
 		
 		/**
 		 * Obtiene un mensaje segun el tipo, el lenguaje y el identificador especificado de los definidos en el xml 

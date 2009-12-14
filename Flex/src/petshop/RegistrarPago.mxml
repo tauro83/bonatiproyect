@@ -68,7 +68,7 @@
 			private function pagar():void{
 				var pago:Pago = new Pago();
 				pago.detalle = pagos;
-				pago.total = totalPago.costoBruto;
+				//pago.total = totalPago.costoBruto;
 			}
 			
 			/**
@@ -78,7 +78,7 @@
 
 				var registrarPagoService:RegistrarPagoService=new RegistrarPagoService();
 				registrarPagoService.addEventListener(ResultEvent.RESULT,registrarPagoResult);
-				registrarPagoService.addPago(p);
+				//registrarPagoService.addPago(p);
 			}
 			
 			/**

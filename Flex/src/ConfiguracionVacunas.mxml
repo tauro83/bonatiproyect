@@ -111,11 +111,25 @@
 			 * */
 			private function eliminarNombre(event:Event):void
 			{
-				confs.elimConfiguracionVacuna(especieInput.text);				
+				confs.elimConfiguracionVacuna(especieInput.text);
+				confs.addEventListener(ResultEvent.RESULT,printRetorno);					
 				this.cargarDatos();
 				especieInput.text = "";
-				ltexto.text = Properties.getMensaje("Informacion", "26");								
+										
 			}			
+			
+			private function printRetorno(event:ResultEvent):void
+			{
+				if(event.message.body=="0")
+				{
+					ltexto.text = Properties.getMensaje("Error", "23");
+				}
+				if(event.message.body=="1")
+				{
+					ltexto.text = Properties.getMensaje("Informacion", "26");		
+				}
+				
+			}
 			
 		]]>
 	</mx:Script>
