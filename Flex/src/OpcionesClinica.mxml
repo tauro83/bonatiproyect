@@ -17,7 +17,6 @@
 				Application.application.regPreoOp1.visible = true;	
 			}
 			public function verRegistrarPostOperatorio():void{
-				Application.application.regPostOp1.resetvars();
 				Application.application.setInvisible();
 				this.visible = true;
 				Application.application.regPostOp1.visible = true;
@@ -88,7 +87,8 @@
 			public function verRegistrarConsulta():void{
 				Application.application.setInvisible();
 				this.visible = true;
-				Application.application.rConsulta.visible = true;	
+				Application.application.rConsulta.visible = true;
+				Application.application.rConsulta.limpio();	
 			}
 			
 			public function editarVacunacion():void{
