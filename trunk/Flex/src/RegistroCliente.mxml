@@ -134,7 +134,7 @@
 				    	}
 				    	
 				    	else{
-				    		labelMessage.text = Properties.getMensaje("Error", "25");
+				    		labelMessage.text = Properties.getMensaje("Error", "26");
 							
 						}
 				    }
@@ -169,11 +169,11 @@
 				{
 					if(te=="2" || ce=="2"){
 						if(te=="2"){
-							labelMessage.text = Properties.getMensaje("Error", "23");
+							labelMessage.text = Properties.getMensaje("Error", "24");
 					     }   
 					
 						if(ce=="2"){
-							labelMessage.text = Properties.getMensaje("Error", "24");
+							labelMessage.text = Properties.getMensaje("Error", "25");
 
 						}
 					}
@@ -220,7 +220,7 @@
     		 	}
     		 	
     		 	if(message=="2"){
-    		 		msj=Properties.getMensaje("Error", "26");
+    		 		msj=Properties.getMensaje("Error", "27");
     		 		limpiarRut();
     		 		
     		 	}
