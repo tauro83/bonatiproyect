@@ -24,7 +24,11 @@
 				<mensaje key="20">Diagnostico no registrado</mensaje>	
 				<mensaje key="21">Actual Control no registrado</mensaje>
 				<mensaje key="22">Proximo Control no registrado</mensaje>	
-				<mensaje key="23">No se puede eliminar la vacuna, otros registros la utilizan</mensaje>	
+				<mensaje key="23">No se puede eliminar la vacuna, otros registros la utilizan</mensaje>
+				<mensaje key="24">Telefono incorrecto</mensaje>	
+				<mensaje key="25">Celular incorrecto</mensaje>	
+				<mensaje key="26">Corregir E-mail</mensaje>	
+				<mensaje key="27">El Rut ya se encuentra registrado</mensaje>					
 			</mensajes>
 		</tipoMensaje>	
 		<tipoMensaje name="Advertencia">
