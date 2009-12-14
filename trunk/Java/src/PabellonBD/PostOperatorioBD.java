@@ -53,8 +53,7 @@ public class PostOperatorioBD {
 			"atencionpostoperatorio.estado = '0';";
 			selectAllPostoperatorio = connection.prepareStatement(query);
 			
-			query = "SELECT atencionpostoperatorio.medicamentos, atencionpostoperatorio.alimentos, " +
-					"atencionpostoperatorio.indicaciones, atencionpostoperatorio.hora, atencionpostoperatorio.fecha " +
+			query = "SELECT atencionpostoperatorio.indicaciones, atencionpostoperatorio.hora, atencionpostoperatorio.fecha " +
 					"FROM atencionpostoperatorio " +
 					"WHERE atencionpostoperatorio.nombremascota = ? and atencionpostoperatorio.rut = ? and atencionpostoperatorio.estado = 0;";
 			
@@ -220,11 +219,9 @@ public class PostOperatorioBD {
 	    		while(result.next())
 	    		{  
 	    			postOperatorio = new PostOperatorio();
-	    			postOperatorio.medicamentos = result.getString(1).trim();
-	    			postOperatorio.alimentos = result.getString(2).trim();
-	    			postOperatorio.observaciones = result.getString(3).trim();
-	    			postOperatorio.shora = result.getString(4).trim();
-	    			postOperatorio.stfecha = result.getString(5).trim();
+	    			postOperatorio.indicaciones = result.getString(1).trim();
+	    			postOperatorio.shora = result.getString(2).trim();
+	    			postOperatorio.stfecha = result.getString(3).trim();
 	    			postOperatorios.add(postOperatorio);
 	    			
 	    		}

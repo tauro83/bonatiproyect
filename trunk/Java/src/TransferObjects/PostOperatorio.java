@@ -15,7 +15,7 @@ public class PostOperatorio extends Atencion{
 	public String sintomas;
 	public String diagnostico;
 	public String responsable;
-	public String fecha;
+	public Date fecha;
 	public String hora;
 	public String ayudante;
 	public String alimentos;
