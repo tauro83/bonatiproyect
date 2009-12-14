@@ -175,7 +175,7 @@
 			 * */
 			private function validarNombre(event:Event):void
 			{
-				if(Validacion.longitudMinima(nomb.text))
+				if(nomb.length>3)
 				{
 					vNombre		= true;
 					mens.text = "";
@@ -194,7 +194,7 @@
 			 * */
 			private function validarUsuario(event:Event):void
 			{	
-				if(Validacion.longitudMinima(usua.text) && Validacion.espaciosEnBlanco(usua.text))
+				if(usua.length>3 && Validacion.espaciosEnBlanco(usua.text))
 				{
 					vUsuario	= true;		
 					mens.text = "";	
@@ -284,7 +284,7 @@
 
 			private function validarApellido(event:Event):void
 			{
-				if(Validacion.longitudMinima(apat.text))
+				if(apat.length>3)
 				{
 					vApaterno = true;	
 					mens.text = "";			
