@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Desactivar Registro Peluqueria" borderColor="#15ad8f">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Desactivar Registro Peluquería" borderColor="#15ad8f">
 <mx:Script>
 		<![CDATA[
         	 //=======================================================================
