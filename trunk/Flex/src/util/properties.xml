@@ -116,6 +116,7 @@
 				<mensaje key="34">Se ha registrado diagnostico exitosamente</mensaje>
 				<mensaje key="35">Se ha registrado Actual Control exitosamente</mensaje>
 				<mensaje key="36">Se ha registrado Proximo Control exitosamente</mensaje>
+				<mensaje key="37">Se ha registrado Consulta exitosamente</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="ToolTip">
