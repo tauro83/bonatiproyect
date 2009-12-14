@@ -177,9 +177,19 @@
 				buscadorCliente.inputClienteNombre.text = "";
 			 	buscadorCliente.rutClienteDVInput.text = "";
 			 	buscadorCliente.rutClienteInput.text = "";
+			 	this.setVisible(false,false);
+				Application.application.panelClinicaIni.setVisible(true,false);
 				
 			}
-				
+			
+			public function limpio():void
+			{
+				this.mascotas=new ArrayCollection();
+				this.labelMessage.text="";			
+				buscadorCliente.inputClienteNombre.text = "";
+			 	buscadorCliente.rutClienteDVInput.text = "";
+			 	buscadorCliente.rutClienteInput.text = "";
+			}	
         ]]>
     </mx:Script>
 	
