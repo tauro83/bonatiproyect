@@ -156,6 +156,7 @@
             		this.setVisible(false,false);            	 	
             		Application.application.anularPel2.setDatos(tablaVacunaciones.selectedItem as anuPeluqueria);
             		Application.application.anularPel2.setVisible(true,false);
+            		Application.application.anularPel2.limpiarTodo();
             	}
             }
             
