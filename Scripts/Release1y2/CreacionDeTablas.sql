@@ -180,6 +180,7 @@ CREATE TABLE cirugia
   fecha character(10) NOT NULL,
   costo character(20),
   estado integer DEFAULT 0,
+  servicio character varying(20) NOT NULL DEFAULT 'Pabellon'::character varying,
   CONSTRAINT pk_cirugia PRIMARY KEY (mascotanombre, hora, clienterut, fecha),
   CONSTRAINT cirugia_ayudante_fkey FOREIGN KEY (ayudante)
       REFERENCES usuario (usuario) MATCH FULL
