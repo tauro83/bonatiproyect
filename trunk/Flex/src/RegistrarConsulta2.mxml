@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllUsuarios()" layout="absolute" width="779" height="466" xmlns:ns1="*" title="Registrar Consulta" borderColor="#15ad8f">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="newpanel()" layout="absolute" width="779" height="466" xmlns:ns1="*" title="Registrar Consulta" borderColor="#15ad8f">
 <mx:Script>
 		<![CDATA[
 //============================================================================
@@ -29,6 +29,12 @@
 			[Bindable]
 			private var responsableSeleccionado:String;
 			
+			[Bindable]
+            private var servicios:ArrayCollection;
+			[Bindable]
+			private var servicios2:ArrayCollection;
+			
+			
 			[Bindable]         
             
             public var costoBruto:String;
@@ -56,7 +62,7 @@
              	newconsulta.addEventListener(ResultEvent.RESULT,registroConsultaResultado);
 
 		    	this.setVisible(false,false);
-		    	Application.application.rConsulta.labelMessage.text="Consulta Registrada con exito.";
+		    	Application.application.rConsulta.labelMessage.text=Properties.getMensaje("Informacion", "37");;
 		    	Application.application.rConsulta.setVisible(true,false);
              }
              
@@ -184,6 +190,24 @@
 					usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
 				}					
 			}
+			
+			public function getServicio():void
+			{
+				var confs2:configuracionServices= new configuracionServices();			
+				confs2.getConfiguraciones("Servicio");
+				confs2.addEventListener(ResultEvent.RESULT,getServicioResult);
+				
+			}
+			
+			private function getServicioResult(event:ResultEvent):void
+			{
+				servicios = event.result as ArrayCollection;								
+			}
+			
+			public function newpanel():void{
+				getAllUsuarios();
+				getServicio();
+			}
             
 		]]>
 		
@@ -207,12 +231,7 @@
 	</mx:ComboBox>
 	
 	<mx:Label x="488" y="109" text="Servicio:"/>
-	<mx:ComboBox x="574" y="107" id="servicio" width="160">
-		<mx:ArrayCollection>
-		<mx:Object label=" "/>
-		<mx:Object label="Policlinico I"/>
-		<mx:Object label="Policlinico II"/>
-		</mx:ArrayCollection>	
+	<mx:ComboBox x="574" y="107" id="servicio" width="160" dataProvider="{servicios}" labelField="nombre">
 	</mx:ComboBox>
 	
 	<mx:Label x="25" y="153" text="Fecha:"/>
