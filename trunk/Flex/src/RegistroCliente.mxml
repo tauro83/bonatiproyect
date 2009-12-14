@@ -134,7 +134,8 @@
 				    	}
 				    	
 				    	else{
-							labelMessage.text = "Corregir E-mail";
+				    		labelMessage.text = Properties.getMensaje("Error", "25");
+							
 						}
 				    }
 								
@@ -168,11 +169,12 @@
 				{
 					if(te=="2" || ce=="2"){
 						if(te=="2"){
-						labelMessage.text = "Telefono incorrecto";
+							labelMessage.text = Properties.getMensaje("Error", "23");
 					     }   
 					
 						if(ce=="2"){
-							labelMessage.text = "Celular incorrecto";
+							labelMessage.text = Properties.getMensaje("Error", "24");
+
 						}
 					}
 					
@@ -218,7 +220,7 @@
     		 	}
     		 	
     		 	if(message=="2"){
-    		 		msj="El Rut ya se encuentra registrado";
+    		 		msj=Properties.getMensaje("Error", "26");
     		 		limpiarRut();
     		 		
     		 	}
