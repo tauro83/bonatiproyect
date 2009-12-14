@@ -22,6 +22,12 @@
 			import transferObjects.CatPeluqueria;
 			import mx.core.Application;
 			import services.Mensajes;
+			import mx.collections.ArrayCollection;   
+			
+			[Bindable]private var cargos:ArrayCollection;
+			private var confs:configuracionServices= new configuracionServices();
+			import services.configuracionServices;
+			
 			
 			private var vNombre:Boolean;
 			private var regCat:CatPeluqueriaService;
@@ -40,6 +46,27 @@
 			 *  Método que crea una instancia del transferObject catalogo,
 			 *  posterior a la validacion de datos  y lo envia a usuarioServices		 		
 			 * */
+			
+			/** 
+			 *  Obtiene los tipos de servicio de peluquería desde el actionScript
+		 	 * 	@author  Erwin Díaz
+			 * */
+			public function cargarDatos():void
+			{	
+				var confs2:configuracionServices= new configuracionServices();
+				confs2.getConfiguraciones("ServPel");
+				confs2.addEventListener(ResultEvent.RESULT,cargarDatosCargosR);
+			}
+			
+			/** 
+			 *  Asigna el retorno del llamado de cargarDatos a un arrayCollection para mostrar las configuraciones
+		 	 * 	@author  Erwin Díaz
+			 * */
+			public function cargarDatosCargosR(event:ResultEvent):void
+			{
+				cargos = event.result as ArrayCollection;
+			}
+			
 			private function registrar():void
 			{					
 				mens.text = "Está registrando";			 
@@ -89,7 +116,8 @@
 			 * 	o regitrar satisfactoriamente a un usuario.		 		
 			 * */
 			public function resetVars():void
-			{				
+			{	
+				cargarDatos();			
 				nomb.text 		= "";
 				mens.text		= "";
 				precio.costo.text		= "";
@@ -188,19 +216,15 @@
 	</mx:Script> 
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="464" label="Registrar" click="{registrar()}" y="317" id="regCatalogo" enabled="false"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="594" label="Cargar Imagen" y="246" id="cargaImagen" click="{ fileRef.browse()}"/>
-	<mx:TextInput x="116" y="77" width="201" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
+	<mx:TextInput x="116" y="40" width="201" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="nomb"  click="iniListener()" enabled="true" maxChars="20"/>
 	<mx:Label x="24" y="118" text="Precio:"  textAlign="left"/>
-	<mx:Label x="24" y="35" text="Servicio:" textAlign="left"/>
-	<mx:Label x="24" y="77" text="Nombre:" width="69" />
+	<mx:Label x="24" y="79" text="Servicio:" textAlign="left"/>
+	<mx:Label x="24" y="40" text="Nombre:" width="69" />
 	<mx:Label x="24" y="166" text="Descripción:"/>
 	<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
-	<mx:ComboBox x="116" y="35" width="201" id="tipo"  visible="true" close="{activarBoton()}" toolTip="Seleccione un tipo de registro para continuar">	
-		<mx:ArrayCollection>
-	        <mx:Object label="--Seleccione--"/>
-			<mx:Object label="Corte"/>
-			<mx:Object label="Baño"/>
-		</mx:ArrayCollection>
-	</mx:ComboBox>
+	
+	<mx:ComboBox x="116" y="79" width="163" id="tipo" dataProvider="{cargos}"  labelField="nombre" close="{activarBoton()}" toolTip="Seleccione un tipo de registro para continuar"/>
+	
 	<mx:Button x="594" y="317" width="120" label="Cancelar" id="cancelarCatalogo" click="cancelando()" height="25" cornerRadius="6" toolTip="Cancelar el registro de catálogo">
 	</mx:Button>
 	<mx:TextArea x="116" y="165" height="106" width="201" toolTip="Descripción del servicio" id="descripcion"/>

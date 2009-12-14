@@ -84,7 +84,10 @@ public class ConfigurarBD {
 		}
 		if(tipo.equals("Cargo")){
 			query = "SELECT nombre FROM Cargo";
-		}		
+		}
+		if(tipo.equals("ServPel")){
+			query = "SELECT nombre FROM serviciopeluq";
+		}
 				
 		try 
     	{
