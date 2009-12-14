@@ -4,9 +4,9 @@
 	<mx:Accordion styleName="Accordion3" x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Atención Peluquería" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 			<mx:LinkButton x="10" y="10" label="Registrar" textAlign="left" id="linkRegPel" click="{muestrarReg()}"/>
-			<mx:LinkButton x="10" y="70" label="Anular" click="verAnularPeluqueria()" textAlign="left"/>
-			<mx:LinkButton x="10" y="100" label="Eliminar" click="verEliminarPeluqueria()" textAlign="left"/>
-			<mx:LinkButton x="10" y="130" label="Deseliminar" click="verDeseliminarPeluqueria()" textAlign="left"/>
+			<mx:LinkButton x="10" y="100" label="Anular" click="verAnularPeluqueria()" textAlign="left"/>
+			<mx:LinkButton x="10" y="130" label="Desactivar" click="verEliminarPeluqueria()" textAlign="left"/>
+			<mx:LinkButton x="10" y="70" label="Activar" click="verDeseliminarPeluqueria()" textAlign="left"/>
 			<mx:LinkButton x="10" y="40" label="Editar" textAlign="left" id="editRegPel" click="{editPel()}"/>
 		</mx:Canvas>
 		<mx:Canvas label="Catálogo" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
