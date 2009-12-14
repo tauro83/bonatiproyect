@@ -8,7 +8,7 @@
 		// Comentario: Una vez seleccionado un cliente, se visualiza su información 
 		// detalla junto a sus vacunaciones para poder anular la deseada
 		//=======================================================================
-				
+			import util.Properties;	
 			import mx.controls.Alert;
 			import mx.collections.ArrayCollection;
             import mx.controls.CheckBox;    
@@ -87,7 +87,7 @@
          			Alert.show("Debe ingresar un motivo para anular el(los) registro(s) de peluquería","Campo incompleto");
          		}
          		else{
-					Alert.show("¿Está seguro que desea anular el(los) registro(s) de peluquería? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+					Alert.show(Properties.getMensaje("Pregunta", "8"),Properties.getMensaje("Pregunta", "9"), Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
          		}
 			}
 			
@@ -181,13 +181,13 @@
                         </mx:Component>
              	</mx:itemRenderer>
             </mx:DataGridColumn>		
-			<mx:DataGridColumn width="60" headerText="Costo" dataField="costo" id="costo" draggable="false"/>
 			<mx:DataGridColumn width="250" headerText="Descripción" dataField="descripcion" id="descripcion" draggable="false"/>
 			<mx:DataGridColumn width="70" headerText="Servicio" dataField="servicio" id="servicio" draggable="false"/>
-			<mx:DataGridColumn width="90" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
-			<mx:DataGridColumn width="90" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>
 			<mx:DataGridColumn width="100" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
-			<mx:DataGridColumn width="130" headerText="Nombre Catalogo" dataField="nombreCatalogo" id="nombreCatalogo" draggable="false"/>		
+			<mx:DataGridColumn width="130" headerText="Nombre Catalogo" dataField="nombreCatalogo" id="nombreCatalogo" draggable="false"/>	
+			<mx:DataGridColumn width="90" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>	
+			<mx:DataGridColumn width="60" headerText="Costo" dataField="costo" id="costo" draggable="false"/>	
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:CheckBox x="25" y="152" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
