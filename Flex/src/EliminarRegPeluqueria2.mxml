@@ -162,6 +162,7 @@
             */
             public  function limpiarTodo():void{
             	todo.selected=false;
+            	barraMsj.text="";
             }
            	
 		]]>
