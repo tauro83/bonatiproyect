@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  layout="absolute" width="766" height="466" title="Deseliminar Registro Peluquería" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  layout="absolute" width="779" height="466" title="Activar Registro Peluquería" borderColor="#15AD8F">
 <mx:Script>
 		<![CDATA[
         	 //=======================================================================
@@ -167,19 +167,19 @@
                             <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
                         </mx:Component>
              	</mx:itemRenderer>
-            </mx:DataGridColumn>		
-			<mx:DataGridColumn width="60" headerText="Costo" dataField="costo" id="costo" draggable="false"/>
-			<mx:DataGridColumn width="250" headerText="Descripción" dataField="descripcion" id="descripcion" draggable="false"/>
+            </mx:DataGridColumn>	
+            <mx:DataGridColumn width="250" headerText="Descripción" dataField="descripcion" id="descripcion" draggable="false"/>
 			<mx:DataGridColumn width="70" headerText="Servicio" dataField="servicio" id="servicio" draggable="false"/>
-			<mx:DataGridColumn width="90" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
-			<mx:DataGridColumn width="90" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>
 			<mx:DataGridColumn width="100" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
-			<mx:DataGridColumn width="130" headerText="Nombre Catalogo" dataField="nombreCatalogo" id="nombreCatalogo" draggable="false"/>		
+			<mx:DataGridColumn width="130" headerText="Nombre Catalogo" dataField="nombreCatalogo" id="nombreCatalogo" draggable="false"/>	
+			<mx:DataGridColumn width="90" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>	
+			<mx:DataGridColumn width="60" headerText="Costo" dataField="costo" id="costo" draggable="false"/>	
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:CheckBox x="25" y="10" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
 	<mx:Label x="47" y="10" text="Seleccionar todo"/>
 	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
-	<mx:Button x="522" y="354" label="Deseliminar" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula la(s) vacunacion(es) seleccionada(s)"/>
+	<mx:Button x="522" y="354" label="Activar" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula la(s) vacunacion(es) seleccionada(s)"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
 </mx:Panel>
