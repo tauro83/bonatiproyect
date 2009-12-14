@@ -113,7 +113,7 @@
 					consul.setVisible(true,false);
 				}
 				else{
-					this.labelMessage.text="Seleccione una Mascota para registrar la Consulta.";
+					this.labelMessage.text="Seleccione una Mascota para registrar la consulta";
 				}
 				
 			}
@@ -190,6 +190,8 @@
 			 	buscadorCliente.rutClienteDVInput.text = "";
 			 	buscadorCliente.rutClienteInput.text = "";
 			}	
+			
+
         ]]>
     </mx:Script>
 	
