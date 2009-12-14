@@ -38,24 +38,6 @@ create table Vacunacion(
 	constraint PK_vacuna primary key (mascotaNombre,hora,clienteRut,fecha,vacuna)
 );
 
-CREATE TABLE postoperatorio
-(
-  idpostoperatorio character(8) NOT NULL,
-  observaciones character(50),
-  sintomas character(50),
-  diagnostico character(50),
-  fecha character(10) NOT NULL,
-  hora time without time zone NOT NULL,
-  clienterut character(9) NOT NULL,
-  mascotanombre character(50) NOT NULL,
-  responsable character(30),
-  alimento character(50),
-  medicamento character(50),
-  ayudante character(30),
-  estado integer DEFAULT '0',
-  CONSTRAINT pk_postoperatorio PRIMARY KEY (idpostoperatorio, fecha, hora)
-);
-
 CREATE TABLE consulta
 (
   anamnesis character(300),
@@ -72,6 +54,27 @@ CREATE TABLE consulta
       REFERENCES mascota (rut, nombre) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 ); 
+
+CREATE TABLE atencionpostoperatorio
+(
+  medicamentos character(50),
+  alimentos character(50),
+  indicaciones character(50),
+  servicio character varying(20) NOT NULL DEFAULT 'Pabellon'::character varying,
+  hora character(10) NOT NULL,
+  fecha character(10) NOT NULL,
+  costo character(50),
+  nombremascota character(50),
+  rut character(9),
+  apellido character(50),
+  nombrecliente character(50),
+  estado integer DEFAULT 0,
+  CONSTRAINT pkey_atencionpostoperatorio PRIMARY KEY (hora, fecha, servicio),
+  CONSTRAINT fk_atencionpostoperatorio_reference_mascota FOREIGN KEY (nombremascota, rut)
+      REFERENCES mascota (nombre, rut) MATCH SIMPLE
+      ON UPDATE RESTRICT ON DELETE RESTRICT
+)
+
 
 CREATE TABLE catpeluqueria
 (
