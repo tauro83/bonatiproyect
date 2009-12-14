@@ -32,6 +32,9 @@
             	Application.application.cirugiaA2.setVisible(false,false);
             	Application.application.cirugiaA.setVisible(true,false);
             	Application.application.cirugiaA.getAllCirugias();
+            	motivo.text="";
+            	comboboxMotivo.selectedIndex=0;
+            	barraMsj.text="";
 			}
 			
 			/**
@@ -74,11 +77,19 @@
 			 */
            	private function deleteRow():void 
            	{
-         		if(motivo.text==""){
-         			Alert.show("Debe ingresar un motivo para anular la cirugía","Campo incompleto");
+           		if(comboboxMotivo.selectedLabel=='Otros'){
+           			if(motivo.text!=""){
+           				Alert.show("¿Está seguro que desea anular la(s) cirugía(s)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+           			}
+           			else{
+           				Alert.show("Debe ingresar un motivo para anular la cirugía","Campo incompleto");
+           			}
+           		}
+           		if(comboboxMotivo.selectedIndex==1 || comboboxMotivo.selectedIndex==2){
+         			Alert.show("¿Está seguro que desea anular la(s) cirugía(s)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
          		}
-         		else{
-					Alert.show("¿Está seguro que desea anular la(s) cirugía(s)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+         		if(comboboxMotivo.selectedIndex==0){
+         			Alert.show("Debe seleccionar un motivo para anular la cirugía","Campo incompleto");
          		}
 			}
 			
@@ -150,7 +161,19 @@
                 }
                 tablaCirugias.dataProvider = cirugias;
             }
-           	
+            
+            private function seleccionarMotivo (event:Event):void
+            {   
+            	if(comboboxMotivo.selectedLabel=='Otros')
+				{
+					motivo.visible=true;
+				}
+				else
+				{
+					motivo.visible=false;
+					motivo.text="";
+				}
+           	}
 		]]>
 	</mx:Script>
 	
@@ -164,11 +187,11 @@
                         </mx:Component>
              	</mx:itemRenderer>
             </mx:DataGridColumn>		
-			<mx:DataGridColumn width="140" headerText="Veterinario" dataField="veterinario" draggable="false"/>
-			<mx:DataGridColumn width="261" headerText="Diagnóstico" dataField="diagnostico" draggable="false"/>
-			<mx:DataGridColumn width="120" headerText="Servicio" dataField="servicio" draggable="false"/>
-			<mx:DataGridColumn width="99" headerText="Hora" dataField="hora" draggable="false"/>
-			<mx:DataGridColumn width="99" headerText="Fecha" dataField="fecha" draggable="false"/>
+			<mx:DataGridColumn width="180" headerText="Veterinario" dataField="veterinario" draggable="false"/>
+			<mx:DataGridColumn width="181" headerText="Ayudante" dataField="ayudante" draggable="false"/>
+			<mx:DataGridColumn width="140" headerText="Servicio" dataField="servicio" draggable="false"/>
+			<mx:DataGridColumn width="109" headerText="Hora" dataField="hora" draggable="false"/>
+			<mx:DataGridColumn width="109" headerText="Fecha" dataField="fecha" draggable="false"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:CheckBox x="25" y="152" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
@@ -192,8 +215,16 @@
 	<mx:Text x="478.4" y="61.9" id="mRaz" width="150"/>
 	<mx:Text x="478.4" y="87.95" id="mSex" width="150"/>
 	<mx:Button x="522" y="354" label="Anular" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula la(s) cirugia(s) seleccionada(s)"/>
-	<mx:TextInput x="76" y="320" width="658" id="motivo" toolTip="Ingrese el motivo por el cual desea anular la(s) cirugia(s)"/>
+	<mx:TextInput x="244" y="320" width="490" id="motivo" visible="false" toolTip="Ingrese el motivo por el cual desea anular la(s) cirugia(s)"/>
 	<mx:Text x="25" y="322" text="Motivo" fontWeight="bold"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
+	<mx:ComboBox x="76" y="320" id="comboboxMotivo" change="seleccionarMotivo(event)">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccionar-"/>
+			<mx:Object label="Registro incorrecto"/>
+			<mx:Object label="Registro indeseado "/>
+			<mx:Object label="Otros"/> 
+		</mx:ArrayCollection>
+	</mx:ComboBox>
 	
 </mx:Panel>
