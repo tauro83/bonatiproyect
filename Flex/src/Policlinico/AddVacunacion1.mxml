@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registro Vacunación" xmlns:fc="http://www.adobe.com/2006/fc">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registro Vacunación" xmlns:fc="http://www.adobe.com/2006/fc" xmlns:ns1="util.*">
 	<mx:Script>
         <![CDATA[
            	//=======================================================================
@@ -65,15 +65,15 @@
 			 * @param event Evento
 			 */
         	private function buscarCliente(event:Event):void{
-        		if(this.rutEnvi != this.rutClienteInput.text){
-        			if(rutClienteDVInput.text != "" && rutClienteInput.text != ""){
-        				if(!Validacion.validaRut(rutClienteInput.text, rutClienteDVInput.text)){
+        		if(this.rutEnvi != this.nombRutInput.rutClienteInput.text){
+        			if(nombRutInput.rutClienteDVInput.text != "" && nombRutInput.rutClienteInput.text != ""){
+        				if(!Validacion.validaRut(nombRutInput.rutClienteInput.text, nombRutInput.rutClienteDVInput.text)){
 							labelMessage.text = "El Rut que ha ingresado es incorrecto.";
 						}
 						else{
 							labelMessage.text = "";
-							rutClienteInput.errorString = "";
-							getCliente(rutClienteInput.text);
+							nombRutInput.rutClienteInput.errorString = "";
+							getCliente(nombRutInput.rutClienteInput.text);
 						}
         			}
         		}
@@ -107,9 +107,9 @@
         			
         		}
         		else{
-        			this.inputClienteNombreV.text = clienteBD.apellido.split(" ",1).pop()+" "+clienteBD.apellido2.split(" ",1).pop()+" "+clienteBD.nombre.split(" ",1).pop();
-        			this.nomEnvi = this.inputClienteNombreV.text;
-        			this.rutEnvi = this.rutClienteInput.text;
+        			this.nombRutInput.inputClienteNombre.text = clienteBD.apellido.split(" ",1).pop()+" "+clienteBD.apellido2.split(" ",1).pop()+" "+clienteBD.nombre.split(" ",1).pop();
+        			this.nomEnvi = this.nombRutInput.inputClienteNombre.text;
+        			this.rutEnvi = this.nombRutInput.rutClienteInput.text;
         			labelMessage.text = "Se ha accedido al cliente "+clienteBD.nombre;
         			ini();
         		}
@@ -138,7 +138,7 @@
 			private function getMascotas():void{
 				var addvacService:AddVacunacionService = new AddVacunacionService();
 				addvacService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addvacService.getMascotas(rutClienteInput.text);
+				addvacService.getMascotas(nombRutInput.rutClienteInput.text);
 			}
 			
 			/**
@@ -197,8 +197,8 @@
 					var nombre:String = listCont2.pop();
 					nuevavac.nombreMascota=nombre;
 					nuevavac.nombMasc.text=nombre;
-					nuevavac.clienteRut=this.rutClienteInput.text;
-					nuevavac.clienteRut2=this.rutClienteDVInput.text;
+					nuevavac.clienteRut=this.nombRutInput.rutClienteInput.text;
+					nuevavac.clienteRut2=this.nombRutInput.rutClienteDVInput.text;
 					nuevavac.veterinarios2=this.vetesV;
 					nuevavac.ayudantes2=this.ayudantesV;
 					nuevavac.ayudantes3=this.ayudantesV;
@@ -233,10 +233,10 @@
 				this.nomEnvi="";
 				this.rutEnvi="";
 				editaV=false;
-				this.inputClienteNombreV.text="";
-				this.inputClienteNombreV.typedText="";
-				this.rutClienteInput.text="";
-				this.rutClienteDVInput.text="";	
+				this.nombRutInput.inputClienteNombre.text="";
+				this.nombRutInput.inputClienteNombre.typedText="";
+				this.nombRutInput.rutClienteInput.text="";
+				this.nombRutInput.rutClienteDVInput.text="";	
 				editaV=true;
 				this.cargarDatos();
 				this.getTiposVeterinarios();
@@ -315,16 +315,16 @@
 			 */
 		   private function buscarCliente2():void
 		   {
-		   	  if(this.nomEnvi != this.inputClienteNombreV.text){
+		   	  if(this.nomEnvi != this.nombRutInput.inputClienteNombre.text){
 		   		dg.setFocus();
 		   		this.labelMessage.text="";
-		   		var nombre:String = inputClienteNombreV.text;
-		   		if(inputClienteNombreV.text != ""){
+		   		var nombre:String = nombRutInput.inputClienteNombre.text;
+		   		if(nombRutInput.inputClienteNombre.text != ""){
 		   			var largo:int = cliente2V.length;
 		   			var i:int;
 		   			var sss:Array;
 		   			
-		   			sss = inputClienteNombreV.text.split(" ",3);
+		   			sss = nombRutInput.inputClienteNombre.text.split(" ",3);
 
 		   			
 		   			/**
@@ -341,18 +341,18 @@
 		   			for(i=0;i<largo;i++){
 		   				var newCli:Cliente = cliente2V.getItemAt(i,0) as Cliente;
 		   				if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
-		   					this.rutClienteInput.text=newCli.rut.substring(0,8);
+		   					this.nombRutInput.rutClienteInput.text=newCli.rut.substring(0,8);
 		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
-		   					this.nomEnvi = this.inputClienteNombreV.text;
-        					this.rutEnvi = this.rutClienteInput.text;
+		   					this.nomEnvi = this.nombRutInput.inputClienteNombre.text;
+        					this.rutEnvi = this.nombRutInput.rutClienteInput.text;
 		   					sacaDigito();
 		   					ini();
 		   					break;
 		   				}
 
 		   			}
-		   			this.inputClienteNombreV.text=this.nomEnvi;
-		   			this.rutClienteInput.text=this.rutEnvi;
+		   			this.nombRutInput.inputClienteNombre.text=this.nomEnvi;
+		   			this.nombRutInput.rutClienteInput.text=this.rutEnvi;
 		   		}
 		   	  }
 		 
@@ -366,7 +366,7 @@
 			*/
 		   private function sacaDigito():void{        			
         			
-        			var Numero:String = rutClienteInput.text;
+        			var Numero:String = nombRutInput.rutClienteInput.text;
 					var suma:int = 0;
 					var rut:String = Numero;
 					var NumMag:int = 2;
@@ -395,14 +395,14 @@
 					
 					Resto = 11-(suma%11);
 					if(Resto == 10){
-						this.rutClienteDVInput.text="K";	
+						this.nombRutInput.rutClienteDVInput.text="K";	
 					}
 					else{
 						if(Resto == 11){
-							this.rutClienteDVInput.text="0";	
+							this.nombRutInput.rutClienteDVInput.text="0";	
 						}
 						else{
-							this.rutClienteDVInput.text=""+Resto;
+							this.nombRutInput.rutClienteDVInput.text=""+Resto;
 						}
 							
 					}
@@ -464,12 +464,6 @@
         ]]>
     </mx:Script>
 	
-	<mx:Label x="330" y="38" text="Rut:" width="31"/>
-	<mx:Label x="458.25" y="38" text="-" width="14.75" textAlign="center"/>
-	<fc:AutoComplete id="inputClienteNombreV" typedTextChange="{getAllClientesV()}" x="90" y="38" width="210" dataProvider="{clientesV}" labelField="nombre" visible="true" enter="{focusSale()}" focusOut="{buscarCliente2()}"/>
-	<mx:TextInput  restrict="0-9" x="370" y="38" width="90" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="470" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="{buscarCliente(event)}" enter="{focusSale()}"/>
-	
 	
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente:" width="84.75" fontWeight="bold"/>
@@ -486,6 +480,7 @@
 	<mx:Button x="632" y="353" label="Volver" width="103" id="cancelar" visible="true" height="23" click="{vuelve()}"/>
 	
 	<mx:Label x="25" y="65" text="Mascotas:" width="112.75" fontWeight="bold"/>
-	<mx:Label x="25" y="38" text="Apellido:" width="64"/>
+	<ns1:BuscadorNombreRut x="25" y="36" id="nombRutInput">
+	</ns1:BuscadorNombreRut>
 	
 </mx:Panel>
