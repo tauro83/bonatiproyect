@@ -258,12 +258,15 @@ public class ConfigurarBD {
 		try 
     	{
 			insert.executeUpdate();
+			
 		} 
     	catch (SQLException e) 
     	{
 			out = "0";
 		}
     	connection.close(); 
+    	System.out.println("AAAAAA"+out);
+    	
     	return out;
 	}
 	
