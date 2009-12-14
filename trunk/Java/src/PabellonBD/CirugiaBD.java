@@ -37,7 +37,7 @@ public class CirugiaBD {
 			String query="", queryCliente="", queryMascota="";
 			
 			query = "SELECT clienterut, mascotanombre, hora, " +
-					"diagnostico, responsable, servicio, estado, fecha " +
+					"responsable, ayudante, estado, fecha, servicio " +
 					"FROM cirugia " +
 					"WHERE estado = 0;";
 			selectAllCirugias = connection.prepareStatement(query);
@@ -137,10 +137,10 @@ public class CirugiaBD {
 	    			ciru.setClienteRut(result.getString(1).trim());
 	    			ciru.setMascotaNombre(result.getString(2).trim());
 	    			ciru.setHora(result.getString(3).trim());
-	    			ciru.setDiagnostico(result.getString(4).trim());
-	    			ciru.setVeterinario(result.getString(5).trim());
-	    			ciru.setServicio(result.getString(6).trim());
-	    			ciru.setFecha(result.getString(8).trim());
+	    			ciru.setVeterinario(result.getString(4).trim());
+	    			ciru.setAyudante(result.getString(5).trim());
+	    			ciru.setFecha(result.getString(7).trim());
+	    			ciru.setServicio(result.getString(8).trim());
 
 	    			String rut2 = ciru.getClienteRut();
 	    			String nombre2 = ciru.getMascotaNombre();
