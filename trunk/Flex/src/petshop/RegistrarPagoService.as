@@ -48,7 +48,7 @@ package petshop
 		 * Envia un objeto un producto a la capa 2
 		 * @param p es una instancia del transferObject Pago, instanciado en la capa logica.
 		 * */
-		public function registrarPago(p:Pago):void
+		public function addPago(p:Pago):void
 		{
 			this.getOperation("addPago").send(p);
 		}
