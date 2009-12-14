@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  layout="absolute" width="779" height="466" title="Activar Registro Peluquería" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="limpiarTodo()"  layout="absolute" width="779" height="466" title="Activar Registro Peluquería" borderColor="#15AD8F">
 <mx:Script>
 		<![CDATA[
         	 //=======================================================================
@@ -34,11 +34,7 @@
 			* anterior (en donde se muestra un listado de todo los clientes y mascotas
 			* que poseen un registro en la peluquería).
 			*/
-			public function actionVolver():void
-			{
-            	Application.application.eliminarPel2.setVisible(false,false);
-            	Application.application.eliminarPel.setVisible(true,false);
-			}
+
 			
            /**
 			* Se obtienen todos los registro de peluquería que se encuentran registrados en 
@@ -109,7 +105,8 @@
                         i=-1;
                     }   
                 }
-                barraMsj.text="Registro(s) de peluquería deseliminado";              
+                barraMsj.text="Registro(s) de peluquería deseliminado"; 
+                todo.selected=false;             
             }
 			
 			/**
@@ -154,6 +151,13 @@
             */
             public function limpiarTodo():void{
             	todo.selected=false;
+            	 barraMsj.text="";
+            }
+            
+            private function actionVolver():void
+            {
+            	this.setVisible(false,false);
+            	Application.application.peluqueriaIni.setVisible(true,false);
             }
            	
 		]]>
