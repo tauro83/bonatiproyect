@@ -11,9 +11,9 @@ CREATE TABLE atencionpostoperatorio
   rut character(9),
   apellido character(50),
   nombrecliente character(50),
-  estado integer,
+  estado integer DEFAULT 0,
   CONSTRAINT pkey_atencionpostoperatorio PRIMARY KEY (hora, fecha, servicio),
-    CONSTRAINT fk_atencionpostoperatorio_reference_mascota FOREIGN KEY (nombremascota, rut)
+  CONSTRAINT fk_atencionpostoperatorio_reference_mascota FOREIGN KEY (nombremascota, rut)
       REFERENCES mascota (nombre, rut) MATCH SIMPLE
       ON UPDATE RESTRICT ON DELETE RESTRICT
 )
