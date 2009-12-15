@@ -66,30 +66,57 @@
 			 * */
 			private function registrar():void
 			{								 
-				if(vUsuario==true && vNombre==true && vContrasena==true && vRContrasena==true && vApaterno==true)
+				if(vNombre==true)
 				{
+					if(vApaterno==true)
+					{
 					
-					u1					= new Usuario();
-					u1.nombre 			= nomb.text;
-					u1.apellidoMaterno 	= amat.text;
-					u1.apellidoPaterno 	= apat.text;
-					u1.cargo			= carg.selectedLabel;
-					u1.contrasena		= cont.text;
-					u1.nombre			= nomb.text;
-					u1.permisoEditar	= pedi.selected;
-					u1.permisoEliminar	= peli.selected;
-					u1.permisoPurgar	= ppur.selected;
-					u1.permisoRegistrar	= preg.selected;
-					u1.servicio			= serv.selectedLabel;
-					u1.usuario			= usua.text;											
-								
-					
-					ru.regUsuario(u1);				
-					ru.addEventListener(ResultEvent.RESULT,registroUsuarioResultado);																					
+						if(vUsuario==true)
+						{
+							
+							if(vRContrasena==true)
+							{
+								if(vContrasena==true)
+								{
+									u1					= new Usuario();
+									u1.nombre 			= nomb.text;
+									u1.apellidoMaterno 	= amat.text;
+									u1.apellidoPaterno 	= apat.text;
+									u1.cargo			= carg.selectedLabel;
+									u1.contrasena		= cont.text;
+									u1.nombre			= nomb.text;
+									u1.permisoEditar	= pedi.selected;
+									u1.permisoEliminar	= peli.selected;
+									u1.permisoPurgar	= ppur.selected;
+									u1.permisoRegistrar	= preg.selected;
+									u1.servicio			= serv.selectedLabel;
+									u1.usuario			= usua.text;						
+												
+									
+									ru.regUsuario(u1);				
+									ru.addEventListener(ResultEvent.RESULT,registroUsuarioResultado);	
+								}
+								else{
+										mens.text = Properties.getMensaje("Advertencia", "12");
+								}
+							}
+							else{
+								mens.text =  Properties.getMensaje("Advertencia", "9");
+							}
+							
+						}
+						else{
+							mens.text =  Properties.getMensaje("Advertencia", "8");
+						}
+					}
+					else{
+						mens.text = Properties.getMensaje("Advertencia", "6");
+					}																				
 				}
 				else
 				{
-					mens.text = Properties.getMensaje("Error", "7");
+					mens.text =  Properties.getMensaje("Advertencia", "4");
+					//mens.text = Properties.getMensaje("Error", "7");
 					//"Corrija los datos antes de registrar";
 				}			
 			}
@@ -194,7 +221,7 @@
 			 * */
 			private function validarUsuario(event:Event):void
 			{	
-				if(usua.length>3 && Validacion.espaciosEnBlanco(usua.text))
+				if(usua.length>3 && usua.text.search(" ")==-1)
 				{
 					vUsuario	= true;		
 					mens.text = "";	
@@ -214,7 +241,7 @@
 			 * */
 			private function validarContrasena(event:Event):void
 			{
-				if(Validacion.contrasena(cont.text))
+				if(cont.length>3)
 				{
 					vContrasena	= true;	
 					mens.text = "";	
