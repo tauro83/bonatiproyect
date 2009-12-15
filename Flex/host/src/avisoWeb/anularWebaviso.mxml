@@ -1,0 +1,217 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Desactivar Aviso" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
+	<mx:Script>
+		<![CDATA[
+		//=======================================================================
+			// FECHA CREACIÓN: 08/11/09
+			// AUTOR: Erwin Díaz
+			// Panel de selección de Aviso, para proceder a editar los datos de éste.
+			//=======================================================================
+
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import avisoWeb.AvisoWeb;
+			import avisoWeb.AvisoWebService;
+			import mx.rpc.events.ResultEvent;
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import mx.core.Application;
+			import flash.events.*;
+			import mx.events.CloseEvent;
+			
+			[Bindable]
+			private var avisos:ArrayCollection;
+			[Bindable]
+			private var nroSelec:int = 0;
+			
+					
+			/**
+		 	 * Metodo que recibe el panel EditUsuario (editarAviso), para almacenarlo, 
+			 * inicializa la variable personService, para poder llamar a los metodos de este
+			 * para lograr comunicarse con las clases y metodos de java.	 		
+			 * */
+			public function getAllAvisos():void
+			{
+				var avisoWebService:AvisoWebService = new AvisoWebService();
+				avisoWebService.addEventListener(ResultEvent.RESULT,getAllAvisosResult);
+				avisoWebService.getAllAvisoWebA();
+			}
+			
+			/**
+		 	 * Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
+			 * del datagrid, para mostrar los datos de los avisos que existen en el sistema.	 		
+			 * */
+			private function getAllAvisosResult(event:ResultEvent):void
+			{
+				Tabla.doubleClickEnabled=true;
+				avisos = event.result as ArrayCollection;	
+							
+								
+			}
+			
+			public function iniciarPanel():void{
+				getAllAvisos();
+			}
+			
+			/**
+		 	 * 	Metodo que cancela la operacion de editar una mascota
+			 */
+			
+			private function cancelarAction():void{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+			/**
+			 * Se hace visible el input correspondiente a la opción
+			 * elegida en el combobox
+			 */
+			private function seleccionarBusqueda (event:Event):void
+            {   
+            	idA.setVisible(false,false);
+				nombre.setVisible(false,false);
+				apellido.setVisible(false,false);
+				asunto.setVisible(false,false);
+				getAllAvisos();
+            	switch (combobox.selectedLabel)
+				{
+				case 'ID':		
+					idA.setVisible(true,false);
+				break; 
+				case 'Nombre':		
+					nombre.setVisible(true,false);
+				break; 
+				case 'Apellido Paterno':
+					apellido.setVisible(true,false);
+				break;
+				case 'Asunto':
+					asunto.setVisible(true,false);
+				break;
+				}
+            }
+            
+          /**
+            * elimina una fila dentro de la tabla
+            */
+           	private function deleteRow():void {
+			 Alert.show("Está seguro que desea anular Aviso ","Confirme anular ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			}
+			/**
+			 * es la funcion que es llamada desde el mensaje de confirmación de la tarea
+			 */
+			private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+			/**
+			 * Purga un pago que está en la base de datos
+			 * 
+			 */
+			private function deleteAviso(id:String):void
+			{
+				var avisoWebService:AvisoWebService=new AvisoWebService();
+				avisoWebService.addEventListener(ResultEvent.RESULT,deleteAvisoResult);
+				avisoWebService.anulAviso(id);
+			}
+			/**
+			 * 
+			 * Muestra un mensaje de acuerdo al resultado de la operación
+			 * en la capa dos
+			 */
+			private function deleteAvisoResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(nroSelec>1){
+					labelMessage.text = "Avisos Anulados con éxito";
+				}
+				else
+					labelMessage.text = "Aviso Anulado con éxito";
+				getAllAvisos();
+			}
+			
+			/**
+			 * Marca o desmarca los checkboxes
+			 * 
+			 */
+			private function removeTaskRecord():void
+            {
+                var allRows:int = avisos.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (avisos[i].sel)
+                	{
+                       	nroSelec++;
+                       	deleteAviso(avisos[i].id.toString());
+                        avisos.removeItemAt(i);
+                        allRows = avisos.length;
+                        Tabla.dataProvider = avisos;
+                        i=-1;
+                        getAllAvisos();
+                    }   
+                }              
+            }
+            
+            /**
+			* Este metodo se encarga de borrar todo los registro de peluquería seleccionado
+			* por el usuario, los cuales pueden ser uno o mas, para la eliminación de un 
+			* registro de peluquería se debera enviar la hora que definira como identificador
+			* unico.
+			*/
+         	private function selectAll():void{
+                var allRows:int = avisos.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        avisos[i].sel = true;
+                    else
+                        avisos[i].sel = false;
+                }
+                Tabla.dataProvider = avisos;
+            }
+		]]>
+	</mx:Script>
+	<mx:Label x="25" y="12" text="Buscar"/>
+	<mx:Text x="241" y="12" id="textFiltrar" text="Filtrar por"/>
+	
+	<!-- AutoComplete -->
+	<fc:AutoComplete id="idA" x="70" y="10" width="150" dataProvider="{avisos}" labelField="id" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="nombre" x="70" y="10" width="150" dataProvider="{avisos}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="apellido" x="70" y="10" width="150" dataProvider="{avisos}" labelField="apaterno" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="asunto" x="70" y="10" width="150" dataProvider="{avisos}" labelField="asunto" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<mx:DataGrid x="25" y="72" width="709" height="263" id="Tabla" enabled="true" dataProvider="{avisos}" itemDoubleClick="removeTaskRecord()">
+		<mx:columns>
+		<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>
+			<mx:DataGridColumn headerText="ID" width="30" dataField="id"/>
+			<mx:DataGridColumn headerText="Nombre" width="80" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Apellido Paterno" width="110" dataField="apaterno"/>
+			<mx:DataGridColumn headerText="Asunto" dataField="asunto"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:CheckBox x="25" y="46" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
+	<mx:Label x="45" y="46" text="Seleccionar todo"/>
+	<mx:Button label="Anular" height="23" width="102" x="522" y="353" click="removeTaskRecord()" cornerRadius="6"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="102" height="23" click="cancelarAction()" cornerRadius="6"/>
+	
+	<!-- Opciones de busqueda -->
+	<mx:ComboBox x="307" y="10" width="150" id="combobox" change="seleccionarBusqueda(event)" toolTip="Seleccione un parámetro de búsqueda">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="ID"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Apellido Paterno"/> 
+			<mx:Object label="Asunto"/>
+			
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+
+
+	
+</mx:Panel>

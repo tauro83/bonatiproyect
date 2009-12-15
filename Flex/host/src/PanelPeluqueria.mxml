@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Opciones del módulo" borderColor="#15AD8F">
+	<mx:Style source="css/AccordionStyle.css"/>
+	<mx:Accordion styleName="Accordion3" x="0" y="0" width="100%" height="100%">
+		<mx:Canvas label="Atención Peluquería" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
+			<mx:LinkButton x="10" y="10" label="Registrar" textAlign="left" id="linkRegPel" click="{muestrarReg()}"/>
+			<mx:LinkButton x="10" y="100" label="Anular" click="verAnularPeluqueria()" textAlign="left"/>
+			<mx:LinkButton x="10" y="130" label="Desactivar" click="verEliminarPeluqueria()" textAlign="left"/>
+			<mx:LinkButton x="10" y="70" label="Activar" click="verDeseliminarPeluqueria()" textAlign="left"/>
+			<mx:LinkButton x="10" y="40" label="Editar" textAlign="left" id="editRegPel" click="{editPel()}"/>
+		</mx:Canvas>
+		<mx:Canvas label="Catálogo" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
+			<mx:LinkButton x="10" y="10" label="Registrar" click="{regcatalogo()}" textAlign="left" id="regCatalogo"/>
+			<mx:LinkButton x="10" y="40" label="Editar" textAlign="left" click="EditCatalogo()" id="ediCatalogo"/>
+			<mx:LinkButton x="10" y="70" label="Anular" click="anularCatalogo()"/>
+			<!--<mx:LinkButton x="50" y="100" label="Eliminar" click="eliminarCatalogo()"/>-->
+		</mx:Canvas>
+		<mx:Canvas label="Estadísticas" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
+			<mx:LinkButton x="10" y="10" label="Estadísticas" click="estadisticasMes()" textAlign="left"/>		
+		</mx:Canvas>
+		<mx:Canvas label="Web Aviso" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
+		    <mx:LinkButton x="10" y="70" label=" Registrar" click="webRegistro()" textAlign="left" id="regAvisoWeb"/>
+			<mx:LinkButton x="10" y="10" label="Web Aviso" click="web()" textAlign="left" id="regCatalogo0"/>
+			<mx:LinkButton x="10" y="100" label="Desactivar" click="{webDesactivar()}" textAlign="left" id="eliminarweb"/>
+			<mx:LinkButton x="10" y="40" label="Anular" id="anularWA" click="{webAnular()}" />
+			<mx:LinkButton x="10" y="130" label="Activar" id="activar" click="{webActivar()}"/>
+		</mx:Canvas>
+	</mx:Accordion>
+	 <mx:Script>
+        <![CDATA[   
+         import mx.core.Application;
+         
+         private function estadisticasMes():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.graficosPeluqueria.visible = true;
+         	Application.application.graficosPeluqueria.resetVars();
+         }
+          private function web():void
+          {
+          	
+         	Application.application.setInvisible();
+            Application.application.panelPeluqueria.setVisible(true,false);
+            Application.application.editarAvisoList.setVisible(true,false);
+            
+         }
+
+		 private function regcatalogo():void
+         {
+          	
+         	Application.application.setInvisible();
+            Application.application.panelPeluqueria.setVisible(true,false);
+            Application.application.regCatalogo.resetVars();
+            Application.application.regCatalogo.setVisible(true,false);
+         }
+         
+         private function EditCatalogo():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.editCatalogoBusqueda.getAllCatalogo();
+            Application.application.panelPeluqueria.setVisible(true,false);
+            Application.application.editCatalogoBusqueda.setVisible(true,false); 
+         }
+         
+         private function verAnularPeluqueria():void
+         {
+         	Application.application.setInvisible();
+         	Application.application.anularPel.limpiarTodo();
+         	this.visible = true;
+         	Application.application.anularPel.visible = true;
+         }
+
+         private function verEliminarPeluqueria():void
+         {
+         	Application.application.setInvisible();
+         	Application.application.eliminarPel.limpiarTodo();
+         	this.visible = true;
+         	Application.application.eliminarPel.visible = true;
+         }  
+         private function anularCatalogo():void
+         {
+         	Application.application.setInvisible();
+         	Application.application.panelPeluqueria.setVisible(true,false);
+            Application.application.AnuCatalogo.setVisible(true,false);
+         }
+          private function eliminarCatalogo():void
+         {
+         	Application.application.setInvisible();
+         	Application.application.panelPeluqueria.setVisible(true,false);
+            Application.application.EliCatalogo.setVisible(true,false);
+         }
+         
+         private function muestrarReg():void{
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.addPelu1.iniciarPanel();
+         	Application.application.addPelu1.setVisible(true,false);
+         }
+
+         private function verDeseliminarPeluqueria():void
+         {
+         	Application.application.setInvisible();
+         	Application.application.deseliminarPel.limpiarTodo();        
+         	Application.application.deseliminarPel.getAllVacunacionesA();         	
+         	this.visible = true;
+         	Application.application.deseliminarPel.visible = true;
+         } 
+         private function editPel():void{
+         	
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.editaPelu.iniciarPanel();
+         	Application.application.editaPelu.setVisible(true,false);
+         
+         }
+
+         private function webDesactivar():void
+         {
+         	Application.application.setInvisible();
+         	Application.application.eliminarweb.iniciarPanel();  
+         	this.visible = true;
+         	Application.application.eliminarweb.visible = true;
+         }  
+         
+         private function webActivar():void
+         {
+         	Application.application.setInvisible(); 
+         	this.visible = true;
+         	Application.application.actWebaviso.visible = true;
+         } 
+         
+         private function webAnular():void
+         {
+         	Application.application.setInvisible(); 
+         	this.visible = true;
+         	Application.application.anuWebaviso.visible = true;
+         } 
+         
+         private function webRegistro():void
+          {
+         	Application.application.setInvisible();
+         	Application.application.registarAviso.iniciarPanel();
+            Application.application.panelPeluqueria.setVisible(true,false);
+            Application.application.registarAviso.setVisible(true,false);
+         }
+
+
+         
+	 	]]>
+    </mx:Script>
+	
+	
+</mx:Panel>

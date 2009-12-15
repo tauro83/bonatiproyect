@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" x="345" y="50" width="375" height="382">
+
+	<mx:Script>
+		<![CDATA[
+			
+			private function verBarra():void
+			{
+				textAyuda.visible = false;
+				linkBarraPrincipal.visible = false;
+				barra.visible = true;
+				botVolver.visible = true;
+				linkOpciones.visible = false;
+				opcMod.visible = false;
+			}
+			
+			private function verOpcMod():void
+			{
+				textAyuda.visible = false;
+				linkBarraPrincipal.visible = false;
+				barra.visible = false;
+				botVolver.visible = true;
+				linkOpciones.visible = false;
+				opcMod.visible = true;
+			}
+			
+			private function volver2():void
+			{
+				textAyuda.visible = true;
+				linkBarraPrincipal.visible = true;
+				opcMod.visible = false;
+				botVolver.visible = false;
+				linkOpciones.visible = true;
+				barra.visible = false;
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:Text x="10" y="10" text="Anular Cirugía&#xa;&#x9;&#xa;&#x9;1. Seleccionar en                        la opción Clínica&#xa;&#xa;&#x9;2. Ir a                                y seleccionar Pabellón&#xa;&#xa;&#x9;3. Seleccionar Anular Cirugía&#xa;&#xa;&#x9;4. Seleccionar un parámetro por el cual se desea filtrar&#xa;&#xa;&#x9;5. Ingresar una búsqueda&#xa;&#xa;&#x9;6. Seleccionar un cliente desde la tabla y hacer doble click &#xa;&#x9;    o presionar el botón Visualizar&#xa;&#xa;&#x9;7. Seleccionar la o las cirugías que se desean anular&#xa;&#xa;&#x9;8. Ingresar el motivo por el cual se desea anular&#xa;&#xa;&#x9;9. Presionar el botón Anular&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
+	<mx:LinkButton x="118" y="36" label="barra principal" id="linkBarraPrincipal" click="verBarra()" color="blue" width="108"/>
+	<mx:Image x="10" y="170" width="355" height="43" id="barra" visible="false">
+		<mx:source>../Images Ayuda/barra principal.JPG</mx:source>
+	</mx:Image>
+	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
+	<mx:LinkButton x="60" y="64" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
+	<mx:Image x="95" y="10" width="185" height="332" source="../Images Ayuda/opcion modulo.JPG" id="opcMod" visible="false"/>
+	
+</mx:Canvas>

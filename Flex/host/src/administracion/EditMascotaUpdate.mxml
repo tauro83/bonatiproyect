@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Mascota" initialize="selClaseAnimal()">
+
+	 <mx:Script>
+        <![CDATA[
+           //=======================================================================
+			// FECHA: CREACIÓN: 12/09/2009
+			// AUTOR: Cristian Bravo
+			// Panel de selección de una mascota, para proceder a editar los datos de ésta.
+			//=======================================================================
+        
+            import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Mascota;
+			
+			import mx.rpc.events.ResultEvent;
+			import administracion.EditarMascotaService;
+			
+			import administracion.EditClienteUpdate;
+			import administracion.EditMascotaUpdate;
+			
+			import mx.events.CloseEvent;           
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
+			
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import mx.core.Application;
+			
+			[Bindable]
+			private var clientes:ArrayCollection;
+			//private var clientillo:ClienteService;
+			private var clienteAux:Mascota;
+			[Bindable]
+			public var clienteAuxEditado:Mascota;
+			public var newCli2:EditClienteUpdate;
+			public var rutClienteObjeto:String;
+			//var newCli2:EditClienteUpdate = Application.application.ediCliUp;
+			
+			
+			public var mascoti:Mascota;
+			
+			 
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que carga los datos de la mascota que se quiere editar.	
+			 * */
+			 
+			public function carga(mascotilla:Mascota):void
+			{       //asigno el cliente entregado desde panel EditarCliente
+					nombre.text = mascotilla.nombre.split(" ", 1).pop();
+				    clienteAuxEditado = mascotilla;
+				    fechaNacimiento.text = mascotilla.fechaNacimiento;
+				    claseAnimalInput.text   = mascotilla.claseAnimal;
+				    razaInput.text	= mascotilla.raza;
+				    sexo.text= mascotilla.sexo;
+				    rutClienteObjeto = mascotilla.rutCliente;
+				    
+				  
+				    //nombre.enabled=false;
+				    
+			}
+			
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que crea el objeto de la mascota editada	
+			 * */
+			
+			public function clienteModificado():void
+			{
+					
+					clienteAuxEditado.nombre  = nombre.text;
+					clienteAuxEditado.fechaNacimiento   =  fechaNacimiento.text;
+					clienteAuxEditado.claseAnimal = claseAnimalInput.text;
+					clienteAuxEditado.raza 	  = razaInput.text;
+					clienteAuxEditado.sexo    = sexo.text;
+					clienteAuxEditado.rutCliente = rutClienteObjeto;
+					carga1();
+					
+			}
+			
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que carga los datos de la mascota editada.	
+			 * */
+			
+			public function carga1():void
+			{
+			  //Alert.show(clienteAuxEditado.cliente);
+			  //Alert.show(" entra a funcion carga1");
+			  var auxiliar:EditarMascotaService = new EditarMascotaService();
+			  auxiliar.addEventListener(ResultEvent.RESULT,carga1Result);
+			  auxiliar.insertMascotaE(clienteAuxEditado);
+			  
+			}
+			
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que comprueba si la mascota fue edita correctamente.	
+			 * */
+			
+			public function carga1Result(event:ResultEvent):void
+			{
+			   var res:int;
+			   res = event.result as int;
+			   if(res > 0)
+			   {
+			   	  
+			   	 Application.application.AdEditarMascota2.labelMessage.text ="La Mascota ha sido editada exitosamente";
+			   	 this.visible = false;
+			   	 Application.application.AdEditarMascota2.visible = true;
+			   	 Application.application.AdEditarMascota2.ini(null);
+			   	 
+			     //Alert.show("ok");
+			   }
+			   else
+			   {
+			      //Alert.show("no");
+			      Application.application.AdEditarMascota3.labelMessage.text ="La Mascota no ha sido editada";
+			   }
+			}
+			
+		     /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que despliega el tipo de sexo que puede sellecionar el cliente para la mascota.	
+			 * */
+			 
+		    [Bindable]
+            public var sexos:ArrayCollection = new ArrayCollection(
+                [ {label:" ", data:0},
+                  {label:"Macho", data:1}, 
+                  {label:"Hembra", data:2} ]);    
+      
+        
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que despliega las razas de una mascota.	
+			 * */
+			 
+        	private function selRazas(event:Event):void {
+        		var razas:ArrayCollection = new ArrayCollection();
+    			if(ComboBox(event.target).text.localeCompare("Gato") == 0){
+    				//razas.addItem({label:" "});
+    				
+    				razas.addItem({label:"Gato Mestizo"});
+					razas.addItem({label:"Abisinio"});
+					razas.addItem({label:"Americano Pelo Corto"});
+					razas.addItem({label:"Angora"});
+					razas.addItem({label:"Angora Turco"});
+					razas.addItem({label:"Azul Ruso"});
+					razas.addItem({label:"Balinés"});
+					razas.addItem({label:"Bengal"});
+					razas.addItem({label:"Birmano"});
+					razas.addItem({label:"Bobtail Japonés"});
+					razas.addItem({label:"Bombay"});
+					razas.addItem({label:"Brasileño de Pelo Corto"});
+					razas.addItem({label:"Burmés"});
+					razas.addItem({label:"Burmilla"});
+					razas.addItem({label:"California Spangled Cat"});
+					razas.addItem({label:"Cartujo (Chartreux)"});
+					razas.addItem({label:"Colourpoint de Pelo Largo"});
+					razas.addItem({label:"Cornish Rex"});
+					razas.addItem({label:"Curl Americano"});
+					razas.addItem({label:"Cymric (Galés)"});
+					razas.addItem({label:"Devon Rex"});
+					razas.addItem({label:"Europeo Pelo Corto"});
+					razas.addItem({label:"Exótico de Pelo Corto"});
+					razas.addItem({label:"Fold Escocés"});
+					razas.addItem({label:"Foldex"});
+					razas.addItem({label:"Gato Británico de Pelo Corto"});
+					razas.addItem({label:"Gato del Bosque de Noruega"});
+					razas.addItem({label:"Gato Siberiano"});
+					razas.addItem({label:"Habana"});
+					razas.addItem({label:"Himalaya"});
+					razas.addItem({label:"Javanés"});
+					razas.addItem({label:"Keuda"});
+					razas.addItem({label:"Korat"});
+					razas.addItem({label:"La Perm"});
+					razas.addItem({label:"Maine Coon"});
+					razas.addItem({label:"Manx"});
+					razas.addItem({label:"Mau Egipcio"});
+					razas.addItem({label:"Mojave"});
+					razas.addItem({label:"Munchkin"});
+					razas.addItem({label:"Nebelung"});
+					razas.addItem({label:"Ocicat"});
+					razas.addItem({label:"Oriental"});
+					razas.addItem({label:"Persa"});
+					razas.addItem({label:"Pixie Bob"});
+					razas.addItem({label:"Ragamuffin"});
+					razas.addItem({label:"Ragdoll"});
+					razas.addItem({label:"Rex Selkirk"});
+					razas.addItem({label:"Ringtail"});
+					razas.addItem({label:"Siamés"});
+					razas.addItem({label:"Singapura"});
+					razas.addItem({label:"Snowshoe"});
+					razas.addItem({label:"Sokoke"});
+					razas.addItem({label:"Somalí"});
+					razas.addItem({label:"Sphynx"});
+					razas.addItem({label:"Tonquinés"});
+					razas.addItem({label:"Van Turco"});
+					razas.addItem({label:"York Chocolate"});
+    			}
+    			else if(ComboBox(event.target).text.localeCompare("Perro") == 0){
+    				//razas.addItem({label:" "});
+
+					razas.addItem({label:"Perro Mestizo"});
+					razas.addItem({label:"Affenpinscher"});
+					razas.addItem({label:"Afgano"});
+					razas.addItem({label:"Aïdi"});
+					razas.addItem({label:"Akbash"});
+					razas.addItem({label:"Akita Americano (Gran Perro Japonés)"});
+					razas.addItem({label:"Akita Inu"});
+					razas.addItem({label:"Alano Español"});
+					razas.addItem({label:"Alapaha (Bulldog de Sangre Azul)"});
+					razas.addItem({label:"Azawahk"});
+					razas.addItem({label:"Barbet"});
+					razas.addItem({label:"Basenji"});
+					razas.addItem({label:"Basset Hound"});
+					razas.addItem({label:"Beagle"});
+					razas.addItem({label:"Beauceron (Pastor de Beauce)"});
+					razas.addItem({label:"Bedlington Terrier"});
+					razas.addItem({label:"Bichón Boloñés"});
+					razas.addItem({label:"Bichón Frisé"});
+					razas.addItem({label:"Bichón Habanero"});
+					razas.addItem({label:"Bloodhound"});
+					razas.addItem({label:"Blue Lacy"});
+					razas.addItem({label:"Boerboel"});
+					razas.addItem({label:"Border Collie"});
+					razas.addItem({label:"Border Terrier"});
+					razas.addItem({label:"Borzoi Collie"});
+					razas.addItem({label:"Boston Terrier"});
+					razas.addItem({label:"Boxer"});
+					razas.addItem({label:"Boyero de Appenzell"});
+					razas.addItem({label:"Boyero de Berna"});
+					razas.addItem({label:"Boyero de Entlebuch"});
+					razas.addItem({label:"Boyero de Flandes"});
+					razas.addItem({label:"Boyero de Las Ardenas"});
+					razas.addItem({label:"Boykin Spaniel"});
+					razas.addItem({label:"Braco Alemán"});
+					razas.addItem({label:"Braco de Auvernia"});
+					razas.addItem({label:"Braco de Bourbonnais"});
+					razas.addItem({label:"Braco de Sant Germain"});
+					razas.addItem({label:"Braco de Weimar (Weimaraner)"});
+					razas.addItem({label:"Braco Francés Tipo Gascuña"});
+					razas.addItem({label:"Braco Wire Alemán"});
+					razas.addItem({label:"Bretón Spaniel"});
+					razas.addItem({label:"Briquet Grifón"});
+					razas.addItem({label:"Buhund Noruego"});
+					razas.addItem({label:"Bull Terrier"});
+					razas.addItem({label:"Bulldog"});
+					razas.addItem({label:"Bulldog Americano"});
+					razas.addItem({label:"Bulldog Francés"});
+					razas.addItem({label:"Bullmastiff"});
+					razas.addItem({label:"Ca de Bestiar (Pastor Mallorquín)"});
+					razas.addItem({label:"Ca De Bou"});
+					razas.addItem({label:"Cairn Terrier"});
+					razas.addItem({label:"Cane Corso"});
+					razas.addItem({label:"Cao Da Serra Da Estrela"});
+					razas.addItem({label:"Carolina Dog"});
+					razas.addItem({label:"Catahoula Leopard"});
+					razas.addItem({label:"Charplaninatz"});
+					razas.addItem({label:"Chesapeake Bay Retriever"});
+					razas.addItem({label:"Chi-Poo"});
+					razas.addItem({label:"Chien Français"});
+					razas.addItem({label:"Chihuahua"});
+					razas.addItem({label:"Chino Crestado Enano"});
+					razas.addItem({label:"Chow Chow"});
+					razas.addItem({label:"Cimarrón"});
+					razas.addItem({label:"Cirneco de Etna"});
+					razas.addItem({label:"Clumber Spaniel"});
+					razas.addItem({label:"Cocker Inglés"});
+					razas.addItem({label:"Cocker Spaniel Americano"});
+					razas.addItem({label:"Collie"});
+					razas.addItem({label:"Collie Smooth"});
+					razas.addItem({label:"Coonhound"});
+					razas.addItem({label:"Corgi Galés Cardigan"});
+					razas.addItem({label:"Coton de Tulear"});
+					razas.addItem({label:"Dachshund (Salchicha oTeckel)"});
+					razas.addItem({label:"Dálmata"});
+					razas.addItem({label:"Dandie Dinmont Terrier"});
+					razas.addItem({label:"Deutscher Jagdterrier"});
+					razas.addItem({label:"Dobermann"});
+					razas.addItem({label:"Dogo Argentino"});
+					razas.addItem({label:"Dogo de Burdeos"});
+					razas.addItem({label:"Dogo del Tibet"});
+					razas.addItem({label:"Epañeul Enano"});
+					razas.addItem({label:"Epañeul Francés"});
+					razas.addItem({label:"Epañeul Tibetano"});
+					razas.addItem({label:"Fila Brasileño"});
+					razas.addItem({label:"Fox Terrier"});
+					razas.addItem({label:"Fox Terrier Wire (Fox Terrier Pelo Alambre)"});
+					razas.addItem({label:"Foxhound"});
+					razas.addItem({label:"Galgo Español"});
+					razas.addItem({label:"Galgo Italiano"});
+					razas.addItem({label:"Golden Retriever"});
+					razas.addItem({label:"Gran Danés"});
+					razas.addItem({label:"Greyhound"});
+					razas.addItem({label:"Griffón Nivernais"});
+					razas.addItem({label:"Grifón Azul de Gascuña"});
+					razas.addItem({label:"Grifón de Bruselas"});
+					razas.addItem({label:"Groenlandés (Grünlandshund)"});
+					razas.addItem({label:"Harrier"});
+					razas.addItem({label:"Hellenikos Ichnilatis (Sabueso Griego)"});
+					razas.addItem({label:"Hovawart"});
+					razas.addItem({label:"Jack Russell Terrier"});
+					razas.addItem({label:"Karelian Bear Dog"});
+					razas.addItem({label:"Keeshond"});
+					razas.addItem({label:"Kelpie Australiano"});
+					razas.addItem({label:"King Charles Spaniel"});
+					razas.addItem({label:"Kleiner Münsterländer"});
+					razas.addItem({label:"Komondor"});
+					razas.addItem({label:"Koolie"});
+					razas.addItem({label:"Korthals"});
+					razas.addItem({label:"Kromforlander"});
+					razas.addItem({label:"Kuvasz"});
+					razas.addItem({label:"Kyushu (Perro de Hokkaido)"});
+					razas.addItem({label:"Labradoodle"});
+					razas.addItem({label:"Labrador"});
+					razas.addItem({label:"Lagotto Romagnolo"});
+					razas.addItem({label:"Laika Ruso Europeo"});
+					razas.addItem({label:"Lapphund"});
+					razas.addItem({label:"Lebrel Escocés"});
+					razas.addItem({label:"Lebrel Irlandés"});
+					razas.addItem({label:"Leonberger"});
+					razas.addItem({label:"Lhassa Apso"});
+					razas.addItem({label:"Lowchen (Pequeño Perro León)"});
+					razas.addItem({label:"Lurcher"});
+					razas.addItem({label:"Malamute de Akaska (Alaskan Malamute)"});
+					razas.addItem({label:"Maltés"});
+					razas.addItem({label:"Manchester Terrier"});
+					razas.addItem({label:"Maremma Sheepdog"});
+					razas.addItem({label:"Mastín de los Pirineos"});
+					razas.addItem({label:"Mastín Español"});
+					razas.addItem({label:"Mastín Inglés"});
+					razas.addItem({label:"Mastín Napolitano"});
+					razas.addItem({label:"Montaña de los Pirineos"});
+					razas.addItem({label:"Mudi"});
+					razas.addItem({label:"Otterhound (Perro de Nutria)"});
+					razas.addItem({label:"Ovejero Inglés"});
+					razas.addItem({label:"Ovejero Rumano (Carpathian Sheepdog)"});
+					razas.addItem({label:"Ovejero Shetland"});
+					razas.addItem({label:"Papillon"});
+					razas.addItem({label:"Pastor Alemán"});
+					razas.addItem({label:"Pastor Australiano"});
+					razas.addItem({label:"Pastor Belga"});
+					razas.addItem({label:"Pastor Belga Laekenois"});
+					razas.addItem({label:"Pastor Belga Malinois"});
+					razas.addItem({label:"Pastor Belga Tervuren"});
+					razas.addItem({label:"Pastor Bergamasco"});
+					razas.addItem({label:"Pastor Catalán"});
+					razas.addItem({label:"Pastor Croata"});
+					razas.addItem({label:"Pastor de Anatolia"});
+					razas.addItem({label:"Pastor de Brie"});
+					razas.addItem({label:"Pastor de Shiloh"});
+					razas.addItem({label:"Pastor del Cáucaso"});
+					razas.addItem({label:"Pastor Holandés"});
+					razas.addItem({label:"Pastor Inglés (Ovejero Inglés, Bobtail)"});
+					razas.addItem({label:"Pastor Polaco"});
+					razas.addItem({label:"Pastor Vasco (Euskal Artzain Txakurra)"});
+					razas.addItem({label:"Pekinés"});
+					razas.addItem({label:"Pequeño Brabantino"});
+					razas.addItem({label:"Perdiguero de Burgos"});
+					razas.addItem({label:"Perro de Aguas Español"});
+					razas.addItem({label:"Perro de Aguas Portugués"});
+					razas.addItem({label:"Perro de Canaan"});
+					razas.addItem({label:"Perro sin Pelo del Perú"});
+					razas.addItem({label:"Pharaoh Hound (Perro de los Faraones)"});
+					razas.addItem({label:"Pinscher Miniatura"});
+					razas.addItem({label:"Pit Bull Terrier"});
+					razas.addItem({label:"Podenco Canario"});
+					razas.addItem({label:"Podenco Ibicenco"});
+					razas.addItem({label:"Podenco Portugués"});
+					razas.addItem({label:"Pointer"});
+					razas.addItem({label:"Pomerania"});
+					razas.addItem({label:"Poodle (Caniche)"});
+					razas.addItem({label:"Porcelana"});
+					razas.addItem({label:"Presa Canario"});
+					razas.addItem({label:"Pug (Carlino)"});
+					razas.addItem({label:"Puli"});
+					razas.addItem({label:"Pumi"});
+					razas.addItem({label:"Rafeiro Do Alentejo"});
+					razas.addItem({label:"Rhodesian Ridgebak"});
+					razas.addItem({label:"Rottweiler"});
+					razas.addItem({label:"Rough Collie"});
+					razas.addItem({label:"Sabueso de Istria"});
+					razas.addItem({label:"Sabueso del Jura (Jura Laufhund)"});
+					razas.addItem({label:"Sabueso Español"});
+					razas.addItem({label:"Sabueso Italiano"});
+					razas.addItem({label:"Sabueso Lituano"});
+					razas.addItem({label:"Saluki (Lebrel Persa)"});
+					razas.addItem({label:"Samoyedo"});
+					razas.addItem({label:"San Bernardo"});
+					razas.addItem({label:"Schapendoes"});
+					razas.addItem({label:"Schipperke"});
+					razas.addItem({label:"Schnauzer Estándar"});
+					razas.addItem({label:"Schnauzer Gigante"});
+					razas.addItem({label:"Schnauzer Miniatura"});
+					razas.addItem({label:"Scottish Terrier"});
+					razas.addItem({label:"Setter Gordon"});
+					razas.addItem({label:"Setter Inglés"});
+					razas.addItem({label:"Setter Irlandés"});
+					razas.addItem({label:"Shar Pei"});
+					razas.addItem({label:"Shiba Inu"});
+					razas.addItem({label:"Shih-Tzu"});
+					razas.addItem({label:"Siberiano (Husky Siberiano)"});
+					razas.addItem({label:"Sloughi"});
+					razas.addItem({label:"Spaniel Azul de Picardía"});
+					razas.addItem({label:"Spaniel Japonés"});
+					razas.addItem({label:"Spinone Italiano"});
+					razas.addItem({label:"Spitz Enano"});
+					razas.addItem({label:"Spitz Finlandés"});
+					razas.addItem({label:"Spitz Japonés"});
+					razas.addItem({label:"Stafford Terrier Americano"});
+					razas.addItem({label:"Staffordshire Bull Terrier"});
+					razas.addItem({label:"Sussex Spaniel"});
+					razas.addItem({label:"Terranova"});
+					razas.addItem({label:"Terrier Airedale"});
+					razas.addItem({label:"Terrier Australiano (Terrier Silky)"});
+					razas.addItem({label:"Terrier Cesky"});
+					razas.addItem({label:"Terrier Galés"});
+					razas.addItem({label:"Terrier Kerry Blue"});
+					razas.addItem({label:"Terrier Lakeland"});
+					razas.addItem({label:"Terrier Norfolk"});
+					razas.addItem({label:"Terrier Norwich"});
+					razas.addItem({label:"Terrier Sealyham"});
+					razas.addItem({label:"Terrier Skye"});
+					razas.addItem({label:"Terrier Tibetano"});
+					razas.addItem({label:"Toller (Nova Scotia Duck)"});
+					razas.addItem({label:"Tosa Inu"});
+					razas.addItem({label:"Toy Fox Terrier (American Toy Terrier, Amertor)"});
+					razas.addItem({label:"Västgötaspets (Perro de los Visigodos)"});
+					razas.addItem({label:"Viszla"});
+					razas.addItem({label:"West Highland White Terrier"});
+					razas.addItem({label:"Wetterhoun"});
+					razas.addItem({label:"Whippet"});
+					razas.addItem({label:"Wolfdog Checoeslovaco"});
+					razas.addItem({label:"Wolfhound Irlandés"});
+					razas.addItem({label:"Wymaraner"});
+					razas.addItem({label:"Xoloitzcuintle"});
+					razas.addItem({label:"Yorkshire Terrier"});	
+				}
+				else if(ComboBox(event.target).text.localeCompare("Caballo") == 0){
+					razas.addItem({label:"Akhal-Teké"});	
+					razas.addItem({label:"Albino"});	
+					razas.addItem({label:"Apaloosa"});	
+					razas.addItem({label:"Árabe"});	
+					razas.addItem({label:"Caballo andaluz o español	"});	
+				}
+				razaInput.dataProvider = razas;
+			}
+			
+            /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que despliega la clase de animal	
+			 * */
+			 
+        	private function selClaseAnimal():void {
+        		var clasesAnimal:ArrayCollection = new ArrayCollection();
+        		
+        		clasesAnimal.addItem({label:" "});
+        		clasesAnimal.addItem({label:"Caballo"});
+        		clasesAnimal.addItem({label:"Gato"});
+        		clasesAnimal.addItem({label:"Perro"});
+        		clasesAnimal.addItem({label:"Otro"});
+
+        		claseAnimalInput.dataProvider = clasesAnimal;			
+			}
+            
+            
+              /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que informa si la mascota ha sido editada exitosamente.	
+			 * */
+			 
+            public function guardaEditaMascota(event:Event = null):void
+			{
+				
+			    //Alert.show(selectedRow.hora);
+			    Application.application.agenda2.setVisible(true);
+			    Application.application.editarMascota.setVisible(false);
+			    Application.application.agenda2.labelMessage.text="Su Mascota ha sido Modificada";
+			    
+			    
+			}
+		
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que informa que el cliente ha cancelado la operacion editar mascota .	
+			 * */
+			 
+			     public function guardaEditaCita(event:Event = null):void
+			{
+				
+			    //Alert.show(selectedRow.hora);
+			    Application.application.agenda2.setVisible(true);
+			    Application.application.editarMascota.setVisible(false);
+			    Application.application.agenda2.labelMessage.text="Su Mascota ha sido Modificada";
+			    
+			    
+			}
+			
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que informa que el cliente ha cancelado la operacion editar mascota	
+			 * */
+			
+			public function cancelarEditaCita(event:Event = null):void
+			{
+				
+			    //Alert.show(selectedRow.hora);
+			    Application.application.AdEditarMascota2.setVisible(true);
+			    Application.application.AdEditarMascota3.setVisible(false);
+			    Application.application.AdEditarMascota2.labelMessage.text="Usted ha cancelado la Operación";
+			    
+			}
+            
+       ]]>
+       
+    </mx:Script>
+	
+	
+	<mx:TextInput x="163" y="41" width="160" id="nombre" maxChars="20" editable="false"/>
+	
+	
+	
+	<mx:Label x="25" y="43" text="Nombre:" width="130"/>
+	<mx:Label x="25" y="85" text="Fecha  Nacimiento :" width="145"/>
+	<mx:Label x="25" y="126" text="Especie:" width="145"/>
+	<mx:DateField x="163" y="83" width="160" id="fechaNacimiento"/>
+	<mx:Label x="25" y="178" text="Raza:" width="145"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="102" click="{cancelarEditaCita()}" height="23"/>
+	<mx:Button x="522" y="353" label="Guardar " width="102" click="{clienteModificado()} " height="23"/>
+	<mx:Label x="25" y="220" text="Sexo:" width="145"/>
+	<mx:ComboBox x="163" y="124" width="160" id="claseAnimalInput" close="selRazas(event);"/>
+	<mx:ComboBox id="razaInput" x="163" y="176" width="160"/>
+	<mx:ComboBox x="163" y="218" id="sexo" dataProvider="{sexos}"  width="160"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	
+	
+</mx:Panel>
+ 

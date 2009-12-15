@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466" borderColor="#15AD8F">
+<mx:Script>
+		<![CDATA[
+		//=======================================================================
+		// FECHA CREACIÓN: 13/08/09
+		// AUTOR: Camilo Verdugo
+		// Componente que tiene un grafico  y muestra las estadisticas de Peluqueria
+		//=======================================================================
+		import util.Properties; 
+		import mx.messaging.channels.StreamingAMFChannel;
+		import mx.collections.ArrayCollection;
+		import mx.rpc.events.ResultEvent;
+		import mx.controls.Alert;
+		import mx.events.CalendarLayoutChangeEvent;
+		import services.GetEstadisticasPeluqueria;
+		import transferObjects.EstadisticasPeluqueria;
+		import services.Mensajes;
+				
+		[Bindable]public var expenses:ArrayCollection ;
+		private var gep:GetEstadisticasPeluqueria;
+		private var fechaActual:Date = new Date();
+		private var inicio:String;
+		private var fin:String;
+		private var iDia:String;		
+		private var iMes:String;
+		private var iAnio:String;	
+		private var fDia:String;		
+		private var fMes:String;
+		private var fAnio:String;
+
+		/**
+		 *  Asigna las estadisticas
+		 * 	@author  "Camilo Verdugo"
+		 * */
+		private function getEstadisticasR(event:ResultEvent):void
+		{
+			expenses = event.result as ArrayCollection;	
+		}
+		/**
+		 *  Reinicia los valores
+		 * 	@author  "Camilo Verdugo"
+		 * */
+		public function resetVars():void
+		{
+			fechaIni.text = "";
+			fechaFin.text = "";
+			inicio = "";
+			fin = "";
+			iDia = "";
+			iMes = "";
+			iAnio = "";
+			fDia = "";
+			fMes = "";
+			fAnio = "";
+			expenses = new ArrayCollection();
+		}
+		
+		/**
+		 *  Realiza los set de fechas. Este metodo es llamado tras la accion
+		 *  de los cambios de rangos en las opciones de visualizar la estadistica.
+		 * 	@author  "Camilo Verdugo"
+		 * */
+		private function changeData(eventObj:CalendarLayoutChangeEvent):void
+		{
+			if(fechaIni.selectedDate!=null && fechaFin.selectedDate!=null){
+				if(fechaIni.selectedDate.getTime()<=fechaFin.selectedDate.getTime()){
+					if(fechaIni.selectedDate.getTime()<fechaActual.getTime()){
+						gep = new GetEstadisticasPeluqueria();
+						iDia = fechaIni.selectedDate.getDate().toString();
+						iMes = (fechaIni.selectedDate.getMonth()+1).toString();
+						iAnio= fechaIni.selectedDate.getFullYear().toString();
+						fDia = fechaFin.selectedDate.getDate().toString();
+						fMes = (fechaFin.selectedDate.getMonth()+1).toString();
+						fAnio= fechaFin.selectedDate.getFullYear().toString();
+						//Alert.show(fechaActual.getTime().toString());
+	 					inicio	= iAnio+"-"+iMes+"-"+iDia;
+	 					fin		= fAnio+"-"+fMes+"-"+fDia; 
+	 					gep.getEstadisticas(inicio,fin);
+	 					gep.addEventListener(ResultEvent.RESULT,getEstadisticasR);
+						
+					     mens.text = "";  
+					}else
+					{
+						 mens.text = Properties.getMensaje("Advertencia", "28");
+						 // "Ingrese una fecha inicio anterior a la actual"; 
+					}
+				}
+				else{
+					mens.text = Properties.getMensaje("Advertencia", "29");
+					//"La fecha de inicio, debe ser anterior a la fecha de término";
+				}
+			}
+		}
+		]]>
+	</mx:Script>
+	<mx:SeriesInterpolate id="changeEffect" duration="2000"/>
+	<mx:Panel horizontalAlign="center" layout="absolute" title="Estadísticas por rango de fecha para Peluqueria" width="779" height="466" borderColor="#15AD8F">
+		<mx:ColumnChart id="myChart" dataProvider="{expenses}"  height="316" width="525" x="209" y="36" showDataTips="true">
+	        <mx:horizontalAxis>
+	           <mx:CategoryAxis dataProvider="{expenses}" categoryField="tipo"/>
+	        </mx:horizontalAxis>
+	        <mx:series>
+	           <mx:ColumnSeries xField="tipo" yField="numAtenciones" displayName="N° de atenciones realizadas" />
+	        </mx:series>
+     	</mx:ColumnChart>
+     		<mx:Legend horizontalAlign="right" dataProvider="{myChart}" width="199" x="550" y="10"/>
+			
+			<mx:DateField id="fechaIni" formatString="DD/MM/YYYY"  x="89" y="36" width="112" change="changeData(event)"/>
+			<mx:Label x="25" y="38" text="Inicio:" width="58"/>
+			<mx:DateField id="fechaFin" formatString="DD/MM/YYYY"   x="89" y="67" width="112" change="changeData(event)"/>
+			<mx:Label x="25" y="69" text="Término:" width="71"/>
+			<mx:Label x="25" y="10" text="Rango de fechas" fontWeight="bold"/>
+			<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+	</mx:Panel>
+</mx:VBox>

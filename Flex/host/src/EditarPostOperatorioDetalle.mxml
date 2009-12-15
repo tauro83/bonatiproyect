@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779" height="466" title="Editar Atención Post-Operatorio" borderColor="#15AD8F" >
+	<mx:Script>
+		<![CDATA[
+			import transferObjects.PostOperatorio;
+			//=======================================================================
+			// FECHA: CREACIÓN: 20/10/2009
+			// AUTOR: Andres Garrido
+			// Comentarios: Muestra datos de la mascota con sus respectivas atenciones
+			// en post-operatorio
+			//=======================================================================
+		
+			import mx.controls.List;
+			import mx.events.ListEvent; 			
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+			import transferObjects.UsuarioElim;
+			import mx.rpc.events.ResultEvent;
+			import mx.core.Application;
+			import pabellon.EditarPostOperatorio;
+			import mx.formatters.DateFormatter;
+			[Bindable]
+			private var atencion:PostOperatorio;
+			
+			//toma un objeto PostOperatorio y completa los campos correspondientes
+			public function setData(post:PostOperatorio):void{
+				this.atencion = post;
+				nombreDueño.text = post.nombreDueño;
+				apellidoPaterno.text = post.apellidoDueño;
+				rut.text = post.rut;
+				hora.text = post.hora;
+				
+				//formateamos la fecha antes de mostrarla
+				var dateFormatted:DateFormatter = new DateFormatter();
+				dateFormatted.formatString = "DD/MM/YYYY";
+				var fecha2:String = dateFormatted.format(post.fecha) as String;
+				
+				fecha.text = fecha2;
+				
+				costo.text = post.costo;
+				nomMascota.text = post.nombreMascota;
+				medicamentos.text = post.medicamentos;
+				indicaciones.text = post.indicaciones;
+				alimentos.text = post.alimentos;
+				
+			} 
+			
+			
+			//guarda todos los datos en un arreglo, para poder pasarlo a java
+			//y guardar la informacion en la base de datos        	
+ 			private function guardarDatos():void{
+ 				var lista:ArrayCollection = new ArrayCollection;
+ 				
+ 				atencion.nombreDueño = nombreDueño.text;
+				atencion.apellidoDueño =apellidoPaterno.text;
+				atencion.rut = rut.text;
+				atencion.hora = hora.text;
+				atencion.costo = costo.text;
+				atencion.nombreMascota = nomMascota.text;
+				atencion.medicamentos = medicamentos.text;
+				atencion.indicaciones = indicaciones.text;
+				atencion.alimentos = alimentos.text;
+				lista.addItem(atencion.medicamentos);
+				lista.addItem(atencion.alimentos)
+				lista.addItem(atencion.indicaciones);
+				lista.addItem(atencion.servicio);
+				lista.addItem(atencion.hora);
+				lista.addItem(atencion.fecha);
+				lista.addItem(atencion.costo);
+				lista.addItem(atencion.nombreMascota);
+				lista.addItem(atencion.rut);
+				lista.addItem(atencion.apellidoDueño);
+				lista.addItem(atencion.nombreDueño);
+ 				var object:pabellon.EditarPostOperatorio = new pabellon.EditarPostOperatorio();
+ 				object.addEventListener(ResultEvent.RESULT,editarPostOResult);
+            	object.editarPostOperatoio(lista);
+            }
+            //oyente para el evento de guardado de datos
+            private function editarPostOResult(event:ResultEvent):void{
+				if(event.result!=0){
+					txt.text="Datos guardados correctamente";
+					setData(atencion);//actualiza los nuevos datos para mostrarlos
+				}
+				else{
+					txt.text="Error en la actualizacion de datos";
+				}
+				
+			}
+ 				
+ 			//cambia de esta ventana a la del listado de atenciones
+ 			// (EditarPostOperatorio)
+ 			private function cancelando():void{
+				this.setVisible(false,false);
+				txt.text="";
+				Application.application.editarPostO.setVisible(true,false);
+				Application.application.editarPostO.iniData();
+			}
+         	]]> 
+ 	</mx:Script>
+	<mx:Label x="24.15" y="36" text="Nombre Dueño:" width="103.85" />
+	<mx:Label x="24.15" y="10" text="Datos básicos" width="97" fontWeight="bold"/>
+	<mx:Label x="24.05" y="149.95" text="Detalle" width="97" fontWeight="bold"/>
+	<mx:Label x="24.15" y="85.95" text="Rut:" width="78"/>
+	<mx:Label x="24.1" y="111.95" text="Nombre Mascota:" width="103.9" height="17.931034"/>
+	<mx:Label x="24.1" y="175.95" text="Medicamentos:" width="103.899994" height="19.900002"/>
+	<mx:Label x="343.1" y="175.95" text="Alimentos:" width="86.899994" height="19.900002"/>
+	<mx:Label x="187" y="383" width="407" height="17" id="txt" fontWeight="bold" textAlign="center"/>
+	<mx:Label x="24.15" y="62" text="Apellido:" width="78"/>
+	<mx:Label x="343.1" y="61.95" text="Fecha:" width="78"/>
+	<mx:Label x="343.1" y="38" text="Hora:" width="78"/>
+	<mx:Label x="343.1" y="85.95" text="Valor Atención($):" width="114.85"/>
+	
+	<mx:Text x="136" y="36" id="nombreDueño" width="156"/>
+	<mx:Text x="136" y="62" id="apellidoPaterno" width="156"/>
+	<mx:Text x="136" y="85.95" id="rut" width="156"/>
+	
+	<mx:Text x="454.95" y="38" id="hora" width="156"/>
+	<mx:Text x="454.95" y="61.95" id="fecha" width="156"/>
+	
+	<mx:Text x="454.95" y="85.95" id="costo" width="156"/>
+	<mx:Text x="135.95" y="111.95" id="nomMascota" width="156"/>
+	
+	<mx:Label x="24.1" y="237.9" text="Indicaciones:" width="103.899994" height="19.900002"/>
+	<mx:TextArea x="135.95" y="174.95" width="156" height="54" id="medicamentos" maxChars="50"/>
+	<mx:TextArea x="454.95" y="174.95" width="156" height="54" id="alimentos" maxChars="50"/>
+	<mx:TextArea x="135.95" y="236.9" width="156" height="54" id="indicaciones" maxChars="50"/>
+	
+	<mx:Button x="523" y="328" label="Guardar" id="guardarPostO" click="{guardarDatos()}" toolTip="Guarda los nuevos cambios" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="647" y="328" label="Cancelar" id="cancelar" click="cancelando()" toolTip="Cancela la operación y regresa al panel anterior" width="102" height="23" cornerRadius="6"/>
+	
+	
+</mx:Panel>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" title="Policlínico" width="779" height="466" borderColor="#15AD8F">
+	<mx:Label x="287.5" y="156" text="Seleccione una opcion del menu" fontWeight="bold" textAlign="center"/>
+</mx:Panel>

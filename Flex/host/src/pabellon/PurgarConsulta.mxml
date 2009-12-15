@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466"  borderColor="#15AD8F" xmlns:fc="http://www.adobe.com/2006/fc" title="Anular Consulta" xmlns:ns1="util.*">
+	<mx:Script>
+		<![CDATA[
+	
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Cliente; 
+			import mx.rpc.events.ResultEvent;
+			import mx.events.CloseEvent;
+			import mx.core.Application;
+			 
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.controls.CheckBox;
+			import mx.rpc.events.FaultEvent;
+			import PurgarCliente;
+			import mx.events.DropdownEvent;
+			
+			import services.PurgarConsultaService;
+	
+			
+			 /**
+             * @Fecha  03 Octubre
+             *@Descripcion Borra columna de la tabla
+             * */
+           	private function deleteRow():void {
+			 Alert.show("Está seguro que desea eliminar la(s) consulta(s) ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			}
+            
+			
+			     /**
+          * @Fecha  03 Octubre
+          * @Descripcion Pop UP que da edvierte que la acion que se esta realizando podria traer efectos no deseados
+          * ademas de realizar a accion si la respuesta es si
+          ***/
+            
+            private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  quitarFila();
+			}
+			
+			          /**
+          * @Fecha  03 Octubre
+          *@Descripcion Funcion que identifica el cliente seleccionado y llama a "EliminarCliente" con el rut de este
+          ***/
+            
+            private function quitarFila():void
+            {
+                var allRows:int = consultas.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (consultas[i].sel)
+                	{
+                        EliminaConsulta(consultas[i].hora, consultas[i].fecha, consultas[i].servicio);
+                        consultas.removeItemAt(i);
+                        allRows = consultas.length;
+                        dg.dataProvider = consultas;
+                        i=-1;
+                    }   
+                }              
+            }
+            
+            		/**
+	 * 	@Fecha  03 Octubre
+	 *  @Descripcion Metodo que modifica el atributo activo del cliente en la BD
+	 
+	 	**/ 
+    		private function EliminaConsulta(hora:String, fecha:String, servicio:String):void
+			{
+				var ec:PurgarConsultaService=new PurgarConsultaService();
+				ec.addEventListener(ResultEvent.RESULT,ClienteEliminadoResult);
+				ec.anularConsulta(hora,fecha,servicio);
+			}
+			  
+			
+		/**
+	 * @Fecha  03 Octubre
+	 *  @Descripcion Metodo que recibe la respuesta si es que fue una eliminacion exitosa o no
+	 	**/	
+			
+			private function ClienteEliminadoResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(result>0)
+				{
+				   labelMessage.text = "Consulta eliminada";
+				}
+				Activar();
+			}
+            
+            
+                /**
+          * @Fecha  03 Octubre
+          *@Descripcion Funcion que activa o desactiva el boton "Eliminar" cuando es seleccionado uno o mas clientes
+          ***/
+             
+            private function Activar():void{
+            	var allRows:int = consultas.length;
+            	var seleccion:Boolean=false;
+            	if(dg.selectedItem.nombre !=null)
+            	{
+            		ver.enabled = true;
+            	}
+            	else ver.enabled = false;
+            	
+            	for (var i:int = 0; i < allRows; i++){
+            		if(consultas[i].sel)
+            		seleccion=true;
+            	}
+            	if(seleccion)
+            		anul.enabled=true;
+            		else
+            			anul.enabled=false;
+            }
+            
+            
+            
+                 private function seleccionarTodo():void{
+                var allRows:int = consultas.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected){ 
+                        consultas[i].sel = true;
+                        anul.enabled=true;
+                    }
+                    else{
+                        consultas[i].sel = false;
+                        anul.enabled=false;
+                    }    
+                }
+                dg.dataProvider = consultas;           
+            }
+		]]>
+	</mx:Script>
+	
+	     
+	
+	
+	
+	
+	
+	<mx:states>
+		<mx:State name="Ver">
+			<mx:SetProperty name="title" value="Detalle Consulta"/>
+			<mx:RemoveChild target="{label1}"/>
+			<mx:RemoveChild target="{todo}"/>
+			<mx:RemoveChild target="{dg}"/>
+			<mx:RemoveChild target="{ver}"/>
+			<mx:RemoveChild target="{cancelar}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="25" y="133" text="Responsable:"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="457" y="89" text="Fecha:"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:DateField x="526" y="87" width="165" text="{dg.selectedItem.fecha}" id="fecha" editable="false" enabled="true" displayedMonth="{dg.selectedItem.fecha}" change="{dg.selectedItem.fecha}"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="25" y="214" text="Anamnesis:"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextArea x="162" y="228" width="575" height="122" id="anamnesis" text="{dg.selectedItem.anamnesis}"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="25" y="170" text="Servicio:"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="457" y="170" text="Costo:"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextInput x="526" y="168" width="165" id="costo" text="{dg.selectedItem.costo}"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="635" y="368" label="Volver" cornerRadius="6" width="102" height="23" click="currentState= ''"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:ComboBox x="115" y="168" id="servicio" width="160" editable="false" enabled="true" dataProvider="{dg.selectedItem.servicio}">
+				</mx:ComboBox>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="25" y="89" text="Mascota:"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextInput x="115" y="87" width="160" id="mascota"  enabled="true" editable="false" text="{dg.selectedItem.nombre}"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:ComboBox id="responsable" x="115" y="131" width="142" dataProvider="{dg.selectedItem.responsable}"></mx:ComboBox>
+			</mx:AddChild>
+			<mx:RemoveChild target="{anul}"/>
+		</mx:State>
+	</mx:states>
+	
+	<mx:Script>
+        <![CDATA[
+        	import transferObjects.Consulta;
+        	import services.AddConsultaService;
+        	import transferObjects.ConfiguracionVacuna;
+        	import transferObjects.Cliente;
+        	import services.AddMascotaService;
+        	import mx.controls.DateField;
+        	import mx.controls.Alert;
+            import mx.collections.ArrayCollection;
+        	import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.ValidationResultEvent;            
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
+		    import mx.rpc.events.ResultEvent;
+			import mx.controls.Image;
+		    import mx.core.Application;
+		    import transferObjects.Person;
+		    import pabellon.addCirugia;
+		    import pabellon.addCirugia1;
+		    import pabellon.AddCirugiaService;
+		    import Policlinico.AddVacunacion;
+		    import services.BusquedaService;
+		    import services.configuracionServices;
+		    import pabellon.EditCirugiaService;
+		   
+			
+			//editando para cargar las consultas
+			[Bindable]
+			private var consultas:ArrayCollection = new ArrayCollection;
+		    
+		      
+		   [Bindable]private var vacunas:ArrayCollection;
+			private var confs:configuracionServices= new configuracionServices();
+			
+			/**
+		 	* 	@author  
+			* 	@Fecha  27 Octubre
+			* Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
+			* de la comunicacion con la capa logica.
+			* @param event Evento
+			*/
+	        private function ini():void{
+	     
+	           	consultas.removeAll();
+	           	getConsultas();
+	           	consultas.refresh();
+				
+	        }
+	         
+	
+			public function getConsultas():void{
+				var addConsultaService:EditarConsultaService = new EditarConsultaService();
+				addConsultaService.addEventListener(ResultEvent.RESULT,getEditConsultasResult);
+				
+				addConsultaService.getAllConsultas(clienteRutName.rutClienteInput.text+clienteRutName.rutClienteDVInput.text);
+			}
+			
+			
+			public function getEditConsultasResult(event:ResultEvent):void{
+				
+				consultas = event.result as ArrayCollection;
+			}
+			
+			
+			/**
+		 	* 	@author  
+			* 	@Fecha  27 Octubre
+			* Metodo que inicializa todos los valores y variables de este panel.
+			*/
+			public function iniciarPanel():void
+			{	
+				this.dg.doubleClickEnabled=true;
+				this.labelMessage.text="";
+				/* this.rutClienteInput.text="";
+				this.rutClienteDVInput.text="";
+				this.inputClienteNombre.text=""; */
+			}
+			
+		   
+     		
+     		public function cancela():void{
+     		
+     		   this.visible = false;
+     		   Application.application.panelClinicaPrincipal.setVisible(true,false);
+     		}
+				
+        ]]>
+    </mx:Script>
+	
+	
+	
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="25" y="10" text="Cliente:" width="84.75" fontWeight="bold"/>
+	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="106" x="25" click="{Activar()}" variableRowHeight="true" itemDoubleClick="currentState='Ver'" dataProvider="{consultas}" height="238">
+	    <mx:columns>
+	    <mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" >
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>
+	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
+	        <mx:DataGridColumn dataField="rut" headerText="Rut" width="100"/>
+	        <mx:DataGridColumn dataField="responsable" headerText="Responsable" width="100"/>
+	        <mx:DataGridColumn dataField="servicio" headerText="Servicio" width="100"/>
+	        <mx:DataGridColumn dataField="fecha" headerText="Fecha" width="100"/>
+	        <mx:DataGridColumn dataField="hora" headerText="Hora" width="100"/>
+	        <mx:DataGridColumn dataField="anamnesis" headerText="Anamnesis" width="100"/>
+	        <mx:DataGridColumn dataField="costo" headerText="Costo" width="100"/>
+	    </mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="522" y="353" label="Visualizar" visible="true" id="ver" width="102" height="23" click="currentState='Ver'" enabled="false"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="103" id="cancelar" visible="true" height="23" click="cancela()"/>
+	<mx:CheckBox x="24" y="80" id="todo"/>
+	<mx:Label x="46" y="80" text="Seleccionar todo" id="label1"/>
+	<ns1:BuscadorNombreRut x="25" y="36" id="clienteRutName" mouseFocusChange="{ini()}">
+	</ns1:BuscadorNombreRut>
+	<mx:Button x="420" y="354" label="Anular" width="94" enabled="false" id="anul" click="{deleteRow()}"/>
+	
+</mx:Panel>
