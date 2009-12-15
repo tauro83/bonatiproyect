@@ -14,7 +14,7 @@ package services
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;	
 	import transferObjects.Usuario;
-	
+	import util.host;
 	
 	/** 
 	 *  Clase que gesitiona la conexion. Mediante el constructor
@@ -34,7 +34,7 @@ package services
 		{
 			super();
 			var channel:ChannelSet=new ChannelSet();http:
-			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
+			var amfChannel:AMFChannel=new AMFChannel("my-amf", host.getUrl());
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="AddUsuario";
