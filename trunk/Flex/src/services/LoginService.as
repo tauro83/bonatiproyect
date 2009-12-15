@@ -14,6 +14,8 @@ package services
 	import mx.rpc.remoting.mxml.RemoteObject;
 	
 	import transferObjects.Usuario;
+	
+	import util.host;
 
     /** 
 	 *  Se encarga de hacer la conexion con la capa 2 del sistema para poder hacer 
@@ -26,7 +28,7 @@ package services
 		{
 			super();
 			var channel:ChannelSet=new ChannelSet();
-			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
+			var amfChannel:AMFChannel=new AMFChannel("my-amf", host.getUrl());
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="LoginService";
