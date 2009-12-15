@@ -6,7 +6,6 @@ drop table atencionpedicure cascade;
 drop table atencionbanio cascade; 
 drop table corte cascade;
 drop table Atencion cascade;
-drop table preoperatorio cascade;
 drop table cita cascade;
 drop table Cirugia cascade;
 drop table Diagnosticos cascade; 
