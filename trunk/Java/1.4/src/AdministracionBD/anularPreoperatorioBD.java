@@ -133,7 +133,7 @@ public class anularPreoperatorioBD {
 	    			//Verifica que no se repitan los clientes
 	    			int bandera = 0;
 	    			for(int i=0;i<vacunaciones.size();i++){
-	    				if(rut2.equals(((anuPeluqueria) vacunaciones.get(i)).getNombreMascota()))
+	    				if(rut2.equals(((anuPreoperatorio) vacunaciones.get(i)).getNombreMascota()))
 	    				{
 	    					bandera=1;
 	    				}
