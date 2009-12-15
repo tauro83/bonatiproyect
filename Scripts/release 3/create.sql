@@ -73,13 +73,13 @@ CREATE TABLE atencionpostoperatorio
   CONSTRAINT fk_atencionpostoperatorio_reference_mascota FOREIGN KEY (nombremascota, rut)
       REFERENCES mascota (nombre, rut) MATCH SIMPLE
       ON UPDATE RESTRICT ON DELETE RESTRICT
-)
+);
 
 CREATE TABLE serviciopeluq
 (
   nombre character(20) NOT NULL,
   CONSTRAINT pkey_serviciopeluq PRIMARY KEY (nombre)
-)
+);
 
 CREATE TABLE catpeluqueria
 (
