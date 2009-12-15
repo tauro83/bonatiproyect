@@ -12,7 +12,7 @@ package services
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	
+	import util.host;
 		
 	public class GetEstadisticasClinica extends RemoteObject
 	{
@@ -26,7 +26,7 @@ package services
 		public function GetEstadisticasClinica(){
 			super();
 			var channel:ChannelSet=new ChannelSet();http:
-			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
+			var amfChannel:AMFChannel=new AMFChannel("my-amf", host.getUrl());
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="GetEstadisticasClinica";

@@ -11,7 +11,7 @@ package services
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	
+	import util.host;
 	import transferObjects.CatPeluqueria;
 		
 	public class GetCatalogos extends RemoteObject
@@ -25,7 +25,7 @@ package services
 		{
 			super();
 			var channel:ChannelSet=new ChannelSet();http:
-			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
+			var amfChannel:AMFChannel=new AMFChannel("my-amf", host.getUrl());
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="GetCatalogos";
