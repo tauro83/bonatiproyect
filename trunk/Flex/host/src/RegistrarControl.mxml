@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registro Control" borderColor="#15AD8F" initialize="iniciar()" xmlns:ns1="com.adobe.flex.extras.controls.*" xmlns:ns2="util.*">
+		<mx:Script>
+		<![CDATA[
+			import mx.charts.DateTimeAxis;
+		
+			//=======================================================================
+			// FECHA: CREACIÓN: 27 Octubre
+			// AUTOR: Sebastian Arancibia
+			// Panel de registro de control, dentro de esta se pueden realizar 
+			// busqueda de cliente por nommbre, por rut, acceder a la mascota y luego registrar control
+			//=======================================================================
+			import mx.collections.ArrayCollection;
+			import transferObjects.Mascota;
+			import services.MascotaService;
+			import pabellon.AddCirugiaService;
+			import services.AddMascotaService;
+			import mx.rpc.events.ResultEvent;
+			import transferObjects.Usuario;
+			import transferObjects.Cita;
+			import transferObjects.Control;
+			import transferObjects.Cliente;
+			import administracion.UsuarioEditService;
+			import mx.controls.Alert;
+			import services.DiaAgendaServices;
+			import Policlinico.AddControlService;
+			import mx.core.Application;
+			import services.BusquedaService;
+			import util.Properties;
+						
+			[Bindable]
+			private var cliente2:ArrayCollection;
+			
+			public var clienteBD:Cliente;
+			
+			
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Lista de arraylist que son ocupados en el programa
+			 *  clientes: Lista de clientes que son buscados por el usuario
+			 *  mascotas: Mascotas que son cargadas cuando es encontrado el cliente
+			 *  usuarios: Usuarios que son cargados al combobox
+			 * 	usuarios2: Lista supleten para cuando son cargados
+			 * 	responsableSleccionado: Nombre de usuario del responsable que es seleccionado
+			 *  horasLibres: Lista de horas libres que son utilizada cuando se quiere fijar una hora
+			 *               de control para el cliente. cuando se selecciona la fecha, se filtra para obtener
+			 * 				 solo las horas disponibles
+			 * 	
+			 * */
+			[Bindable]
+            public var clientes:ArrayCollection = new ArrayCollection();    
+            [Bindable]
+            public var mascotas:ArrayCollection = new ArrayCollection(); 
+            [Bindable]
+            public var costoFinal:String = "";
+            [Bindable]
+			private var usuarios:ArrayCollection;
+			[Bindable]
+			private var usuarios2:ArrayCollection;
+			[Bindable]
+			private var responsableSeleccionado:String;
+			[Bindable]
+			private var horasLibres:ArrayCollection;
+			private var c1:Cita;
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  2 de Noviembre de 2009
+			 *  Funcion que dado un string de numeros y un separado retorna un valor formateado se utiliza
+			 *  comunmente el peso chileno por ejemplo: (100000, .) el retorno es 100.000
+			 * 	
+			 * */
+			public function makeNumberFormat (value : Object, separator : String):String{
+				var str : Array = value.toString ().split ("");
+				var i : Number = 0;
+				var count : Number = 0
+				var tmpArray : Array = []
+				var back : String = ""
+				str.reverse ();
+				while (str [i])
+				{
+					if ((count % 4) == 0)
+					{
+						tmpArray.push (separator)
+					} else
+					{
+						tmpArray.push (str [i])
+						i ++
+					}
+					count ++
+				}
+				tmpArray.reverse ();
+				i = 0;
+				while (tmpArray [i])
+				{
+					back += tmpArray [i];
+					i ++
+				}
+				return back.substr (0, back.length - 1);
+			}  
+              
+             /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion inicial que carga los datos importantes desde la base de datos
+			 *  Esta funcion de igual forma, que cuando ya es utilizado el panel se borran
+			 *  todos los datos en estos	
+			 * */
+			 
+			 public function iniciar():void{
+			 	buscadorCliente.inputClienteNombre.text = "";
+			 	buscadorCliente.rutClienteDVInput.text = "";
+			 	buscadorCliente.rutClienteInput.text = "";
+			 	labelMessage.text = "";
+			 	registrarNuevoControl.visible = false
+			 	mascotas = new ArrayCollection();
+			 	getAllUsuarios();
+			 }
+			 
+			 /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que recibe el panel EditUsuario (newRegUsuar), para almacenarlo, 
+			 * inicializa la variable personService, para poder llamar a los metodos de este
+			 * para lograr comunicarse con las clases y metodos de java.	 		
+			 * */
+			 
+			public function getAllUsuarios():void
+			{
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();
+				
+			}
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
+			 * del datagrid, para mostrar los datos de los usuarios que existen en el sistema.	 		
+			 * */
+			 
+			private function getAllUsuariosEResult(event:ResultEvent):void
+			{
+				usuarios = event.result as ArrayCollection;	
+				usuarios2 = new ArrayCollection();
+				responsableSeleccionado = usuarios.getItemAt(0).usuario.split(" ",1).pop();
+				for(var i:int = 0; i<usuarios.length; i++){
+					usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
+				}					
+			}
+			 
+			       
+            /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que si la mascota esta en alta medica, no se agrega un nuevo control	
+			 *  si el item altamedicaBox es deseleccionado entonces no habra un nuevo control
+			 *  pero si este es seleccionado entonces habra un nuevo control, habilitando estos nuevos campos	
+			 * */    
+            public function altaMedica():void{
+            	if(!altaMedicaBox.selected){
+            		horaProximoControl.enabled = false;
+            		fechaProximoControl.enabled = false;
+            		responsable.enabled = false;
+            	}
+            	else{
+            	    horaProximoControl.enabled = true;
+            		fechaProximoControl.enabled = true;
+            		responsable.enabled = true;
+            	}
+            }
+            /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que cambia de estado a nuevo control para asi capturar los datos
+			 *  correspondientes al control	
+			 * */
+            public function nuevoControl():void{
+            	//cambia de estado
+            	currentState="NuevoControl";
+            	//Consulta si se ha seleccionado un item de la tabla
+            	if(datagrid1.selectedItem){
+					this.labelMessage.text="";
+					nombreMascota.text = datagrid1.selectedItem.nombre.split(" ",1).pop();
+				}
+				else{
+					//En el caso de que no se eleccione un item en la tabla se imprime en el labelMessage
+					this.labelMessage.text=Properties.getMensaje("Advertencia", "32");
+				}
+            }
+            
+            /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que cambia de estado ya sea que va a una pagina o vuelve de otra
+			 *  en el caso de que se encuentre en el estado Nuevo control, entonces vuelve al estado
+			 *  busqueda rut, pero en el caso de que este en el estado busquedarut vuelve al panel
+			 *  que senaliza que se debe seleccionar para una nueva accion	
+			 * */
+            public function volver():void{
+            	
+            	//Consulta si el estado en que se encuentra es BusquedaNombre, para de esta forma llenar el
+            	//formulario siguiente
+            	if(currentState == "NuevoControl"){
+            		currentState="BusquedaRut";
+            	}
+            	else{
+            		//Cambia de este panel al panel que senaliza lo que se debe seleccionar para una nueva accion
+            		this.visible = false;
+            		Application.application.panelClinicaPrincipal.visible = true;
+            	}
+            }
+            
+            /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que cambia de estado a busqueda por rut		
+			 * */
+            public function buscarPorRut():void{
+            	currentState="BusquedaRut";
+            }
+            /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que cambia de estado 		
+			 * */
+            public function cambiarEstado(event:Event):void{
+            	currentState=ComboBox(event.target).selectedItem.data;
+            	//Consulta si el estado en que se encuentra es BusquedaNombre, para de esta forma llenar el
+            	//formulario siguiente
+            	if(currentState == "BusquedaNombre"){
+            		buscadorCliente.rutClienteInput.text = " ";
+            		buscadorCliente.rutClienteDVInput.text = " ";
+            	}
+            	
+            }
+            
+			/**
+			* Funcion que llama a retornar todas las mascotas de un cliente para ser vistas en el combobox
+			* @author  Sebastian Arancibia
+			*/
+			private function getMascotas():void{
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteDVInput.text);
+			}
+			
+			/**
+			* Funcion que obtiene todas las mascotas de un cliente
+			* @param event Evento proveniente de la llamada a addMascotaService
+			* @author  Sebastian Arancibia
+			*/
+			private function getAddMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+			}
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que luego de seleccionado un responsable se buscan las horas disponible de este 
+			 **/
+			public function asignarResponsable(event:Event):void{
+				var itemSeleccionado:Object = event.currentTarget.selectedItem;
+				responsableSeleccionado = itemSeleccionado.usuario;
+				
+				//funcion que dado un responsable se consultan las horas disponisbles de este
+				consultarHoras();		
+			}
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que registra todos los datos del control, inclusive si existe un proximo control
+			 *  en el caso de no haber un proximo control solo se selecciona el control actual
+			 *  el proximo control implica la creacion de una nueva cita
+			 **/
+			public function registrarControl():void{
+				if(altaMedicaBox.selected){
+					registrarProximoControl();
+				}
+				registrarActualControl();
+			}
+			
+			 /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que crea una instancia del transferObject cita,
+			 *  posterior a la validacion de datos  y lo envia a citaServices		 		
+			 * */
+			private function registrarActualControl():void
+			{		
+					//nuevo objeto del tipo control				 
+					var cc:Control = new Control();
+					
+					// Se capturan todos los datos del formulario
+					
+					cc.cliente = buscadorCliente.rutClienteInput.text + buscadorCliente.rutClienteDVInput.text;
+					
+					cc.mascota = nombreMascota.text;
+					cc.fecha = new Date();
+					cc.responsable = responsableSeleccionado;
+					cc.costo = costoFinal;
+					cc.descripcion = descripcion.text;
+					cc.servicio = "Policlínico"
+					
+					
+					// Se llama a un servicio de add control para agregar un nuevo objeto a la agenda
+					var addControlService:AddControlService=new AddControlService();
+					addControlService.addEventListener(ResultEvent.RESULT,addActualControlServiceResult);
+					addControlService.addActualControl(cc);
+																					
+			}	
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion retorna el resultado de la accion que se realizo:Registro.		
+			 * */
+			private function addActualControlServiceResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(!result>0)
+					labelMessage.text = Properties.getMensaje("Error", "21");
+				else{
+					labelMessage.text = Properties.getMensaje("Informacion", "35");
+					borrarDatosActualControl();
+					this.currentState = "";
+				}	
+			}
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Se borran todos los datos del control actual (en formulario)	
+			 * */
+			 
+			public function borrarDatosActualControl():void{
+				descripcion.text = new String();
+				costo.text = new String();
+			}
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Se borran todos los datos del control proximo(en formulario)	
+			 * */
+			 			
+			public function borrarDatosProximoControl():void{
+				fechaProximoControl.text = new String();
+				horaProximoControl.text = new String();
+			}
+			
+			 /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion Metodo que crea una instancia del transferObject cita,
+			 *  posterior a la validacion de datos  y lo envia a citaServices		 		
+			 * */
+			private function registrarProximoControl():void
+			{								 
+					var cc:Cita = new Cita();
+					cc.cliente = buscadorCliente.rutClienteInput.text + buscadorCliente.rutClienteDVInput.text;
+					//Alert.show("|"+cc.cliente+"|");
+					cc.mascota = nombreMascota.text;
+					cc.fecha = fechaProximoControl.selectedDate.date +"/"+ (fechaProximoControl.selectedDate.month+1) +"/"+ fechaProximoControl.selectedDate.fullYear;
+					cc.hora	= horaProximoControl.text
+					cc.servicio = "Policlínico";
+					cc.usuario = responsableSeleccionado;
+					
+					var addControlService:AddControlService=new AddControlService();
+					addControlService.addEventListener(ResultEvent.RESULT,addProxControlServiceResult);
+					addControlService.addProxControl(cc);
+																					
+				}			
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27 Octubre
+			 *  @Descripcion retorna el resultado de la accion que se realizo:Registro.		
+			 * */
+			private function addProxControlServiceResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(!result>0)
+					labelMessage.text += " - " + Properties.getMensaje("Error", "22");
+				else{
+					labelMessage.text += " - " + Properties.getMensaje("Informacion", "36");
+					Application.application.agenda2.iniciarAgenda();
+					borrarDatosProximoControl();
+					this.currentState="";
+				}	
+			}
+			
+			
+            /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que filtra las horas disponibles del Responsable
+			 **/
+			public function consultarHoras():void{
+				if(fechaProximoControl.text != ""){
+					var diaAgenda:DiaAgendaServices = new DiaAgendaServices();
+					diaAgenda.addEventListener(ResultEvent.RESULT,consultarHorasDisponiblesResult);
+					diaAgenda.getDiaAgenda(fechaProximoControl.selectedDate.date+"/"+(fechaProximoControl.selectedDate.month+1)+"/"+fechaProximoControl.selectedDate.fullYear);
+				}
+			}
+			
+			 /**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  27   Octubre
+			 *  Funcion que filtra las horas disponibles del Responsable para el proximo control
+			 **/
+			private function consultarHorasDisponiblesResult(event:ResultEvent):void{
+				var horas:ArrayCollection = new ArrayCollection();
+                var horasOcupadas:ArrayCollection = new ArrayCollection();
+                
+                // retorno de todas las citas
+				horas = event.result as ArrayCollection;
+				
+				for(var i:int=0; i< horas.length; i++){
+					if(responsableSeleccionado == horas.getItemAt(i).responsable){
+						horasOcupadas.addItem(horas.getItemAt(i).hora);
+					}
+				}
+				
+				// horas libres que posteriormente son llenadas si no hay choque de horas
+				// con las horas ocupadas
+				horasLibres  = new ArrayCollection();
+				
+				if(!horasOcupadas.contains("10:30")){horasLibres.addItem({label:"10:30"});}
+				if(!horasOcupadas.contains("11:00")){horasLibres.addItem({label:"11:00"});}
+				if(!horasOcupadas.contains("11:30")){horasLibres.addItem({label:"11:30"});}
+				if(!horasOcupadas.contains("12:00")){horasLibres.addItem({label:"12:00"});}
+				if(!horasOcupadas.contains("12:30")){horasLibres.addItem({label:"12:30"});}
+				if(!horasOcupadas.contains("15:30")){horasLibres.addItem({label:"15:30"});}
+				if(!horasOcupadas.contains("16:00")){horasLibres.addItem({label:"16:00"});}
+				if(!horasOcupadas.contains("16:30")){horasLibres.addItem({label:"16:30"});}
+				if(!horasOcupadas.contains("17:00")){horasLibres.addItem({label:"17:00"});}
+				if(!horasOcupadas.contains("17:30")){horasLibres.addItem({label:"17:30"});}
+				if(!horasOcupadas.contains("18:00")){horasLibres.addItem({label:"18:00"});}
+				if(!horasOcupadas.contains("18:30")){horasLibres.addItem({label:"18:30"});}
+				if(!horasOcupadas.contains("19:00")){horasLibres.addItem({label:"19:00"});}
+				if(!horasOcupadas.contains("19:30")){horasLibres.addItem({label:"19:30"});}
+				if(!horasOcupadas.contains("20:00")){horasLibres.addItem({label:"20:00"});}
+				
+				horaProximoControl.dataProvider = horasLibres;
+			}
+			
+			/**
+		 	* 	@author  "Sebastian Arancibia"
+			* 	@Fecha  13 Octubre
+			* Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
+			* de la comunicacion con la capa logica.
+			* @param event Evento
+			*/
+	        private function ini():void{
+	        	//datosMascota.visible = true;
+	           	mascotas.removeAll();
+	           	getMascotas();
+				mascotas.refresh();
+	        }
+			
+			
+			
+        	/**
+			 * Funcion que consulta una accion realizada por el usuario
+			 * dependiendo de cual sea se ocultaran o mostraran algunas opciones
+			 */ 
+			public function consultarAccion(event:Event):void{
+				var selectedRow:Object = event.currentTarget.selectedItem;
+				if(selectedRow.nombre != null){
+					registrarNuevoControl.visible = true;	
+				}
+				else{
+					registrarNuevoControl.visible = false;
+				}	
+			} 
+		   
+		   /**
+			*   @author  "Sebastian Arancibia"
+			* 	@Fecha  02 Noviembre
+			* Metodo que formatea el costo de la atencion
+			*/
+		   public function formatear():void
+		   {
+		   		costoFinal = costo.text;
+		   		costo.text = "$"+makeNumberFormat(costo.text, ".");
+		   }	
+		]]>
+	</mx:Script>
+	
+	<mx:states>
+		<mx:State name="BusquedaRut">
+		</mx:State>
+		<mx:State name="NuevoControl">
+			<mx:AddChild position="lastChild">
+				<mx:ComboBox id="horaProximoControl" x="432" y="271" width="160" dataProvider="{horasLibres}"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="24" y="150" text="Actual Control:" fontWeight="bold" id="label7"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="345" y="150" text="Próximo Control:" fontWeight="bold" id="label10"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="24" y="186" text="Descripción:" width="84" id="label8"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="345" y="229" text="Fecha:" width="52" id="label9"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="345" y="271" text="Hora:" width="52" id="label11"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="345" y="184" text="Responsable:" width="97" id="label12"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextArea x="96" y="185" width="195" height="62" id="descripcion"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:DateField id="fechaProximoControl" x="434" y="229" width="158" formatString="DD/MM/YYYY" change="consultarHoras()"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:CheckBox id="altaMedicaBox" x="96" y="310" label="Próximo control" change="altaMedica()" selected="true"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:ComboBox id="responsable" x="432" y="182" dataProvider="{usuarios2}" close="asignarResponsable(event)"></mx:ComboBox>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="549" y="340" label="Registrar" visible="true" id="registrar" click="registrarControl()"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="636" y="340" label="Cancelar" width="84" id="cancelar" visible="true" click="buscarPorRut()"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{label1}" position="before">
+				<mx:Label x="24" y="102" text="Nombre:" width="64" id="label6"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextInput x="96" y="100" id="nombreMascota" width="195"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{label0}" name="x" value="21"/>
+			<mx:RemoveChild target="{label1}"/>
+			<mx:AddChild relativeTo="{labelMessage}" position="before">
+				<mx:Label x="24" y="75" text="Mascota:" fontWeight="bold" id="label2"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{datagrid1}"/>
+			<mx:RemoveChild target="{button1}"/>
+			<mx:RemoveChild target="{registrarNuevoControl}"/>
+			<mx:AddChild position="lastChild">
+				<mx:TextInput x="96" y="269" width="100" id="costo" maxChars="8" restrict="0-9" focusOut="formatear()" focusIn="costo.text = new String()"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{label9}" position="before">
+				<mx:Label x="24" y="271" text="Costo:" width="49" id="label15"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{label5}"/>
+			<mx:SetProperty target="{labelMessage}" name="width" value="724"/>
+		</mx:State>
+	</mx:states>
+	<mx:Label x="24" y="10" text="Cliente" fontWeight="bold" id="label1"/>
+	<mx:Label x="24" y="10" text="Cliente:" fontWeight="bold" id="label0"/>
+	<mx:Label x="24" y="75" text="Mascotas:" fontWeight="bold" id="label5"/>
+	<mx:Label x="25" y="399" width="709" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:DataGrid color="0x323232" width="709" rowCount="3" y="96" x="25" variableRowHeight="true" height="251" doubleClickEnabled="true" id="datagrid1" selectable="true" itemDoubleClick="nuevoControl()" itemClick="consultarAccion(event)" dataProvider="{mascotas}">
+	    <mx:columns>
+	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
+	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
+	        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" width="100"/>
+	        <mx:DataGridColumn dataField="raza" headerText="Raza" width="100"/>
+	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
+	    </mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="659" y="355" label="Cancelar" id="button1" click="volver()"/>
+	<mx:Button x="572" y="355" label="Visualizar" id="registrarNuevoControl" visible="false" click="nuevoControl()"/>
+	<ns2:BuscadorNombreRut x="24" y="37" id="buscadorCliente" keyFocusChange="getMascotas()" mouseFocusChange="getMascotas()">
+	</ns2:BuscadorNombreRut>
+	
+</mx:Panel>

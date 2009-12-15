@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+//=======================================================================
+// FECHA CREACIÓN: 20 Octubre
+// AUTOR: Andres Garrido
+// Componente que tiene un grafico que elimina una mascota del sistema
+//=======================================================================
+-->
+<mx:Canvas show="getAllMascotas()" initialize="getAllMascotas()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466">
+	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Eliminar Mascota">
+		
+		<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Mascota;
+			import mx.rpc.events.ResultEvent;
+			import administracion.DeleteMascota;
+			import administracion.GetAllMascotas;
+			import mx.core.Application;
+			// ocupen la variable que quieran, no necesariamente estas.
+            public var texto:String;
+            [Bindable]
+			private var mascotas:ArrayCollection;
+			
+			
+            public function getIdPanel():String{
+            	return "EliminarMascota";
+            }
+            
+			public function getIdServicio():String{
+				return "0";
+			}			
+			
+			
+			private function deleteMascota():void{
+   				if(tablaMascotas.selectedItem!=null){
+   					//Alert.show("¿Está seguro que desea eliminar los datos seleccionados? ","Confirme eliminación ", Alert.YES | Alert.NO);
+   					var mascotaService:DeleteMascota=new DeleteMascota();
+					mascotaService.addEventListener(ResultEvent.RESULT,deleteMascotaResult);
+					var m:Mascota = mascotas.getItemAt(tablaMascotas.selectedIndex) as Mascota;
+					mascotaService.deleteMascota(m.rutCliente,m.nombre, false);
+   				}
+   				else{
+   					mens.text="Debe primero seleccionar un elemento";
+   				}
+   				 
+   			}
+			private function deleteMascotaResult(event:ResultEvent):void{
+				var result:int = event.result as int ;
+				if(result!=0)
+				{
+				   mens.text="Mascota Eliminada!";
+				   getAllMascotas();
+				}
+				else
+				   mens.text="Error en Eliminar Mascota, inténtelo más tarde";
+			}
+			public function getAllMascotas():void{
+				var mascotaService:GetAllMascotas=new GetAllMascotas();
+				mascotaService.addEventListener(ResultEvent.RESULT,getAllMascotasResult);
+				mascotaService.getAllMascotas();
+				
+			}
+			private function getAllMascotasResult(event:ResultEvent):void{
+				mascotas= new ArrayCollection();
+				var lista:ArrayCollection = event.result as ArrayCollection;
+				var i:int;
+				
+				for(i=0;i<lista.length;i++){
+					var masc:Mascota = lista.getItemAt(i) as Mascota;
+					if(masc.estado)
+						mascotas.addItem(masc);
+				}
+				
+			}
+			 private function sortDate(obj1:Object, obj2:Object):int{
+     			var d1:Number = (new Date(Date.parse(obj1.date))).getTime();
+     			var d2:Number = (new Date(Date.parse(obj2.date))).getTime();
+     			if(d1 < d2){
+       				return -1;
+     			} else if(d1 == d2) {
+       				return 0;
+     			}		
+     			return 1;
+   			}
+   			private function restaurando():void{
+   				this.setVisible(false,false);
+   				Application.application.AdmElimMascotaRestaurar.getAllMascotas();
+   				Application.application.AdmElimMascotaRestaurar.setVisible(true,false);
+   				
+   			}
+            private function cancelando():void{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+   			
+		]]>
+		
+		</mx:Script>
+		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="518" label="Eliminar" y="320" id="borrarMascota" click="deleteMascota()">
+			<mx:toolTip>Elimina una mascota del sistema dejándola inactiva</mx:toolTip>
+		</mx:Button>
+		
+		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="628" label="Cancelar" y="320" id="cancelar" click="cancelando()" toolTip="Cierra la ventana y vuelve a la anterior">
+		</mx:Button>
+		<mx:DataGrid x="30" y="30" width="700" height="283" dataProvider="{mascotas}" allowMultipleSelection="true" 
+			editable="false" id="tablaMascotas" resizableColumns="true" showHeaders="true" 
+			sortableColumns="true" visible="true" toolTip="Presione Ctrl para seleccionar múltriples objetos">
+			<mx:columns>
+				<!--
+				<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
+			 		<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             		</mx:itemRenderer>
+            	</mx:DataGridColumn>
+            	-->
+				<mx:DataGridColumn width="70" headerText="Nombre" dataField="nombre"/>
+				<mx:DataGridColumn width="120" headerText="Rut Cliente" dataField="rutCliente"/>
+				<mx:DataGridColumn width="140" headerText="Fecha Nacimiento" dataField="fechaNacimiento"/>
+				<mx:DataGridColumn width="50" headerText="Sexo" dataField="sexo"/>
+				<mx:DataGridColumn width="50" headerText="Raza" dataField="raza"/>
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+		
+		
+		
+	</mx:Panel>
+</mx:Canvas>

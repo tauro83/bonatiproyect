@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TitleWindow xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="762" height="494" x="150" y="50" title="Ayuda" status="cerrar"   showCloseButton="true" close="PopUpManager.removePopUp(this)" borderColor="#15AD8F" verticalAlign="top" horizontalAlign="left" borderStyle="solid" borderThickness="6" xmlns:fc="http://www.adobe.com/2006/fc" xmlns:ns1="ayuda.*">
+	 
+	 <mx:Script>
+        <![CDATA[
+        	//=======================================================================
+			// FECHA CREACIÓN: 28/10/09
+			// AUTOR: Esteban Cruz
+			// Ayuda del sistema para el usuario
+			//=======================================================================
+        	import mx.collections.ArrayCollection;       
+            import mx.managers.PopUpManager;
+            import mx.controls.Text;     
+            
+            [Bindable]
+            public var seleccionado:String;
+	        [Bindable]
+			public var titulos:ArrayCollection = new ArrayCollection ([
+				{nameT:"Anular Catálogo Peluquería"},
+				{nameT:"Anular Cirugía"},
+				{nameT:"Anular Vacunación"},
+				{nameT:"Eliminar Vacunación"},
+				{nameT:"Registrar Usuario"},
+				{nameT:"Visualizar Ficha"},
+				{nameT:"Estadisticas Peluqueria"},
+				{nameT:"Registrar Cliente"},
+				{nameT:"Anular Preoperatorio"},
+				{nameT:"Registrar Consulta"},
+				{nameT:"Agenda"},
+				{nameT:"Registrar Mascota"},
+				{nameT:"Eliminar Usuario"},
+				{nameT:"Purgar Usuario"},
+				{nameT:"Editar Usuario"},
+				{nameT:"Editar Mascota"},
+				{nameT:"Eliminar Vacunación"},
+				{nameT:"Eliminar Catálogo Peluquería"},
+				{nameT:"Registrar Cirugía"},
+				{nameT:"Registrar Vacunación"},				
+				{nameT:"Configuar Servicios"},
+				{nameT:"Configuar Mascotas"},
+				{nameT:"Configuar Usuarios"},
+				{nameT:"Configuar Vacunas"},
+				{nameT:"Editar Catalogo"},	
+				{nameT:"Eliminar Aviso"},
+				{nameT:"Retirar Mascota de Hotelería"},
+				{nameT:"Editar Registro de Hotelería"},
+				{nameT:"Editar Registro Peluquería"},
+				{nameT:"Registrar Peluqueria"},
+				{nameT:"Registrar Pago"},
+				{nameT:"Registrar Producto"},
+				{nameT:"Eliminar Pago"},
+				{nameT:"Anular Pago"},
+				{nameT:"Eliminar Producto"}
+							
+			]);
+           	
+           	/**
+			 *  Hace invisible todos los paneles
+			 * */
+           	private function setInvi():void
+           	{
+           		anuCirugia.visible = false;
+           		delVacu.visible = false;
+           		anuVacu.visible = false;
+           		regUsuario.visible = false;
+           		visFicha.visible = false;
+           		elimUsuario.visible = false;
+				purgUsuario.visible = false;
+           		estPeluqueria.visible =false;
+				registerCliente.visible=false;
+           		anuPreoperatorio.visible=false;
+           		registerConsulta1.visible=false;
+           		agen.visible = false;
+           		regMascota.visible = false;
+           		editUsua.visible = false;
+           		edimasc.visible = false;
+           		addCiruAyu.visible = false;
+           		addvacuAyu.visible = false;
+           		conMas.visible = false;
+           		conSer.visible = false;
+           		conUsu.visible = false;
+           		conVac.visible = false;
+           		ediCatalogo.visible = false;
+				eliAviso.visible = false;
+				this.elimHotel.visible = false;
+				editPelu.visible = false;
+				addpeluayu.visible = false;
+				ediHotel.visible = false;
+				eliCatPel.visible=false;
+           		anuCatPel.visible=false;
+           		regProducto.visible= false;
+           		addPag.visible = false;
+           		elimPagAyu.visible = false;
+           		anuPagAyu.visible = false;
+           		//eliminaProducto.visible= false;
+           	}
+           	
+           	/**
+			 *  Corrige error de seleccionar el primero
+			 * */
+		    public function Seleccionar(event:Event):void
+			{
+			    if(inputTitulos.selectedIndex==0)
+			    {
+			    	inputTitulos.text=inputTitulos.selectedLabel;
+			    }
+			}
+
+			/**
+			 *  Visualiza el panel deseado, luego de ser mascado
+			 *  una opción desde la lista de resultados
+			 * */
+          	private function verDetalle(event:Event):void
+           	{	
+           		setInvi();
+           		switch(gridResult.selectedItem.nameT)
+           		{
+					case 'Anular Cirugía':	
+						anuCirugia.visible = true;
+					break; 
+					
+					case 'Eliminar Aviso':
+						eliAviso.visible = true;
+					break;
+					case 'Editar Catalogo':
+						ediCatalogo.visible = true;
+					break;
+					case 'Anular Vacunación':
+						anuVacu.visible = true;
+					break;
+					case 'Eliminar Vacunación':
+						delVacu.visible = true;
+					break;
+					case 'Eliminar Vacunación':
+						delVacu.visible = true;
+					break;
+					case 'Registrar Usuario':
+						regUsuario.visible = true;
+					break;					
+					case 'Visualizar Ficha':
+						visFicha.visible = true;
+					break;
+					case 'Eliminar Usuario':
+						elimUsuario.visible = true;
+					break;
+					case 'Purgar Usuario':
+						purgUsuario.visible = true;
+					break;
+					case 'Estadisticas Peluqueria':
+						estPeluqueria.visible = true;
+					break;
+					case 'Registrar Cliente':
+						registerCliente.visible = true;
+					break;
+					case 'Anular Preoperatorio':
+						anuPreoperatorio.visible = true;
+					break;
+					case 'Registrar Consulta':
+						registerConsulta1.visible = true;
+					break;
+					case 'Agenda':
+						agen.visible = true;
+					break;
+					case 'Registrar Mascota':
+						regMascota.visible = true;
+					break;
+					case 'Editar Usuario':
+						editUsua.visible = true;
+					break;
+					case 'Editar Mascota':
+						edimasc.visible = true;
+					break;
+					case 'Registrar Cirugía':
+						addCiruAyu.visible = true;
+					break;
+					case 'Registrar Vacunación':
+						addvacuAyu.visible = true;
+					break;
+					case "Configuar Servicios":
+						conSer.visible = true;
+					break;
+					case "Configuar Mascotas":
+						conMas.visible = true;
+					break;
+					case "Configuar Usuarios":
+						conUsu.visible = true;
+					break;
+					case "Configuar Vacunas":
+						conVac.visible = true;
+					break;
+					case "Retirar Mascota de Hotelería":
+						this.elimHotel.visible = true;
+					break;
+					case "Registrar peluqueria":
+						this.addpeluayu.visible = true;
+					break;
+					case "Editar Registro Peluquería":
+					    editPelu.visible = true;
+					break;
+					case "Editar Registro de Hotelería":
+						ediHotel.visible = true;
+					break;
+					case "Anular Catálogo Peluquería":
+						anuCatPel.visible=true;
+					break;
+					case "Eliminar Catálogo Peluquería":
+						eliCatPel.visible=true;
+					break;
+					case "Registrar Producto":
+						regProducto.visible= true;
+					break;
+					case "Registrar Pago":
+						addPag.visible= true;
+					break;
+					case "Eliminar Pago":
+						elimPagAyu.visible= true;
+					break;
+					case "Anular Pago":
+						anuPagAyu.visible= true;
+					break;
+					/**
+					case "Eliminar Producto":
+						eliminaProducto.visible= true;
+					break;
+					 */
+				}
+           	}
+           
+        ]]>
+    </mx:Script>
+	
+	<!-- Busqueda -->
+	<mx:Canvas x="10" y="44" width="311" height="42" backgroundColor="#CCCCCC">
+		<fc:AutoComplete id="inputTitulos" dataProvider="{titulos}" labelField="nameT" close="Seleccionar(event)" x="10" y="10" width="291"/>
+	</mx:Canvas>
+	<mx:Text x="10" y="24" text="Búsqueda" fontWeight="bold"/>
+	
+	<!-- Resultados -->
+	<mx:DataGrid x="10" y="94" id="gridResult"  width="311" height="338" dataProvider="{titulos}" click="verDetalle(event)">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Resultados" dataField="nameT"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- Detalle -->
+	<mx:TextArea x="345" y="50" width="375" height="382" borderColor="#AABCC9" color="#213236" backgroundColor="#ECE9E9" id="detalle" editable="false"/>
+	<mx:Text x="345" y="24" text="Detalle" fontWeight="bold"/>
+	
+	<!-- Componentes -->
+	<ns1:elimAviso x="345" y="50" visible="false" id="eliAviso">		
+	</ns1:elimAviso>
+	<ns1:editCatalogo x="345" y="50" visible="false" id="ediCatalogo">
+	</ns1:editCatalogo>
+	<ns1:anuCirugia x="345" y="50" visible="false" id="anuCirugia">
+	</ns1:anuCirugia>
+	<ns1:anuVacu x="345" y="50" visible="false" id="anuVacu">
+	</ns1:anuVacu>
+	<ns1:delVacu x="345" y="50" visible="false" id="delVacu">
+	</ns1:delVacu>
+	<ns1:regUsuario x="345" y="50" visible="false" id="regUsuario">
+	</ns1:regUsuario>
+	<ns1:visFicha x="345" y="50" visible="false" id="visFicha">
+	</ns1:visFicha>
+	<ns1:estPeluqueria x="345" y="50" visible="false" id="estPeluqueria">
+	</ns1:estPeluqueria>
+	<ns1:registerCliente x="345" y="50" visible="false" id="registerCliente">
+	</ns1:registerCliente>
+	<ns1:anuPreoperatorio x="345" y="50" visible="false" id="anuPreoperatorio">
+	</ns1:anuPreoperatorio>
+	<ns1:registerConsulta x="345" y="50" visible="false" id="registerConsulta1">
+	</ns1:registerConsulta>
+	<ns1:elimUsuario x="345" y="50" visible="false" id="elimUsuario">
+	</ns1:elimUsuario>
+	<ns1:purgUsuario x="345" y="50" visible="false" id="purgUsuario">
+	</ns1:purgUsuario>
+	<ns1:regMascota x="345" y="50" visible="false" id="regMascota">
+	</ns1:regMascota>
+	<ns1:Agen x="345" y="50" visible="false" id="agen">
+	</ns1:Agen>
+	<ns1:EditUsuario x="345" y="50" visible="false" id="editUsua">
+	</ns1:EditUsuario>
+	<ns1:ediMascota x="345" y="50" visible="false" id="edimasc">
+	</ns1:ediMascota>
+	<ns1:registrarCirugiaAyuda x="345" y="50" visible="false" id="addCiruAyu">
+	</ns1:registrarCirugiaAyuda>
+	<ns1:registrarVacunacionAyu x="345" y="50" id="addvacuAyu" visible="false">
+	</ns1:registrarVacunacionAyu>
+	<ns1:confMascota x="345" y="50" visible="false" id="conMas">
+	</ns1:confMascota>
+	<ns1:confServicios x="345" y="50" visible="false" id="conSer">
+	</ns1:confServicios>
+	<ns1:confUsuarios x="345" y="50" visible="false" id="conUsu">
+	</ns1:confUsuarios>
+	<ns1:confVacunas x="345" y="50" visible="false" id="conVac">
+	</ns1:confVacunas>
+	<ns1:EliminarHoteleria x="345" y="50" visible="false" id="elimHotel">
+	</ns1:EliminarHoteleria>
+	<ns1:addPeluAyu x="345" y="50" id="addpeluayu" visible="false">
+	</ns1:addPeluAyu>
+	<ns1:ediPelu x="345" y="50" visible="false" id="editPelu">
+	</ns1:ediPelu>
+	<ns1:EditHotel x="345" y="50" visible="false" id="ediHotel">
+	</ns1:EditHotel>
+	<ns1:eliCatPel x="345" y="50" visible="false" id="eliCatPel">
+	</ns1:eliCatPel>
+	<ns1:anuCatPel x="345" y="50" visible="false" id="anuCatPel">
+	</ns1:anuCatPel>
+	<ns1:addProducto id="regProducto" x="345" y="50" visible="false">		
+	</ns1:addProducto>
+	<ns1:addPag x="345" y="50" visible="false" id="addPag">
+	</ns1:addPag>
+	<ns1:anuPagoayu x="345" y="50" id="anuPagAyu" visible="false">
+	</ns1:anuPagoayu>
+	<ns1:elimPagoAyu x="345" y="50" id="elimPagAyu" visible="false">
+	</ns1:elimPagoAyu>
+	<!-->
+	<ns1:elimProducto x="345" y="50" id="eliminaProducto" visible="false">
+	</ns1:elimProducto>
+	<!-->
+</mx:TitleWindow>

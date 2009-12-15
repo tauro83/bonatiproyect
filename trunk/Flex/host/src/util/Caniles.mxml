@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<mx:ComboBox xmlns:mx="http://www.adobe.com/2006/mxml" initialize="iniciarComponente()" dataProvider="{caniles}">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import util.PropiedadesCanil;
+			
+			[Bindable]
+			private var caniles:ArrayCollection;
+			
+			
+			private function iniciarComponente():void{
+				caniles  = new ArrayCollection;
+				//Alert.show("asdasd");
+				//Alert.show(""+PropiedadesCanil.getCaniles("1"));
+				var numCaniles:int = 10;//parseInt(PropiedadesCanil.getCaniles("1"));
+			
+
+				for(var i:int = 0; i<numCaniles; i++){
+					caniles.addItem(i+1);
+				}
+			}
+			
+		]]>
+	</mx:Script>
+</mx:ComboBox>

@@ -1,0 +1,208 @@
+<!--@Author Jimmy Muñoz
+	@Version	4
+-->
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Usuario" x="241" y="133">
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 21/09/09
+			// AUTOR: jimmy muñoz
+			// Panel de selección de usuario, para proceder a editar los datos de éste.
+			//=======================================================================
+
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Usuario;
+			import mx.rpc.events.ResultEvent;
+			import administracion.UsuarioEditService;
+			
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import mx.core.Application;
+			
+			[Bindable]
+			private var usuarios:ArrayCollection;
+			private var usuars:ArrayCollection;
+			private var usuars2:ArrayCollection;
+			public var newRegUsuar:EditUsuarioUpdate;
+					
+			/**
+		 	 * 	Metodo que obtiene los datos del datagrid, en el cual se muestran
+			 * los datos de los usuarios, para procesar los datos del usuario seleccionado, esto 
+			 * enviandolo al panel EditUsuarioUpdate, dejandolo visible, y a este panel invisible.
+			 * @author  "Jimmy Muñoz"		 		
+			 * */
+			public function editarUser(event:Event):void
+			{
+				
+				if(Tabla.selectedItem){					
+					var newUsuario:Usuario = new Usuario();
+					newUsuario.nombre = Tabla.selectedItem.nombre;
+					newUsuario.apellidoPaterno = Tabla.selectedItem.apellidoPaterno;
+					newUsuario.apellidoMaterno = Tabla.selectedItem.apellidoMaterno;
+					newUsuario.usuario = Tabla.selectedItem.usuario;
+					newUsuario.servicio = Tabla.selectedItem.servicio;
+					newUsuario.cargo = Tabla.selectedItem.cargo;
+					newUsuario.permisoRegistrar = Tabla.selectedItem.permisoRegistrar;
+					newUsuario.permisoEditar = Tabla.selectedItem.permisoEditar;
+					newUsuario.permisoEliminar = Tabla.selectedItem.permisoEliminar;
+					newUsuario.permisoPurgar = Tabla.selectedItem.permisoPurgar;
+					newUsuario.contrasena = Tabla.selectedItem.contrasena;
+					
+					this.setVisible(false,false);
+					//var user:Usuario = usuarios.removeItemAt(Tabla.selectedIndex) as Usuario;
+					newRegUsuar.resetVars();
+					newRegUsuar.serv.text=newUsuario.servicio;
+					newRegUsuar.carg.text=newUsuario.cargo;
+					newRegUsuar.preg.selected = newUsuario.permisoRegistrar;
+					newRegUsuar.pedi.selected = newUsuario.permisoEditar;
+					newRegUsuar.peli.selected = newUsuario.permisoEliminar;
+					newRegUsuar.ppur.selected = newUsuario.permisoPurgar;
+					
+					var listCont2:Array = new Array();
+					listCont2 = newUsuario.usuario.split(" ",1);
+					newRegUsuar.usua.text=listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newUsuario.contrasena.split(" ",1);
+					newRegUsuar.rcon.text = newRegUsuar.cont.text = listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newUsuario.nombre.split(" ",1);
+					newRegUsuar.nomb.text = listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newUsuario.apellidoPaterno.split(" ",1);
+					newRegUsuar.apat.text= listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newUsuario.apellidoMaterno.split(" ",1);
+					newRegUsuar.amat.text=listCont2.pop();	
+					
+					newRegUsuar.setVisible(true,false);
+
+				}
+				else{
+					this.labelMessage.text="Seleccione un Usuario para editar.";
+				}
+
+			}
+			
+			/**
+		 	 * 	 Metodo que recibe el panel EditUsuario (newRegUsuar), para almacenarlo, 
+			 * inicializa la variable personService, para poder llamar a los metodos de este
+			 * para lograr comunicarse con las clases y metodos de java.
+			 * @author  "Jimmy Muñoz"	 		
+			 * */
+			public function getAllUsuarios():void
+			{
+				labelMessage.text="";
+				newRegUsuar = Application.application.AdEditarUsuar3;
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();
+				
+			}
+			
+			/**
+		 	 * 	Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
+			 * del datagrid, para mostrar los datos de los usuarios que existen en el sistema.	 
+			 * @author  "Jimmy Muñoz"		
+			 * */
+			private function getAllUsuariosEResult(event:ResultEvent):void
+			{
+				Tabla.doubleClickEnabled=true;
+				usuarios = event.result as ArrayCollection;	
+							
+								
+			}
+			
+			/**
+		 	 * 	Metodo que consulta si se cumple las devidas condiciones para editar un usuario, 
+			 * llamando al metodo itsOk, si esto se cumple procesa los datos que fueron ingresados en el objeto
+			 *  person para ser eviados a los metodos de la clase person service, para enviarlos a las otras
+			 * capas, y guardar los cambios.
+			 * @author  "Jimmy Muñoz"		 		
+			 * */
+			public function insertUsuarioE():void
+			{
+				if(newRegUsuar.itsOk()){
+					var person:Usuario= new Usuario();
+					person.nombre=newRegUsuar.nomb.text;
+					person.apellidoPaterno=newRegUsuar.apat.text;
+					person.apellidoMaterno=newRegUsuar.amat.text;
+					person.usuario=newRegUsuar.usua.text;
+					person.servicio=newRegUsuar.serv.text;
+					person.cargo=newRegUsuar.carg.text;
+					person.contrasena=newRegUsuar.cont.text;
+					person.permisoEditar=newRegUsuar.pedi.selected;
+					person.permisoEliminar=newRegUsuar.peli.selected;
+					person.permisoPurgar=newRegUsuar.ppur.selected;
+					person.permisoRegistrar=newRegUsuar.preg.selected;
+				
+					var personService:UsuarioEditService=new UsuarioEditService();
+					personService.addEventListener(ResultEvent.RESULT,insertUsuarioEResult);
+					personService.insertUsuarioE(person);
+				}
+				
+			}
+			
+			/**
+		 	 * 	Metodo que recibe el resultado del metodo anterior, el cual actualiza los 
+			 * datos del usuario seleccionado, y verifica si se almaceno correctamente.	
+			 * @author  "Jimmy Muñoz"	 		
+			 * */
+			private function insertUsuarioEResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(result>0)
+				{
+				   this.getAllUsuarios();
+				   Application.application.AdEditarUsuar3.setVisible(false,false);//newRegUsuar.
+				   this.setVisible(true,false);
+				   labelMessage.text="Edito el Ususario con Éxito.";
+				}
+				else
+				   newRegUsuar.labelMessage.text="No Edito El Usuario.";
+			}
+			
+			/**
+		 	 * 	Metodo que recibe el resultado del metodo anterior, el cual actualiza los 
+			 * datos del usuario seleccionado, y verifica si se almaceno correctamente.
+			 * @author  "Jimmy Muñoz"		 		
+			 * */
+			private function cancelando():void
+			{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:DataGrid x="25" y="10" width="695" id="Tabla" enabled="true" height="338" dataProvider="{usuarios}" itemDoubleClick="editarUser(event)">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellidoPaterno"/>
+			<mx:DataGridColumn headerText="Apellido Materno" dataField="apellidoMaterno"/>
+			<mx:DataGridColumn headerText="Usuario" dataField="usuario"/>
+			<mx:DataGridColumn headerText="Cargo" dataField="cargo" width="100"/>
+			<mx:DataGridColumn headerText="Contraseña" dataField="contrasena" visible="false"/>
+			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
+			<mx:DataGridColumn headerText="Permiso Registrar" dataField="permisoRegistrar" visible="false"/>
+			<mx:DataGridColumn headerText="Permiso Editar" dataField="permisoEditar" visible="false"/>
+			<mx:DataGridColumn headerText="Permiso Eliminar" dataField="permisoEliminar" visible="false"/>
+			<mx:DataGridColumn headerText="Permiso Purgar" dataField="permisoPurgar" visible="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Button label="Editar" height="23" width="102" x="522" y="353" click="editarUser(event)" cornerRadius="6"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
+	
+
+
+	
+</mx:Panel>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15ad8f" title="Registro Consulta" xmlns:ns1="*" xmlns:fc="http://www.adobe.com/2006/fc" xmlns:ns2="util.*">
+	<mx:Script>
+        <![CDATA[
+        
+//============================================================================
+// FECHA: CREACIÃ“N: 26-10-09
+// AUTOR: Nicolas Delgado
+// Esta componente se encarga de buscar a los clieentes con sus respectivas mascotas
+// para luego poder hacer el registro de una consulta en base de datos.
+//=============================================================================        
+        	import transferObjects.Consulta;
+        	import services.AddConsultaService;
+        	import transferObjects.Cliente;
+        	import services.AddMascotaService;
+        	import mx.controls.DateField;
+            import mx.collections.ArrayCollection;
+			import mx.events.CloseEvent;
+			import mx.events.ValidationResultEvent;            
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
+		    import mx.rpc.events.ResultEvent;
+			import mx.controls.Image;
+		    import mx.core.Application;
+		    import transferObjects.Person;
+		    import services.BusquedaService;
+		    import services.AddConsultaService;
+		    import services.validarRut;
+
+		   
+			
+			[Bindable]
+			private var files:ArrayCollection=new ArrayCollection();
+		    private var vResult:ValidationResultEvent;
+		    public var clienteBD:Cliente;
+		    
+		    /**
+			* Lista de mascotas del cliente asociado con un cliente
+			*/
+
+		    [Bindable]
+			private var clientes:ArrayCollection;
+		    
+		    /**
+			* Lista de cliente cuando es buscado por el rut
+			*/
+		    [Bindable] 
+		    public var mascotas:ArrayCollection = new ArrayCollection();
+		    
+		    /**
+			* Lista de cliente cuando es buscado por los nombre y apellido
+			*/		    
+		    [Bindable]
+			private var cliente2:ArrayCollection;
+			
+		    [Bindable] 
+		    public var cliente:Person;
+		    private var rw:validarRut=new validarRut();  
+			
+        	
+        	/**
+        	 * Este metodo se encarga de resetiar la lista de mascota en caso que halla sido utilizada 
+        	 * con anterioridad en el sistema, para no tener problemas con mascotas que no correspondan 
+        	 * al cliente.
+        	 * **/
+
+	        private function ini():void{
+	        	
+	           	mascotas.removeAll();
+	           	getMascotas();
+				mascotas.refresh();
+	        }
+	         
+        	/**
+        	 * Este metodo se encarga de obtener todas las mascotas que se encuentran registradas con 
+        	 * ese rut asociado, en base de datos.
+        	 * **/
+        					
+			private function getMascotas():void{
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteDVInput.text);
+			}
+			
+			/**
+			 * Esta funcion se encarga de recibir todos las mascotas que fueron encontradas en base de 
+			 * datos y tambien se encarga de msotrarla por pantalla
+			 * **/
+
+			private function getAddMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+			}
+			
+			
+			/**
+			 * Este metodoss se encarga de mandar los datos de la componente registrarConsulta a la componente 
+			 * registrarConsulta2 en esta ocacion le envia los datos que son el nombre de la mascota y rut del cliente.
+			 * **/
+
+			public function regCons():void
+			{
+				
+				if(dg.selectedItem){
+					var consul:RegistrarConsulta2 = Application.application.rConsulta2;
+					consul.limpiar();
+										
+					consul.nombre.text=dg.selectedItem.nombre;
+					consul.rutClienteInput1.text=buscadorCliente.rutClienteInput.text;
+					consul.rutClienteDVInput1.text=buscadorCliente.rutClienteDVInput.text;
+					this.setVisible(false,false);
+					consul.setVisible(true,false);
+				}
+				else{
+					this.labelMessage.text="Seleccione una Mascota para registrar la consulta";
+				}
+				
+			}
+		
+		
+     		
+     	   /**
+     	   * Este metodo se encarga de pasar el nombre, apellido paterno y materno a la capa 2 para que esta 
+     	   * pueda ser buscada en base de datos y nos entregue todos los resultado encontrados en ella
+     	   * **/
+     	   
+		   public function getAllClientes():void
+		   {
+		   		var busquedaService:BusquedaService = new BusquedaService();
+		   		busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
+				busquedaService.getAllClientes();
+		   }
+		   
+		   /**
+		   * Este metodo se encarga de entregar una lista con todos los clientes encontrados en base datos 
+		   * correspondiente al nombre , apellido paterno y apellido materno buscado en la base de datos por la
+		   * capa 2.
+		   * **/
+		   
+		   public function getAllClientesResult(event:ResultEvent):void
+		   {
+		   		cliente2 = event.result as ArrayCollection;
+		   		concatena();
+		   }
+		   
+		   
+		   /**
+		   * Esta funcion se encarga de juntar el nombre, apellido pater y apellido materno de un usuario para que 
+		   * pueda ser pueda ser seleccionado por el usuario, en la cual se mostraran todos los usuario que se 
+		   * encuentra en base de datos.
+		   * **/
+		   public function concatena():void
+		   {
+		   		clientes = new ArrayCollection();
+		   		var i:int;
+		   		var max:int = cliente2.length;
+		   		
+		   		for(i=0;i<max;i++){
+		   			var cli:Cliente = cliente2.getItemAt(i,0) as Cliente;
+		   			var cli2:Cliente = new Cliente();
+		   			cli2.nombre =cli.apellido+" "+cli.apellido2+" "+cli.nombre;
+		   			clientes.addItem(cli2);
+		   		}
+		   		clientes.refresh();
+		   }
+		   
+		   
+			
+			 /**
+			 * Este metodo se encarga de limpiar todo el panel de registro de una consulta una vez que no es utilizado
+			 * **/
+			public function iniciarPanel():void
+			{
+				this.mascotas=new ArrayCollection();
+				this.labelMessage.text="";			
+				buscadorCliente.inputClienteNombre.text = "";
+			 	buscadorCliente.rutClienteDVInput.text = "";
+			 	buscadorCliente.rutClienteInput.text = "";
+			 	this.setVisible(false,false);
+				Application.application.panelClinicaIni.setVisible(true,false);
+				
+			}
+			
+			public function limpio():void
+			{
+				this.mascotas=new ArrayCollection();
+				this.labelMessage.text="";			
+				buscadorCliente.inputClienteNombre.text = "";
+			 	buscadorCliente.rutClienteDVInput.text = "";
+			 	buscadorCliente.rutClienteInput.text = "";
+			}	
+			
+
+        ]]>
+    </mx:Script>
+	
+	<ns2:BuscadorNombreRut x="24" y="26" id="buscadorCliente" keyFocusChange="getMascotas()" mouseFocusChange="getMascotas()">
+	</ns2:BuscadorNombreRut>
+	
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="92" x="25" variableRowHeight="true" dataProvider="{mascotas}"  doubleClickEnabled="true"   itemDoubleClick="regCons()"  visible="true" height="253">
+	    <mx:columns>
+	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
+	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
+	        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" width="100"/>
+	        <mx:DataGridColumn dataField="raza" headerText="Raza" width="100"/>
+	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
+	    </mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="522" y="353" label="Visualizar" visible="true" id="registrar" click="regCons()" width="102" height="23"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="103" id="cancelar" visible="true" height="23" click="iniciarPanel()"/>
+	
+	<mx:Label x="25" y="65" text="Mascotas:" width="112.75" fontWeight="bold"/>
+</mx:Panel>

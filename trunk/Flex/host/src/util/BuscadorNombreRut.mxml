@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="528" height="30" xmlns:fc="http://www.adobe.com/2006/fc" initialize="getAllClientes()">
+		<mx:Script>
+        <![CDATA[
+        	import mx.events.FlexEvent;
+        	import transferObjects.Cliente;
+        	import services.AddMascotaService;
+        	import mx.controls.DateField;
+            import mx.collections.ArrayCollection;
+			import mx.events.CloseEvent;
+			import mx.events.ValidationResultEvent;            
+		    import flash.events.*;
+		    import mx.rpc.events.ResultEvent;
+		    import mx.core.Application;
+		    import services.BusquedaService;
+			import services.Validacion;
+			import mx.controls.Alert;
+
+		    [Bindable]
+			private var clientes:ArrayCollection = new ArrayCollection();
+			[Bindable]
+			private var clientesBusqueda:ArrayCollection = new ArrayCollection();
+
+			/**
+			*   @author  "Jimmy Muñoz"
+			* 	@Fecha  02 Noviembre
+			* Metodo que inicializa los valores de los clientes del sistema, para seleccionarlo 
+			 * ingresando su apellido. Llamando a la funcion de BusquedaService.
+			 */
+		   public function getAllClientes():void
+		   {
+	   			var busquedaService:BusquedaService = new BusquedaService();
+	   			busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
+				busquedaService.getAllClientes(); 		
+		   }
+		   
+		   /**
+			*   @author  "Jimmy Muñoz"
+			* 	@Fecha  02 Noviembre
+			* Metodo que almacena el resultado del metodo anterior en el arraycollection cliente2.
+			* Y llama a la funcion concatena.
+			*/
+		   private function getAllClientesResult(event:ResultEvent):void
+		   {
+		   		clientes = event.result as ArrayCollection;
+		   		clientesBusqueda = new ArrayCollection();
+		   		clientesBusqueda.addItem({nombreCompleto:"", rut:""});
+		   		for(var i:int = 0; i < clientes.length; i++){
+		   			var c:Cliente;
+		   			c = clientes.getItemAt(i) as Cliente;
+		   			clientesBusqueda.addItem({nombreCompleto: c.apellido + " " + c.apellido2 + " " + c.nombre, rut:c.rut});
+		   		}
+		   		
+		   }
+		   //16166068-K
+		   private function llenarRut():void
+		   {
+		   		if(inputClienteNombre.text!=""){
+					inputClienteNombre.text = inputClienteNombre.selectedItem.nombreCompleto; 
+					var largo:int = inputClienteNombre.selectedItem.rut.length;
+					rutClienteInput.text = inputClienteNombre.selectedItem.rut.substring(0,largo-1);
+					rutClienteDVInput.text = inputClienteNombre.selectedItem.rut.charAt(largo-1);
+		   		}
+		   		else{
+		   			rutClienteInput.text = "";
+		   			rutClienteDVInput.text = "";
+		   		}
+		   }
+		   
+		   public function llenarApellido():void
+		   {
+		   		var rutCliente:String;
+		   		if(rutClienteInput.text == "k"){
+		   			rutClienteInput.text = "K";
+		   		}
+		   		rutCliente = rutClienteInput.text + rutClienteDVInput.text;
+		   		for(var i:int = 0; i < clientes.length; i++){
+		   			var c:Cliente;
+		   			c = clientes.getItemAt(i) as Cliente;
+		   			if(c.rut == rutCliente){
+		   				inputClienteNombre.text = c.apellido +" "+c.apellido2+" "+c.nombre;
+		   				return;
+		   			}
+		   		}
+		   		inputClienteNombre.text = "";
+		   }
+		   public function resetvars():void
+		   {
+		   		inputClienteNombre.text = "";
+		   		rutClienteInput.text	= "";
+		   		rutClienteDVInput.text 	= "";
+		   }
+		   
+	
+        ]]>
+    </mx:Script>
+	
+	<mx:Label x="321.25" y="5" text="Rut:" width="31"/>
+	<mx:Label x="495.25" y="5" text="-" width="14.75" textAlign="center"/>
+	<fc:AutoComplete id="inputClienteNombre" x="69" y="3" width="210" dataProvider="{clientesBusqueda}" labelField="nombreCompleto" visible="true" focusOut="llenarRut()" enter="llenarRut()" close="llenarRut()"/>
+	<mx:TextInput  restrict="0-9" x="408" y="3" width="90" id="rutClienteInput" maxChars="9"/>
+	<mx:TextInput x="506" y="3" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" enter="llenarApellido()" focusOut="llenarApellido()"/>
+	<mx:Label x="4" y="5" text="Apellido:" width="68"/>	
+</mx:Canvas>

@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*" xmlns:ns5="hoteleria.*" xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xmlns:ns8="modbitacora.*"> 
+
+    <mx:Script>
+        <![CDATA[        
+			import mx.events.DropdownEvent;
+            import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import services.Validacion;
+			import ayuda.Ayuda;
+			
+			public var idBotonGeneral:String;
+			public var idPanelGeneral:String;
+			public var idServicioGeneral:String;
+			public var infoGeneral:String;
+			public var texx:String;
+			public var texx2:String;
+			public var texx3:String;
+			public var texInt:int;
+
+
+
+///AYUDA EN FORMA DE POP_UP	
+			
+            import mx.managers.PopUpManager;
+            import mx.containers.TitleWindow;
+            private function showWindow():void {
+                var login:Ayuda=Ayuda(PopUpManager.createPopUp( this, Ayuda , true));
+
+            }		
+						
+			
+		    private function manejadorCreationComplete (event:FlexEvent):void{           	
+            
+
+
+ 			<!--Autor: Esteban{ -->
+           		botonLogin.addEventListener(MouseEvent.CLICK, linkLogin);
+            	<!--Autor: }Esteban --> 
+            	
+            	
+            	<!--Autor: Sebastian{ -->
+            	menuAgenda1.linkBitacora.addEventListener(MouseEvent.CLICK, manejadorBitacora);
+            	menuAgenda1.linkAgenda.addEventListener(MouseEvent.CLICK,manejadorAgenda);
+            	<!--Autor: }Sebastian --> 
+            				
+                //cliNewAtencion2.linkSiguiente.addEventListener(MouseEvent.CLICK,linkNewAP);            	
+                botonAdmin.addEventListener (MouseEvent.CLICK, manejadorClick);
+                botonAgenda.addEventListener (MouseEvent.CLICK, manejadorClick2);
+                botonClinica.addEventListener (MouseEvent.CLICK, climanejadorClick);
+
+				<!--Autor:Camilo{-->
+				botonPeluqueria.addEventListener (MouseEvent.CLICK, verPanelPeluqueria);				
+				<!--Autor:Camilo}-->
+				
+				
+                <!--Autor:Andres{-->
+                /*opcionesClinica1.estadisticaClinicaLink.addEventListener(MouseEvent.CLICK,verGraficosClinicaMes);
+                opcionesClinica1.estadisticaYear.addEventListener(MouseEvent.CLICK,verGraficosClinicaYear); 
+                opcionesClinica1.estadisticaMes.addEventListener(MouseEvent.CLICK,verGraficosClinicaMes);
+                opcionesClinica1.estadisticaSemestre.addEventListener(MouseEvent.CLICK,verGraficosClinicaSemestre);  
+                opcionesClinica1.estadisticaTodas.addEventListener(MouseEvent.CLICK,verGraficosClinicaTodas);*/            
+              
+              
+                botonHotel.addEventListener(MouseEvent.CLICK, hotelclimanejadorClick);
+              
+                //hotelOpciones.hotelServPellink.addEventListener(MouseEvent.CLICK,linkNuevaAtencionHotelBaño);
+ 				botonPetshop.addEventListener (MouseEvent.CLICK, petmanejadorClick);
+            	/*petOpciones1.linkVisualVentapet.addEventListener (MouseEvent.CLICK, linkVisualizarVenta);
+				petOpciones1.linkImportDatesPet.addEventListener (MouseEvent.CLICK, linkImportarDatos);
+				petOpciones1.linkCatalogoPet.addEventListener (MouseEvent.CLICK, linkCatalogoPet);
+				petOpciones1.linkEstadisticaPet.addEventListener (MouseEvent.CLICK, linkEstadisticaPet);
+				*///asf
+				
+				/*pelCatalogo2.pelOAgregarItem.addEventListener(MouseEvent.CLICK, linkAgregarItem);
+            	pelNewCatalogo2.pelOAgregarItem.addEventListener(MouseEvent.CLICK, linkAgregarItem);
+            	pelNuevoItem.cancelNuevoItem.addEventListener(MouseEvent.CLICK, linkCancelAgregarItem);
+            	*/
+
+				<!--Autor: Erwin -->
+				
+               purgPost.cancelar.addEventListener(MouseEvent.CLICK,cancelarPost);
+
+                
+                <!--Autor: Raul Lopez{ -->
+				agenda2.ctm.addEventListener(MouseEvent.CLICK,editCita);
+				AdmOpciones1.edCliente.addEventListener(MouseEvent.CLICK,editarCliente);
+				<!--Autor: }Raul Lopez --> 
+				
+                // Escucha por el evento click event en el botón.
+                
+				//hotelIngreso.IdVerRegistroHotel.addEventListener (MouseEvent.CLICK,visulizarRegHot);
+                AdmIngreso2.cancelarClienteIng.addEventListener(MouseEvent.CLICK, inicial);
+
+				<!--Autor: Vitoxone --> 
+				eliminarCliente.setVisible(false,false);
+				purgarCliente.setVisible(false,false);
+				AdmOpciones1.linkEliminarClnte.addEventListener(MouseEvent.CLICK, eliminaCliente);
+				AdmOpciones1.linkPurgarClnte.addEventListener(MouseEvent.CLICK, purgaCliente);
+            }
+
+
+          	<!-- Erwin-->
+          	private function cancelarPost ( event:Event ):void{
+            	setInvisible();
+               	opcionesClinica1.setVisible(true,false);
+            	PurgarPostOperatorio1.setVisible(true,false);
+            }
+            private function linkelimFicha ( event:Event ):void{
+            	setInvisible();
+               	AdmOpciones1.setVisible(true,false);
+            	elimficha.setVisible(true,false);
+            	
+            }
+            private function linkpurgFicha ( event:Event ):void{
+            	setInvisible();
+               	AdmOpciones1.setVisible(true,false);
+            	purgficha.setVisible(true,false);
+            	
+            }
+
+            public function setInvisible ():void
+            {   
+            	regProducto.setVisible(false,false);
+             	editCatalogo.setVisible(false,false);
+            	editCatalogoBusqueda.setVisible(false,false);
+            	confVacunas.setVisible(false,false);
+            	confServicios.setVisible(false,false);
+            	confUsuario.setVisible(false,false);
+            	confMascota.setVisible(false,false);
+            	panelClinicaPrincipal.setVisible(false,false);
+            	peluqueria1.setVisible(false,false);
+            	verFicha.setVisible(false,false);
+            	visualizarFicha.setVisible(false,false);
+            	panelPeluqueria.setVisible(false,false);
+            	graficosPeluqueria.setVisible(false,false);            	
+            	panel2.setVisible(false,false);
+                panelOpciones.setVisible(false,false);
+                agenda2.setVisible(false,false);
+				
+                cliRegistroPO2.setVisible(false,false);
+				cliRegistroPreO2.setVisible(false,false);
+                opcionesClinica1.setVisible(false,false); 
+                petOpciones1.setVisible(false,false);
+            	AdmOpciones1.setVisible(false,false);
+            	AdEditarUsuar2.setVisible(false,false);
+            	AdRegistrarRazas2.setVisible(false,false);
+            	AdRegUsuario2.setVisible(false,false);
+
+				AdmMascota2.setVisible(false,false);
+				AdmIngreso2.setVisible(false,false);        	
+            	hotelOpciones.setVisible(false,false);
+            	menuAgenda1.setVisible(false,false);
+            	login2.setVisible(false,false);
+            	busqueda2.setVisible(false,false);
+            	huespedAgregado2.setVisible(false,false);
+            	//purgusuario.setVisible(false,false);
+            	bitacoraEventos.setVisible(false,false);    
+            	//raullrich
+				<!--Autor: Raul Lopez{-->
+				editarCita.setVisible(false,false);
+				panelEditaCLi.setVisible(false,false);
+				ediCliUp.setVisible(false,false);
+				regPreoOp.setVisible(false,false);
+				regPreoOp1.setVisible(false,false);
+				editConsultaUpdate.setVisible(false,false);
+				editConsulta.setVisible(false,false);
+				panelClinicaIni.setVisible(false,false);
+				editaPelu.setVisible(false,false);
+				editaPelUPdate.setVisible(false,false);
+				eliminarPulgarProducto.setVisible(false,false);
+				<!--Autor: }Raul Lopez -->
+				
+				<!--Autor: }Vitoxone {-->
+				eliminarCliente.setVisible(false,false);  
+                purgarCliente.setVisible(false,false);
+            	registrarCita.setVisible(false,false);
+		registrarHoteleria.setVisible(false,false);
+            	<!--Erwin Díaz-->
+            	elimusuario.setVisible(false,false);
+            	elimficha.setVisible(false,false);
+            	purgficha.setVisible(false,false);
+            	PurgarPostOperatorio1.setVisible(false,false);
+            	purgPost.setVisible(false,false);
+            	purgusuario.setVisible(false,false);
+            	regCatalogo.setVisible(false,false);
+            	editarAvisoList.setVisible(false,false);
+            	editarAviso.setVisible(false,false);
+            	AnulPost.setVisible(false,false);
+            	AnulPostD.setVisible(false,false);
+            	bitacoraList.setVisible(false,false);
+            	
+            	<!--Autor: Jimmy Muñoz{-->
+            	AdEditarUsuar3.setVisible(false,false);
+            	addCirug.setVisible(false,false);
+            	cliRegistro2.setVisible(false,false);
+            	
+            	addVacuna1.setVisible(false,true);
+            	addVacuna.setVisible(false,false);
+            	
+            	addPelu1.setVisible(false,false);
+            	addPeluq.setVisible(false,false);
+            	
+            	elimPago.setVisible(false,false);
+            	anuPago.setVisible(false,false);
+            	
+            	eliminarweb.setVisible(false,false);
+            	actWebaviso.setVisible(false,false);
+				anuWebaviso.setVisible(false,false);
+				activarPago.setVisible(false,false);
+            	<!--Autor: }Jimmy Muñoz -->
+            	
+            	<!--Autor: Andres G.{-->
+            	graficosClinica1.setVisible(false,false);
+            	this.AdmEliminarMascota.setVisible(false,false);
+            	this.AdmPurgarMascota.setVisible(false,false);
+            	EditarPostODetalle.setVisible(false,false);
+            	editarPostO.setVisible(false,false);
+            	this.purgControl.setVisible(false,false);
+            	hotelOpciones.setVisible(false, false);
+            	panelHoteleria.setVisible(false, false);
+            	eliminarHoteleria.setVisible(false, false);
+
+            	<!--Autor: Andres G.}-->
+            	
+            	<!--Autor: Esteban{ -->
+            	pabellonIni.setVisible(false,false);
+            	policlinicoIni.setVisible(false,false);
+            	peluqueriaIni.setVisible(false,false);
+            	AnuCatalogo.setVisible(false,false);
+         		EliCatalogo.setVisible(false,false);
+            	cirugiaA.setVisible(false,false);
+            	cirugiaA2.setVisible(false,false);
+            	cirugiaE.setVisible(false,false);
+            	cirugiaE2.setVisible(false,false);
+            	login2.setVisible(false,false);
+         		login3.setVisible(false,false);
+         		vacunacionA.setVisible(false,false);
+         		vacunacionA2.setVisible(false,false);
+         		vacunacionE.setVisible(false,false);
+         		vacunacionE2.setVisible(false,false);
+         		<!--Autor: }Esteban -->   
+         		
+         		<!--Autor: Sebastian{ -->
+         		opcionesPetshop.setVisible(false,false);
+         		panelPetshop.setVisible(false, false);
+         		
+		    	bitacora.setVisible(false,false);
+		    	agenda2.setVisible(false, false);
+		    	editarCirugia.setVisible(false, false);
+		    	registroControl.setVisible(false, false);
+		    	editarHoteleria.setVisible(false, false);
+		    	registrarPago.setVisible(false, false);
+		    	editarPago.setVisible(false,false);
+		        editarPago2.setVisible(false,false);
+		 		<!--Autor: }Sebastian -->   
+		 		
+		 	    <!--Autor: Cristian{ -->
+		 		AdEditarMascota3.setVisible(false,false);
+		    	AdEditarMascota2.setVisible(false, false);   
+		 		<!--Autor: }Cristian -->   
+
+		 	<!--Autor: Nicolas{ -->
+		    	rConsulta.setVisible(false,false);
+		    	rConsulta2.setVisible(false, false);
+		    	anularPel.setVisible(false,false);
+		    	anularPel2.setVisible(false,false);
+		    	eliminarPel.setVisible(false,false);
+		    	eliminarPel2.setVisible(false,false);
+		    	deseliminarPel.setVisible(false,false);
+			anularPre.setVisible(false,false);
+			anularPre2.setVisible(false,false);
+			editProducto2.setVisible(false,false);
+			editProducto.setVisible(false,false);
+			registarAviso.setVisible(false,false);
+			regPostOp.setVisible(false, false);
+			regPostOp1.setVisible(false, false);
+			editarControl.setVisible(false, false);
+
+		 	<!--Autor: }Nicolas -->
+			
+		 		
+            }
+            
+           <!--Autor: Sebastian{-->
+           	public function manejadorBitacora(event:Event):void{
+            	setInvisible();
+            	bitacora.setVisible(true,false);
+            	menuAgenda1.setVisible(true, false);
+            }
+            public function manejadorAgenda(event:Event):void{
+            	agenda2.labelMessage.text="";
+            	setInvisible();
+            	agenda2.setVisible(true,false);
+            	menuAgenda1.setVisible(true, false);
+            }
+            <!--Autor: }Sebastian -->
+            
+            
+            
+            <!--Autor: Esteban{ -->
+            private function linkLogin (event:Event):void
+            {
+            	setInvisible();
+            	panelOpciones.setVisible(true,false);
+            	if(botonLogin.label=="Iniciar Sesión"){
+            		login2.setVisible(true,false);
+            	}
+            	else{
+            		login3.setVisible(true,false);
+            	}
+            }  
+            <!--Autor: }Esteban --> 
+            
+             private function verLogin ( event:Event ):void{
+				setInvisible();
+                panelOpciones.setVisible(true,false);
+            	login2.setVisible(true,false);
+            }
+            
+            private function mostrarPetshop():void{
+            	setInvisible();
+            	panelPetshop.visible = true;
+            	opcionesPetshop.visible = true;	
+            
+            }
+            
+            private function mostrarBusqueda():void
+            {
+            	setInvisible();
+            	busqueda2.reiniciar();
+            	busqueda2.combobox.selectedIndex=0;
+            	busqueda2.textBuscar.visible=false;
+            	busqueda2.comboboxAtencion.setVisible(false,false);
+				busqueda2.gridAtencion.setVisible(false,false);
+				busqueda2.comboboxCliente.setVisible(false,false);
+				busqueda2.gridCliente.setVisible(false,false);
+				busqueda2.comboboxAviso.setVisible(false,false);
+				busqueda2.gridAviso.setVisible(false,false);
+				busqueda2.comboboxMascota.setVisible(false,false);
+				busqueda2.gridMascota.setVisible(false,false);
+				busqueda2.comboboxProducto.setVisible(false,false);
+				busqueda2.gridProducto.setVisible(false,false);
+				busqueda2.comboboxUsuario.setVisible(false,false);
+				busqueda2.gridUsuario.setVisible(false,false);
+                panelOpciones.setVisible(true,false);
+            	busqueda2.setVisible(true,false);
+            }
+            
+            public  function inicial ( event:Event ):void{
+            	setInvisible();
+            	panel2.setVisible(true,false);
+            	AdmOpciones1.setVisible(true,false);
+            }
+
+            
+           private function manejadorClick2 ( event:Event ):void{	
+            	//raullrich borrando labelMensaje 
+            	agenda2.labelMessage.text="";
+            	setInvisible();
+            	agenda2.setVisible(true,false);
+				menuAgenda1.setVisible(true,false);
+            }
+            
+            private function petmanejadorClick ( event:Event ):void{
+            	//setInvisible();
+            	//panel2.setVisible(true,false);
+                //petOpciones1.setVisible(true,false);
+            }
+            
+            private function hotelclimanejadorClick ( event:Event ):void{
+            	setInvisible();
+            	hotelOpciones.setVisible(true,false);
+            	panelHoteleria.setVisible(true,false);
+            }
+			
+			private function climanejadorClickpanel ( event:Event ):void{
+            	setInvisible();
+            	panel2.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+            }
+            
+            private function climanejadorClick ( event:Event ):void{
+            	setInvisible();
+            	panelClinicaPrincipal.setVisible(true,false);
+                opcionesClinica1.setVisible(true,false);
+
+			}        
+
+            private function manejadorClick ( event:Event ):void{
+            	setInvisible();
+            	panel2.setVisible(true,false);
+            	AdmOpciones1.setVisible(true,false);
+            }
+            //Camilo
+            private function verPanelPeluqueria( event:Event ):void
+            {
+            	setInvisible();
+            	peluqueria1.setVisible(true,false);
+            	panelPeluqueria.setVisible(true,false);
+            }
+            
+
+            //raullrich
+ 			<!--Autor: Raúl López{-->
+ 			private function editCita(event:Event):void
+ 			{
+   				 agenda2.labelMessage.text="";
+   				 setInvisible();
+    		     editarCita.setVisible(true,false);
+    		     menuAgenda1.setVisible(true, false);
+ 			}
+ 			<!--Autor: Raúl López{-->
+            
+ 			private function editarCliente(event:Event):void
+ 			{
+   				setInvisible();
+   				//panelEditaCLi.labelMessage.text="";
+   				AdmOpciones1.setVisible(true,false);
+   				panelEditaCLi.setVisible(true,false);
+              
+ 			}
+            <!--Autor: Raúl López{-->
+            
+                              <!--Autor: Victor{--> 
+           private function eliminaCliente (event:Event):void
+           {
+           	setInvisible();
+           	eliminarCliente.setVisible(true,false);
+           	AdmOpciones1.setVisible(true,false);
+           }
+           
+            <!--Autor: Victor{--> 
+            private function purgaCliente (event:Event):void
+           {
+           	setInvisible();
+           	purgarCliente.setVisible(true,false);
+           	AdmOpciones1.setVisible(true,false);
+           }
+            
+        ]]>
+
+    </mx:Script>
+    <ns1:ConfiguracionVacunas x="241" y="134" id="confVacunas" visible="false">
+    </ns1:ConfiguracionVacunas>
+    <ns1:ConfiguracionServicios x="241" y="134" id="confServicios" visible="false">
+    </ns1:ConfiguracionServicios>	
+     <ns1:ConfiguracionUsuario x="241" y="134" id="confUsuario" visible="false">
+    </ns1:ConfiguracionUsuario>	
+    <ns1:ConfiguracionMascota x="241" y="134" id="confMascota" visible="false">
+    </ns1:ConfiguracionMascota>	
+	<mx:MenuBar x="0" y="104" width="1020" height="30"></mx:MenuBar>
+	<ns1:opciones x="0" y="134" id="panelOpciones" visible="true" horizontalAlign="center" height="466">
+	</ns1:opciones>
+	<ns1:Agenda x="241" y="134" visible="false" id="agenda2">
+	</ns1:Agenda>
+	<ns1:RegistroPostOperatorio x="241" y="134" id="cliRegistroPO2" visible="false">
+	</ns1:RegistroPostOperatorio>
+	<ns1:RegistroPreOperatorio x="241" y="134" id="cliRegistroPreO2" visible="false">
+	</ns1:RegistroPreOperatorio>
+	<ns1:OpcionesClinica x="0" y="134" id="opcionesClinica1" visible="false">
+	</ns1:OpcionesClinica>
+	<ns2:PanelAdministracion x="0" y="134" id="AdmOpciones1" visible="false">
+	</ns2:PanelAdministracion>
+	<ns1:RegistroRazas2 x="241" y="134" id="AdRegistrarRazas2" visible="false">
+	</ns1:RegistroRazas2>	
+	<!--Autor: camilo}--> 
+	<ns2:RegistroUsuario x="241" y="134" id="AdRegUsuario2" visible="false">
+	</ns2:RegistroUsuario>
+	<ns2:VisualizarFicha x="241" y="134" id="verFicha" visible="false">
+	</ns2:VisualizarFicha>
+	<ns2:buscarFicha x="241" y="134" id="visualizarFicha" visible="false">
+	</ns2:buscarFicha>
+		<!--Autor:camilo}-->
+
+	<ns1:RegistrarMascota x="241" y="134" id="AdmMascota2" visible="false">
+	</ns1:RegistrarMascota>
+	<ns1:RegistroCliente x="241" y="134" id="AdmIngreso2" visible="false">
+	</ns1:RegistroCliente>
+	<ns1:OpcionesHoteleria x="0" y="134" visible="false" id="hotelOpciones">
+	</ns1:OpcionesHoteleria>
+	<ns1:Panel1Ventas x="0" y="134" id="petOpciones1" visible="false">
+	</ns1:Panel1Ventas>
+	<ns2:Administracion x="241" y="134" id="panel2" visible="false">
+	</ns2:Administracion>
+	<mx:TextArea x="161" y="-31" id="texHelp" visible="false">
+	</mx:TextArea>
+	<mx:TextArea x="161" y="-31" id="texHelp2" visible="false">
+	</mx:TextArea>
+	<mx:TextArea x="161" y="-31" id="texHelp3" visible="false">
+	</mx:TextArea>
+	<mx:TextArea x="161" y="-31" id="texHelp4" visible="false">
+	</mx:TextArea>
+	<mx:TextArea x="161" y="-31" id="texHelp5" visible="false">
+	</mx:TextArea>
+	<ns1:MenuAgenda x="0" y="134" visible="false" id="menuAgenda1">
+	</ns1:MenuAgenda>
+    <!--<ns1:EditarCita x="241" y="134" id="editarCita" visible="false">
+	</ns1:EditarCita>-->
+	<ns1:BusquedaGeneral x="241" y="134" id="busqueda2" visible="false">
+	</ns1:BusquedaGeneral>
+	<ns1:huespedAgregado x="241" y="134" id="huespedAgregado2" visible="false">
+	</ns1:huespedAgregado>
+	<!--Autor: andres{-->
+	
+	<ns1:GraficosClinica x="241" y="134" id="graficosClinica1" visible="false">
+	</ns1:GraficosClinica>
+	<ns1:EliminarMascota x="241" y="134" id="AdmEliminarMascota" visible="false">
+	</ns1:EliminarMascota>
+	<ns1:PurgarMascota x="241" y="134" id="AdmPurgarMascota" visible="false">
+	</ns1:PurgarMascota>
+	<ns1:EditarPostOperatorio x="241" y="134" id="editarPostO" visible="false">
+	</ns1:EditarPostOperatorio>
+	<ns1:EditarPostOperatorioDetalle x="241" y="134" id="EditarPostODetalle" visible="false">
+	</ns1:EditarPostOperatorioDetalle>
+	<ns4:PurgarControl x="241" y="134" id="purgControl" visible="false">
+	</ns4:PurgarControl>
+	<ns5:ElminarHoteleria x="241" y="134" id="eliminarHoteleria" visible="false">
+	</ns5:ElminarHoteleria>
+	<ns1:PanelHoteleria x="241" y="134" id="panelHoteleria" visible="false">
+	</ns1:PanelHoteleria>
+	<!--Autor: andres}-->
+
+	<!--Autor: nicolas}-->
+
+     <ns1:VisualizarPreoperatorio x="241" y="134" visible="false" id="visualizaPre">
+	</ns1:VisualizarPreoperatorio>
+      <ns1:PurgarPreOperatorio x="241" y="134" id="purgarPre" visible="false" borderColor="#15AD8F">
+	</ns1:PurgarPreOperatorio>
+	<ns1:RegistrarConsulta x="241" y="134" id="rConsulta" visible="false" borderColor="#15AD8F">
+	</ns1:RegistrarConsulta>
+	<ns1:RegistrarConsulta2 x="241" y="134" id="rConsulta2" visible="false" borderColor="#15AD8F">
+	</ns1:RegistrarConsulta2>
+	
+	
+	<!--Autor: }nicolas-->
+	
+	<!--Autor: Esteban{ -->
+	<ns1:PeluqueriaIni x="241" y="134" id="peluqueriaIni" visible="false">
+	</ns1:PeluqueriaIni>
+	<peluqueria:AnuCatalogo x="240" y="133" visible="false" id="AnuCatalogo">
+	</peluqueria:AnuCatalogo>
+	<peluqueria:EliCatalogo x="240" y="133" visible="false" id="EliCatalogo">
+	</peluqueria:EliCatalogo>
+	<ns4:Policlinico x="240" y="133" visible="false" id="policlinicoIni">
+	</ns4:Policlinico>
+	<ns4:vacunacionA x="240" y="133" visible="false" id="vacunacionA">
+	</ns4:vacunacionA>
+	<ns4:vacunacionA2 x="240" y="133" visible="false" id="vacunacionA2">
+	</ns4:vacunacionA2>
+	<ns4:vacunacionE x="240" y="133" visible="false" id="vacunacionE">
+	</ns4:vacunacionE>
+	<ns4:vacunacionE2 x="240" y="133" visible="false" id="vacunacionE2">
+	</ns4:vacunacionE2>
+	<ns3:cirugiaA x="240" y="133" visible="false" id="cirugiaA">
+	</ns3:cirugiaA>
+	<ns3:cirugiaA2 x="240" y="133" visible="false" id="cirugiaA2">
+	</ns3:cirugiaA2>
+	<ns3:cirugiaE x="240" y="133" visible="false" id="cirugiaE">
+	</ns3:cirugiaE>
+	<ns3:cirugiaE2 x="240" y="133" visible="false" id="cirugiaE2">
+	</ns3:cirugiaE2>
+	<ns3:PabellonIni x="240" y="133" visible="false" id="pabellonIni">
+	</ns3:PabellonIni>
+	<ns1:LoginIniciar x="241" y="134" id="login2" visible="true" borderColor="#15AD8F">
+	</ns1:LoginIniciar>
+	<ns1:LoginCerrar x="241" y="134" id="login3" visible="false" borderColor="#15AD8F">
+	</ns1:LoginCerrar>
+	<mx:Button x="580" y="30" label="Ayuda" width="110" height="50" id="botonAyuda" icon="@Embed(source='../Help.png')" enabled="true" click="showWindow();" labelPlacement="bottom"/>
+	<mx:Button x="880" y="30" label="Iniciar Sesión" width="110" height="50" icon="@Embed(source='../Users.png')" id="botonLogin" enabled="true" labelPlacement="bottom"/>
+	<!--Autor: }Esteban -->
+	
+	<!--Erwin Díaz-->
+	<ns1:BitacoraEventos x="241" y="134" id="bitacoraEventos" visible="false" borderColor="#15AD8F">
+	</ns1:BitacoraEventos>
+	<ns1:ElimUsuario x="241" y="134" id="elimusuario" visible="false" borderColor="#15AD8F">
+	</ns1:ElimUsuario>
+	<ns1:PurgUsuario x="241" y="134" id="purgusuario" visible="false" borderColor="#15AD8F">
+	</ns1:PurgUsuario>
+	<ns1:ElimFicha x="241" y="134" id="elimficha" visible="false" borderColor="#15AD8F">
+	</ns1:ElimFicha>
+	<ns1:PurgFicha x="241" y="134" id="purgficha" visible="false" borderColor="#15AD8F">
+	</ns1:PurgFicha>
+	<ns1:PurgarPostOLista x="241" y="134" id="PurgarPostOperatorio1" visible="false" borderColor="#15AD8F">
+	</ns1:PurgarPostOLista>
+	<ns1:PurgarPostOperatorio x="241" y="134" id="purgPost" visible="false" borderColor="#15AD8F">
+	</ns1:PurgarPostOperatorio>
+	<ns1:RegistroCatalogo x="241" y="134" id="regCatalogo" visible="false" borderColor="#15AD8F">
+	</ns1:RegistroCatalogo>
+	<ns6:EditarAvisoList x="241" y="134" id="editarAvisoList" visible="false" borderColor="#15AD8F">
+	</ns6:EditarAvisoList>
+	<ns6:EditarAviso x="241" y="134" id="editarAviso" visible="false" borderColor="#15AD8F">
+	</ns6:EditarAviso>
+	<ns1:anulPostOLista x="241" y="134" id="AnulPost" visible="false" borderColor="#15AD8F">
+	</ns1:anulPostOLista>
+	<ns1:anulPost x="241" y="134" id="AnulPostD" visible="false" borderColor="#15AD8F">
+	</ns1:anulPost>
+	<ns8:bitacoraList x="241" y="134" id="bitacoraList" visible="false" borderColor="#15AD8F">
+	</ns8:bitacoraList>
+	
+	<mx:Image x="365" y="0" width="174" height="104" source="../fotos-animales-perros-peq.jpg" autoLoad="true"/>
+	<mx:TextArea x="0" y="0" width="366" height="104" borderStyle="none" fontFamily="Arial" editable="false" fontSize="27" fontWeight="bold" fontStyle="normal" backgroundColor="#FFFFFF" color="#0202CB" themeColor="#0060FF" borderColor="#FFFFFF" enabled="true" wordWrap="false"/>
+	<mx:Image x="275" y="10" width="76" height="70" source="../Simbolo.JPG" autoLoad="true"/>
+	<mx:Label x="10" y="10"  text="Hospital Veterinario" width="274" height="43" fontFamily="Arial" color="#0202CB" fontSize="27" fontWeight="bold" enabled="true"/>
+	<mx:Label x="30" y="47" text="Claudio Bonati" fontFamily="Arial" fontSize="27" color="#15AD8F" fontWeight="bold"/>
+	<mx:Button x="738" y="30" label="Búsqueda" width="100" height="50" icon="@Embed(source='../Search.png')" labelPlacement="bottom" fillAlphas="[0.6, 0.4, 0.75, 0.65]" enabled="false" click="mostrarBusqueda()" id="botonBusqueda"/>
+	<mx:Button enabled="false" x="170" y="104" label="Agenda" width="171" height="30" cornerRadius="4" id="botonAgenda" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="340" y="104" label="Clínica" width="171" height="30" cornerRadius="4" id="botonClinica" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="510" y="104" label="Peluquería" width="171" height="30" id="botonPeluqueria" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="680" y="104" label="Pet Shop" width="171" height="30" id="botonPetshop" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12" click="mostrarPetshop()"/>
+	<mx:Button enabled="false" x="850" y="104" label="Hotelería" width="170" height="30" id="botonHotel" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="0" y="104" label="Administración" height="30" width="171" id="botonAdmin" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<ns2:EditUsuarioUpdate x="241" y="134" id="AdEditarUsuar3" visible="false">
+	</ns2:EditUsuarioUpdate>
+	<ns2:EditarUsuario x="240" y="133" id="AdEditarUsuar2" visible="false">
+	</ns2:EditarUsuario>	
+	<ns1:Bitacora id="bitacora" x="241" y="134" visible="false">
+	</ns1:Bitacora> 
+	
+	<!--Autor: jimmy{ -->
+	<ns3:addCirugia x="240" y="133" visible="false" id="cliRegistro2">
+	</ns3:addCirugia>
+	<ns3:addCirugia1 x="240" y="133" id="addCirug" visible="false">
+	</ns3:addCirugia1>
+	<ns1:EditarCirugia x="241" y="134" id="editarCirugia" visible="false">
+	</ns1:EditarCirugia>
+	
+	<ns4:AddVacunacion1 x="241" y="133" id="addVacuna1" visible="false">
+	</ns4:AddVacunacion1>
+	<ns4:AddVacunacion x="240" y="133" id="addVacuna" visible="false">
+	</ns4:AddVacunacion>
+	<!--Autor: }Jimmy -->
+	
+	<!--Autor: Raul Lopez{ -->
+	<ns2:EditarCliente x="241" y="134" id="panelEditaCLi" visible="false">
+	</ns2:EditarCliente>
+	<ns2:EditClienteUpdate x="241" y="134" id="ediCliUp" visible="false">
+	</ns2:EditClienteUpdate>
+	
+	<ns2:EditCitaUpdate x="241" y="134" visible="false" id="editarCita">
+	</ns2:EditCitaUpdate>
+	<!--Autor: }Raul Lopez -->
+	
+	 <!--Autor: Vitoxone}--> 
+	<ns1:EliminarCliente x="241" y="134" id="eliminarCliente" visible="false">
+	</ns1:EliminarCliente>
+	<ns1:PurgarCliente x="241" y="134" id="purgarCliente" visible="false">
+	</ns1:PurgarCliente>
+		<ns1:RegistraCita x="241" y="134" id="registrarCita" visible="false">
+		
+	</ns1:RegistraCita>
+
+	<ns5:RegistrarHoteleria x="241" y="134" id="registrarHoteleria" visible="false">
+		
+	</ns5:RegistrarHoteleria>
+	 <!--Autor: Vitoxone}--> 
+	
+	<!--Autor: Camilo{ -->
+
+	<ns1:EditCatalogo  x="241" y="134" id="editCatalogo"  visible="false">
+	</ns1:EditCatalogo>   
+	<ns1:EditCatalogoBusqueda 	x="241" y="134" id="editCatalogoBusqueda" visible="false">
+	</ns1:EditCatalogoBusqueda>
+	<ns1:PanelPeluqueria x="0" y="134" id="panelPeluqueria" visible="false">
+	</ns1:PanelPeluqueria>
+	<ns1:GraficosPeluqueria x="241" y="134" id="graficosPeluqueria" visible="false">
+	</ns1:GraficosPeluqueria>
+	<ns1:PeluqueriaIni x="241" y="134" id="peluqueria1" visible="false">
+	</ns1:PeluqueriaIni>
+	<ns7:RegistrarProducto x="241" y="134" id="regProducto"  visible="false">		
+	</ns7:RegistrarProducto>
+	<!--Autor: } Camilo -->
+	
+	<!--Autor: nicolas}-->
+
+   	<ns1:VisualizarPreoperatorio x="241" y="134" visible="false" id="anularPre">
+	</ns1:VisualizarPreoperatorio>
+    <ns1:PurgarPreOperatorio x="241" y="134" id="anularPre2" visible="false" borderColor="#15AD8F">
+	</ns1:PurgarPreOperatorio>
+	<ns1:RegistrarConsulta x="241" y="134" id="registroConsulta" visible="false" borderColor="#15AD8F">
+	</ns1:RegistrarConsulta>
+	<ns1:AnularRegPeluqueria x="241" y="134" id="anularPel" visible="false" borderColor="#15AD8F">
+	</ns1:AnularRegPeluqueria>
+	<ns1:AnularRegPeluqueria2 x="241" y="134" id="anularPel2" visible="false" borderColor="#15AD8F">
+	</ns1:AnularRegPeluqueria2>
+	<ns1:EliminarRegPeluqueria x="241" y="134" id="eliminarPel" visible="false" borderColor="#15AD8F">
+	</ns1:EliminarRegPeluqueria>	
+	<ns1:EliminarRegPeluqueria2 x="241" y="134" id="eliminarPel2" visible="false" borderColor="#15AD8F">
+	</ns1:EliminarRegPeluqueria2>	
+	<ns1:deseliminarPeluqueria x="241" y="134" id="deseliminarPel" visible="false" borderColor="#15AD8F">
+	</ns1:deseliminarPeluqueria>
+	<ns1:EditarProducto x="241" y="134" id="editProducto" visible="false" borderColor="#15AD8F">
+	</ns1:EditarProducto>
+	<ns1:EditarProducto2 x="241" y="134" id="editProducto2" visible="false" borderColor="#15AD8F">
+	</ns1:EditarProducto2>
+	<!--Autor: }nicolas-->
+	
+	<!--Autor: Cristian Bravo{ -->
+	<ns2:EditMascotaUpdate x="241" y="134" visible="false" id="AdEditarMascota3">
+	</ns2:EditMascotaUpdate>
+	<ns2:EditarMascota x="241" y="134" id="AdEditarMascota2" visible="false">
+	</ns2:EditarMascota>
+
+	
+ <!--Autor: Cristian{ -->
+	
+	
+	
+	<!--Autor: Sebastian{-->
+		<ns1:RegistrarControl x="241" y="134" id="registroControl" visible="false">
+	</ns1:RegistrarControl>
+		<ns3:addPreOperatorio x="241" y="134" visible="false" id="regPreoOp">
+		</ns3:addPreOperatorio>
+		<ns3:addPreoperatorio1 x="241" y="134" visible="false" id="regPreoOp1">
+		</ns3:addPreoperatorio1>
+		<ns3:EditarConsulta x="241" y="134" visible="false" id="editConsulta">
+		</ns3:EditarConsulta>
+		<ns3:EditarConsultaUpdate x="241" y="134" visible="false" id="editConsultaUpdate">
+		</ns3:EditarConsultaUpdate>
+		<ns1:PanelClinicaPrincipal x="241" y="134" visible="false" id="panelClinicaPrincipal">
+		</ns1:PanelClinicaPrincipal>
+		<ns1:PanelClinica x="241" y="134" visible="false" id="panelClinicaIni">
+		</ns1:PanelClinica>
+		<ns5:EditarHoteleria x="241" y="134" visible="false" id="editarHoteleria">
+		</ns5:EditarHoteleria>
+		<peluqueria:AddPeluqueria1 x="241" y="133" id="addPelu1" visible="false">
+		</peluqueria:AddPeluqueria1>
+		<peluqueria:AddPeluqueria x="241" y="133" id="addPeluq" visible="false">
+		</peluqueria:AddPeluqueria>
+		<peluqueria:EditarPeluqueria x="241" y="134" visible="false" id="editaPelu">
+		</peluqueria:EditarPeluqueria>
+		<peluqueria:EditarPeluqueriaUpdate x="241" y="134" visible="false" id="editaPelUPdate">
+		</peluqueria:EditarPeluqueriaUpdate>
+		<ns7:OpcionesPetshop x="0" y="134" visible="false" id="opcionesPetshop">
+		</ns7:OpcionesPetshop>
+		<ns7:PanelPetshop x="241" y="134" visible="false" id="panelPetshop">
+		</ns7:PanelPetshop>
+		<ns7:RegistrarPago x="241" y="134" visible="false" id="registrarPago">
+		</ns7:RegistrarPago>
+		<ns7:EditarPago x="241" y="134" visible="false" id="editarPago">
+		</ns7:EditarPago>
+		
+		<ns7:EditarPAgo2 x="241" y="134" visible="false" id="editarPago2">
+		</ns7:EditarPAgo2>
+		<ns7:AnularPago x="241" y="133" id="anuPago" visible="false">
+		</ns7:AnularPago>
+		<ns7:EliminarPago x="241" y="133" id="elimPago" visible="false">
+		</ns7:EliminarPago>
+		<ns6:EliminarWebaviso x="240" y="133" id="eliminarweb" visible="false">
+		</ns6:EliminarWebaviso>
+		<ns6:activarWebaviso x="240" y="133" id="actWebaviso" visible="false">
+		</ns6:activarWebaviso>
+		<ns6:anularWebaviso x="240" y="133" visible="false" id="anuWebaviso">
+		</ns6:anularWebaviso>
+		<ns7:ActivarPago x="240" y="133" id="activarPago" visible="false">
+		</ns7:ActivarPago>
+		<ns7:EliminarPulgarProducto x="241" y="134" visible="false" id="eliminarPulgarProducto">
+		</ns7:EliminarPulgarProducto>
+		<ns6:registrarAviso2 x="241" y="134" id="registarAviso" visible="false" borderColor="#15AD8F">
+	    </ns6:registrarAviso2>
+	     <ns3:addPostOperatorio x="241" y="134" visible="false" id="regPostOp">
+		</ns3:addPostOperatorio>
+		<ns3:addPostOperatorio1 x="241" y="134" visible="false" id="regPostOp1">
+		</ns3:addPostOperatorio1>
+	    <ns3:EditarControl x="241" y="134" id="editarControl" visible="false">
+	    </ns3:EditarControl>
+
+	<!--Autor: }Sebastian-->
+</mx:Application>

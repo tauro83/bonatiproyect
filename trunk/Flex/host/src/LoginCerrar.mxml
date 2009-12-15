@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Cerrar Sesión" borderColor="#15AD8F">
+<mx:Script>
+	<![CDATA[
+		//=======================================================================
+		// FECHA CREACIÓN: 15/09/09
+		// AUTOR: Esteban Cruz
+		// Dentro de este componente se puede cerrar la sesion de un usuario
+		// acutalmente activo o volver al panel de agenda
+		//=======================================================================
+		
+		import mx.core.Application;
+		
+		/**
+		*  Cierra la sesion de un usuario, haciendolo volver 
+		*  al panel de "iniciar sesion"
+		*  @author  "Esteban Cruz"
+		**/
+		private function cerrar():void
+		{
+			Application.application.setInvisible();
+            Application.application.panelOpciones.setVisible(true,false);
+            Application.application.login2.setVisible(true,false);
+           	Application.application.botonLogin.enabled=true;
+           	Application.application.botonClinica.enabled=false;
+           	Application.application.botonAgenda.enabled=false;
+           	Application.application.botonAdmin.enabled=false;
+           	Application.application.botonPeluqueria.enabled=false;
+           	Application.application.botonPetshop.enabled=false;
+           	Application.application.botonBusqueda.enabled=false;
+           	Application.application.botonHotel.enabled=false;
+           	Application.application.botonAyuda.enabled=false;
+           	Application.application.botonLogin.label="Iniciar Sesión";
+   		}
+   			
+   		/**
+   		*  Si se cancela al momento de cerrar sesion,
+		*  vuelve al panel de agenda 
+		*  @author  "Esteban Cruz"
+		**/
+   		private function cancelar():void
+   		{
+   			Application.application.setInvisible();
+            Application.application.agenda2.setVisible(true,false);
+            Application.application.menuAgenda1.setVisible(true,false);
+   		}
+   			
+	]]>
+</mx:Script>
+	<mx:Button x="523" y="302" label="Cerrar" width="102" height="23" id="botonCerrarSesion" cornerRadius="6" click="cerrar()"/>
+	<mx:Button x="647" y="302" label="Cancelar" width="102" height="23" id="botonCancelar" cornerRadius="6" click="cancelar()"/>
+	<mx:Image x="0" y="0" source="../gatogris.jpg" height="426" width="455"/>
+	<mx:Label x="463" y="78" text="¿Cerrar sesión?" fontSize="25" fontWeight="bold"/>
+	<mx:Label x="389" y="160" text="Si desea cerrar su sesión presione el botón 'Cerrar'" fontSize="12" fontWeight="bold"/>
+</mx:Panel>
