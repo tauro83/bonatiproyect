@@ -114,6 +114,7 @@
             	combobox.selectedItem="-Seleccionar-";
             	textBuscar.setVisible(false,false);
             	this.vacunaicones = new ArrayCollection();
+            	
           
             }
             
