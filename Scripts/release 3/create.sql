@@ -13,7 +13,7 @@ drop table IF EXISTS atencionalojamiento cascade;
 drop table IF EXISTS control cascade;
 drop table IF EXISTS preoperatorio cascade;
 
-CREATE TABLE Especie
+CREATE TABLE especie
 (
 	nombre	CHAR(20) primary key
 );
@@ -24,12 +24,12 @@ CREATE TABLE Cargo
 );
 
 
-CREATE TABLE Servicio
+CREATE TABLE servicio
 (
 	nombre	CHAR(20) primary key
 );
 
-CREATE TABLE Vacuna
+CREATE TABLE vacuna
 (
 	nombre	CHAR(20) primary key,
 	precio  int,
@@ -38,7 +38,7 @@ CREATE TABLE Vacuna
 	
 );
 
-create table Vacunacion(
+create table vacunacion(
 	vacuna CHAR(30) not null references vacuna(Nombre),
 	clienteRut CHAR(9) not null references ClientePresencial(rut) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
 	mascotaNombre CHAR(50) not null,
