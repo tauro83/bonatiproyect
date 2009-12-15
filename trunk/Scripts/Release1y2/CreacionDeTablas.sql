@@ -17,7 +17,7 @@ drop table IF EXISTS atencionconsulta cascade;
 drop table IF EXISTS atencioncontrol cascade;
 drop table IF EXISTS atencionpreoperatorio cascade;
 
-CREATE TABLE Usuario
+CREATE TABLE usuario
 (
 	nombre	CHAR(20),
 	aPaterno CHAR(20),
@@ -36,7 +36,7 @@ CREATE TABLE Usuario
 
 
 
-create table ClientePresencial
+create table clientepresencial
 (
 	rut CHAR(9) not null,
 	telefono int ,
@@ -52,7 +52,7 @@ create table ClientePresencial
 	constraint PK_rut primary key (rut)
 );
 
-create table Mascota
+create table mascota
 (
 	rut character(9),
 	nombre character(50),
@@ -126,7 +126,7 @@ CREATE TABLE corte
 );
 
 
-create table Atencion
+create table atencion
 (
 	clienteRut CHAR(9) references ClientePresencial(rut) MATCH FULL ON DELETE RESTRICT ON UPDATE CASCADE,
 	mascotaNombre CHAR(20) not null,
@@ -175,7 +175,7 @@ CREATE TABLE cirugia
       ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-create table Diagnosticos(
+create table diagnosticos(
 	clienteRut CHAR(9) not null,
 	mascotaNombre CHAR(50) not null,
 	hora time not null,

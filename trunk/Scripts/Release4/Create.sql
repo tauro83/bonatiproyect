@@ -53,7 +53,7 @@ CREATE TABLE producto
   CONSTRAINT producto_pkey PRIMARY KEY (codigo)
 ); 
 
-CREATE TABLE ASUNTOWEBAVISO
+CREATE TABLE asuntowebaviso
 (
 	nombre Char (30) not null
 
