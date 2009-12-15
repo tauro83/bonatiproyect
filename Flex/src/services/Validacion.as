@@ -61,7 +61,7 @@ package services
 				correcta = false;
 			}
 			
-			if(contrasena.length<4)
+			if(contrasena.length<3)
 			{
 				correcta = false;
 			}
