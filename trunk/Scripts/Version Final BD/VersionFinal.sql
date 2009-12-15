@@ -1,3 +1,42 @@
+drop table Usuario cascade;
+drop table ClientePresencial cascade;
+drop table Mascota cascade;
+drop table bitacora cascade;
+drop table atencionpedicure cascade;
+drop table atencionbanio cascade; 
+drop table corte cascade;
+drop table Atencion cascade;
+drop table preoperatorio cascade;
+drop table cita cascade;
+drop table Cirugia cascade;
+drop table Diagnosticos cascade; 
+drop table atencionvacuna cascade;
+drop table atencioncirugia cascade;
+drop table atencionconsulta cascade;
+drop table atencioncontrol cascade;
+drop table atencionpreoperatorio cascade;
+drop table Especie cascade;
+drop table Cargo cascade;
+drop table Servicio cascade;
+drop table Vacuna cascade;
+drop table Vacunacion cascade;
+drop table consulta cascade;
+drop table atencionpostoperatorio cascade;
+drop table serviciopeluq cascade;
+drop table catpeluqueria cascade;
+drop table atencionpeluqueria cascade;
+drop table serviciospeluqueria cascade;
+drop table atencionalojamiento cascade;
+drop table control cascade;
+drop table preoperatorio cascade;
+drop table pago cascade;
+drop table detallepago cascade;
+drop table avisoweb cascade;
+drop table raza cascade;
+drop table producto cascade;
+drop table asuntowebaviso cascade;
+drop table comuna cascade;
+
 CREATE TABLE usuario
 (
 	nombre	CHAR(20),
