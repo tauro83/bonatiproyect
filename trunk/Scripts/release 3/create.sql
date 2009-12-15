@@ -1,3 +1,18 @@
+drop table IF EXISTS Especie cascade;
+drop table IF EXISTS Cargo cascade;
+drop table IF EXISTS Servicio cascade;
+drop table IF EXISTS Vacuna cascade;
+drop table IF EXISTS Vacunacion cascade;
+drop table IF EXISTS consulta cascade;
+drop table IF EXISTS atencionpostoperatorio cascade;
+drop table IF EXISTS serviciopeluq cascade;
+drop table IF EXISTS catpeluqueria cascade;
+drop table IF EXISTS atencionpeluqueria cascade;
+drop table IF EXISTS serviciospeluqueria cascade;
+drop table IF EXISTS atencionalojamiento cascade;
+drop table IF EXISTS control cascade;
+drop table IF EXISTS preoperatorio cascade;
+
 CREATE TABLE Especie
 (
 	nombre	CHAR(20) primary key
