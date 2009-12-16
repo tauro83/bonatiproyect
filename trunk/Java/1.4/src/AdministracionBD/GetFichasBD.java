@@ -86,6 +86,7 @@ public class GetFichasBD {
     			mas.setRaza(result.getString(5));
     			mas.setSexo(result.getString(6));
     			mas.setEstado(result.getBoolean(7));
+    			
     			mascotas.add(mas);
     		}
 		} 
@@ -123,6 +124,9 @@ public class GetFichasBD {
     			at.setHora(result.getString(2));
     			at.setSfecha(""+result.getString(3));
     			at.setCosto("$"+result.getString(4));
+    			if(result.getString(4)==null){
+					at.setCosto("");
+				}
     			atenciones.add(at);
     		}
 		} 
@@ -149,6 +153,9 @@ public class GetFichasBD {
     			at.setHora(result.getString(2));
     			at.setSfecha(""+result.getString(3));
     			at.setCosto("$"+result.getString(4));
+    			if(result.getString(4)==null){
+					at.setCosto("");
+				}
     			atenciones.add(at);
     		}
 		} 
@@ -157,52 +164,52 @@ public class GetFichasBD {
 			e.printStackTrace();
 		}
     	
-    	String queryBanio = "	SELECT rutcliente, nombremascota, servicio, hora, fecha, costo, comentario "+
-    	  							" FROM atencionbanio WHERE rutcliente='"+ rut.trim()+"' AND nombremascota='" +nombre.trim() +"'";	 
-    	try 
-    	{
-    		selectAll = connection.prepareStatement(queryBanio);
-			ResultSet result = selectAll.executeQuery();
-    		while(result.next())
-    		{
-    			at = new Atencion();
-    			at.setClienteRut(result.getString(1));
-    			at.setMascotaNombre(result.getString(2));
-    			at.setServicio(result.getString(3));
-    			at.setHora(result.getString(4));
-    			at.setSfecha(""+result.getString(5));
-    			at.setCosto("$"+result.getString(6));
-    			atenciones.add(at);
-    		}
-		} 
-    	catch (SQLException e) 
-    	{
-			e.printStackTrace();
-		}
+//    	String queryBanio = "	SELECT rutcliente, nombremascota, servicio, hora, fecha, costo, comentario "+
+//    	  							" FROM atencionbanio WHERE rutcliente='"+ rut.trim()+"' AND nombremascota='" +nombre.trim() +"'";	 
+//    	try 
+//    	{
+//    		selectAll = connection.prepareStatement(queryBanio);
+//			ResultSet result = selectAll.executeQuery();
+//    		while(result.next())
+//    		{
+//    			at = new Atencion();
+//    			at.setClienteRut(result.getString(1));
+//    			at.setMascotaNombre(result.getString(2));
+//    			at.setServicio(result.getString(3));
+//    			at.setHora(result.getString(4));
+//    			at.setSfecha(""+result.getString(5));
+//    			at.setCosto("$"+result.getString(6));
+//    			atenciones.add(at);
+//    		}
+//		} 
+//    	catch (SQLException e) 
+//    	{
+//			e.printStackTrace();
+//		}
     	
-    	String querypedicure = "SELECT rutcliente, nombremascota, servicio, hora, fecha, costo, descripcion, "+
-    	"nombre  FROM atencionpedicure WHERE rutcliente='"+ rut.trim()+"' AND nombremascota='" +nombre.trim() +"'";	 
-    	
-		try 
-		{
-			selectAll = connection.prepareStatement(querypedicure);
-			ResultSet result = selectAll.executeQuery();
-			while(result.next())
-			{
-				at = new Atencion();
-				at.setClienteRut(result.getString(1));
-				at.setMascotaNombre(result.getString(2));
-				at.setServicio(result.getString(3));
-				at.setHora(result.getString(4));
-				at.setSfecha(""+result.getString(5));
-				at.setCosto("$"+result.getString(6));
-				atenciones.add(at);
-			}
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
+//    	String querypedicure = "SELECT rutcliente, nombremascota, servicio, hora, fecha, costo, descripcion, "+
+//    	"nombre  FROM atencionpedicure WHERE rutcliente='"+ rut.trim()+"' AND nombremascota='" +nombre.trim() +"'";	 
+//    	
+//		try 
+//		{
+//			selectAll = connection.prepareStatement(querypedicure);
+//			ResultSet result = selectAll.executeQuery();
+//			while(result.next())
+//			{
+//				at = new Atencion();
+//				at.setClienteRut(result.getString(1));
+//				at.setMascotaNombre(result.getString(2));
+//				at.setServicio(result.getString(3));
+//				at.setHora(result.getString(4));
+//				at.setSfecha(""+result.getString(5));
+//				at.setCosto("$"+result.getString(6));
+//				atenciones.add(at);
+//			}
+//		} 
+//		catch (SQLException e) 
+//		{
+//			e.printStackTrace();
+//		}
     	
     	
 		String queryPostoperatorio = "SELECT medicamentos, alimentos, indicaciones, servicio, hora, fecha,"+ 
@@ -222,6 +229,9 @@ public class GetFichasBD {
 				at.setHora(result.getString(5));
 				at.setSfecha(""+result.getString(6));
 				at.setCosto("$"+result.getString(7));
+				if(result.getString(7)==null){
+					at.setCosto("");
+				}
 				atenciones.add(at);
 			}
 		} 
@@ -246,6 +256,9 @@ public class GetFichasBD {
 				at.setHora(result.getString(4));
 				at.setSfecha(""+result.getString(6));
 				at.setCosto("$"+result.getString(7));
+				if(result.getString(7)==null){
+					at.setCosto("");
+				}
 				atenciones.add(at);
 			}
 		} 
@@ -254,8 +267,100 @@ public class GetFichasBD {
 			e.printStackTrace();
 		}
 		
-    	return atenciones;
+    	
+		
+		String querycontrol = "SELECT cliente, mascota, descripcion, fecha, hora, responsable, servicio, costo  FROM atencioncontrol WHERE cliente='"+ rut.trim()+"' AND mascota='" +nombre.trim() +"'";	
+
+		try 
+		{
+			selectAll = connection.prepareStatement(querycontrol);
+			ResultSet result = selectAll.executeQuery();
+			while(result.next())
+			{
+				at = new Atencion();
+				at.setClienteRut(result.getString(1));
+				at.setMascotaNombre(result.getString(2));
+				at.setServicio(result.getString(7));
+				at.setHora(""+result.getString(5));
+				at.setSfecha(""+result.getString(4));
+				at.setCosto("$"+result.getString(8));
+				if(result.getString(8)==null){
+					at.setCosto("");
+				}
+				
+				atenciones.add(at);
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		
+		String queryCIRUGIA = "SELECT clienterut, mascotanombre, hora, responsable, ayudante, fecha, costo, estado, servicio FROM cirugia WHERE clienterut='"+ rut.trim()+"' AND mascotanombre='" +nombre.trim() +"'";	
+
+		try 
+		{
+			selectAll = connection.prepareStatement(queryCIRUGIA);
+			ResultSet result = selectAll.executeQuery();
+			while(result.next())
+			{
+				at = new Atencion();
+				at.setClienteRut(result.getString(1));
+				at.setMascotaNombre(result.getString(2));
+				at.setServicio(result.getString(9));
+				at.setHora(""+result.getString(3));
+				at.setSfecha(""+result.getString(6));
+				at.setCosto("$"+result.getString(7));
+				if(result.getString(7)==null){
+					at.setCosto("");
+				}
+				
+				atenciones.add(at);
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		
+
+		String queryconsulta = "SELECT anamnesis, servicio, hora, fecha, costo, rut, nombre, responsable, estado FROM consulta WHERE rut='"+ rut.trim()+"' AND nombre='" +nombre.trim() +"'";	
+
+		try 
+		{
+			selectAll = connection.prepareStatement(queryconsulta);
+			ResultSet result = selectAll.executeQuery();
+			while(result.next())
+			{
+				at = new Atencion();
+				at.setClienteRut(result.getString(6));
+				at.setMascotaNombre(result.getString(7));
+				at.setServicio(result.getString(2));
+				at.setHora(""+result.getString(3));
+				at.setSfecha(""+result.getString(4));
+				at.setCosto("$"+result.getString(5));
+				if(result.getString(5)==null){
+					at.setCosto("");
+				}
+				
+				atenciones.add(at);
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		
+		
+
+		
+		
+		
+		
+		return atenciones;
     }
 	
-
 }
