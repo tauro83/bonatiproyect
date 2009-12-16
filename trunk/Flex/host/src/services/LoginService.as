@@ -57,6 +57,24 @@ package services
 		{
 			this.getOperation("existLogin").send(login);
 		}
+		public function pRegistrar(login:Usuario):void
+		{
+			this.getOperation("pRegistrar").send(login);
+		}
 		
+		public function pEditar(login:Usuario):void
+		{
+			this.getOperation("pEditar").send(login);
+		}
+		
+		public function pEliminar(login:Usuario):void
+		{
+			this.getOperation("pEliminar").send(login);
+		}
+		
+		public function pPurgar(login:Usuario):void
+		{
+			this.getOperation("pPurgar").send(login);
+		}
 	}
 }

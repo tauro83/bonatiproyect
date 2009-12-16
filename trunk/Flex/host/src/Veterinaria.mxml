@@ -774,4 +774,6 @@
 	    </ns3:EditarControl>
 
 	<!--Autor: }Sebastian-->
+		<mx:Text x="931" y="4" text=" " id="usuarioON" fontWeight="bold"/>
+	    <mx:Text x="880" y="4" text="Usuario:" id="usuarioON0" fontWeight="bold" visible="false"/>
 </mx:Application>
