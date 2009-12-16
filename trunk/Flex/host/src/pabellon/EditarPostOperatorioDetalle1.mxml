@@ -44,11 +44,16 @@
 			private function removeTaskRecord():void
             {
             	if(tablaAtenciones.selectedItem){
+            		Application.application.EditarPostODetalle1.visible=false;
+            		Application.application.EditarPostODetalle2.visible=true;
+            		
+            		/*
             		//Alert.show(tablaAtenciones.selectedItem.hora.toString());
             		var elimItem:PostOperatorioService = new PostOperatorioService();
 					elimItem.addEventListener(ResultEvent.RESULT,deleteAtencionResult);
 					elimItem.elimAtencion(tablaAtenciones.selectedItem.shora.toString(),
 					this.clienterut.text.toString(), this.nomMascota.text.toString());
+					*/
 					
             	}
             }
