@@ -86,7 +86,7 @@ public class ConfigurarBD {
 			query = "SELECT nombre FROM Cargo";
 		}	
 		if(tipo.equals("ServPel")){
-			query = "SELECT nombre FROM serviciopeluq";
+			query = "SELECT nombre  FROM serviciopeluq;";
 		}
 				
 		try 
