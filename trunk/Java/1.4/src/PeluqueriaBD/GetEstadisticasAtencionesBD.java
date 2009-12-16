@@ -39,10 +39,11 @@ public class GetEstadisticasAtencionesBD {
 	public List getEstadisticasBD(String inicio,String fin) throws SQLException
     {
     	List atenciones=new ArrayList();
-    
-    	String queryCorte		=  "select count(*) from corte where fecha between '"+inicio+"' and '"+fin+"'";
-		String queryPedicure 	=  "select count(*) from atencionpedicure where fecha between '"+inicio+"' and '"+fin+"'";
-		String queryBanio 		=  "select count(*) from atencionbanio where fecha between '"+inicio+"' and '"+fin+"'";	
+    	//fecha, nuevafecha
+    	//serviciospeluqueria(servicio, nombre, clienterut, mascotanombre, hora, responsable, fecha, nuevafecha, nuevahora, costo, descripcion)
+    	String queryCorte		=  "select count(*) from serviciospeluqueria where fecha between '"+inicio+"' and '"+fin+"' AND serviciospeluqueria.servicio='Corte'";
+		String queryPedicure 	=  "select count(*) from serviciospeluqueria where fecha between '"+inicio+"' and '"+fin+"' AND serviciospeluqueria.servicio='Pedicura'";
+		String queryBanio 		=  "select count(*) from serviciospeluqueria where fecha between '"+inicio+"' and '"+fin+"' AND serviciospeluqueria.servicio='Baño'";	
 		
 		EstadisticasPeluqueria  corte = new EstadisticasPeluqueria();
 		EstadisticasPeluqueria  banio= new EstadisticasPeluqueria();
