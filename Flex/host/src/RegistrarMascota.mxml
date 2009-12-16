@@ -21,6 +21,8 @@
 		    import transferObjects.Person;
 		    import mx.core.Application;
 		    import services.configuracionServices;
+		    import mx.collections.Sort;
+			import mx.collections.SortField;
 		    
 		    import util.Properties;
 		   
@@ -31,6 +33,8 @@
 		    
 		    [Bindable] private var especies:ArrayCollection = new ArrayCollection();
 		    [Bindable] private var razas:ArrayCollection = new ArrayCollection();
+		    
+		    
 		    
 		    /**
 			* Lista de amscotas del cliente asociado
@@ -51,6 +55,23 @@
                   {label:"Hembra", data:2} ]);    
 
 
+
+			public function iniciarPanel():void{
+				buscadorCliente.getAllClientes();
+
+				buscadorCliente.inputClienteNombre.text = "";
+				buscadorCliente.rutClienteDVInput.text = "";
+				buscadorCliente.rutClienteInput.text = "";
+				
+				//Blanqueo de datos
+				nombreInput.text = "";
+				fechaNacimientoInput.text = "";
+				selClaseAnimal(null);
+				sexoInput.text = "";
+				labelMessage.text = "";
+				mascotas = new ArrayCollection();
+			
+			}
 			/**
 			* Funcion que busca un cliente
 			* @author  Sebastian Arancibia
@@ -97,7 +118,7 @@
 			 * */
 			public function getRazasResult(event:ResultEvent):void
 			{
-				razas = event.result as ArrayCollection;	
+				razas = event.result as ArrayCollection;
 			}
 			
 			/**
@@ -114,8 +135,8 @@
 			public function cargarDatosR(event:ResultEvent):void
 			{
 				especies = event.result as ArrayCollection;	
-				
-				var confs2:configuracionServices= new configuracionServices();	
+			    
+			    var confs2:configuracionServices= new configuracionServices();	
 				confs2.getRazas(claseAnimalInput.text);
 				confs2.addEventListener(ResultEvent.RESULT,getRazasResult);
 			}
@@ -273,8 +294,7 @@
 				buscadorCliente.rutClienteInput.text = "";
 				buscadorCliente.rutClienteDVInput.text = "";
 				nombreInput.text = "";
-				claseAnimalInput.text = "";
-				razaInput.text = "";
+				selClaseAnimal(null);
 				sexoInput.text = "";
 				fechaNacimientoInput.text = "";
 				labelMessage.text = "";
@@ -366,7 +386,7 @@
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente" fontWeight="bold"/>
 	<mx:Label x="25" y="73" text="Mascota" fontWeight="bold"/>
-	<ns2:BuscadorNombreRut x="26" y="36" id="buscadorCliente" keyFocusChange="buscarCliente(event)">
+	<ns2:BuscadorNombreRut x="26" y="36" id="buscadorCliente">
 	</ns2:BuscadorNombreRut>
 	<!--
 	<mx:TileList x="465.75" y="9" width="200.5" height="135" dataProvider="{files}" itemRenderer="components.ItemRenderer"></mx:TileList>
