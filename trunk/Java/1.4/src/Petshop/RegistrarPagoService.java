@@ -34,4 +34,10 @@ public class RegistrarPagoService {
 		conn.close();
 		return result;
     }
+	public Producto getProducto(String codigo){
+		Producto p = new Producto();
+		RegistrarPagoServiceBD object= new RegistrarPagoServiceBD(conn);
+		p = object.getProducto(codigo);
+		return p;
+	}
 }

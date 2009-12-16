@@ -16,4 +16,5 @@ public class Producto {
 	public String precio;
 	public String categoria;
 	public String codigo;
+	public String descripcion;
 }

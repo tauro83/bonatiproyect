@@ -8,6 +8,7 @@ package Petshop;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import TransferObjects.Pago;
 /**
@@ -17,6 +18,7 @@ import TransferObjects.Pago;
  */
 public class RegistrarPagoServiceBD {
 	PreparedStatement insert;
+	PreparedStatement select;
 	
 	/**
 	 * Constructor de la clase que prepara el statement de inserción de una nueva tabla
@@ -30,6 +32,11 @@ public class RegistrarPagoServiceBD {
 			String query = "INSERT INTO pago(fecha, hora, estado, total) "+
 						"VALUES (?, ?, ?, ?);";
 			insert = connection.prepareStatement(query);
+			
+			query = "SELECT nombre, precio, categoria, codigo, descripcion, estado "+
+					"FROM producto " +
+					"WHERE codigo=? and estado=0;";
+			select = connection.prepareStatement(query);
 		} 
 		catch (SQLException e){
 			e.printStackTrace();
@@ -44,6 +51,7 @@ public class RegistrarPagoServiceBD {
 	 */
 	public int registrarPago(Pago pago){
 		int result = 0;//resultado de la ejecución, 0:fracaso, !0:éxito
+		
 		try{
 			insert.setString(1, pago.fecha);
 			insert.setString(2, pago.hora);
@@ -58,5 +66,25 @@ public class RegistrarPagoServiceBD {
 								//tiene errores de sintáxis
 		}
     	return result;
-    }    
+    }  
+	public Producto getProducto(String codigo){
+		Producto p = new Producto();
+		ResultSet result;
+		try {
+			select.setString(1, codigo);
+			result = select.executeQuery();
+			p.nombre = result.getString(1).trim();
+			p.precio = result.getString(2).trim();
+			p.categoria = result.getString(3).trim();
+			p.codigo = codigo;
+			p.descripcion = result.getString(5);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return p;
+	}
 }
