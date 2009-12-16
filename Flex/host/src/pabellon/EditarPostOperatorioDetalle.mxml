@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779" height="466" title="Editar Atención Post-Operatorio" borderColor="#15AD8F"  xmlns:ns1="util.*">
+	<mx:Script>
+		<![CDATA[
+			import transferObjects.PostOperatorio;
+			//=======================================================================
+			// FECHA: CREACIÓN: 20/10/2009
+			// AUTOR: Andres Garrido
+			// Comentarios: Muestra datos de la mascota con sus respectivas atenciones
+			// en post-operatorio
+			//=======================================================================
+		
+			import mx.controls.List;
+			import mx.events.ListEvent; 			
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+			import transferObjects.UsuarioElim;
+			import mx.rpc.events.ResultEvent;
+			import mx.core.Application;
+			import pabellon.EditarPostOperatorio;
+			import mx.formatters.DateFormatter;
+			[Bindable]
+			private var atencion:PostOperatorio;
+			private var horas:ArrayCollection;
+			
+			private function registrar():void{
+				
+			}
+			private function cancelando():void{
+				
+			}
+		
+          
+         	]]> 
+ 	</mx:Script>
+	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+	<mx:Label x="17" y="10" text="Mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="390.5" y="63.8" text="Sexo:" width="46"/>
+	<mx:Label x="16.95" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="390.5" y="32.95" text="Raza:" width="46"/>
+	<mx:Label x="17" y="111" text="Postoperatorio" width="98" fontWeight="bold"/>
+	<mx:Label x="17" y="325" text="Costo: " width="78"/>
+	<mx:Button x="523" y="354" label="Guardar" width="102" height="23" click="{registrar()} "/>
+	<mx:Button x="632" y="353" label="Cancelar" width="102" height="23" click="{cancelando()}"/>
+	<mx:TextInput x="133" y="31" id="nombre" editable="false"  width="160" height="22"/>
+	<mx:TextInput x="465" y="61.8" id="sexo" editable="false"  width="160" height="22"/>
+	<mx:Label x="17" y="63.8" text="Fecha Nacimiento:" width="107.95"/>
+	<mx:TextInput x="133" y="61.8" id="fechaNacimiento" editable="false"  width="160" height="22"/>
+	<mx:TextInput x="465" y="30.95" id="raza" editable="false"  width="160" height="22"/>
+	<mx:Label x="17" y="180" text="Hora: " width="78"/>
+	<mx:ComboBox id="hora" x="133" y="180" dataProvider="{horas}" labelField="hora" width="160"/>
+	<mx:TextArea x="133" y="223" height="80" width="514" id="indicaciones"/>
+	<mx:Label x="17" y="224" text="Indicaciones:" width="93"/>
+	<mx:Label x="17" y="152" text="Fecha:" width="78"/>
+	<mx:DateField x="133" y="150" width="160" id="fecha"/>
+	<ns1:Precio x="133" y="323" id="costo">
+	</ns1:Precio>
+	
+	
+</mx:Panel>
