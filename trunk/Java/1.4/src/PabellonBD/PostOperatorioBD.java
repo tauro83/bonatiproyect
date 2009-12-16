@@ -60,7 +60,8 @@ public class PostOperatorioBD {
 			
 			selectAllPostoperatorio = connection.prepareStatement(query);
 			
-			query = "SELECT atencionpostoperatorio.indicaciones, atencionpostoperatorio.hora, atencionpostoperatorio.fecha " +
+			query = "SELECT atencionpostoperatorio.indicaciones, atencionpostoperatorio.hora, " +
+					"atencionpostoperatorio.fecha, atencionpostoperatorio.costo " +
 					"FROM atencionpostoperatorio " +
 					"WHERE atencionpostoperatorio.nombremascota = ? and atencionpostoperatorio.rut = ? and atencionpostoperatorio.estado = 0;";
 			
@@ -244,6 +245,7 @@ public class PostOperatorioBD {
 	    			postOperatorio.indicaciones = result.getString(1).trim();
 	    			postOperatorio.shora = result.getString(2).trim();
 	    			postOperatorio.stfecha = result.getString(3).trim();
+	    			postOperatorio.costo =  result.getString(4).trim();
 	    			postOperatorios.add(postOperatorio);
 	    			
 	    		}
