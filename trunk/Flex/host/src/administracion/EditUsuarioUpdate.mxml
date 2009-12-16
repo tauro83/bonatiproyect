@@ -10,7 +10,7 @@
 			// AUTOR: Jimmy Muñoz
 			// Formulario y validacion de la edicion de un usuario en el sistema.
 			//=======================================================================
-		
+			import util.Properties;
 			import mx.events.FlexMouseEvent;
 			import mx.controls.Text;
 			import mx.controls.Alert;
@@ -25,6 +25,8 @@
 			private var vContrasena:Boolean;
 			private var vRContrasena:Boolean;
 			private var ru:UsuarioService= new UsuarioService();
+			private var vApaterno:Boolean;
+			private var u1:Usuario;
 			
 			
 			/**
@@ -35,7 +37,7 @@
 			 * */
 			public function itsOk():Boolean
 			{
-				if(Validacion.longitudMinima(amat.text)){
+				/*if(Validacion.longitudMinima(amat.text)){
 					if(Validacion.longitudMinima(apat.text)){
 						if(cont.text == rcon.text){
 							if(Validacion.contrasena(cont.text)){
@@ -72,7 +74,49 @@
 					labelMessage.text="Ingrese un Apellido Materno mas largo";
 					return false;
 				}
-				
+				*/
+				if(vNombre==true)
+				{
+					if(vApaterno==true)
+					{
+					
+						if(vUsuario==true)
+						{
+							
+							if(vRContrasena==true)
+							{
+								if(vContrasena==true)
+								{
+									return true;	
+								}
+								else{
+										labelMessage.text = Properties.getMensaje("Advertencia", "12");
+										return false;
+								}
+							}
+							else{
+								labelMessage.text =  Properties.getMensaje("Advertencia", "9");
+								return false;
+							}
+							
+						}
+						else{
+							labelMessage.text =  Properties.getMensaje("Advertencia", "8");
+							return false;
+						}
+					}
+					else{
+						labelMessage.text = Properties.getMensaje("Advertencia", "6");
+						return false;
+					}																				
+				}
+				else
+				{
+					labelMessage.text =  Properties.getMensaje("Advertencia", "4");
+					return false;
+					//mens.text = Properties.getMensaje("Error", "7");
+					//"Corrija los datos antes de registrar";
+				}
 			}
 			
 			/**
@@ -107,13 +151,16 @@
 			 * */
 			private function validarNombre(event:Event):void
 			{
-				if(Validacion.longitudMinima(nomb.text))
+				if(nomb.length>3)
 				{
-					labelMessage.text="";
+					vNombre		= true;
+					labelMessage.text = "";
 				}
 				else
 				{
-					labelMessage.text="Ingrese un nombre mas largo";
+					vNombre		= false;
+					labelMessage.text =  Properties.getMensaje("Advertencia", "4");
+					//"Ingrese un nombre más largo";
 				}	
 			}
 			
@@ -123,13 +170,16 @@
 			 * */
 			private function validarUsuario(event:Event):void
 			{	
-				if(Validacion.longitudMinima(usua.text) && Validacion.espaciosEnBlanco(usua.text))
+				if(usua.length>3 && usua.text.search(" ")==-1)
 				{
-					labelMessage.text = "";			
+					vUsuario	= true;		
+					labelMessage.text = "";	
 				}
 				else
 				{
-					labelMessage.text = "Ingrese un nombre de usuario sin espacios en blanco y mas largo";
+					vUsuario	= false;
+					labelMessage.text =  Properties.getMensaje("Advertencia", "8");
+					//"Ingrese un nombre de usuario más largo";
 				}
 				
 			}
@@ -140,12 +190,16 @@
 			 * */
 			private function validarContrasena(event:Event):void
 			{
-				if(Validacion.contrasena(cont.text)){
-					labelMessage.text = "";				
+				if(cont.length>3)
+				{
+					vContrasena	= true;	
+					labelMessage.text = "";	
 				}
 				else
 				{
-					labelMessage.text = "Ingrese una contraseña mas larga y sin espacios en blanco";
+					vContrasena	= false;
+					labelMessage.text = Properties.getMensaje("Advertencia", "12");
+					//"Ingrese una contraseña sin espacios en blanco y más larga";
 				}	
 				
 			}
@@ -156,11 +210,16 @@
 			 * */
 			private function validarRContrasena(event:Event):void
 			{
-				if(cont.text == rcon.text){
-					labelMessage.text = "";	
+				if(cont.text == rcon.text)
+				{
+					vRContrasena = true;	
+					labelMessage.text = "";			
 				}
-				else{
-					labelMessage.text = "Las contraseñas no coinciden, ingresela nuevamente";
+				else
+				{
+					vRContrasena = false;	
+					labelMessage.text =  Properties.getMensaje("Advertencia", "9");
+					//"Ingrese una contraseña que coincida con la anterior"		
 				}
 			}
 			
@@ -196,41 +255,31 @@
 				rcon.addEventListener(KeyboardEvent.KEY_UP,validarRContrasena);
 				usua.addEventListener(KeyboardEvent.KEY_UP,validarUsuario);		
 				ptod.addEventListener(MouseEvent.CLICK,todosLosPrivilegios);
-				apat.addEventListener(MouseEvent.CLICK,validarApaterno);
-				amat.addEventListener(MouseEvent.CLICK,validarAmaterno);
+				apat.addEventListener(KeyboardEvent.KEY_UP,validarApellido);
 			}
+
+			
 			
 			/**
 		 	 * 	Validacion del Apellido paterno del usuario	
 		 	 * @author  "Jimmy Muñoz"		
 			 * */
-			private function validarApaterno(event:Event):void
+			private function validarApellido(event:Event):void
 			{
-				if(Validacion.longitudMinima(apat.text))
+				if(apat.length>3)
 				{
-					labelMessage.text="";
+					vApaterno = true;	
+					labelMessage.text = "";			
 				}
 				else
 				{
-					labelMessage.text="Ingrese un Apellido Paterno mas largo";
-				}	
+					vApaterno = false;	
+					labelMessage.text = Properties.getMensaje("Advertencia", "6");
+					//"Ingrese un apellido paterno más largo";			
+				}
 			}
 			
-			/**
-		 	 * 	Validacion del Apellido materno del usuario	 
-		 	 * @author  "Jimmy Muñoz"		
-			 * */
-			private function validarAmaterno(event:Event):void
-			{
-				if(Validacion.longitudMinima(amat.text))
-				{
-					labelMessage.text="";	
-				}
-				else
-				{
-					labelMessage.text="Ingrese un Apellido Materno mas largo";
-				}	
-			}
+			
 			
 			/**
 		 	 * 	Validacion del Apellido materno del usuario
