@@ -34,9 +34,9 @@
 					
 					this.setVisible(false,false);
 					
-					newEditarPost.nombre.text = Tabla.selectedItem.nombreMascota;
-					newEditarPost.raza.text = Tabla.selectedItem.raza;
-					newEditarPost.sexo.text = Tabla.selectedItem.sexo;
+					newEditarPost.nombre.text = this.nomMascota.text;
+					newEditarPost.raza.text = this.razaMascota.text;
+					newEditarPost.sexo.text = this.sexoMascota.text;
 					newEditarPost.fecha.text = Tabla.selectedItem.stfecha;
 					newEditarPost.hora.text = Tabla.selectedItem.shora;
 					newEditarPost.indicaciones.text = Tabla.selectedItem.indicaciones;
@@ -47,23 +47,10 @@
             		this.setVisible(false,false);
             		Application.application.EditarPostODetalle2.visible=true;
             		
-            		/*
-            		//Alert.show(tablaAtenciones.selectedItem.hora.toString());
-            		var elimItem:PostOperatorioService = new PostOperatorioService();
-					elimItem.addEventListener(ResultEvent.RESULT,deleteAtencionResult);
-					elimItem.elimAtencion(tablaAtenciones.selectedItem.shora.toString(),
-					this.clienterut.text.toString(), this.nomMascota.text.toString());
-					*/
-					
+            	
             	}
             }
-            private function deleteAtencionResult(event:ResultEvent):void
-			{
-				var result:int = event.result as int ;
-				ltexto.text = "Atención eliminada con éxito";
-				getAllDatos();
-			}
-
+          
 			/**
 			 * Obtiene todos los datos desde la base de datos
 			 * Se accedde mediante reomoteobject
