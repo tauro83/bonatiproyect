@@ -516,8 +516,10 @@
 	<ns3:EditarPostOperatorio x="241" y="134" id="editarPostO" visible="false">
 	</ns3:EditarPostOperatorio>
 	
-	<ns3:EditarPostOperatorioDetalle x="241" y="134" id="EditarPostODetalle" visible="false">
-	</ns3:EditarPostOperatorioDetalle>
+	<ns3:EditarPostOperatorioDetalle1 x="241" y="134" id="EditarPostODetalle1" visible="false">
+	</ns3:EditarPostOperatorioDetalle1>
+	<ns3:EditarPostOperatorioDetalle2 x="241" y="134" id="EditarPostODetalle2" visible="false">
+	</ns3:EditarPostOperatorioDetalle2>
 	<ns4:PurgarControl x="241" y="134" id="purgControl" visible="false">
 	</ns4:PurgarControl>
 	<ns5:ElminarHoteleria x="241" y="134" id="eliminarHoteleria" visible="false">

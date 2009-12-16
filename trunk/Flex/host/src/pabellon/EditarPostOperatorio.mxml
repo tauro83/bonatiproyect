@@ -1,69 +1,149 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllDatos()" activate="getAllDatos()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Post-Operatorio" xmlns:ns1="util.*">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Atención Post-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
-			// FECHA: CREACIÓN: 20-10-2009
-			// AUTOR: Andres Garrido
+			// FECHA CREACIÓN: 11/10/09
+			// AUTOR: Erwin Díaz
 			// Comentarios: Muestra datos de la mascota con sus respectivas atenciones
-			// en post-operatorio y permite editarlas
+			// en post-operatorio
 			//=======================================================================
 		
+			import services.PostOperatorioService;
+			import transferObjects.PostOperatorio;
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
-			import mx.rpc.events.ResultEvent;
+			import transferObjects.Mascota2;
 			import flash.events.MouseEvent;
             import mx.events.FlexEvent;
             import mx.rpc.events.ResultEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.core.Application;
-			import pabellon.GetAllPostOperatorio;
-			import transferObjects.PostOperatorio;
-			import mx.formatters.DateFormatter;
-			import mx.events.CloseEvent;
-			import services.*;
+			
 			[Bindable]
-			private var postOperatorios:ArrayCollection;
-		    
-			public function getAllDatos():void{
-				
+			private var atenciones:ArrayCollection;
+			
+			/**
+			 * Obtiene los datos de las atenciones que están 
+			 * registradas en la base de datos
+			 * 
+			 */
+			public function getAllDatos():void
+			{
 				var visualizarPostoperatorio:PostOperatorioService = new PostOperatorioService();
 				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
-				visualizarPostoperatorio.getAllPostOperatorioActivo();
-				
+				visualizarPostoperatorio.getAllPostOperatorio();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function getAllDatosResult(event:ResultEvent):void
+			{
+				Tabla.doubleClickEnabled=true;
+				atenciones = event.result as ArrayCollection;
 			}
-            private function getAllResult(event:ResultEvent):void{
-				postOperatorios= new ArrayCollection();
-				var lista:ArrayCollection = event.result as ArrayCollection;
-				var i:int;
-				
-				for(i=0;i<lista.length;i++){
-					var asd:PostOperatorio = lista.getItemAt(i) as PostOperatorio;
-					postOperatorios.addItem(asd);
+			
+			/**
+			 * Se muestran los distintos tipos de búsqueda
+			 * que el usuario puede hacer al momento
+			 * de buscar una consulta, se pueden seleccionar
+			 * distintos parámetro que coinciden con los datos
+			 * del datagrid
+			 */
+			private function seleccionarBusqueda(event:Event):void
+            {
+            	setInvisibleInput();
+            	getAllDatos();
+				switch (comboBox.selectedLabel){
+				case 'Nombre Mascota':		
+					inputNombreMas.setVisible(true,false);
+				break; 
+				case 'Raza':		
+					inputRaza.setVisible(true,false);
+				break; 
+				case 'Sexo':		
+					inputSexo.setVisible(true,false);
+				break; 
+				case 'Rut':		
+					inputRut.setVisible(true,false);
+				break;
+				case 'Nombre Cliente':
+					inputNombreCliente.setVisible(true,false); 	
+				break;
+				case 'Apellido Paterno':
+					inputApellidoPaterno.setVisible(true,false); 	
+				break;
 				}
-				
-			}
+            }
+			
+			/**
+			 * Este método hace invisible los demás text imputs
+			 * esto es necesario ya que se tiene distintos
+			 * campos de búsqueda y es necesario contar con uno
+			 * para cada tipo
+			 */
+			 private function setInvisibleInput ():void
+            {
+            	inputNombreMas.setVisible(false,false);
+            	inputRaza.setVisible(false,false);
+            	inputSexo.setVisible(false,false);
+            	inputRut.setVisible(false,false);
+            	inputNombreCliente.setVisible(false,false);
+            	inputApellidoPaterno.setVisible(false,false);
+            }
+			
+			
+			
+			
+			/**
+         	 * Función de prueba que llena el datagrgis sin necesidad de ir a la base de datos
+         	 * 
+         	 */	
+		    private function updateTable():void
+            {
+            	atenciones = new ArrayCollection;
+				atenciones.addItem({nomMascota:"lassie", razaMascota:"Pastor Collie", sexoMascota:"hembra", rut:"1234325", nombre:"Carlos", apellidoPaterno:"Moreno"});
+            	atenciones.addItem({nomMascota:"Bengie", razaMascota:"Golden Retriver", sexoMascota:"macho", rut:"83323122", nombre:"Jose", apellidoPaterno:"Errazuriz"});
+            	atenciones.addItem({nomMascota:"Balto", razaMascota:"Pastor Alemán", sexoMascota:"macho", rut:"93420012", nombre:"Miguel", apellidoPaterno:"Ponce"});
+            	atenciones.addItem({nomMascota:"Fabi", razaMascota:"Maltes", sexoMascota:"hembra", rut:"102231001", nombre:"Cristian", apellidoPaterno:"Arce"});
+            	Tabla.doubleClickEnabled=true;
+            	Tabla.dataProvider = atenciones;
+            	
+            }
 			/**
 			 * Es llamada al hacer doble click en el data grid o al presionar el 
 			 * botón visualizar, esta función llega al panel PurgarPostOperatorio de manera interna
 			 * sin necesidad de pasar por el panel Veterinaria
 			 * 
 			 */
-			 
-			public function editarAtencion():void{
-				/*
-				if(tablaDatos.selectedItem){				
-					var atencion:PostOperatorio = tablaDatos.selectedItem as PostOperatorio;	
-					Application.application.EditarPostODetalle.setData(atencion);
+			public function editarAtencion():void
+			{
+				if(Tabla.selectedItem){					
+					var newPurgarPost:EditarPostOperatorioDetalle1 = Application.application.purgPost;
+					var newMascota:PostOperatorio = new PostOperatorio();
+					newMascota.nombreMascota = Tabla.selectedItem.nombreMascota;
+					newMascota.raza = Tabla.selectedItem.raza;
+					newMascota.sexo = Tabla.selectedItem.sexo;
+					newMascota.nombreCliente = Tabla.selectedItem.nombreCliente;
+					newMascota.apellido = Tabla.selectedItem.apellido;
+					newMascota.clienterut = Tabla.selectedItem.clienterut;
+					
+					
 					this.setVisible(false,false);
-					Application.application.EditarPostODetalle.visible=true;
+					newPurgarPost.resetVars();
+					newPurgarPost.nomMascota.text = newMascota.nombreMascota;
+					newPurgarPost.razaMascota.text = newMascota.raza;
+					newPurgarPost.sexoMascota.text = newMascota.sexo;
+					newPurgarPost.nombre.text = newMascota.nombreCliente;
+					newPurgarPost.apellidoPaterno.text = newMascota.apellido;
+					newPurgarPost.clienterut.text = newMascota.clienterut;
+					newPurgarPost.getAllDatos();
+					newPurgarPost.setVisible(true,false);
+
 				}
-				else{
-					txt.text="Primero debe seleccionar una atención.";
-				}
-				*/
+
 			}
-			
 			/**
 			 * Al cancelar la operación se muestra un panel que solo tiene el 
 			 * mensaje "seleccione una opcion del menú"
@@ -72,111 +152,58 @@
 			private function cancelando():void
 			{
 				this.setVisible(false,false);
-				Application.application.panelClinicaIni.setVisible(true,false);
-			}
-			/**
-			 *Cambia el formato de la fecha para una mejor lectura del datagrid
-			 */
-			private function doLabel(item:Object, column:DataGridColumn):String {
-				var dateFormatted:DateFormatter = new DateFormatter();
-				dateFormatted.formatString = "DD/MM/YYYY";
-				var rawDate:Date = new Date(item[column.dataField]);
-				return dateFormatted.format(rawDate) as String;
-			}
-			[Bindable]
-			private var atenciones:ArrayCollection;
-			
-			
-			/**
-			 * elimina una fila dentro de la tabla
-			 */
-           	private function deleteRow():void {
-			 Alert.show("Está seguro que desea Eliminar la atención ","Confirme Eliminar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
-			}
-			/**
-			 * Es la funcion que es llamada desde el mensaje de confirmación de la tarea
-			 */
-			private function delRowHandler(evt:CloseEvent):void {
-			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
-			  removeTaskRecord();
-			}
-			/**
-			 * Remueve todas las tareas seleccionadas del datagrid
-			 */
-			private function removeTaskRecord():void
-            {
-            	/*
-            	if(tablaAtenciones.selectedItem){
-            		//Alert.show(tablaAtenciones.selectedItem.hora.toString());
-            		var elimItem:PostOperatorioService = new PostOperatorioService();
-					elimItem.addEventListener(ResultEvent.RESULT,deleteAtencionResult);
-					elimItem.elimAtencion(tablaAtenciones.selectedItem.shora.toString(),
-					this.clienterut.text.toString(), this.nomMascota.text.toString());
-					
-            	}
-            	*/
-            }
-            private function deleteAtencionResult(event:ResultEvent):void
-			{
-				var result:int = event.result as int ;
-				ltexto.text = "Atención eliminada con éxito";
-				getAllDatos();
-			}
-
-				
-			/**
-			 * Obtiene la lista con los objetos desde la base de datos
-			 */
-		    private function getAllDatosResult(event:ResultEvent):void
-			{
-				tablaAtenciones.doubleClickEnabled=true;
-				atenciones = event.result as ArrayCollection;
+				Application.application.panel2.setVisible(true,false);
 			}
 			
-			/**
-         	 * Función de prueba que llena el datagrgis sin necesidad de ir a la base de datos
-         	 * 
-         	 */
-         	public function updateTable():void
-            {
-            	atenciones = new ArrayCollection;
-            	
-				atenciones.addItem({medicamento:"", alimento:"", indicaciones:"", servicio:"", hora:"", fecha:""});
- 				tablaAtenciones.dataProvider = atenciones;
- 			}
- 			
- 		/*
-			public function mascotasFiltrar():void{
-				getMascotas();
-			}
-			
-			private function getMascotas():void{
-				var visualizarPostoperatorio:PostOperatorioService = new PostOperatorioService();
-				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
-				visualizarPostoperatorio.getAllPostOperatorioActivo();
-				
-				var addMascotaService:AddMascotaService = new AddMascotaService();
-				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addMascotaService.getMascotas(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteDVInput.text);
-			}
-			private function getAddMascotasResult(event:ResultEvent):void{
-				mascotas = event.result as ArrayCollection;
-			}
-			*/
 		]]>
 	</mx:Script>
-	<mx:Label x="187" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
-	<mx:DataGrid x="24" y="52" width="710" height="289" id="tablaAtenciones" dataProvider="{postOperatorios}" itemDoubleClick="{deleteRow()}">
-		<mx:toolTip>Se muestran todas las atenciones que no han sido bloquedas</mx:toolTip>
+	
+	
+	
+	<!-- AutoComplete para cada parametro -->
+	<fc:AutoComplete id="inputNombreMas" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="nombreMascota" visible="false"/>
+	<fc:AutoComplete id="inputRaza" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="raza" visible="false"/>
+	<fc:AutoComplete id="inputSexo" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="sexo" visible="false"/>
+	<fc:AutoComplete id="inputNombreCliente" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="nombre" visible="false"/>
+    <fc:AutoComplete id="inputApellidoPaterno" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="apellidoPaterno" visible="false"/>
+	<fc:AutoComplete id="inputRut" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="clienterut" visible="false"/>
+	
+
+	<mx:ComboBox x="96" y="24" width="150" id="comboBox" change="seleccionarBusqueda(event)">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="Nombre Mascota"/>
+			<mx:Object label="Raza"/> 
+			<mx:Object label="Sexo"/> 
+			<mx:Object label="Rut"/> 
+			<mx:Object label="Nombre Cliente"/> 
+			<mx:Object label="Apellido Paterno"/>  
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	
+
+	
+	
+	<mx:DataGrid x="30" y="82" width="719" id="Tabla" enabled="true" height="260" dataProvider="{atenciones}" itemDoubleClick="editarAtencion()">
+		<mx:toolTip>Muestra las mascotas registradas en el sistema que tienen atenciones de post-operatorio no bloqueadas</mx:toolTip>
 		<mx:columns>
-			<mx:DataGridColumn width="120" headerText="Hora" dataField="shora" id="hora" sortable="false" draggable="false"/>
-			<mx:DataGridColumn width="120" headerText="Fecha" dataField="stfecha" id="fecha" sortable="false" draggable="false"/>
-			<mx:DataGridColumn headerText="Indicaciones" dataField="indicaciones" id="indicaciones" sortable="false" draggable="false"/>
-			</mx:columns>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota"/>
+			<mx:DataGridColumn headerText="Raza" dataField="raza" width="100"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="sexo" width="100"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreCliente"/>
+			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellido"/>
+			<mx:DataGridColumn headerText="Rut" dataField="clienterut"/>
+			
+			
+	     </mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="523" y="350" label="Editar" id="purgarAtenciones" click="{deleteRow()}" toolTip="Elimina la seleccionada" width="102" height="23" cornerRadius="6"/>
-	<mx:Button x="647" y="350" label="Cancelar" click="cancelando()" id="cancelar" toolTip="Cancela la operación y regresa al panel anterior" width="102" height="23" cornerRadius="6"/>
-	<mx:Label x="24" y="26" text="Atenciones Post-Operatorio" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="350" click="editarAtencion()" cornerRadius="6" toolTip="Visualizar mascota seleccionada"/>
+	<mx:Label x="30" y="56" text="Mascota" fontWeight="bold"/>
+	<mx:Label x="373.5" y="56" text="Cliente" fontWeight="bold"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="647" y="350" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6" toolTip="Regresa al panel anterior"/>
+	<mx:Label x="518" y="26" text="Buscar"/>
+	<mx:Text x="30" y="26" id="textFiltrar" text="Filtrar por"/>
 	
 
 
