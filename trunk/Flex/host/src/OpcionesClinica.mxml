@@ -91,6 +91,7 @@
 				this.visible = true;
 				Application.application.rConsulta.visible = true;
 				Application.application.rConsulta.limpio();	
+				Application.application.rConsulta.buscadorCliente.getAllClientes();
 			}
 			
 			public function editarVacunacion():void{
