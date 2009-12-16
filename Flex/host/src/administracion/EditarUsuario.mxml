@@ -9,7 +9,7 @@
 			// AUTOR: jimmy muñoz
 			// Panel de selección de usuario, para proceder a editar los datos de éste.
 			//=======================================================================
-
+			import util.Properties;
 			import mx.collections.ArrayCollection;
 			import mx.controls.Alert;
 			import transferObjects.Usuario;
@@ -86,7 +86,7 @@
 
 				}
 				else{
-					this.labelMessage.text="Seleccione un Usuario para editar.";
+					this.labelMessage.text=Properties.getMensaje("Advertencia", "2");
 				}
 
 			}
@@ -164,10 +164,11 @@
 				   this.getAllUsuarios();
 				   Application.application.AdEditarUsuar3.setVisible(false,false);//newRegUsuar.
 				   this.setVisible(true,false);
-				   labelMessage.text="Edito el Ususario con Éxito.";
+				   labelMessage.text=Properties.getMensaje("Informacion", "6");
 				}
 				else
-				   newRegUsuar.labelMessage.text="No Edito El Usuario.";
+				
+				   newRegUsuar.labelMessage.text=Properties.getMensaje("Informacion", "18");
 			}
 			
 			/**

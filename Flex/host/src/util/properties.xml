@@ -65,6 +65,21 @@
 				<mensaje key="30">Ingrese al menos un numero de tel&#233;fono</mensaje>
 				<mensaje key="31">Ingrese un nuevo diagnostico</mensaje>
 				<mensaje key="32">Seleccione una Mascota para registrar Control</mensaje>
+				<mensaje key="33">Seleccione el nombre de un Veterinario para la atención</mensaje>				
+				<mensaje key="34">Seleccione una fecha para la atención</mensaje>
+				<mensaje key="35">Añada un servicio realizado a la mascota</mensaje>				
+				<mensaje key="36">Seleccione una Vacuna de la lista Vacunas Agregadas</mensaje>				
+				<mensaje key="37">Seleccione un servicio de la lista Servicios</mensaje>				
+				<mensaje key="38">Seleccione una Mascota para registrar la atencion</mensaje>				
+				<mensaje key="39">Añada una vacuna aplicada a la mascota</mensaje>				
+				<mensaje key="40">Seleccione una Vacuna de la lista Vacunas</mensaje>				
+				<mensaje key="41">Seleccione el nombre de un ayudante para la atención</mensaje>				
+				<mensaje key="42">Añada una cirugía realizada a la mascota</mensaje>				
+				<mensaje key="43">Ingrese un diagnostico para la cirugía</mensaje>				
+				<mensaje key="44">Seleccione una cirugía de la lista Cirugías realizadas</mensaje>				
+				<mensaje key="45">Seleccione una cirugía de la tabla Cirugías</mensaje>			
+				
+				
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="Pregunta">
@@ -82,7 +97,7 @@
 			<mensajes>
 				<mensaje key="1">Se ha accedido al Cliente exitosamente</mensaje>
 				<mensaje key="2">Se ha registrado la Cita exitosamente</mensaje>
-				<mensaje key="3">Se ha registrado la Cliente exitosamente</mensaje>
+				<mensaje key="3">Se ha registrado el Cliente exitosamente</mensaje>
 				<mensaje key="4">Se ha registrado la Mascota exitosamente</mensaje>
 				<mensaje key="5">Se ha registrado el Usuario exitosamente</mensaje>
 				<mensaje key="6">Se ha editado el Usuario exitosamente</mensaje>
@@ -117,6 +132,13 @@
 				<mensaje key="35">Se ha registrado Actual Control exitosamente</mensaje>
 				<mensaje key="36">Se ha registrado Proximo Control exitosamente</mensaje>
 				<mensaje key="37">Se ha registrado Consulta exitosamente</mensaje>
+				<mensaje key="38">Se ha registrado atención de peluqueria exitosamente</mensaje>				
+				<mensaje key="39">Cliente no se encuentra registrado</mensaje>				
+				<mensaje key="40">Se ha registrado vacunación exitosamente</mensaje>				
+				<mensaje key="41">Se ha registrado una Cirugía exitosamente</mensaje>
+				
+				
+				
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="ToolTip">
