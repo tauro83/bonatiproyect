@@ -40,7 +40,7 @@ package services
 			Alert.show("Error en PostOperatorioService, Detalle: "+event.fault.message);
 		}
 		/**
-		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos
+		 * Se obtienen todas los registros de post-operatorio activos del sistema
 		 */ 
 		public function getAllPostOperatorioActivo():void{
 			this.getOperation("getAllPostOperatorioActivo").send();

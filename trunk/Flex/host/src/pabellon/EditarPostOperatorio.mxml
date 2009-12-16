@@ -24,15 +24,13 @@
 			import services.*;
 			[Bindable]
 			private var postOperatorios:ArrayCollection;
-			[Bindable] 
-		    public var mascotas:ArrayCollection = new ArrayCollection();
 		    
 			public function getAllDatos():void{
-				/*
+				
 				var visualizarPostoperatorio:PostOperatorioService = new PostOperatorioService();
 				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
-				visualizarPostoperatorio.getAllPostOperatorio2(this.nomMascota.text.toString(),this.clienterut.text.toString());
-				*/
+				visualizarPostoperatorio.getAllPostOperatorioActivo();
+				
 			}
             private function getAllResult(event:ResultEvent):void{
 				postOperatorios= new ArrayCollection();
@@ -147,15 +145,16 @@
  				tablaAtenciones.dataProvider = atenciones;
  			}
  			
- 		
+ 		/*
 			public function mascotasFiltrar():void{
 				getMascotas();
 			}
-			/**
-			* Funcion que llama a retornar todas las mascotas de un cliente para ser vistas en el combobox
-			* @author  Sebastian Arancibia
-			*/
+			
 			private function getMascotas():void{
+				var visualizarPostoperatorio:PostOperatorioService = new PostOperatorioService();
+				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+				visualizarPostoperatorio.getAllPostOperatorioActivo();
+				
 				var addMascotaService:AddMascotaService = new AddMascotaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
 				addMascotaService.getMascotas(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteDVInput.text);
@@ -163,10 +162,11 @@
 			private function getAddMascotasResult(event:ResultEvent):void{
 				mascotas = event.result as ArrayCollection;
 			}
+			*/
 		]]>
 	</mx:Script>
 	<mx:Label x="187" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
-	<mx:DataGrid x="24" y="111" width="710" height="230" id="tablaAtenciones" dataProvider="{atenciones}" itemDoubleClick="{deleteRow()}">
+	<mx:DataGrid x="24" y="52" width="710" height="289" id="tablaAtenciones" dataProvider="{postOperatorios}" itemDoubleClick="{deleteRow()}">
 		<mx:toolTip>Se muestran todas las atenciones que no han sido bloquedas</mx:toolTip>
 		<mx:columns>
 			<mx:DataGridColumn width="120" headerText="Hora" dataField="shora" id="hora" sortable="false" draggable="false"/>
@@ -176,10 +176,7 @@
 	</mx:DataGrid>
 	<mx:Button x="523" y="350" label="Editar" id="purgarAtenciones" click="{deleteRow()}" toolTip="Elimina la seleccionada" width="102" height="23" cornerRadius="6"/>
 	<mx:Button x="647" y="350" label="Cancelar" click="cancelando()" id="cancelar" toolTip="Cancela la operación y regresa al panel anterior" width="102" height="23" cornerRadius="6"/>
-	<mx:Label x="24" y="85" text="Atenciones Post-Operatorio" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
-	<ns1:BuscadorNombreRut x="24" y="36" keyFocusChange="mascotasFiltrar()" mouseFocusChange="mascotasFiltrar()" id="buscadorCliente">
-	</ns1:BuscadorNombreRut>
-	<mx:Label x="24" y="10" text="Cliente:" fontWeight="bold"/>
+	<mx:Label x="24" y="26" text="Atenciones Post-Operatorio" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
 	
 
 
