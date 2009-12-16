@@ -13,7 +13,7 @@ package hoteleria
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	
+	import util.host;
 	import transferObjects.Hoteleria;
 	
 	public class RegistHoteleriaService extends RemoteObject
