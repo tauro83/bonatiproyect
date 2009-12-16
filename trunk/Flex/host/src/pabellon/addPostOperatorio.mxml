@@ -52,7 +52,6 @@
 					postope			  		= new PostOperatorio();
 					postope.shora			= this.hora.selectedLabel.toString();
 					postope.stfecha			= this.fecha.text.toString();
-					Alert.show(this.hora.selectedLabel.toString());
 					postope.nombreMascota	= this.nombre.text.toString();
 					postope.clienterut		= this.rut;
 					postope.costo			= this.costo.costo.text.toString();
