@@ -98,6 +98,7 @@
 				anamnesis.text="";
 				labelMessage.text= " ";
 				Application.application.rConsulta.labelMessage.text=" ";
+				getServicio();
 			}
 			
 			/**
