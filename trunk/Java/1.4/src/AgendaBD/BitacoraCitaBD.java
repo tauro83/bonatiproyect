@@ -39,13 +39,11 @@ public class BitacoraCitaBD
 		try 
 		{	//Declaraciones de consultas para la base de datos
 			String query="";			
-			query = "SELECT usuario, accion, fechaaccion, horaaccion, fechacita, horacita, cliente, mascota, servicio "+
-					"FROM bitacora;";
+			query = "SELECT usuario, accion, fechaaccion, horaaccion, fechaacita, horacita, cliente, mascota, servicio  FROM bitacora;";
 			selectAll = connection.prepareStatement(query);
 			
 			
-			query = "INSERT INTO bitacora(usuario, accion, fechaaccion, horaaccion, fechacita, horacita, cliente, mascota, servicio) "+
-					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			query = "INSERT INTO bitacora(usuario, accion, fechaaccion, horaaccion, fechaacita, horacita,cliente, mascota, servicio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			insert = connection.prepareStatement(query);
 		} 
 		catch (SQLException e) 
