@@ -15,8 +15,11 @@
 			import services.GetCatalogos;
 			import mx.controls.Alert;
 			import util.Properties; 
+			import services.configuracionServices;
+			public var servs:ArrayCollection;
 			[Bindable]public var catService:GetCatalogos = new GetCatalogos();
 			
+				
 			
 			/**
 			 *  Metodo que retorna al panel de listado de catalogos y oculta el actual
@@ -41,7 +44,6 @@
 			 	this.nom.text 			= cat.nombre;
 			 	prec.costo.text			= cat.precio.toString();
 			 	this.des.text 			= cat.descripcion.toString();
-			 	this.ser.text			= cat.servicio.toString();
 			 	labelMessage.text = "";
 			 	
 			 	prec.formatear();
@@ -59,7 +61,7 @@
 			 			catEnvio.nombre 		= this.nom.text; 
 					 	catEnvio.descripcion 	= this.des.text;
 					 	catEnvio.precio 		= this.prec.costoBruto;
-					 	catEnvio.servicio 		= this.ser.text;	
+					 	catEnvio.servicio 		= comServ.text;	
 					 	catService.editCatalogo(catEnvio);
 					 	catService.addEventListener(ResultEvent.RESULT,editCatalogoR);	
 					 	labelMessage.text = "";
@@ -100,7 +102,7 @@
 					nom.text= "";
             		des.text = "";
             		//prec.text = "";
-            		ser.text = "";
+            		//ser.text = "";
 			 }
 		]]>
 	</mx:Script>
@@ -114,9 +116,15 @@
 	<mx:Button x="632" y="353" width="102" label="Cancelar" id="cancelarCatalogo" click="cancelar()" height="23" cornerRadius="6">
 	</mx:Button>
 	<mx:Label id="labelMessage" x="176" y="399" width="407" textAlign="center" fontWeight="bold" height="17"/>
-	<mx:TextInput x="120" y="33" width="242" editable="false" id="ser" />
 	<mx:TextArea x="120" y="175" id="des" maxChars="160" width="242" height="92"/>
 	<ns1:Precio x="120" y="129" width="161" id="prec">
 	</ns1:Precio>
-	
+	<mx:ComboBox x="120" y="33" width="161" id="comServ"  labelField="nombre" toolTip="Seleccione un tipo de registro para continuar">
+		<mx:ArrayCollection>
+         <mx:String>Baño</mx:String>
+         <mx:String>Corte</mx:String>
+         <mx:String>Pedicura</mx:String>
+      </mx:ArrayCollection>
+	</mx:ComboBox>
+		
 </mx:Panel>
