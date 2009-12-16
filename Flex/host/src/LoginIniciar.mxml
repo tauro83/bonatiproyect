@@ -58,19 +58,30 @@
 			public function pRegistrarResult(event:ResultEvent):void
 			{
 				var result:Boolean = event.result as Boolean ;
+
 				if(result==true){
-					Application.application.opcionesPetshop.bRegPago.enabled = false; 
-					Application.application.opcionesPetshop.bRegProd.enabled = false; 
-					Application.application.hotelOpciones.botonRegistrarHoteleria.enabled=true;
+					Application.application.hotelOpciones.bRegHot.enabled=true;
 					Application.application.opcionesClinica1.PreOlink.enabled=true;
 					Application.application.opcionesClinica1.cirugiaLink.enabled=true;
 					Application.application.opcionesClinica1.PostOLink.enabled=true;
 					Application.application.opcionesClinica1.linkRegVac.enabled=true;
-					Application.application.opcionesClinica1.BotonRegistrarConsulta.enabled=true;
-					Application.application.opcionesClinica1.BotonRegistrarControl.enabled=true;
-				}else{
+					Application.application.opcionesClinica1.bRegCon.enabled=true;
+					Application.application.opcionesClinica1.bRegControl.enabled=true;
+					Application.application.opcionesPetshop.bRegProdu.enabled = true; 
 					Application.application.opcionesPetshop.bRegPago.enabled = true; 
-					Application.application.opcionesPetshop.bRegProd.enabled = true;  
+
+					
+				}else{
+					Application.application.hotelOpciones.bRegHot.enabled=false;
+					Application.application.opcionesClinica1.PreOlink.enabled=false;
+					Application.application.opcionesClinica1.cirugiaLink.enabled=false;
+					Application.application.opcionesClinica1.PostOLink.enabled=false;
+					Application.application.opcionesClinica1.linkRegVac.enabled=false;
+					Application.application.opcionesClinica1.bRegCon.enabled=false;
+					Application.application.opcionesClinica1.bRegControl.enabled=false;
+					Application.application.opcionesPetshop.bRegProdu.enabled = false;  
+					Application.application.opcionesPetshop.bRegPago.enabled = false; 
+					
 				}
 			}
 			
@@ -90,13 +101,21 @@
 				var result:Boolean = event.result as Boolean ;
 				
 				if(result==true){
-					Application.application.hotelOpciones.botonEditarHot.enabled=true;
-					Application.application.opcionesClinica1.botonEditarPabellon.enabled=true;
+					Application.application.opcionesPetshop.bEditPag.enabled = true; 
+					Application.application.opcionesPetshop.bEditPro.enabled = true; 
+					Application.application.hotelOpciones.bEditHot.enabled=true;
+					Application.application.opcionesClinica1.bEditPreO.enabled=true;
 					Application.application.opcionesClinica1.cirugiaLink0.enabled=true;
 					Application.application.opcionesClinica1.editarPostO.enabled=true;
-					Application.application.opcionesClinica1.editarPostO.enabled=true;
-					Application.application.opcionesClinica1.botonEditarPoliclinico.enabled=true;
-					Application.application.opcionesClinica1.botonEditarConsulta.enabled=true;
+					Application.application.opcionesClinica1.bEditContr.enabled=true;
+				}else{
+					Application.application.opcionesPetshop.bEditPag.enabled = false; 
+					Application.application.opcionesPetshop.bEditPro.enabled = false; 
+					Application.application.hotelOpciones.bEditHot.enabled=false;
+					Application.application.opcionesClinica1.bEditPreO.enabled=false;
+					Application.application.opcionesClinica1.cirugiaLink0.enabled=false;
+					Application.application.opcionesClinica1.editarPostO.enabled=false;
+					Application.application.opcionesClinica1.bEditContr.enabled=false;
 				}
 			}
 			
@@ -116,13 +135,23 @@
 				var result:Boolean = event.result as Boolean ;
 				
 				if(result==true){
-					Application.application.hotelOpciones.botonRetirarHot.enabled=true;
-					Application.application.opcionesClinica1.botonPurgarPabellon.enabled=true;
+					Application.application.opcionesPetshop.bEliProd.enabled = true; 
+					Application.application.opcionesPetshop.bAnuPag.enabled = true; 
+					Application.application.hotelOpciones.bEliHot.enabled=true;
+					Application.application.opcionesClinica1.bEliPreO.enabled=true;
 					Application.application.opcionesClinica1.cirugiaLink1.enabled=true;
+					Application.application.opcionesClinica1.purgarPostO.enabled=true;
 					Application.application.opcionesClinica1.anulPost.enabled=true;
-					Application.application.opcionesClinica1.anularVacunacion.enabled=true;
-					Application.application.opcionesClinica1.botonAnularControl.enabled=true;
-					Application.application.opcionesClinica1.purgarPostO2.enabled=true;
+					Application.application.opcionesClinica1.bAnuControl.enabled=true;
+				}else{
+					Application.application.opcionesPetshop.bEliProd.enabled = false; 
+					Application.application.opcionesPetshop.bAnuPag.enabled = false; 
+					Application.application.hotelOpciones.bEliHot.enabled=false;
+					Application.application.opcionesClinica1.bEliPreO.enabled=false;
+					Application.application.opcionesClinica1.cirugiaLink1.enabled=false;
+					Application.application.opcionesClinica1.purgarPostO.enabled=false;
+					Application.application.opcionesClinica1.anulPost.enabled=false;
+					Application.application.opcionesClinica1.bAnuControl.enabled=false;
 				}
 			}
 			
@@ -142,8 +171,9 @@
 				var result:Boolean = event.result as Boolean ;
 				
 				if(result==true){
-					Application.application.opcionesClinica1.botonPurgarPabellon.enabled=true;
-					
+					Application.application.opcionesPetshop.bPurgProd.enabled = true; 
+				}else{
+					Application.application.opcionesPetshop.bPurgProd.enabled = false; 
 				}
 			}
 			 
@@ -181,11 +211,11 @@
 			}
  		]]>
  	</mx:Script>	
-	<mx:TextArea x="482" y="192" height="19" width="196" displayAsPassword="true" id="pass"/>
-	<mx:Button x="647" y="302" label="Iniciar" id="AceptarUsuario" width="102" height="23" click="existLogin()" cornerRadius="6"/> 
+	<mx:Button x="647" y="302" label="Iniciar" id="AceptarUsuario" width="102" height="23" click="existLogin()" cornerRadius="6" enabled="true"/> 
 	<mx:Image x="-6" y="0" source="../gato.jpg" width="455" height="426" alpha="1.0"/>
 	<mx:Text x="407" y="164" text="Ingrese su contraseña&#xa;" fontWeight="bold" fontSize="12"/>
 	<mx:TextArea x="482" y="130" height="19" width="196" id="nombre" fontStyle="normal"/>
+	<mx:TextArea x="482" y="192" height="19" width="196" displayAsPassword="true" id="pass"/>
 	<mx:Text x="407" y="102" text="Ingrese su nombre&#xa;" fontWeight="bold" fontSize="12"/>
 	<mx:Label x="457" y="22" text="Bienvenido" fontWeight="bold" fontSize="30"/>
 </mx:Panel>
