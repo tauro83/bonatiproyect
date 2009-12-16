@@ -39,18 +39,16 @@
  	</mx:Script>
 	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	<mx:Label x="17" y="10" text="Mascota" width="98" fontWeight="bold"/>
-	<mx:Label x="390.5" y="63.8" text="Sexo:" width="46"/>
+	<mx:Label x="390.5" y="32.95" text="Sexo:" width="46"/>
 	<mx:Label x="16.95" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
-	<mx:Label x="390.5" y="32.95" text="Raza:" width="46"/>
+	<mx:Label x="16.95" y="65.8" text="Raza:" width="46"/>
 	<mx:Label x="17" y="111" text="Postoperatorio" width="98" fontWeight="bold"/>
 	<mx:Label x="17" y="325" text="Costo: " width="78"/>
 	<mx:Button x="523" y="354" label="Guardar" width="102" height="23" click="{registrar()} "/>
 	<mx:Button x="632" y="353" label="Cancelar" width="102" height="23" click="{cancelando()}"/>
 	<mx:TextInput x="133" y="31" id="nombre" editable="false"  width="160" height="22"/>
-	<mx:TextInput x="465" y="61.8" id="sexo" editable="false"  width="160" height="22"/>
-	<mx:Label x="17" y="63.8" text="Fecha Nacimiento:" width="107.95"/>
-	<mx:TextInput x="133" y="61.8" id="fechaNacimiento" editable="false"  width="160" height="22"/>
-	<mx:TextInput x="465" y="30.95" id="raza" editable="false"  width="160" height="22"/>
+	<mx:TextInput x="487" y="30.95" id="sexo" editable="false"  width="160" height="22"/>
+	<mx:TextInput x="133" y="63.8" id="raza" editable="false"  width="160" height="22"/>
 	<mx:Label x="17" y="180" text="Hora: " width="78"/>
 	<mx:ComboBox id="hora" x="133" y="180" dataProvider="{horas}" labelField="hora" width="160"/>
 	<mx:TextArea x="133" y="223" height="80" width="514" id="indicaciones"/>
