@@ -217,7 +217,8 @@
             	graficosClinica1.setVisible(false,false);
             	this.AdmEliminarMascota.setVisible(false,false);
             	this.AdmPurgarMascota.setVisible(false,false);
-            	EditarPostODetalle.setVisible(false,false);
+            	EditarPostODetalle1.setVisible(false,false);
+            	EditarPostODetalle2.setVisible(false,false);
             	editarPostO.setVisible(false,false);
             	this.purgControl.setVisible(false,false);
             	hotelOpciones.setVisible(false, false);
