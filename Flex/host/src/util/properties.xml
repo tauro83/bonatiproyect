@@ -45,7 +45,7 @@
 				<mensaje key="10">Ingrese direcci&#243;n m&#225;s larga</mensaje>
 				<mensaje key="11">Ingrese un nombre de usuario sin espacios en blanco y mas largo</mensaje>
 				<mensaje key="12">Ingrese una contrase&#241;a mas larga y sin espacios en blanco</mensaje>
-				<mensaje key="13">Seleccione un servicio espec&#237;fico para poder Agendar</mensaje>
+				<mensaje key="13">Seleccione un servicio y responsable espec&#237;fico para poder Agendar</mensaje>
 				<mensaje key="14">Seleccione un elemento</mensaje>
 				<mensaje key="15">Ingrese una fecha inicio anterior a la actual</mensaje>
 				<mensaje key="16">La fecha de inicio, debe ser anterior a la fecha de t&#233;rmino</mensaje>
