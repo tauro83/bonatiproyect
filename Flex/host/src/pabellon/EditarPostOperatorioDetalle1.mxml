@@ -29,22 +29,22 @@
 			 * elimina una fila dentro de la tabla
 			 */
            	private function updateRow():void {
-			 Alert.show("Está seguro que desea Eliminar la atención ","Confirme Eliminar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
-			}
-			/**
-			 * Es la funcion que es llamada desde el mensaje de confirmación de la tarea
-			 */
-			private function delRowHandler(evt:CloseEvent):void {
-			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
-			  removeTaskRecord();
-			}
-			/**
-			 * Remueve todas las tareas seleccionadas del datagrid
-			 */
-			private function removeTaskRecord():void
-            {
-            	if(tablaAtenciones.selectedItem){
-            		Application.application.EditarPostODetalle1.visible=false;
+            	if(Tabla.selectedItem){
+            		var newEditarPost:EditarPostOperatorioDetalle2 = Application.application.EditarPostODetalle2;
+					
+					this.setVisible(false,false);
+					
+					newEditarPost.nombre.text = Tabla.selectedItem.nombreMascota;
+					newEditarPost.raza.text = Tabla.selectedItem.raza;
+					newEditarPost.sexo.text = Tabla.selectedItem.sexo;
+					newEditarPost.fecha.text = Tabla.selectedItem.stfecha;
+					newEditarPost.hora.text = Tabla.selectedItem.shora;
+					newEditarPost.indicaciones.text = Tabla.selectedItem.indicaciones;
+					newEditarPost.costo.costo.text = Tabla.selectedItem.costo;
+
+					newEditarPost.setVisible(true,false);
+					
+            		this.setVisible(false,false);
             		Application.application.EditarPostODetalle2.visible=true;
             		
             		/*
@@ -79,7 +79,7 @@
 			 */
 		    private function getAllDatosResult(event:ResultEvent):void
 			{
-				tablaAtenciones.doubleClickEnabled=true;
+				Tabla.doubleClickEnabled=true;
 				atenciones = event.result as ArrayCollection;
 			}
 			
@@ -92,7 +92,7 @@
             	atenciones = new ArrayCollection;
             	
 				atenciones.addItem({medicamento:"", alimento:"", indicaciones:"", servicio:"", hora:"", fecha:""});
- 				tablaAtenciones.dataProvider = atenciones;
+ 				Tabla.dataProvider = atenciones;
  			}
  			
  			/**
@@ -131,12 +131,13 @@
 	<mx:Label x="393.7" y="35.9" text="Nombre:" width="63.4" height="17.931034"/>
 	<mx:Label x="393.7" y="61.9" text="Raza:" width="78"/>
 	<mx:Label x="187" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
-	<mx:DataGrid x="24" y="144" width="710" height="197" id="tablaAtenciones" dataProvider="{atenciones}" itemDoubleClick="{updateRow()}">
+	<mx:DataGrid x="24" y="144" width="710" height="197" id="Tabla" dataProvider="{atenciones}" itemDoubleClick="{updateRow()}">
 		<mx:toolTip>Se muestran todas las atenciones que no han sido bloquedas</mx:toolTip>
 		<mx:columns>
 			<mx:DataGridColumn width="120" headerText="Hora" dataField="shora" id="hora" sortable="false" draggable="false"/>
 			<mx:DataGridColumn width="120" headerText="Fecha" dataField="stfecha" id="fecha" sortable="false" draggable="false"/>
 			<mx:DataGridColumn headerText="Indicaciones" dataField="indicaciones" id="indicaciones" sortable="false" draggable="false"/>
+			<mx:DataGridColumn headerText="Costo" dataField="costo" id="costo" sortable="false" draggable="false"/>
 			</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="523" y="350" label="Editar" id="purgarAtenciones" click="{updateRow()}" toolTip="Elimina la seleccionada" width="102" height="23" cornerRadius="6"/>

@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Atención Post-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
+<mx:Panel activate="getAllDatos()" xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Atención Post-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -117,30 +117,32 @@
 			 * sin necesidad de pasar por el panel Veterinaria
 			 * 
 			 */
-			public function editarAtencion():void
-			{
+			public function editarAtencion():void{
 				if(Tabla.selectedItem){					
-					var newPurgarPost:EditarPostOperatorioDetalle1 = Application.application.purgPost;
-					var newMascota:PostOperatorio = new PostOperatorio();
-					newMascota.nombreMascota = Tabla.selectedItem.nombreMascota;
-					newMascota.raza = Tabla.selectedItem.raza;
-					newMascota.sexo = Tabla.selectedItem.sexo;
-					newMascota.nombreCliente = Tabla.selectedItem.nombreCliente;
-					newMascota.apellido = Tabla.selectedItem.apellido;
-					newMascota.clienterut = Tabla.selectedItem.clienterut;
+					var newEditarPost:EditarPostOperatorioDetalle1 = Application.application.EditarPostODetalle1;
+					var newPost:PostOperatorio = new PostOperatorio();
+					newPost.nombreMascota = Tabla.selectedItem.nombreMascota;
+					newPost.raza = Tabla.selectedItem.raza;
+					newPost.sexo = Tabla.selectedItem.sexo;
+					newPost.nombreCliente = Tabla.selectedItem.nombreCliente;
+					newPost.apellido = Tabla.selectedItem.apellido;
+					newPost.clienterut = Tabla.selectedItem.clienterut;
 					
 					
 					this.setVisible(false,false);
-					newPurgarPost.resetVars();
-					newPurgarPost.nomMascota.text = newMascota.nombreMascota;
-					newPurgarPost.razaMascota.text = newMascota.raza;
-					newPurgarPost.sexoMascota.text = newMascota.sexo;
-					newPurgarPost.nombre.text = newMascota.nombreCliente;
-					newPurgarPost.apellidoPaterno.text = newMascota.apellido;
-					newPurgarPost.clienterut.text = newMascota.clienterut;
-					newPurgarPost.getAllDatos();
-					newPurgarPost.setVisible(true,false);
+					newEditarPost.resetVars();
+					newEditarPost.nomMascota.text = newPost.nombreMascota;
+					newEditarPost.razaMascota.text = newPost.raza;
+					newEditarPost.sexoMascota.text = newPost.sexo;
+					newEditarPost.nombre.text = newPost.nombreCliente;
+					newEditarPost.apellidoPaterno.text = newPost.apellido;
+					newEditarPost.clienterut.text = newPost.clienterut;
+					newEditarPost.getAllDatos();
+					newEditarPost.setVisible(true,false);
 
+				}
+				else{
+					labelMessage.text="Debe seleccionar una atenció";
 				}
 
 			}
