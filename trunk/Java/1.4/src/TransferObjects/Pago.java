@@ -7,8 +7,6 @@
 
 package TransferObjects;
 
-import java.sql.Date;
-
 public class Pago {
 	public String fecha;
 	public String hora;
