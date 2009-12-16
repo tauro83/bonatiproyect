@@ -98,7 +98,7 @@
 	<mx:Label x="321.25" y="5" text="Rut:" width="31"/>
 	<mx:Label x="495.25" y="5" text="-" width="14.75" textAlign="center"/>
 	<fc:AutoComplete id="inputClienteNombre" x="69" y="3" width="210" dataProvider="{clientesBusqueda}" labelField="nombreCompleto" visible="true" focusOut="llenarRut()" enter="llenarRut()" close="llenarRut()"/>
-	<mx:TextInput  restrict="0-9" x="408" y="3" width="90" id="rutClienteInput" maxChars="9"/>
+	<mx:TextInput  restrict="0-9" x="408" y="3" width="90" id="rutClienteInput" maxChars="8"/>
 	<mx:TextInput x="506" y="3" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" enter="llenarApellido()" focusOut="llenarApellido()"/>
 	<mx:Label x="4" y="5" text="Apellido:" width="68"/>	
 </mx:Canvas>
