@@ -32,7 +32,7 @@
 			* elegida en el combobox, las cuales pueden ser por el nombre del cliente,
 			* rut, apellido, nombre de la mascota, sexo raza.
 			*/
-            private function seleccionarBusqueda (event:Event):void
+private function seleccionarBusqueda (event:Event):void
             {   
             	inputNombreCliente.setVisible(false,false);
 				inputApellidoPaterno.setVisible(false,false);
@@ -42,16 +42,16 @@
 				inputRaza.setVisible(false,false);
 				inputSexo.setVisible(false,false);
 				textBuscar.setVisible(true, false);
-				
+				getAllVacunaciones();
             	switch (combobox.selectedLabel)
 				{
-					
+			    
 			    /**
 			    * El usuario Selecciona la opcion Nombre del Cliente
 			    */
 				case 'Nombre cliente':		
 					inputNombreCliente.setVisible(true,false);
-					getAllVacunaciones();
+					inputNombreCliente.selectedItem=false;
 				break; 
 				
 			    /**
@@ -59,15 +59,15 @@
 			    */
 				case 'Apellido paterno':
 					inputApellidoPaterno.setVisible(true,false);
-					getAllVacunaciones();
+					inputApellidoPaterno.selectedItem=false;
 				break;
 				
 			    /**
 			    * El usuario Selecciona la opcion Rut del Cliente
-			    */				
+			    */	
 				case 'Rut cliente':
 					inputRutCliente.setVisible(true,false);
-					getAllVacunaciones();
+					inputRutCliente.selectedItem=false;
 				break;
 				
 			    /**
@@ -75,6 +75,7 @@
 			    */
 				case 'Nombre mascota':
 					inputNombreMascota.setVisible(true,false);
+					inputNombreMascota.selectedItem=false;
 				break;
 				
 			    /**
@@ -82,12 +83,11 @@
 			    */
 				case 'Raza':
 					inputRaza.setVisible(true,false);
+					inputRaza.selectedItem=false;
 				break;
-			    /**
-			    * El usuario Selecciona la opcion Sexo de la Mascota
-			    */				
 				case 'Sexo':
 					inputSexo.setVisible(true,false);
+					inputSexo.selectedItem=false;
 				break;
 				}
             }
@@ -108,7 +108,6 @@
             	combobox.selectedItem="-Seleccionar-";
             	textBuscar.setVisible(false,false);
             	this.vacunaicones = new ArrayCollection();
-          
             }
             
             /**
@@ -150,6 +149,7 @@
             		this.setVisible(false,false);            	 	
             		Application.application.anularPre2.setDatos(tablaVacunaciones.selectedItem as anuPreoperatorio);
             		Application.application.anularPre2.setVisible(true,false);
+            		Application.application.anularPre2.limpiarTodo();
             	}
             }
             
@@ -163,6 +163,33 @@
             	Application.application.peluqueriaIni.setVisible(true,false);
             }
             
+            		    public function Seleccionar(event:Event):void
+			{
+			    if(inputNombreCliente.selectedIndex==0)
+			    {
+			    	inputNombreCliente.text=inputNombreCliente.selectedLabel;
+			    }
+			    if(inputApellidoPaterno.selectedIndex==0)
+			    {
+			    	inputApellidoPaterno.text==inputApellidoPaterno.selectedLabel;
+			    }
+			    if(inputRutCliente.selectedIndex==0)
+			    {
+			    	inputRutCliente.text=inputRutCliente.selectedLabel;
+			    }
+			    if(inputNombreMascota.selectedIndex==0)
+			    {
+			    	inputNombreMascota.text==inputNombreMascota.selectedLabel;
+			    }
+			    if(inputRaza.selectedIndex==0)
+			    {
+			    	inputRaza.text=inputRaza.selectedLabel;
+			    }
+			    if(inputSexo.selectedIndex==0)
+			    {
+			    	inputSexo.text==inputSexo.selectedLabel;
+			    }
+			}
 	 	]]>
     </mx:Script>
 	
@@ -205,20 +232,20 @@
 	<!-- AutoComplete -->
 	
 	<!-- Nombre Del Cliente -->
-	<fc:AutoComplete id="inputNombreCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombreCliente" visible="false" toolTip="ingrese texto para búsqueda" />
+	<fc:AutoComplete id="inputNombreCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombreCliente" visible="false" close="Seleccionar(event)" toolTip="ingrese texto para búsqueda" />
 	
 	<!-- Apellido Del Cliente -->
-	<fc:AutoComplete id="inputApellidoPaterno" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="apellido" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputApellidoPaterno" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="apellido" visible="false" close="Seleccionar(event)" toolTip="ingrese texto para búsqueda"/>
 	
 	<!-- Rut Del Cliente -->
-	<fc:AutoComplete id="inputRutCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="rutCliente" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputRutCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="rutCliente" visible="false" close="Seleccionar(event)" toolTip="ingrese texto para búsqueda"/>
 	
 	<!-- Nombre De La Mascota -->
-	<fc:AutoComplete id="inputNombreMascota" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombreMascota" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputNombreMascota" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombreMascota" visible="false" close="Seleccionar(event)" toolTip="ingrese texto para búsqueda"/>
 	
 	<!-- Raza De La Mascota -->
-	<fc:AutoComplete id="inputRaza" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="raza" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputRaza" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="raza" visible="false" close="Seleccionar(event)" toolTip="ingrese texto para búsqueda"/>
 	
 	<!-- Sexo De La Mascota -->
-	<fc:AutoComplete id="inputSexo" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="sexo" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputSexo" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="sexo" visible="false" close="Seleccionar(event)" toolTip="ingrese texto para búsqueda"/>
 </mx:Panel>
