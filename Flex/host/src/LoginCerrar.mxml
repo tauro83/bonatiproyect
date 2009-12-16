@@ -31,6 +31,8 @@
            	Application.application.botonHotel.enabled=false;
            	Application.application.botonAyuda.enabled=false;
            	Application.application.botonLogin.label="Iniciar Sesión";
+           	Application.application.usuarioON.text = "";
+           	Application.application.usuarioON0.visible=false;
    		}
    			
    		/**

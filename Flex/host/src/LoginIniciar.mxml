@@ -19,7 +19,6 @@
 			import mx.core.Application;
 			
 			public var bar:int;
-			public var usuarioActivo:String;
 			
 			/**
 			 *  Comprueba que exista el login que se esta ingresando,
@@ -44,6 +43,110 @@
 			 *  sistema, de lo contrario no dando aviso por un popup
 			 *  @author  "Esteban Cruz"
 			 **/
+			 
+			 //PERMISO REGISTRAR
+			public function pRegistrar():void
+			{
+				var usuario:Usuario = new Usuario();
+				usuario.contrasena=pass.text;
+				usuario.usuario=nombre.text;
+				
+				var loginService:LoginService = new LoginService();
+				loginService.addEventListener(ResultEvent.RESULT,pRegistrarResult);
+				loginService.pRegistrar(usuario);
+			}
+			public function pRegistrarResult(event:ResultEvent):void
+			{
+				var result:Boolean = event.result as Boolean ;
+				if(result==true){
+					Application.application.opcionesPetshop.bRegPago.enabled = false; 
+					Application.application.opcionesPetshop.bRegProd.enabled = false; 
+					Application.application.hotelOpciones.botonRegistrarHoteleria.enabled=true;
+					Application.application.opcionesClinica1.PreOlink.enabled=true;
+					Application.application.opcionesClinica1.cirugiaLink.enabled=true;
+					Application.application.opcionesClinica1.PostOLink.enabled=true;
+					Application.application.opcionesClinica1.linkRegVac.enabled=true;
+					Application.application.opcionesClinica1.BotonRegistrarConsulta.enabled=true;
+					Application.application.opcionesClinica1.BotonRegistrarControl.enabled=true;
+				}else{
+					Application.application.opcionesPetshop.bRegPago.enabled = true; 
+					Application.application.opcionesPetshop.bRegProd.enabled = true;  
+				}
+			}
+			
+			//PERMISO EDITAR
+			public function pEditar():void
+			{
+				var usuario:Usuario = new Usuario();
+				usuario.contrasena=pass.text;
+				usuario.usuario=nombre.text;
+				
+				var loginService:LoginService = new LoginService();
+				loginService.addEventListener(ResultEvent.RESULT,pEditarResult);
+				loginService.pEditar(usuario);
+			}
+			public function pEditarResult(event:ResultEvent):void
+			{
+				var result:Boolean = event.result as Boolean ;
+				
+				if(result==true){
+					Application.application.hotelOpciones.botonEditarHot.enabled=true;
+					Application.application.opcionesClinica1.botonEditarPabellon.enabled=true;
+					Application.application.opcionesClinica1.cirugiaLink0.enabled=true;
+					Application.application.opcionesClinica1.editarPostO.enabled=true;
+					Application.application.opcionesClinica1.editarPostO.enabled=true;
+					Application.application.opcionesClinica1.botonEditarPoliclinico.enabled=true;
+					Application.application.opcionesClinica1.botonEditarConsulta.enabled=true;
+				}
+			}
+			
+			//PERMISO ELIMINAR
+			public function pEliminar():void
+			{
+				var usuario:Usuario = new Usuario();
+				usuario.contrasena=pass.text;
+				usuario.usuario=nombre.text;
+				
+				var loginService:LoginService = new LoginService();
+				loginService.addEventListener(ResultEvent.RESULT,pEliminarResult);
+				loginService.pEliminar(usuario);
+			}
+			public function pEliminarResult(event:ResultEvent):void
+			{
+				var result:Boolean = event.result as Boolean ;
+				
+				if(result==true){
+					Application.application.hotelOpciones.botonRetirarHot.enabled=true;
+					Application.application.opcionesClinica1.botonPurgarPabellon.enabled=true;
+					Application.application.opcionesClinica1.cirugiaLink1.enabled=true;
+					Application.application.opcionesClinica1.anulPost.enabled=true;
+					Application.application.opcionesClinica1.anularVacunacion.enabled=true;
+					Application.application.opcionesClinica1.botonAnularControl.enabled=true;
+					Application.application.opcionesClinica1.purgarPostO2.enabled=true;
+				}
+			}
+			
+			//PERMISO PURGAR
+			public function pPurgar():void
+			{
+				var usuario:Usuario = new Usuario();
+				usuario.contrasena=pass.text;
+				usuario.usuario=nombre.text;
+				
+				var loginService:LoginService = new LoginService();
+				loginService.addEventListener(ResultEvent.RESULT,pPurgarResult);
+				loginService.pPurgar(usuario);
+			}
+			public function pPurgarResult(event:ResultEvent):void
+			{
+				var result:Boolean = event.result as Boolean ;
+				
+				if(result==true){
+					Application.application.opcionesClinica1.botonPurgarPabellon.enabled=true;
+					
+				}
+			}
+			 
 			private function existLoginResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
@@ -63,13 +166,12 @@
             		Application.application.botonAyuda.enabled=true;
             		Application.application.botonLogin.enabled=true;
             		Application.application.botonLogin.label="Cerrar Sesión";
-            		
-            		usuarioActivo = nombre.text;
-            		
-            		if(!recordar.selected==true){
-            			nombre.text=null;
-            			pass.text=null;
-            		}
+            		pRegistrar();
+           			pEditar();
+           			pEliminar();
+           			pPurgar();
+        			Application.application.usuarioON.text = nombre.text;
+         			Application.application.usuarioON0.visible=true;
 				}
 				else
 				{
@@ -79,12 +181,10 @@
 			}
  		]]>
  	</mx:Script>	
-	<mx:CheckBox x="482" y="252" label="Sí" id="recordar"/>
 	<mx:TextArea x="482" y="192" height="19" width="196" displayAsPassword="true" id="pass"/>
 	<mx:Button x="647" y="302" label="Iniciar" id="AceptarUsuario" width="102" height="23" click="existLogin()" cornerRadius="6"/> 
 	<mx:Image x="-6" y="0" source="../gato.jpg" width="455" height="426" alpha="1.0"/>
 	<mx:Text x="407" y="164" text="Ingrese su contraseña&#xa;" fontWeight="bold" fontSize="12"/>
-	<mx:Text x="407" y="226" text="¿Desea recordar su cuenta?&#xa;" fontWeight="bold"/>
 	<mx:TextArea x="482" y="130" height="19" width="196" id="nombre" fontStyle="normal"/>
 	<mx:Text x="407" y="102" text="Ingrese su nombre&#xa;" fontWeight="bold" fontSize="12"/>
 	<mx:Label x="457" y="22" text="Bienvenido" fontWeight="bold" fontSize="30"/>
