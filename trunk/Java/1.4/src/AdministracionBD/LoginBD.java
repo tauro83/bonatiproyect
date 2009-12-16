@@ -68,7 +68,7 @@ public class LoginBD {
 	    		usuario.setUsuario(result.getString(1));
 	    		usuario.setEstado(result.getBoolean(3));
 	    	
-	    		Boolean estado = usuario.getEstado();	
+	    		boolean estado = usuario.getEstado();	
 	    		String name = usuario.getUsuario();
 	    		String pass = usuario.getContrasena();
 	    		pass = pass.trim();
