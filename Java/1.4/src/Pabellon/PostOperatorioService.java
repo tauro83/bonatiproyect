@@ -19,6 +19,20 @@ import Bd.DBConnectionManager;
 public class PostOperatorioService{
 	
 	
+	public List getAllPostOperatorioActivo(){
+		List result=null;
+		try{
+			Connection connection=DBConnectionManager.getConnection();
+			PostOperatorioBD object= new PostOperatorioBD(connection);
+			result = object.getAllPostOperatorioActivoBD();	
+			
+			connection.close();
+		} 
+    	catch (SQLException e){
+			e.printStackTrace();
+		}
+		return result;
+	}
 	/**
 	 * Inserta un registr de postoperatorio en la base de datos
 	 * @return Resultado de la operación realizada
@@ -40,8 +54,6 @@ public class PostOperatorioService{
 		}
 		return result;
     }
-
-	
 	
 	/**
 	 * Elimina un registro en la base de datos
