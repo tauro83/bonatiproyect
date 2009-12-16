@@ -37,73 +37,30 @@
 			 * */
 			public function itsOk():Boolean
 			{
-				/*if(Validacion.longitudMinima(amat.text)){
-					if(Validacion.longitudMinima(apat.text)){
-						if(cont.text == rcon.text){
-							if(Validacion.contrasena(cont.text)){
-								if(Validacion.longitudMinima(nomb.text)){
-									if(Validacion.longitudMinima(usua.text) && Validacion.espaciosEnBlanco(usua.text)){
-										return true;
-									}
-									else{
-										labelMessage.text = "Ingrese un nombre de usuario sin espacios en blanco y mas largo";
-										return false;
-									}
-								}
-								else{
-									labelMessage.text="Ingrese un nombre mas largo";
-									return false;
-								}
-							}
-							else{
-								labelMessage.text = "Ingrese una contraseña mas larga y sin espacios en blanco";
-								return false;
-							}
-						}
-						else{
-							labelMessage.text = "Las contraseñas no coinciden, ingresela nuevamente";
-							return false;
-						}
-					}
-					else{
-						labelMessage.text="Ingrese un Apellido Paterno mas largo";
-						return false;
-					}
-				} 
-				else{
-					labelMessage.text="Ingrese un Apellido Materno mas largo";
-					return false;
-				}
-				*/
+				validarNombre();
 				if(vNombre==true)
 				{
+					validarApellido()
 					if(vApaterno==true)
 					{
-					
-						if(vUsuario==true)
+						validarContrasena()
+						if(vContrasena==true)
 						{
-							
+							validarRContrasena();
 							if(vRContrasena==true)
 							{
-								if(vContrasena==true)
-								{
-									return true;	
-								}
-								else{
-										labelMessage.text = Properties.getMensaje("Advertencia", "12");
-										return false;
-								}
+								return true;	
 							}
 							else{
-								labelMessage.text =  Properties.getMensaje("Advertencia", "9");
-								return false;
+									labelMessage.text = Properties.getMensaje("Advertencia", "9");
+									return false;
 							}
-							
 						}
 						else{
-							labelMessage.text =  Properties.getMensaje("Advertencia", "8");
+							labelMessage.text =  Properties.getMensaje("Advertencia", "12");
 							return false;
 						}
+							
 					}
 					else{
 						labelMessage.text = Properties.getMensaje("Advertencia", "6");
@@ -149,7 +106,7 @@
 		 	 * 	Validacion del nombre del usuario
 		 	 * @author  "Jimmy Muñoz"	 		
 			 * */
-			private function validarNombre(event:Event):void
+			private function validarNombre():void
 			{
 				if(nomb.length>3)
 				{
@@ -168,7 +125,7 @@
 		 	 * 	Validacion del nombre con el cual el usuario se identificara en el sistema
 		 	 * @author  "Jimmy Muñoz" 		
 			 * */
-			private function validarUsuario(event:Event):void
+			private function validarUsuario():void
 			{	
 				if(usua.length>3 && usua.text.search(" ")==-1)
 				{
@@ -188,7 +145,7 @@
 		 	 * 	Validacion las propiedades de la contraseña	
 		 	 * @author  "Jimmy Muñoz"	
 			 * */
-			private function validarContrasena(event:Event):void
+			private function validarContrasena():void
 			{
 				if(cont.length>3)
 				{
@@ -208,7 +165,7 @@
 		 	 *  comprueba que las dos contraseñas ingresadas coincidan
 		 	 * @author  "Jimmy Muñoz"		
 			 * */
-			private function validarRContrasena(event:Event):void
+			private function validarRContrasena():void
 			{
 				if(cont.text == rcon.text)
 				{
@@ -227,7 +184,7 @@
 		 	 * 	Realiza la opcion de elegir todos los privilegios tras seleccionar la opcion todos	
 		 	 * @author  "Jimmy Muñoz"	
 			 * */
-			private function todosLosPrivilegios(event:Event):void
+			private function todosLosPrivilegios():void
 			{
 				if(ptod.selected == true)
 				{
@@ -264,7 +221,7 @@
 		 	 * 	Validacion del Apellido paterno del usuario	
 		 	 * @author  "Jimmy Muñoz"		
 			 * */
-			private function validarApellido(event:Event):void
+			private function validarApellido():void
 			{
 				if(apat.length>3)
 				{
