@@ -512,10 +512,11 @@
 	</ns1:EliminarMascota>
 	<ns1:PurgarMascota x="241" y="134" id="AdmPurgarMascota" visible="false">
 	</ns1:PurgarMascota>
-	<ns1:EditarPostOperatorio x="241" y="134" id="editarPostO" visible="false">
-	</ns1:EditarPostOperatorio>
-	<ns1:EditarPostOperatorioDetalle x="241" y="134" id="EditarPostODetalle" visible="false">
-	</ns1:EditarPostOperatorioDetalle>
+	<ns3:EditarPostOperatorio x="241" y="134" id="editarPostO" visible="false">
+	</ns3:EditarPostOperatorio>
+	
+	<ns3:EditarPostOperatorioDetalle x="241" y="134" id="EditarPostODetalle" visible="false">
+	</ns3:EditarPostOperatorioDetalle>
 	<ns4:PurgarControl x="241" y="134" id="purgControl" visible="false">
 	</ns4:PurgarControl>
 	<ns5:ElminarHoteleria x="241" y="134" id="eliminarHoteleria" visible="false">

@@ -1,0 +1,187 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="getAllDatos()" activate="getAllDatos()" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Post-Operatorio" xmlns:ns1="util.*">
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 20-10-2009
+			// AUTOR: Andres Garrido
+			// Comentarios: Muestra datos de la mascota con sus respectivas atenciones
+			// en post-operatorio y permite editarlas
+			//=======================================================================
+		
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.core.Application;
+			import pabellon.GetAllPostOperatorio;
+			import transferObjects.PostOperatorio;
+			import mx.formatters.DateFormatter;
+			import mx.events.CloseEvent;
+			import services.*;
+			[Bindable]
+			private var postOperatorios:ArrayCollection;
+			[Bindable] 
+		    public var mascotas:ArrayCollection = new ArrayCollection();
+		    
+			public function getAllDatos():void{
+				/*
+				var visualizarPostoperatorio:PostOperatorioService = new PostOperatorioService();
+				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+				visualizarPostoperatorio.getAllPostOperatorio2(this.nomMascota.text.toString(),this.clienterut.text.toString());
+				*/
+			}
+            private function getAllResult(event:ResultEvent):void{
+				postOperatorios= new ArrayCollection();
+				var lista:ArrayCollection = event.result as ArrayCollection;
+				var i:int;
+				
+				for(i=0;i<lista.length;i++){
+					var asd:PostOperatorio = lista.getItemAt(i) as PostOperatorio;
+					postOperatorios.addItem(asd);
+				}
+				
+			}
+			/**
+			 * Es llamada al hacer doble click en el data grid o al presionar el 
+			 * botón visualizar, esta función llega al panel PurgarPostOperatorio de manera interna
+			 * sin necesidad de pasar por el panel Veterinaria
+			 * 
+			 */
+			 
+			public function editarAtencion():void{
+				/*
+				if(tablaDatos.selectedItem){				
+					var atencion:PostOperatorio = tablaDatos.selectedItem as PostOperatorio;	
+					Application.application.EditarPostODetalle.setData(atencion);
+					this.setVisible(false,false);
+					Application.application.EditarPostODetalle.visible=true;
+				}
+				else{
+					txt.text="Primero debe seleccionar una atención.";
+				}
+				*/
+			}
+			
+			/**
+			 * Al cancelar la operación se muestra un panel que solo tiene el 
+			 * mensaje "seleccione una opcion del menú"
+			 * 
+			 */
+			private function cancelando():void
+			{
+				this.setVisible(false,false);
+				Application.application.panelClinicaIni.setVisible(true,false);
+			}
+			/**
+			 *Cambia el formato de la fecha para una mejor lectura del datagrid
+			 */
+			private function doLabel(item:Object, column:DataGridColumn):String {
+				var dateFormatted:DateFormatter = new DateFormatter();
+				dateFormatted.formatString = "DD/MM/YYYY";
+				var rawDate:Date = new Date(item[column.dataField]);
+				return dateFormatted.format(rawDate) as String;
+			}
+			[Bindable]
+			private var atenciones:ArrayCollection;
+			
+			
+			/**
+			 * elimina una fila dentro de la tabla
+			 */
+           	private function deleteRow():void {
+			 Alert.show("Está seguro que desea Eliminar la atención ","Confirme Eliminar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			}
+			/**
+			 * Es la funcion que es llamada desde el mensaje de confirmación de la tarea
+			 */
+			private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+			/**
+			 * Remueve todas las tareas seleccionadas del datagrid
+			 */
+			private function removeTaskRecord():void
+            {
+            	/*
+            	if(tablaAtenciones.selectedItem){
+            		//Alert.show(tablaAtenciones.selectedItem.hora.toString());
+            		var elimItem:PostOperatorioService = new PostOperatorioService();
+					elimItem.addEventListener(ResultEvent.RESULT,deleteAtencionResult);
+					elimItem.elimAtencion(tablaAtenciones.selectedItem.shora.toString(),
+					this.clienterut.text.toString(), this.nomMascota.text.toString());
+					
+            	}
+            	*/
+            }
+            private function deleteAtencionResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				ltexto.text = "Atención eliminada con éxito";
+				getAllDatos();
+			}
+
+				
+			/**
+			 * Obtiene la lista con los objetos desde la base de datos
+			 */
+		    private function getAllDatosResult(event:ResultEvent):void
+			{
+				tablaAtenciones.doubleClickEnabled=true;
+				atenciones = event.result as ArrayCollection;
+			}
+			
+			/**
+         	 * Función de prueba que llena el datagrgis sin necesidad de ir a la base de datos
+         	 * 
+         	 */
+         	public function updateTable():void
+            {
+            	atenciones = new ArrayCollection;
+            	
+				atenciones.addItem({medicamento:"", alimento:"", indicaciones:"", servicio:"", hora:"", fecha:""});
+ 				tablaAtenciones.dataProvider = atenciones;
+ 			}
+ 			
+ 		
+			public function mascotasFiltrar():void{
+				getMascotas();
+			}
+			/**
+			* Funcion que llama a retornar todas las mascotas de un cliente para ser vistas en el combobox
+			* @author  Sebastian Arancibia
+			*/
+			private function getMascotas():void{
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteDVInput.text);
+			}
+			private function getAddMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+			}
+		]]>
+	</mx:Script>
+	<mx:Label x="187" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:DataGrid x="24" y="111" width="710" height="230" id="tablaAtenciones" dataProvider="{atenciones}" itemDoubleClick="{deleteRow()}">
+		<mx:toolTip>Se muestran todas las atenciones que no han sido bloquedas</mx:toolTip>
+		<mx:columns>
+			<mx:DataGridColumn width="120" headerText="Hora" dataField="shora" id="hora" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="120" headerText="Fecha" dataField="stfecha" id="fecha" sortable="false" draggable="false"/>
+			<mx:DataGridColumn headerText="Indicaciones" dataField="indicaciones" id="indicaciones" sortable="false" draggable="false"/>
+			</mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="523" y="350" label="Editar" id="purgarAtenciones" click="{deleteRow()}" toolTip="Elimina la seleccionada" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="647" y="350" label="Cancelar" click="cancelando()" id="cancelar" toolTip="Cancela la operación y regresa al panel anterior" width="102" height="23" cornerRadius="6"/>
+	<mx:Label x="24" y="85" text="Atenciones Post-Operatorio" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<ns1:BuscadorNombreRut x="24" y="36" keyFocusChange="mascotasFiltrar()" mouseFocusChange="mascotasFiltrar()" id="buscadorCliente">
+	</ns1:BuscadorNombreRut>
+	<mx:Label x="24" y="10" text="Cliente:" fontWeight="bold"/>
+	
+
+
+	
+</mx:Panel>

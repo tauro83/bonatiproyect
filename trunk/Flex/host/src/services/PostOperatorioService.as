@@ -12,6 +12,7 @@ package services
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
+	
 	import util.host;
 	/**
 	 * Clase encargada de realizar la conexión entre la capa
@@ -31,34 +32,32 @@ package services
 			this.source="Pabellon.PostOperatorioService";
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
+		
 		/**
 		 * @param event Evento recogido en caso de una falla en la llamada hacia la capa lógica
 		 */ 
-		private function faultHandler(event:FaultEvent):void
-		{
+		private function faultHandler(event:FaultEvent):void{
 			Alert.show("Error en PostOperatorioService, Detalle: "+event.fault.message);
 		}
-		
-		
 		/**
 		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos
 		 */ 
-		public function elimAtencion(hora:String, rut:String, nomMascota:String):void
-		{
+		public function getAllPostOperatorioActivo():void{
+			this.getOperation("getAllPostOperatorioActivo").send();
+		}
+		public function elimAtencion(hora:String, rut:String, nomMascota:String):void{
 			this.getOperation("elimAtencion").send(hora, rut, nomMascota);
 		}
 		/**
 		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos
 		 */ 
-		public function anulAtencion(hora:String, rut:String, nomMascota:String):void
-		{
+		public function anulAtencion(hora:String, rut:String, nomMascota:String):void{
 			this.getOperation("anulAtencion").send(hora, rut, nomMascota);
 		}
 		/**
 		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos
 		 */ 
-		public function getAllPostOperatorioAnul():void
-		{
+		public function getAllPostOperatorioAnul():void{
 			this.getOperation("getAllPostOperatorioAnul").send();
 		}
 		/**
