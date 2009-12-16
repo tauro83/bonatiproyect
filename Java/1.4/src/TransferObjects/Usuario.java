@@ -15,11 +15,18 @@ public class Usuario {
 	public String cargo;
 	public String contrasena;
 	public String servicio;
+	public boolean estado;
 	public boolean permisoRegistrar;
 	public boolean permisoEditar;
 	public boolean permisoEliminar;
 	public boolean permisoPurgar;
 	
+	public boolean getEstado() {
+		return estado;
+	}
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 	/**
 	 *  retorna nombre
 	 */
