@@ -6,7 +6,7 @@
 			// AUTOR: Jimmy Muñoz
 			// Formulario para obtener datos del cliente y sus mascotas.
 			//=======================================================================
-			
+			import util.Properties;
         	import mx.events.FlexEvent;
         	import transferObjects.ConfiguracionVacuna;
         	import transferObjects.Cliente;
@@ -116,7 +116,7 @@
         		if(this.rutEnvi != this.nombRutInput.rutClienteInput.text){
         			if(nombRutInput.rutClienteDVInput.text != "" && nombRutInput.rutClienteInput.text != ""){
         				if(!Validacion.validaRut(nombRutInput.rutClienteInput.text, nombRutInput.rutClienteDVInput.text)){
-							labelMessage.text = "El Rut que ha ingresado es incorrecto.";
+							labelMessage.text = Properties.getMensaje("Error", "4");
 						}
 						else{
 							labelMessage.text = "";
@@ -152,7 +152,7 @@
 				clienteBD = event.result as Cliente;
 				
 				if(clienteBD.nombre == null){
-        			labelMessage.text = "Cliente no registrado."
+        			labelMessage.text = Properties.getMensaje("Informacion", "39");
         			
         		}
         		else{
@@ -263,7 +263,7 @@
 					nuevapeluqueria.setVisible(true,false);
 				}
 				else{
-					this.labelMessage.text="Seleccione una Mascota para registrar la Peluqueria.";
+					this.labelMessage.text=Properties.getMensaje("Advertencia", "38");
 				}
 				
 			}
