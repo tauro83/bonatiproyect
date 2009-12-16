@@ -453,7 +453,7 @@ CREATE TABLE pago
 (
   fecha date NOT NULL,
   hora time without time zone NOT NULL,
-  estado integer,
+  estado integer DEFAULT 0,
   total integer,
   CONSTRAINT pk_pago PRIMARY KEY (fecha, hora)
 );
@@ -465,7 +465,12 @@ CREATE TABLE detallepago
   codigoproducto character(20) NOT NULL,
   cantidad integer,
   subtotal integer,
-  CONSTRAINT pk_detallepago PRIMARY KEY (fecha, hora, codigoproducto)
+  CONSTRAINT pk_detallepago PRIMARY KEY (fecha, hora, codigoproducto), 
+  CONSTRAINT fk_detallepago_pago
+    FOREIGN KEY (fecha, hora)
+    REFERENCES pago(fecha, hora)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
 CREATE TABLE avisoweb
