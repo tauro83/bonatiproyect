@@ -25,13 +25,15 @@
 			import mx.formatters.DateFormatter;
 			[Bindable]
 			private var atencion:PostOperatorio;
+			[Bindable]
 			private var horas:ArrayCollection;
 			
-			private function registrar():void{
+			private function editar():void{
 				
 			}
 			private function cancelando():void{
-				
+				this.setVisible(false,false);
+				Application.application.EditarPostODetalle1.visible=true;
 			}
 		
           
@@ -44,7 +46,7 @@
 	<mx:Label x="16.95" y="65.8" text="Raza:" width="46"/>
 	<mx:Label x="17" y="111" text="Postoperatorio" width="98" fontWeight="bold"/>
 	<mx:Label x="17" y="325" text="Costo: " width="78"/>
-	<mx:Button x="523" y="354" label="Guardar" width="102" height="23" click="{registrar()} "/>
+	<mx:Button x="523" y="354" label="Guardar" width="102" height="23" click="{editar()} "/>
 	<mx:Button x="632" y="353" label="Cancelar" width="102" height="23" click="{cancelando()}"/>
 	<mx:TextInput x="133" y="31" id="nombre" editable="false"  width="160" height="22"/>
 	<mx:TextInput x="487" y="30.95" id="sexo" editable="false"  width="160" height="22"/>
