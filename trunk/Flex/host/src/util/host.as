@@ -11,7 +11,7 @@ package util
 			
 			//LOCAL
 			//"http://localhost:8080/BonatiServer/messagebroker/amf"
-			return "http://localhost:8080/BonatiServer/messagebroker/amf";
+			return "http://clinicabonati.hostjava.net:9939/BonatiServer/messagebroker/amf";
 		}
 	}
 	
