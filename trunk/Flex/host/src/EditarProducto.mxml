@@ -147,7 +147,7 @@
 			private function volver():void
             {
             	this.setVisible(false,false);
-            	Application.application.peluqueriaIni.setVisible(true,false);
+            	Application.application.panelPetshop.setVisible(true,false);
             }
             
             /**
@@ -189,7 +189,7 @@
 	<mx:Text x="10" y="10" id="textFiltrar" text="Filtrar por"/>
 	
 	<!-- Botón Cancelar -->
-	<mx:Button x="647" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" />
+	<mx:Button x="647" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()" />
 	
 	<!-- Opciones de busqueda -->
 	<mx:ComboBox x="76" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
@@ -218,7 +218,7 @@
 	<!-- AutoComplete -->
 	
 	<!-- Nombre Del Producto -->
-	<fc:AutoComplete id="inputNombreProducto" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productos}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda" />
+	<fc:AutoComplete id="inputNombreProducto" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productos}"  labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda" />
 	
 	<!-- Precio -->
 	<fc:AutoComplete id="inputPrecio" close="Seleccionar(event)" x="599" y="8" width="150" dataProvider="{productos}" labelField="precio" visible="false" toolTip="ingrese texto para búsqueda"/>
