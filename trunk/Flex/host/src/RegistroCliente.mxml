@@ -959,14 +959,14 @@
 	<mx:Label x="24" y="158" text="Teléfono fijo:" width="97"/>
 	<mx:TextInput restrict="0-9" x="143" y="158" width="40" id="telefono" maxChars="3"/>
 	<mx:Label x="306" y="110" text="-" textAlign="center"/>
-	<mx:TextInput restrict="0-9" x="208" y="158" width="136" id="telefono2"  maxChars="10"/>
+	<mx:TextInput restrict="0-9" x="208" y="158" width="136" id="telefono2"  maxChars="7"/>
 	
 		
     <!-- Celular -->
 	<mx:Label x="412" y="160" text="Celular:" width="97"/>
 	<mx:TextInput restrict="0-9" x="523" y="158" width="40" id="celular" maxChars="2"/>
 	<mx:Label x="187" y="160" text="-" textAlign="center"/>
-	<mx:TextInput restrict="0-9" x="582" y="158" width="142" id="celular2" maxChars="10"/>
+	<mx:TextInput restrict="0-9" x="582" y="158" width="142" id="celular2" maxChars="8"/>
 	
 	<!-- Direccion -->	
 	<mx:Label x="24" y="210" text="Dirección:" width="97"/>
