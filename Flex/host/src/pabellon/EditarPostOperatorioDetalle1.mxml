@@ -41,7 +41,6 @@
 					newEditarPost.fecha.text = Tabla.selectedItem.stfecha;
 					newEditarPost.hora.text = Tabla.selectedItem.shora;
 					newEditarPost.indicaciones.text = Tabla.selectedItem.indicaciones;
-					newEditarPost.costo.costo.text = Tabla.selectedItem.costo;
 					newEditarPost.fechast = Tabla.selectedItem.stfecha;
 					newEditarPost.horast = Tabla.selectedItem.shora;
 					
