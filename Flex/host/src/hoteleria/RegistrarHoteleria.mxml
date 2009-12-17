@@ -19,6 +19,7 @@
 			import services.AddMascotaService; 
 			import util.Properties; 
 			import mx.formatters.DateFormatter;
+			import mx.core.Application;
 			
 
 			
@@ -118,7 +119,7 @@
              	alojar.canil           = parseInt(canilIntput.selectedLabel.split(" ", 1).pop());
              	alojar.costo           = costoIntput.costoBruto;
              	alojar.comentario      = comentarioCuadro.text; 
-             	alojar.responsable     = "cb";            	
+             	alojar.responsable     = Application.application.login2.usuarioActivo;            	
              	
              	var rH:RegistHoteleriaService = new RegistHoteleriaService();
              	
