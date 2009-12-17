@@ -8,38 +8,39 @@ package Petshop;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import TransferObjects.Pago;
+import TransferObjects.Producto;
 import Bd.DBConnectionManager;
 
+import TransferObjects.Pago;
+
 public class RegistrarPagoService {
-	Connection conn;
-	/**
-	 * Constructor de la clase que obtiene la conexion con la base de datos
-	 * @author Andres_Garrido
-	 * 
-	 */
-	public RegistrarPagoService(){
-		conn=DBConnectionManager.getConnection();
-	}
-	/**
-	 * Método que conecta con la capa 3 entregándole una conexion establecida
-	 * con la base de datos.
-	 * @param pago Pago a registrar en el sistema.
-	 * @return Entero que informa acerca del éxito o fracaso de la operación.
-	 * @throws SQLException
-	 */
-	public int registrarPago(Pago pago) throws SQLException{
-		int result=0;//resultado de la ejecución, 0:fracaso, !0:éxito
-		RegistrarPagoServiceBD object= new RegistrarPagoServiceBD(conn);
-		result = object.registrarPago(pago);//conexión con capa 3
-		conn.close();
-		return result;
-    }
 	public Producto getProducto(String codigo){
-		System.out.println("qwqqqqqqqqqqqqqqqqqqqqqqqqqqq " + codigo);
-		Producto p = new Producto();
-		RegistrarPagoServiceBD object= new RegistrarPagoServiceBD(conn);
-		p = object.getProducto(codigo);
+    	Producto p = null;
+    	try {
+			Connection connection=DBConnectionManager.getConnection();
+			RegistrarPagoServiceBD addMascotaBD = new RegistrarPagoServiceBD(connection);
+			p = addMascotaBD.getProducto(codigo);		
+			connection.close();
+		} 
+    	catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return p;
 	}
+	
+	public int addPago(Pago pago) throws SQLException{
+		int result=0;//resultado de la ejecución, 0:fracaso, !0:éxito
+    	try {
+    		Connection connection=DBConnectionManager.getConnection();
+    		RegistrarPagoServiceBD object= new RegistrarPagoServiceBD(connection);
+    		result = object.registrarPago(pago);//conexión con capa 3	
+			connection.close();
+		} 
+    	catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+    }
+
 }
