@@ -128,7 +128,7 @@ public class AddVacunacionBD {
     	int largo = vacunas.size();
     	String costo = "0";
     	for(int i=0;i<largo;i++){
-    		if(tc.equals(((Cliente) vacunas.get(i)).getNombre())){
+    		if(tc.equals(((ConfiguracionVacuna) vacunas.get(i)).getNombre())){
     			this.caduci = (int)Integer.parseInt(((ConfiguracionVacuna) vacunas.get(i)).getCaducidad());
     			return ((ConfiguracionVacuna) vacunas.get(i)).getPrecio();
     		}
