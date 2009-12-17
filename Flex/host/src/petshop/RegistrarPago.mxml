@@ -37,7 +37,7 @@
 				numericStepperFac = new ClassFactory(NumericStepper);
                 numericStepperFac.properties = {minimum:0, maximum:100, value:1};
 			}
-			
+
 			public function cancelar():void{
 				this.visible = false;
 				Application.application.panelPetshop.visible = true;
@@ -59,31 +59,37 @@
 			 
 			public function getProductoResult(event:ResultEvent):void{
 				var producto:Producto = event.result as Producto;
-				
+				//Alert.show(producto.nombre);
 				np.codigoProducto = producto.codigo;
 				np.descripcion = producto.descripcion;
 				np.cantidad = 1;
 				np.nombre = producto.nombre;
 				np.precio = producto.precio;
+				np.subtotal = parseInt(producto.precio)*parseInt(np.cantidad);
 				
-				totalPago.costo.text = (totalPago.costoBruto as int) + np.precio;
+				if(np.precio != null){
+					totalPago.costo.text = parseInt(totalPago.costoBruto) + parseInt(np.precio) +"";
+					totalPago.formatear();
+				}
 			}
 			
 			public function guardarCambio(evt:Event):void{
 				np = evt.currentTarget.selectedItem;
 				
-				getProducto(np.codigoProducto);				
-				totalPago.costo.text = (parseInt(totalPago.costoBruto) + 1000) + "";	
-				totalPago.formatear();			
+				getProducto(np.codigoProducto);			
+		
 			}
 			private function agregarNewProducto():void{
-				pagos.addItem(new Object());
+				var o:Object = new Object();
+				o.codigo = "";
+				o.subtotal = 0;
+				pagos.addItem(o);
 			}
 			
 			private function pagar():void{
 				var pago:Pago = new Pago();
-				pago.detalle = pagos;
-				pago.total = totalPago.costoBruto as int;
+				pago.total = parseInt(totalPago.costoBruto);
+				addPago(pago);
 			}
 			
 			/**
@@ -116,7 +122,7 @@
 	<mx:DataGrid x="19" y="45" width="718" height="275" editable="true" dataProvider="{pagos}" itemFocusOut="guardarCambio(event)" doubleClick="agregarNewProducto()" doubleClickEnabled="true">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Código" dataField="codigoProducto" width="80"/>
-			<mx:DataGridColumn headerText="Nombre" dataField="nombreProducto" width="120" editable="false"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre" width="120" editable="false"/>
 			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" editable="false"/>
 			<mx:DataGridColumn headerText="Cantidad" dataField="cantidad" width="70" editable="true" itemEditor="{numericStepperFac}" editorDataField="value"/>
 			<mx:DataGridColumn headerText="Precio" dataField="precio" width="70" editable="false"/>
