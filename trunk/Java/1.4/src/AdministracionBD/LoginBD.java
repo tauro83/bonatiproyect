@@ -12,14 +12,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import TransferObjects.Usuario;
 
 public class LoginBD {
 	
 	PreparedStatement selectAllUsuarios;
 	PreparedStatement selectUsuario;
-	
+	PreparedStatement selectAll;
+	Connection c;
+		
 	/**
 	 *  Se declaran las consultas hacia la base de datos
 	 *  @author  "Esteban Cruz"
@@ -27,6 +28,8 @@ public class LoginBD {
 	 **/
 	public LoginBD(Connection connection)
 	{
+		
+		this.c= connection;
 		try 
 		{
 			String query="";
@@ -84,4 +87,43 @@ public class LoginBD {
 		}
 	    return 0;
 	 }
+	
+	
+	
+	public Usuario getUsuario(String nombre, String contra)
+	{
+		
+		Usuario u = new Usuario();
+    	
+    	String query = "SELECT nombre, apaterno, amaterno, usuario, cargo, contrasena, servicio, pregistrar, peditar, peliminar, ppurgar, estado, id FROM usuario WHERE usuario='"+nombre.trim()+"' AND contrasena='"+contra.trim()+"';";
+	   	
+    	try 
+    	{
+    		selectAll = c.prepareStatement(query);
+			ResultSet result = selectAll.executeQuery();
+			
+    		while(result.next())
+    		{
+    			//u = new Usuario();
+    			u.setNombre(result.getString(1));
+    			u.setApellidoPaterno(result.getString(2));
+    			u.setApellidoMaterno(result.getString(3));
+    			u.setUsuario(result.getString(4));
+    			u.setCargo(result.getString(5));
+    			u.setContrasena(result.getString(6));
+    			u.setServicio(result.getString(7));
+    			u.setPermisoRegistrar(result.getBoolean(8));
+    			u.setPermisoEditar(result.getBoolean(9));
+    			u.setPermisoEliminar(result.getBoolean(10));
+    			u.setPermisoPurgar(result.getBoolean(11));
+    			u.setEstado(result.getBoolean(12));
+    		}
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	
+    	return u;
+	}
 }

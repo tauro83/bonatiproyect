@@ -7,13 +7,17 @@
 //=======================================================================
 
 package Administracion;
-
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import Bd.DBConnectionManager;
+import AdministracionBD.GetFichasBD;
 import AdministracionBD.LoginBD;
-
+import TransferObjects.Mascota;
 import TransferObjects.Usuario;
 
 public class LoginService 
@@ -25,6 +29,7 @@ public class LoginService
 	 *  @return 1 si el login ingresado es correcto, de lo 
 	 *  contrario 0
 	 **/
+		
 	public int existLogin(Usuario login){
 	    	
 	    int result=0;
@@ -41,4 +46,12 @@ public class LoginService
 	    	}
 	    	return result;
 	}
+	
+	public Usuario getUsuario(String nombre, String contra)
+	{
+    		Connection connection=DBConnectionManager.getConnection();
+    		LoginBD log= new LoginBD(connection);
+			return log.getUsuario(nombre, contra);
+	}
+	
 }
