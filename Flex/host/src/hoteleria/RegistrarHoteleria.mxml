@@ -116,7 +116,7 @@
              	alojar.fechaIngreso    = fecha1.selectedDate;
              	alojar.fechaSalida     = fecha2.selectedDate;
              	alojar.canil           = parseInt(canilIntput.selectedLabel.split(" ", 1).pop());
-             	alojar.costo           = costoIntput.costo.text;
+             	alojar.costo           = costoIntput.costoBruto;
              	alojar.comentario      = comentarioCuadro.text; 
              	alojar.responsable     = "cb";            	
              	
