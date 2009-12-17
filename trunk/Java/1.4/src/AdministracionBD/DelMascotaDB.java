@@ -25,8 +25,8 @@ public class DelMascotaDB {
 		
 	}
 
-	public int DelMascota(String rut,String nombre,boolean status){
-		int x=0;
+	public int DelMascota(String rut,String nombre,boolean status, String usuario){
+			int x=0;
 		try{
 			delete.setBoolean(1, status);
 			delete.setString(2, rut);
@@ -40,7 +40,7 @@ public class DelMascotaDB {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 			String fecha = formatter.format(date);
 			delete.setString(4, fecha);
-			delete.setString(5, "usuario");
+			delete.setString(5, usuario);
 			delete.setString(6, "Administración");
 			delete.setString(7, "Elimina mascota: "+nombre);
 			x= delete.executeUpdate();

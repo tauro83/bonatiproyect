@@ -56,7 +56,7 @@ public class MascotaEditDB
 	 * @param person contiene los datos de la mascota que se quiere ingresar
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
-    public int insertMascotaE(Mascota person)
+	public int insertMascotaE(Mascota person, String usuario)
     {
     	
     	int result=0;
@@ -87,7 +87,7 @@ public class MascotaEditDB
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 			String fecha = formatter.format(date);
 			insert.setString(9, fecha);
-			insert.setString(10, "usuario");
+			insert.setString(10, usuario);
 			insert.setString(11, "Administración");
 			insert.setString(12, "Edita mascota: "+person.getNombre()+" especie: "+person.getClaseAnimal());
 		
