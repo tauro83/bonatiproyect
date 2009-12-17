@@ -39,7 +39,7 @@
 			 */
 		    private function getAllDatosResult(event:ResultEvent):void
 			{
-				Tabla.doubleClickEnabled=true;
+				//Tabla.doubleClickEnabled=true;
 				eventos = event.result as ArrayCollection;
 			}
 			
@@ -120,10 +120,10 @@
 	
 	
 	<!-- AutoComplete para cada parametro -->
-	<fc:AutoComplete id="inputFecha" x="572" y="24" width="150" dataProvider="{eventos}" labelField="nombreMascota" visible="false"/>
-	<fc:AutoComplete id="inputUsuario" x="572" y="24" width="150" dataProvider="{eventos}" labelField="raza" visible="false"/>
-	<fc:AutoComplete id="inputServicio" x="572" y="24" width="150" dataProvider="{eventos}" labelField="sexo" visible="false"/>
-	<fc:AutoComplete id="inputAccion" x="572" y="24" width="150" dataProvider="{eventos}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputFecha" x="572" y="24" width="150" dataProvider="{eventos}" labelField="fecha" visible="false"/>
+	<fc:AutoComplete id="inputUsuario" x="572" y="24" width="150" dataProvider="{eventos}" labelField="usuario" visible="false"/>
+	<fc:AutoComplete id="inputServicio" x="572" y="24" width="150" dataProvider="{eventos}" labelField="servicio" visible="false"/>
+	<fc:AutoComplete id="inputAccion" x="572" y="24" width="150" dataProvider="{eventos}" labelField="accion" visible="false"/>
    	
    	<mx:ComboBox x="96" y="24" width="150" id="comboBox" change="seleccionarBusqueda(event)">
 		<mx:ArrayCollection>
@@ -148,7 +148,6 @@
 			
 		 </mx:columns>
 	</mx:DataGrid>
-	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="350"  cornerRadius="6" toolTip="Visualizar mascota seleccionada"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="647" y="350" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6" toolTip="Regresa al panel anterior"/>
 	<mx:Label x="518" y="26" text="Buscar"/>
