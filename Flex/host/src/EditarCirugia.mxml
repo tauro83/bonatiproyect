@@ -48,6 +48,8 @@
 
 			
 			public function iniciarPanel():void{
+				buscadorCliente.getAllClientes();
+				
 				buscadorCliente.inputClienteNombre.text = "";
 				buscadorCliente.rutClienteDVInput.text = "";
 				buscadorCliente.rutClienteInput.text = "";

@@ -99,6 +99,8 @@
 			* Se reactivan opciones como el rut del cliente, nombre de este y nombre de la mascota
 			*/
          	public function iniciarPanel():void{
+         		buscadorCliente.getAllClientes();
+         		
          		getAllHotel();
      		    currentState = "";
      		    registrar.visible = false;
