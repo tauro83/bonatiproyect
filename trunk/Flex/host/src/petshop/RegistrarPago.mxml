@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Pago" xmlns:ns1="com.adobe.flex.extras.controls.*"  xmlns:ns2="util.*">
 	
 	<mx:Script>
@@ -72,7 +72,7 @@
 			public function guardarCambio(evt:Event):void{
 				np = evt.currentTarget.selectedItem;
 				
-				//getProducto(np.nombreProducto);				
+				getProducto(np.codigoProducto);				
 				totalPago.costo.text = (parseInt(totalPago.costoBruto) + 1000) + "";	
 				totalPago.formatear();			
 			}
