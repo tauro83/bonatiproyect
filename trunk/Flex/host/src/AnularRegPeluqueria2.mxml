@@ -85,17 +85,17 @@
            	{
 			if(comboboxMotivo.selectedLabel=='Otros'){
            			if(motivo.text!=""){
-           				Alert.show("¿Está seguro que desea anular el o los  registro(s) de peluquer�a(s)? ","Confirme anulaci�n ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+           				Alert.show("¿Está seguro que desea anular el o los  registro(s) de peluquer�a(s)? ","Confirme anulaci�n ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
            			}
            			else{
-           				Alert.show("Debe ingresar un motivo para anular el o los  registro(s) de peluquer�a(s)? a","Campo incompleto");
+           				Alert.show("Debe ingresar un motivo para anular el o los  registro(s) de peluquer�a(s)?","Campo incompleto");
            			}
            		}
            		if(comboboxMotivo.selectedIndex==1 || comboboxMotivo.selectedIndex==2){
-         			Alert.show("¿Está seguro que desea el o los  registro(s) de peluquer�a(s)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+         			Alert.show("¿Está seguro que desea el o los  registro(s) de peluquer�a(s)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
          		}
          		if(comboboxMotivo.selectedIndex==0){
-         			Alert.show("Debe seleccionar un motivo para anular el o los  registro(s) de peluquer�a(s)? ","Campo incompleto");
+         			Alert.show("Debe seleccionar un motivo para anular el o los  registro(s) de peluquer�a(s)? ","Campo incompleto");
          		}
 			}
 			
