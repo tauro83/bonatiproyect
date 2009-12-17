@@ -23,6 +23,7 @@
 			import mx.core.Application;
 			import pabellon.EditarPostOperatorio;
 			import mx.formatters.DateFormatter;
+			
 			[Bindable]
 			private var atencion:PostOperatorio;
 			[Bindable]

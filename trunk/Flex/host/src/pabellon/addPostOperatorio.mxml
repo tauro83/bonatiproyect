@@ -55,6 +55,7 @@
 					postope.nombreMascota	= this.nombre.text.toString();
 					postope.clienterut		= this.rut;
 					postope.costo			= this.costo.costo.text.toString();
+					Alert.show(" "+this.costo.costo.text.toString());
 					postope.indicaciones	= this.indicaciones.text.toString();
 					
 					addPostService = new AddpostOperatorioService();
