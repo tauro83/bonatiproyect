@@ -1,0 +1,129 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779" height="466" title="Visualizar Ficha" borderColor="#15AD8F" >
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 05/09/09
+			// AUTOR: Camilo Verdugo
+			// Muestra los datos de una ficha su dueño y las atenciones
+			//=======================================================================
+			import services.GetCliente;
+			import transferObjects.Mascota;
+			import transferObjects.Cliente; 
+			import mx.controls.List;
+			import mx.events.ListEvent; 			
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+            import services.ListarFichasService;
+            import transferObjects.Cliente;
+            import transferObjects.Usuario;
+            import transferObjects.Atencion;
+            import mx.core.Application;
+            private var mascota:Mascota;
+         	private var lf:ListarFichasService;
+         	private var gcliente:GetCliente;
+         	private var cliente:Cliente;
+         	[Bindable]
+         	private var atenciones:ArrayCollection;
+         	
+         	/** 
+         	 *  Metodo que asigna la mascota obtenida del listado de mascotas
+			 *  ademas se encarga de solicitar los datos de su dueño y las atenciones realizadas
+		 	 * 	@author  "Camilo Verdugo"
+			 *  @Descripcion 
+			 * */
+         	public function setDatos(mascota:Mascota):void{
+         		this.mascota = mascota;
+         		
+         		lf = new ListarFichasService();
+         		gcliente = new GetCliente();
+         		
+         		lf.getCliente(mascota.rutCliente);
+         		lf.addEventListener(ResultEvent.RESULT,getClienteR);   
+         		      		
+         		gcliente.getAtenciones(mascota.rutCliente,mascota.nombre);  
+         		gcliente.addEventListener(ResultEvent.RESULT,getAtencionesR);
+         		
+         		this.getMascota();
+         	}
+	
+			/** 
+			 *  Metodo que asigna los valores del cliente retornado del as
+			 *  Los valores son asignados directamente en el componente luego de su retorno
+		 	 * 	@author  "Camilo Verdugo"
+			 * */		
+			public function getClienteR(event:ResultEvent):void{
+				var cliente:Cliente = event.result as Cliente;
+				this.cNom.text = cliente.nombre;
+				this.cDir.text = cliente.direccion;
+				this.cRut.text = cliente.rut;
+				this.cTel.text = cliente.telefono;			
+				
+			}
+			/** 
+			 *  Metodo que recibe las atenciones que fueron enviadas del as
+			 *  Estas son asignadas a la lista de atenciones.
+		 	 * 	@author  "Camilo Verdugo"
+			 * */	
+			public function getAtencionesR(event:ResultEvent):void{
+				atenciones = event.result as ArrayCollection;	
+						
+			}
+			/** 
+			 *  Asigna los datos de la mascota seleccionada a los campos de la ficha
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
+			public function getMascota():void
+			{
+				this.mNom.text = mascota.nombre;
+            	this.cRut.text = mascota.rutCliente;
+            	this.mFNa.text = mascota.fechaNacimiento;
+            	this.mRaza.text = mascota.raza;
+            	this.mSex.text = mascota.sexo;
+			}
+			
+			/** 
+			 *  Retorna el panel anterior
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
+			public function cancelarVisulizar():void
+			{
+				Application.application.verFicha.setVisible(false,false);
+            	Application.application.visualizarFicha.setVisible(true,false);
+			}
+			
+			]]> 
+ 	</mx:Script>
+	<mx:DataGrid x="25" y="178.25" width="709" height="157" dataProvider="{atenciones}">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="sfecha"/>
+			<mx:DataGridColumn headerText="Hora" dataField="hora"/>
+			<mx:DataGridColumn headerText="Costo" dataField="costo"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Label x="25" y="35" text="Nombre:" width="78"/>
+	<mx:Label x="25" y="10" text="Cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="442.7" y="10" text="Mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="25" y="62" text="Rut:" width="78"/>
+	<mx:Label x="442.7" y="87.95" text="Sexo:" width="78"/>
+	<mx:Label x="442.7" y="114" text="Fecha nacimiento:" width="107"/>
+	<mx:Label x="442.7" y="35.9" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="25" y="88" text="Teléfono:" width="78"/>
+	<mx:Label x="25" y="114" text="Dirección:" width="78" height="17.25"/>
+	<mx:Label x="442.7" y="61.9" text="Raza:" width="78"/>
+	<mx:Label x="25" y="152.25" text="Atenciones" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<mx:TextInput x="127.1" y="34" width="217.75" editable="false" id="cNom"/>
+	<mx:TextInput x="127.1" y="60" width="138.75" editable="false" height="20" id="cRut"/>
+	<mx:TextInput x="127.1" y="86" width="138.75" editable="false" height="20" id="cTel"/>
+	<mx:TextInput x="127.1" y="112" width="217.75" editable="false" height="19.25" id="cDir"/>
+	<mx:TextInput x="594.25" y="33.9" width="139.75" editable="false" height="20" id="mNom"/>
+	<mx:TextInput x="594.25" y="61.9" width="139.75" editable="false" height="20" id="mRaza"/>
+	<mx:TextInput x="594.25" y="89.9" width="139.75" editable="false" height="20" id="mSex"/>
+	<mx:TextInput x="594.25" y="114" width="139.75" editable="false" height="20" id="mFNa"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
+	
+</mx:Panel>

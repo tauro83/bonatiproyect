@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" x="345" y="50" width="375" height="382" >
+
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 09/11/09
+			// AUTOR: Camilo Verdugo
+			// Panel de ayuda de usuario sobre editar catalogo de peluqueria
+			//=======================================================================
+			
+			/** 
+			 *  Metodo que despliega las imagenes de ayuda para este componente
+		 	 * 	@author  "Camilo Verdugo"
+			 * */	
+			private function verBarra():void
+			{
+				textAyuda.visible = false;
+				linkBarraPrincipal.visible = false;
+				barra.visible = true;
+				botVolver.visible = true;
+				opcMod.visible = false;
+			}
+			/** 
+			 *  Metodo que despliega el texto de ayuda
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
+			private function verOpcMod():void
+			{
+				textAyuda.visible = false;
+				linkBarraPrincipal.visible = false;
+				barra.visible = false;
+				botVolver.visible = true;
+				opcMod.visible = true;
+			}
+			/** 
+			 *  Metodo que retorna el panel de carga de la imagen, a la informacion de ayuda
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
+			private function volver2():void
+			{
+				textAyuda.visible = true;
+				linkBarraPrincipal.visible = true;
+				opcMod.visible = false;
+				botVolver.visible = false;
+				barra.visible = false;
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:Text x="10" y="10" text="Editar Catalogo&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir al sub menu y seleccionar  Catalogo&#xa;&#xa;&#x9;3. Seleccionar Editar&#xa;&#xa;&#x9;4. Seleccionar el corte o baño que se desea editar&#xa;&#x9;&#xa;&#x9;5. Presionar el  botón Editas&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
+	<mx:LinkButton x="177" y="34" label="Peluqueria" id="linkBarraPrincipal" click="verBarra()" color="blue" width="106"/>
+	<mx:Image   id="barra" visible="false" x="94" y="137">
+		<mx:source>../Images Ayuda/Peluqueria.png</mx:source>
+	</mx:Image>
+	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
+	<mx:Image   id="opcMod" visible="false" x="72" y="85">
+		<mx:source>../Images Ayuda/Peluqueria.png</mx:source>
+	</mx:Image>	
+</mx:Canvas>

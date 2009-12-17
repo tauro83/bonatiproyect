@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Pago" xmlns:ns1="com.adobe.flex.extras.controls.*"  xmlns:ns2="util.*">
+	
+	<mx:Script>
+        <![CDATA[
+        	import transferObjects.Pago;
+        	import transferObjects.Producto;
+        
+        	//=======================================================================
+			// FECHA: CREACIÓN: 22 Noviembre
+			// AUTOR: Sebastian Arancibia
+			// Panel de registro de pago, dentro de esta se pueden realizar 
+			// los pagos con el detalle necesario
+			//=======================================================================
+			import mx.core.Application;
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import mx.events.*;  
+			import mx.controls.NumericStepper;   
+
+			
+			[Bindable]private var pagos:ArrayCollection;
+			[Bindable]private var numericStepperFac:ClassFactory;
+			
+			
+			private var np:Object;
+			      
+
+			public function iniciarPanel():void{
+				pagos =  new ArrayCollection();
+				
+				totalPago.costo.text = 0 + "";
+				totalPago.formatear();
+				totalPago.costo.editable = false;
+				
+				numericStepperFac = new ClassFactory(NumericStepper);
+                numericStepperFac.properties = {minimum:0, maximum:100, value:1};
+			}
+
+			public function cancelar():void{
+				this.visible = false;
+				Application.application.panelPetshop.visible = true;
+				
+			}
+			
+			private function getProducto(codigo:String):void{
+				var registrarPagoService:RegistrarPagoService = new RegistrarPagoService();
+				registrarPagoService.addEventListener(ResultEvent.RESULT,getProductoResult);
+				registrarPagoService.getProducto(codigo);
+			}
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripción Metodo que gestiona la comunicacion con la capa logica,para verificar si esta el cliente registrado.
+			 *  La funcion envia las solicitudes y devuelve los resultados. 
+			 */
+			 
+			public function getProductoResult(event:ResultEvent):void{
+				var producto:Producto = event.result as Producto;
+				//Alert.show(producto.nombre);
+				np.codigoProducto = producto.codigo;
+				np.descripcion = producto.descripcion;
+				np.cantidad = 1;
+				np.nombre = producto.nombre;
+				np.precio = producto.precio;
+				np.subtotal = parseInt(producto.precio)*parseInt(np.cantidad);
+				
+				if(np.precio != null){
+					totalPago.costo.text = parseInt(totalPago.costoBruto) + parseInt(np.precio) +"";
+					totalPago.formatear();
+				}
+			}
+			
+			public function guardarCambio(evt:Event):void{
+				np = evt.currentTarget.selectedItem;
+				
+				getProducto(np.codigoProducto);			
+		
+			}
+			private function agregarNewProducto():void{
+				var o:Object = new Object();
+				o.codigo = "";
+				o.subtotal = 0;
+				pagos.addItem(o);
+			}
+			
+			private function pagar():void{
+				var pago:Pago = new Pago();
+				pago.total = parseInt(totalPago.costoBruto);
+				addPago(pago);
+			}
+			
+			/**
+			* Funcion que inserta una mascota
+			*/
+			private function addPago(p:Pago):void{
+
+				var registrarPagoService:RegistrarPagoService=new RegistrarPagoService();
+				registrarPagoService.addEventListener(ResultEvent.RESULT,registrarPagoResult);
+				registrarPagoService.addPago(p);
+			}
+			
+			/**
+			* Funcion que responde a la insercion de la mascota anterior
+			* @param event Evento
+			*/
+			private function registrarPagoResult(event:ResultEvent):void{
+				var result:int = event.result as int ;
+				if(!result>0){
+					//noregistrado
+				}
+				else{
+					//siregistrado					
+				}
+			}
+			
+	 ]]>
+       
+    </mx:Script>
+	<mx:DataGrid x="19" y="45" width="718" height="275" editable="true" dataProvider="{pagos}" itemFocusOut="guardarCambio(event)" doubleClick="agregarNewProducto()" doubleClickEnabled="true">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Código" dataField="codigoProducto" width="80"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre" width="120" editable="false"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" editable="false"/>
+			<mx:DataGridColumn headerText="Cantidad" dataField="cantidad" width="70" editable="true" itemEditor="{numericStepperFac}" editorDataField="value"/>
+			<mx:DataGridColumn headerText="Precio" dataField="precio" width="70" editable="false"/>
+			<mx:DataGridColumn headerText="Subtotal" dataField="subtotal" width="70" editable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Label x="19" y="19" text="Detalle Compra:" fontWeight="bold"/>
+	<mx:Label x="530" y="328" text="Total:" fontWeight="bold"/>
+	<mx:Button x="662" y="357" label="Cancelar" click="cancelar()"/>
+	<mx:Button x="590" y="357" label="Pagar" click="pagar()"/>
+	<mx:Label x="167" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<ns2:Precio x="575" y="327" width="162" id="totalPago">
+	</ns2:Precio>
+	
+</mx:Panel>

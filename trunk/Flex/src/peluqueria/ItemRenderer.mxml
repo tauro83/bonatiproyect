@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="206" height="156"  backgroundColor="#A09C9C"
+	horizontalScrollPolicy="off">
+	<mx:Image x="10" y="10" width="183" height="108" source="{'http://localhost:8080/BonatiServerñ/FileUploadServlet?fileId='+data.fileId}" />
+	<mx:Label  x="13" y="126" text="{data.filename}" width="180">
+		
+	</mx:Label>
+</mx:Canvas>

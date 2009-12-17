@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" x="345" y="50" width="375" height="382">
+
+	<mx:Script>
+		<![CDATA[
+			
+			private function verBarra():void
+			{
+				textAyuda.visible = false;
+				linkBarraPrincipal.visible = false;
+				barra.visible = true;
+				botVolver.visible = true;
+				linkOpciones.visible = false;
+				opcMod.visible = false;
+				selUsuario.visible = false;
+				selUsr.visible = false;
+			}
+			
+			private function verOpcMod():void
+			{
+				textAyuda.visible = false;
+				linkBarraPrincipal.visible = false;
+				barra.visible = false;
+				botVolver.visible = true;
+				linkOpciones.visible = false;
+				opcMod.visible = true;
+				selUsuario.visible = false;
+				selUsr.visible = false;
+			}
+			private function verSelec():void
+			{
+				textAyuda.visible = false;
+				linkBarraPrincipal.visible = false;
+				barra.visible = false;
+				botVolver.visible = true;
+				linkOpciones.visible = false;
+				opcMod.visible = false;
+				selUsuario.visible = true;
+				selUsr.visible = false;
+			}
+			
+			private function volver2():void
+			{
+				textAyuda.visible = true;
+				linkBarraPrincipal.visible = true;
+				opcMod.visible = false;
+				botVolver.visible = false;
+				linkOpciones.visible = true;
+				barra.visible = false;
+				selUsuario.visible = false;
+				selUsr.visible = true;
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:Text x="10" y="10" text="Purgar Cliente&#xa;&#x9;&#xa;&#x9;1. Seleccionar en                        la opción Administración&#xa;&#xa;&#x9;2. Ir a                                &#xa;&#xa;&#x9;3.               a cliente&#xa;&#xa;&#x9;4. Seleccionar Purgar&#xa;&#xa;&#x9;5. Seleccionar uno o más clientes que desea eliminar&#xa;&#xa;&#x9;6. Presionar boton Purgar&#xa;&#xa;&#x9;7. Confirmar purgar  los clientes seleccionados                   &#xa;   presionando el boton Si&#xa;&#xa;&#x9;8. Los clientes quedan eliminados(para siempre)  del &#xa;   sistema&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
+	<mx:LinkButton x="118" y="36" label="barra principal" id="linkBarraPrincipal" click="verBarra()" color="blue" width="108"/>
+	<mx:Image x="10" y="170" width="355" height="43" id="barra" visible="false">
+		<mx:source>../Images Ayuda/barra principal.JPG</mx:source>
+	</mx:Image>
+	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
+	<mx:LinkButton x="60" y="64" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
+	<mx:LinkButton x="32" y="92" label="Ingresar" color="blue" id="selUsr" click="verSelec()"/>
+	<mx:Image x="95" y="10" width="185" height="332" source="../Images Ayuda/opcion moduloAdmin.JPG" id="opcMod" visible="false"/>
+	<mx:Image x="95" y="10" width="185" height="332" source="../Images Ayuda/selUsuario.JPG" id="selUsuario" visible="false"/>
+	
+</mx:Canvas>

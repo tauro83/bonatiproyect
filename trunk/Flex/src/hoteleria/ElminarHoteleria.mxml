@@ -1,0 +1,166 @@
+<mx:Panel show="getAllHotel()" initialize="getAllHotel()" xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Retirar Mascota de Hotelería" borderColor="#15AD8F">
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA CREACIÓN: 07/11/09
+			// AUTOR: Andres Garrido
+			// Panel en el cual se muestran todas las mascotas que estan en hotel
+			// dando la posibilidad de eliminar uno o varios de ellos.
+			//=======================================================================
+
+			import mx.controls.List;
+			import mx.events.ListEvent; 			
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+			
+			import transferObjects.Alojamiento;
+			import mx.rpc.events.ResultEvent;
+			import services.EliminarHoteleriaService;
+			import administracion.GetAllHoteleriaService;
+			import mx.formatters.DateFormatter;
+			import mx.core.Application;
+			[Bindable]
+			private var hotelerias:ArrayCollection;
+			/**
+			 * se obtienen todas los usuarios que están registrados en la
+			 * base de datos para ser mostrados dentro del datagrid
+			 */
+			
+			public function getAllHotel():void{
+				var getAllService:GetAllHoteleriaService = new GetAllHoteleriaService();
+				getAllService.addEventListener(ResultEvent.RESULT,getAllServiceResult);
+				getAllService.getAllHoteleria();
+			}
+			/**
+			 * Obtiene el resultado del llamado a la capa dos y tres
+			 * del sistema
+			 */
+			private function getAllServiceResult(event:ResultEvent):void{
+				hotelerias = event.result as ArrayCollection;
+			}
+			
+			/**
+			 *Cambia el formato de la fecha para una mejor lectura del datagrid
+			 */
+			private function doLabel(item:Object, column:DataGridColumn):String {
+				var dateFormatted:DateFormatter = new DateFormatter();
+				dateFormatted.formatString = "DD/MM/YYYY";
+				var rawDate:Date = new Date(item[column.dataField]);
+				return dateFormatted.format(rawDate) as String;
+			}
+			
+			/**
+			 * Purga un usuario que está en la base de datos
+			 * 
+			 */
+			private function retirarMascota(fechaIngreso:Date, fechaSalida:Date, canil:int):void{
+				var eliminarService:EliminarHoteleriaService=new EliminarHoteleriaService();
+				eliminarService.addEventListener(ResultEvent.RESULT,retirarResult);
+				eliminarService.eliminarHoteleria(fechaIngreso, fechaSalida, canil);
+			}
+			private function retirarResult(event:ResultEvent):void{
+           		labelMessage.text="Mascota(s) retirada(s)";
+           		eliminarHoteleria.enabled=false;
+           		getAllHotel();
+           		
+			}
+			/**
+			 * Borra el mensaje que se muestra en la etiqueta de mensajes del panel
+			 */
+			public function resetMessage():void{
+				labelMessage.text = "";
+			}
+			     
+            /**
+            * elimina una fila dentro de la tabla
+            */
+           	private function deleteRow():void {
+           		
+           		Alert.show("¿Está seguro que desea retirar a la(s) mascota(s)? ","Confirme retiro", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+           		
+           		
+				
+			}
+			private function delRowHandler(evt:CloseEvent):void {
+				var flag:int=0;
+				if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)){
+					return;	
+				} 
+			  	else{
+			  		for(var i:int=0;i<hotelerias.length;i++){
+	           			if(hotelerias[i].sel==true){
+	           				retirarMascota(hotelerias[i].fechaIngreso, hotelerias[i].fechaSalida, hotelerias[i].canil);
+	           				flag=1;
+	           			}
+	           		}
+	           		if(flag==0){
+	           			labelMessage.text="Primero debe seleccionar una mascota";
+	           		}
+			  	}
+			}
+			/**
+			 * Selecciona o deselecciona todos los checkboxes
+			 */
+			private function selectAll():void{
+                var allRows:int = hotelerias.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        hotelerias[i].sel = true;
+                    else
+                        hotelerias[i].sel = false;
+                }
+                tablaUsuarios.dataProvider = hotelerias;
+            }
+            private function cancelarClick():void{
+            	this.visible = false;
+         		Application.application.panelHoteleria.visible = true;
+         		labelMessage.text="";
+            }
+            /**
+            *@Descripcion Funcion que activa o desactiva el boton "Eliminar" cuando es seleccionado uno o mas clientes
+          ***/
+             
+            private function Activar():void{
+            	var allRows:int = hotelerias.length;
+            	var seleccion:Boolean=false;
+            	for (var i:int = 0; i < allRows; i++){
+            		if(hotelerias[i].sel)
+            		seleccion=true;
+            	}
+            	if(seleccion)
+            		eliminarHoteleria.enabled=true;
+            	else
+            		eliminarHoteleria.enabled=false;
+            }
+		]]> 
+  	</mx:Script>	
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" fontWeight="bold" textAlign="center"/>
+	
+	<mx:DataGrid x="25" y="67" width="715" height="266" id="tablaUsuarios" dataProvider="{hotelerias}" click="Activar()" toolTip="Lista de las mascotas alojadas en hotelería">
+		<mx:columns>
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>			
+			<mx:DataGridColumn width="70" headerText="Nombre" dataField="mascota" id="mascota" draggable="false"/>
+			<mx:DataGridColumn width="80" headerText="Rut Cliente" dataField="cliente" id="cliente" draggable="false"/>
+			<mx:DataGridColumn width="40" headerText="Canil" dataField="canil" id="canil" draggable="false"/>
+			<mx:DataGridColumn width="100" headerText="Fecha Ingreso" dataField="fechaIngreso" id="fechaIngreso" draggable="false" labelFunction="doLabel"/>
+			<mx:DataGridColumn width="90" headerText="Hora Ingreso" dataField="hora" id="hora" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Fecha Salida" dataField="fechaSalida" id="fechaSalida" draggable="false" labelFunction="doLabel"/>
+			<mx:DataGridColumn headerText="Comentarios" dataField="comentario" id="comentario" draggable="false"/>
+			</mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="522" y="341" label="Retirar" id="eliminarHoteleria" click="{deleteRow()}" toolTip="Retira la o las mascotas seleccionadas" width="102" height="23" cornerRadius="6" enabled="false"/>
+	<mx:Button x="632" y="341" label="Cancelar" id="cancelar" click="{cancelarClick()}" toolTip="Cancela la operación" width="102" height="23" cornerRadius="6"/>
+	<mx:CheckBox x="129" y="41" id="todo" click="{selectAll()}">
+		<mx:toolTip>Seleccione todos los usuarios, en caso contrario ninguno</mx:toolTip>
+	</mx:CheckBox>
+	<mx:Label x="25" y="41" text="Seleccionar todo"/>
+</mx:Panel>

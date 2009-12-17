@@ -1,0 +1,138 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="updateTable()" layout="absolute" width="779" height="466" title="Eliminar ficha" >
+	<mx:Script>
+		<![CDATA[
+		
+		/**
+		 * @autor Erwin Díaz 
+		 * 
+		 */
+			import mx.controls.List;
+			import mx.events.ListEvent; 			
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+			
+			import transferObjects.Person;
+			import mx.rpc.events.ResultEvent;
+			import services.PersonService;
+			[Bindable]
+			private var persons:ArrayCollection;
+			
+			private function getAllPersons():void
+			{
+				var personService:PersonService=new PersonService();
+				personService.addEventListener(ResultEvent.RESULT,getAllPersonsResult);
+				personService.getAllPersons();
+			}
+			private function getAllPersonsResult(event:ResultEvent):void
+			{
+				persons = event.result as ArrayCollection;
+			}
+			
+			
+			private function updateTable():void
+            {
+            	persons = new ArrayCollection;
+				persons.addItem({nombre:"Toni", rut:"13989645-3", atenciones:"32"});
+ 				persons.addItem({nombre:"Milo", rut:"15676111-2", atenciones:"2"});
+ 				persons.addItem({nombre:"Balto", rut:"12009767-1", atenciones:"13"});
+ 				
+ 				//actuacliza la tabla con los datos obtenidos de users
+                tablaUsuarios.dataProvider = persons;
+            }
+        
+            //elimina una fila dentro de la tabla
+           	private function deleteRow(/*nombreUsuario:String*/):void {
+			 Alert.show("Está seguro que desea eliminar ficha(s) ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			}
+			
+			private function deletePerson(clave:String):void
+			{
+				var personService:PersonService=new PersonService();
+				personService.addEventListener(ResultEvent.RESULT,deletePersonResult);
+			//	personService.deletePerson(clave);
+			}
+			private function deletePersonResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(result>0)
+				{
+				   Alert.show("Ficha(s) eliminada(s)!");
+				   getAllPersons();
+				}
+				else
+				   Alert.show("Ficha(s) NO eliminada(s)!");
+			}
+			
+			private function removeTaskRecord():void
+            {
+                var allRows:int = persons.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (persons[i].sel)
+                	{
+                        //Alert.show(persons[i].usuario);
+                        //deletePerson(persons[i].usuario);
+                        //comando para eliminar desde la base de datos debe ir aquí
+                         
+                        persons.removeItemAt(i);
+                        allRows = persons.length;
+                        tablaUsuarios.dataProvider = persons;
+                        i=-1;
+                    }   
+                }              
+            }
+			
+			//es la funcion que es llamada desde el mensaje de confirmación de la tarea
+			private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+			//selecciona a todas las fichas dentro de la tabla
+			private function selectAll():void{
+                var allRows:int = persons.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        persons[i].sel = true;
+                    else
+                        persons[i].sel = false;
+                }
+                tablaUsuarios.dataProvider = persons;
+            }
+            
+		]]> 
+  	</mx:Script>	
+  	<!--@autor Erwin Díaz
+  	 Panel que permite eliminar una o mas fichas de mascotas-->
+	<mx:ComboBox x="251" y="10" id="filtro" toolTip="Seleccione parámetro">
+		<mx:ArrayCollection>
+		    	<mx:Object label="Filtrar por" data="0"/>
+		    	<mx:Object label="Nombre" data="1"/>
+		    	<mx:Object label="Rut Dueño" data="2"/>
+		</mx:ArrayCollection>	
+	</mx:ComboBox>
+	
+	<mx:DataGrid x="10" y="74" width="739" height="283" id="tablaUsuarios" dataProvider="{persons}" >
+		<mx:columns>
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                        	<!-- Con este componente se selecciona una ficha-->
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>			
+			<mx:DataGridColumn headerText="Nombre Mascota" dataField="nombre" id="nombre" sortable="false" draggable="false"/>
+			<mx:DataGridColumn headerText="Rut Dueño" dataField="rut" id="rut" sortable="false" draggable="false"/>
+			<mx:DataGridColumn headerText="Nº Atenciones" dataField="atenciones" id="atenciones" sortable="false" draggable="false"/>
+			</mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="537" y="394" label="Eliminar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina la o las fichas seleccionadas" width="102"/>
+	<mx:Button x="647" y="394" label="Cancelar" id="cancelar" toolTip="Cancela la operación" width="102"/>
+	<mx:CheckBox x="10" y="48" id="todo" click="{selectAll()}" toolTip="Seleccione todo o ninguno"/>
+	<mx:Label x="32" y="48" text="Seleccionar todo"/>
+	<mx:TextInput x="59" y="10" id="texImput" toolTip="Ingrese lo que quiere buscar"/>
+	<mx:Label x="10" y="12" text="Buscar"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center"/>
+</mx:Panel>

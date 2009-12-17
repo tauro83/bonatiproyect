@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466"  borderColor="#15AD8F" xmlns:fc="http://www.adobe.com/2006/fc" title="Editar Consulta">
+	
+	<mx:Script>
+        <![CDATA[
+        	import transferObjects.Consulta;
+        	import services.AddConsultaService;
+        	import transferObjects.ConfiguracionVacuna;
+        	import transferObjects.Cliente;
+        	import services.AddMascotaService;
+        	import mx.controls.DateField;
+        	import mx.controls.Alert;
+            import mx.collections.ArrayCollection;
+        	import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.ValidationResultEvent;            
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
+		    import mx.rpc.events.ResultEvent;
+			import mx.controls.Image;
+		    import mx.core.Application;
+		    import transferObjects.Person;
+		    import pabellon.addCirugia;
+		    import pabellon.addCirugia1;
+		    import pabellon.AddCirugiaService;
+		    import Policlinico.AddVacunacion;
+		    import services.BusquedaService;
+		    import services.configuracionServices;
+		    import pabellon.EditCirugiaService;
+		   
+			
+			[Bindable]
+			private var files:ArrayCollection=new ArrayCollection();
+		    private var vResult:ValidationResultEvent;
+		    public var clienteBD:Cliente;
+		    [Bindable]
+		    public var tiposV:ArrayCollection;
+		    [Bindable]
+		    public var vetesV:ArrayCollection;
+		    [Bindable]
+		    public var ayudantesV:ArrayCollection;
+		    [Bindable]
+			private var clientes:ArrayCollection;
+			[Bindable]
+			private var cliente2:ArrayCollection;
+			
+			//editando para cargar las consultas
+			[Bindable]
+			private var consultas:ArrayCollection = new ArrayCollection;
+			
+		    [Bindable]
+			private var consultas2:ArrayCollection;
+			
+		    /**
+			* Lista de amscotas del cliente asociado
+			*/
+		    [Bindable] 
+		    public var mascotas:ArrayCollection = new ArrayCollection();
+		    
+		    [Bindable] 
+		    public var cliente:Person;
+		      
+		   [Bindable]private var vacunas:ArrayCollection;
+			private var confs:configuracionServices= new configuracionServices();
+			
+			[Bindable]
+			public var newConsulta:Consulta;
+
+			/**
+		 	 * 	@author  
+			 * 	@Fecha  27 Octubre
+			 * Funcion que busca un cliente, en la base de datos, para esto primero verifica 
+			 * si el rut esta ingresado correctamente, en caso de estar incorrecto lo informa por pantalla.
+			 * En caso contrario realiza las llamadas a la capa de java, la cual procesara la soliitud, y 
+			 * retornara si el cliente existe o no.
+			 * @param event Evento
+			 */
+        	private function buscarCliente(event:Event):void{
+        		if(rutClienteDVInput.text != "" && rutClienteInput.text != ""){
+        			var Numero:String = rutClienteInput.text;
+        			var Dv:String = rutClienteDVInput.text;
+					var suma:int = 0;
+					var rut:String = Numero;
+					var NumMag:int = 2;
+					var Resto:int = 0;
+					var j:int ;
+					var i:int;
+					var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
+					var ParteNumerica:Array = new Array();
+				
+					if (rut.length == 0) { 
+
+					}
+					for ( j =0, i =0; j < rut.length; j++){
+						if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
+							ParteNumerica[i] = rut.charAt(i);
+							++i;
+						}
+					}
+				
+					for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
+						suma += ParteNumerica[i] * NumMag;
+						trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
+						if (NumMag>6){
+							NumMag =1;	
+						}	
+					}
+					
+					Resto = 11-(suma%11);
+					if(DigVer[Resto] != Dv.toUpperCase()){
+						labelMessage.text = "El Rut que ha ingresado es incorrecto.";
+					}
+					else{
+						labelMessage.text = "";
+						rutClienteInput.errorString = "";
+						getCliente(rutClienteInput.text);
+					}
+        		}		
+        	}
+        	
+        	/**
+		 	 * 	@author 
+			 * 	@Fecha  27 Octubre
+			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
+			 * el cual envia las solicitudes, y devuelve los resultados.
+			 */
+        	private function getCliente(rutCliente:String):void{
+				var addConsultaService:AddConsultaService = new AddConsultaService();
+				addConsultaService.addEventListener(ResultEvent.RESULT,getClienteResult);
+				addConsultaService.getCliente(rutCliente);
+			}
+			
+			
+			/**
+		 	 * 	@author 
+			 * 	@Fecha  27 Octubre
+			 * Metod que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
+			 * el cual envia las solicitudes, y devuelve los resultados. Se procesa el resultado del metodo 
+			 * anterior.
+			 * @param event Evento
+			 */
+			public function getClienteResult(event:ResultEvent):void{
+				clienteBD = event.result as Cliente;
+				
+				if(clienteBD.nombre == null){
+        			labelMessage.text = "Cliente no registrado."
+        			
+        		}
+        		else{
+        			this.inputClienteNombre.text = clienteBD.nombre;
+        			labelMessage.text = "Se ha accedido al cliente "+clienteBD.nombre;
+        			ini();
+        			
+        		}
+			}
+        	
+			/**
+		 	* 	@author  
+			* 	@Fecha  27 Octubre
+			* Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
+			* de la comunicacion con la capa logica.
+			* @param event Evento
+			*/
+	        private function ini():void{
+	     
+	           	consultas.removeAll();
+	           	getConsultas();
+	           	consultas.refresh();
+	           	
+				
+	        }
+	         
+	
+			public function getConsultas():void{
+				//Alert.show("entro getConsultas");
+				var addConsultaService:EditarConsultaService = new EditarConsultaService();
+				addConsultaService.addEventListener(ResultEvent.RESULT,getEditConsultasResult);
+				
+				addConsultaService.getAllConsultas(rutClienteInput.text+rutClienteDVInput.text);
+				//Alert.show("no coopera");
+			}
+			
+			
+			public function getEditConsultasResult(event:ResultEvent):void{
+				
+				consultas = event.result as ArrayCollection;
+				
+				//Alert.show("getEditConsultasResult");
+				
+				
+			}
+			
+			
+			
+			/**
+		 	* 	@author  
+			* 	@Fecha  27 Octubre
+			* Metodo que procesa los datos ingresados en este panel, y muestra el panel 
+			* en donde se realiza la edicion, cargando los datos correspondientes, 
+			* para que el otro panel posea todos los datos.
+			*/
+			public function regConsulta():void
+			{
+				
+				if(dg.selectedItem){
+					var newConsultaUpdate:EditarConsultaUpdate = Application.application.editConsultaUpdate;
+					newConsulta = new Consulta;
+					newConsulta.anamnesis   = dg.selectedItem.anamnesis;
+					newConsulta.costo       = dg.selectedItem.costo;
+					newConsulta.fecha	    = dg.selectedItem.fecha;
+					newConsulta.hora        = dg.selectedItem.hora;
+					newConsulta.nombre      = dg.selectedItem.nombre;
+					newConsulta.responsable = dg.selectedItem.responsable;
+					newConsulta.rut			= dg.selectedItem.rut;
+					newConsulta.servicio    = dg.selectedItem.servicio;
+					
+					
+					
+					Application.application.editConsulta.setVisible(false,false);
+					newConsultaUpdate.carga(newConsulta);
+					Application.application.editConsultaUpdate.setVisible(true,false);
+					
+				}
+				else{
+					this.labelMessage.text="Seleccione una Consulta para editar.";
+				}
+				
+			}
+			
+			/**
+		 	* 	@author  
+			* 	@Fecha  27 Octubre
+			* Metodo que inicializa todos los valores y variables de este panel.
+			*/
+			public function iniciarPanel():void
+			{
+				cargarDatos();
+				
+				this.mascotas=new ArrayCollection();
+				this.dg.doubleClickEnabled=true;
+				this.labelMessage.text="";
+				this.rutClienteInput.text="";
+				this.rutClienteDVInput.text="";
+				this.inputClienteNombre.text="";
+			}
+			
+		
+		   public function getAllClientes():void
+		   {
+		   		var busquedaService:BusquedaService = new BusquedaService();
+		   		busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
+				busquedaService.getAllClientes();
+		   }
+		   
+		   /**
+			*   @author  
+			* 	@Fecha  02 Noviembre
+			* Metodo que almacena el resultado del metodo anterior en el arraycollection cliente2.
+			* Y llama a la funcion concatena.
+			*/
+		   public function getAllClientesResult(event:ResultEvent):void
+		   {
+		   		cliente2 = event.result as ArrayCollection;
+		   		
+		   		concatena();
+		   }
+		   
+		   /**
+			*   @author  
+			* 	@Fecha  02 Noviembre
+			* Metodo que concatena el apellido paterno, con el apellido materno, y el nombre, para mostrarlo 
+			* en el autocomplete, para buscar al cliente por el apellido.
+			*/
+		   public function concatena():void
+		   {
+		   		clientes = new ArrayCollection();
+		   		var i:int;
+		   		var max:int = cliente2.length;
+		   		
+		   		for(i=0;i<max;i++){
+		   			var cli:Cliente = cliente2.getItemAt(i,0) as Cliente;
+		   			var cli2:Cliente = new Cliente();
+		   			cli2.nombre = ""+cli.apellido+" "+cli.apellido2+" "+cli.nombre;
+		   			clientes.addItem(cli2);
+		   		}
+		   		clientes.refresh();
+		   }
+		   
+		   /**
+			*   @author  
+			* 	@Fecha  02 Noviembre
+			* Metodo que busca al cliente, al momento de soltar el autocomplete del apellido, 
+			 * procesando los datos, partiendo el texto, y guardandolo en el nombreN, apellidomN
+			 * y en apellidopN.
+			 */
+		   public function buscarCliente2():void
+		   {
+		   		this.labelMessage.text="";
+		   		var nombre:String = inputClienteNombre.text;
+		   		if(inputClienteNombre.text != "" || inputClienteNombre.selectedLabel != ""){
+		   			var largo:int = cliente2.length;
+		   			var i:int;
+		   			var sss:Array;
+		   			if(inputClienteNombre.selectedLabel != ""){
+		   				sss = inputClienteNombre.selectedLabel.split(" ",3);
+		   			}
+		   			else{
+		   				sss = inputClienteNombre.text.split(" ",3);
+		   			}
+		   			
+		   			/**
+		   			 * obtiene los datos de la division del nombre seleccionado.
+			 		*/
+		   			var nombreN:String = sss.pop();
+		   			var apellidomN:String = sss.pop();
+		   			var apellidopN:String = sss.pop();
+		   			
+		   			/**
+		   			 * Compara los datos obtenidos de la division, con los que se 
+		   			 * encuentran en el arreglo de clientes.
+			 		*/
+		   			for(i=0;i<largo;i++){
+		   				var newCli:Cliente = cliente2.getItemAt(i,0) as Cliente;
+		   				if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
+		   					this.rutClienteInput.text=newCli.rut.substring(0,8);
+		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
+		   					sacaDigito();
+		   					//getConsultas();
+		   					//Alert.show("buscarCliente2");
+		   					ini();
+		   					
+		   					
+		   					break;
+		   				}
+
+		   			}
+		   		}
+		 
+		   }
+		   
+		   
+		   /**
+		   	*   @author  
+			* 	@Fecha  02 Noviembre
+		   	* Función para obtener el dígito verificador, y para guardarlo en 
+		   	* el input dedicado a almacenar esa variable.
+			*/
+		   private function sacaDigito():void{        			
+        			
+        			var Numero:String = rutClienteInput.text;
+					var suma:int = 0;
+					var rut:String = Numero;
+					var NumMag:int = 2;
+					var Resto:int = 0;
+					var j:int ;
+					var i:int;
+					var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
+					var ParteNumerica:Array = new Array();
+					if (rut.length == 0) { 
+
+					}
+					for ( j =0, i =0; j < rut.length; j++){
+						if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
+							ParteNumerica[i] = rut.charAt(i);
+							++i;
+						}
+					}
+				
+					for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
+						suma += ParteNumerica[i] * NumMag;
+						trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
+						if (NumMag>6){
+							NumMag =1;	
+						}	
+					}
+					
+					Resto = 11-(suma%11);
+					if(Resto == 10){
+						this.rutClienteDVInput.text="K";	
+					}
+					else{
+						this.rutClienteDVInput.text=""+Resto;	
+					}
+					
+        		
+     		}
+     		
+     		public function cargarDatos():void
+     		{ 
+     			confs.getConfiguracioneVacunas();
+     			confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
+     		} 
+     		
+     		public function cargarDatosR(event:ResultEvent):void
+     		{
+     			vacunas = event.result as ArrayCollection; 
+     		}
+     		
+     		public function cancela():void{
+     		
+     		   this.visible = false;
+     		   this.reset();
+     		   Application.application.panelClinicaPrincipal.setVisible(true,false);
+     		}
+     		public function reset():void{
+     			consultas = new ArrayCollection();
+     			inputClienteNombre.text = "";
+     		    rutClienteInput.text = "";
+     		    rutClienteDVInput.text = "";
+     		}
+				
+        ]]>
+    </mx:Script>
+	
+	<mx:Label x="330" y="38" text="Rut:" width="32"/>
+	<mx:Label x="460.25" y="38" text="-" width="14.75" textAlign="center"/>
+	<fc:AutoComplete id="inputClienteNombre" x="90" y="38" width="150" dataProvider="{clientes}" labelField="nombre" visible="true" click="getAllClientes()" focusOut="buscarCliente2()"/>
+	<mx:TextInput  restrict="0-9" x="370" y="38" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
+	<mx:TextInput x="471.75" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut=" buscarCliente(event)"/>
+	
+	
+	
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="25" y="10" text="Cliente:" width="84.75" fontWeight="bold"/>
+	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="91" x="25" variableRowHeight="true" dataProvider="{consultas}" itemDoubleClick = "{regConsulta()}"  visible="true" height="253">
+	    <mx:columns>
+	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
+	        <mx:DataGridColumn dataField="rut" headerText="Rut" width="100"/>
+	        <mx:DataGridColumn dataField="responsable" headerText="Responsable" width="100"/>
+	        <mx:DataGridColumn dataField="servicio" headerText="Servicio" width="100"/>
+	        <mx:DataGridColumn dataField="fecha" headerText="Fecha" width="100"/>
+	        <mx:DataGridColumn dataField="hora" headerText="Hora" width="100"/>
+	        <mx:DataGridColumn dataField="anamnesis" headerText="Anamnesis" width="100"/>
+	        <mx:DataGridColumn dataField="costo" headerText="Costo" width="100"/>
+	    </mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="522" y="353" label="Visualizar" visible="true" id="registrar" click=" regConsulta()" width="102" height="23"/>
+	<mx:Button x="632" y="353" label="Cancelar" width="103" id="cancelar" visible="true" height="23" click=" cancela()"/>
+	
+	<mx:Label x="25" y="65" text="Consultas:" width="112.75" fontWeight="bold"/>
+	<mx:Label x="25" y="38" text="Apellido:" width="64"/>
+	
+</mx:Panel>

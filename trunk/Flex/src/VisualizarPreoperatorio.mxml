@@ -1,0 +1,251 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Anular Pre-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
+	<mx:Script>
+		<![CDATA[
+			
+        	//=======================================================================
+			// FECHA CREACIÓN: 16/11/09
+			// AUTOR: Nicolas Delgado
+			// Panel en el cual se muestran el nombre del cliente , apellido, rut,
+			// nombre de la mascota, raza, sexo, de las mascotas que poseen registro
+			//de peluquería y todos las registro que posean estado 0.
+			//=======================================================================
+			
+        	import transferObjects.anuPreoperatorio;
+         	import mx.collections.ArrayCollection;
+            import mx.rpc.events.ResultEvent;
+            import mx.core.Application;
+			import services.anularPreoperatorio;
+		
+			
+			/**
+			 * Esta variable se encarga de obtener desde la base datos los datos asociado 
+			 * a un registro de peluqueria de todas las mascota que alguna vez se han 
+			 * realizado una atención.
+			 */
+			 
+			[Bindable]
+			private var vacunaicones:ArrayCollection;
+
+
+            /**
+			* Se hace visible el input correspondiente a la opción
+			* elegida en el combobox, las cuales pueden ser por el nombre del cliente,
+			* rut, apellido, nombre de la mascota, sexo raza.
+			*/
+private function seleccionarBusqueda (event:Event):void
+            {   
+            	inputNombreCliente.setVisible(false,false);
+				inputApellidoPaterno.setVisible(false,false);
+				inputRutCliente.setVisible(false,false);
+				inputNombreMascota.setVisible(false,false);
+				inputNombreMascota.setVisible(false,false);
+				inputRaza.setVisible(false,false);
+				inputSexo.setVisible(false,false);
+				textBuscar.setVisible(true, false);
+				getAllVacunaciones();
+            	switch (combobox.selectedLabel)
+				{
+			    
+			    /**
+			    * El usuario Selecciona la opcion Nombre del Cliente
+			    */
+				case 'Nombre cliente':		
+					inputNombreCliente.setVisible(true,false);
+					inputNombreCliente.selectedItem=false;
+				break; 
+				
+			    /**
+			    * El usuario Selecciona la opcion Apellido del Cliente
+			    */
+				case 'Apellido paterno':
+					inputApellidoPaterno.setVisible(true,false);
+					inputApellidoPaterno.selectedItem=false;
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opcion Rut del Cliente
+			    */	
+				case 'Rut cliente':
+					inputRutCliente.setVisible(true,false);
+					inputRutCliente.selectedItem=false;
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opcion Nombre de la Mascota
+			    */
+				case 'Nombre mascota':
+					inputNombreMascota.setVisible(true,false);
+					inputNombreMascota.selectedItem=false;
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opcion Raza de la Mascota
+			    */
+				case 'Raza':
+					inputRaza.setVisible(true,false);
+					inputRaza.selectedItem=false;
+				break;
+				case 'Sexo':
+					inputSexo.setVisible(true,false);
+					inputSexo.selectedItem=false;
+				break;
+				}
+            }
+            
+            /**
+            * Este metodo se encarga de dejar limpia la pantalla una vez que
+            * el usuario se salga del panel, se dejan sin información los 
+            * datagrid, textInput y ComboBox. 
+            */
+            
+            public function limpiarTodo():void{
+            	inputSexo.setVisible(false,false);
+            	inputRaza.setVisible(false,false);
+            	inputNombreMascota.setVisible(false,false);
+            	inputRutCliente.setVisible(false,false);
+            	inputApellidoPaterno.setVisible(false,false);
+            	inputNombreCliente.setVisible(false,false);
+            	combobox.selectedItem="-Seleccionar-";
+            	textBuscar.setVisible(false,false);
+            	this.vacunaicones = new ArrayCollection();
+            }
+            
+            /**
+			* Se obtienen todos los registro de peluquería que están registrados en 
+			* la base de datos, que serán mostrados por el datagrid del panel, en este
+			* panel seran mostrados solamente el Nombre del cliente, apellido, rut, nombre
+			* de la mascota,raza y sexo, y en el panel siguiente serán mostrados los
+			* de un registro de peluquería.
+			*/
+			public function getAllVacunaciones():void
+		    {
+		   		var vacunacionService:anularPreoperatorio = new anularPreoperatorio();
+		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
+				vacunacionService.getAllVacunaciones();
+		    }
+		   
+		    /**
+			* Una vez obtenidas todos los registro de la peluquería que están registradas 
+			* en la base de datos, son mostrados dentro del datagrid,en este
+			* panel seran mostrados solamente el Nombre del cliente, apellido, rut, nombre
+			* de la mascota,raza y sexo, y en el panel siguiente serán mostrados los
+			* de un registro de peluquería.
+			*/
+            
+            public function getAllVacunacionesResult(event:ResultEvent):void
+		    {
+		   		vacunaicones = event.result as ArrayCollection;
+		    }
+		    
+		    /**
+		    * Una vez seleccionado un cliente, se procede a visualizar la siguiente 
+			* ventana (componente), con los datos correspondientes al cliente 
+			* seleccionado y los datos de los registro de peluquería que posee la mascota
+			* al interior del servicio de peluquería.
+			*/
+		    public function visualizarVacunaciones(event:Event):void
+            {
+            	if(tablaVacunaciones.selectedItem){
+            		this.setVisible(false,false);            	 	
+            		Application.application.anularPre2.setDatos(tablaVacunaciones.selectedItem as anuPreoperatorio);
+            		Application.application.anularPre2.setVisible(true,false);
+            		Application.application.anularPre2.limpiarTodo();
+            	}
+            }
+            
+			/**
+			 * Evento del boton "Volver", el cual redirige a la página
+			 * a la estipulada por defecto por  el modulo de peluquería.
+			 */
+			private function volver():void
+            {
+            	this.setVisible(false,false);
+            	Application.application.peluqueriaIni.setVisible(true,false);
+            }
+            
+            		    public function Seleccionar(event:Event):void
+			{
+			    if(inputNombreCliente.selectedIndex==0)
+			    {
+			    	inputNombreCliente.text=inputNombreCliente.selectedLabel;
+			    }
+			    if(inputApellidoPaterno.selectedIndex==0)
+			    {
+			    	inputApellidoPaterno.text==inputApellidoPaterno.selectedLabel;
+			    }
+			    if(inputRutCliente.selectedIndex==0)
+			    {
+			    	inputRutCliente.text=inputRutCliente.selectedLabel;
+			    }
+			    if(inputNombreMascota.selectedIndex==0)
+			    {
+			    	inputNombreMascota.text==inputNombreMascota.selectedLabel;
+			    }
+			    if(inputRaza.selectedIndex==0)
+			    {
+			    	inputRaza.text=inputRaza.selectedLabel;
+			    }
+			    if(inputSexo.selectedIndex==0)
+			    {
+			    	inputSexo.text==inputSexo.selectedLabel;
+			    }
+			}
+	 	]]>
+    </mx:Script>
+	
+	<!-- Botón Visualizar -->
+	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	
+	<mx:Text x="10" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
+	<mx:Text x="382" y="36" text="Mascota" fontWeight="bold"/>
+	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
+	<mx:Text x="10" y="10" id="textFiltrar" text="Filtrar por"/>
+	
+	<!-- Botón Cancelar -->
+	<mx:Button x="647" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()"/>
+	
+	<!-- Opciones de busqueda -->
+	<mx:ComboBox x="76" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccionar-"/>
+			<mx:Object label="Nombre cliente"/>
+			<mx:Object label="Apellido paterno"/>
+			<mx:Object label="Rut cliente"/> 
+			<mx:Object label="Nombre mascota"/> 
+			<mx:Object label="Raza"/> 
+			<mx:Object label="Sexo"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	
+	<!-- Tabla con datos -->
+	<mx:DataGrid x="10" y="62" width="739" height="280" id="tablaVacunaciones" dataProvider="{vacunaicones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
+		<mx:columns>		
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreCliente" id="nombreCliente" draggable="false"/>
+			<mx:DataGridColumn headerText="Apellido paterno" dataField="apellido" id="apellido" draggable="false"/>
+			<mx:DataGridColumn headerText="Rut" dataField="rutCliente" id="rutCliente" draggable="false"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota" id="nombreMascota" draggable="false"/>
+			<mx:DataGridColumn headerText="Raza" dataField="raza" id="raza" draggable="false"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="sexo" id="sexo" draggable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- AutoComplete -->
+	
+	<!-- Nombre Del Cliente -->
+	<fc:AutoComplete id="inputNombreCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombreCliente" visible="false" close="Seleccionar(event)" toolTip="ingrese texto para búsqueda" />
+	
+	<!-- Apellido Del Cliente -->
+	<fc:AutoComplete id="inputApellidoPaterno" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="apellido" visible="false" close="Seleccionar(event)" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Rut Del Cliente -->
+	<fc:AutoComplete id="inputRutCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="rutCliente" visible="false" close="Seleccionar(event)" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Nombre De La Mascota -->
+	<fc:AutoComplete id="inputNombreMascota" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="nombreMascota" visible="false" close="Seleccionar(event)" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Raza De La Mascota -->
+	<fc:AutoComplete id="inputRaza" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="raza" visible="false" close="Seleccionar(event)" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Sexo De La Mascota -->
+	<fc:AutoComplete id="inputSexo" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="sexo" visible="false" close="Seleccionar(event)" toolTip="ingrese texto para búsqueda"/>
+</mx:Panel>

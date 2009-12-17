@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Activar Web Aviso"  xmlns:fc="http://www.adobe.com/2006/fc">
+	<mx:Script>
+		<![CDATA[
+		//=======================================================================
+			// FECHA CREACIÓN: 08/11/09
+			// AUTOR: Erwin Díaz
+			// Panel de selección de Aviso, para proceder a editar los datos de éste.
+			//=======================================================================
+
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import avisoWeb.AvisoWeb;
+			import avisoWeb.AvisoWebService;
+			import mx.rpc.events.ResultEvent;
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.controls.Alert;
+			import mx.core.Application;
+			import flash.events.*;
+			import mx.events.CloseEvent;
+			
+			[Bindable]
+			private var avisos:ArrayCollection;
+			private var usuars:ArrayCollection;
+			private var usuars2:ArrayCollection;
+			//public var editarAviso:EditarAviso;
+					
+			/**
+		 	 * Metodo que obtiene los datos del datagrid, en el cual se muestran
+			 * los datos de los avisos, para procesar los datos del aviso seleccionado, esto 
+			 * enviandolo para luego dejandolo visible.	 		
+			 * */
+			public function editarAviso(event:Event):void
+			{
+				
+				if(Tabla.selectedItem){					
+					var newAviso:AvisoWeb = new AvisoWeb();
+					newAviso.id = Tabla.selectedItem.id;
+					newAviso.nombre = Tabla.selectedItem.nombre;
+					newAviso.apaterno = Tabla.selectedItem.apaterno;
+					newAviso.telefono0 = Tabla.selectedItem.telefono0;
+					newAviso.telefono = Tabla.selectedItem.telefono;
+					newAviso.celular0 = Tabla.selectedItem.celular0;
+					newAviso.celular = Tabla.selectedItem.celular;
+					newAviso.asunto = Tabla.selectedItem.asunto;
+					newAviso.descripcion = Tabla.selectedItem.descripcion;
+					//this.setVisible(false,false);
+					Application.application.editarAviso.resetVars();
+					Application.application.editarAviso.setID(newAviso.id);
+					Application.application.editarAviso.nomb.text = newAviso.nombre;
+					Application.application.editarAviso.apaterno.text = newAviso.apaterno;
+					Application.application.editarAviso.telefono0.text = newAviso.telefono0;
+					Application.application.editarAviso.telefono.text = newAviso.telefono;
+					Application.application.editarAviso.celular0.text = newAviso.celular0;
+					Application.application.editarAviso.celular.text = newAviso.celular;
+					Application.application.editarAviso.asunto.text = newAviso.asunto;
+					Application.application.editarAviso.descripcion.text = newAviso.descripcion;
+					
+					Application.application.regCatalogo.setVisible(false, false);
+					Application.application.editarAviso.setVisible(true, false);
+
+					//editarAviso.setVisible(true,false);
+
+					/*
+					var listCont2:Array = new Array();
+					listCont2 = newAviso.usuario.split(" ",1);
+					editarAviso.usua.text=listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newAviso.contrasena.split(" ",1);
+					editarAviso.rcon.text = editarAviso.cont.text = listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newAviso.nombre.split(" ",1);
+					editarAviso.nomb.text = listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newAviso.apellidoPaterno.split(" ",1);
+					editarAviso.apat.text= listCont2.pop();
+					
+					listCont2 = new Array();
+					listCont2 = newAviso.apellidoMaterno.split(" ",1);
+					editarAviso.amat.text=listCont2.pop();	
+					*/
+					
+				}
+				else{
+					this.labelMessage.text="Seleccione un Usuario para editar.";
+				}
+
+			}
+			
+			/**
+		 	 * Metodo que recibe el panel EditUsuario (editarAviso), para almacenarlo, 
+			 * inicializa la variable personService, para poder llamar a los metodos de este
+			 * para lograr comunicarse con las clases y metodos de java.	 		
+			 * */
+			public function getAllAvisos():void
+			{
+				/*avisos = new ArrayCollection;
+				avisos.addItem({nombre:"Juan Perez", telefono0:"75", telefono:"764356", celular0:"09", celular:"7654564", asunto:"Se venden cachorros", descripcion:"Se venden cachorros pitbull, interesados llamar"});
+ 				avisos.addItem({nombre:"Pedro Fuenzalida", telefono0:"75", telefono:"645667", celular0:"09", celular:"4545467", asunto:"Se compran cachorros", descripcion:"Se compran cachorros pitbull, interesados llamar"});
+ 				Tabla.dataProvider = avisos;*/
+            	var avisoWebService:AvisoWebService = new AvisoWebService();
+				avisoWebService.addEventListener(ResultEvent.RESULT,getAllAvisosResult);
+				avisoWebService.getAllAvisoWeb();
+			}
+			
+			/**
+		 	 * Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
+			 * del datagrid, para mostrar los datos de los avisos que existen en el sistema.	 		
+			 * */
+			private function getAllAvisosResult(event:ResultEvent):void
+			{
+				Tabla.doubleClickEnabled=true;
+				avisos = event.result as ArrayCollection;	
+							
+								
+			}
+			
+			public function iniciarPanel():void{
+				getAllAvisos();
+			}
+			
+			/**
+		 	 * Metodo que recibe el resultado del metodo anterior, el cual actualiza los 
+			 * datos del usuario seleccionado, y verifica si se almaceno correctamente.		 		
+			 * */
+			private function cancelando():void
+			{
+				this.setVisible(false,false);
+				Application.application.panelClinicaPrincipal.setVisible(true,false);
+			}
+			/**
+			 * Se hace visible el input correspondiente a la opción
+			 * elegida en el combobox
+			 */
+			private function seleccionarBusqueda (event:Event):void
+            {   
+            	idA.setVisible(false,false);
+				nombre.setVisible(false,false);
+				apellido.setVisible(false,false);
+				codTel.setVisible(false,false);
+				tel.setVisible(false,false);
+				codCel.setVisible(false,false);
+				cel.setVisible(false,false);
+				asunto.setVisible(false,false);
+				descripcion.setVisible(false,false);
+				getAllAvisos();
+            	switch (combobox.selectedLabel)
+				{
+				case 'ID':		
+					idA.setVisible(true,false);
+				break; 
+				case 'Nombre':		
+					nombre.setVisible(true,false);
+				break; 
+				case 'Apellido Paterno':
+					apellido.setVisible(true,false);
+				break;
+				case 'Código celular':
+					codCel.setVisible(true,false);
+				break;
+				case 'Nro celular':
+					cel.setVisible(true,false);
+				break;
+				case 'Código área teléfono':
+					codTel.setVisible(true,false);
+				break;
+				case 'Nro Teléfono':
+					tel.setVisible(true,false);
+				break;
+				case 'Asunto':
+					asunto.setVisible(true,false);
+				break;
+				case 'Descripción':
+					descripcion.setVisible(true,false);
+				break;
+				}
+			
+            }
+            
+            		/**
+			* Este metodo se encarga de mostrar un pop-up que señala la acción 
+			* eliminar un registro de peluquería que están seleccionadas
+			* en el grid.
+			*/
+            private function eliminar():void{
+                 Alert.show("¿Está seguro que desea activar el registro(s) de Web aviso? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+       
+            }
+            
+            /**
+			* Una vez seleccionado SÍ o NO en el mensaje
+			* se llama a la función que eliminar por si el usuario esta seguro
+			* si desea eliminar el registro de la peluquería. 
+			*/
+			private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+			
+			/**
+			* Este metodo se encarga de borrar todo los registro de peluquería seleccionado
+			* por el usuario, los cuales pueden ser uno o mas, para la eliminación de un 
+			* registro de peluquería se debera enviar la hora que definira como identificador
+			* unico.
+			*/
+			private function removeTaskRecord():void
+            {
+                /*var allRows:int = vacunaciones.length;
+                var vacu:anuPeluqueria= new anuPeluqueria();
+                
+                for (var i:int = 0; i < allRows; i++){
+                    if (vacunaciones[i].sel)
+                	{
+                        vacu = vacunaciones[i] as anuPeluqueria;
+                        eliminar(vacu.estado,vacu.nombreMascota,vacu.hora);
+                       
+                        vacunaciones.removeItemAt(i);
+                        allRows = vacunaciones.length;
+                        tablaVacunaciones.dataProvider = vacunaciones;
+                        i=-1;
+                    }   
+                }*/
+                labelMessage.text="Registro(s) de Web Aviso activado";              
+            }
+            
+            /**
+			* Este metodo se encarga de borrar todo los registro de peluquería seleccionado
+			* por el usuario, los cuales pueden ser uno o mas, para la eliminación de un 
+			* registro de peluquería se debera enviar la hora que definira como identificador
+			* unico.
+			*/
+         	private function selectAll():void{
+                /*var allRows:int = vacunaciones.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        vacunaciones[i].sel = true;
+                    else
+                        vacunaciones[i].sel = false;
+                }
+                tablaVacunaciones.dataProvider = vacunaciones;*/
+            }
+		]]>
+	</mx:Script>
+	<mx:Label x="25" y="12" text="Buscar"/>
+	<mx:Text x="241" y="12" id="textFiltrar" text="Filtrar por"/>
+	
+	<!-- AutoComplete -->
+	<fc:AutoComplete id="idA" x="70" y="10" width="150" dataProvider="{avisos}" labelField="id" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="nombre" x="70" y="10" width="150" dataProvider="{avisos}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="apellido" x="70" y="10" width="150" dataProvider="{avisos}" labelField="apaterno" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="codCel" x="70" y="10" width="150" dataProvider="{avisos}" labelField="celular0" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="cel" x="70" y="10" width="150" dataProvider="{avisos}" labelField="celular" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="codTel" x="70" y="10" width="150" dataProvider="{avisos}" labelField="telefono0" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="tel" x="70" y="10" width="150" dataProvider="{avisos}" labelField="telefono" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="asunto" x="70" y="10" width="150" dataProvider="{avisos}" labelField="asunto" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="descripcion" x="70" y="10" width="150" dataProvider="{avisos}" labelField="descripción" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	
+	<mx:DataGrid x="25" y="72" width="709" height="263" id="Tabla" enabled="true" dataProvider="{avisos}" itemDoubleClick="editarAviso(event)">
+		<mx:columns>
+		<mx:DataGridColumn width="10" headerText="" dataField="checkbox" id="checkbox" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>
+			<mx:DataGridColumn headerText="ID" width="30" dataField="id"/>
+			<mx:DataGridColumn headerText="Nombre" width="60" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Apellido Paterno" width="60" dataField="apaterno"/>
+			<mx:DataGridColumn headerText="Cod" width="35" dataField="telefono0" visible="false"/>
+			<mx:DataGridColumn headerText="Teléfono" width="100" dataField="telefono" visible="false"/>
+			<mx:DataGridColumn headerText="Cod" width="35" dataField="celular0" visible="false"/>
+			<mx:DataGridColumn headerText="Celular" width="100" dataField="celular" visible="false"/>
+			<mx:DataGridColumn headerText="Asunto" width="100" dataField="asunto"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" visible="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:CheckBox x="25" y="46" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
+	<mx:Label x="45" y="46" text="Seleccionar todo"/>
+	<mx:Button label="Activar" height="23" width="102" x="522" y="353" click="editarAviso(event)" cornerRadius="6"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="632" y="353" label="Volver" width="102" height="23" click="cancelando()" cornerRadius="6"/>
+	
+	<!-- Opciones de busqueda -->
+	<mx:ComboBox x="307" y="10" width="150" id="combobox" change="seleccionarBusqueda(event)" toolTip="Seleccione un parámetro de búsqueda">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="ID"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Apellido Paterno"/> 
+			<mx:Object label="Código celular"/>
+			<mx:Object label="Nro celular"/>
+			<mx:Object label="Código área teléfono"/>
+			<mx:Object label="Nro Teléfono"/>
+			<mx:Object label="Asunto"/>
+			<mx:Object label="Descripción"/>
+			
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+
+	
+</mx:Panel>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="240" height="466" title="Opciones del módulo" borderColor="#15AD8F">
+	<mx:Style source="css/AccordionStyle.css"/>
+	
+	<mx:Accordion styleName="Accordion3" x="0" y="0" width="100%" height="100%">
+		<mx:Canvas label="Cliente" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
+				<mx:LinkButton x="10" y="10" label="Registrar" textAlign="left" click="registrarCliente()" fontWeight="bold"/>
+				<mx:LinkButton x="10" y="40" label="Editar" id="edCliente" textAlign="left"/>
+				<mx:LinkButton x="10" y="70" label="Eliminar" textAlign="left" id="linkEliminarClnte"/>	
+				<mx:LinkButton x="10" y="100" label="Purgar" textAlign="left" id="linkPurgarClnte"/>
+		</mx:Canvas>
+		<mx:Canvas label="Mascota" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
+			<mx:LinkButton x="10" y="10" label="Registrar" textAlign="left" click="registrarMascota()"/>
+			<mx:LinkButton x="10" y="40" label="Editar" id="linkEditarMascota" click="editarMascota()" width="66" textAlign="left"/>
+			<mx:LinkButton x="10" y="70" label="Eliminar" textAlign="left" click="eliminarMascota()"/>
+			<mx:LinkButton x="10" y="100" label="Purgar" textAlign="left" click="purgarMascota()"/>
+		</mx:Canvas>
+		<mx:Canvas label="Ficha" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
+			<mx:LinkButton x="10" y="10" label="Visualizar" textAlign="left" click="visualizarFicha()"/>
+			<mx:LinkButton x="10" y="40" label="Bitácora" textAlign="left" height="17" click="bitacoraFicha()"/>
+			
+		</mx:Canvas>
+		<mx:Canvas label="Usuario" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
+			<mx:LinkButton x="10" y="10" label="Registrar" textAlign="left" click="registrarUsuario()"/>
+			<mx:LinkButton x="10" y="40" label="Editar" id="linkEditarUsAd" click="editarUsuario()" width="66" textAlign="left"/>
+			<mx:LinkButton x="10" y="70" label="Eliminar" textAlign="left" click="eliminarUsuario()" id="linkEliminarUsAd"/>
+			<mx:LinkButton x="10" y="100" label="Purgar" textAlign="left" id="linkPurgarUsAd" click="purgarUsuario()"/>
+		</mx:Canvas>
+		<mx:Canvas label="Configuración" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
+			<mx:LinkButton x="10" y="10" label="Mascotas" textAlign="left" click="configurarMascota()"/>
+			<mx:LinkButton x="10" y="40" label="Usuarios" textAlign="left"  click="configurarUsuario()"/>
+			<mx:LinkButton x="10" y="70" label="Servicios" textAlign="left"  click="configurarServicios()"/>
+			<mx:LinkButton x="10" y="100" label="Vacunas" textAlign="left"  click="configurarVacunas()"/>
+		</mx:Canvas>
+	</mx:Accordion>
+	 <mx:Script>
+        <![CDATA[   
+         import mx.core.Application;
+         
+           private function configurarVacunas():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.confVacunas.resetVars();
+         	Application.application.confVacunas.visible = true;
+         	
+         }
+         
+          private function configurarServicios():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.confServicios.resetVars();
+         	Application.application.confServicios.visible = true;
+         	
+         }
+         
+         private function configurarUsuario():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.confUsuario.resetVars();
+         	Application.application.confUsuario.visible = true;
+         	
+         }
+         
+         private function configurarMascota():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.confMascota.resetVars();
+         	Application.application.confMascota.visible = true;
+         	
+         }
+         
+         private function registrarUsuario():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.AdRegUsuario2.iniciar();
+         	Application.application.AdRegUsuario2.resetVars();
+          	Application.application.AdRegUsuario2.visible = true;
+         }
+         
+         private function editarUsuario():void
+         {
+         	Application.application.AdEditarUsuar2.getAllUsuarios();
+            Application.application.setInvisible();
+            Application.application.AdmOpciones1.setVisible(true,false);
+            Application.application.AdEditarUsuar2.setVisible(true,false);
+         }
+         
+         private function eliminarUsuario():void
+          {
+          	
+         	Application.application.setInvisible();
+            Application.application.AdmOpciones1.setVisible(true,false);
+            Application.application.elimusuario.getAllUsuarios();
+            Application.application.elimusuario.resetMessage();
+            Application.application.elimusuario.setVisible(true,false);
+            
+          }
+         
+          private function purgarUsuario():void
+          {
+         	Application.application.setInvisible();
+            Application.application.AdmOpciones1.setVisible(true,false);
+            Application.application.purgusuario.getAllUsuarios();
+            Application.application.purgusuario.resetMessage();
+            Application.application.purgusuario.setVisible(true,false);
+          }
+         
+          private function visualizarFicha():void
+          {
+          	Application.application.setInvisible();
+          	Application.application.visualizarFicha.getAllFichas();
+			Application.application.visualizarFicha.setVisible(true,true);
+            Application.application.AdmOpciones1.setVisible(true,false);
+            Application.application.visualizarFicha.setVisualizarFicha(Application.application.verFicha); 
+          }
+/**********************************************************/          
+          private function bitacoraFicha():void
+          {
+          	Application.application.setInvisible();
+            Application.application.AdmOpciones1.setVisible(true,false);
+            Application.application.bitacoraList.getAllDatos();
+            Application.application.bitacoraList.setVisible(true,false);
+          }
+/**********************************************************/
+          private function registrarMascota():void
+          {
+          	Application.application.setInvisible();
+            Application.application.AdmOpciones1.setVisible(true,false);
+            Application.application.AdmMascota2.setVisible(true,false);
+            Application.application.AdmMascota2.iniciarPanel();
+          }
+          
+
+ 			private function editarMascota():void
+         {
+         	//Application.application.AdEditarMascota2.getAllUsuarios();
+            Application.application.setInvisible();
+            Application.application.AdmOpciones1.setVisible(true,false);
+            Application.application.AdEditarMascota2.setVisible(true,false);
+         }
+          private function eliminarMascota():void{
+          		Application.application.setInvisible();
+            	Application.application.AdmOpciones1.setVisible(true,false);
+            	Application.application.AdmEliminarMascota.setVisible(true,false);
+          }
+          private function purgarMascota():void{
+          		Application.application.setInvisible();
+            	Application.application.AdmOpciones1.setVisible(true,false);
+            	Application.application.AdmPurgarMascota.setVisible(true,false);
+          }
+          private function registrarCliente():void
+          {
+          	Application.application.AdmIngreso2.limpiarTodo();
+          	Application.application.setInvisible();
+          	//Application.application.AdmIngreso2.limpiarTodo();
+            this.visible = true;
+            Application.application.AdmIngreso2.visible = true;	
+          }
+	 	]]>
+    </mx:Script>
+	
+	
+</mx:Panel>

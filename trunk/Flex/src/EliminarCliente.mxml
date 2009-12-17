@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="cargarClientes()" width="779"  height="466" borderColor="#15AD8F" title="Eliminar Cliente" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
+		<mx:Script>
+		<![CDATA[
+		
+		//=======================================================================
+			// FECHA: CREACIÓN: 21 Septiembre
+			// AUTOR: Victor Silva
+			// Panel en donde se despliegan los clientes activos del sistema, de modo de 
+			//poder seleccionar los clientes que se deseen eliminar
+			//=======================================================================
+
+		
+		
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Cliente; 
+			import mx.rpc.events.ResultEvent;
+			import mx.events.CloseEvent;
+			import mx.core.Application;
+			 
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.controls.CheckBox;
+			import mx.rpc.events.FaultEvent;
+			import PurgarCliente;
+			import services.BusquedaService;
+			import mx.events.DropdownEvent;
+			
+			import administracion.ClienteEliminadoService;
+			
+			[Bindable]
+			private var clientes:ArrayCollection;
+			import services.PersonService;
+			
+	/**
+	 * 	@Fecha  03 Octubre
+	 *  @Descripcion Metodo creado por esteban en busqueda de un cliente
+	 **/ 	
+			
+			   public function getAllClientes():void
+		   {
+		   		var busquedaService:BusquedaService = new BusquedaService();
+		   		busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
+				busquedaService.getAllClientes();
+		   }
+		   
+		   public function getAllClientesResult(event:ResultEvent):void
+		   {
+		   		clientes = event.result as ArrayCollection;
+		   }
+			
+			
+			/**
+	 * 	@Fecha  03 Octubre
+	 *  @Descripcion Metodo creado por esteban en busqueda de un cliente
+	 	**/ 
+			
+					   //combobox de cliente
+		   private function seleccionarCliente (event:Event):void
+            {
+            	//getAllClientes();
+            	switch (comboboxCliente.selectedLabel){
+				case 'E-mail':		
+					inputClienteEmail.setVisible(true,false);
+					
+					inputClienteNombre.setVisible(false,false);
+					inputClienteApellido.setVisible(false,false);
+					inputClienteApellido2.setVisible(false,false);
+					inputClienteRut.setVisible(false,false);
+				    inputClienteTel.setVisible(false,false);
+				break; 
+				case 'Nombre':		
+					inputClienteNombre.setVisible(true,false);
+					
+					inputClienteEmail.setVisible(false,false);
+					inputClienteApellido.setVisible(false,false);
+					inputClienteApellido2.setVisible(false,false);
+					inputClienteRut.setVisible(false,false);
+				    inputClienteTel.setVisible(false,false);
+
+					
+				break; 
+				case 'Teléfono':		
+					inputClienteTel.setVisible(true,false);
+					
+					inputClienteEmail.setVisible(false,false);
+					inputClienteApellido.setVisible(false,false);
+					inputClienteNombre.setVisible(false,false);
+					inputClienteApellido2.setVisible(false,false);
+					inputClienteRut.setVisible(false,false);
+					
+					
+				break; 
+				case 'Rut':		
+					inputClienteRut.setVisible(true,false);
+					
+					inputClienteApellido.setVisible(false,false);
+					inputClienteEmail.setVisible(false,false);
+					inputClienteTel.setVisible(false,false);
+					inputClienteNombre.setVisible(false,false);
+					inputClienteApellido2.setVisible(false,false);
+					
+					
+				break; 	
+				case 'Apellido Materno':		
+					inputClienteApellido2.setVisible(true,false);
+					
+					inputClienteApellido.setVisible(false,false);
+					inputClienteEmail.setVisible(false,false);
+					inputClienteTel.setVisible(false,false);
+					inputClienteNombre.setVisible(false,false);
+					inputClienteRut.setVisible(false,false);
+				break; 	
+				case 'Apellido Paterno':		
+					inputClienteApellido.setVisible(true,false);
+					
+					inputClienteEmail.setVisible(false,false);
+					inputClienteApellido2.setVisible(false,false);
+					inputClienteTel.setVisible(false,false);
+					inputClienteNombre.setVisible(false,false);
+					inputClienteRut.setVisible(true,false);
+				break; 	
+				}
+            } 
+			
+			
+			
+	/**
+	 * 	@Fecha  03 Octubre
+	 *  @Descripcion Metodo que consulta todos los registros de clientes en la base de datos
+	 
+	 	**/ 
+			public function cargarClientes():void
+			{
+			    var clienteEliminadoService: ClienteEliminadoService = new ClienteEliminadoService();
+				clienteEliminadoService.addEventListener(ResultEvent.RESULT,getClientesResult);
+				clienteEliminadoService.getClientesActivos();
+			}
+			
+			
+		/**
+	 * 	@Fecha  03 Octubre
+	 *  @Descripcion Metodo que modifica el atributo activo del cliente en la BD
+	 
+	 	**/ 
+    		private function EliminaCliente(rut:String):void
+			{
+				var clienteEliminadoService:ClienteEliminadoService=new ClienteEliminadoService();
+				clienteEliminadoService.addEventListener(ResultEvent.RESULT,ClienteEliminadoResult);
+				clienteEliminadoService.eliminarCliente(rut);
+			}
+			  
+			
+		/**
+	 * @Fecha  03 Octubre
+	 *  @Descripcion Metodo que recibe la respuesta si es que fue una eliminacion exitosa o no
+	 	**/	
+			
+			private function ClienteEliminadoResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				if(result>0)
+				{
+				   labelMessage.text = "Cliente eliminado";
+				}
+				Application.application.purgarCliente.cargarClientesEliminados();
+				Activar();
+			}
+				
+			
+	/**
+	 * @Fecha  03 Octubre
+	 *  @Descripcion Metodo que recibe un ArrayCollection con las clientes activos del sistema
+	 *  consulta todos los registros de clientes en la base de datos.
+	 
+	 	**/	
+			
+			private function getClientesResult(event:ResultEvent):void
+			{
+				clientes = event.result as ArrayCollection;
+			}
+			
+			
+		/**
+		 * @Fecha 03 Octubre
+		 * @Descripcion Metodo que carga y actualiza los datos en la tabla datagrid para poder ser seleccionado 	
+		 **/
+		private function ActualizarTabla():void
+            {
+            	clientes = new ArrayCollection;
+                tablaClientes.dataProvider = clientes;
+            }	
+            
+             /**
+             * @Fecha  03 Octubre
+             *@Descripcion Borra columna de la tabla
+             * */
+           	private function deleteRow():void {
+			 Alert.show("Está seguro que desea eliminar Cliente ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			}
+            
+          /**
+          * @Fecha  03 Octubre
+          * @Descripcion Pop UP que da edvierte que la acion que se esta realizando podria traer efectos no deseados
+          * ademas de realizar a accion si la respuesta es si
+          ***/
+            
+            private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  quitarFila();
+			}
+			
+          /**
+          * @Fecha  03 Octubre
+          *@Descripcion Funcion que activa o desactiva el boton "Eliminar" cuando es seleccionado uno o mas clientes
+          ***/
+             
+            private function Activar():void{
+            	var allRows:int = clientes.length;
+            	var seleccion:Boolean=false;
+            	for (var i:int = 0; i < allRows; i++){
+            		if(clientes[i].sel)
+            		seleccion=true;
+            	}
+            	if(seleccion)
+            		eliminarCliente.enabled=true;
+            		else
+            			eliminarCliente.enabled=false;
+            }
+            	
+          /**
+          * @Fecha  03 Octubre
+          *@Descripcion Funcion que selecciona/desselecciona todos los clientes de la tabla de clientes
+          * segun el check box "todo" es true o false
+          ***/
+            private function seleccionarTodo():void{
+                var allRows:int = clientes.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected){ 
+                        clientes[i].sel = true;
+                        eliminarCliente.enabled=true;
+                    }
+                    else{
+                        clientes[i].sel = false;
+                        eliminarCliente.enabled=false;
+                    }    
+                }
+                tablaClientes.dataProvider = clientes;           
+            }
+            
+
+			private function cancelando():void
+			{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+
+
+          /**
+          * @Fecha  03 Octubre
+          *@Descripcion Funcion que identifica el cliente seleccionado y llama a "EliminarCliente" con el rut de este
+          ***/
+            
+            private function quitarFila():void
+            {
+                var allRows:int = clientes.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (clientes[i].sel)
+                	{
+                        EliminaCliente(clientes[i].rut);
+                        clientes.removeItemAt(i);
+                        allRows = clientes.length;
+                        tablaClientes.dataProvider = clientes;
+                        i=-1;
+                    }   
+                }              
+            }
+            
+            
+		]]> 
+  	</mx:Script>	
+	
+	<mx:DataGrid x="10" y="99" width="739" height="220" id="tablaClientes" dataProvider="{clientes}" click="Activar()">
+		<mx:columns>
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" >
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>
+			<mx:DataGridColumn width="90" headerText="Nombre" dataField="nombre" />
+			<mx:DataGridColumn width="95" headerText="Apellido Paterno" dataField="apellido"/>
+			<mx:DataGridColumn width="95" headerText="Apellido Materno" dataField="apellido2"/>
+			<mx:DataGridColumn width="90" headerText="Rut" dataField="rut" />
+			<mx:DataGridColumn width="90" headerText="Telefono" dataField="telefono2"/>
+			<mx:DataGridColumn width="90" headerText="Celular" dataField="celular2"/>
+			<mx:DataGridColumn width="90" headerText="direccion" dataField="direccion" visible="false"/>
+			<mx:DataGridColumn width="60" headerText="Region" dataField="region" visible="false"/>
+			<mx:DataGridColumn width="90" headerText="Comuna" dataField="comuna" visible="false"/>
+			<mx:DataGridColumn width="90" headerText="E-mail" dataField="email"/>
+			</mx:columns>
+	</mx:DataGrid>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="577" y="342" enabled="false" label="Eliminar" id="eliminarCliente" click="{deleteRow()}"  toolTip="Elimina el o los clientes seleccionados"/>
+	<mx:Button x="674" y="342" label="Cancelar" id="cancelar" toolTip="Cancela la operación" click="cancelando()"/>
+	<mx:CheckBox x="10" y="48" id="todo" click="{seleccionarTodo()}"/>
+	<mx:Label x="32" y="48" text="Seleccionar todo"/>
+	
+	
+		<!-- input Cliente -->
+	<fc:AutoComplete id="inputClienteNombre" x="59" y="10" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputClienteRut" x="59" y="10" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
+	<fc:AutoComplete id="inputClienteTel" x="59" y="10" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
+	<fc:AutoComplete id="inputClienteEmail" x="59" y="10" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido2" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
+	
+	<!-- Cliente: combobox y grid -->
+	<mx:ComboBox x="294" y="9" id="comboboxCliente" width="150" visible="true" change="{seleccionarCliente(event)}" close="{cargarClientes()}">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccione-"/>
+			<mx:Object label="Apellido Materno"/>
+			<mx:Object label="Apellido Paterno"/>
+			<mx:Object label="E-mail"/>
+			<mx:Object label="Nombre"/>
+			<mx:Object label="Rut"/>
+			<mx:Object label="Teléfono"/>
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+</mx:Panel>

@@ -1,0 +1,188 @@
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Purgar usuario" >
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA CREACIÓN: 20/09/09
+			// AUTOR: Erwin Díaz 
+			// Panel en el cual se muestran los usuarios que están
+			// registrados y que permite purgarlos, es decir
+			// los borra de la base de datos
+			//=======================================================================
+
+			import mx.controls.List;
+			import mx.events.ListEvent; 			
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+			import transferObjects.UsuarioElim;
+			import mx.rpc.events.ResultEvent;
+			import administracion.UsuarioElimService;
+			import mx.core.Application;
+			
+			[Bindable]
+			private var persons:ArrayCollection;
+			[Bindable]
+			private var nroSelec:int = 0;
+			
+			/**
+			 * se obtienen todas los usuarios que están registrados en la
+			 * base de datos para ser mostrados dentro del datagrid
+			 */
+			
+			public function getAllUsuarios():void
+			{
+				var usuarioElimService:UsuarioElimService = new UsuarioElimService();
+				usuarioElimService.addEventListener(ResultEvent.RESULT,getAllUsuariosResult);
+				usuarioElimService.getAllUsuariosP();
+			}
+			/**
+			 * Obtiene el resultado del llamado a la capa dos y tres
+			 * del sistema
+			 */
+			private function getAllUsuariosResult(event:ResultEvent):void
+			{
+				persons = event.result as ArrayCollection;
+			}
+			
+			/**
+			 * Función que actualiza la tabla de datos, ésta se 
+			 * utiliza solo como pruba
+			 */
+			private function updateTable():void
+            {
+            	persons = new ArrayCollection;
+				persons.addItem({nombreUsuario:"Juan", apPaterno:"Fernandez", usuario:"jfndz", cargo:"veterinario", servicio:"clinica", registrar:"si", editar:"si", eliminar:"si", purgar:"si"});
+ 				persons.addItem({nombreUsuario:"Gonzalo", apPaterno:"Contreras", usuario:"gcontrs", cargo:"peluquero", servicio:"clinica", registrar:"si", editar:"no", eliminar:"no", purgar:"no"});
+ 				persons.addItem({nombreUsuario:"Maria", apPaterno:"Hernandez", usuario:"mfrdz", cargo:"veterinario", servicio:"clinica", registrar:"si", editar:"si", eliminar:"si", purgar:"si"});
+ 				
+ 				//actuacliza la tabla con los datos obtenidos de users
+                tablaUsuarios.dataProvider = persons;
+            }
+        
+            /**
+            * 
+            * Elimina una fila del datagrid, esto lo hace antes de
+            * hacer el llamado a la acapa dos y tres, en caso de que
+            * el proceso en la capa dos no se cumpla, es decir, que no se 
+            * purgue un usuario correctmante entonces volverá a mostrarse dentro
+            * del datagrid ya que se recarga nuevamente
+            */
+            private function deleteRow():void {
+			 Alert.show("Está seguro que desea purgar usuario ","Confirme purgar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			}
+			
+			
+			/**
+			 * Purga un usuario que está en la base de datos
+			 * llama a una función remota y retorna una lista con todos
+			 * los usuarios registrados
+			 */
+			private function deleteUsuario(clave:String):void
+			{
+				var usuarioElimService:UsuarioElimService=new UsuarioElimService();
+				usuarioElimService.addEventListener(ResultEvent.RESULT,deleteUsuarioResult);
+				usuarioElimService.deleteUser(clave);
+			}
+			/**
+			 * 
+			 * Muestra un mensaje de acuerdo al resultado de la operación
+			 * en la capa dos
+			 */
+			private function deleteUsuarioResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+			    labelMessage.text = "Usuario(s) purgado(s) con éxito";
+				getAllUsuarios();
+			}
+			/**
+			 * Borra el mensaje que se muestra en la etiqueta de mensajes del panel
+			 */
+			public function resetMessage():void
+			{
+				labelMessage.text = "";
+			}
+			/**
+			 * Marca o desmarca los checkboxes
+			 * 
+			 */
+			private function removeTaskRecord():void
+            {
+                var allRows:int = persons.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (persons[i].sel)
+                	{
+                        nroSelec++;
+                        deleteUsuario(persons[i].usuario);
+                        persons.removeItemAt(i);
+                        allRows = persons.length;
+                        tablaUsuarios.dataProvider = persons;
+                        i=-1;
+                    }   
+                }              
+            }
+			
+			/**
+			 * es la funcion que es llamada desde el mensaje de confirmación de la tarea
+			 */
+			private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+			
+			/**
+			 * Selecciona o deselecciona todos los checkboxes
+			 */
+			private function selectAll():void{
+                var allRows:int = persons.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        persons[i].sel = true;
+                    else
+                        persons[i].sel = false;
+                }
+                tablaUsuarios.dataProvider = persons;
+            }
+            /**
+            * Cancela la operación
+            * 
+            */
+            private function volver():void
+            {
+            	Application.application.setInvisible();
+            	Application.application.panel2.setVisible(true,false);
+            	Application.application.AdmOpciones1.setVisible(true,false);
+            }
+            
+		]]> 
+  	</mx:Script>	
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	
+	<mx:DataGrid x="25" y="36" width="715" height="309" id="tablaUsuarios" dataProvider="{persons}" >
+		<mx:columns>
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>			
+			<mx:DataGridColumn width="70" headerText="Nombre" dataField="nombre" id="nombreUsuario" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="110" headerText="Apellido Paterno" dataField="apellidoPaterno" id="apellidoPaterno" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Usuario" dataField="usuario" id="usuario" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Cargo" dataField="cargo" id="cargo" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Servicio" dataField="servicio" id="servicio" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="60" headerText="Registrar" dataField="permisoRegistrar" id="permisoRegistrar" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="50" headerText="Editar" dataField="permisoEditar" id="permisoEditar" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="50" headerText="Eliminar" dataField="permisoEliminar" id="permisoEliminar" sortable="false" draggable="false"/>
+			<mx:DataGridColumn width="50" headerText="Purgar" dataField="permisoPurgar" id="permisoPurgar" sortable="false" draggable="false"/>
+			</mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="522" y="353" label="Purgar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="632" y="353" label="Cancelar" click="volver()" id="cancelar" toolTip="Cancela la operación" width="102" height="23" cornerRadius="6"/>
+	<mx:CheckBox x="129" y="10" id="todo" click="{selectAll()}">
+		<mx:toolTip>Seleccione todos los usuarios, en caso contrario ninguno</mx:toolTip>
+	</mx:CheckBox>
+	<mx:Label x="25" y="10" text="Seleccionar todo"/>
+</mx:Panel>

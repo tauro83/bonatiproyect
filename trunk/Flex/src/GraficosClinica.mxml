@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox initialize="ini()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466" horizontalAlign="center">
+<!--
+//=======================================================================
+// FECHA CREACIÓN: 28-09-09
+// AUTOR: Andres Garrido
+// Componente que tiene un grafico  y muestra las estadisticas de clinica
+//=======================================================================
+-->
+	<mx:Script>
+		<![CDATA[
+		import mx.messaging.channels.StreamingAMFChannel;
+		import mx.collections.ArrayCollection;
+		import mx.rpc.events.ResultEvent;
+		import mx.controls.Alert;
+		import mx.events.CalendarLayoutChangeEvent;
+		import services.GetEstadisticasClinica;
+		import transferObjects.EstadisticasClinica;
+		import services.Mensajes;
+				
+		[Bindable]public var expenses:ArrayCollection ;
+		[Bindable]
+		private var titulo:String = "Estadísticas por rango de fecha para Clinica";
+		private var gep:GetEstadisticasClinica;
+		private var fechaActual:Date = new Date();
+
+		private function getEstadisticasR(event:ResultEvent):void
+		{
+			expenses = event.result as ArrayCollection;	
+		}
+		private function ini():void{
+			servicio.selectedValue="Pabellón";
+		}
+		/**
+		 	 * 	@author  Andres Garrido
+			 * 	@Fecha  12 Octubre
+			 *  @Descripcion realiza los set de fechas. Este metodo es llamado tras la accion
+			 *  de los cambios de rangos en las opciones de visualizar la estadistica.	
+			 * */
+		private function changeData():void
+		{
+			if(fechaIni.selectedDate!=null && fechaFin.selectedDate!=null){
+				if(fechaIni.selectedDate.getTime()<=fechaFin.selectedDate.getTime()){
+					if(fechaIni.selectedDate.getTime()<fechaActual.getTime()){
+						 gep = new GetEstadisticasClinica();
+						var iDia:String		= fechaIni.selectedDate.getDate().toString();
+						var iMes:String		= (fechaIni.selectedDate.getMonth()+1).toString();
+						var iAnio:String	= fechaIni.selectedDate.getFullYear().toString();
+						var fDia:String		= fechaFin.selectedDate.getDate().toString();
+						var fMes:String		= (fechaFin.selectedDate.getMonth()+1).toString();
+						var fAnio:String	= fechaFin.selectedDate.getFullYear().toString();
+						//Alert.show(fechaActual.getTime().toString());
+	 					var inicio:String	= iAnio+"-"+iMes+"-"+iDia;
+	 					var fin:String		= fAnio+"-"+fMes+"-"+fDia;
+	 					gep.addEventListener(ResultEvent.RESULT,getEstadisticasR);
+	 					
+	 					if(servicio.selectedValue=="Pabellón"){
+	 						gep.getEstadisticas(1,inicio,fin);
+	 					}
+	 					if(servicio.selectedValue=="Policlínico"){
+	 						gep.getEstadisticas(2,inicio,fin);
+	 					}
+	 					
+	 					
+						
+					     mens.text = "";  
+					}else
+					{
+						 mens.text = "Ingrese una fecha inicio anterior a la actual"; 
+					}
+				}
+				else{
+					mens.text = Mensajes.getMensajeError(7);
+				}
+			}
+		}
+		]]>
+	</mx:Script>
+	<mx:SeriesInterpolate id="changeEffect" duration="2000"/>
+	<mx:Panel horizontalAlign="center" layout="absolute" title="{titulo}" width="779" height="466" borderColor="#15AD8F">
+		<mx:ColumnChart id="myChart" dataProvider="{expenses}"  height="316" width="540" x="209" y="36" showDataTips="true">
+	        <mx:horizontalAxis>
+	           <mx:CategoryAxis dataProvider="{expenses}" categoryField="tipo"/>
+	        </mx:horizontalAxis>
+	        <mx:series>
+	           <mx:ColumnSeries xField="tipo" yField="numAtenciones" displayName="N° de atenciones realizadas" />
+	        </mx:series>
+     	</mx:ColumnChart>
+     		<mx:Legend horizontalAlign="right" dataProvider="{myChart}" width="199" x="550" y="10"/>
+			
+			<mx:DateField id="fechaIni"  x="89" y="36" width="112" change="changeData()"/>
+			<mx:Label x="10" y="38" text="Inicio:" width="58"/>
+			<mx:DateField id="fechaFin"   x="89" y="67" width="112" change="changeData()"/>
+			<mx:Label x="10" y="69" text="Término:" width="71"/>
+			<mx:Label x="10" y="10" text="Rango de fechas:"/>
+			<mx:Label x="10" y="108" text="Tipo de atención:"/>
+			<mx:Label x="176" y="377" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+			<mx:RadioButtonGroup id="servicio" change="changeData()"/>
+			<mx:RadioButton x="10" y="134" label="Pabellón" groupName="servicio"/>
+			<mx:RadioButton x="10" y="160" label="Policlínico" groupName="servicio"/>
+	</mx:Panel>
+</mx:VBox>
