@@ -1,9 +1,0 @@
-<appsettings>
-	<tipos>	
-		<tipoPropiedad name="Canil">				
-			<propiedades>
-				<propiedad key="1">10</propiedad>
-			</propiedades>
-		</tipoPropiedad>
-	</tipos>
-</appsettings>
