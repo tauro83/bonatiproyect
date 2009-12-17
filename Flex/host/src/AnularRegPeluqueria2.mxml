@@ -69,10 +69,10 @@
 			* Este metodo se  encarga de realizar la anulación de un registro de peluquería
 			* pasando como parametro el estado que posee el objeto que se desea anular.
 			*/
-			public function anular(estado:int,nombreMascota:String,hora:String):void
+			public function anular(estado:int,nombreMascota:String,hora:String,nombreCatalogo:String):void
 			{
 				var vacunacionService:anularPeluqueria = new anularPeluqueria();
-				vacunacionService.anular(estado,nombreMascota,hora);
+				vacunacionService.anular(estado,nombreMascota,hora,nombreCatalogo);
 			}
 
             /**
@@ -85,17 +85,17 @@
            	{
 			if(comboboxMotivo.selectedLabel=='Otros'){
            			if(motivo.text!=""){
-           				Alert.show("¿Está seguro que desea anular el o los  registro(s) de peluquer�a(s)? ","Confirme anulaci�n ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+           				Alert.show("¿Está seguro que desea anular el o los  registro(s) de peluquería(s)? ","Confirme anulaci�n ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
            			}
            			else{
            				Alert.show("Debe ingresar un motivo para anular el o los  registro(s) de peluquer�a(s)?","Campo incompleto");
            			}
            		}
            		if(comboboxMotivo.selectedIndex==1 || comboboxMotivo.selectedIndex==2){
-         			Alert.show("¿Está seguro que desea el o los  registro(s) de peluquer�a(s)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+         			Alert.show("¿Está seguro que desea el o los  registro(s) de peluquería(s)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
          		}
          		if(comboboxMotivo.selectedIndex==0){
-         			Alert.show("Debe seleccionar un motivo para anular el o los  registro(s) de peluquer�a(s)? ","Campo incompleto");
+         			Alert.show("Debe seleccionar un motivo para anular el o los  registro(s) de peluquería(s)? ","Campo incompleto");
          		}
 			}
 			
@@ -114,7 +114,7 @@
                     if (vacunaciones[i].sel)
                 	{
                         vacu = vacunaciones[i] as anuPeluqueria;
-                        anular(vacu.estado,vacu.nombreMascota,vacu.hora);
+                        anular(vacu.estado,vacu.nombreMascota,vacu.hora,vacu.nombreCatalogo);
                        
                         vacunaciones.removeItemAt(i);
                         allRows = vacunaciones.length;
@@ -123,7 +123,7 @@
                     }   
                 }
                 motivo.text="";
-                barraMsj.text="Registro(s) de peluquería eliminado";              
+                barraMsj.text="Registro(s) de peluquería(s) anulados";              
             }
 			
 			/**
