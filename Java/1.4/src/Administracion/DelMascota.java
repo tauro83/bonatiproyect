@@ -16,12 +16,12 @@ public class DelMascota {
 			e.printStackTrace();
 		}
 	}
-	public int delMascota(String rut, String nombre, boolean status){
-		int result=0;
+	public int delMascota(String rut, String nombre, boolean status, String usuario){
+			int result=0;
 		
 		try{			
 			DelMascotaDB mascotaDB= new DelMascotaDB(connection);
-			result= mascotaDB.DelMascota(rut, nombre,status);	
+			result= mascotaDB.DelMascota(rut, nombre,status, usuario);	
 			connection.close();
 			
 		}

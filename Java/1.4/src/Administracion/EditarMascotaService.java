@@ -25,14 +25,14 @@ public class EditarMascotaService {
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
 	
-	public int insertMascotaE(Mascota person)
+	public int insertMascotaE(Mascota person, String usuario)
     {
 		int result=0;
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			MascotaEditDB personDB= new MascotaEditDB(connection);
-			result= personDB.insertMascotaE(person);		
+			result= personDB.insertMascotaE(person, usuario);		
 			connection.close();
 		} catch (SQLException e) 
 		{
