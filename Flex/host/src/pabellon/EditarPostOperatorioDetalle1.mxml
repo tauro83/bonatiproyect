@@ -19,6 +19,7 @@
 			import transferObjects.PostOperatorio;
 			import services.PostOperatorioService;
 			import mx.core.Application;
+			import util.Properties;
 			
 			
 			[Bindable]
@@ -49,6 +50,9 @@
             		
             	
             	}
+            	else{
+            		ltexto.text = Properties.getMensaje("Advertencia", "14");
+            	}
             }
           
 			/**
@@ -58,8 +62,10 @@
 			public function getAllDatos():void
 			{
 				var visualizarPostoperatorio:PostOperatorioService = new PostOperatorioService();
+				
 				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
 				visualizarPostoperatorio.getAllPostOperatorio2(this.nomMascota.text.toString(),this.clienterut.text.toString());
+							
 			}	
 			/**
 			 * Obtiene la lista con los objetos desde la base de datos
@@ -68,6 +74,7 @@
 			{
 				Tabla.doubleClickEnabled=true;
 				atenciones = event.result as ArrayCollection;
+				
 			}
 			
 			/**
