@@ -21,18 +21,23 @@ public class ClienteEditDB
 	String rutillo;
 	
 	
-	public ClienteEditDB(Connection connection, String rutillo)
+	public ClienteEditDB(Connection connection)
 	{
-		this.rutillo=rutillo;
+		
 		conn = connection;
 		try 
 		{
 			String query="";
 			
 			query = "UPDATE clientepresencial "+
-			   "SET nombre = ?, aPaterno = ?, aMaterno = ?, rut = ?, telefono = ?, celular = ?, domicilio = ?, region = ?, comuna = ?, correo = ? "+
-				 " WHERE rut="+rutillo+";";
+			   "SET nombre = ?, aPaterno = ?, aMaterno = ?, rut = ?, telefono = ?, celular = ?, domicilio = ?, region = ?, comuna = ?, correo = ?, estado = ? "+
+				 " WHERE rut = ?;";
 			insert = connection.prepareStatement(query);
+			
+			query = "SELECT nombre,aPaterno,aMaterno,rut,telefono,celular,domicilio,region,comuna,correo,estado "+
+			"FROM clientepresencial;";
+
+			selectAll = connection.prepareStatement(query);
 			
 		} 
 		catch (SQLException e) 
@@ -41,29 +46,12 @@ public class ClienteEditDB
 		}
 	}
 	
-	public ClienteEditDB(Connection connection)
-	{
-		conn = connection;
-		try 
-		{		
-			String query="";
-			query = "SELECT nombre,aPaterno,aMaterno,rut,telefono,celular,domicilio,region,comuna,correo "+
-			"FROM clientepresencial;";
-
-			selectAll = connection.prepareStatement(query);
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-	}
-
 	/**
 	 * Ingresa a una nueva persona a la base de datos
 	 * @param person contiene los datos de la persona que se quiere ingresar
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
-    public int insertClienteE(Cliente person)
+    public int insertClienteE(Cliente person, String rutillo)
     {
     	int result=0;
     	try 
@@ -80,7 +68,9 @@ public class ClienteEditDB
 			insert.setString(8, person.getRegion());
 			insert.setString(9, person.getComuna());
 			insert.setString(10, person.getEmail());
+			insert.setBoolean(11, person.estado);
 			
+			insert.setString(12, rutillo);
     		
 			result= insert.executeUpdate();
 		} 

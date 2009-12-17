@@ -12,15 +12,15 @@ import Bd.DBConnectionManager;
 
 public class ClienteEditService {
 	
-	public int insertClienteE(Cliente person)
+	public int insertClienteE(Cliente person, String rutillo)
     {
 		int result=0;
 		
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
-			ClienteEditDB personDB= new ClienteEditDB(connection, person.rut);
-			result= personDB.insertClienteE(person);		
+			ClienteEditDB personDB= new ClienteEditDB(connection);
+			result= personDB.insertClienteE(person, rutillo);		
 			connection.close();
 		} catch (SQLException e) 
 		{
