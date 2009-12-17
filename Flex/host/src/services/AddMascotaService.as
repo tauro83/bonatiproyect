@@ -65,8 +65,8 @@ package services{
 	 	 * 	@author  Sebastian Arancibia
 	 	 *  @param mascota Objeto de mascota que se quiere agregar a la base de datos
 		 * */
-		public function addMascota(mascota:Mascota):void{
-			this.getOperation("addMascota").send(mascota);
+		public function addMascota(mascota:Mascota, usuario:String):void{
+			this.getOperation("addMascota").send(mascota, usuario);
 		}
 		
 		/**
