@@ -787,5 +787,5 @@
 	<!--Autor: }Sebastian-->
 		<mx:Text x="931" y="4" text=" " id="usuarioON" fontWeight="bold"/>
 	    <mx:Text x="880" y="4" text="Usuario:" id="usuarioON0" fontWeight="bold" visible="false"/>
-	    <mx:Label x="779" y="4" id="userX"  fontWeight="bold"/>
+	    <mx:Label x="580" y="4" id="userX"  fontWeight="bold" width="410" textAlign="center"/>
 </mx:Application>
