@@ -21,7 +21,6 @@ public class PostOperatorioBD {
 	PreparedStatement selectAllElim;
 	PreparedStatement selectAllPostoperatorio2;
 	PreparedStatement selectAllPostNull;
-	PreparedStatement selectAllActivo;
 	PreparedStatement elimReg;
 	PreparedStatement anulReg;
 	PreparedStatement insert;
@@ -37,17 +36,12 @@ public class PostOperatorioBD {
 		{
 			String query="";
 
-			query = "SELEC * " +
-					"FROM atencionpostoperatorio " +
-					"WHERE estado=0";
-			selectAllActivo = connection.prepareStatement(query);
-			
 			query = "SELECT mascota.nombre, mascota.raza, mascota.sexo, " +
 			"clientepresencial.nombre, clientepresencial.apaterno, clientepresencial.rut " +
 			"FROM mascota, clientepresencial, atencionpostoperatorio " +
 			"WHERE clientepresencial.rut = atencionpostoperatorio.rut and " +
 			"mascota.rut = atencionpostoperatorio.rut and mascota.nombre = atencionpostoperatorio.nombremascota and " +
-			"atencionpostoperatorio.estado = '1';";
+			"atencionpostoperatorio.estado = '0';";
 	
 			selectAllElim = connection.prepareStatement(query);
 			
@@ -57,11 +51,9 @@ public class PostOperatorioBD {
 			"WHERE clientepresencial.rut = atencionpostoperatorio.rut and " +
 			"mascota.rut = atencionpostoperatorio.rut and mascota.nombre = atencionpostoperatorio.nombremascota and " +
 			"atencionpostoperatorio.estado = '0';";
-			
 			selectAllPostoperatorio = connection.prepareStatement(query);
 			
-			query = "SELECT atencionpostoperatorio.indicaciones, atencionpostoperatorio.hora, " +
-					"atencionpostoperatorio.fecha, atencionpostoperatorio.costo " +
+			query = "SELECT atencionpostoperatorio.indicaciones, atencionpostoperatorio.hora, atencionpostoperatorio.fecha " +
 					"FROM atencionpostoperatorio " +
 					"WHERE atencionpostoperatorio.nombremascota = ? and atencionpostoperatorio.rut = ? and atencionpostoperatorio.estado = 0;";
 			
@@ -69,7 +61,7 @@ public class PostOperatorioBD {
 			
 			query = "SELECT atencionpostoperatorio.indicaciones, atencionpostoperatorio.hora, atencionpostoperatorio.fecha " +
 			"FROM atencionpostoperatorio " +
-			"WHERE atencionpostoperatorio.nombremascota = ? and atencionpostoperatorio.rut = ? and atencionpostoperatorio.estado = 1;";
+			"WHERE atencionpostoperatorio.nombremascota = ? and atencionpostoperatorio.rut = ? and atencionpostoperatorio.estado = 0;";
 	
 			selectAllPostNull = connection.prepareStatement(query);
 			
@@ -80,7 +72,7 @@ public class PostOperatorioBD {
 			elimReg = connection.prepareStatement(query);
 			
 			query = "UPDATE atencionpostoperatorio "+
-			   "SET estado = '2' " +
+			   "SET estado = '1' " +
 			   "WHERE atencionpostoperatorio.hora = ? and " +
 			   "atencionpostoperatorio.rut = ? and atencionpostoperatorio.nombremascota = ?;";
 			anulReg = connection.prepareStatement(query);
@@ -96,35 +88,11 @@ public class PostOperatorioBD {
 			e.printStackTrace();
 		}
 	}
-	public List getAllPostOperatorioActivoBD(){
-		ResultSet result;
-		List postOperatorios = new ArrayList();
-    	PostOperatorio postOperatorio;
-		try{
-			result =selectAllActivo.executeQuery();
-			while(result.next()){  
-    			postOperatorio = new PostOperatorio();
-    			postOperatorio.medicamentos = result.getString(1).trim();
-    			postOperatorio.alimentos = result.getString(2).trim();
-    			postOperatorio.indicaciones = result.getString(3).trim();
-    			//result.getString(4) corresponde al atrib servicio
-    			postOperatorio.shora = result.getString(5).trim();
-    			postOperatorio.stfecha = result.getString(6).trim();
-    			postOperatorio.costo = result.getString(7).trim();
-    			postOperatorio.nombreMascota = result.getString(8).trim();
-    			postOperatorio.clienterut = result.getString(9).trim();
-    			postOperatorio.apellido = result.getString(10).trim();
-    			postOperatorio.nombreCliente = result.getString(11).trim();    			
-    			postOperatorios.add(postOperatorio);
-    			
-    		}
-		}
-		catch(SQLException e){
-			e.printStackTrace();
-		}
-		return postOperatorios;
-	}
-	public int AddPostOpeBD(PostOperatorio pos){
+	
+	
+	
+	public int AddPostOpeBD(PostOperatorio pos)
+    {
 		String result = null;
 		try 
     	{
@@ -134,7 +102,6 @@ public class PostOperatorioBD {
 			insert.setString(4, pos.clienterut);
 			insert.setString(5, pos.costo);
 			insert.setString(6, pos.indicaciones);
-			System.out.println("AAAA?11"+pos.costo);
 			result=""+insert.executeUpdate();
 		} 
     	catch (SQLException e) 
@@ -150,20 +117,26 @@ public class PostOperatorioBD {
 		}
     	
     }
+	
+	
+	
 	/**
 	 * Trata de obtener todos las cirugías registrados en la base de datos
 	 * @return Lista con todas las cirugías registradas
 	 */
-	public int anulAtencionBD(String hora, String rut, String nomMascota){
+	public int anulAtencionBD(String hora, String rut, String nomMascota)
+    {
     	int result=0;
-    	try{
+    	try 
+    	{
     		anulReg.setString(1, hora);
     		anulReg.setString(2, rut);
     		anulReg.setString(3, nomMascota);
     		anulReg.executeQuery();
     		result= anulReg.executeUpdate();
 		} 
-    	catch (SQLException e){
+    	catch (SQLException e) 
+    	{
 			e.printStackTrace();
 		}
     	return result;
@@ -227,22 +200,27 @@ public class PostOperatorioBD {
 	 * Trata de obtener todos las cirugías registrados en la base de datos
 	 * @return Lista con todas las cirugías registradas
 	 */
-	 public List  getAllPostOperatorio2BD(String nombreMascota, String clienterut){
+	 public List  getAllPostOperatorio2BD(String nombreMascota, String clienterut)
+	    {	
 	    	List postOperatorios = new ArrayList ();
 	    	PostOperatorio postOperatorio;
-	    	ResultSet result;
-	    	try{
+	    	try 
+	    	{
+	    		ResultSet result;
+	    		
 	    		selectAllPostoperatorio2.setString(1, nombreMascota);
 	    		selectAllPostoperatorio2.setString(2, clienterut);
 	    		
 	    		result = selectAllPostoperatorio2.executeQuery();
-	    		while(result.next()){  
+				
+	    		while(result.next())
+	    		{  
 	    			postOperatorio = new PostOperatorio();
 	    			postOperatorio.indicaciones = result.getString(1).trim();
 	    			postOperatorio.shora = result.getString(2).trim();
 	    			postOperatorio.stfecha = result.getString(3).trim();
-	    			postOperatorio.costo =  result.getString(4).trim();
 	    			postOperatorios.add(postOperatorio);
+	    			
 	    		}
 			} 
 	    	catch (SQLException e) 
