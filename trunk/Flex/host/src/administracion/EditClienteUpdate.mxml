@@ -33,6 +33,7 @@
 			private var u1:Cliente;
 			private var clienteAuxEditado:Cliente;
 			private var verdadero:Boolean=false;
+			public  var rutete:String;
             import mx.core.Application;
 			
 			/**
@@ -121,6 +122,7 @@
 					clienteAuxEditado.apellido  = apellido.text;
 					clienteAuxEditado.apellido2 = apellido2.text;
 					clienteAuxEditado.rut       = rut.text.concat(rut2.text);
+					rutete						= rut.text.concat(rut2.text);
 					//clienteAuxEditado.rut2 	 	= rut2.text;
 					clienteAuxEditado.telefono  = telefono.text.concat(telefono2.text);
 					//clienteAuxEditado.telefono2 = telefono2.text;
@@ -145,7 +147,7 @@
 			{
 			  var auxiliar:ClienteEditService = new ClienteEditService();
 			  auxiliar.addEventListener(ResultEvent.RESULT,carga1Result);
-			  auxiliar.insertClienteE(clienteAuxEditado);
+			  auxiliar.insertClienteE(clienteAuxEditado,rutete);
 			  resetVars();
 			  //mensaje.text = "Sus cambios se realziaron con éxito";
 			  
