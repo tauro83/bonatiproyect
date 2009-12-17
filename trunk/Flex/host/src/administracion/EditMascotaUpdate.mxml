@@ -98,7 +98,7 @@
 			  //Alert.show(" entra a funcion carga1");
 			  var auxiliar:EditarMascotaService = new EditarMascotaService();
 			  auxiliar.addEventListener(ResultEvent.RESULT,carga1Result);
-			  auxiliar.insertMascotaE(clienteAuxEditado);
+			  auxiliar.insertMascotaE(clienteAuxEditado, Application.application.login2.usuarioActivo);
 			  
 			}
 			
