@@ -10,7 +10,7 @@ package services
 	
 	public class getUsuarioActualService extends RemoteObject
 	{
-		public function getUsuarioActualService()
+		public function getUsuarioActualService() 
 		{
 			super();
 			var channel:ChannelSet=new ChannelSet();
