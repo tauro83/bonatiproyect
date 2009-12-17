@@ -291,7 +291,6 @@
 			regPostOp.setVisible(false, false);
 			regPostOp1.setVisible(false, false);
 			editarControl.setVisible(false, false);
-  			regPreoOp1.setVisible(false,false);
   			visualizaPre.setVisible(false,false);
 		 	<!--Autor: }Nicolas -->
 			
