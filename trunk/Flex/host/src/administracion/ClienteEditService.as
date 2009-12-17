@@ -50,9 +50,9 @@ package administracion
 			 * para almacenarlo en la base de datos. Llamando al metodo correspondiente.
 			 * 	@Param Recibe como parametro un objeto de la clase Cliente, para enviarlo a la capa2. 		
 			 * */
-		public function insertClienteE(person:Cliente):void
+		public function insertClienteE(person:Cliente, rutete:String):void
 		{
-			this.getOperation("insertClienteE").send(person);
+			this.getOperation("insertClienteE").send(person,rutete);
 		}
 		
 		/**
