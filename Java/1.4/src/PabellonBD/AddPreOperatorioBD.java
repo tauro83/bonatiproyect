@@ -4,6 +4,7 @@ package PabellonBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import TransferObjects.Preoperatorio;
 
@@ -32,21 +33,25 @@ public class AddPreOperatorioBD {
     		
 			e.printStackTrace();
 			 
-			
 		}
 	}
 	
-	public int addPreoperatorio(Preoperatorio u) throws SQLException
+	public String addPreoperatorio(Preoperatorio u) throws SQLException
 	{
 		
 		
-		int result=0;
+		String result;
 		
 		try 
     	{
 			System.out.print("Entra Try");
 			
-			
+			Calendar c = Calendar.getInstance();
+    		int hora = c.get(Calendar.HOUR_OF_DAY);
+    		int minutos = c.get(Calendar.MINUTE);
+    		int segundos = c.get(Calendar.SECOND);
+    		
+    		String h=hora+":"+minutos+":"+segundos;
 			
 			
 			insert.setString(1, u.rut);
@@ -55,32 +60,32 @@ public class AddPreOperatorioBD {
 			insert.setString(4, u.sintomas);
 			insert.setString(5, u.diagnostico);
 			insert.setString(6, u.fecha);
-			insert.setString(7, u.hora);
+			insert.setString(7, h.trim());
 			insert.setString(8, u.responsable);		
 			insert.setString(9, u.ayudante);
 			
-			result=insert.executeUpdate();
+			result=""+insert.executeQuery();
+			//result=insert.executeUpdate();
 			
-			System.out.print(result);
-			
-//			System.out.print(u.idpreoperatorio);
-//			System.out.print(u.observaciones);
-//			System.out.print(u.sintomas);
-//			System.out.print(u.diagnostico);
-//			System.out.print(u.fecha);
-//			System.out.print(u.hora);
-//			System.out.print(u.responsable);
-//			System.out.print(u.ayudante);
+			System.out.println("hola:"+result);
 		} 
     	catch (SQLException e) 
     	{
     		
-			e.printStackTrace();
-			
-			
+			//e.printStackTrace();
+    		e.printStackTrace();
+			result = " "+e.toString(); 
+	
+		}
+    	if(result.length()==1){
+    		return "1";
+    		
+    	}
+    	else {
+    		return   "0";  	
 		}
     	
-        return result;
+        //return result;
 	}
 	
 }
