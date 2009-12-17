@@ -91,14 +91,14 @@ public class anularPeluqueria {
 	 * @param 0=activado, 1=desactivo, 2=anulado
 	 * @return 2 si ha anulado correctamente y 0 de lo contrario
 	 */
-	public int anular(int estado,String nombreMascota,String hora)
+	public int anular(int estado,String nombreMascota,String hora,String nombreCatalogo)
     {
 		int result = 0;
-    	try 
+    	try  
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
-			result = vacunacionBD.anular(estado,nombreMascota,hora);
+			result = vacunacionBD.anular(estado,nombreMascota,hora,nombreCatalogo);
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -114,14 +114,14 @@ public class anularPeluqueria {
 	 * @param 0=activado, 1=desactivo, 2=anulado
 	 * @return 1 si ha eliminado correctamente y 0 de lo contrario
 	 */
-	public int eliminar(int estado,String nombreMascota,String hora)
+	public int eliminar(int estado,String nombreMascota,String hora,String nombreCatalogo)
     {
 		int result = 0;
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
-			result = vacunacionBD.eliminar(estado,nombreMascota,hora);
+			result = vacunacionBD.eliminar(estado,nombreMascota,hora,nombreCatalogo);
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -138,14 +138,14 @@ public class anularPeluqueria {
 	 * @param 0=activado, 1=desactivo, 2=anulado
 	 * @return 0 si ha deseliminado correctamente y 1 de lo contrario.
 	 */
-	public int deseliminar(int estado,String nombreMascota,String hora)
+	public int deseliminar(int estado,String nombreMascota,String hora,String nombreCatalogo)
     {
 		int result = 0;
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
-			result = vacunacionBD.deseliminar(estado,nombreMascota,hora);
+			result = vacunacionBD.deseliminar(estado,nombreMascota,hora,nombreCatalogo);
 			connection.close();
 		} 
     	catch (SQLException e) 
