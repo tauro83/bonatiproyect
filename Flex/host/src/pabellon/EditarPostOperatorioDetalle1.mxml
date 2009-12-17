@@ -42,12 +42,12 @@
 					newEditarPost.hora.text = Tabla.selectedItem.shora;
 					newEditarPost.indicaciones.text = Tabla.selectedItem.indicaciones;
 					newEditarPost.costo.costo.text = Tabla.selectedItem.costo;
-
-					newEditarPost.setVisible(true,false);
+					newEditarPost.fechast = Tabla.selectedItem.stfecha;
+					newEditarPost.horast = Tabla.selectedItem.shora;
+					
 					
             		this.setVisible(false,false);
-            		Application.application.EditarPostODetalle2.visible=true;
-            		
+            		newEditarPost.setVisible(true,false);
             	
             	}
             	else{
@@ -131,7 +131,6 @@
 			<mx:DataGridColumn width="120" headerText="Hora" dataField="shora" id="hora" sortable="false" draggable="false"/>
 			<mx:DataGridColumn width="120" headerText="Fecha" dataField="stfecha" id="fecha" sortable="false" draggable="false"/>
 			<mx:DataGridColumn headerText="Indicaciones" dataField="indicaciones" id="indicaciones" sortable="false" draggable="false"/>
-			<mx:DataGridColumn headerText="Costo" dataField="costo" id="costo" sortable="false" draggable="false"/>
 			</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="523" y="350" label="Editar" id="purgarAtenciones" click="{updateRow()}" toolTip="Elimina la seleccionada" width="102" height="23" cornerRadius="6"/>
