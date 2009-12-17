@@ -14,11 +14,6 @@
             <properties>
               <source>Administracion.AddUsuario</source>
             </properties>
-        </destination>
-        <destination id="BitacoraService">
-            	<properties>
-              			<source>Bitacora.BitacoraService</source>
-            	</properties>
         </destination> 
         <destination id="AvisoWebService">
             	<properties>
@@ -322,6 +317,12 @@
   		<destination id="RegistroAvisoWebService">
            	<properties>
            			<source>AvisoWeb.RegistroAvisoWebService</source>
+           	</properties>
+    	</destination>
+    	
+    	<destination id="EditarPostOperatorio">
+           	<properties>
+           			<source>Pabellon.EditarPostOperatorio</source>
            	</properties>
     	</destination>
 </service>
