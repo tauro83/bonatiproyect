@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class PurgarMascotaDB {
 	PreparedStatement delete;
