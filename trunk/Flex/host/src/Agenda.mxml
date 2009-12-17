@@ -31,6 +31,9 @@
 			import mx.controls.Alert;
 			import services.configuracionServices;	
 			
+			import services.BitacoraCitaService;
+			import transferObjects.BitacoraCita;
+			
 			//raullrich
 			import transferObjects.Cita;
 			import administracion.EditarCitaService;
@@ -177,6 +180,7 @@
 	        					for(k=0; k< datosUsuarios.length; k++){
 	        						if(datosUsuarios.getItemAt(k).usuario == item.responsable){
 	        							item.responsable = datosUsuarios.getItemAt(k).nombre + " " + datosUsuarios.getItemAt(k).apellido;
+	        							item.usuario = datosUsuarios.getItemAt(k).usuario;
 	        						}
 	        					}
 	        					
@@ -192,6 +196,7 @@
 				        				for(k=0; k< datosUsuarios.length; k++){
 				        					if(datosUsuarios.getItemAt(k).usuario == item.responsable){
 	        									item.responsable = datosUsuarios.getItemAt(k).nombre + " " + datosUsuarios.getItemAt(k).apellido;
+	        									item.usuario = datosUsuarios.getItemAt(k).usuario;
 	        								}
 	        							}
 		                				diaAgenda.addItem(item);
@@ -207,6 +212,7 @@
 	        					for(k=0; k< datosUsuarios.length; k++){
 	        						if(datosUsuarios.getItemAt(k).usuario == item.responsable){
 	        							item.responsable = datosUsuarios.getItemAt(k).nombre + " " + datosUsuarios.getItemAt(k).apellido;
+	        							item.usuario = datosUsuarios.getItemAt(k).usuario;
 	        						}
 	        					}
 		    				    diaAgenda.addItem(item);
@@ -223,6 +229,7 @@
 				        				for(k=0; k< datosUsuarios.length; k++){
 				        					if(datosUsuarios.getItemAt(k).usuario == item.responsable){
 	        									item.responsable = datosUsuarios.getItemAt(k).nombre + " " + datosUsuarios.getItemAt(k).apellido;
+	        									item.usuario = datosUsuarios.getItemAt(k).usuario;
 	        								}
 	        							}
 		                				diaAgenda.addItem(item);
@@ -449,9 +456,21 @@
 			////////////////////////////////////INICIO ELIMINAR CITA///////////////////////
 			///////////////////////////////////////////////////////////////////////////////
 			////////////////////////////////////////////////////////////////////////////////
+			private var cita2:Cita;
+			
 			private function deleteCita(event:Event):void{
    				if(agendaDia.selectedItem!=null){
    					
+   					cita2 = new Cita();
+
+					cita2.cliente = agendaDia.selectedItem.cliente;	
+			 		cita2.hora = agendaDia.selectedItem.hora;
+			 		cita2.mascota = agendaDia.selectedItem.mascota;
+			 		cita2.servicio = agendaDia.selectedItem.servicio;
+			 		cita2.fecha = agendaDia.selectedItem.fecha;
+			 		cita2.usuario = agendaDia.selectedItem.responsable;
+	
+   					//Alert.show(cita2.cliente+"|"+cita2.hora+"|"+cita2.mascota+"|"+cita2.servicio);
    					var respon:String = iniciales();
    					//Alert.show("¿Está seguro que desea eliminar los datos seleccionados? ","Confirme eliminación ", Alert.YES | Alert.NO);
    					var citaService:DeleteCitaService=new DeleteCitaService();
@@ -472,6 +491,24 @@
 				   iniciarAgenda();
 				   labelMessage.text = Properties.getMensaje("Informacion", "12");
 				   //getAllMascotas();
+				   
+				   //Alert.show(cita2.cliente+"|"+cita2.hora+"|"+cita2.mascota+"|"+cita2.servicio);
+				   var bc:BitacoraCita = new BitacoraCita();
+					
+					bc.cliente = cita2.cliente;
+					bc.fechaCita = cita2.fecha;		
+			 		bc.horaCita = cita2.hora;
+			 		bc.mascota = cita2.mascota;
+			 		bc.servicio = cita2.servicio;
+			 		bc.usuario = Application.application.login2.usuarioActivo;
+			 		bc.accion = "Eliminar";
+			 		
+			 		//Alert.show(bc.cliente+"|"+bc.fechaCita+"|"+bc.horaCita+"|"+bc.mascota+"|"+bc.servicio+"|"+bc.usuario+"|"+bc.accion);
+			   	  	
+			   	  	var bcs:BitacoraCitaService = new BitacoraCitaService;
+    		 		bcs.addBitacoraCita(bc);
+	   
+				   
 				}
 				else
 				   labelMessage.text = Properties.getMensaje("Error", "9");
@@ -495,6 +532,7 @@
                             <mx:DataGridColumn headerText="Mascota" dataField="mascota"/>
                             <mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
                             <mx:DataGridColumn headerText="Responsable" dataField="responsable"/>
+                            <mx:DataGridColumn headerText="Usuario" dataField="usuario" visible="false"/>
                         </mx:columns>
                     </mx:DataGrid>
                 </mx:Canvas>
