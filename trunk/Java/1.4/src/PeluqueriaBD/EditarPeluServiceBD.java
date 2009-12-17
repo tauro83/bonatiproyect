@@ -214,7 +214,6 @@ public class EditarPeluServiceBD
     	return peluquerias;
     }
 	
-	    @SuppressWarnings("deprecation")
 	public List getServiciosAnteriores(String responsable,Date fecha, String hora)
     {
     	List serviciosAnteriores=new ArrayList();
@@ -225,7 +224,8 @@ public class EditarPeluServiceBD
     		String[] comp = hora.split(":");
     		Time time = new Time(Integer.parseInt(comp[0]), Integer.parseInt(comp[1]), Integer.parseInt(comp[2]));
 
-    		ResultSet result = selectServiAnte.executeQuery();
+    		PreparedStatement selectServiAnte = null;
+			ResultSet result = selectServiAnte.executeQuery();
     		while(result.next())
     		{
     			peluqueria = new Peluqueria();

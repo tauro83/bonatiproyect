@@ -5,6 +5,7 @@ package Peluqueria;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 //import org.apache.commons.httpclient.CircularRedirectException;
@@ -161,7 +162,7 @@ public class EditarPeluService {
     		//Conexion la clase que se comunica con la base de datos
 			Connection connection=DBConnectionManager.getConnection();
 			EditarPeluServiceBD editPeluBD= new EditarPeluServiceBD(connection);
-			serviciosAgregados = editPeluBD.getServiciosAnteriores(responsable,fecha,hora);		
+			//serviciosAgregados = editPeluBD.getServiciosAnteriores(responsable,fecha,hora);		
 			connection.close();
 		} 
     	catch (SQLException e) 
