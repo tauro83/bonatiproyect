@@ -37,6 +37,10 @@
 			import transferObjects.Mascota;
 			import services.citaServices;
 			import services.configuracionServices;	
+			
+			import services.BitacoraCitaService;
+			import transferObjects.BitacoraCita;
+			
 			private var ct:citaServices = new citaServices();
 			
 			[Bindable]
@@ -193,6 +197,18 @@
 			   	  Application.application.agenda2.labelMessage.text ="La cita ha sido modificada exitosamente";
 			   	  this.setVisible(false,false);
 			   	  Application.application.agenda2.setVisible(true,false);
+			   	  
+			   	  	var bc:BitacoraCita = new BitacoraCita();
+					bc.cliente = rut.text;
+					bc.fechaCita = fecha.text;		
+			 		bc.horaCita = hora.text;
+			 		bc.mascota = listMascotas.text;
+			 		bc.servicio = servicio.text;
+			 		bc.usuario = Application.application.login2.usuarioActivo;
+			 		bc.accion = "Editar";
+			   	  	
+			   	  	var bcs:BitacoraCitaService = new BitacoraCitaService;
+    		 		bcs.addBitacoraCita(bc);
 			      
 			   }
 			   else
