@@ -136,34 +136,7 @@ public class GetFichasBD {
 		}
     	    	
     	
-    	
-    	String queryAlojamiento = "SELECT servicio, hora, fechaingreso, costo, responsable, cliente, mascota, "+
-    								"canil, fechasalida, comentario, diasestadia, eliminado "+
-    								" FROM atencionalojamiento WHERE cliente='"+ rut.trim()+"' AND mascota='" +nombre.trim() +"'";	    	
-    	try 
-    	{
-    		selectAll = connection.prepareStatement(queryAlojamiento);
-			ResultSet result = selectAll.executeQuery();
-    		while(result.next())
-    		{
-    			at = new Atencion();
-    			at.setClienteRut(result.getString(6));
-    			at.setMascotaNombre(result.getString(7));
-    			at.setServicio("Alojamiento");
-    			at.setHora(result.getString(2));
-    			at.setSfecha(""+result.getString(3));
-    			at.setCosto("$"+result.getString(4));
-    			if(result.getString(4)==null){
-					at.setCosto("");
-				}
-    			atenciones.add(at);
-    		}
-		} 
-    	catch (SQLException e) 
-    	{
-			e.printStackTrace();
-		}
-    	
+    	    	
 //    	String queryBanio = "	SELECT rutcliente, nombremascota, servicio, hora, fecha, costo, comentario "+
 //    	  							" FROM atencionbanio WHERE rutcliente='"+ rut.trim()+"' AND nombremascota='" +nombre.trim() +"'";	 
 //    	try 
@@ -211,6 +184,58 @@ public class GetFichasBD {
 //			e.printStackTrace();
 //		}
     	
+    	String queryPeluqueria= "SELECT clienterut, mascotanombre, hora, responsable, fecha, estado, servicio FROM atencionpeluqueria  WHERE clienterut='"+ rut.trim()+"' AND mascotanombre='" +nombre.trim() +"'";	    	
+		try 
+		{
+			selectAll = connection.prepareStatement(queryPeluqueria);
+			ResultSet result = selectAll.executeQuery();
+			while(result.next())
+			{
+				at = new Atencion();
+				at.setClienteRut(result.getString(1));
+				at.setMascotaNombre(result.getString(2));
+				at.setServicio("Peluqueria");
+				at.setHora(result.getString(3));
+				at.setSfecha(""+result.getString(5));
+				
+				atenciones.add(at);
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		    	
+    	
+    	
+    	String queryAlojamiento = "SELECT servicio, hora, fechaingreso, costo, responsable, cliente, mascota, "+
+    								"canil, fechasalida, comentario, diasestadia, eliminado "+
+    								" FROM atencionalojamiento WHERE cliente='"+ rut.trim()+"' AND mascota='" +nombre.trim() +"'";	    	
+    	try 
+    	{
+    		selectAll = connection.prepareStatement(queryAlojamiento);
+			ResultSet result = selectAll.executeQuery();
+    		while(result.next())
+    		{
+    			at = new Atencion();
+    			at.setClienteRut(result.getString(6));
+    			at.setMascotaNombre(result.getString(7));
+    			at.setServicio("Alojamiento");
+    			at.setHora(result.getString(2));
+    			at.setSfecha(""+result.getString(3));
+    			at.setCosto("$"+result.getString(4));
+    			if(result.getString(4)==null){
+					at.setCosto("");
+				}
+    			atenciones.add(at);
+    		}
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	
+    	
     	
 		String queryPostoperatorio = "SELECT medicamentos, alimentos, indicaciones, servicio, hora, fecha,"+ 
 	       	"costo, nombremascota, rut, apellido, nombrecliente FROM atencionpostoperatorio "+
@@ -225,7 +250,7 @@ public class GetFichasBD {
 				at = new Atencion();
 				at.setClienteRut(result.getString(9));
 				at.setMascotaNombre(result.getString(8));
-				at.setServicio(result.getString(4));
+				at.setServicio("PostOperatorio");
 				at.setHora(result.getString(5));
 				at.setSfecha(""+result.getString(6));
 				at.setCosto("$"+result.getString(7));
@@ -252,7 +277,7 @@ public class GetFichasBD {
 				at = new Atencion();
 				at.setClienteRut(result.getString(2));
 				at.setMascotaNombre(result.getString(3));
-				at.setServicio(result.getString(10));
+				at.setServicio("Vacunacion");
 				at.setHora(result.getString(4));
 				at.setSfecha(""+result.getString(6));
 				at.setCosto("$"+result.getString(7));
@@ -280,7 +305,7 @@ public class GetFichasBD {
 				at = new Atencion();
 				at.setClienteRut(result.getString(1));
 				at.setMascotaNombre(result.getString(2));
-				at.setServicio(result.getString(7));
+				at.setServicio("Control");
 				at.setHora(""+result.getString(5));
 				at.setSfecha(""+result.getString(4));
 				at.setCosto("$"+result.getString(8));
@@ -308,7 +333,7 @@ public class GetFichasBD {
 				at = new Atencion();
 				at.setClienteRut(result.getString(1));
 				at.setMascotaNombre(result.getString(2));
-				at.setServicio(result.getString(9));
+				at.setServicio("Cirugia");
 				at.setHora(""+result.getString(3));
 				at.setSfecha(""+result.getString(6));
 				at.setCosto("$"+result.getString(7));
@@ -337,7 +362,7 @@ public class GetFichasBD {
 				at = new Atencion();
 				at.setClienteRut(result.getString(6));
 				at.setMascotaNombre(result.getString(7));
-				at.setServicio(result.getString(2));
+				at.setServicio("Consulta");
 				at.setHora(""+result.getString(3));
 				at.setSfecha(""+result.getString(4));
 				at.setCosto("$"+result.getString(5));
