@@ -26,8 +26,7 @@ public class EditarPostOperatorioBD {
 	public EditarPostOperatorioBD(Connection connection) throws SQLException{
 		this.connection = connection;
 		 query = "UPDATE atencionpostoperatorio "+
-		   "SET indicaciones=?, hora=?, fecha=?, costo=?, " +
-		   "nombremascota=? "+
+		   "SET indicaciones=?, hora=?, fecha=?, "+
 		 "WHERE hora=? AND fecha=? AND servicio=Pabellon;";
 
 			 update = connection.prepareStatement(query);
@@ -44,8 +43,6 @@ public class EditarPostOperatorioBD {
 			update.setString(1, p.indicaciones);
 			update.setString(2, p.shora);
 			update.setString(3, p.stfecha);
-			update.setString(4, p.costo);
-			update.setString(5, p.nombreMascota);
 			update.setString(7, hora);
 			update.setString(8, fecha);
 			result  = update.executeUpdate();
