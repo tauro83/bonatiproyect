@@ -62,7 +62,7 @@
    					var mascotaService:DeleteMascota=new DeleteMascota();
 					mascotaService.addEventListener(ResultEvent.RESULT,restoreMascotaResult);
 					var m:Mascota = mascotas.getItemAt(tablaMascotas.selectedIndex) as Mascota;
-					mascotaService.deleteMascota(m.rutCliente,m.nombre,true);
+					mascotaService.deleteMascota(m.rutCliente,m.nombre,true,Application.application.login2.usuarioActivo);
    				}
    				else{
    					mens.text="Debe primero seleccionar un elemento","Información";

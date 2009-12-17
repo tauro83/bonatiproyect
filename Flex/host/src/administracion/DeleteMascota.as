@@ -29,8 +29,8 @@ package administracion{
 		private function faultHandler(event:FaultEvent):void{
 			Alert.show("Error en DeleteMascota, Detalle: "+event.fault.message);
 		}
-		public function deleteMascota(rutCliente:String,nombre:String,status:Boolean):void{
-			this.getOperation("delMascota").send(rutCliente,nombre, status);
+		public function deleteMascota(rutCliente:String,nombre:String,status:Boolean, usuario:String):void{
+			this.getOperation("delMascota").send(rutCliente,nombre, status, usuario);
 		}
 
 	}
