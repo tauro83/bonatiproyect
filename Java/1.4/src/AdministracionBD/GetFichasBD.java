@@ -207,7 +207,7 @@ public class GetFichasBD {
 		}
 		    	
     	
-    	
+    	 
     	String queryAlojamiento = "SELECT servicio, hora, fechaingreso, costo, responsable, cliente, mascota, "+
     								"canil, fechasalida, comentario, diasestadia, eliminado "+
     								" FROM atencionalojamiento WHERE cliente='"+ rut.trim()+"' AND mascota='" +nombre.trim() +"'";	    	
