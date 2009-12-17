@@ -22,13 +22,13 @@ import TransferObjects.Usuario;
 
 public class LoginService 
 {
-	/**
+	/** 
 	 *  Obtiene los usuarios existentes en la base de datos, 
 	 *  y verifica que el login ingresado sea correcto
 	 *  @author  "Esteban Cruz" 
 	 *  @return 1 si el login ingresado es correcto, de lo 
 	 *  contrario 0
-	 **/
+	 **/  
 		
 	public int existLogin(Usuario login){
 	    	
