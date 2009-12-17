@@ -213,6 +213,48 @@ public class EditarPeluServiceBD
 		}
     	return peluquerias;
     }
+	
+	    @SuppressWarnings("deprecation")
+	public List getServiciosAnteriores(String responsable,Date fecha, String hora)
+    {
+    	List serviciosAnteriores=new ArrayList();
+    	Peluqueria peluqueria;
+    	try 
+    	{
+    		//Pasa un string a time
+    		String[] comp = hora.split(":");
+    		Time time = new Time(Integer.parseInt(comp[0]), Integer.parseInt(comp[1]), Integer.parseInt(comp[2]));
+
+    		ResultSet result = selectServiAnte.executeQuery();
+    		while(result.next())
+    		{
+    			peluqueria = new Peluqueria();
+    			//System.out.println("COMPARO: |"+ rutCliente+"|"+result.getString(5).trim()+"|"+nombreMascota+"|"+result.getString(6).trim()+"|"+fecha+"|"+result.getString(7).trim()+"|"+hora+"|"+result.getTime(8).toString()+"|");
+    			//Selecciona y filtra los diagnosticos
+    			System.out.println("base datos, respbd: "+result.getString(1).trim()+". resp: "+responsable+". fechabd: "+result.getDate(2)+". fecha: "+fecha+". horaBd: "+result.getString(3)+". hora: "+hora+".");
+    			if(responsable.equals(result.getString(1).trim()) && fecha.equals(result.getDate(2)) && hora.equals(result.getString(3).trim())){
+    				peluqueria.setResponsable(result.getString(1).trim());
+    				peluqueria.setFecha(result.getDate(2));
+    				peluqueria.setHora(result.getString(3));
+    				peluqueria.setServicio(result.getString(4));
+    				peluqueria.setNombre(result.getString(5));
+    				
+    				//System.out.println(peluqueria.getResponsable());
+    				//System.out.println(peluqueria.getFecha());
+    				//System.out.println(peluqueria.getHora());
+    				
+	
+    				serviciosAnteriores.add(peluqueria);
+    			}
+    		}
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	//Lista de diagnosticos
+    	return serviciosAnteriores;
+    }
     
     
     
