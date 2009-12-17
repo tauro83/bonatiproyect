@@ -49,7 +49,7 @@ public class anularPeluqueriaBD {
 			
 			query = "UPDATE serviciospeluqueria " +
 					"SET estado = ? " + 
-					"WHERE estado = ? AND mascotanombre= ? AND hora= ?;";
+					"WHERE estado = ? AND mascotanombre= ? AND hora= ? AND nombre= ? ;";
 			setEstado = connection.prepareStatement(query);
 		}
 		catch (SQLException e) 
@@ -267,7 +267,7 @@ public class anularPeluqueriaBD {
 	* @param 0=activado, 1=desactivo, 2=anulado
 	* @return 2 si ha anulado correctamente y 0 de lo contrario
 	*/
-	 public int anular(int estado,String nombreMascota,String hora)
+	 public int anular(int estado,String nombreMascota,String hora,String nombreCatalogo)
 	 {
 		 int result = 0;
 		 try {
@@ -275,6 +275,7 @@ public class anularPeluqueriaBD {
 			setEstado.setInt(2, estado);
 			setEstado.setString(3, nombreMascota);
 			setEstado.setString(4, hora);
+			setEstado.setString(5, nombreCatalogo);
 			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
@@ -290,7 +291,7 @@ public class anularPeluqueriaBD {
 	* @param 0=activado, 1=desactivo, 2=anulado
 	* @return 1 si ha eliminado correctamente y 0 de lo contrario
 	*/
-	 public int eliminar(int estado,String nombreMascota,String hora)
+	 public int eliminar(int estado,String nombreMascota,String hora, String nombreCatalogo)
 	 {
 		 int result = 0;
 		 try {
@@ -298,8 +299,9 @@ public class anularPeluqueriaBD {
 				setEstado.setInt(2, estado);
 				setEstado.setString(3, nombreMascota);
 				setEstado.setString(4, hora);
-			setEstado.executeQuery();
-			result = setEstado.executeUpdate();
+				setEstado.setString(5, nombreCatalogo);
+				setEstado.executeQuery();
+				result = setEstado.executeUpdate();
 		 } 
 		 catch (SQLException e) {
 			e.printStackTrace();
@@ -314,7 +316,7 @@ public class anularPeluqueriaBD {
 	* @return 0 si ha deseliminado correctamente y 1 de lo contrario.
 	*/
 	 
-	 public int deseliminar(int estado,String nombreMascota,String hora)
+	 public int deseliminar(int estado,String nombreMascota,String hora,String nombreCatalogo)
 	 {
 		 int result = 0;
 		 try {
@@ -322,8 +324,9 @@ public class anularPeluqueriaBD {
 				setEstado.setInt(2, estado);
 				setEstado.setString(3, nombreMascota);
 				setEstado.setString(4, hora);
-			setEstado.executeQuery();
-			result = setEstado.executeUpdate();
+				setEstado.setString(5, nombreCatalogo);
+				setEstado.executeQuery();
+				result = setEstado.executeUpdate();
 		 } 
 		 catch (SQLException e) {
 			e.printStackTrace();
