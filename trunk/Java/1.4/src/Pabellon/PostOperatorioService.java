@@ -140,6 +140,7 @@ public class PostOperatorioService{
 	 */
 	public List getAllPostOperatorio2(String nombreMascota, String clienterut)
     {
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAa");
     	List persons=new ArrayList();
     	try 
 		{
