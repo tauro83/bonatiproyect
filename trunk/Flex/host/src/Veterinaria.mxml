@@ -36,9 +36,15 @@
 			public function setUsuario(u:Usuario):void
 			{
 				usuarioActual = u;
-				userX.text = u.usuario; 
+				userX.text ="Bienvenido "+u.usuario; 
 				
 			}			
+			
+			public function noUsuario():void
+			{
+				userX.text =""; 
+				
+			}	
 			
 			public function getUsuario():Usuario
 			{
