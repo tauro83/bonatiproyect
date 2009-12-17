@@ -45,7 +45,7 @@
 				{nameT:"Retirar Mascota de Hotelería"},
 				{nameT:"Editar Registro de Hotelería"},
 				{nameT:"Editar Registro Peluquería"},
-				{nameT:"Registrar Peluqueria"},
+				{nameT:"Registrar Peluquería"},
 				{nameT:"Registrar Pago"},
 				{nameT:"Registrar Producto"},
 				{nameT:"Eliminar Pago"},
@@ -93,6 +93,7 @@
            		elimPagAyu.visible = false;
            		anuPagAyu.visible = false;
            		//eliminaProducto.visible= false;
+           		
            	}
            	
            	/**
@@ -191,7 +192,7 @@
 					case "Retirar Mascota de Hotelería":
 						this.elimHotel.visible = true;
 					break;
-					case "Registrar peluqueria":
+					case "Registrar Peluquería":
 						this.addpeluayu.visible = true;
 					break;
 					case "Editar Registro Peluquería":
