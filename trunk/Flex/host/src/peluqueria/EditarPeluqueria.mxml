@@ -1,5 +1,5 @@
 
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:fc="http://www.adobe.com/2006/fc" title="Visualizar Registros Atención Peluquería">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:fc="http://www.adobe.com/2006/fc" title="Visualizar Registros Atención Peluquería" xmlns:ns1="util.*">
 	
 	<mx:Script>
         <![CDATA[
@@ -44,6 +44,7 @@
 		    import transferObjects.Peluqueria;
 			import services.GetCatalogos;
 			import transferObjects.CatPeluqueria;
+			import peluqueria.EditarPeluqueriaUpdate;
 			
 			[Bindable]
 			private var files:ArrayCollection=new ArrayCollection();
@@ -144,9 +145,9 @@
 			 * @param event Evento
 			 */
         	private function buscarCliente(event:Event):void{
-        		if(rutClienteDVInput.text != "" && rutClienteInput.text != ""){
-        			var Numero:String = rutClienteInput.text;
-        			var Dv:String = rutClienteDVInput.text;
+        		if(nombreRutIn.rutClienteDVInput.text != "" && nombreRutIn.rutClienteInput.text != ""){
+        			var Numero:String = nombreRutIn.rutClienteInput.text;
+        			var Dv:String = nombreRutIn.rutClienteDVInput.text;
 					var suma:int = 0;
 					var rut:String = Numero;
 					var NumMag:int = 2;
@@ -180,8 +181,8 @@
 					}
 					else{
 						labelMessage.text = "";
-						rutClienteInput.errorString = "";
-						getCliente(rutClienteInput.text);
+						nombreRutIn.rutClienteInput.errorString = "";
+						getCliente(nombreRutIn.rutClienteInput.text);
 					}
         		}		
         	}
@@ -213,7 +214,7 @@
         			
         		}
         		else{
-        			this.inputClienteNombre.text = clienteBD.nombre;
+        			this.nombreRutIn.inputClienteNombre.text = clienteBD.nombre;
         			labelMessage.text = "Se ha accedido al cliente "+clienteBD.nombre;
         			ini();
         			
@@ -266,7 +267,7 @@
 			private function getMascotas():void{
 				var addpelService:AddPeluqueriaService = new AddPeluqueriaService();
 				addpelService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addpelService.getMascotas(rutClienteInput.text);
+				addpelService.getMascotas(nombreRutIn.rutClienteInput.text);
 			}
 			
 			/**
@@ -297,7 +298,7 @@
 	       		if(dg2.selectedLabel!=""){
 	       			this.labelMessage.text="";
 	       			var nombre:String = dg2.selectedLabel
-	       			getPeluquerias(nombre,rutClienteInput.text);
+	       			getPeluquerias(nombre,nombreRutIn.rutClienteInput.text);
 	       		}
 	       		else{
 	       			this.labelMessage.text="Seleccione una mascota, para ver sus atenciones.";
@@ -314,7 +315,7 @@
 				
 				var edPeluqService:EditarPeluService = new EditarPeluService();
 				edPeluqService.addEventListener(ResultEvent.RESULT,getPeluqueriasResult);
-				edPeluqService.getAllPeluquerias(rutClienteInput.text,nombreMasc);
+				edPeluqService.getAllPeluquerias(nombreRutIn.rutClienteInput.text,nombreMasc);
 			}
 			
 			 /**
@@ -341,16 +342,16 @@
 				peluquerias = new ArrayCollection();
 				cliente2 = new ArrayCollection();
 				clientes = new ArrayCollection();
-				inputClienteNombre.typedText = "";
-				inputClienteNombre.text = "";
+				nombreRutIn.inputClienteNombre.typedText = "";
+				nombreRutIn.inputClienteNombre.text = "";
 				this.edita = true;
 				this.mascotas=new ArrayCollection();
 				this.mascotas2=new ArrayCollection();
 				this.Tabla.doubleClickEnabled=true;
 				this.labelMessage.text="";
-				this.rutClienteInput.text="";
-				this.rutClienteDVInput.text="";
-				this.inputClienteNombre.text="";
+				this.nombreRutIn.rutClienteInput.text="";
+				this.nombreRutIn.rutClienteDVInput.text="";
+				this.nombreRutIn.inputClienteNombre.text="";
 				this.getTiposVeterinarios();
 				this.getAllCatalogo();
 				this.getResp();
@@ -421,16 +422,16 @@
 		   public function buscarCliente2():void
 		   {
 		   		this.labelMessage.text="";
-		   		var nombre:String = inputClienteNombre.text;
-		   		if(inputClienteNombre.text != "" || inputClienteNombre.selectedLabel != ""){
+		   		var nombre:String = nombreRutIn.inputClienteNombre.text;
+		   		if(nombreRutIn.inputClienteNombre.text != "" || nombreRutIn.inputClienteNombre.selectedLabel != ""){
 		   			var largo:int = cliente2.length;
 		   			var i:int;
 		   			var sss:Array;
-		   			if(inputClienteNombre.selectedLabel != ""){
-		   				sss = inputClienteNombre.selectedLabel.split(" ",3);
+		   			if(nombreRutIn.inputClienteNombre.selectedLabel != ""){
+		   				sss = nombreRutIn.inputClienteNombre.selectedLabel.split(" ",3);
 		   			}
 		   			else{
-		   				sss = inputClienteNombre.text.split(" ",3);
+		   				sss = nombreRutIn.inputClienteNombre.text.split(" ",3);
 		   			}
 		   			
 		   			/**
@@ -447,7 +448,7 @@
 		   			for(i=0;i<largo;i++){
 		   				var newCli:Cliente = cliente2.getItemAt(i,0) as Cliente;
 		   				if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
-		   					this.rutClienteInput.text=newCli.rut.substring(0,8);
+		   					this.nombreRutIn.rutClienteInput.text=newCli.rut.substring(0,8);
 		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre+" "+newCli.apellido;
 		   					sacaDigito();
 		   					
@@ -470,7 +471,7 @@
 			*/
 		   private function sacaDigito():void{        			
         			
-        			var Numero:String = rutClienteInput.text;
+        			var Numero:String = nombreRutIn.rutClienteInput.text;
 					var suma:int = 0;
 					var rut:String = Numero;
 					var NumMag:int = 2;
@@ -499,10 +500,10 @@
 					
 					Resto = 11-(suma%11);
 					if(Resto == 10){
-						this.rutClienteDVInput.text="K";	
+						this.nombreRutIn.rutClienteDVInput.text="K";	
 					}
 					else{
-						this.rutClienteDVInput.text=""+Resto;	
+						this.nombreRutIn.rutClienteDVInput.text=""+Resto;	
 					}
 					
         		
@@ -527,24 +528,11 @@
 					var nombre:String = listCont2.pop();
 					editPel.nombreMascota=nombre;
 					editPel.nombMasc.text=nombre;
-					editPel.clienteRut=this.rutClienteInput.text;
-					editPel.clienteRut2=this.rutClienteDVInput.text;
+					editPel.clienteRut=this.nombreRutIn.rutClienteInput.text;
+					editPel.clienteRut2=this.nombreRutIn.rutClienteDVInput.text;
 									
 					var i:int;
-					var large:int = listCatP.length;
-					
-					/*for(i=0;i<large;i++){
-						var tipoPel:CatPeluqueria = this.listCatP.getItemAt(i,0) as CatPeluqueria;
-						var text2:String = tipoPel.nombre;
-						var texx:String = Tabla.selectedItem.servicio.split(" ",1).pop();
-						var texx2:String = Tabla.selectedItem.nombre.split(" ",1).pop();
-						var texx3:String = texx.concat(" "+texx2);
-						if(text2 != texx3){
-							editPel.tiposServ1.push(text2);
-						}
-					}*/
-					
-										
+					var large:int = listCatP.length;			
 					for(i=0;i<large;i++){
 						var tipoPel:CatPeluqueria = this.listCatP.getItemAt(i,0) as CatPeluqueria;
 						var text2:String = tipoPel.nombre;
@@ -558,6 +546,7 @@
 					
 					for(k=0;k<klarge;k++){
 						var user:Usuario = peluqueros.getItemAt(k,0) as Usuario;
+						
 						if(s==user.usuario.split(" ",1).pop()){
 							var sUsr:String = user.nombre.split(" ",1).pop();
 							var sUsr2:String = user.apellidoPaterno.split(" ",1).pop();
@@ -570,6 +559,7 @@
 					
 					editPel.fechaAntigua = dat;
 					editPel.hora = Tabla.selectedItem.hora;
+					editPel.llenarTablaServiciosAnteriores(s,dat,Tabla.selectedItem.hora);
 					//Alert.show("hora: "+editPel.hora+".");
 					this.visible = false;
      		  		editPel.setVisible(true,false);
@@ -591,9 +581,9 @@
      		
      		public function reset():void{
      			peluquerias = new ArrayCollection();
-     			inputClienteNombre.text = "";
-     		    rutClienteInput.text = "";
-     		    rutClienteDVInput.text = "";
+     			nombreRutIn.inputClienteNombre.text = "";
+     		    nombreRutIn.rutClienteInput.text = "";
+     		    nombreRutIn.rutClienteDVInput.text = "";
      		}
      		
      		/**
@@ -609,17 +599,12 @@
 				
         ]]>
     </mx:Script>
-	
-	
-	<mx:Label x="421.75" y="38" text="Rut:" width="32"/>
-	<mx:Label x="552" y="38" text="-" width="14.75" textAlign="center"/>
-	<fc:AutoComplete id="inputClienteNombre" x="90" y="38" width="210" dataProvider="{clientes}" labelField="nombre" visible="true" typedTextChange="{getAllClientes()}" focusOut="{buscarCliente2()}" enter="{focusSale()}"/>
-	<mx:TextInput  restrict="0-9" x="461.75" y="38" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="563.5" y="38" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut=" buscarCliente(event)"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente:" width="84.75" fontWeight="bold"/>
+	<ns1:BuscadorNombreRut x="25" y="36" id="nombreRutIn" keyFocusChange="getMascotas()" mouseFocusChange="getMascotas()">
+	</ns1:BuscadorNombreRut>
 	
-	<mx:DataGrid x="25" y="158" width="710" id="Tabla" enabled="true" height="178" dataProvider="{peluquerias}" itemDoubleClick="mira()">
+	<mx:DataGrid x="25" y="158" width="710" id="Tabla" enabled="true" height="178" dataProvider="{peluquerias}" itemDoubleClick="{mira()}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre mascota" dataField="nombreMascota" visible="false"/>
 			<mx:DataGridColumn headerText="Rut" dataField="rutCliente" visible="false"/>
@@ -632,10 +617,10 @@
 	</mx:DataGrid>
 	<mx:Button x="632" y="353" label="Cancelar" width="103" id="cancelar" visible="true" height="23" click=" cancela()"/>
 	<mx:Label x="25" y="136" text="Registros:" width="112.75" fontWeight="bold"/>
-	<mx:Label x="25" y="38" text="Apellido:" width="64"/>
 	<mx:Label x="25" y="64" text="Mascotas:" fontWeight="bold" width="67"/>
 	<mx:Label x="25" y="87" text="Nombre:" width="55.75"/>
 	<mx:ComboBox id="dg2" x="90" y="85" width="177" dataProvider="{mascotas}" labelField="nombre" close="{busca()}"></mx:ComboBox>
 	<mx:Button x="522" y="353" label="Visualizar" width="103" id="cancelar0" visible="true" height="23" click="{ mira()}"/>
+	
 	
 </mx:Panel>
