@@ -83,7 +83,7 @@
 			*/
            	private function deleteRow():void 
            	{
-			    Alert.show("¿Está seguro que desea eliminar el registro(s) de peluquería? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			    Alert.show("¿Está seguro que desea desactivar el registro(s) de peluquería? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
        
 			}
 			
@@ -110,7 +110,7 @@
                         i=-1;
                     }   
                 }
-                barraMsj.text="Registro(s) de peluquería eliminado";              
+                barraMsj.text="Registro(s) de peluquería desactivado";              
             }
 			
 			/**
