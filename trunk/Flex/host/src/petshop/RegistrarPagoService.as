@@ -59,7 +59,6 @@ package petshop
 		 * */
 		public function getProducto(codigo:String):void
 		{
-			Alert.show(codigo);
 			this.getOperation("getProducto").send(codigo);
 		}
 	}
