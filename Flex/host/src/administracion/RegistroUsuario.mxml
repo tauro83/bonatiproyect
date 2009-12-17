@@ -3,9 +3,9 @@
 		<![CDATA[   
 		
 			//=======================================================================
-			// FECHA: CREACIÓN: 05/08/09
+			// FECHA: CREACIÓN: 05/08/09   
 			// AUTOR: Camilo Verdugo      
-			// Comentarios: Formulario y validacion del registro de un usuario de sistema
+			// Comentarios: Formulario y validacion del registro de un usuario de sistema 
 			//=======================================================================
 			import util.Properties;
 			import mx.events.FlexMouseEvent;
