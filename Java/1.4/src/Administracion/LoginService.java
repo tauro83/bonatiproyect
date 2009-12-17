@@ -16,7 +16,7 @@ import AdministracionBD.LoginBD;
 
 import TransferObjects.Usuario;
 
-public class LoginService
+public class LoginService 
 {
 	/**
 	 *  Obtiene los usuarios existentes en la base de datos, 
@@ -40,69 +40,5 @@ public class LoginService
 	    		e.printStackTrace();
 	    	}
 	    	return result;
-	}
-	
-	public boolean pRegistrar(Usuario login){
-		boolean registrar=false;
-    	try
-    	{
-    		Connection connection=DBConnectionManager.getConnection();
-			LoginBD LoginBD= new LoginBD(connection);
-			registrar = LoginBD.pRegistrar(login);
-			connection.close();
-    	}
-    	catch (SQLException e)
-    	{
-    		e.printStackTrace();
-    	}
-    	return registrar;
-	}
-	
-	public boolean pEditar(Usuario login){
-		boolean editar=false;
-    	try
-    	{
-    		Connection connection=DBConnectionManager.getConnection();
-			LoginBD LoginBD= new LoginBD(connection);
-			editar = LoginBD.pEditar(login);
-			connection.close();
-    	}
-    	catch (SQLException e)
-    	{
-    		e.printStackTrace();
-    	}
-    	return editar;
-	}
-	
-	public boolean pEliminar(Usuario login){
-		boolean eliminar=false;
-    	try
-    	{
-    		Connection connection=DBConnectionManager.getConnection();
-			LoginBD LoginBD= new LoginBD(connection);
-			eliminar = LoginBD.pEliminar(login);
-			connection.close();
-    	}
-    	catch (SQLException e)
-    	{
-    		e.printStackTrace();
-    	}
-    	return eliminar;
-	}
-	
-	public boolean pPurgar(Usuario login){
-		boolean purgar=false;
-    	try
-    	{
-    		Connection connection=DBConnectionManager.getConnection();
-			LoginBD LoginBD= new LoginBD(connection);
-			purgar = LoginBD.pPurgar(login);
-			connection.close();
-    	}
-    	catch (SQLException e)
-    	{
-    		e.printStackTrace();
-    	}
-    	return purgar;
 	}
 }

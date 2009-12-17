@@ -8,7 +8,7 @@
 
 package AdministracionBD;
 
-import java.sql.Connection;
+import java.sql.Connection; 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +18,6 @@ import TransferObjects.Usuario;
 public class LoginBD {
 	
 	PreparedStatement selectAllUsuarios;
-	PreparedStatement selectUsuario;
 	
 	/**
 	 *  Se declaran las consultas hacia la base de datos
@@ -31,14 +30,9 @@ public class LoginBD {
 		{
 			String query="";
 			
-			query = "SELECT usuario, contrasena, estado " +
+			query = "SELECT usuario, contrasena " +
 					"FROM usuario;";
 			selectAllUsuarios = connection.prepareStatement(query);
-			
-			query = "SELECT pregistrar, peditar, peliminar, ppurgar "+
-					"FROM usuario "+
-					"WHERE usuario = ? AND contrasena = ? ;";
-			selectUsuario = connection.prepareStatement(query);
 		}
 		catch (SQLException e) 
 		{
@@ -66,14 +60,12 @@ public class LoginBD {
 	    		usuario = new Usuario();
 	    		usuario.setContrasena(result.getString(2));
 	    		usuario.setUsuario(result.getString(1));
-	    		usuario.setEstado(result.getBoolean(3));
 	    	
-	    		boolean estado = usuario.getEstado();	
 	    		String name = usuario.getUsuario();
 	    		String pass = usuario.getContrasena();
 	    		pass = pass.trim();
 	    		name = name.trim();
-	    		if(pass.equals(passLogin) && name.equals(nameLogin) && estado==true){
+	    		if(pass.equals(passLogin) && name.equals(nameLogin)){
 	    			return 1;
 	    		}
 	    	}
@@ -84,102 +76,5 @@ public class LoginBD {
 		}
 	    return 0;
 	 }
-	public boolean pRegistrar(Usuario login){
-	    try 
-	    {
-	    	Usuario usuario = new Usuario();
-		    boolean registrar=false;
-		    ResultSet user; 
-		    String nameLogin=login.getUsuario();
-		    String passLogin=login.getContrasena();
-	    	selectUsuario.setString(1, nameLogin);
-	    	selectUsuario.setString(2, passLogin);
-	    	user = selectUsuario.executeQuery();
-			while(user.next()){
-				usuario.setPermisoRegistrar(user.getBoolean(1));
-				registrar = usuario.getPermisoRegistrar();
-			}
-	    			return registrar;
-		} 
-	    catch (SQLException e) 
-	    {
-			e.printStackTrace();
-		}
-	    return false;
-	 }
-	
-	public boolean pEditar(Usuario login){
-	    try 
-	    {
-	    	Usuario usuario = new Usuario();
-		    boolean editar=false;
-		    ResultSet user; 
-		    String nameLogin=login.getUsuario();
-		    String passLogin=login.getContrasena();
-	    	selectUsuario.setString(1, nameLogin);
-	    	selectUsuario.setString(2, passLogin);
-	    	user = selectUsuario.executeQuery();
-			while(user.next()){
-				usuario.setPermisoEditar(user.getBoolean(2));
-				editar = usuario.getPermisoEditar();
 
-			}
-	    	return editar;
-		} 
-	    catch (SQLException e) 
-	    {
-			e.printStackTrace();
-		}
-	    return false;
-	 }
-	
-	public boolean pEliminar(Usuario login){
-	    try 
-	    {
-	    	Usuario usuario = new Usuario();
-		    boolean eliminar=false;
-		    ResultSet user; 
-		    String nameLogin=login.getUsuario();
-		    String passLogin=login.getContrasena();
-	    	selectUsuario.setString(1, nameLogin);
-	    	selectUsuario.setString(2, passLogin);
-	    	user = selectUsuario.executeQuery();
-			while(user.next()){
-				usuario.setPermisoEliminar(user.getBoolean(1));
-				eliminar = usuario.getPermisoEliminar();
-
-			}
-	    	return eliminar;
-		} 
-	    catch (SQLException e) 
-	    {
-			e.printStackTrace();
-		}
-	    return false;
-	 }
-	
-	public boolean pPurgar(Usuario login){
-	    try 
-	    {
-	    	Usuario usuario = new Usuario();
-		    boolean purgar=false;
-		    ResultSet user; 
-		    String nameLogin=login.getUsuario();
-		    String passLogin=login.getContrasena();
-	    	selectUsuario.setString(1, nameLogin);
-	    	selectUsuario.setString(2, passLogin);
-	    	user = selectUsuario.executeQuery();
-			while(user.next()){
-				usuario.setPermisoPurgar(user.getBoolean(1));
-				purgar = usuario.getPermisoPurgar();
-
-			}
-	    	return purgar;
-		} 
-	    catch (SQLException e) 
-	    {
-			e.printStackTrace();
-		}
-	    return false;
-	 }
 }
