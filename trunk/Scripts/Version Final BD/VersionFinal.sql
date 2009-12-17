@@ -35,6 +35,7 @@ drop table raza cascade;
 drop table producto cascade;
 drop table asuntowebaviso cascade;
 drop table comuna cascade;
+drop table bitacora2 cascade;
 
 CREATE TABLE usuario
 (
@@ -523,3 +524,10 @@ CREATE TABLE comuna
   CONSTRAINT id PRIMARY KEY (nombre, numregion)
 ) ;
 
+CREATE TABLE bitacora2
+(
+  fecha character(10) NOT NULL,
+  usuario character(50) NOT NULL,
+  servicio character(20),
+  accion character(120)
+);
