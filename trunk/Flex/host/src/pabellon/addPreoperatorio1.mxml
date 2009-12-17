@@ -190,7 +190,7 @@
 				
 				if(nombreCliente == null){
         			labelMessage.text = "Cliente no registrado."
-        			Application.application.AdmIngreso2.setVisible(true);
+        			//Application.application.AdmIngreso2.setVisible(true);
         			Application.application.AdmIngreso2.labelMessage.text = "El cliente ingresado no esta registrado."
         			Application.application.AdmIngreso2.rut.text = rutClienteInput.text;
         			Application.application.AdmIngreso2.rut2.text = rutClienteDVInput.text;
@@ -226,7 +226,7 @@
 					newMascota.fechaNacimiento   = dg.selectedItem.fechaNacimiento;
 					newMascota.raza				 = dg.selectedItem.claseAnimal;
 					newMascota.sexo	     		 = dg.selectedItem.sexo;
-					newMascota.rut				 = rutClienteInput.text;
+					newMascota.rut				 = rutClienteInput.text+rutClienteDVInput.text;
 					
 				    this.setVisible(false,false);
 					
@@ -251,7 +251,7 @@
 	<mx:Label x="38.75" y="38" text="Rut:" width="84"/>
 	<mx:Label x="221" y="38" text="-" width="14.75" textAlign="center"/>
 	<mx:TextInput  restrict="0-9" x="130.75" y="36" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="232.5" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
+	<mx:TextInput x="232.5" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="{buscarCliente(event)}"/>
 	<mx:Button x="545.75" y="369" label="Visualizar" visible="true" id="registrar" />
 	<mx:Button x="635.75" y="369" label="Cancelar" width="84" id="cancelar" visible="true"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
