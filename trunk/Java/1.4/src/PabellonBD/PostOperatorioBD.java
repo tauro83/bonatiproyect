@@ -290,5 +290,12 @@ public class PostOperatorioBD {
 			}
 	    	return postOperatorios;
 	    }
+
+
+
+	public List getAllPostOperatorioActivoBD() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	 
 }
