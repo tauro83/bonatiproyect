@@ -32,12 +32,13 @@ package petshop
 		{
 			super();
 			var channel:ChannelSet=new ChannelSet();http:
-			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
+			var amfChannel:AMFChannel=new AMFChannel("my-amf",host.getUrl());
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="RegistrarPagoService";
 			this.source="Petshop.RegistrarPagoService";
 			this.addEventListener(FaultEvent.FAULT,error);
+			
 		}
 		
 		private function error(event:FaultEvent):void{
@@ -58,6 +59,7 @@ package petshop
 		 * */
 		public function getProducto(codigo:String):void
 		{
+			Alert.show(codigo);
 			this.getOperation("getProducto").send(codigo);
 		}
 	}
