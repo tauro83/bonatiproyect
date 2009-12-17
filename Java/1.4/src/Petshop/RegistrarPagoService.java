@@ -16,6 +16,7 @@ public class RegistrarPagoService {
 	/**
 	 * Constructor de la clase que obtiene la conexion con la base de datos
 	 * @author Andres_Garrido
+	 * 
 	 */
 	public RegistrarPagoService(){
 		conn=DBConnectionManager.getConnection();
@@ -35,6 +36,7 @@ public class RegistrarPagoService {
 		return result;
     }
 	public Producto getProducto(String codigo){
+		System.out.println("qwqqqqqqqqqqqqqqqqqqqqqqqqqqq " + codigo);
 		Producto p = new Producto();
 		RegistrarPagoServiceBD object= new RegistrarPagoServiceBD(conn);
 		p = object.getProducto(codigo);
