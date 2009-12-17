@@ -70,10 +70,10 @@
 			* Este metodo se  encarga de realizar la eliminación de un registro de peluquería
 			* pasando como parametro el estado que posee el objeto que se desea eliminar.
 			*/
-			public function eliminar(estado:int,nombreMascota:String,hora:String):void
+			public function eliminar(estado:int,nombreMascota:String,hora:String,nombreCatalogo:String):void
 			{
 				var vacunacionService:anularPeluqueria = new anularPeluqueria();
-				vacunacionService.eliminar(estado,nombreMascota,hora);
+				vacunacionService.eliminar(estado,nombreMascota,hora,nombreCatalogo);
 			}
 
             /**
@@ -102,7 +102,7 @@
                     if (vacunaciones[i].sel)
                 	{
                         vacu = vacunaciones[i] as anuPeluqueria;
-                        eliminar(vacu.estado,vacu.nombreMascota,vacu.hora);
+                        eliminar(vacu.estado,vacu.nombreMascota,vacu.hora,vacu.nombreCatalogo);
                        
                         vacunaciones.removeItemAt(i);
                         allRows = vacunaciones.length;

@@ -64,10 +64,10 @@
 			* Este metodo se  encarga de realizar la deseliminación de un registro de peluquería
 			* pasando como parametro el estado que posee el objeto que se desea deseliminar.
 			*/
-			public function deseliminar(estado:int,nombreMascota:String,hora:String):void
+			public function deseliminar(estado:int,nombreMascota:String,hora:String,nombreCatalogo:String):void
 			{
 				var vacunacionService:anularPeluqueria = new anularPeluqueria();
-				vacunacionService.deseliminar(estado,nombreMascota,hora);
+				vacunacionService.deseliminar(estado,nombreMascota,hora,nombreCatalogo);
 			}
 
             /**
@@ -97,7 +97,7 @@
                     if (vacunaciones[i].sel)
                 	{
                         vacu = vacunaciones[i] as anuPeluqueria;
-                        deseliminar(vacu.estado,vacu.nombreMascota,vacu.hora);
+                        deseliminar(vacu.estado,vacu.nombreMascota,vacu.hora,vacu.nombreCatalogo);
                        
                         vacunaciones.removeItemAt(i);
                         allRows = vacunaciones.length;
