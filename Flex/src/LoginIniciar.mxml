@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Iniciar Sesión" borderColor="#15AD8F">
+	<mx:Script>
+		<![CDATA[ 
+		
+			//=======================================================================
+			// FECHA CREACIÓN: 15/09/09
+			// AUTOR: Esteban Cruz
+			// Dentro de este componente se realiza la comprobacion del login 
+			// de ser correcto se podra ingresar, de lo contrario no
+			//=======================================================================
+			import mx.core.Application;
+			import services.LoginService;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;		
+			import services.LoginService;
+			import transferObjects.Usuario;
+			import services.getUsuarioActualService;
+			import mx.core.Application;
+			
+			public var bar:int;
+			public var usuarioActivo:String;
+			
+			/**
+			 *  Comprueba que exista el login que se esta ingresando,
+			 *  haciendo un llamado a la funcion que consulta a la base de datos,
+			 *  @author  "Esteban Cruz"
+			 *  @return 1 si existe y es correcto, 0 en caso contrario
+			 **/
+			private function existLogin():void
+			{
+				var usuario:Usuario = new Usuario();
+				usuario.contrasena=pass.text;
+				usuario.usuario=nombre.text;
+				
+				var loginService:LoginService = new LoginService();
+				loginService.addEventListener(ResultEvent.RESULT,existLoginResult);
+				loginService.existLogin(usuario);
+				
+				///GET USUARIO
+				//var loginService:LoginService = new LoginService();
+				var  getUsuAct:getUsuarioActualService = new getUsuarioActualService();
+				getUsuAct.addEventListener(ResultEvent.RESULT,getUsuarioR);
+				getUsuAct.getUsuario(nombre.text, pass.text);
+				
+			}
+			
+			private function getUsuarioR(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				Application.application.setUsuario(result);
+				
+			
+			}
+			
+			/**
+			 *  Una vez consulado en la base de datos por el usuario
+			 *  ingresado, tomando el valor de retorno, si este es 1 accede al 
+			 *  sistema, de lo contrario no dando aviso por un popup
+			 *  @author  "Esteban Cruz"
+			 **/
+			private function existLoginResult(event:ResultEvent):void
+			{
+				var result:int = event.result as int ;
+				
+				if(result==1)
+				{
+            		Application.application.setInvisible();
+            		Application.application.agenda2.setVisible(true,false);
+            		Application.application.menuAgenda1.setVisible(true,false);
+            		Application.application.botonClinica.enabled=true;
+            		Application.application.botonAgenda.enabled=true;
+            		Application.application.botonAdmin.enabled=true;
+           		 	Application.application.botonPeluqueria.enabled=true;
+            	 	Application.application.botonPetshop.enabled=true;
+           		 	Application.application.botonBusqueda.enabled=true;
+            		Application.application.botonHotel.enabled=true;
+            		Application.application.botonAyuda.enabled=true;
+            		Application.application.botonLogin.enabled=true;
+            		Application.application.botonLogin.label="Cerrar Sesión";
+            		
+            		usuarioActivo = nombre.text;
+            		
+            	
+				}
+				else
+				{
+					bar=0;
+				    Alert.show("Acceso denegado");
+				}
+			}
+ 		]]>
+ 	</mx:Script>	
+	
+	<mx:Button x="647" y="302" label="Iniciar" id="AceptarUsuario" width="102" height="23" click="existLogin()" cornerRadius="6"/> 
+	<mx:Image x="-6" y="0" source="../images/gato.jpg" width="455" height="426" alpha="1.0"/>
+	<mx:Text x="407" y="164" text="Ingrese su contraseña&#xa;" fontWeight="bold" fontSize="12"/>
+	<mx:TextArea x="482" y="130" height="19" width="196" id="nombre" fontStyle="normal"/>
+	<mx:TextArea x="482" y="192" height="19" width="196" displayAsPassword="true" id="pass"/>
+	<mx:Text x="407" y="102" text="Ingrese su nombre&#xa;" fontWeight="bold" fontSize="12"/>
+	<mx:Label x="457" y="22" text="Bienvenido" fontWeight="bold" fontSize="30"/>
+</mx:Panel>

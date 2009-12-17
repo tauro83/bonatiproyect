@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel creationComplete="{iniciarPanel()}" xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registros Hoteleria" xmlns:ns1="com.adobe.flex.extras.controls.*" currentState="Registros" xmlns:ns2="util.*">
+	
+	<mx:Script>
+        <![CDATA[
+        	import transferObjects.Hoteleria;
+		 	
+		 	import mx.events.FlexMouseEvent;
+			import mx.controls.Text;
+			import mx.rpc.events.ResultEvent;
+            public var selectedItem:Object;
+            import mx.core.Application;
+            import mx.controls.Alert;
+            import mx.collections.ArrayCollection;
+            import services.citaServices;
+			import transferObjects.Cita;
+			import transferObjects.Cliente; 
+			import administracion.GetAllHoteleriaService;
+			import services.AddMascotaService; 
+			import util.Properties; 
+			import mx.formatters.DateFormatter;
+			import mx.core.Application;
+			
+
+			
+			 [Bindable]
+			private var clientes:ArrayCollection;
+			[Bindable]
+			private var hotelerias:ArrayCollection;
+			[Bindable]
+			private var hoteleriasOriginal:ArrayCollection;
+            [Bindable]
+            public var mascotas:ArrayCollection;
+            [Bindable]
+            public var estado:Boolean;
+            
+             
+            /**
+        	* @author  Victor Silva
+			* Funcion que es llamada al iniciar iniciar el panel, en este se blanquean los datos,
+			* Se buscan todas las atenciones y son cargadas a la tabla hoteleria
+			* Se reactivan opciones como el rut del cliente, nombre de este y nombre de la mascota
+			*/
+         	private function iniciarPanel():void{
+         		getAllHotel();
+     		    currentState = "Registros";
+     			clienteRutName.rutClienteInput.enabled = true;
+         		clienteRutName.rutClienteDVInput.enabled = true;
+         		clienteRutName.inputClienteNombre.enabled = true;
+         		clienteRutName.enabled = true;
+         		
+         		clienteRutName.rutClienteInput.text = "";
+         		clienteRutName.rutClienteDVInput.text = "";
+         		clienteRutName.inputClienteNombre.text = "";
+         		mascotasList.text = "";
+         		fecha1.text = "";
+     			fecha2.text = "";
+     			comentarioCuadro.text = "";
+     			labelMessage.text = "";
+         	}
+         	public function reset():void{
+         	    getAllHotel();
+         	    clienteRutName.rutClienteInput.text = "";
+         		clienteRutName.rutClienteDVInput.text = "";
+         		clienteRutName.inputClienteNombre.text = "";
+         		mascotasList.text = "";
+         		fecha1.text = "";
+     			fecha2.text = "";
+     			comentarioCuadro.text = "";
+     			labelMessage.text = "";
+     			
+         	}
+         	
+       
+                 [Bindable]
+            public var caniles:ArrayCollection = new ArrayCollection(
+                [{label:"--Ninguno--"}, 
+                {label:"1"}, 
+                  {label:"2"},
+                  {label:"3"},
+                  {label:"4"},
+                  {label:"5"},
+                  {label:"6"},
+                  {label:"7"},
+                  {label:"8"},
+                  {label:"9"},
+                  {label:"10"} ]);
+                  
+                   	private function cancelarOperacion():void{
+         		if(this.currentState == "RegistroHoteleria"){
+         			currentState = "Registros";
+         		}
+         		else{
+         			this.visible = false;
+         			Application.application.panelHoteleria.visible = true;
+         			
+         		}
+         	}
+                  
+             public function validaFechasNulas():Boolean{
+             	  var ok:Boolean;
+                  if(fecha1.text != "" || fecha2.text!= "")
+                     ok = true;
+                  else
+                    ok  = false;
+                  return ok;
+             
+             }
+             public function registrar():void
+             {
+              //if(validaFechasNulas == true){
+             	var rc:String = clienteRutName.rutClienteInput.text + clienteRutName.rutClienteDVInput.text;
+             	var alojar:Hoteleria = new Hoteleria();
+             	
+             	alojar.cliente         = rc;
+             	alojar.mascota         = mascotasList.selectedLabel.split(" ", 1).pop();
+             	alojar.fechaIngreso    = fecha1.selectedDate;
+             	alojar.fechaSalida     = fecha2.selectedDate;
+             	alojar.canil           = parseInt(canilIntput.selectedLabel.split(" ", 1).pop());
+             	alojar.costo           = costoIntput.costoBruto;
+             	alojar.comentario      = comentarioCuadro.text; 
+             	alojar.responsable     = Application.application.login2.usuarioActivo;            	
+             	
+             	var rH:RegistHoteleriaService = new RegistHoteleriaService();
+             	
+				rH.addEventListener(ResultEvent.RESULT,registHoteleriaResult);
+				rH.registrarHoteleria(alojar);
+            	
+                     //  this.currentState='RegistroHoteleria'; 	
+              }
+             // else
+             //  labelMessage.text = "Ingrese la fecha solicitada";
+             //}  
+                
+            /**
+			 *Cambia el formato de la fecha para una mejor lectura del datagrid
+			 */
+			private function doLabel(item:Object, column:DataGridColumn):String {
+				var dateFormatted:DateFormatter = new DateFormatter();
+				dateFormatted.formatString = "DD/MM/YYYY";
+				var rawDate:Date = new Date(item[column.dataField]);
+				return dateFormatted.format(rawDate) as String;
+			}
+    /**
+	 * @Fecha  03 Octubre
+	 *  @Descripcion Metodo que rec activos del sistema
+	 *  consulta todos los registros de clientes en la base de datos.
+	 
+	 	**/	
+			
+			private function registHoteleriaResult(event:ResultEvent):void
+			{
+				var result:int;
+			   	result = event.result as int;
+			   	
+			    if(result > 0 ){
+			   	  labelMessage.text = "Registro Hotelería modificado correctamente";
+			   	  //labelMessage.text = Properties.getMensaje("Informacion", "24");
+			   	  iniciarPanel();
+			   	  
+			   }
+			   else{
+			      labelMessage.text = "Registro no modificado";
+			      //labelMessage.text = Properties.getMensaje("Informacion", "24");
+			      
+			      //currentState='Registros';RegistroHoteleria
+			      currentState='RegistroHoteleria';
+			      iniciarPanel();
+			   }
+			}   
+		 	 	
+		  /**
+			 * se obtienen todos los registros de hoteleria
+			 */
+			
+			public function getAllHotel():void
+			{
+				var getAllService:GetAllHoteleriaService = new GetAllHoteleriaService();
+				getAllService.addEventListener(ResultEvent.RESULT,getAllServiceResult);
+				getAllService.getAllHoteleria();
+			}
+		 		/**
+			 * Obtiene el resultado del llamado a la capa dos y tres
+			 * del sistema
+			 */
+			private function getAllServiceResult(event:ResultEvent):void
+			{
+				hotelerias = event.result as ArrayCollection;
+			}
+			
+		 	
+		/**
+			* Funcion que llama a retornar todas las mascotas de un cliente para ser vistas en el combobox
+			* @author  Sebastian Arancibia
+			*/
+			private function getMascotas():void{
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(clienteRutName.rutClienteInput.text+clienteRutName.rutClienteDVInput.text);
+				
+			}
+			
+			/**
+			* Funcion que obtiene todas las mascotas de un cliente
+			* @param event Evento proveniente de la llamada a addMascotaService
+			* @author  Sebastian Arancibia
+			*/
+			private function getAddMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+				sacar();
+			}
+			
+			
+			private function verifica():void
+			{
+				if(fecha2.selectedDate <= fecha1.selectedDate){
+					//labelMessage.text = Properties.getMensaje("Advertencia", "16");
+					labelMessage.text = "La fecha de ingreso debe ser anterior a la de salida";
+				}
+			}
+			
+			private function sacar():void
+         	{
+         		var rut:String;
+         		var i:int;
+         		var j:int;
+         		rut= clienteRutName.rutClienteInput + clienteRutName.rutClienteDVInput;
+         		for(i=0; i<hotelerias.length; i++){
+         			for( j=0; j<mascotas.length; j++){
+         				if(mascotas[j].nombre.split(" ", 1).pop() == hotelerias[i].mascota.split(" ", 1).pop()){
+         					 	mascotas.removeItemAt(j);
+         					 } 
+            	    }
+         			
+         		}
+         		//labelMessage.text = "El usuario tiene todas sus mascotas en Hoteleria actualmente";
+         	}
+	 ]]>
+       
+    </mx:Script>
+	
+	<mx:states>
+		<mx:State name="Registros">
+			<mx:SetProperty target="{textinput1}" name="x" value="667"/>
+			<mx:SetProperty target="{textinput1}" name="y" value="34"/>
+			<mx:SetProperty target="{label2}" name="x" value="542"/>
+			<mx:SetProperty target="{label2}" name="y" value="36"/>
+			<mx:SetProperty target="{textinput1}" name="editable" value="false"/>
+			<mx:SetProperty target="{textinput1}" name="enabled" value="false"/>
+			<mx:AddChild position="lastChild">
+				<mx:CheckBox x="714" y="34" label="Checkbox" width="18" selected="false" toolTip="Ignorar"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{button2}" name="x" value="657"/>
+			<mx:SetProperty target="{button1}" name="x" value="577"/>
+			<mx:SetProperty target="{button1}" name="width" value="72"/>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="504" y="358" id="ver" label="Ver" width="65" visible="false"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{Tabla}" name="editable" value="true"/>
+		</mx:State>
+		<mx:State name="RegistroHoteleria">
+			<mx:RemoveChild target="{label1}"/>
+			<mx:RemoveChild target="{textinput1}"/>
+			<mx:RemoveChild target="{label2}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="572" y="368" label="Registrar" id="button0" click="{registrar()}" enabled="true"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="659" y="368" label="Cancelar" id="button3" click="{iniciarPanel()}"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="22" y="10" text="Cliente:" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="22" y="64" text="Mascota:" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="22" y="140" text="Hoteleria:" fontWeight="bold" id="label5"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Form width="290" height="124" y="155" verticalGap="8" paddingBottom="0" paddingRight="0" paddingTop="5" right="447">
+					<mx:FormItem label="Ingreso:                                    " width="267" required="false">
+						<mx:DateField width="161" id="fecha1" editable="true" showToday="true" formatString="DD/MM/YYYY"/>
+					</mx:FormItem>
+					
+					<mx:FormItem label="Salida:" width="265" required="false">
+						<mx:DateField width="161" id="fecha2" editable="true" formatString="DD/MM/YYYY" change="verifica()"/>
+					</mx:FormItem>
+					
+					<mx:FormItem label="Canil:" width="268">
+						<ns2:Caniles id="canilIntput"/>
+					</mx:FormItem>
+					<mx:FormItem label="Costo:" width="267" required="false">
+						<ns2:Precio id="costoIntput">
+						</ns2:Precio>
+					</mx:FormItem>
+					
+				</mx:Form>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Form width="280" height="34" y="90" verticalGap="8" paddingBottom="0" paddingRight="0" paddingTop="5" right="457">
+					<mx:FormItem label="Nombre:" width="263" height="27" horizontalAlign="left" required="false">
+						<mx:ComboBox labelField="nombre" id="mascotasList" dataProvider="{mascotas}"  width="159"></mx:ComboBox>
+					</mx:FormItem>
+					
+				</mx:Form>
+			</mx:AddChild>
+			<mx:RemoveChild target="{button1}"/>
+			<mx:RemoveChild target="{button2}"/>
+			<mx:SetProperty name="title" value="Nuevo Registro Hoteleria"/>
+			<mx:SetProperty target="{labelMessage}" name="x" value="184.5"/>
+			<mx:SetProperty target="{labelMessage}" name="y" value="398"/>
+			<mx:AddChild position="lastChild">
+				<ns2:BuscadorNombreRut id="clienteRutName" x="22" y="26" keyFocusChange="getMascotas()" mouseFocusChange="getMascotas()">
+				</ns2:BuscadorNombreRut>
+			</mx:AddChild>
+			<mx:RemoveChild target="{Tabla}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="342.25" y="155" text="Comentario:" width="93" height="22"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextArea x="429" y="154" id="comentarioCuadro" width="296" height="113"/>
+			</mx:AddChild>
+		</mx:State>
+	</mx:states>
+<mx:DataGrid x="22" y="79" width="705" enabled="false" id="Tabla" height="271" editable="false"
+	dataProvider="{hotelerias}"  itemClick="ver.visible=true">
+		<mx:columns>
+			<mx:DataGridColumn width="70" headerText="Nombre" dataField="mascota" id="mascota"/>
+			<mx:DataGridColumn width="80" headerText="Rut Cliente" dataField="cliente" id="cliente"/>
+			<mx:DataGridColumn width="40" headerText="Canil" dataField="canil" id="canil"/>
+			<mx:DataGridColumn width="100" headerText="Fecha Ingreso" dataField="fechaIngreso" id="fechaIngreso" labelFunction="doLabel"/>
+			<mx:DataGridColumn width="90" headerText="Hora Ingreso" dataField="hora" id="hora"/>
+			<mx:DataGridColumn width="90" headerText="Fecha Salida" dataField="fechaSalida" id="fechaSalida" labelFunction="doLabel"/>
+			<mx:DataGridColumn headerText="Comentarios" dataField="comentario" id="comentario"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Label x="27" y="34" text="Registros Actuales:" fontWeight="bold" id="label1"/>
+	<mx:Button x="582" y="358" label="Nuevo" id="button1" click="{currentState='RegistroHoteleria'}"/>
+	<mx:Button x="652" y="358" label="Cancelar" id="button2" click="cancelarOperacion()"/>
+	<mx:Label x="572" y="34" text="Caniles Disponibles:" fontWeight="bold" id="label2"/>
+	<mx:TextInput x="697" y="32" width="31" text="5" id="textinput1"/>
+	<mx:Label x="194" y="388" width="390" id="labelMessage"/>
+	
+</mx:Panel>

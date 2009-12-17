@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Pago" xmlns:ns1="com.adobe.flex.extras.controls.*"  xmlns:ns2="util.*">
+  <mx:Script>
+	 <![CDATA[
+	 
+	 	import services.AddMascotaService;
+        	import mx.controls.DateField;
+        	import mx.controls.Alert;
+            import mx.collections.ArrayCollection;
+        	import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.ValidationResultEvent;            
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
+		    import mx.rpc.events.ResultEvent;
+//			import components.ItemRenderer;
+//			import events.FileUploaderEvent;
+			import mx.controls.Image;
+			import services.MascotaService;
+		    import transferObjects.Mascota;
+		    import services.PersonService;
+		    import transferObjects.Person;
+		    import transferObjects.Cirugia;
+		    import mx.core.Application;
+		    import pabellon.AddCirugiaService;
+			
+	 	  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha   12/09/2009
+			 *  @Descripción Metodo que cancela la operacion de editar una mascota
+			 */
+			
+			  private function cancelando():void{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+			
+				  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha   12/09/2009
+			 *  @Descripción Metodo que cancela la operacion de editar una mascota
+			 */
+			
+			  private function editando():void{
+				this.setVisible(false,false);
+				Application.application.editarPago2.setVisible(true,false);
+			}
+			
+       ]]>
+    </mx:Script>     
+	
+	<mx:DataGrid x="19" y="61" width="718" height="288">
+
+		<mx:columns>
+			<mx:DataGridColumn headerText="Código" dataField="codigo" width="80"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre" width="120"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion"/>
+			<mx:DataGridColumn headerText="Cantidad" dataField="cantidad" width="70"/>
+			<mx:DataGridColumn headerText="Subtotal" dataField="subtotal" width="70"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<mx:Label x="19" y="9" text="Tipo Producto:" fontWeight="bold"/>
+<mx:Button x="632" y="357" label="Cancelar" width="102" id="cancelar" visible="true" click="cancelando()" height="23"/>
+	<mx:Button x="522" y="357" label="Editar" width="102" id="Editar" visible="true" click="editando()" height="23"/>
+	<mx:Label x="167" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:ComboBox x="120" y="7"></mx:ComboBox>
+</mx:Panel>

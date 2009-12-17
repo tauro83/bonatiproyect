@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" x="345" y="50" width="375" height="382" >
+
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 23/11/09
+			// AUTOR: Camilo Verdugo
+			// Panel de ayuda de usuario sobre registrar un nuevo producto
+			//=======================================================================
+			
+			/** 
+			 *  Metodo que despliega las imagenes de ayuda para este componente
+		 	 * 	@author  "Camilo Verdugo"
+			 * */	
+			private function verBarra():void
+			{
+				textAyuda.visible = false;
+				linkBarraPrincipal.visible = false;
+				barra.visible = true;
+				botVolver.visible = true;
+			}
+			/** 
+			 *  Metodo que despliega el texto de ayuda
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
+			private function verOpcMod():void
+			{
+				textAyuda.visible = false;
+				linkBarraPrincipal.visible = false;
+				barra.visible = false;
+				botVolver.visible = true;
+
+			}
+			/** 
+			 *  Metodo que retorna el panel de carga de la imagen, a la informacion de ayuda
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
+			private function volver2():void
+			{
+				textAyuda.visible = true;
+				linkBarraPrincipal.visible = true;
+				botVolver.visible = false;
+				barra.visible = false;
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:Text x="10" y="10" text="Registrar producto&#xa;&#x9;&#xa;&#x9;1. Seleccionar en &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;la opción Pet Shop&#xa;&#xa;&#x9;2. Ir al sub menu y seleccionar Producto&#xa;&#xa;&#x9;3. Seleccionar Registrar&#xa;&#xa;&#x9;4. Ingresar datos del producto&#xa;&#x9;&#xa;&#x9;5. Presionar el  botón Registrar&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
+	<mx:LinkButton x="133" y="34" label="barra principal" id="linkBarraPrincipal" click="verBarra()" color="blue" width="109"/>
+	<mx:Image x="10" y="170" width="355" height="43" id="barra" visible="false">
+		<mx:source>../Images Ayuda/barra principal.JPG</mx:source>
+	</mx:Image>
+	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
+	
+</mx:Canvas>

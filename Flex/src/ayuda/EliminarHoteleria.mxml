@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" x="345" y="50" width="375" height="382" >
+
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 10/11/09
+			// AUTOR: Andrés Garrido
+			// Panel de ayuda para retirar una mascota de hotelería
+			//=======================================================================
+			
+			
+		]]>
+	</mx:Script>
+	<mx:Text x="10" y="10" text="Retirar Mascota de Hotelería&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción Hotelería.&#xa;&#xa;&#x9;2. Ir al sub menú y seleccionar Retirar. A continuación,&#xa;&#x9;    se mostrará un listado de todas las mascotas en &#xa;&#x9;    hotelería.&#xa;&#x9;&#xa;&#x9;3. Seleccionar el elemento deseado haciendo clic sobre él&#xa;&#x9;    o marcando el cuadro correspondiente. &#xa;&#x9;&#xa;&#x9;4. Presionar sobre Retirar para concluir con la operación." width="355" height="332" id="textAyuda"/>
+	
+</mx:Canvas>

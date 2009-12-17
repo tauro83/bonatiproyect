@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="776" height="466" title="Eliminar Web" borderColor="#15AD8F">
+<mx:Script>		
+		<![CDATA[
+        	 //=======================================================================
+			// FECHA CREACIÓN: 16/11/09
+			// AUTOR: Nicolas Delgado
+			// Panel en el cual se muestran el Costo , Descripción, Servicio, hora,
+			// Fecha, Responsable y Nombre de catalogo, que representa un registro de 
+			// Peluquería realizado por una mascota.
+			//=======================================================================
+				
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+            import mx.core.Application;
+			
+			import services.avisoWeb;
+			import transferObjects.aviWeb;
+			
+			/**
+			* Esta variable se encarga de obtener desde la base datos los datos asociado 
+			* a un registro de peluqueria de todas las mascota que alguna vez se han 
+			* realizado una atención.
+			*/
+			[Bindable]
+			private var vacunaciones:ArrayCollection;
+			
+			
+			/**
+			* Evento del boton "Volver", el cual redirige  a la página
+			* anterior (en donde se muestra un listado de todo los clientes y mascotas
+			* que poseen un registro en la peluquería).
+			*/
+			public function actionVolver():void
+			{
+            	Application.application.eliminarPel2.setVisible(false,false);
+            	Application.application.eliminarPel.setVisible(true,false);
+			}
+			
+           /**
+			* Se obtienen todos los registro de peluquería que se encuentran registrados en 
+			* la base de datos, que serán mostrados por el datagrid en el panel, en este
+			* panel seran mostrados solamente el costo, descripción, servicio, hora, fecha,
+			* responsable y nombre del catalogo.
+			*/
+			public function getAllVacunacionesA():void
+		    {
+		   		var vacunacionService:avisoWeb = new avisoWeb();
+		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
+				vacunacionService.getAllVacunacionesA();
+		    }
+		   
+	         /**
+			* Se obtienen todos los registro de peluquería que se encuentran registrados en 
+			* la base de datos, que serán mostrados por el datagrid en el panel, en este
+			* panel seran mostrados solamente el costo, descripción, servicio, hora, fecha,
+			* responsable y nombre del catalogo.
+			*/
+		    public function getAllVacunacionesResult(event:ResultEvent):void
+		    {
+		   		vacunaciones = event.result as ArrayCollection;
+		    }
+			
+			/**
+			* Este metodo se  encarga de realizar la deseliminación de un registro de peluquería
+			* pasando como parametro el estado que posee el objeto que se desea deseliminar.
+			*/
+			public function anular(estado:int):void
+			{
+				var vacunacionService:avisoWeb = new avisoWeb();
+				vacunacionService.anular(estado);
+			}
+
+            /**
+			* Este metodo se encarga de mostrar un pop-up que señala la acción 
+			* deseliminar un registro de peluquería que están seleccionadas
+			* en el grid, pero el usuario debera ingresar el motivo por el cual se 
+			* esta realizando la deseliminación.
+			*/
+           	private function deleteRow():void 
+           	{
+			    Alert.show("¿Está seguro que desea deseliminar el registro(s) de peluquería? ","Confirme deseliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+       
+			}
+			
+			/**
+			* Este metodo se encarga de deseliminar todo los registro de peluquería seleccionado
+			* por el usuario, los cuales pueden ser uno o mas, para la deseliminación de un 
+			* registro de peluquería se debera enviar la hora que definira como identificador
+			* unico.
+			*/
+			private function removeTaskRecord():void
+            {
+                var allRows:int = vacunaciones.length;
+                var vacu:aviWeb= new aviWeb();
+                
+                for (var i:int = 0; i < allRows; i++){
+                    if (vacunaciones[i].sel)
+                	{
+                        vacu = vacunaciones[i] as aviWeb;
+                        anular(vacu.id);
+                       
+                        vacunaciones.removeItemAt(i);
+                        allRows = vacunaciones.length;
+                        tablaVacunaciones.dataProvider = vacunaciones;
+                        i=-1;
+                    }   
+                }
+                barraMsj.text="Registro(s) de peluquería deseliminado";              
+            }
+			
+			/**
+			* Una vez seleccionado SÍ o NO en el mensaje
+			* se llama a la función que deselimina por si el usuario esta seguro
+			* si desea deseliminar el registro de la peluquería. 
+			*/
+			private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+			
+			/**
+			* Se toma el objeto cliente con sus respectivos 
+			* datos, y se insertan en los campos correspondientes tanto del 
+			* Cliente y Mascota.
+			*/
+			public function setDatos(vacu:aviWeb):void
+			{
+				getAllVacunacionesA();
+         	}
+         	
+			/**
+			* Este metodo se encarga de deseliminar todo los registro de peluquería seleccionado
+			* por el usuario, los cuales pueden ser uno o mas, para la deseliminación de un 
+			* registro de peluquería se debera enviar la hora que definira como identificador
+			* unico.
+			*/
+         	private function selectAll():void{
+                var allRows:int = vacunaciones.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        vacunaciones[i].sel = true;
+                    else
+                        vacunaciones[i].sel = false;
+                }
+                tablaVacunaciones.dataProvider = vacunaciones;
+            }
+            /**
+            * Este metodo se encarga de deseleccionar el checkBox que selecciona a todos los 
+            * registro de peluquería.
+            */
+            public function limpiarTodo():void{
+            	todo.selected=false;
+            }
+           	
+		]]>
+	</mx:Script>	
+	
+	<mx:DataGrid x="25" y="36" width="709" height="309" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
+		<mx:columns>
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>		
+			<mx:DataGridColumn width="60" headerText="Nombre" dataField="nombre" id="nombre" draggable="false"/>
+			<mx:DataGridColumn width="250" headerText="Apellido Paterno" dataField="apaterno" id="apaterno" draggable="false"/>
+			<mx:DataGridColumn width="70" headerText="Cod" dataField="telefono0" id="telefono0" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Telefono" dataField="telefono" id="telefono" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Asunto" dataField="asunto" id="asunto" draggable="false"/>
+			<mx:DataGridColumn width="100" headerText="Descripcion" dataField="descripcion" id="descripcion" draggable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:CheckBox x="25" y="10" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
+	<mx:Label x="47" y="10" text="Seleccionar todo"/>
+	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
+	<mx:Button x="522" y="354" label="Eliminar" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula la(s) vacunacion(es) seleccionada(s)"/>
+	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
+	
+	
+</mx:Panel>

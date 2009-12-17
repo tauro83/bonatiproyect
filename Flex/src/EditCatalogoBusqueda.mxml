@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" title="Editar Catálogo" width="779" height="466" borderColor="#15AD8F">
+	<mx:Script>
+		<![CDATA[
+			//=======================================================================
+			// FECHA: CREACIÓN: 10/11/09
+			// AUTOR: Camilo Verdugo
+			// Componente que lista todos los cortes y baños del sistema
+			//=======================================================================
+			import mx.core.Application;
+			import services.GetCatalogos;
+			import mx.rpc.events.ResultEvent;
+			import mx.collections.ArrayCollection;
+			import transferObjects.CatPeluqueria;
+			import util.Properties; 
+			[Bindable]private var listCatalogos:ArrayCollection;
+			[Bindable]private var getCatServices:GetCatalogos;
+			
+			/** 
+         	 *  Metodo que obtiene todas los items del catalogo
+         	 *  Los cuales seran utilizados para seleccionarlos y luego editarlos.
+         	 * @author  "Camilo Verdugo"
+			 * */
+			public function getAllCatalogo():void
+			{	
+				getCatServices = new GetCatalogos();
+				getCatServices.getCatalogo();
+				getCatServices.addEventListener(ResultEvent.RESULT,getAllCatalogoR);							
+			}
+			/**
+			 *  Metodo que asigna el retorno del metodo anterior a una lista la cual sera cargada en
+			 *  el grid.
+			 * 	@author  "Camilo Verdugo"
+			 * */
+			public function getAllCatalogoR(event:ResultEvent):void
+			{				
+				listCatalogos = event.result as ArrayCollection;	
+			}
+			
+			/**
+			 *  Metodo que es llamada del panel de ediccion, una vez que la modificacion
+			 *  de los datos se haya registrado correctamente en la BD
+			 * 	@author  "Camilo Verdugo"
+			 * */
+			public function ediccionCorrecta():void
+			{
+				labelMessage.text = Properties.getMensaje("Informacion", "22");
+			}
+			/**
+			 *  Reinicia las variables
+			 * 	@author  "Camilo Verdugo"
+			 * */
+			public function reset():void
+			{
+				labelMessage.text = "";
+			}
+			
+			/**
+			 *  Retorna al panel anterior, en este caso al de opciones principal
+			 * 	@author  "Camilo Verdugo"
+			 * */
+			private function cancelar():void
+            {
+            	labelMessage.text = "";
+            	this.setVisible(false,false);
+				Application.application.peluqueria1.setVisible(true,false);
+            }
+            
+            /**
+			 *  Llama al panel de ediccion con el objeto seleccionado y lo hace visible
+			 * 	@author  "Camilo Verdugo"
+			 * */            
+            private function editarCatalogo(event:Event):void
+            {
+            	if(cat.selectedItem)
+            	{
+            		this.setVisible(false,false);            	 	
+            		Application.application.editCatalogo.cargarCatalogo(cat.selectedItem as CatPeluqueria);
+            		Application.application.editCatalogo.setVisible(true,false);
+            	}
+            	else{
+            		labelMessage.text = Properties.getMensaje("Advertencia", "22");
+            	}
+            	cat.selectedItem = null;
+            }
+		]]>
+	</mx:Script>
+	<mx:DataGrid x="25" y="38" width="709" height="305" id="cat" dataProvider="{listCatalogos}" itemDoubleClick="editarCatalogo(event)" >
+		<mx:columns>			
+			<mx:DataGridColumn headerText="Servicio"  	dataField="servicio"/>
+			<mx:DataGridColumn headerText="Nombre"   	dataField="nombre"/>
+			<mx:DataGridColumn headerText="Precio"   	dataField="precio"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Label x="25" y="10" text="Seleccione el servicio:" fontWeight="bold"/>
+	<mx:Button x="522" y="353" width="102" label="Editar" id="regCatalogo" enabled="true" click="editarCatalogo(event)" height="23" cornerRadius="6">
+	</mx:Button>
+	<mx:Button x="632" y="353" width="102" label="Cancelar" id="cancelarCatalogo" click="cancelar()" height="23" cornerRadius="6">
+	</mx:Button>
+	<mx:Label id="labelMessage" x="176" y="399" width="407" textAlign="center" fontWeight="bold" height="17"/>
+</mx:Panel>
