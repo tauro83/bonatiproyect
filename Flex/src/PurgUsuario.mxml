@@ -142,6 +142,16 @@
                 }
                 tablaUsuarios.dataProvider = persons;
             }
+            /**
+            * Cancela la operación
+            * 
+            */
+            private function volver():void
+            {
+            	Application.application.setInvisible();
+            	Application.application.agenda2.setVisible(true,false);
+            	Application.application.menuAgenda1.setVisible(true,false);
+            }
             
 		]]> 
   	</mx:Script>	
@@ -168,7 +178,7 @@
 			</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="522" y="353" label="Purgar" id="eliminarUsuario" click="{deleteRow()}" toolTip="Elimina el o los usuarios seleccionados" width="102" height="23" cornerRadius="6"/>
-	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" toolTip="Cancela la operación" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="632" y="353" label="Cancelar" click="volver()" id="cancelar" toolTip="Cancela la operación" width="102" height="23" cornerRadius="6"/>
 	<mx:CheckBox x="129" y="10" id="todo" click="{selectAll()}">
 		<mx:toolTip>Seleccione todos los usuarios, en caso contrario ninguno</mx:toolTip>
 	</mx:CheckBox>
