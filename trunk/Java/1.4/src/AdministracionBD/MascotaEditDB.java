@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import Bd.DBConnectionManager;
@@ -35,7 +36,9 @@ public class MascotaEditDB
 			
 			query = "UPDATE mascota"+
 			   " SET rut=?, nombre=?, fechanacimiento=?, claseanimal=?, raza=?, sexo=? "+
-				 "WHERE rut = ? AND nombre = ?;";
+				 "WHERE rut = ? AND nombre = ?; " +
+				 "INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
+			   "VALUES (?, ?, ?, ?);";
 			insert = connection.prepareStatement(query);
 		} 
 		catch (SQLException e) 
@@ -72,6 +75,18 @@ public class MascotaEditDB
 			insert.setString(6, person.getSexo().trim());
 			insert.setString(7, person.getRutCliente().trim());
 			insert.setString(8, person.getNombre().trim());
+			
+			Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR)-1900;
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			Date date = new Date(year,month, day);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fecha = formatter.format(date);
+			insert.setString(9, fecha);
+			insert.setString(10, "usuario");
+			insert.setString(11, "Administración");
+			insert.setString(12, "Edita mascota: "+person.getNombre()+" especie: "+person.getClaseAnimal());
 		
 			result= insert.executeUpdate();
 		} 

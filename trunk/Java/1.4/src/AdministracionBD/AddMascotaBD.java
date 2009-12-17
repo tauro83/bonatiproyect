@@ -10,6 +10,7 @@ package AdministracionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Calendar;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,9 @@ public class AddMascotaBD{
 			String query="";	
 			/**Consulta a la base de datos, Inserta una nueva mascota */
 			query = "INSERT INTO mascota(rut, nombre, fechanacimiento, claseanimal, raza, sexo, estado) "+
-					"VALUES (?, ?, ?, ?, ?, ?, ?);";			
+					"VALUES (?, ?, ?, ?, ?, ?, ?); " +
+					"INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
+					"VALUES (?, ?, ?, ?);";		
 			add = connection.prepareStatement(query);
 			
 			/**Consulta a la base de datos, Selecciona todas las mascotas registradas en la base de datos*/
@@ -103,6 +106,18 @@ public class AddMascotaBD{
 			add.setString(6, mascota.getSexo());
 			add.setBoolean(7, mascota.getEstado());
 			
+			Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR)-1900;
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			Date date = new Date(year,month, day);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fecha = formatter.format(date);
+			add.setString(8, fecha);
+			add.setString(9, "usuario");
+			add.setString(10, "Administración");
+			add.setString(11, "Registra mascota: "+mascota.getNombre()+" especie: "+mascota.getClaseAnimal());
+
 			
 			result= add.executeUpdate();
 		} 

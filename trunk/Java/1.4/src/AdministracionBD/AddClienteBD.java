@@ -12,6 +12,7 @@ package AdministracionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import TransferObjects.Cliente;
 
@@ -40,7 +41,9 @@ public class AddClienteBD {
 		PreparedStatement insert;
 		String query="";			
 		query = "INSERT INTO clientepresencial (nombre,aPaterno,aMaterno,rut,telefono,celular,domicilio,region,comuna,correo,estado) "+
-				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";			
+				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); " +
+		"INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
+		"VALUES (?, ?, ?, ?);";	
 		insert = connection.prepareStatement(query);
 		
 		if(c.telefono.equals("") && c.telefono2.equals("")){
@@ -65,6 +68,18 @@ public class AddClienteBD {
 		insert.setString(9,c.comuna);
 		insert.setString(10,c.email);
 		insert.setBoolean(11,c.estado);
+		
+		Calendar cal = Calendar.getInstance();
+		int year = cal.get(Calendar.YEAR)-1900;
+		int month = cal.get(Calendar.MONTH);
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		Date date = new Date(year,month, day);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		String fecha = formatter.format(date);
+		insert.setString(12, fecha);
+		insert.setString(13, "usuario");
+		insert.setString(14, "Administración");
+		insert.setString(15, "Registra cliente: "+c.nombre+" "+c.apellido+" "+c.apellido2);
 		//insert.setString(14,c.rut2);
 		
 		

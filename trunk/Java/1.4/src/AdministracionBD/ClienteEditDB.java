@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Calendar;
 
 import Bd.DBConnectionManager;
 import TransferObjects.Cliente;
@@ -31,7 +32,9 @@ public class ClienteEditDB
 			
 			query = "UPDATE clientepresencial "+
 			   "SET nombre = ?, aPaterno = ?, aMaterno = ?, rut = ?, telefono = ?, celular = ?, domicilio = ?, region = ?, comuna = ?, correo = ?, estado = ? "+
-				 " WHERE rut = ?;";
+				 " WHERE rut = ?; "+
+				 "INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
+				"VALUES (?, ?, ?, ?);";
 			insert = connection.prepareStatement(query);
 			
 			query = "SELECT nombre,aPaterno,aMaterno,rut,telefono,celular,domicilio,region,comuna,correo,estado "+
@@ -69,8 +72,19 @@ public class ClienteEditDB
 			insert.setString(9, person.getComuna());
 			insert.setString(10, person.getEmail());
 			insert.setBoolean(11, person.estado);
-			
 			insert.setString(12, rutillo);
+			
+			Calendar cal = Calendar.getInstance();
+			int year = cal.get(Calendar.YEAR)-1900;
+			int month = cal.get(Calendar.MONTH);
+			int day = cal.get(Calendar.DAY_OF_MONTH);
+			Date date = new Date(year,month, day);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fecha = formatter.format(date);
+			insert.setString(13, fecha);
+			insert.setString(14, "usuario");
+			insert.setString(15, "Administración");
+			insert.setString(16, "Edita cliente: "+person.nombre+" "+person.getApellido()+" "+person.getApellido2());
     		
 			result= insert.executeUpdate();
 		} 

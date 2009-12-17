@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import TransferObjects.Usuario;
@@ -41,8 +42,9 @@ public class UsuarioEditBD
 			query = "UPDATE usuario "+
 			   "SET nombre=?, apaterno=?, amaterno=?, usuario=?, cargo=?, contrasena=?, "+
 				       "servicio=?, pregistrar=?, peditar=?, peliminar=?, ppurgar=? "+
-				 "WHERE usuario = ?;";
-
+				 "WHERE usuario = ?; " +
+				 "INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
+			   "VALUES (?, ?, ?, ?);";
 			
 			insert = connection.prepareStatement(query);
 			
@@ -82,6 +84,17 @@ public class UsuarioEditBD
 			insert.setBoolean(11, person.getPermisoPurgar());
 			insert.setString(12, person.getUsuario());
 			
+			Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR)-1900;
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			Date date = new Date(year,month, day);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fecha = formatter.format(date);
+			insert.setString(13, fecha);
+			insert.setString(14, "usuario");
+			insert.setString(15, "Administración");
+			insert.setString(16, "Edita el usuario: "+person.usuario+" nombre: "+person.nombre +" apellido paterno: "+ person.apellidoPaterno);			
 			result= insert.executeUpdate();
 		} 
     	catch (SQLException e) 
