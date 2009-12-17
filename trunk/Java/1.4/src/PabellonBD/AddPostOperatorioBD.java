@@ -55,7 +55,7 @@ public class AddPostOperatorioBD {
 	        insert.setString(6, postOpe.getCosto());
 	        insert.setString(7, postOpe.getNombreMascota());
 	        insert.setString(8, postOpe.getRut());
-	        
+	        System.out.println("AAAA?11"+postOpe.getCosto());
 			result=""+insert.executeQuery();
     	} 
     	catch (SQLException e) 

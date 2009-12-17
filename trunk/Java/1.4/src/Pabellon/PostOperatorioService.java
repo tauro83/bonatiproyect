@@ -138,9 +138,7 @@ public class PostOperatorioService{
 	 * Trata de obtener todos los usuarios registrados en la base de datos
 	 * @return Lista con todos los usuarios registrados
 	 */
-	public List getAllPostOperatorio2(String nombreMascota, String clienterut)
-    {
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAa");
+	public List getAllPostOperatorio2(String nombreMascota, String clienterut) {
     	List persons=new ArrayList();
     	try 
 		{

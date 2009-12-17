@@ -134,6 +134,7 @@ public class PostOperatorioBD {
 			insert.setString(4, pos.clienterut);
 			insert.setString(5, pos.costo);
 			insert.setString(6, pos.indicaciones);
+			System.out.println("AAAA?11"+pos.costo);
 			result=""+insert.executeUpdate();
 		} 
     	catch (SQLException e) 
@@ -226,28 +227,22 @@ public class PostOperatorioBD {
 	 * Trata de obtener todos las cirugías registrados en la base de datos
 	 * @return Lista con todas las cirugías registradas
 	 */
-	 public List  getAllPostOperatorio2BD(String nombreMascota, String clienterut)
-	    {	
+	 public List  getAllPostOperatorio2BD(String nombreMascota, String clienterut){
 	    	List postOperatorios = new ArrayList ();
 	    	PostOperatorio postOperatorio;
-	    	try 
-	    	{
-	    		ResultSet result;
-	    		
+	    	ResultSet result;
+	    	try{
 	    		selectAllPostoperatorio2.setString(1, nombreMascota);
 	    		selectAllPostoperatorio2.setString(2, clienterut);
 	    		
 	    		result = selectAllPostoperatorio2.executeQuery();
-				
-	    		while(result.next())
-	    		{  
+	    		while(result.next()){  
 	    			postOperatorio = new PostOperatorio();
 	    			postOperatorio.indicaciones = result.getString(1).trim();
 	    			postOperatorio.shora = result.getString(2).trim();
 	    			postOperatorio.stfecha = result.getString(3).trim();
 	    			postOperatorio.costo =  result.getString(4).trim();
 	    			postOperatorios.add(postOperatorio);
-	    			
 	    		}
 			} 
 	    	catch (SQLException e) 
