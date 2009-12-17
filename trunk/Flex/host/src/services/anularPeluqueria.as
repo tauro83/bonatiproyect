@@ -12,9 +12,8 @@ package services
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	import util.host;
 	
-	import transferObjects.anuPeluqueria;
+	import util.host;
 	/**
 	 * Clase encargada de realizar la conexión entre la capa
 	 * lógica y la interfaz gráfica
@@ -45,9 +44,9 @@ package services
 		* Este metodo envia el estado de un registro de peluquería y si este se encuentra en 0 
 		* es cambiado a 2.
 		*/ 
-		public function anular(estado:int,nombreMascota:String,hora:String):void
+		public function anular(estado:int,nombreMascota:String,hora:String,nombreCatalogo:String):void
 		{
-			this.getOperation("anular").send(estado,nombreMascota,hora);
+			this.getOperation("anular").send(estado,nombreMascota,hora,nombreCatalogo);
 			
 		}
 		
@@ -55,18 +54,18 @@ package services
 		* Este metoso envia el estado de un registro de peluquería y si este se encuentra en 0 
 		* es cambiado 1.
 		*/  
-		public function eliminar(estado:int,nombreMascota:String,hora:String):void
+		public function eliminar(estado:int,nombreMascota:String,hora:String,nombreCatalogo:String):void
 		{
-			this.getOperation("eliminar").send(estado,nombreMascota,hora);
+			this.getOperation("eliminar").send(estado,nombreMascota,hora,nombreCatalogo);
 		}
 		
 		/**
 		* Este metoso envia el estado de un registro de peluquería y si este se encuentra en 1 
 		* es cambiado 0.
 		*/  
-		public function deseliminar(estado:int,nombreMascota:String,hora:String):void
+		public function deseliminar(estado:int,nombreMascota:String,hora:String,nombreCatalogo:String):void
 		{
-			this.getOperation("deseliminar").send(estado,nombreMascota,hora);
+			this.getOperation("deseliminar").send(estado,nombreMascota,hora,nombreCatalogo);
 		}
 		
 		/**
