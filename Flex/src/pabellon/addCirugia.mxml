@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Cirugía" xmlns:ns1="*">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registrar Cirugía" xmlns:ns1="*" xmlns:ns2="util.*">
 	<mx:Script>
         <![CDATA[
         	//=======================================================================
@@ -81,7 +81,7 @@
 		    			this.labelMessage.text=Properties.getMensaje("Advertencia", "41");
 		    		}
 		    		else{
-		    			if(this.costoC.text==""){
+		    			if(this.costoC.costo.text==""){
 		    				this.labelMessage.text="Ingrese un costo para la cirugía.";
 		    			}
 		    			else{
@@ -102,7 +102,7 @@
 		    	
 		    							newCirugia.ayudante = this.ayudantesC.text;
 		    							newCirugia.veterinario= this.veterinariosC.text;
-		    							newCirugia.costo = this.costoC.text;
+		    							newCirugia.costo = this.costoC.costoBruto;
 		    							newCirugia.fecha = this.fechaC.text;
 		    							newCirugia.diagnostico = this.diagC.text;
 		    							var i:int;
@@ -308,7 +308,8 @@
 			 * */ 
 		    public function iniciarPanel():void
 		    {
-		    	this.costoC.text="";
+		    	this.costoC.costo.text="";
+		    	this.costoC.costoBruto="";
 		    	this.diagC.text="";
 		    	this.fechaC.text="";
 		    	this.cirugias1.doubleClickEnabled=true;
@@ -337,7 +338,6 @@
 	<mx:ComboBox x="515" y="36" dataProvider="{ayudantes2}" width="180" id="ayudantesC" height="22"></mx:ComboBox>
 	<mx:TextArea x="120" y="70" width="270" height="125" id="diagC" maxChars="200"/>
 	<mx:DateField x="515" y="70" width="120" id="fechaC" formatString="DD/MM/YYYY"/>
-	<mx:TextInput x="515" y="100" width="120" id="costoC" restrict="0-9"/>
 	<mx:TextInput x="515" y="134" width="120" id="nombMasc" editable="false"/>
 	
 	<mx:List x="120" y="220" width="270" height="115" id="cirugias1" dataProvider="{tiposCir1}"></mx:List>
@@ -350,5 +350,7 @@
 	
 	<mx:Label x="430" y="134" text="Mascota:" width="63.95"/>
 	<mx:Label x="458" y="200" text="Cirugías agregadas:" width="137.4" height="17.931034"/>
+	<ns2:Precio x="515" y="100" id="costoC">
+	</ns2:Precio>
 	
 </mx:Panel>
