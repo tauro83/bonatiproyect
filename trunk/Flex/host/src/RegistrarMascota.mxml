@@ -265,7 +265,8 @@
 				
 				var addMascotaService:AddMascotaService=new AddMascotaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,addMascotaServiceResult);
-				addMascotaService.addMascota(mascota);
+				addMascotaService.addMascota(mascota,Application.application.login2.usuarioActivo);
+			
 			}
 			
 			/**

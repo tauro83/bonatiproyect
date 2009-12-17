@@ -43,12 +43,12 @@ public class AddMascotaService{
 	 * @param mascota contiene los datos de la mascota que se quiere ingresar
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
-	public int addMascota(Mascota mascota){
+	public int addMascota(Mascota mascota, String usuario){
 		int result=0;
 		try{
 			Connection connection=DBConnectionManager.getConnection();
 			AddMascotaBD mascotaBD= new AddMascotaBD(connection);
-			result= mascotaBD.addMascota(mascota);		
+			result= mascotaBD.addMascota(mascota, usuario);		
 			connection.close();
 		} catch (SQLException e){
 			e.printStackTrace();

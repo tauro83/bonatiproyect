@@ -97,8 +97,8 @@ public class AddMascotaBD{
 	 * @param mascota contiene los datos de la mascota que se quiere ingresar
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
-    public int addMascota(Mascota mascota){
-    	int result=0;
+	 public int addMascota(Mascota mascota, String usuario){
+		int result=0;
     	try{
 
 			add.setString(1, mascota.getRutCliente());
@@ -117,7 +117,7 @@ public class AddMascotaBD{
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 			String fecha = formatter.format(date);
 			add.setString(8, fecha);
-			add.setString(9, "usuario");
+			add.setString(9, usuario);
 			add.setString(10, "Administración");
 			add.setString(11, "Registra mascota: "+mascota.getNombre()+" especie: "+mascota.getClaseAnimal());
 
