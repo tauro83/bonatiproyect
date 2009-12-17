@@ -165,14 +165,14 @@ public class AddVacunacionService {
 	 * @return Listado de String con los nombres de los veterinarios.
 	 */
 	public List getTiposVeterinarios(){
-		List cirus=new ArrayList();
+		List vetes=new ArrayList();
 		
 		/**
 		 * En este codigo se llama a la base de datos para obtener los datos de los usuarios
 		 * y guardarlos en la variable persosns.
 		 */
 		this.getAllUsuariosE();
-		cirus.add("");
+		vetes.add("");
 		int n = persons.size();
 		/**
 		 * En este codigo se se procesa los datos de todos los usuarios que fueron devueltos del llamado anterior.
@@ -185,20 +185,23 @@ public class AddVacunacionService {
 			 * de la variable cargo. Para comparar, pues solo debe retornar los que tengan como cargo Veterinario.
 			 */
 			String cargo = u.getCargo().trim();
-			if(cargo.equals("Veterinario")){
+			String servuser = u.getServicio().trim();
+			if(cargo.equals("Veterinario")||servuser.equals("Pabellon")||servuser.equals("Pabellón")|| servuser.equals("Clinica") ||servuser.equals("Clínica") || servuser.equals("Policlinico I") ||servuser.equals("Policlínico I")||servuser.equals("Policlinico II") ||servuser.equals("Policlínico II")|| cargo.equals("Veterinario")||cargo.equals("Veterinaria")){
 				/**
 				 * Se borran los espacios en blanco obtenidos de la base de datos.
 				 * de la variable nombre y apellido paterno. Luego se concatena y almacena en el array
 				 * para ser devuelto a la capa1.
 				 */
-				String nombre = u.getNombre().trim();
-				String apellido = u.getApellidoPaterno().trim();
-				String nombFinal = nombre.concat(" "+apellido);
-				cirus.add(nombFinal);
+				if(!cargo.equals("Ayudante")){	
+					String nombre = u.getNombre().trim();
+					String apellido = u.getApellidoPaterno().trim();
+					String nombFinal = nombre.concat(" "+apellido);
+					vetes.add(nombFinal);
+				}
 			}
 		}
 
-		return cirus;	
+		return vetes;	
 	}
 	
 	

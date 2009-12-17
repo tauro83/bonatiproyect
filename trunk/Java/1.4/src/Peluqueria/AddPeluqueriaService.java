@@ -16,9 +16,7 @@ import AdministracionBD.UsuarioEditBD;
 import PeluqueriaBD.AddPeluqueriaBD;
 import PeluqueriaBD.GetCatalogosBD;
 import PoliclinicoBD.AddVacunacionBD;
-import TransferObjects.CatPeluqueria;
 import TransferObjects.Cliente;
-import TransferObjects.Mascota;
 import TransferObjects.Peluqueria;
 import TransferObjects.Usuario;
 import Bd.DBConnectionManager;
@@ -185,8 +183,9 @@ public class AddPeluqueriaService {
 			 * Se borran los espacios en blanco obtenidos de la base de datos.
 			 * de la variable cargo. Para comparar, pues solo debe retornar los que tengan como cargo Veterinario.
 			 */
+			String serviUser = u.getServicio().trim();
 			String cargo = u.getCargo().trim();
-			if(cargo.equals("Peluquero")){
+			if(serviUser.equals("Peluqueria")||serviUser.equals("Peluquería") || cargo.equals("Peluquera") || cargo.equals("Ayudante") ||cargo.equals("Peluquero")){
 				/**
 				 * Se borran los espacios en blanco obtenidos de la base de datos.
 				 * de la variable nombre y apellido paterno. Luego se concatena y almacena en el array
