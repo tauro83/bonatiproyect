@@ -65,6 +65,7 @@ public class BitacoraServiceBD {
     			person.usuario = result.getString(2).trim();
     			person.servicio = result.getString(3).trim();
     			person.accion = result.getString(4).trim();
+    			persons.add(person);
     		}
 		} 
     	catch (SQLException e) 

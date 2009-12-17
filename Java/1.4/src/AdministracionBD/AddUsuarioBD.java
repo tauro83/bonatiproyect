@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import TransferObjects.Usuario;
+import java.util.Calendar;
 
 public class AddUsuarioBD {
 
@@ -34,7 +35,9 @@ public class AddUsuarioBD {
 		PreparedStatement insert;
 		String query="";			
 		query = "INSERT INTO Usuario (nombre,aPaterno,aMaterno,usuario,cargo,contrasena,servicio,pRegistrar,pEditar,pEliminar,pPurgar) "+
-				"VALUES (?, ?, ?, ?,?,? ,?,?,? ,?,?);";			
+				"VALUES (?, ?, ?, ?,?,? ,?,?,? ,?,?); " +
+		"INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
+	   "VALUES (?, ?, ?, ?);";	
 		insert = connection.prepareStatement(query);
 		
 		insert.setString(1, u.nombre);
@@ -49,6 +52,18 @@ public class AddUsuarioBD {
 		insert.setBoolean(10, u.permisoEliminar);
 		insert.setBoolean(11, u.permisoPurgar);	
 		
+		Calendar c = Calendar.getInstance();
+		int year = c.get(Calendar.YEAR)-1900;
+		int month = c.get(Calendar.MONTH);
+		int day = c.get(Calendar.DAY_OF_MONTH);
+		Date date = new Date(year,month, day);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		String fecha = formatter.format(date);
+		insert.setString(12, fecha);
+		insert.setString(13, "usuario");
+		insert.setString(14, "Administración");
+		insert.setString(15, "Registra el usuario: "+u.usuario+" nombre: "+u.nombre +" apellido paterno: "+ u.apellidoPaterno);
+
 		try 
     	{
 			result=""+insert.executeUpdate();

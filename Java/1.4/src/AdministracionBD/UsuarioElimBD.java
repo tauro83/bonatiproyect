@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,10 @@ public class UsuarioElimBD
 			insert = connection.prepareStatement(query);
 			
 			query = "DELETE FROM usuario " +
-					"WHERE usuario = ?;";
+			"WHERE usuario = ?; " +
+			"INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
+			"VALUES (?, ?, ?, ?);";
+			
 			deleteUsuario = connection.prepareStatement(query);
 
 			query = "SELECT nombre, apaterno, amaterno, usuario, cargo, contrasena, servicio, pregistrar, peditar, peliminar, ppurgar "+
@@ -57,7 +61,9 @@ public class UsuarioElimBD
 			
 			query = "UPDATE usuario "+
 			   "SET estado = 'FALSE' " +
-			   "WHERE usuario = ?;";
+			   "WHERE usuario = ?; " +
+			   "INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
+			   "VALUES (?, ?, ?, ?);";
 			eliminar= connection.prepareStatement(query);
 			
 		} 
@@ -77,6 +83,19 @@ public class UsuarioElimBD
     	try 
     	{
     		deleteUsuario.setString(1, clave);
+    		Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR)-1900;
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			Date date = new Date(year,month, day);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fecha = formatter.format(date);
+    		
+    		deleteUsuario.setString(2, fecha);
+    		deleteUsuario.setString(3, "usuario");
+    		deleteUsuario.setString(4, "Administración");
+    		deleteUsuario.setString(5, "Purga el usuario: "+clave);
+			
 			deleteUsuario.executeQuery();
 			result= deleteUsuario.executeUpdate();
 		} 
@@ -137,11 +156,21 @@ public class UsuarioElimBD
     	try 
     	{
 
-    		System.out.println("clave:  "+clave);
     		eliminar.setString(1, clave);
-    		eliminar.executeQuery();
-    		System.out.println("despues del query clave:  "+clave);
     		
+    		Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR)-1900;
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			Date date = new Date(year,month, day);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fecha = formatter.format(date);
+    		eliminar.setString(2, fecha);
+    		eliminar.setString(3, "usuario");
+    		eliminar.setString(4, "Administración");
+    		eliminar.setString(5, "Elimina el usuario: "+clave);
+			
+    		eliminar.executeQuery();
     		result= eliminar.executeUpdate();
 		} 
     	catch (SQLException e) 
