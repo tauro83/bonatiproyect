@@ -53,6 +53,12 @@ package services
 		 *  @return 1 si el login ingresado es correcto, de lo 
 	 	 *  contrario 0
 	 	 */
+	 	public function getUsuario(usuario:String, contrasena:String):void
+	 	{
+	 		this.getOperation("getUsuario").send(usuario,contrasena);
+	 	} 
+	 	 
+	 	 
 		public function existLogin(login:Usuario):void
 		{
 			this.getOperation("existLogin").send(login);

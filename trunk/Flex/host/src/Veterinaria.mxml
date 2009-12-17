@@ -2,7 +2,8 @@
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*" xmlns:ns5="hoteleria.*" xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xmlns:ns8="modbitacora.*"> 
 
     <mx:Script>
-        <![CDATA[        
+        <![CDATA[
+        	import transferObjects.Usuario;        
 			import mx.events.DropdownEvent;
             import flash.events.MouseEvent;
             import mx.events.FlexEvent;
@@ -20,7 +21,7 @@
 			public var texx2:String;
 			public var texx3:String;
 			public var texInt:int;
-
+			public var usuarioActual:Usuario;
 
 
 ///AYUDA EN FORMA DE POP_UP	
@@ -31,7 +32,18 @@
                 var login:Ayuda=Ayuda(PopUpManager.createPopUp( this, Ayuda , true));
 
             }		
-						
+			
+			public function setUsuario(u:Usuario):void
+			{
+				usuarioActual = u;
+				userX.text = u.usuario; 
+				
+			}			
+			
+			public function getUsuario():Usuario
+			{
+				return usuarioActual;
+			}
 			
 		    private function manejadorCreationComplete (event:FlexEvent):void{           	
             
@@ -775,4 +787,5 @@
 	<!--Autor: }Sebastian-->
 		<mx:Text x="931" y="4" text=" " id="usuarioON" fontWeight="bold"/>
 	    <mx:Text x="880" y="4" text="Usuario:" id="usuarioON0" fontWeight="bold" visible="false"/>
+	    <mx:Label x="779" y="4" id="userX"  fontWeight="bold"/>
 </mx:Application>

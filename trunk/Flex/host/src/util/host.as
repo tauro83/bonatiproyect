@@ -8,7 +8,7 @@ package util{
 			
 			//LOCAL
 			var s2:String="http://localhost:8080/BonatiServer/messagebroker/amf";
-			return s1;
+			return s2;
 		}
 	}
 	

@@ -9,13 +9,13 @@
 			// Dentro de este componente se realiza la comprobacion del login 
 			// de ser correcto se podra ingresar, de lo contrario no
 			//=======================================================================
-
+			import mx.core.Application;
 			import services.LoginService;
 			import mx.controls.Alert;
 			import mx.rpc.events.ResultEvent;		
 			import services.LoginService;
 			import transferObjects.Usuario;
-			
+			import services.getUsuarioActualService;
 			import mx.core.Application;
 			
 			public var bar:int;
@@ -36,6 +36,21 @@
 				var loginService:LoginService = new LoginService();
 				loginService.addEventListener(ResultEvent.RESULT,existLoginResult);
 				loginService.existLogin(usuario);
+				
+				///GET USUARIO
+				//var loginService:LoginService = new LoginService();
+				var  getUsuAct:getUsuarioActualService = new getUsuarioActualService();
+				getUsuAct.addEventListener(ResultEvent.RESULT,getUsuarioR);
+				getUsuAct.getUsuario(nombre.text, pass.text);
+				
+			}
+			
+			private function getUsuarioR(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				Application.application.setUsuario(result);
+				
+			
 			}
 			
 			/**
