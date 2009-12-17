@@ -86,7 +86,6 @@
 
                 
                 <!--Autor: Raul Lopez{ -->
-				agenda2.ctm.addEventListener(MouseEvent.CLICK,editCita);
 				AdmOpciones1.edCliente.addEventListener(MouseEvent.CLICK,editarCliente);
 				<!--Autor: }Raul Lopez --> 
 				
