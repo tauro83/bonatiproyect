@@ -1,10 +1,10 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registrar Usuario" borderColor="#15AD8F" >
 	<mx:Script>
-		<![CDATA[
+		<![CDATA[   
 		
 			//=======================================================================
-			// FECHA: CREACIÓN: 05/08/09e
-			// AUTOR: Camilo Verdugo
+			// FECHA: CREACIÓN: 05/08/09
+			// AUTOR: Camilo Verdugo      
 			// Comentarios: Formulario y validacion del registro de un usuario de sistema
 			//=======================================================================
 			import util.Properties;
