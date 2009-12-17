@@ -149,6 +149,29 @@ public class EditarPeluService {
 		catalogoss = conBD.getCatalgosBD();
 		connection.close();
 	}
+	
+	public List getServiciosAnteriores(String responsable,Date fecha, String hora)
+    {
+    	List serviciosAgregados = new ArrayList();
+    	Peluqueria d = new Peluqueria();
+    	System.out.println(responsable);
+
+    	try 
+		{
+    		//Conexion la clase que se comunica con la base de datos
+			Connection connection=DBConnectionManager.getConnection();
+			EditarPeluServiceBD editPeluBD= new EditarPeluServiceBD(connection);
+			serviciosAgregados = editPeluBD.getServiciosAnteriores(responsable,fecha,hora);		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();	
+		}
+		//lista de diagnosticos
+    	serviciosAgregados.add(d);
+		return serviciosAgregados;
+    }
     
     
     
