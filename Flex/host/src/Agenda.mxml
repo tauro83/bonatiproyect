@@ -379,7 +379,7 @@
 			public function seleccionarCita():void
 			{
 
-				if((servicioInput.text == "Todos" || usuarioInput.text == "Todos") && agendaDia.selectedItem.mascota == null){
+				if(servicioInput.text == "Todos" && agendaDia.selectedItem.mascota == null){
 					labelMessage.text = Properties.getMensaje("Advertencia", "13");
 				}
 				else{  
@@ -428,7 +428,7 @@
 			 */ 
 			public function consultarAccion(event:Event):void{
 				var selectedRow:Object = event.currentTarget.selectedItem;
-				if(selectedRow.mascota == null && (servicioInput.text != "Todos" || usuarioInput.text != "Todos")){
+				if(selectedRow.mascota == null && servicioInput.text != "Todos"){
 					agendar.visible = true;
 					ctm.visible = false;
 					eliminar.visible = false;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F"  initialize="iniciar()" title="Editar Cita">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F"  initialize="iniciar()" title="Editar Cita" x="24" y="154">
 	
 	
 	 <mx:Script>
@@ -36,6 +36,7 @@
 			import services.MascotaService;
 			import transferObjects.Mascota;
 			import services.citaServices;
+			import services.configuracionServices;	
 			private var ct:citaServices = new citaServices();
 			
 			[Bindable]
@@ -55,6 +56,9 @@
 			[Bindable]
 			public var respon:String;
 			[Bindable] private var mascotas:ArrayCollection;
+			
+			[Bindable]
+            public var servicios:ArrayCollection = new ArrayCollection();
 			
 			
 			private var c1:Cita;
@@ -91,6 +95,30 @@
 				    
 			}
 			
+			/** 
+			 *  Obtiene los servicios desde el actionScript
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
+			public function cargarServicios():void
+			{
+				var confs:configuracionServices= new configuracionServices();
+				confs.getConfiguraciones("Servicio");
+				confs.addEventListener(ResultEvent.RESULT,cargarServiciosResult);
+			}
+			
+			/** 
+			 *  Asigna el retorno del llamado de cargarDatos a un
+			 *   arrayCollection para mostrar las configuraciones
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
+			public function cargarServiciosResult(event:ResultEvent):void
+			{
+				servicios = event.result as ArrayCollection;
+				//servicios.addItemAt({nombre:"Todos"},0);
+				//servicio.selectedIndex = 0;
+				
+			}
+			
 			/**
 			 * @author  "Raul Lopez"
 			 * @Fecha  28 Septiembre
@@ -103,7 +131,7 @@
 					
 					clienteAuxEditado.cliente  = rut.text;
 					clienteAuxEditado.mascota = listMascotas.text;
-					clienteAuxEditado.fecha =  fecha.text;
+					clienteAuxEditado.fecha =  fecha.selectedDate.getDate() + "/" + (fecha.selectedDate.getMonth()+1) + "/" +fecha.selectedDate.getFullYear();
 					clienteAuxEditado.hora       = hora.text;
 					clienteAuxEditado.servicio 	 	= servicio.text;
 					clienteAuxEditado.usuario  = iniciales();
@@ -179,21 +207,7 @@
             public var horas:ArrayCollection = new ArrayCollection(
             [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
             {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
-            {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]);
-            
-            [Bindable]
-            public var servicios:ArrayCollection = new ArrayCollection(
-            [{label:"Pabellón"}, 
-            {label:"Cirugía"},
-            {label:"Policlínico"},
-            {label:"Atención a domicilio"} ]);
-            
-            [Bindable]
-            public var perros:ArrayCollection = new ArrayCollection(
-            [{label:"Kato"}, 
-            {label:"Scoby"},
-            {label:"Chicho"},
-            {label:"Zuki"}]);            
+            {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]);    
           
 		    /**
 			 * @author  "Raul Lopez"
@@ -235,16 +249,7 @@
 			 * @Funcion que hace carga los servicios al combox
 			 *  
 			 */ 
-			private function selClaseServicio(event:Event):void {
-        		var clasesServicios:ArrayCollection = new ArrayCollection();
-        		
-        		clasesServicios.addItem({label:" "});
-        		clasesServicios.addItem({label:"Clínica"});
-        		clasesServicios.addItem({label:"Hotelería"});
-        		clasesServicios.addItem({label:"Peluquería"});
-
-        		servicio.dataProvider = clasesServicios;			
-			}
+			
 			
 	       [Bindable]
 		   private var usuarios:ArrayCollection;
@@ -263,7 +268,8 @@
 
 	        public function iniciar():void{
 			 	getAllUsuarios();
-			 	selServicios();
+			 	
+			 	cargarServicios();
 			 }
 			 
 			 /**
@@ -398,18 +404,7 @@
 	       }
 	       */
 	       
-	       private function selServicios():void {
-        		var servicios:ArrayCollection = new ArrayCollection();
-        		
-        		//servicios.addItem({label:" "});
-        		servicios.addItem({label:"Pabellón"});
-        		servicios.addItem({label:"Peluquería"});
-        		servicios.addItem({label:"Policlínico"});
-				servicios.addItem({label:"Atención a Domicilio"});
-        		
-
-        		servicio.dataProvider = servicios;			
-			}
+	      
 			
 		
 			public function cargarMascotas():void
@@ -442,18 +437,17 @@
 	<mx:Label x="10" y="68" id="labelRut" text="Rut Cliente    :" width="145"/>
 	<mx:Label x="10" y="154" text="Fecha           :" width="145"/>
 	<mx:Label x="10" y="256" text="Hora             :" width="145"/>
-	<mx:DateField x="163" y="152" width="115" id="fecha"/>
+	<mx:DateField x="163" y="152" width="115" id="fecha" formatString="DD/MM/YYYY"/>
 	<mx:Label x="10" y="301" text="Servicio         :" width="145"/>
 	<mx:Button x="590" y="347" label="Cancelar" width="112" click="{cancelarEditaCita()}"/>
 	<mx:Button x="425" y="347" label="Guardar " width="123" click="{clienteModificado()} "/>
 	<mx:Label x="10" y="205" text="Responsable :" width="145"/>
 	<mx:Label x="10" y="113" text="Mascotas      :" width="123"/>
-	<mx:ComboBox x="163" y="299" id="servicio"  width="160" close = " selServicios();">
-	</mx:ComboBox>
 	<mx:ComboBox id="responsable" x="163" y="203" dataProvider="{usuarios2}" change ="asignarResponsable(event)"></mx:ComboBox>
 	<mx:ComboBox id="hora" x="163" y="254" width="160" dataProvider="{horasLibres}"/>
 	<mx:ComboBox x="163" y="111" id="listMascotas" labelField="nombre" resize="false"  dataProvider="{mascotas}">
 	</mx:ComboBox>
+	<mx:TextInput x="163" y="299" width="140" id="servicio" enabled="true" maxChars="20" editable="false"/>
 	
 	
 </mx:Panel>
