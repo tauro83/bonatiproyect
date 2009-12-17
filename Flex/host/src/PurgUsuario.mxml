@@ -151,8 +151,8 @@
             private function volver():void
             {
             	Application.application.setInvisible();
-            	Application.application.agenda2.setVisible(true,false);
-            	Application.application.menuAgenda1.setVisible(true,false);
+            	Application.application.panel2.setVisible(true,false);
+            	Application.application.AdmOpciones1.setVisible(true,false);
             }
             
 		]]> 
