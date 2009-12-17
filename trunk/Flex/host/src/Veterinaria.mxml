@@ -36,15 +36,9 @@
 			public function setUsuario(u:Usuario):void
 			{
 				usuarioActual = u;
-				userX.text ="Bienvenido "+u.usuario; 
+				userX.text = u.usuario; 
 				
 			}			
-			
-			public function noUsuario():void
-			{
-				userX.text =""; 
-				
-			}	
 			
 			public function getUsuario():Usuario
 			{
@@ -297,6 +291,7 @@
 			regPostOp.setVisible(false, false);
 			regPostOp1.setVisible(false, false);
 			editarControl.setVisible(false, false);
+  			regPreoOp1.setVisible(false,false);
   			visualizaPre.setVisible(false,false);
 		 	<!--Autor: }Nicolas -->
 			
