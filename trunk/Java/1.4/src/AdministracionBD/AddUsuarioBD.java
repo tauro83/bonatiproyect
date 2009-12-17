@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import TransferObjects.Usuario;
 import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AddUsuarioBD {
 
