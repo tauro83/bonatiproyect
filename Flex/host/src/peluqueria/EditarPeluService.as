@@ -11,7 +11,7 @@ package peluqueria
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	import util.host;
+	
 	import transferObjects.Peluqueria;
 
 
@@ -21,7 +21,7 @@ package peluqueria
 		{
 			super();
 			var channel:ChannelSet=new ChannelSet();
-			var amfChannel:AMFChannel=new AMFChannel("my-amf",host.getUrl());
+			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="EditarPeluService";
@@ -41,6 +41,10 @@ package peluqueria
 			Alert.show("Error en EditarPeluService, Detalle: "+event.fault.message);
 		}
 		
+		public function getServiciosAnteriores(responsable:String, fecha:Date,hora:String):void
+		{
+			this.getOperation("getServiciosAnteriores").send(responsable,fecha,hora);
+		}
 		
 		/**
 		 	 * Metodo que envia a la capa 2, el usuario que fue editado, 

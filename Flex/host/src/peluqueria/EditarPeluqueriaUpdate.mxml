@@ -9,6 +9,7 @@
 			// Formulario y validacion de la edicion de un usuario en el sistema.
 			//=======================================================================
 			
+			
 			import transferObjects.CatPeluqueria;
         	import mx.events.CalendarLayoutChangeEvent;
         	import transferObjects.Vacunacion;
@@ -30,6 +31,7 @@
 		    import mx.core.Application;
 		    import transferObjects.Person;
 		    import transferObjects.Peluqueria;
+		    import peluqueria.EditarPeluService;
 		   
 			[Bindable]
 			public var clienteRut:String;
@@ -49,7 +51,7 @@
 		   	[Bindable]
 		   	public var fechaAntigua:Date = new Date();
 		   	[Bindable]
-		   	public var servicios:ArrayCollection = new ArrayCollection();
+		   	public var serviciosAnteriores:ArrayCollection = new ArrayCollection();
 		   
 		   /**
 		 	 * 	Metodo que realiza la accion de volver al panel anterior, dejando invisible este
@@ -239,6 +241,40 @@
 
 		    }
 		    
+		  
+		    
+		    /**
+			 * Funcion que llena la tabla de diagnosticos con los respectivos datos 
+			 **/
+			public function llenarTablaServiciosAnteriores(responsable:String,dat:Date,hora:String):void{
+				var editPeluService:EditarPeluService = new EditarPeluService();
+				editPeluService.addEventListener(ResultEvent.RESULT,getServiciosAnterioresResult);
+				editPeluService.getServiciosAnteriores(responsable, dat, hora);
+				Alert.show(responsable);
+				//Alert.show(dat);
+				Alert.show(hora);
+				
+				var res:String = responsable;
+				var fe:Date   = dat;
+				var ho:String = hora;
+				
+				
+			}
+			/**
+			 * Funcion que captura todos los diagnosticos del sistema 
+			 */ 
+			private function getServiciosAnterioresResult(event:ResultEvent):void{
+				
+				serviciosAnteriores = event.result as ArrayCollection;
+				
+				
+            	tablaServiciosAnteriores.dataProvider = serviciosAnteriores;
+            	
+            	Alert.show("llega");
+            	//listaCirugias = diagnosticos;
+            	//listaCirugias.removeItemAt(listaCirugias.length-1);
+			} 
+		    
 		    /**
 		 	 * 	Metodo que procesa el orden que se mostrara en la lista de vacunas,
 			 * tanto las agregadas, como las que se muestran para agregar.
@@ -343,7 +379,7 @@
 		    	this.Servicios1.doubleClickEnabled=true;
 		    	this.tiposServ1 = new Array();
 		    	this.veterinarios2 =new ArrayCollection();
-		    	servicios = new ArrayCollection();
+		    	serviciosAnteriores = new ArrayCollection();
 		    	this.serviciosAdds =new Array();
 		    	this.descripcionV.text="";
 		    	fechaAntigua = new Date();
@@ -352,27 +388,37 @@
 				
         ]]>
     </mx:Script>
-	<mx:Label x="120" y="175" text="Servicios:" width="63.4" height="18"/>
-	<mx:Label x="25" y="15" text="Responsable:" width="85.45"/>
+	<mx:Label x="117.2" y="211" text="Servicios:" width="63.4" height="18"/>
+	<mx:Label x="25" y="12" text="Responsable:" width="85.45"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:DateField x="540" y="0" width="122" id="fechahoy" formatString="DD/MM/YYYY" editable="false"/>
-	<mx:TextArea x="120" y="50" width="270" height="115" id="descripcionV" maxChars="200">
+	<mx:DateField x="118" y="38" width="122" id="fechahoy" formatString="DD/MM/YYYY" editable="false"/>
+	<mx:TextArea x="117.2" y="99" width="243" height="94" id="descripcionV" maxChars="200">
 	</mx:TextArea>
-	<mx:TextInput x="540" y="37" width="122" id="nombMasc" editable="false"/>
+	<mx:TextInput x="118" y="67" width="122" id="nombMasc" editable="false"/>
 	
-	<mx:List x="120" y="200" width="270" height="135" id="Servicios1" dataProvider="{tiposServ1}"></mx:List>
-	<mx:Button x="397.25" y="239" label="-&gt;" width="47.55" click="guardaPel()"/>
-	<mx:Button x="397.25" y="269" label="&lt;-" width="47.55" click="quitaServ()"/>
-	<mx:List x="450" y="200" width="284" height="135" id="serviciosList" dataProvider="{serviciosAdds}"></mx:List>
+	<mx:List x="117.2" y="237" width="243" height="108" id="Servicios1" dataProvider="{tiposServ1}"></mx:List>
+	<mx:Button x="368.2" y="249" label="-&gt;" width="47.55" click="guardaPel()"/>
+	<mx:Button x="368.2" y="279" label="&lt;-" width="47.55" click="quitaServ()"/>
+	<mx:List x="418.75" y="237" width="316.25" height="108" id="serviciosList" dataProvider="{serviciosAdds}"></mx:List>
 	
-	<mx:Button x="522" y="353" label="Guardar" visible="true" id="registrar" click="{registrarPeluqueria()}" width="102" height="23"/>
-	<mx:Button x="632" y="353" label="Cancelar" id="cancelar" visible="true" click="{vuelve()}" width="102" height="23"/>
-	<mx:Label x="450" y="37" text="Mascota:" width="63.95"/>
+	<mx:Button x="523" y="353" label="Guardar" visible="true" id="registrar" click="{registrarPeluqueria()}" width="102" height="23"/>
+	<mx:Button x="633" y="353" label="Cancelar" id="cancelar" visible="true" click="{vuelve()}" width="102" height="23"/>
+	<mx:Label x="25" y="69" text="Mascota:" width="63.95"/>
 	
-	<mx:Label x="25" y="50" text="Descripción:" width="86"/>
-	<mx:Label x="450" y="2" text="Fecha:" width="64.2"/>
-	<mx:Label x="450" y="175" text="Servicios agregados:" width="138" height="18"/>
-	<mx:TextInput x="118" y="13" id="veterinariosC" editable="false"/>
+	<mx:Label x="25" y="100" text="Descripción:" width="86"/>
+	<mx:Label x="25" y="40" text="Fecha:" width="64.2"/>
+	<mx:Label x="418.75" y="211" text="Servicios agregados:" width="138" height="18"/>
+	<mx:TextInput x="118" y="10" id="veterinariosC" editable="false"/>
+	<mx:Label x="418.75" y="12" text="Servicios registrados:" width="129"/>
+	
+	<mx:DataGrid x="418.75" y="37" width="316.25" height="156" id="tablaServiciosAnteriores" dataProvider="{serviciosAnteriores}">
+			<mx:columns>
+				<mx:DataGridColumn headerText="Fecha" dataField="fecha" width="80"/>
+				<mx:DataGridColumn headerText="Hora" dataField="hora" width="70"/>
+				<mx:DataGridColumn headerText="Servicio" dataField="servicio" width="80"/>
+				<mx:DataGridColumn headerText="Descripción" dataField="nombre"/>
+			</mx:columns>
+		</mx:DataGrid>
 	
 	
 	
