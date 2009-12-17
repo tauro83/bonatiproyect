@@ -371,7 +371,7 @@
 		<!-- OPCIONES PARA SUBIR IMAGEN -->
 	</mx:Canvas>
 	<mx:TextInput restrict="A-Z a-z -" x="96.75" y="99" width="209" id="nombreInput" maxChars="50" focusIn="analizar()"/>
-	<mx:DateField x="96.75" y="132" width="134" id="fechaNacimientoInput"/>
+	<mx:DateField x="96.75" y="132" width="134" id="fechaNacimientoInput" formatString="DD/MM/YYYY"/>
 	<mx:ComboBox x="96.75" labelField="nombre" y="166" width="209" id="claseAnimalInput" close="selRazas(event);" dataProvider="{especies}">
 	</mx:ComboBox>
 	<mx:ComboBox x="427.25" y="164" width="229" id="razaInput" dataProvider="{razas}" labelField="nombre">
