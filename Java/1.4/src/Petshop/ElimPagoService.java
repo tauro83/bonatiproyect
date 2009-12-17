@@ -57,7 +57,7 @@ public class ElimPagoService {
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			ElimPagoBD userDB= new ElimPagoBD(connection);
-			result= userDB.deletePagoBD(fecha, hora);
+			result= userDB.deletePagoBD(connection,fecha, hora);
 			connection.close();
 		} catch (SQLException e) 
 		{

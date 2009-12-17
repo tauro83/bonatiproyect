@@ -7,12 +7,14 @@
 package Petshop;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.text.SimpleDateFormat;
 import TransferObjects.Pago;
 /**
  * Clase en la que se declaran las consultas hacia la base de datos
@@ -41,19 +43,8 @@ public class ElimPagoBD {
 			selectAll = connection.prepareStatement(query);
 		
 			query = "SELECT pago.fecha, pago.hora, pago.total "+
-			"FROM pago where pago.estado='1';";
+			"FROM pago where pago.estado='2';";
 			selectAllE = connection.prepareStatement(query);
-			
-			query = "UPDATE pago "+
-			"SET estado = 1 " +
-			"WHERE fecha = ? AND hora = ?;";
-			deletePago= connection.prepareStatement(query);
-
-			query = "UPDATE pago "+
-			"SET estado = 2 " +
-			"WHERE fecha = ? AND hora = ?;";
-			deletePagoH= connection.prepareStatement(query);
-		
 		} 
 		catch (SQLException e) 
 		{
@@ -87,20 +78,41 @@ public class ElimPagoBD {
 	 * @param clave Nombre de usuario obtenido desde la capa de interfáz con el usuario
 	 * @return 1 si se ha eliminado correctamente, -1 o 0 la eliminación ha fallado
 	 */
-    public int deletePagoBD(String fecha, String hora)
+    public int deletePagoBD(Connection connection, String fecha, String hora)
     {
     	int result=0;
-    	try 
-    	{
-    		deletePago.setString(1, fecha);
-    		deletePago.setString(2, hora);
+    	try{
+    		String year = "";
+        	String month = "";
+        	String day = "";
+        	
+        	String hrs = "";
+        	String min = "";
+        	String sec = "";
+        	
+        	day = fecha.substring(0,2);
+    		month = fecha.substring(3,5);
+    		year = fecha.substring(6,10);
+    		
+    		hrs = hora.substring(0,2);
+    		min = hora.substring(3,5);
+    		sec = hora.substring(6,8);
+    		
+    		System.out.println(hrs+":"+min+":"+sec);
+    		
+    		String query="";	
+    		query = "UPDATE pago "+
+    		"SET estado='2' "+
+    		"WHERE pago.fecha= '"+year+"-"+month+"-"+day+"' AND pago.hora='"+hrs+":"+min+":"+sec+"';";
+    		deletePago= connection.prepareStatement(query);
     		deletePago.executeQuery();
 			result= deletePago.executeUpdate();
-		} 
+		}
     	catch (SQLException e) 
-    	{
+		{
 			e.printStackTrace();
 		}
+		
     	return result;
     }
     
@@ -147,9 +159,55 @@ public class ElimPagoBD {
     		while(result.next())
     		{
     			person= new Pago();
-   
-    			person.fecha = result.getString(1);
-    			person.hora = result.getString(2);
+    			Date fecha;
+				
+/****************************/
+    			fecha = result.getDate(1);
+				String fechas;
+				int diaN, mesN, anoN;
+				diaN = fecha.getDate();
+				mesN = fecha.getMonth()+1;
+				anoN = fecha.getYear()+1900;
+				
+				if(diaN<10){
+					if(mesN<10){
+						fechas = "0"+diaN+"-0"+mesN+"-"+anoN;
+					}
+					else{
+						fechas = "0"+diaN+"-"+mesN+"-"+anoN;
+					}
+					
+				}
+				else{
+					if(mesN<10){
+						fechas = ""+diaN+"-0"+mesN+"-"+anoN;
+					}
+					else{
+						fechas = ""+diaN+"-"+mesN+"-"+anoN;
+					}
+				}
+				
+/****************************/    			
+    			person.fecha = fechas;
+    			Time t = result.getTime(2);
+    			String hora;
+    			String min = t.getMinutes()+"";
+    			String sec = t.getSeconds()+"";
+    			String hrs = t.getHours()+"";
+    			
+    			if(t.getMinutes()<10){
+    				min = "0"+t.getMinutes();
+    			}
+    			if(t.getHours()<10){
+    				hrs = "0"+t.getHours();
+    			}
+    			if(t.getSeconds()<10){
+    				sec = "0"+t.getSeconds();
+    			}
+    			
+    			hora = hrs+":"+min+":"+sec;
+        		
+    			person.hora = hora;
     			person.total = result.getInt(3);
     			persons.add(person);
     		}
