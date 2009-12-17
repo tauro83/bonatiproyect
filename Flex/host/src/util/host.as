@@ -2,7 +2,7 @@ package util
 {
 	public class host
 	{
-		
+		 
 	
 		public static function getUrl():String
 		{
