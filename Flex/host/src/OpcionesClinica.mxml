@@ -12,6 +12,7 @@
 				Application.application.addCirug.visible = true;	
 			}
 			public function verRegistrarPreOperatorio():void{
+				Application.application.setInvisible();
 				Application.application.panelClinicaPrincipal.visible=false;
 				this.visible = true;
 				Application.application.regPreoOp1.visible = true;	
