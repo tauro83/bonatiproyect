@@ -150,18 +150,18 @@
 	<mx:Label x="10" y="100" text="Nombre Mascota:" width="145"/>
 	<mx:Label x="10" y="146" text="Fecha         :" width="145"/>
 	<mx:Label x="10" y="196" text="Hora          :" width="145"/>
-	<mx:DateField id="fecha" x="163" y="144" width="115" formatString="DD/MM/YYYY" editable="false"/>
-	<mx:ComboBox id="hora" x="163" y="194"   width="160" editable="false">
+	<mx:DateField id="fecha" x="163" y="144" width="115" formatString="DD/MM/YYYY" editable="false" enabled="false"/>
+	<mx:ComboBox id="hora" x="163" y="194"   width="160" editable="false" enabled="false">
 	
 	</mx:ComboBox>
 	<mx:Label  x="10" y="243" text="Servicio         :" width="145"/>
-	<mx:ComboBox x="163" y="241" id="servicio" width="160" editable="false"></mx:ComboBox>
+	<mx:ComboBox x="163" y="241" id="servicio" width="160" editable="false" enabled="false"></mx:ComboBox>
 	
 	
 	<mx:Button x="601" y="312" label="Cancelar" width="112" click="{cancelarRegistroCita()}"/>
 	<mx:Button x="470" y="312" label="Guardar " width="123" click="registrarCita()"/>
 	<mx:Label id="encargado" x="10" y="303" text="Responsable :" width="145"/>
-	<mx:ComboBox x="163" y="301" id="usuarioNombre" width="160" labelField="nombre" activate="false"></mx:ComboBox>
+	<mx:ComboBox x="163" y="301" id="usuarioNombre" width="160" labelField="nombre" activate="false" enabled="false"></mx:ComboBox>
 	<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	<mx:ComboBox x="163" y="98" id="listMascotas" labelField="nombre" resize="false"  dataProvider="{mascotas}">
 	</mx:ComboBox>
