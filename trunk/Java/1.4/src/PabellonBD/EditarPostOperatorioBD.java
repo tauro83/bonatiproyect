@@ -26,9 +26,9 @@ public class EditarPostOperatorioBD {
 	public EditarPostOperatorioBD(Connection connection) throws SQLException{
 		this.connection = connection;
 		 query = "UPDATE atencionpostoperatorio "+
-		   "SET medicamentos=?, alimentos=?, indicaciones=?, servicio=?, hora=?, "+ 
-		       "fecha=?, costo=?, nombremascota=?, rut=?, apellido=?, nombrecliente=? "+
-		 "WHERE hora=? AND fecha=? AND servicio=?;";
+		   "SET indicaciones=?, hora=?, fecha=?, costo=?, " +
+		   "nombremascota=? "+
+		 "WHERE hora=? AND fecha=? AND servicio=Pabellon;";
 
 			 update = connection.prepareStatement(query);
 	}
@@ -38,24 +38,16 @@ public class EditarPostOperatorioBD {
 	 * Por facilidad de implementacion esta funcion toma una lista con los elementos a actualizar
 	 * en la base de datos y los rellena en la sentencia sql para luego ejecutarla
 	 */
-	public int editarPostOperatorio(List lista){
+	public int editarPostOperatorio(String fecha, String hora,PostOperatorio p){
 		int result=0;
 		try{
-			update.setString(1, (String) lista.get(0));
-			update.setString(2, (String) lista.get(1));
-			update.setString(3, (String) lista.get(2));
-			update.setString(4, (String) lista.get(3));
-			update.setString(5, (String) lista.get(4));
-			update.setDate(6, new java.sql.Date(((Date) lista.get(5)).getTime()));
-			update.setString(7, (String) lista.get(6));
-			update.setString(8, (String) lista.get(7));
-			update.setString(9, (String) lista.get(8));
-			update.setString(10,(String)  lista.get(9));
-			update.setString(11, (String) lista.get(10));
-			
-			update.setString(12, (String) lista.get(4));
-			update.setDate(13,new java.sql.Date(((Date) lista.get(5)).getTime()));
-			update.setString(14, (String) lista.get(3));
+			update.setString(1, p.indicaciones);
+			update.setString(2, p.shora);
+			update.setString(3, p.stfecha);
+			update.setString(4, p.costo);
+			update.setString(5, p.nombreMascota);
+			update.setString(7, hora);
+			update.setString(8, fecha);
 			result  = update.executeUpdate();
 			connection.close();
 		}
