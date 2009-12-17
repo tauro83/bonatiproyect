@@ -18,6 +18,7 @@ import TransferObjects.Usuario;
 public class LoginBD {
 	
 	PreparedStatement selectAllUsuarios;
+	PreparedStatement selectUsuario;
 	
 	/**
 	 *  Se declaran las consultas hacia la base de datos
@@ -30,9 +31,14 @@ public class LoginBD {
 		{
 			String query="";
 			
-			query = "SELECT usuario, contrasena " +
+			query = "SELECT usuario, contrasena, estado " +
 					"FROM usuario;";
 			selectAllUsuarios = connection.prepareStatement(query);
+			
+			query = "SELECT pregistrar, peditar, peliminar, ppurgar "+
+					"FROM usuario "+
+					"WHERE usuario = ? AND contrasena = ? ;";
+			selectUsuario = connection.prepareStatement(query);
 		}
 		catch (SQLException e) 
 		{
@@ -60,12 +66,14 @@ public class LoginBD {
 	    		usuario = new Usuario();
 	    		usuario.setContrasena(result.getString(2));
 	    		usuario.setUsuario(result.getString(1));
+	    		usuario.setEstado(result.getBoolean(3));
 	    	
+	    		boolean estado = usuario.getEstado();	
 	    		String name = usuario.getUsuario();
 	    		String pass = usuario.getContrasena();
 	    		pass = pass.trim();
 	    		name = name.trim();
-	    		if(pass.equals(passLogin) && name.equals(nameLogin)){
+	    		if(pass.equals(passLogin) && name.equals(nameLogin) && estado==true){
 	    			return 1;
 	    		}
 	    	}
@@ -76,5 +84,4 @@ public class LoginBD {
 		}
 	    return 0;
 	 }
-
 }
