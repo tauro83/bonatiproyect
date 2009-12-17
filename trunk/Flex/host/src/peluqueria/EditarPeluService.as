@@ -11,7 +11,7 @@ package peluqueria
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	
+	import util.host;
 	import transferObjects.Peluqueria;
 
 
@@ -21,7 +21,7 @@ package peluqueria
 		{
 			super();
 			var channel:ChannelSet=new ChannelSet();
-			var amfChannel:AMFChannel=new AMFChannel("my-amf","http://localhost:8080/BonatiServer/messagebroker/amf");
+			var amfChannel:AMFChannel=new AMFChannel("my-amf",host.getUrl());
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
 			this.destination="EditarPeluService";
