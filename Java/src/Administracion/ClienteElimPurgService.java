@@ -14,7 +14,7 @@ public class ClienteElimPurgService {
 
 	
 
-		public int eliminarCliente(String rut)
+		public int eliminarCliente(String rut, String usuario)
 		{
 			int result=0;
 			try 
@@ -23,7 +23,7 @@ public class ClienteElimPurgService {
 			Connection connection=DBConnectionManager.getConnection();
 			ClienteElimPurgServiceBD clienteElimPurgServiceBD= new ClienteElimPurgServiceBD(connection);
 			
-			result= clienteElimPurgServiceBD.eliminarCliente(rut);
+			result= clienteElimPurgServiceBD.eliminarCliente(rut, usuario);
 			
 			connection.close();
 		
@@ -37,7 +37,7 @@ public class ClienteElimPurgService {
 			
 		}
 		
-		public int purgarCliente(String rut)
+		public int purgarCliente(String rut, String usuario)
 		{
 			int result=0;
 			try 
@@ -46,7 +46,7 @@ public class ClienteElimPurgService {
 			Connection connection=DBConnectionManager.getConnection();
 			ClienteElimPurgServiceBD clienteElimPurgServiceBD= new ClienteElimPurgServiceBD(connection);
 			
-			result= clienteElimPurgServiceBD.pugarCliente(rut);
+			result= clienteElimPurgServiceBD.pugarCliente(rut, usuario);
 			
 			connection.close();
 		

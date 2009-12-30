@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import TransferObjects.Cliente;
@@ -44,12 +47,16 @@ public class ClienteElimPurgServiceBD {
 				selectEliminados = connection.prepareStatement(query);
 				
 				query = "DELETE FROM clientepresencial " +
-				"WHERE rut = ?;";
+				"WHERE rut = ?; "+
+				 "INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
+					"VALUES (?, ?, ?, ?);";
 				purgar = connection.prepareStatement(query);
 				
 				query = "UPDATE clientepresencial "+
 				   "SET estado='FALSE'" +
-				   "Where rut =?;";
+				   "Where rut =?; "+
+				   "INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
+					"VALUES (?, ?, ?, ?);";
 				eliminar= connection.prepareStatement(query);
 				
 				query = "UPDATE clientepresencial "+
@@ -64,20 +71,48 @@ public class ClienteElimPurgServiceBD {
 		}
 		
 		
-	    public int eliminarCliente( String rut) throws SQLException
+	    public int eliminarCliente(String rut, String usuario) throws SQLException
 	    {
 	    	int result=0;
 	    	eliminar.setString(1, rut);
+	    	
+	    	Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR)-1900;
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			Date date = new Date(year,month, day);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fecha = formatter.format(date);
+    		
+			eliminar.setString(2, fecha);
+			eliminar.setString(3, usuario);
+			eliminar.setString(4, "Administración");
+			eliminar.setString(5, "Elimina cliente rut: "+rut);
+	    	
 			eliminar.executeQuery();
 			result= eliminar.executeUpdate();
 	    	
 			return result;
 	    	
 	    }
-	    public int pugarCliente( String rut) throws SQLException
+	    public int pugarCliente( String rut, String usuario) throws SQLException
 	    {
 	    	int result=0;
 	    	purgar.setString(1, rut);
+	    	
+	    	Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR)-1900;
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			Date date = new Date(year,month, day);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fecha = formatter.format(date);
+    		
+			purgar.setString(2, fecha);
+			purgar.setString(3, usuario);
+			purgar.setString(4, "Administración");
+			purgar.setString(5, "Purga cliente rut: "+rut);
+	    	
 			purgar.executeQuery();
 			result= purgar.executeUpdate();
 	    	

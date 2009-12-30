@@ -69,7 +69,7 @@ public class UsuarioEditBD
 	 * @param person contiene los datos de la persona que se quiere ingresar
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
-    public int insertUsuarioE(Usuario person)
+    public int insertUsuarioE(Usuario person, String usuario)
     {
     	int result=0;
     	try 
@@ -95,7 +95,7 @@ public class UsuarioEditBD
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 			String fecha = formatter.format(date);
 			insert.setString(13, fecha);
-			insert.setString(14, "usuario");
+			insert.setString(14, usuario);
 			insert.setString(15, "Administración");
 			insert.setString(16, "Edita el usuario: "+person.usuario+" nombre: "+person.nombre +" apellido paterno: "+ person.apellidoPaterno);			
 			result= insert.executeUpdate();

@@ -32,7 +32,7 @@ public class UsuarioElimService
 	 * @return Resultado de la operación, si es > 0 se realizó con éxito, no se realizó
 	   la operación en caso contrario
 	 */
-	public int deleteUser(String clave)
+	public int deleteUser(String clave, String usuario)
     {
 		//System.out.println("Clave: "+clave);
 		int result=0;
@@ -43,7 +43,7 @@ public class UsuarioElimService
 			
 			//System.out.println("Clave: "+clave+" entra al try");
 			
-			result= userDB.deleteUser(clave);
+			result= userDB.deleteUser(clave, usuario);
 			
 			//System.out.println("Clave: "+clave+" despues de la consulta");
 			
@@ -62,14 +62,14 @@ public class UsuarioElimService
 	 * una tupla en la base de datos
 	 * @return retorna el estado de la conexion
 	 */
-	public int hideUser(String clave)
+	public int hideUser(String clave, String usuario)
     {
 		int result=0;
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			UsuarioElimBD userDB= new UsuarioElimBD(connection);
-			result= userDB.hideUser(clave);
+			result= userDB.hideUser(clave, usuario);
 			connection.close();
 		} catch (SQLException e) 
 		{

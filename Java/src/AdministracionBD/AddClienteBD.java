@@ -38,7 +38,7 @@ public class AddClienteBD {
 	 * Registra el Cliente en la BD, con sus respectivos datos.
 	 * @param c transferobject Cliente
 	 */
-	public String addCliente(Cliente c) throws SQLException
+	public String addCliente(Cliente c, String usuario) throws SQLException
 	{
 		String result = null;
 		PreparedStatement insert;
@@ -80,7 +80,7 @@ public class AddClienteBD {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		String fecha = formatter.format(date);
 		insert.setString(12, fecha);
-		insert.setString(13, "usuario");
+		insert.setString(13, usuario);
 		insert.setString(14, "Administración");
 		insert.setString(15, "Registra cliente: "+c.nombre+" "+c.apellido+" "+c.apellido2);
 		//insert.setString(14,c.rut2);

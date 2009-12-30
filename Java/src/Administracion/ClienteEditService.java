@@ -12,7 +12,7 @@ import Bd.DBConnectionManager;
 
 public class ClienteEditService {
 	
-	public int insertClienteE(Cliente person, String rutillo)
+	public int insertClienteE(Cliente person, String rutillo, String usuario)
     {
 		int result=0;
 		
@@ -20,7 +20,7 @@ public class ClienteEditService {
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			ClienteEditDB personDB= new ClienteEditDB(connection);
-			result= personDB.insertClienteE(person, rutillo);		
+			result= personDB.insertClienteE(person, rutillo, usuario);		
 			connection.close();
 		} catch (SQLException e) 
 		{

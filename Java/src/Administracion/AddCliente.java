@@ -22,10 +22,10 @@ import Bd.DBConnectionManager;
  */
 public class AddCliente {
 	
-	public static String addCliente(Cliente c) throws SQLException{
+	public static String addCliente(Cliente c, String usuario) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		AddClienteBD acbd = new AddClienteBD(connection);		
-		return acbd.addCliente(c);
+		return acbd.addCliente(c, usuario);
 	}
 
 }
