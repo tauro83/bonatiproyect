@@ -146,7 +146,7 @@
 				
 					var personService:UsuarioEditService=new UsuarioEditService();
 					personService.addEventListener(ResultEvent.RESULT,insertUsuarioEResult);
-					personService.insertUsuarioE(person);
+					personService.insertUsuarioE(person,Application.application.login2.usuarioActivo);
 				}
 				
 			}

@@ -93,7 +93,7 @@
 									u1.usuario			= usua.text;						
 												
 									
-									ru.regUsuario(u1);				
+									ru.regUsuario(u1,Application.application.login2.usuarioActivo);				
 									ru.addEventListener(ResultEvent.RESULT,registroUsuarioResultado);	
 								}
 								else{

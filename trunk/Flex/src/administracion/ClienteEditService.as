@@ -7,8 +7,10 @@ package administracion
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	import util.host;
+	
 	import transferObjects.Cliente;
+	
+	import util.host;
 
 	public class ClienteEditService extends RemoteObject
 	{
@@ -50,9 +52,9 @@ package administracion
 			 * para almacenarlo en la base de datos. Llamando al metodo correspondiente.
 			 * 	@Param Recibe como parametro un objeto de la clase Cliente, para enviarlo a la capa2. 		
 			 * */
-		public function insertClienteE(person:Cliente, rutete:String):void
+		public function insertClienteE(person:Cliente, rutete:String, usuario:String):void
 		{
-			this.getOperation("insertClienteE").send(person,rutete);
+			this.getOperation("insertClienteE").send(person,rutete, usuario);
 		}
 		
 		/**

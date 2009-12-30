@@ -53,7 +53,7 @@
 			{
 				var clientePurgadoService:ClientePurgadoService=new ClientePurgadoService();
 				clientePurgadoService.addEventListener(ResultEvent.RESULT,ClientePurgadoResult);
-				clientePurgadoService.purgarCliente(rut);
+				clientePurgadoService.purgarCliente(rut, Application.application.login2.usuarioActivo);
 			}
 			
 			private function ReactivarCliente(rut:String):void

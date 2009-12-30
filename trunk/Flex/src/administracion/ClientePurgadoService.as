@@ -12,6 +12,7 @@ package administracion
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
+	
 	import util.host;
 	
 	public class ClientePurgadoService extends RemoteObject
@@ -38,9 +39,9 @@ package administracion
 		}
 		
 
-		public function purgarCliente(rut:String):void
+		public function purgarCliente(rut:String, usuario:String):void
 		{
-			this.getOperation("purgarCliente").send(rut);
+			this.getOperation("purgarCliente").send(rut, usuario);
 		}
 		
 		public function reactivarCliente(rut:String):void
