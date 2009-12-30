@@ -27,14 +27,14 @@ public class UsuarioEditService
 	 * @param Usuario contiene los datos de la persona que se quiere editar.
 	 * @return 1 si ha insertado correctamente, -1 o 0 si la inserción ha fallado
 	 */
-	public int insertUsuarioE(Usuario person)
+	public int insertUsuarioE(Usuario person, String usuario)
     {
 		int result=0;
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			UsuarioEditBD personDB= new UsuarioEditBD(connection);
-			result= personDB.insertUsuarioE(person);		
+			result= personDB.insertUsuarioE(person, usuario);		
 			connection.close();
 		} catch (SQLException e) 
 		{

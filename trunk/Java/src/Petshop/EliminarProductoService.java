@@ -21,7 +21,7 @@ public class EliminarProductoService {
 		Connection connection=DBConnectionManager.getConnection();
 		ClienteElimPurgServiceBD clienteElimPurgServiceBD= new ClienteElimPurgServiceBD(connection);
 		
-		result= clienteElimPurgServiceBD.eliminarCliente(codigo);
+		//result= clienteElimPurgServiceBD.eliminarCliente(codigo);
 		
 		connection.close();
 	
@@ -44,7 +44,7 @@ public class EliminarProductoService {
 		Connection connection=DBConnectionManager.getConnection();
 		ClienteElimPurgServiceBD clienteElimPurgServiceBD= new ClienteElimPurgServiceBD(connection);
 		
-		result= clienteElimPurgServiceBD.pugarCliente(rut);
+		//result= clienteElimPurgServiceBD.pugarCliente(rut);
 		
 		connection.close();
 	

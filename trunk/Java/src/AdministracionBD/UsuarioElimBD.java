@@ -80,7 +80,7 @@ public class UsuarioElimBD
 	 * @param clave Nombre de usuario obtenido desde la capa de interfáz con el usuario
 	 * @return 1 si se ha eliminado correctamente, -1 o 0 la eliminación ha fallado
 	 */
-    public int deleteUser(String clave)
+    public int deleteUser(String clave, String usuario)
     {
     	int result=0;
     	try 
@@ -95,7 +95,7 @@ public class UsuarioElimBD
 			String fecha = formatter.format(date);
     		
     		deleteUsuario.setString(2, fecha);
-    		deleteUsuario.setString(3, "usuario");
+    		deleteUsuario.setString(3, usuario);
     		deleteUsuario.setString(4, "Administración");
     		deleteUsuario.setString(5, "Purga el usuario: "+clave);
 			
@@ -153,7 +153,7 @@ public class UsuarioElimBD
 	 * una tupla en la base de datos
 	 * @return retorna el estado de la conexion
 	 */
-    public int hideUser(String clave)
+    public int hideUser(String clave, String usuario)
     {
     	int result=0;
     	try 
@@ -169,7 +169,7 @@ public class UsuarioElimBD
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 			String fecha = formatter.format(date);
     		eliminar.setString(2, fecha);
-    		eliminar.setString(3, "usuario");
+    		eliminar.setString(3, usuario);
     		eliminar.setString(4, "Administración");
     		eliminar.setString(5, "Elimina el usuario: "+clave);
 			

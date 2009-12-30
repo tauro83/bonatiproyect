@@ -31,7 +31,7 @@ public class AddUsuarioBD {
 	 * Registra el usuario en la BD
 	 * @param u transferobject usuario
 	 */
-	public String addUsuario(Usuario u) throws SQLException
+	public String addUsuario(Usuario u, String usuario) throws SQLException
 	{
 		String result = null;
 		PreparedStatement insert;
@@ -62,7 +62,7 @@ public class AddUsuarioBD {
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		String fecha = formatter.format(date);
 		insert.setString(12, fecha);
-		insert.setString(13, "usuario");
+		insert.setString(13, usuario);
 		insert.setString(14, "Administración");
 		insert.setString(15, "Registra el usuario: "+u.usuario+" nombre: "+u.nombre +" apellido paterno: "+ u.apellidoPaterno);
 

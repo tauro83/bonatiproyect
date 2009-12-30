@@ -18,9 +18,9 @@ public class AddUsuario {
 	 * @return Este metodo retorna un string, que indica si el usuario fue registrado
 	 * Correctamente a la BD.
 	 */
-	public static String addUsuario(Usuario u) throws SQLException{
+	public static String addUsuario(Usuario u, String usuario) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		AddUsuarioBD aubd = new AddUsuarioBD(connection);		
-		return aubd.addUsuario(u);
+		return aubd.addUsuario(u, usuario);
 	}
 }
