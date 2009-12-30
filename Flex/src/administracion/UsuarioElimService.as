@@ -12,7 +12,7 @@ package administracion
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	import transferObjects.UsuarioElim;
+	
 	import util.host;
 	/**
 	 * Clase encargada de realizar la conexión entre la capa
@@ -42,9 +42,9 @@ package administracion
 		/**
 		 * @param clave String que se le entrega a la acapa lógica para eliminar un usuario
 		 */ 
-		public function deleteUser(clave:String):void
+		public function deleteUser(clave:String, usuario:String):void
 		{
-			this.getOperation("deleteUser").send(clave);
+			this.getOperation("deleteUser").send(clave, usuario);
 			
 		}
 		/**
@@ -53,9 +53,9 @@ package administracion
 		 * para que el usuario sea purgado
 		 * 
 		 */		
-		public function hideUser(clave:String):void
+		public function hideUser(clave:String, usuario:String):void
 		{
-			this.getOperation("hideUser").send(clave);
+			this.getOperation("hideUser").send(clave, usuario);
 		}
 		
 		/**

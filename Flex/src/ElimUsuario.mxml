@@ -77,7 +77,7 @@
 			{
 				var usuarioElimService:UsuarioElimService=new UsuarioElimService();
 				usuarioElimService.addEventListener(ResultEvent.RESULT,deleteUsuarioResult);
-				usuarioElimService.hideUser(clave);
+				usuarioElimService.hideUser(clave, Application.application.login2.usuarioActivo);
 			}
 			/**
 			 * 

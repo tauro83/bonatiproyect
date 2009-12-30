@@ -12,6 +12,7 @@ package administracion
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
+	
 	import util.host;
 	
 	public class ClienteEliminadoService extends RemoteObject
@@ -38,9 +39,9 @@ package administracion
 		}
 		
 
-		public function eliminarCliente(rut:String):void
+		public function eliminarCliente(rut:String, usuario:String):void
 		{
-			this.getOperation("eliminarCliente").send(rut);
+			this.getOperation("eliminarCliente").send(rut, usuario);
 		}
 		
 		/**

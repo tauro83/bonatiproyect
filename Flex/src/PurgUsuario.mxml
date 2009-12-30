@@ -83,7 +83,7 @@
 			{
 				var usuarioElimService:UsuarioElimService=new UsuarioElimService();
 				usuarioElimService.addEventListener(ResultEvent.RESULT,deleteUsuarioResult);
-				usuarioElimService.deleteUser(clave);
+				usuarioElimService.deleteUser(clave, Application.application.login2.usuarioActivo);
 			}
 			/**
 			 * 

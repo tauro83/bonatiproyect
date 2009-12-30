@@ -8,12 +8,12 @@
 
 package services
 {
-	import mx.controls.Alert;
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
-	import mx.rpc.events.FaultEvent;
-	import mx.rpc.remoting.mxml.RemoteObject;	
+	import mx.rpc.remoting.mxml.RemoteObject;
+	
 	import transferObjects.Usuario;
+	
 	import util.host;
 	
 	/** 
@@ -46,9 +46,9 @@ package services
 		 * @param user es una instancia del transferObject Usuario, instanciado en la capa logica.
 		 * @param addUsuario es el metodo de la clase Administracion de la capa logica.
 		 * */
-		public function regUsuario(user:Usuario):void
+		public function regUsuario(user:Usuario,usuario:String):void
 		{
-			this.getOperation("addUsuario").send(user);
+			this.getOperation("addUsuario").send(user,usuario);
 		}
 		
 	}

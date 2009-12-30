@@ -148,7 +148,7 @@
 			{
 				var clienteEliminadoService:ClienteEliminadoService=new ClienteEliminadoService();
 				clienteEliminadoService.addEventListener(ResultEvent.RESULT,ClienteEliminadoResult);
-				clienteEliminadoService.eliminarCliente(rut);
+				clienteEliminadoService.eliminarCliente(rut, Application.application.login2.usuarioActivo);
 			}
 			  
 			

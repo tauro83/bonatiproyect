@@ -147,7 +147,7 @@
 			{
 			  var auxiliar:ClienteEditService = new ClienteEditService();
 			  auxiliar.addEventListener(ResultEvent.RESULT,carga1Result);
-			  auxiliar.insertClienteE(clienteAuxEditado,rutete);
+			  auxiliar.insertClienteE(clienteAuxEditado,rutete, Application.application.login2.usuarioActivo);
 			  resetVars();
 			  //mensaje.text = "Sus cambios se realziaron con éxito";
 			  

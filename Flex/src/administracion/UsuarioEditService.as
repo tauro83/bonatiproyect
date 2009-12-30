@@ -12,8 +12,10 @@ package administracion
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	import util.host;	
+	
 	import transferObjects.Usuario;
+	
+	import util.host;
 
 	public class UsuarioEditService extends RemoteObject
 	{
@@ -53,9 +55,9 @@ package administracion
 			 * @author  "Jimmy Muñoz"
 			 * 	@Param Recibe como parametro un objeto de la clase Usuario, para enviarlo a la capa2. 		
 			 * */
-		public function insertUsuarioE(person:Usuario):void
+		public function insertUsuarioE(person:Usuario, usuario:String):void
 		{
-			this.getOperation("insertUsuarioE").send(person);
+			this.getOperation("insertUsuarioE").send(person, usuario);
 		}
 		
 		/**

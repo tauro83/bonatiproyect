@@ -8,13 +8,13 @@
 
 package services
 {
-	import mx.controls.Alert;
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
-	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	import util.host;
+	
 	import transferObjects.Cliente;
+	
+	import util.host;
 	
 	
 	/** 
@@ -48,9 +48,9 @@ package services
 		* @author  "Nicolas Delgado"
 		*
 		*/	 		
-		public function regCliente(user:Cliente):void{
+		public function regCliente(user:Cliente, usuario:String):void{
 			
-		    this.getOperation("AddCliente").send(user);
+		    this.getOperation("AddCliente").send(user, usuario);
 		
 		}
 		
