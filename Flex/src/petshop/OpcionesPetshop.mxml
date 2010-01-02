@@ -70,25 +70,22 @@
 			     Application.application.setInvisible();
 			     this.visible = true;
 			     Application.application.eliminarPulgarProducto.visible = true;
-			     Application.application.eliminarPulgarProducto.currentState = '';
-			       
-			
+			     Application.application.eliminarPulgarProducto.currentState = '';  
 			}
-			
 		]]>
 	</mx:Script>
 	
 	<mx:Accordion styleName="Accordion3" x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Pago" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
-			<mx:LinkButton x="10" y="10" label="Registrar" click="verRegistrarPago()"/>
-			<mx:LinkButton x="10" y="40" label="Editar"  click="verEditarPago()"/>
-			<mx:LinkButton x="10" y="70" label="Anular" click="{verAnuPago()}"/>
+			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="10" label="Registrar" click="verRegistrarPago()" id="bRegPago"/>
+			<mx:LinkButton x="10" y="40" label="Editar"  click="verEditarPago()" id="bEditPag"/>
+			<mx:LinkButton x="10" y="70" label="Anular" click="verAnuPago()" id="bAnuPag"/>
 		</mx:Canvas>
 		<mx:Canvas label="Producto" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
-			<mx:LinkButton x="10" y="10" label="Registrar" click="regProducto()"/>
-			<mx:LinkButton x="10" y="40" label="Editar" click="ediProducto()"/>
-			<mx:LinkButton x="10" y="100" label="Purgar" click="anularProducto()"/>
-			<mx:LinkButton x="10" y="70" label="Eliminar" click="{anulaRestauraProducto()}"/>
+			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="10" label="Registrar" click="regProducto()" id="bRegProdu"/>
+			<mx:LinkButton x="10" y="40" label="Editar" click="ediProducto()" id="bEditPro"/>
+			<mx:LinkButton x="10" y="100" label="Purgar" click="anularProducto()" id="bPurgProd"/>
+			<mx:LinkButton x="10" y="70" label="Eliminar" click="{anulaRestauraProducto()}" id="bEliProd"/>
 		</mx:Canvas>
 	    </mx:Accordion>
 		

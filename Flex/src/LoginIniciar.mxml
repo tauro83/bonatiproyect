@@ -49,10 +49,410 @@
 			{
 				var result:Usuario = event.result as Usuario ;
 				Application.application.setUsuario(result);
-				
-			
 			}
 			
+			//PERMISOS ================================>
+			public function permisos():void
+			{
+				var usuario:Usuario = new Usuario();
+				usuario.contrasena=pass.text;
+				usuario.usuario=nombre.text;
+				
+				//clinica
+				var loginServiceRPreO:LoginService = new LoginService();
+				loginServiceRPreO.addEventListener(ResultEvent.RESULT,permisoRegistrarRPreO);
+				loginServiceRPreO.consultarPermisos(usuario);
+				var loginServiceRCir:LoginService = new LoginService();
+				loginServiceRCir.addEventListener(ResultEvent.RESULT,permisoRegistrarRCir);
+				loginServiceRCir.consultarPermisos(usuario);
+				var loginServiceRPosO:LoginService = new LoginService();
+				loginServiceRPosO.addEventListener(ResultEvent.RESULT,permisoRegistrarRPosO);
+				loginServiceRPosO.consultarPermisos(usuario);
+				var loginServiceRVac:LoginService = new LoginService();
+				loginServiceRVac.addEventListener(ResultEvent.RESULT,permisoRegistrarRVacu);
+				loginServiceRVac.consultarPermisos(usuario);
+				var loginServiceRCons:LoginService = new LoginService();
+				loginServiceRCons.addEventListener(ResultEvent.RESULT,permisoRegistrarRCons);
+				loginServiceRCons.consultarPermisos(usuario);
+				var loginServiceRCont:LoginService = new LoginService();
+				loginServiceRCont.addEventListener(ResultEvent.RESULT,permisoRegistrarRCont);
+				loginServiceRCont.consultarPermisos(usuario);
+				//petshop			
+				var loginServicePro:LoginService = new LoginService();
+				loginServicePro.addEventListener(ResultEvent.RESULT,permisoRPro);
+				loginServicePro.consultarPermisos(usuario);
+				var loginServicePag:LoginService = new LoginService();
+				loginServicePag.addEventListener(ResultEvent.RESULT,permisoRPag);
+				loginServicePag.consultarPermisos(usuario);
+				//hoteleria
+				var loginServiceHot:LoginService = new LoginService();
+				loginServiceHot.addEventListener(ResultEvent.RESULT,permisoRHot);
+				loginServiceHot.consultarPermisos(usuario);
+				//peluqueria
+				var loginServiceAtePel:LoginService = new LoginService();
+				loginServiceAtePel.addEventListener(ResultEvent.RESULT,permisoRAtePel);
+				loginServiceAtePel.consultarPermisos(usuario);
+				var loginServiceCatPel:LoginService = new LoginService();
+				loginServiceCatPel.addEventListener(ResultEvent.RESULT,permisoRCatPel);
+				loginServiceCatPel.consultarPermisos(usuario);
+				var loginServiceWebAvi:LoginService = new LoginService();
+				loginServiceWebAvi.addEventListener(ResultEvent.RESULT,permisoRWebAvi);
+				loginServiceWebAvi.consultarPermisos(usuario);
+				//administracion
+				var loginServiceMas:LoginService = new LoginService();
+				loginServiceMas.addEventListener(ResultEvent.RESULT,permisoRMas);
+				loginServiceMas.consultarPermisos(usuario);
+				var loginServiceCli:LoginService = new LoginService();
+				loginServiceCli.addEventListener(ResultEvent.RESULT,permisoRCli);
+				loginServiceCli.consultarPermisos(usuario);
+				var loginServiceUsu:LoginService = new LoginService();
+				loginServiceUsu.addEventListener(ResultEvent.RESULT,permisoRUsu);
+				loginServiceUsu.consultarPermisos(usuario);
+				var loginServiceCon:LoginService = new LoginService();
+				loginServiceCon.addEventListener(ResultEvent.RESULT,permisoRCon);
+				loginServiceCon.consultarPermisos(usuario);
+			}
+			//permiso -opciones preoperatorio
+			public function permisoRegistrarRPreO(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.opcionesClinica1.PreOlink.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.PreOlink.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.opcionesClinica1.bEditPreO.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.bEditPreO.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.opcionesClinica1.bEliPreO.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.bEliPreO.enabled=false;
+				}
+			}
+			//permiso -opciones cirugia
+			public function permisoRegistrarRCir(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.opcionesClinica1.cirugiaLink.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.cirugiaLink.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.opcionesClinica1.cirugiaLink0.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.cirugiaLink0.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.opcionesClinica1.cirugiaLink1.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.cirugiaLink1.enabled=false;
+				}
+			}
+			//permiso -opciones posoperatorio
+			public function permisoRegistrarRPosO(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.opcionesClinica1.PostOLink.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.PostOLink.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.opcionesClinica1.editarPostO.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.editarPostO.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.opcionesClinica1.anulPost.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.anulPost.enabled=false;
+				}
+			}
+			//permiso -opciones vacunacion
+			public function permisoRegistrarRVacu(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.opcionesClinica1.linkRegVac.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.linkRegVac.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.opcionesClinica1.anularVacunacion.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.anularVacunacion.enabled=false;
+				}
+			}
+			//permiso -opciones consulta
+			public function permisoRegistrarRCons(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.opcionesClinica1.bRegCon.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.bRegCon.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.opcionesClinica1.botEditCon.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.botEditCon.enabled=false;
+				}
+			}
+			//permiso -opciones control
+			public function permisoRegistrarRCont(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.opcionesClinica1.bRegControl.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.bRegControl.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.opcionesClinica1.bEditContr.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.bEditContr.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.opcionesClinica1.bAnuControl.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.bAnuControl.enabled=false;
+				}
+			}
+			//permiso -opciones pago
+			public function permisoRPag(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.opcionesPetshop.bRegPago.enabled=true;
+				}else{
+					Application.application.opcionesPetshop.bRegPago.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.opcionesPetshop.bEditPag.enabled=true;
+				}else{
+					Application.application.opcionesPetshop.bEditPag.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.opcionesPetshop.bAnuPag.enabled=true;
+				}else{
+					Application.application.opcionesPetshop.bAnuPag.enabled=false;
+				}
+			}
+			//permiso -opciones producto
+			public function permisoRPro(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.opcionesPetshop.bRegProdu.enabled=true;
+				}else{
+					Application.application.opcionesPetshop.bRegProdu.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.opcionesPetshop.bEditPro.enabled=true;
+				}else{
+					Application.application.opcionesPetshop.bEditPro.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.opcionesPetshop.bEliProd.enabled=true;
+				}else{
+					Application.application.opcionesPetshop.bEliProd.enabled=false;
+				}
+				if(result.permisoPurgar==true){
+					Application.application.opcionesPetshop.bPurgProd.enabled=true;
+				}else{
+					Application.application.opcionesPetshop.bPurgProd.enabled=false;
+				}
+			}
+			//permiso -opciones hoteleria
+			public function permisoRHot(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.hotelOpciones.bRegHot.enabled=true;
+				}else{
+					Application.application.hotelOpciones.bRegHot.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.hotelOpciones.bEditHot.enabled=true;
+				}else{
+					Application.application.hotelOpciones.bEditHot.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.hotelOpciones.bEliHot.enabled=true;
+				}else{
+					Application.application.hotelOpciones.bEliHot.enabled=false;
+				}
+			}
+			//permiso -opciones ate. peluqueria
+			public function permisoRAtePel(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.panelPeluqueria.linkRegPel.enabled=true;
+				}else{
+					Application.application.panelPeluqueria.linkRegPel.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.panelPeluqueria.editRegPel.enabled=true;
+				}else{
+					Application.application.panelPeluqueria.editRegPel.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.panelPeluqueria.bAnuAtePel.enabled=true;
+				}else{
+					Application.application.panelPeluqueria.bAnuAtePel.enabled=false;
+				}
+				if(result.permisoPurgar==true){
+					Application.application.panelPeluqueria.bActAtePel.enabled=true;
+					Application.application.panelPeluqueria.bDesAtePel.enabled=true;
+				}else{
+					Application.application.panelPeluqueria.bActAtePel.enabled=false;
+					Application.application.panelPeluqueria.bDesAtePel.enabled=false;
+				}
+			}
+			//permiso -opciones cat. peluqueria
+			public function permisoRCatPel(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.panelPeluqueria.regCatalogo.enabled=true;
+				}else{
+					Application.application.panelPeluqueria.regCatalogo.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.panelPeluqueria.ediCatalogo.enabled=true;
+				}else{
+					Application.application.panelPeluqueria.ediCatalogo.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.panelPeluqueria.bAnuCatPel.enabled=true;
+				}else{
+					Application.application.panelPeluqueria.bAnuCatPel.enabled=false;
+				}
+			}
+			//permiso -opciones webaviso
+			public function permisoRWebAvi(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.panelPeluqueria.regAvisoWeb.enabled=true;
+				}else{
+					Application.application.panelPeluqueria.regAvisoWeb.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.panelPeluqueria.regCatalogo0.enabled=true;
+				}else{
+					Application.application.panelPeluqueria.regCatalogo0.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.panelPeluqueria.anularWA.enabled=true;
+				}else{
+					Application.application.panelPeluqueria.anularWA.enabled=false;
+				}
+				if(result.permisoPurgar==true){
+					Application.application.panelPeluqueria.eliminarweb.enabled=true;
+					Application.application.panelPeluqueria.activar.enabled=true;
+				}else{
+					Application.application.panelPeluqueria.eliminarweb.enabled=false;
+					Application.application.panelPeluqueria.activar.enabled=false;
+				}
+			}
+			//permiso -opciones adm. cliente
+			public function permisoRCli(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.AdmOpciones1.bRegCli.enabled=true;
+				}else{
+					Application.application.AdmOpciones1.bRegCli.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.AdmOpciones1.edCliente.enabled=true;
+				}else{
+					Application.application.AdmOpciones1.edCliente.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.AdmOpciones1.linkEliminarClnte.enabled=true;
+				}else{
+					Application.application.AdmOpciones1.linkEliminarClnte.enabled=false;
+				}
+				if(result.permisoPurgar==true){
+					Application.application.AdmOpciones1.linkPurgarClnte.enabled=true;
+				}else{
+					Application.application.AdmOpciones1.linkPurgarClnte.enabled=false;
+				}
+			}
+			//permiso -opciones adm. mascota
+			public function permisoRMas(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.AdmOpciones1.bRegMas.enabled=true;
+				}else{
+					Application.application.AdmOpciones1.bRegMas.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.AdmOpciones1.linkEditarMascota.enabled=true;
+				}else{
+					Application.application.AdmOpciones1.linkEditarMascota.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.AdmOpciones1.bEliMas.enabled=true;
+				}else{
+					Application.application.AdmOpciones1.bEliMas.enabled=false;
+				}
+				if(result.permisoPurgar==true){
+					Application.application.AdmOpciones1.bPurMas.enabled=true;
+				}else{
+					Application.application.AdmOpciones1.bPurMas.enabled=false;
+				}
+			}
+			//permiso -opciones adm. usuario
+			public function permisoRUsu(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoRegistrar==true){
+					Application.application.AdmOpciones1.bRegUsu.enabled=true;
+				}else{
+					Application.application.AdmOpciones1.bRegUsu.enabled=false;
+				}
+				if(result.permisoEditar==true){
+					Application.application.AdmOpciones1.linkEditarUsAd.enabled=true;
+				}else{
+					Application.application.AdmOpciones1.linkEditarUsAd.enabled=false;
+				}
+				if(result.permisoEliminar==true){
+					Application.application.AdmOpciones1.linkEliminarUsAd.enabled=true;
+				}else{
+					Application.application.AdmOpciones1.linkEliminarUsAd.enabled=false;
+				}
+				if(result.permisoPurgar==true){
+					Application.application.AdmOpciones1.linkPurgarUsAd.enabled=true;
+				}else{
+					Application.application.AdmOpciones1.linkPurgarUsAd.enabled=false;
+				}
+			}
+			//permiso -opciones adm. configuracion
+			public function permisoRCon(event:ResultEvent):void
+			{
+				var result:Usuario = event.result as Usuario ;
+				if(result.permisoEditar==true){
+					Application.application.AdmOpciones1.bConMas.enabled=true;
+					Application.application.AdmOpciones1.bConSer.enabled=true;
+					Application.application.AdmOpciones1.bConUsu.enabled=true;
+					Application.application.AdmOpciones1.bConVac.enabled=true;
+				}else{
+					Application.application.AdmOpciones1.bConMas.enabled=false;
+					Application.application.AdmOpciones1.bConSer.enabled=false;
+					Application.application.AdmOpciones1.bConUsu.enabled=false;
+					Application.application.AdmOpciones1.bConVac.enabled=false;
+				}
+			}
+			// PERMISOS ================================< 
 			/**
 			 *  Una vez consulado en la base de datos por el usuario
 			 *  ingresado, tomando el valor de retorno, si este es 1 accede al 
@@ -62,7 +462,7 @@
 			private function existLoginResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
-				
+				permisos();
 				if(result==1)
 				{
             		Application.application.setInvisible();
@@ -78,10 +478,7 @@
             		Application.application.botonAyuda.enabled=true;
             		Application.application.botonLogin.enabled=true;
             		Application.application.botonLogin.label="Cerrar Sesión";
-            		
-            		usuarioActivo = nombre.text;
-            		
-            	
+            		usuarioActivo = nombre.text;       	
 				}
 				else
 				{
@@ -92,11 +489,11 @@
  		]]>
  	</mx:Script>	
 	
-	<mx:Button x="647" y="302" label="Iniciar" id="AceptarUsuario" width="102" height="23" click="existLogin()" cornerRadius="6"/> 
-	<mx:Image x="-6" y="0" source="../images/gato.jpg" width="455" height="426" alpha="1.0"/>
+	<mx:Image x="-6" y="0" source="../gato.jpg" width="455" height="426" alpha="1.0"/>
 	<mx:Text x="407" y="164" text="Ingrese su contraseña&#xa;" fontWeight="bold" fontSize="12"/>
 	<mx:TextArea x="482" y="130" height="19" width="196" id="nombre" fontStyle="normal"/>
 	<mx:TextArea x="482" y="192" height="19" width="196" displayAsPassword="true" id="pass"/>
+	<mx:Button x="647" y="302" label="Iniciar" id="AceptarUsuario" width="102" height="23" click="existLogin()" cornerRadius="6"/> 
 	<mx:Text x="407" y="102" text="Ingrese su nombre&#xa;" fontWeight="bold" fontSize="12"/>
 	<mx:Label x="457" y="22" text="Bienvenido" fontWeight="bold" fontSize="30"/>
 </mx:Panel>

@@ -4,6 +4,7 @@
 	<mx:Script>
 		<![CDATA[
 			import mx.core.Application;
+			import mx.controls.Alert;
 
 			public function verRegistrarCirugia():void{
 				Application.application.setInvisible();
@@ -151,18 +152,20 @@
 		<mx:Canvas label="Pabellón" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 			<mx:Accordion styleName="Accordion2" width="219" height="362"  y="0" x="-1">
 				<mx:Canvas label="      Pre-Operatorio" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
-					<mx:LinkButton x="25" y="10" label="Registrar" width="100%" textAlign="left" id="PreOlink" click="verRegistrarPreOperatorio()"/>
-					
-					<mx:LinkButton x="25" y="40" label="Purgar" click="verPurgarPreoperatorio()"/>
+					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="25" y="10" label="Registrar" width="100%" textAlign="left" id="PreOlink" click="verRegistrarPreOperatorio()"/>
+
+					<mx:LinkButton x="25" y="40" label="Editar" id="bEditPreO"/>
+					<mx:LinkButton x="25" y="70" label="Anular" click="verPurgarPreoperatorio()" id="bEliPreO"/>
+
 				</mx:Canvas>
 				<mx:Canvas label="      Cirugía" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
-					<mx:LinkButton x="21" y="10" label="Registrar" width="100%" textAlign="left" id="cirugiaLink" click="verRegistrarCirugia()"/>
+					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="21" y="10" label="Registrar" width="100%" textAlign="left" id="cirugiaLink" click="verRegistrarCirugia()"/>
 					<mx:LinkButton x="21" y="40" label="Editar" width="100%" textAlign="left" id="cirugiaLink0" click="verEditarCirugia()"/>
 					<mx:LinkButton x="21" y="70" label="Anular" width="100%" textAlign="left" id="cirugiaLink1" click="anularCirugia()"/>
 					<!--<mx:LinkButton x="50" y="70" label="Eliminar" width="100%" textAlign="left" id="cirugiaLink2" click="eliminarCirugia()"/>-->
 				</mx:Canvas>
 				<mx:Canvas label="      Post-Operatorio" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
-					<mx:LinkButton x="25" y="10" label="Registrar" width="100%" textAlign="left" id="PostOLink" click="verRegistrarPostOperatorio()"/>
+					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="25" y="10" label="Registrar" width="100%" textAlign="left" id="PostOLink" click="verRegistrarPostOperatorio()"/>
 					<mx:LinkButton x="25" y="40" label="Editar" width="100%" textAlign="left" id="editarPostO" click="verEditarPostOperatorio()"/>
 					<mx:LinkButton x="25" y="70" label="Anular" width="100%" textAlign="left" id="anulPost" click="verAnulPostOperatorio()"/>
 				
@@ -172,18 +175,18 @@
 		<mx:Canvas label="Policlínico" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 			<mx:Accordion styleName="Accordion2" x="0" y="0" width="100%" height="100%">
 				<mx:Canvas label="      Vacunación" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
-					<mx:LinkButton x="28" y="10" label="Registrar" id="linkRegVac" textAlign="left" click="verRegistrarVac()"/>
+					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="28" y="10" label="Registrar" id="linkRegVac" textAlign="left" click="verRegistrarVac()"/>
 					<mx:LinkButton x="28" y="40" label="Anular" id="anularVacunacion" click="anularVacunaciones()"/>
 					<!--<mx:LinkButton x="50" y="130" label="Eliminar Vacunación" id="eliminarVacunacion0" click="eliminarVacunaciones()"/>-->
 				</mx:Canvas>
 				<mx:Canvas label="      Consulta" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
-					<mx:LinkButton x="24" y="10" label="Registrar" textAlign="left" click="verRegistrarConsulta()"/>
-					<mx:LinkButton x="24" y="40" label="Editar" textAlign="left" click="verEditarConsulta()"/>
+					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="24" y="10" label="Registrar" textAlign="left" click="verRegistrarConsulta()" id="bRegCon"/>
+					<mx:LinkButton x="24" y="40" label="Editar" textAlign="left" click="verEditarConsulta()" id="botEditCon"/>
 				</mx:Canvas>
 				<mx:Canvas label="      Control"  width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
-					<mx:LinkButton x="24" y="10" label="Registrar" textAlign="left" click="verRegistrarControl()"/>
-					<mx:LinkButton x="24" y="40" label="Editar" textAlign="left" click="verEditarControl()"/>
-					<mx:LinkButton x="24" y="70" label="Anular" textAlign="left" click="verAnularControl()"/>
+					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="24" y="10" label="Registrar" textAlign="left" click="verRegistrarControl()" id="bRegControl"/>
+					<mx:LinkButton x="24" y="40" label="Editar" textAlign="left" click="verEditarControl()" id="bEditContr"/>
+					<mx:LinkButton x="24" y="70" label="Anular" textAlign="left" click="verAnularControl()" id="bAnuControl"/>
 				</mx:Canvas>
 			</mx:Accordion>
 		</mx:Canvas>
