@@ -126,4 +126,28 @@ public class LoginBD {
     	
     	return u;
 	}
+	
+	public Usuario consultarPermisos(Usuario login){
+		Usuario usuario = new Usuario();
+		try 
+	    {
+		    ResultSet user; 
+		    String nameLogin=login.getUsuario();
+		    String passLogin=login.getContrasena();
+	    	selectUsuario.setString(1, nameLogin);
+	    	selectUsuario.setString(2, passLogin);
+	    	user = selectUsuario.executeQuery();
+			while(user.next()){
+				usuario.setPermisoRegistrar(user.getBoolean(1));
+				usuario.setPermisoEditar(user.getBoolean(2));
+				usuario.setPermisoEliminar(user.getBoolean(3));
+				usuario.setPermisoPurgar(user.getBoolean(4));
+			}
+		} 
+	    catch (SQLException e) 
+	    {
+			e.printStackTrace();
+		}
+	    return usuario;
+	 }
 }

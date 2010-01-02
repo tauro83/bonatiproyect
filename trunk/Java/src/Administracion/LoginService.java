@@ -54,4 +54,21 @@ public class LoginService
 			return log.getUsuario(nombre, contra);
 	}
 	
+	public Usuario consultarPermisos(Usuario login){
+		Usuario usuario = new Usuario();
+		
+    	try
+    	{
+    		Connection connection=DBConnectionManager.getConnection();
+			LoginBD loginBD= new LoginBD(connection);
+			usuario = loginBD.consultarPermisos(login);
+			connection.close();
+    	}
+    	catch (SQLException e)
+    	{
+    		e.printStackTrace();
+    	}
+    	return usuario;
+	}
+	
 }
