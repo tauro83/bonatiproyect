@@ -28,9 +28,9 @@
 	
 	<mx:Accordion styleName="Accordion3" x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Hotelería" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
-			<mx:LinkButton x="10" y="10" label="Registrar" click="verRegistrarHotel()" />
-			<mx:LinkButton x="10" y="40" label="Editar" click="verEditarHotel()"/>
-			<mx:LinkButton x="10" y="70" label="Retirar" click="verEliminarHotel()"/>
+			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="10" label="Registrar" click="verRegistrarHotel()"  id="bRegHot"/>
+			<mx:LinkButton x="10" y="40" label="Editar" click="verEditarHotel()" id="bEditHot"/>
+			<mx:LinkButton x="10" y="70" label="Retirar" click="verEliminarHotel()" id="bEliHot"/>
 		</mx:Canvas>
 	</mx:Accordion>
 		
