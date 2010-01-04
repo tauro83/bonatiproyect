@@ -137,7 +137,7 @@
 							//cl.comuna=SeleccionComunas();
 							cl.comuna=comunas.selectedLabel;				
 		
-							w.regCliente(cl);
+							w.regCliente(cl,Application.application.login2.usuarioActivo);
 							w.addEventListener(ResultEvent.RESULT,registroClienteResultado);
 				    	}
 				    	
@@ -171,7 +171,7 @@
 						cl.comuna=comunas.selectedLabel;
 										
 	
-						w.regCliente(cl);
+						w.regCliente(cl,Application.application.login2.usuarioActivo);
 						w.addEventListener(ResultEvent.RESULT,registroClienteResultado);
 				    }
 				   
