@@ -107,10 +107,18 @@
 					ce="1";
 				}
 				
-				if(vNombre==true && vApellido==true && c=="TRUE" && te=="1" && ce=="1"){
+				if(vNombre==true){
+				
+				    if(vApellido==true){
+				    
+				     if(c=="TRUE"){
+				     if(te=="1"){ 
+
+				     if(ce=="1"){
 				
 				    if(email.text!=""){
-				    	if(h==true && email.text==email2.text ){
+				    	if(h==true){
+				    	if(email.text==email2.text ){
 				    		cl=new Cliente();
 							cl.nombre = nombre.text;
 							cl.apellido = apellido.text;
@@ -129,13 +137,18 @@
 							//cl.comuna=SeleccionComunas();
 							cl.comuna=comunas.selectedLabel;				
 		
-							w.regCliente(cl, Application.application.login2.usuarioActivo);
+							w.regCliente(cl);
 							w.addEventListener(ResultEvent.RESULT,registroClienteResultado);
 				    	}
 				    	
 				    	else{
 				    		labelMessage.text = Properties.getMensaje("Error", "26");
-							
+				    	}
+				    	
+				    	}
+				    	else{
+				    		
+							labelMessage.text = Properties.getMensaje("Error", "28");
 						}
 				    }
 								
@@ -158,16 +171,35 @@
 						cl.comuna=comunas.selectedLabel;
 										
 	
-						w.regCliente(cl, Application.application.login2.usuarioActivo);
+						w.regCliente(cl);
 						w.addEventListener(ResultEvent.RESULT,registroClienteResultado);
 				    }
 				   
-					
+				    }
+				    
+				    else{
+				    	labelMessage.text = Properties.getMensaje("Error", "25");
+				    }
+				    
+				    }
+				    
+				    else{
+				    	labelMessage.text = Properties.getMensaje("Error", "24");
+				    }
+				    
+				    }
+				    else{
+				    	
+				    labelMessage.text = Properties.getMensaje("Advertencia", "21");
+				    }
 				}
-				
+				else{
+					labelMessage.text = Properties.getMensaje("Advertencia", "6");
+				}
+				}
 				else
 				{
-					if(te=="2" || ce=="2"){
+					/*if(te=="2" || ce=="2"){
 						if(te=="2"){
 							labelMessage.text = Properties.getMensaje("Error", "24");
 					     }   
@@ -176,12 +208,9 @@
 							labelMessage.text = Properties.getMensaje("Error", "25");
 
 						}
-					}
+					}*/
 					
-					
-					else{
-						labelMessage.text = Properties.getMensaje("Error", "7");
-					}
+						labelMessage.text = Properties.getMensaje("Advertencia", "4");
 					
 				}					
 						
