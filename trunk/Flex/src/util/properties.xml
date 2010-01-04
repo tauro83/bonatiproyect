@@ -27,8 +27,9 @@
 				<mensaje key="23">No se puede eliminar la vacuna, otros registros la utilizan</mensaje>
 				<mensaje key="24">Telefono incorrecto</mensaje>	
 				<mensaje key="25">Celular incorrecto</mensaje>	
-				<mensaje key="26">Corregir confirmación e-mail</mensaje>	
-				<mensaje key="27">El Rut ya se encuentra registrado</mensaje>					
+				<mensaje key="26">Corregir confirmaci&#243;n e-mail</mensaje>	
+				<mensaje key="27">El Rut ya se encuentra registrado</mensaje>
+				<mensaje key="28">Corregir e-mail</mensaje>		
 			</mensajes>
 		</tipoMensaje>	
 		<tipoMensaje name="Advertencia">
