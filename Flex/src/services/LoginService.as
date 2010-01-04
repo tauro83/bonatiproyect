@@ -44,7 +44,7 @@ package services
 		private function faultHandler(event:FaultEvent):void
 		{
 			Alert.show("Error en LoginService, Detalle: "+event.fault.message);
-		}
+		} 
 		
 		/**
 		 *  Obtiene los usuarios existentes en la base de datos, 
@@ -57,7 +57,11 @@ package services
 	 	{
 	 		this.getOperation("getUsuario").send(usuario,contrasena);
 	 	} 
-	 	 
+	 	
+	 	public function consultarPermisos(login:Usuario):void
+		{
+			this.getOperation("consultarPermisos").send(login);
+		} 
 	 	 
 		public function existLogin(login:Usuario):void
 		{
