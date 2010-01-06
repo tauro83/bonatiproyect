@@ -30,6 +30,7 @@
 				<mensaje key="26">Corregir confirmaci&#243;n e-mail</mensaje>	
 				<mensaje key="27">El Rut ya se encuentra registrado</mensaje>
 				<mensaje key="28">Corregir e-mail</mensaje>		
+				<mensaje key="29">Error al anular Control</mensaje>	
 			</mensajes>
 		</tipoMensaje>	
 		<tipoMensaje name="Advertencia">
@@ -137,7 +138,7 @@
 				<mensaje key="39">Cliente no se encuentra registrado</mensaje>				
 				<mensaje key="40">Se ha registrado vacunación exitosamente</mensaje>				
 				<mensaje key="41">Se ha registrado una Cirugía exitosamente</mensaje>
-				
+				<mensaje key="42">Se ha anulado el Control exitosamente</mensaje>
 				
 				
 			</mensajes>

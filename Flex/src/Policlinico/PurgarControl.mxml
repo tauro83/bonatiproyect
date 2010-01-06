@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" activate="getAllDatos()" layout="absolute" 
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" show="getAllDatos()" activate="getAllDatos()" layout="absolute" 
 	width="779" height="466" borderColor="#15AD8F" title="Anular Control Agendado" x="241" y="133" 
 	xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
@@ -21,19 +21,18 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.core.Application;
 			import mx.formatters.DateFormatter;
-			
+			import util.Properties;
 			[Bindable]
 			private var controles:ArrayCollection;
 			[Bindable]
-			private var atrib:String;
+			private var atrib:String="";
 			
 			/**
 			 * Obtiene los datos de las atenciones que están 
 			 * registradas en la base de datos
 			 * 
 			 */
-			private function getAllDatos():void
-			{
+			private function getAllDatos():void{
 				var getAll:GetAllControles = new GetAllControles();
 				getAll.addEventListener(ResultEvent.RESULT,getAllDatosResult);
 				getAll.getAllControles();
@@ -55,6 +54,7 @@
 					var control:Control = lista.getItemAt(i) as Control;
 					controles.addItem(control);
 				}
+				atrib='mascota';
 			}
 			/**
 			 * Es llamada al hacer doble click en el datagrid o al presionar el 
@@ -69,7 +69,7 @@
 					deleteControl.deleteControl(control.hora, control.fecha, control.responsable);
 				}
 				else{
-					mens.text="Debe primero seleccionar un elemento";
+					mens.text=Properties.getMensaje("Advertencia", "14");
 				}
 				
 			}
@@ -84,11 +84,11 @@
 				var result:int = event.result as int ;
 				if(result!=0)
 				{
-				   mens.text="Control anulado!";
+				   mens.text=Properties.getMensaje("Informacion", "42");
 				   getAllDatos();
 				}
 				else
-				   mens.text="Error al anular el control, inténtelo más tarde";
+				   mens.text=Properties.getMensaje("Error", "29");
 			}
 			/**
 			 * Al cancelar la operación se muestra un panel que solo tiene el 
@@ -132,7 +132,8 @@
 			{
 			    if(input.selectedIndex==0)
 			    {
-			    	input.text=input.selectedLabel;
+			    	//input.text=input.selectedLabel;
+			    	input.text= "";
 			    }
 			}
 			/**
@@ -160,10 +161,7 @@
 						atrib='responsable';
 						break;
 				}
-				
 			}
-
-			
 		]]>
 	</mx:Script>
 	
@@ -172,7 +170,6 @@
 	
 	<mx:ComboBox x="379" y="10" width="169" id="comboBox" change="setAtrib()" >
 		<mx:ArrayCollection>
-			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Nombre Mascota"/> 
 			<mx:Object label="Descripción"/>
 			<mx:Object label="Fecha Control"/> 

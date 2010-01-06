@@ -13,6 +13,7 @@
 			import administracion.DeleteMascota;
 			import mx.core.Application;
 			import mx.events.CloseEvent;
+			import util.Properties;
 			// ocupen la variable que quieran, no necesariamente estas.
             public var texto:String;
             [Bindable]
@@ -38,11 +39,11 @@
 			}
 			private function purgarMascota():void{
    				if(tablaMascotas.selectedItem!=null){
-   					Alert.show("¿Está seguro que desea purgar la mascota definitivamente del sistema? ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+   					Alert.show(Properties.getMensaje("Pregunta", "5"),"Confirme acción", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
    					
    				}
    				else{
-   					mens.text="Debe primero seleccionar un elemento","Información";
+   					mens.text=Properties.getMensaje("Advertencia", "14");
    				}
    				 
    			}
@@ -50,11 +51,11 @@
 				var result:int = event.result as int ;
 				if(result!=0)
 				{
-				   mens.text="Mascota Purgada!";
+				   mens.text=Properties.getMensaje("Informacion", "13")
 				   getAllMascotas();
 				}
 				else
-				   mens.text="Error en Purgar Mascota, inténtelo más tarde";
+				   mens.text=Properties.getMensaje("Error", "10");
 			}
 			private function restoreMascota():void{
    				if(tablaMascotas.selectedItem!=null){
@@ -65,7 +66,7 @@
 					mascotaService.deleteMascota(m.rutCliente,m.nombre,true,Application.application.login2.usuarioActivo);
    				}
    				else{
-   					mens.text="Debe primero seleccionar un elemento","Información";
+   					mens.text=Properties.getMensaje("Advertencia", "14");
    				}
    				 
    			}
@@ -73,11 +74,11 @@
 				var result:int = event.result as int ;
 				if(result!=0)
 				{
-				   mens.text="Mascota Restaurada!";
+				   mens.text = Properties.getMensaje("Informacion", "15");
 				   getAllMascotas();
 				}
 				else
-				   mens.text="Error en Restaurar Mascota, inténtelo más tarde";
+				   mens.text = Properties.getMensaje("Error", "12");
 			}
 			public function getAllMascotas():void{
 				var mascotaService:GetAllMascotas=new GetAllMascotas();
