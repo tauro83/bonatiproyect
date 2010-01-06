@@ -56,6 +56,7 @@
 				Application.application.setInvisible();
 				this.visible=true;
 				Application.application.visualizaPre.visible = true;	
+				Application.application.visualizaPre.limpiarTodo();	
 			}
 			private function verAnulPostOperatorio ():void{
             	Application.application.setInvisible();
