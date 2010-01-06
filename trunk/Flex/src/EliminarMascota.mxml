@@ -18,6 +18,7 @@
 			import administracion.DeleteMascota;
 			import administracion.GetAllMascotas;
 			import mx.core.Application;
+			import util.Properties;
 			// ocupen la variable que quieran, no necesariamente estas.
             public var texto:String;
             [Bindable]
@@ -42,19 +43,19 @@
 					mascotaService.deleteMascota(m.rutCliente,m.nombre, false, Application.application.login2.usuarioActivo);
    				}
    				else{
-   					mens.text="Debe primero seleccionar un elemento";
+   					mens.text = Properties.getMensaje("Advertencia", "14");
    				}
    				 
    			}
 			private function deleteMascotaResult(event:ResultEvent):void{
 				var result:int = event.result as int ;
-				if(result!=0)
-				{
-				   mens.text="Mascota Eliminada!";
+				if(result!=0){
+				   mens.text = Properties.getMensaje("Informacion", "13");
 				   getAllMascotas();
 				}
-				else
-				   mens.text="Error en Eliminar Mascota, inténtelo más tarde";
+				else{
+				   mens.text = Properties.getMensaje("Error", "10");
+				}
 			}
 			public function getAllMascotas():void{
 				var mascotaService:GetAllMascotas=new GetAllMascotas();
