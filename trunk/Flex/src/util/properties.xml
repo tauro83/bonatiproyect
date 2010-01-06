@@ -80,7 +80,9 @@
 				<mensaje key="43">Ingrese un diagnostico para la cirugía</mensaje>				
 				<mensaje key="44">Seleccione una cirugía de la lista Cirugías realizadas</mensaje>				
 				<mensaje key="45">Seleccione una cirugía de la tabla Cirugías</mensaje>			
-				
+				<mensaje key="46">Ingrese la fecha de la consulta</mensaje>	
+				<mensaje key="47">Ingrese el responsable de la consulta</mensaje>
+				<mensaje key="48">Ingrese la anamnesis de la consulta</mensaje>	
 				
 			</mensajes>
 		</tipoMensaje>
