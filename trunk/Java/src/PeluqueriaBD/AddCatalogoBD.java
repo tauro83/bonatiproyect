@@ -48,11 +48,11 @@ public class AddCatalogoBD{
 		String result = null;
 		try 
     	{
-			insert.setString(1, person.servicio);
-			insert.setString(2, person.nombre);
+			insert.setString(1, person.servicio.trim());
+			insert.setString(2, person.nombre.trim());
 			int aux = Integer.parseInt(person.precio);
 			insert.setInt(3, aux);
-			insert.setString(4, person.descripcion);
+			insert.setString(4, person.descripcion.trim());
 			result=""+insert.executeUpdate();
 		} 
     	catch (SQLException e) 

@@ -72,13 +72,13 @@ public class GetCatalogosBD {
 	public void editCatalogoBD(CatPeluqueria c) throws SQLException
 	{
 		PreparedStatement insert;
-		String query="";	
-		query = "UPDATE catpeluqueria SET precio=?, descripcion=? WHERE nombre='"+ c.nombre.trim()+"' and servicio='"+c.servicio.trim()+"';";
+		String query="";
+		query = "UPDATE catpeluqueria  SET precio=?, descripcion=? WHERE nombre='"+ c.nombre.trim()+"' and servicio='"+c.servicio.trim()+"';";
 
-		String pre = c.precio.trim().replace("$", "");
+		String pre = c.precio.replace("$", "");
 		pre = pre.replace(".", "");
 		insert = connection.prepareStatement(query);
-		insert.setInt(1, Integer.parseInt(pre));
+		insert.setInt(1, Integer.parseInt(pre.trim()));
 		insert.setString(2, c.descripcion.trim());	
 		
 		try 
