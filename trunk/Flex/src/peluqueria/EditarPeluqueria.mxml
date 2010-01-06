@@ -555,11 +555,11 @@
 							editPel.veterinariosC.text = sConcat;
 						}
 					}
-					var dat:Date = Tabla.selectedItem.fecha;
-					
-					editPel.fechaAntigua = dat;
+					var dat:Date   = Tabla.selectedItem.fecha;
+					var hor:String = Tabla.selectedItem.hora;
+					editPel.fechaAntigua= dat;
 					editPel.hora = Tabla.selectedItem.hora;
-					editPel.llenarTablaServiciosAnteriores(s,dat,Tabla.selectedItem.hora);
+					editPel.llenarTablaServiciosAnteriores(s,dat,hor);
 					//Alert.show("hora: "+editPel.hora+".");
 					this.visible = false;
      		  		editPel.setVisible(true,false);
