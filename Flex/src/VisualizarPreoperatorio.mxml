@@ -150,6 +150,9 @@
             		Application.application.anularPre2.setDatos(tablaVacunaciones.selectedItem as anuPreoperatorio);
             		Application.application.anularPre2.setVisible(true,false);
             		Application.application.anularPre2.limpiarTodo();
+            		Application.application.anularPre2.comboboxMotivo.selectedItem='-Seleccionar-';
+            		Application.application.anularPre2.motivo.visible=false;
+					Application.application.anularPre2.motivo.text="";
             	}
             }
             
