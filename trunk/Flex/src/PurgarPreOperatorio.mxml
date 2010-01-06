@@ -203,11 +203,11 @@
                         </mx:Component>
              	</mx:itemRenderer>
             </mx:DataGridColumn>		
-			<mx:DataGridColumn width="60" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
-			<mx:DataGridColumn width="70" headerText="Ayudante" dataField="ayudante" id="ayudante" draggable="false"/>
+			<mx:DataGridColumn width="100" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
+			<mx:DataGridColumn width="100" headerText="Ayudante" dataField="ayudante" id="ayudante" draggable="false"/>
 			<mx:DataGridColumn width="250" headerText="Sintomas" dataField="sintomas" id="sintomas" draggable="false"/>
-			<mx:DataGridColumn width="90" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
-			<mx:DataGridColumn width="90" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>
+			<mx:DataGridColumn width="70" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
+			<mx:DataGridColumn width="70" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>
 			<mx:DataGridColumn width="130" headerText="Observaciones" dataField="observaciones" id="observaciones" draggable="false"/>		
 		</mx:columns>
 	</mx:DataGrid>
@@ -225,12 +225,6 @@
 	<mx:Label x="25" y="62" text="Apellido Paterno:" width="103"/>
 	<mx:Label x="405" y="61.9" text="Raza:" width="78"/>
 	<mx:Text x="25" y="124" text="Peluquería&#xa;" fontWeight="bold" height="20"/>
-	<mx:Text x="136" y="62" id="cApP" width="150"/>
-	<mx:Text x="136" y="35" id="cNom" width="150"/>
-	<mx:Text x="136" y="87.95" id="cRut" width="150"/>
-	<mx:Text x="478.4" y="36" id="mNom" width="150"/>
-	<mx:Text x="478.4" y="61.9" id="mRaz" width="150"/>
-	<mx:Text x="478.4" y="87.95" id="mSex" width="150"/>
 	<mx:Button x="522" y="354" label="Anular" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula la(s) vacunacion(es) seleccionada(s)"/>
 	<mx:TextInput x="261" y="320" width="473" id="motivo" toolTip="Ingrese el motivo por el cual desea anular la(s) vacunacion(es)" visible="false"/>
 	<mx:Text x="25" y="322" text="Motivo" fontWeight="bold"/>
@@ -243,5 +237,11 @@
 			<mx:Object label="Otros"/> 
 		</mx:ArrayCollection>
 	</mx:ComboBox>
+	<mx:TextInput x="136" y="33" width="150" id="cNom" editable="false"/>
+	<mx:TextInput x="136" y="60" width="150" id="cApP" editable="false"/>
+	<mx:TextInput x="136" y="85" width="150" id="cRut" editable="false"/>
+	<mx:TextInput x="478" y="34" width="150.4" id="mNom" editable="false"/>
+	<mx:TextInput x="478.4" y="59.9" width="150.4" id="mRaz" editable="false"/>
+	<mx:TextInput x="478" y="87" width="150.8" id="mSex" editable="false"/>
 	
 </mx:Panel>
