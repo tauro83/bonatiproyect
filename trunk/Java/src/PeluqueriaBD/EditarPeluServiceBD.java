@@ -20,6 +20,7 @@ public class EditarPeluServiceBD
 	PreparedStatement deletete;
 	PreparedStatement selectAll;
 	PreparedStatement selectOne;
+	PreparedStatement selectServiAnte;
 	Connection conn;
 	String rutillo;
 	String rut;
@@ -31,7 +32,7 @@ public class EditarPeluServiceBD
 		conn = connection;
 		try 
 		{
-			String query="";
+			String query="", queryAnteriores="";
 			
 			query = "INSERT INTO serviciospeluqueria(servicio, nombre, clienterut, mascotanombre, hora, responsable, fecha, nuevafecha, nuevahora, costo, descripcion) "+
 			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";			
@@ -41,8 +42,14 @@ public class EditarPeluServiceBD
 			
 			query = "SELECT clienterut, mascotanombre, hora, responsable, fecha "+
 			"FROM atencionpeluqueria;";
-
+			
 			selectAll = connection.prepareStatement(query);
+			
+			
+			queryAnteriores = "SELECT nuevafecha, nuevahora, servicio, nombre "+
+			"FROM serviciospeluqueria WHERE responsable = ? AND fecha = ? AND hora = ?;";
+
+			selectServiAnte = connection.prepareStatement(queryAnteriores);
 		} 
 		catch (SQLException e) 
 		{
@@ -69,18 +76,21 @@ public class EditarPeluServiceBD
     		s11 = pelu.getHoraAntigua().substring(0,2);
     		s22 = pelu.getHoraAntigua().substring(3,5);
     		s33 = pelu.getHoraAntigua().substring(6);
-    		System.out.println("s1: "+s11+" s2: "+s22+" s3: "+s33);
+    		//System.out.println("s1: "+s11+" s2: "+s22+" s3: "+s33);
     		int hora2 = (int)Integer.parseInt(s11);
     		int minu2 = (int)Integer.parseInt(s22);
     		int seg2 = (int)Integer.parseInt(s33);
-    		System.out.println("hora: "+hora2+". minu: "+minu2+". seg: "+seg2);
-    		Time t = new Time(hora, minutos, segundos);
+    		//System.out.println("hora: "+hora2+". minu: "+minu2+". seg: "+seg2);
+    		Time t = new Time(hora2, minu2, seg2);
 			
 			List ltN = pelu.getTiposNombres();
 			List ltS = pelu.getTiposServicios();
 			
 			int n = ltS.size();
+			System.out.println("antes for");
+			
 			for(int i=0;i<n;i++){
+				System.out.println("entro for");
 				String tipPel = (String) ltS.get(i);
 				String tipNom = (String) ltN.get(i);
 				
@@ -91,7 +101,7 @@ public class EditarPeluServiceBD
 	    		Time t2 = new Time(hora, minutos, segundos);
 				
 				if(tipPel != null){
-					
+					System.out.println("entro if");
 					String costo = getCosto(tipPel,tipNom,catalogos);
 					insert.setString(1, tipPel);
 					insert.setString(2, tipNom);
@@ -110,26 +120,6 @@ public class EditarPeluServiceBD
 				
 			}
 		} 
-    	
-    	/*int result=0;
-    	try 
-    	{
-    		insert.setString(1, pelu.getRutCliente());
-    		insert.setString(2, pelu.getNombreMascota());
-    		insert.setString(3, pelu.getResponsable());
-    		insert.setString(4, pelu.getServicio());
-    		insert.setDate(5, pelu.getFecha());
-			insert.setString(6, pelu.getCosto());
-    		insert.setString(7, pelu.getDescripcion());
-    	
-			
-			result= insert.executeUpdate();
-			System.out.println(+result);
-			
-			
-			result= insert.executeUpdate();
-			
-		} */
     	catch (SQLException e) 
     	{
 			e.printStackTrace();
@@ -216,36 +206,41 @@ public class EditarPeluServiceBD
 	
 	public List getServiciosAnteriores(String responsable,Date fecha, String hora)
     {
+		//System.out.println(responsable);
+		//System.out.print(fecha);
+		//System.out.println(hora);
+		
     	List serviciosAnteriores=new ArrayList();
     	Peluqueria peluqueria;
     	try 
     	{
     		//Pasa un string a time
     		String[] comp = hora.split(":");
+    		
     		Time time = new Time(Integer.parseInt(comp[0]), Integer.parseInt(comp[1]), Integer.parseInt(comp[2]));
 
-    		PreparedStatement selectServiAnte = null;
-			ResultSet result = selectServiAnte.executeQuery();
-    		while(result.next())
+    		selectServiAnte.setString(1, responsable);
+    		selectServiAnte.setDate(2, fecha);
+    		selectServiAnte.setString(3, hora);
+    		
+    		ResultSet resultete = selectServiAnte.executeQuery();
+			
+    		while(resultete.next())
     		{
     			peluqueria = new Peluqueria();
-    			//System.out.println("COMPARO: |"+ rutCliente+"|"+result.getString(5).trim()+"|"+nombreMascota+"|"+result.getString(6).trim()+"|"+fecha+"|"+result.getString(7).trim()+"|"+hora+"|"+result.getTime(8).toString()+"|");
-    			//Selecciona y filtra los diagnosticos
-    			System.out.println("base datos, respbd: "+result.getString(1).trim()+". resp: "+responsable+". fechabd: "+result.getDate(2)+". fecha: "+fecha+". horaBd: "+result.getString(3)+". hora: "+hora+".");
-    			if(responsable.equals(result.getString(1).trim()) && fecha.equals(result.getDate(2)) && hora.equals(result.getString(3).trim())){
-    				peluqueria.setResponsable(result.getString(1).trim());
-    				peluqueria.setFecha(result.getDate(2));
-    				peluqueria.setHora(result.getString(3));
-    				peluqueria.setServicio(result.getString(4));
-    				peluqueria.setNombre(result.getString(5));
+    			
+    			//System.out.println(resultete.getString(1).trim()+": esto es = a"+responsable);
+    			//System.out.println(resultete.getDate(2)+": esto es = a"+fecha);
+    			//System.out.println(resultete.getString(3).trim()+": esto es igual a"+hora);
+    			//if(responsable.equals(resultete.getString(1).trim()) && fecha.equals(resultete.getDate(2)) && hora.equals(resultete.getString(3).trim())){
+    				//System.out.println("nunk entra");
+    				peluqueria.setFecha(resultete.getDate(1));
+    				peluqueria.setHora(resultete.getString(2));
+    				peluqueria.setServicio(resultete.getString(3));
+    				peluqueria.setNombre(resultete.getString(4));
     				
-    				//System.out.println(peluqueria.getResponsable());
-    				//System.out.println(peluqueria.getFecha());
-    				//System.out.println(peluqueria.getHora());
-    				
-	
     				serviciosAnteriores.add(peluqueria);
-    			}
+    			//}
     		}
 		} 
     	catch (SQLException e) 
