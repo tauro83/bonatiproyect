@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Registro Peluquería" xmlns:ns1="*">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F"  title="Editar Registro Peluquería" xmlns:ns1="*">
 	<mx:Script>
         <![CDATA[
         	
@@ -250,9 +250,8 @@
 				var editPeluService:EditarPeluService = new EditarPeluService();
 				editPeluService.addEventListener(ResultEvent.RESULT,getServiciosAnterioresResult);
 				editPeluService.getServiciosAnteriores(responsable, dat, hora);
-				Alert.show(responsable);
-				//Alert.show(dat);
-				Alert.show(hora);
+				var aux:String = dat as String;
+				
 				
 				var res:String = responsable;
 				var fe:Date   = dat;
@@ -270,9 +269,7 @@
 				
             	tablaServiciosAnteriores.dataProvider = serviciosAnteriores;
             	
-            	Alert.show("llega");
-            	//listaCirugias = diagnosticos;
-            	//listaCirugias.removeItemAt(listaCirugias.length-1);
+            	
 			} 
 		    
 		    /**
@@ -416,7 +413,7 @@
 				<mx:DataGridColumn headerText="Fecha" dataField="fecha" width="80"/>
 				<mx:DataGridColumn headerText="Hora" dataField="hora" width="70"/>
 				<mx:DataGridColumn headerText="Servicio" dataField="servicio" width="80"/>
-				<mx:DataGridColumn headerText="Descripción" dataField="nombre"/>
+				<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 			</mx:columns>
 		</mx:DataGrid>
 	
