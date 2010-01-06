@@ -143,7 +143,9 @@
 	</mx:DataGrid>
 	<mx:Label x="414" y="10" text="Registrar" width="154" fontWeight="bold"/>
 	<mx:TextInput x="518" y="36" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú"  width="216" id="nomb" maxChars="20"/>
+	<ns1:Precio x="518" y="66" width="161" id="prec" />
 	<mx:TextInput x="518" y="96"  width="216" id="desc" maxChars="40"/>
+	<mx:TextInput x="518" y="126" restrict="0-9" id="cadu" maxChars="3"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" click="registrarNombre(event)"  label="Registrar" y="173" id="agregar"/>
 	<mx:Label x="414" y="36" text="Nombre:"/>
 	<mx:Label x="414" y="66" text="Precio:"/>
@@ -155,8 +157,7 @@
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 	<mx:Label x="693" y="128" text="Meses" width="41"/>
-	<mx:TextInput x="518" y="126" restrict="0-9" id="cadu" maxChars="3"/>
-	<ns1:Precio x="518" y="66" width="161" id="prec">
-	</ns1:Precio>
+	
+
 		
 </mx:Panel>

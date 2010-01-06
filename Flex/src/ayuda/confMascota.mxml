@@ -51,10 +51,10 @@
 	<mx:Text x="10" y="10" text="Configurar especies&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir al sub menú y seleccionar configuración &#xa;&#xa;&#x9;3. Seleccionar Mascotas&#xa;&#xa;Registrar nueva especie&#xa;&#x9;&#xa;&#x9;1. Ingresar la especie&#xa;&#x9;&#xa;&#x9;2. Seleccionar registrar&#xa;&#xa;Eliminar especie&#xa;&#x9;&#xa;&#x9;1. Seleccionar la especie del listado&#xa;&#xa;&#x9;2. Seleccionar eliminar" width="355" height="332" id="textAyuda"/>
 	<mx:LinkButton x="177" y="34" label="Administración" id="linkBarraPrincipal" click="verBarra()" color="blue" width="106"/>
 	<mx:Image   id="barra" visible="false" x="94" y="137">
-		<mx:source>../Images Ayuda/Administracion.png</mx:source>
+		<mx:source>../images/ayuda/Administracion.png</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:Image   id="opcMod" visible="false" x="72" y="85">
-		<mx:source>../Images Ayuda/subMenuUsuario.png</mx:source>
+		<mx:source>../images/ayuda/subMenuUsuario.png</mx:source>
 	</mx:Image>	
 </mx:Canvas>

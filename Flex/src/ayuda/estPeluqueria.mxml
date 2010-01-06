@@ -56,12 +56,12 @@
 	<mx:Text x="10" y="10" text="Estadísticas de peluquería&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción&#xa;&#xa;&#x9;2. Ir a                                &#xa;&#xa;&#x9;3. Seleccionar Estadísticas&#xa;&#xa;&#x9;4. Seleccionar una fecha de inicio&#xa;&#xa;&#x9;5. Seleccionar una fecha de termino&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
 	<mx:LinkButton x="179" y="34" label="Peluqueria" id="linkBarraPrincipal" click="verBarra()" color="blue" width="83"/>
 	<mx:Image x="102.5" y="151"  id="barra" visible="false">
-		<mx:source>../Images Ayuda/Peluqueria.png</mx:source>
+		<mx:source>../images/ayuda/Peluqueria.png</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:LinkButton x="58" y="64" label="seleccionar Estadísticas" color="blue" id="linkOpciones" click="verOpcMod()" width="154"/>
 	<mx:Image x="82" y="121"  id="opcMod" visible="false">
-		<mx:source>../Images Ayuda/subMenuEstadisticasPeluqueria.png</mx:source>
+		<mx:source>../images/ayuda/subMenuEstadisticasPeluqueria.png</mx:source>
 	</mx:Image>	
 	
 </mx:Canvas>

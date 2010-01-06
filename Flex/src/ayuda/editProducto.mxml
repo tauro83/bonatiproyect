@@ -41,10 +41,10 @@
 	<mx:Text x="10" y="10" text="Anular Vacunación&#xa;&#x9;&#xa;&#x9;1. Seleccionar en                        la opción Pet-Shop&#xa;&#xa;&#x9;2. Ir a                                y seleccionar Producto&#xa;&#xa;&#x9;3. Seleccionar Editar &#xa;&#xa;&#x9;4. Seleccionar un parámetro por el cual se desea filtrar&#xa;&#xa;&#x9;5. Ingresar una búsqueda&#xa;&#xa;&#x9;6. Seleccionar un producto desde la tabla y hacer doble click &#xa;&#x9;    o presionar el botón Visualizar&#xa;&#xa;&#x9;7. Ingresar los nuevos parámetros que se desean&#xa;&#xa;&#x9;8. Presionar el botón Guardar&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
 	<mx:LinkButton x="118" y="36" label="barra principal" id="linkBarraPrincipal" click="verBarra()" color="blue" width="108"/>
 	<mx:Image x="10" y="170" width="355" height="43" id="barra" visible="false">
-		<mx:source>../Images Ayuda/barra principal.JPG</mx:source>
+		<mx:source>../images/ayuda/barra principal.JPG</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:LinkButton x="60" y="64" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
-	<mx:Image x="95" y="10" width="185" height="332" source="../Images Ayuda/opcion modulo.JPG" id="opcMod" visible="false"/>
+	<mx:Image x="95" y="10" width="185" height="332" source="../images/ayuda/opcion modulo.JPG" id="opcMod" visible="false"/>
 	
 </mx:Canvas>

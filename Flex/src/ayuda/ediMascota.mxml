@@ -58,10 +58,10 @@
 	<mx:Text x="10" y="10" text="Editar Mascota&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir al sub menu y seleccionar &#xa;&#xa;&#x9;3. Seleccionar Editar&#xa;&#xa;       4.Ingresar el rut del cliente&#xa;&#xa;       5.Seleccionar la mascota asociada al cliente para&#xa;&#x9; editar&#xa;&#xa;&#x9;    6.Pulsar boton Editar&#xa;&#xa;&#x9;7. Ingresar datos a editar&#xa;&#x9;&#xa;&#x9;8. Presionar el  botón Guardar&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
 	<mx:LinkButton x="167" y="36" label="barra principal" id="linkBarraPrincipal" click="verBarra()" color="blue" width="109"/>
 	<mx:Image x="10" y="170" width="355" height="43" id="barra" visible="false">
-		<mx:source>../Images Ayuda/barra principal.JPG</mx:source>
+		<mx:source>../images/ayuda/barra principal.JPG</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:LinkButton x="196" y="63" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
-	<mx:Image x="95" y="10" width="185" height="332" source="../Images Ayuda/selMascota.JPG" id="opcMod" visible="false"/>
-	<mx:Image x="10" y="10"  width="185" height="332" source="../Images Ayuda/selMascota.JPG" id="selUsuario" visible="false"/>
+	<mx:Image x="95" y="10" width="185" height="332" source="../images/ayuda/selMascota.JPG" id="opcMod" visible="false"/>
+	<mx:Image x="10" y="10"  width="185" height="332" source="../images/ayuda/selMascota.JPG" id="selUsuario" visible="false"/>
 </mx:Canvas>

@@ -56,12 +56,12 @@
 	<mx:Text x="10" y="10" text="Registrar Vacunación&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la                       la opción Clínica&#xa;&#xa;&#x9;2. Ir a                                seleccionar Policlínico&#xa;&#xa;&#x9;3. Seleccionar Registrar.&#xa;&#x9;&#xa;&#x9;4. Identificar al cliente:&#xa;&#xa;&#x9;&#x9;4.1 Ingresar el apellido y seleccione el cliente &#xa;&#x9;&#x9;que desea&#xa;&#xa;&#x9;&#x9;4.1 Ingresar el Rut de cliente.&#xa;&#xa;&#x9;5. &#x9;&#x9;&#x9;&#x9;   una mascota, mediante doble click, &#xa;&#x9;o seleccionando una y presionando el botón Visualizar&#xa;&#xa;&#x9;6. Ingresar los datos de la Vacuna.&#xa;&#xa;&#x9;7. Seleccionar Registrar, para guadar la nueva vacuna.&#xa;&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
 	<mx:LinkButton x="127" y="36" label="barra principal" id="linkBarraPrincipal" click="verBarra()" color="blue" width="109"/>
 	<mx:Image x="20" y="170" width="355" height="43" id="barra" visible="false">
-		<mx:source>../Images Ayuda/barra principal clinica.JPG</mx:source>
+		<mx:source>../images/ayuda/barra principal clinica.JPG</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:LinkButton x="59" y="64" label="opciones del módulo" id="linkOpciones" color="blue" click="verOpcMod()"/>
 	<mx:LinkButton x="35" y="218" label="Seleccionar" color="blue" id="selUsr" click="verSelec()"/>
-	<mx:Image x="95" y="10" width="185" height="332" source="../Images Ayuda/opcion moduloPoliclinico.JPG" id="opcMod" visible="false"/>
-	<mx:Image x="10" y="10" width="350" height="332" source="../Images Ayuda/selMascotaPol2.JPG" id="selMascotaVacuna" visible="false"/>
+	<mx:Image x="95" y="10" width="185" height="332" source="../images/ayuda/opcion moduloPoliclinico.JPG" id="opcMod" visible="false"/>
+	<mx:Image x="10" y="10" width="350" height="332" source="../images/ayuda/selMascotaPol2.JPG" id="selMascotaVacuna" visible="false"/>
 	
 </mx:Canvas>

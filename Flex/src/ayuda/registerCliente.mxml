@@ -41,10 +41,10 @@
 	<mx:LinkButton x="121.5" y="36" label="barra principal" color="#0000FF" click="verBarra()" id="linkBarraPrincipal"/>
 	<mx:LinkButton x="74" y="64" label="opciones del módulo" color="#0000FF" id="linkOpciones" click="verOpcMod()"/>
 		<mx:Image x="95" y="10" width="185" height="332" id="opcMod" visible="false">
-		<mx:source>../Images Ayuda/consultaPanel.JPG</mx:source>
+		<mx:source>../images/ayuda/consultaPanel.JPG</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:Image x="10" y="170" width="355" height="43" id="barra" visible="false">
-		<mx:source>../Images Ayuda/barra principal.JPG</mx:source>
+		<mx:source>../images/ayuda/barra principal.JPG</mx:source>
 	</mx:Image>
 </mx:Canvas>

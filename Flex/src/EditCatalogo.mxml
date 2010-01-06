@@ -44,6 +44,7 @@
 			 	this.nom.text 			= cat.nombre;
 			 	prec.costo.text			= cat.precio.toString();
 			 	this.des.text 			= cat.descripcion.toString();
+			 	comServ.text			= cat.servicio.toString();
 			 	labelMessage.text = "";
 			 	
 			 	prec.formatear();
@@ -119,12 +120,6 @@
 	<mx:TextArea x="120" y="175" id="des" maxChars="160" width="242" height="92"/>
 	<ns1:Precio x="120" y="129" width="161" id="prec">
 	</ns1:Precio>
-	<mx:ComboBox x="120" y="33" width="161" id="comServ"  labelField="nombre" toolTip="Seleccione un tipo de registro para continuar">
-		<mx:ArrayCollection>
-         <mx:String>Baño</mx:String>
-         <mx:String>Corte</mx:String>
-         <mx:String>Pedicura</mx:String>
-      </mx:ArrayCollection>
-	</mx:ComboBox>
+	<mx:TextInput x="120" y="33" id="comServ" editable="false" width="242"/>
 		
 </mx:Panel>
