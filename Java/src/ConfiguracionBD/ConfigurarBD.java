@@ -160,6 +160,9 @@ public class ConfigurarBD {
 		}
 		if(tipo.equals("Cargo")){
 			query = "INSERT INTO Cargo VALUES (?);";
+		}
+		if(tipo.equals("ServPel")){
+			query = "INSERT INTO serviciopeluq VALUES (?);";
 		}		
 		
 				
@@ -226,6 +229,9 @@ public class ConfigurarBD {
 		}
 		if(tipo.equals("Cargo")){
 			query = "DELETE FROM Cargo WHERE nombre = ?";
+		}
+		if(tipo.equals("ServPel")){
+			query = "DELETE FROM serviciopeluq WHERE nombre = ?";
 		}		
 		 	
 		PreparedStatement insert;
