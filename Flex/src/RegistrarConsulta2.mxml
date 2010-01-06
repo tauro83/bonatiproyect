@@ -38,7 +38,9 @@
 			
 			[Bindable]         
             
-            public var costoBruto:String;
+            public var costoBruto:String= "";
+            
+            public var newconsulta:AddConsultaService = new AddConsultaService();
 			
 			/**
 			 * Este metodo se encarga de pasar el objeto de una consulta a la capa dos 
@@ -47,24 +49,48 @@
 
              public function registrarConsulta():void{
              	this.labelMessage.text="";
-             	var addconsult:Consulta=new Consulta();
              	
              	
-             	addconsult.rut=this.rutClienteInput1.text+this.rutClienteDVInput1.text;/**se concatena el digito con el digito identicador
-             	 																	   *de un rut. **/
-             	addconsult.costo=costoBruto;/**Ingresa el costo de una atencion**/
-             	addconsult.nombre=this.nombre.text;/**Ingresa el nombre de la mascota a cual se le estaba atendiendo**/
-             	addconsult.responsable=this.responsable.text;/**Ingresa el nombre del responsable que atendio a una mascota**/
-             	addconsult.servicio=this.servicio.text;/**Ingresa el nombre del servicio al cual se esta realizan una atencion una mascota**/
-             	addconsult.fecha=fecha.selectedDate.date +"/"+ (fecha.selectedDate.month+1) +"/"+ fecha.selectedDate.fullYear;
-             	addconsult.anamnesis=this.anamnesis.text;/**Ingresa los sintomas que posee una mascota, porque asistio a una consulta**/
-             	var newconsulta:AddConsultaService = new AddConsultaService();
-             	newconsulta.AddConsulta(addconsult);/**manda el objeto a la capa dos**/
-             	newconsulta.addEventListener(ResultEvent.RESULT,registroConsultaResultado);
-
-		    	this.setVisible(false,false);
-		    	Application.application.rConsulta.labelMessage.text= Properties.getMensaje("Informacion", "37");;
-		    	Application.application.rConsulta.setVisible(true,false);
+             	if(responsable.text!=""){
+             		if(fecha.text!=""){
+             			if(anamnesis.text!=""){
+             				
+             			
+		             		var addconsult:Consulta=new Consulta();
+		             	
+		             	
+			             	addconsult.rut=this.rutClienteInput1.text+this.rutClienteDVInput1.text;/**se concatena el digito con el digito identicador
+			             	 																	   *de un rut. **/
+			             	addconsult.costo=costoBruto;/**Ingresa el costo de una atencion**/
+			             	addconsult.nombre=this.nombre.text;/**Ingresa el nombre de la mascota a cual se le estaba atendiendo**/
+			             	addconsult.responsable=this.responsable.text;/**Ingresa el nombre del responsable que atendio a una mascota**/
+			             	addconsult.servicio=this.servicio.text;/**Ingresa el nombre del servicio al cual se esta realizan una atencion una mascota**/
+			             	addconsult.fecha=fecha.selectedDate.date +"/"+ (fecha.selectedDate.month+1) +"/"+ fecha.selectedDate.fullYear;
+			             	addconsult.anamnesis=this.anamnesis.text;/**Ingresa los sintomas que posee una mascota, porque asistio a una consulta**/
+			             	
+			             	newconsulta.AddConsulta(addconsult);/**manda el objeto a la capa dos**/
+			             	newconsulta.addEventListener(ResultEvent.RESULT,registroConsultaResultado);
+			
+					    	this.setVisible(false,false);
+					    	Application.application.rConsulta.labelMessage.text= Properties.getMensaje("Informacion", "37");;
+					    	Application.application.rConsulta.setVisible(true,false);
+             			}
+             			
+             			else{
+             				labelMessage.text=Properties.getMensaje("Advertencia", "48");
+             			}
+             		}
+             		
+             		else{
+             			labelMessage.text=Properties.getMensaje("Advertencia", "46");
+             		}
+             		
+             	}
+             	
+             	else{
+             		labelMessage.text=Properties.getMensaje("Advertencia", "47");
+             	}
+             	
              }
              
              /**
