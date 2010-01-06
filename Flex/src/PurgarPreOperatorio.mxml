@@ -39,6 +39,8 @@
             	Application.application.anularPre2.setVisible(false,false);
             	Application.application.anularPre.setVisible(true,false);
             	Application.application.anularPre.limpiarTodo();
+            	
+
 			}
 			
            /**
@@ -176,6 +178,9 @@
             public function limpiarTodo():void{
             	todo.selected=false;
             	barraMsj.setVisible(false,false);
+            	comboboxMotivo.selectedItem='-Seleccionar-';
+            	motivo.visible=false;
+				motivo.text="";
             }
             
             private function seleccionarMotivo (event:Event):void
@@ -205,9 +210,9 @@
             </mx:DataGridColumn>		
 			<mx:DataGridColumn width="100" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
 			<mx:DataGridColumn width="100" headerText="Ayudante" dataField="ayudante" id="ayudante" draggable="false"/>
-			<mx:DataGridColumn width="250" headerText="Sintomas" dataField="sintomas" id="sintomas" draggable="false"/>
+			<mx:DataGridColumn width="200" headerText="Sintomas" dataField="sintomas" id="sintomas" draggable="false"/>
 			<mx:DataGridColumn width="70" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
-			<mx:DataGridColumn width="70" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>
 			<mx:DataGridColumn width="130" headerText="Observaciones" dataField="observaciones" id="observaciones" draggable="false"/>		
 		</mx:columns>
 	</mx:DataGrid>
