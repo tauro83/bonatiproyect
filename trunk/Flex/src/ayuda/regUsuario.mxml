@@ -54,11 +54,11 @@
 	<mx:Text x="10" y="10" text="Registrar usuario&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir al sub menu y seleccionar &#xa;&#xa;&#x9;3. Seleccionar Registrar&#xa;&#xa;&#x9;4. Ingresar datos de usuario&#xa;&#x9;&#xa;&#x9;5. Presionar el  botón Registrar&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
 	<mx:LinkButton x="177" y="34" label="Administración" id="linkBarraPrincipal" click="verBarra()" color="blue" width="106"/>
 	<mx:Image   id="barra" visible="false" x="94" y="137">
-		<mx:source>../Images Ayuda/Administracion.png</mx:source>
+		<mx:source>../images/ayuda/Administracion.png</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:LinkButton x="202" y="64" label="Usuario" color="blue" id="linkOpciones" click="verOpcMod()" width="63"/>
 	<mx:Image   id="opcMod" visible="false" x="72" y="85">
-		<mx:source>../Images Ayuda/subMenuUsuario.png</mx:source>
+		<mx:source>../images/ayuda/subMenuUsuario.png</mx:source>
 	</mx:Image>	
 </mx:Canvas>

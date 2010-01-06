@@ -51,10 +51,10 @@
 	<mx:Text x="10" y="10" text="Editar Catalogo&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir al sub menu y seleccionar  Catalogo&#xa;&#xa;&#x9;3. Seleccionar Editar&#xa;&#xa;&#x9;4. Seleccionar el corte o baño que se desea editar&#xa;&#x9;&#xa;&#x9;5. Presionar el  botón Editas&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
 	<mx:LinkButton x="177" y="34" label="Peluqueria" id="linkBarraPrincipal" click="verBarra()" color="blue" width="106"/>
 	<mx:Image   id="barra" visible="false" x="94" y="137">
-		<mx:source>../Images Ayuda/Peluqueria.png</mx:source>
+		<mx:source>../images/ayuda/Peluqueria.png</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:Image   id="opcMod" visible="false" x="72" y="85">
-		<mx:source>../Images Ayuda/Peluqueria.png</mx:source>
+		<mx:source>../images/ayuda/Peluqueria.png</mx:source>
 	</mx:Image>	
 </mx:Canvas>
