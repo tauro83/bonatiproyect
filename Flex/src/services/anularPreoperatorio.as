@@ -44,9 +44,9 @@ package services
 		* Este metodo envia el estado de un registro de peluquería y si este se encuentra en 0 
 		* es cambiado a 2.
 		*/ 
-		public function anular(estado:int,nombreMascota:String,hora:String):void
+		public function anular(estado:int,nombreMascota:String,hora:String,motivo:String):void
 		{
-			this.getOperation("anular").send(estado,nombreMascota,hora);
+			this.getOperation("anular").send(estado,nombreMascota,hora,motivo);
 			
 		}
 		
@@ -93,6 +93,11 @@ package services
 		public function getAllVacunacionesA():void
 		{
 			this.getOperation("getAllVacunacionesA").send();
+		}
+		
+		public function getAllVacunacionesV():void
+		{
+			this.getOperation("getAllVacunacionesV").send();
 		}
 	}
 }
