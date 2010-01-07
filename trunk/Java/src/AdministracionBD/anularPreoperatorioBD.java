@@ -92,8 +92,11 @@ public class anularPreoperatorioBD {
 	    			
 	    			String rut2 = vacu.getNombreMascota().trim();
 	    			String rut3=vacu.getRutCliente().trim();
+	    			
+	    			int estado1=vacu.getEstado();
+	    			
 	    			int h=0;
-	    			while(result1.next() && h==0)
+	    			while(result1.next() && h==0 && estado1==0)
 		    		{ 
 	    			//System.out.println("ar" + " "+result1);
 	    			
@@ -111,7 +114,7 @@ public class anularPreoperatorioBD {
 		    		}
 	    			
 	    			int g=0;
-	    			while(result2.next() && g==0)
+	    			while(result2.next() && g==0 && estado1==0)
 		    		{ 
 	    			//System.out.println("ar" + " "+result1);
 	    			
@@ -138,7 +141,7 @@ public class anularPreoperatorioBD {
 	    					bandera=1;
 	    				}
 	    			}
-	    			if(bandera==0)
+	    			if(bandera==0 && estado1==0)
 	    			{
 	    				vacunaciones.add(vacu);
 	    			}
