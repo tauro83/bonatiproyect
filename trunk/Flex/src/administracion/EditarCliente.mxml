@@ -479,7 +479,7 @@
 			<mx:DataGridColumn headerText="Apellido materno" dataField="apellido2"/>
 			<mx:DataGridColumn headerText="Rut" dataField="rut"/>
 			<mx:DataGridColumn headerText="E-mail" dataField="email"/>
-			<mx:DataGridColumn headerText="Teléfono" dataField="telefono"/>
+			<mx:DataGridColumn headerText="Teléfono" dataField="telefono" visible="false"/>
 			<mx:DataGridColumn headerText="Celular" dataField="celular" visible="false"/>
 			<mx:DataGridColumn headerText="Direccion" dataField="direccion" visible="false"/>
 			<mx:DataGridColumn headerText="Region" dataField="region" visible="false"/>

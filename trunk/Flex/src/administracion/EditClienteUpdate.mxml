@@ -168,7 +168,7 @@
 			   }
 			   else
 			   {
-			      Alert.show("no");
+			      Alert.show("Error base datos");
 			   }
 			}
 			
