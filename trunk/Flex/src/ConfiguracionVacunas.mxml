@@ -93,7 +93,7 @@
 					var precio:String  = prec.costoBruto.replace("$","");
 					precio = precio.replace(".","");
 					prec.costo.text = "";
-					cv.precio = precio;					
+					cv.precio = precio.toString();					
 					cv.descripcion = desc.text;
 					cv.caducidad = cadu.text;				
 					confs.regConfiguracionVacuna(cv);
