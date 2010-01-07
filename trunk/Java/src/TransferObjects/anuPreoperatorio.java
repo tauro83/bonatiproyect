@@ -22,7 +22,14 @@ public class anuPreoperatorio {
 	public String sexo;
 	public String nombreMascota;
 	public String costo;
+	public String motivo;
 	
+	public String getMotivo() {
+		return motivo;
+	}
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
 	public String getObservaciones() {
 		return observaciones;
 	}
