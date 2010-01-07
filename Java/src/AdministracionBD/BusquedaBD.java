@@ -119,10 +119,7 @@ public class BusquedaBD
         			cliente.setEmail(result.getString(3).trim());
         			cliente.setApellido(result.getString(4).trim());
         			cliente.setApellido2(result.getString(5).trim());
-    
-    			
-
-    			
+        			
     			clientes.add(cliente);
     		}
 		} 
