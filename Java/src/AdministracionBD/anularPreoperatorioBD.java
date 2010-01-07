@@ -33,7 +33,7 @@ public class anularPreoperatorioBD {
 			
 			query = "SELECT rut, " +
 					"nombre, " +
-					"hora, fecha, sintomas, estado, responsable, ayudante, observaciones " +
+					"hora, fecha, sintomas, estado, responsable, ayudante, observaciones, motivo " +
 					"FROM preoperatorio;";
 			selectAllVacunaciones = connection.prepareStatement(query);
 			
@@ -48,7 +48,7 @@ public class anularPreoperatorioBD {
 			setMascota = connection.prepareStatement(query);
 			
 			query = "UPDATE preoperatorio " +
-					"SET estado = ? " + 
+					"SET estado = ?, motivo = ? " + 
 					"WHERE estado = ? AND nombre= ? AND hora= ?;";
 			setEstado = connection.prepareStatement(query);
 		}
@@ -89,6 +89,7 @@ public class anularPreoperatorioBD {
 	    			vacu.setResponsable(result.getString(7).trim());
 	    			vacu.setAyudante(result.getString(8).trim());
 	    			vacu.setObservaciones(result.getString(9).trim());
+	    			vacu.setMotivo(result.getString(10).trim());
 	    			
 	    			String rut2 = vacu.getNombreMascota().trim();
 	    			String rut3=vacu.getRutCliente().trim();
@@ -185,6 +186,7 @@ public class anularPreoperatorioBD {
 	    			vacu.setResponsable(result.getString(7).trim());
 	    			vacu.setAyudante(result.getString(8).trim());
 	    			vacu.setObservaciones(result.getString(9).trim());
+	    			vacu.setMotivo(result.getString(10).trim());
 	    			
 	    			String rut2 = vacu.getNombreMascota().trim();
 	    			int estado2 = vacu.getEstado();
@@ -215,7 +217,7 @@ public class anularPreoperatorioBD {
 	* que posean estado 1.
 	* @return Lista con todos los registros de peluquería.
 	*/
-	 public List getAllVacunacionesA()
+	 public List getAllVacunacionesV()
 	 {
 		 	List vacunaciones = new ArrayList();
 		 	anuPreoperatorio vacu;
@@ -239,6 +241,7 @@ public class anularPreoperatorioBD {
 	    			vacu.setResponsable(result.getString(7).trim());
 	    			vacu.setAyudante(result.getString(8).trim());
 	    			vacu.setObservaciones(result.getString(9).trim());
+	    			vacu.setMotivo(result.getString(10).trim());
 	    			
 	    			int estado2 = vacu.getEstado();
 	    			
@@ -246,7 +249,7 @@ public class anularPreoperatorioBD {
 	    			 * Esta condicción se encarga de buscar todos los registro de peluquería 
 	    			 * que posean estado 1.
 	    			 */
-	    			if(estado2==1)
+	    			if(estado2==2)
 	    			{
 	    				
 	    				vacunaciones.add(vacu);
@@ -266,14 +269,15 @@ public class anularPreoperatorioBD {
 	* @param 0=activado, 1=desactivo, 2=anulado
 	* @return 2 si ha anulado correctamente y 0 de lo contrario
 	*/
-	 public int anular(int estado, String nombreMascota,String hora)
+	 public int anular(int estado, String nombreMascota,String hora, String motivo)
 	 {
 		 int result = 0;
 		 try {
 			setEstado.setInt(1, 2);
-			setEstado.setInt(2, estado);
-			setEstado.setString(3, nombreMascota);
-			setEstado.setString(4, hora);
+			setEstado.setString(2, motivo);
+			setEstado.setInt(3, estado);
+			setEstado.setString(4, nombreMascota);
+			setEstado.setString(5, hora);
 			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
