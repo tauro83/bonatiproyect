@@ -19,6 +19,7 @@ package transferObjects
 		public var hora:String;
 		public var total:int;
 		public var detalle:ArrayCollection;
+		public var fechaPago:Date;
 		
 	}
 }

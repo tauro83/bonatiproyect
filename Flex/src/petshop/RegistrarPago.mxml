@@ -5,6 +5,7 @@
         <![CDATA[
         	import transferObjects.Pago;
         	import transferObjects.Producto;
+        	import util.Properties;
         
         	//=======================================================================
 			// FECHA: CREACIÓN: 22 Noviembre
@@ -89,6 +90,8 @@
 			private function pagar():void{
 				var pago:Pago = new Pago();
 				pago.total = parseInt(totalPago.costoBruto);
+				pago.fechaPago = new Date();
+				pago.detalle = pagos;
 				addPago(pago);
 			}
 			
@@ -110,9 +113,11 @@
 				var result:int = event.result as int ;
 				if(!result>0){
 					//noregistrado
+					labelMessage.text = Properties.getMensaje("Error", "30");
 				}
 				else{
-					//siregistrado					
+					//siregistrado	
+					labelMessage.text = Properties.getMensaje("Informacion", "43");				
 				}
 			}
 			
