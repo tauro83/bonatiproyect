@@ -38,5 +38,6 @@ package transferObjects
 		public var diagnostico:String;
 		public var observaciones:String;
 		public var sintomas:String;
+		public var motivo:String;
 	}
 }
