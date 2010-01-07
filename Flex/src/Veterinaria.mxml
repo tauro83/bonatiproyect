@@ -263,6 +263,7 @@
 			editarControl.setVisible(false, false);
   			regPreoOp1.setVisible(false,false);
   			visualizaPre.setVisible(false,false);
+			AnuladoPre.setVisible(false,false);
 		 	<!--Autor: }Nicolas -->
 			
 		 		
@@ -516,7 +517,8 @@
 	</ns1:RegistrarConsulta>
 	<ns1:RegistrarConsulta2 x="241" y="134" id="rConsulta2" visible="false" borderColor="#15AD8F">
 	</ns1:RegistrarConsulta2>
-	
+	<ns1:AnuladosPre x="241" y="134" id="AnuladoPre" visible="false" borderColor="#15AD8F">
+	</ns1:AnuladosPre>
 	
 	<!--Autor: }nicolas-->
 	
