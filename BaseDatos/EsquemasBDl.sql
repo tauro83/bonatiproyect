@@ -447,6 +447,7 @@ CREATE TABLE preoperatorio
   responsable character(30),
   ayudante character(30),
   estado integer DEFAULT '0',
+  motivo character(50) DEFAULT 0,		
   CONSTRAINT pk_preoperatorio PRIMARY KEY (rut, fecha, hora)
 );
 
