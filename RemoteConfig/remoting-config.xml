@@ -324,4 +324,9 @@
            			<source>AvisoWeb.RegistroAvisoWebService</source>
            	</properties>
     	</destination>
+    	<destination id="RegistrarPagoService">
+           	<properties>
+           			<source>Petshop.RegistrarPagoService</source>
+           	</properties>
+    	</destination>
 </service>
