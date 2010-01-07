@@ -70,14 +70,14 @@ public class anularPreoperatorio {
 	 * @return Lista con todos los registros de peluquería.
 	 */
 	
-	public List getAllVacunacionesA()
+	public List getAllVacunacionesV()
     {
 		List vacunaciones = new ArrayList();
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			anularPreoperatorioBD vacunacionBD= new anularPreoperatorioBD(connection);
-			vacunaciones = vacunacionBD.getAllVacunacionesA();
+			vacunaciones = vacunacionBD.getAllVacunacionesV();
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -93,14 +93,14 @@ public class anularPreoperatorio {
 	 * @param 0=activado, 1=desactivo, 2=anulado
 	 * @return 2 si ha anulado correctamente y 0 de lo contrario
 	 */
-	public int anular(int estado,String nombreMascota,String hora)
+	public int anular(int estado,String nombreMascota,String hora,String motivo)
     {
 		int result = 0;
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			anularPreoperatorioBD vacunacionBD= new anularPreoperatorioBD(connection);
-			result = vacunacionBD.anular(estado, nombreMascota, hora);
+			result = vacunacionBD.anular(estado, nombreMascota, hora, motivo);
 			connection.close();
 		} 
     	catch (SQLException e) 
