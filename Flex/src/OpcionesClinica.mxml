@@ -58,6 +58,15 @@
 				Application.application.visualizaPre.visible = true;	
 				Application.application.visualizaPre.limpiarTodo();	
 			}
+
+			public function verAnuladosPreoperatorio():void{
+				Application.application.setInvisible();
+				this.visible=true;
+				Application.application.AnuladoPre.visible = true;
+				Application.application.AnuladoPre.getAllVacunacionesV();
+				Application.application.AnuladoPre.actionVolver();
+			}
+
 			private function verAnulPostOperatorio ():void{
             	Application.application.setInvisible();
 				this.visible=true;
@@ -157,6 +166,7 @@
 
 					<mx:LinkButton x="25" y="40" label="Editar" id="bEditPreO"/>
 					<mx:LinkButton x="25" y="70" label="Anular" click="verPurgarPreoperatorio()" id="bEliPreO"/>
+					<mx:LinkButton x="25" y="100" label="Anulados" click="verAnuladosPreoperatorio()" id="reanulado"/>
 
 				</mx:Canvas>
 				<mx:Canvas label="      Cirugía" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
