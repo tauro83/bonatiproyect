@@ -321,9 +321,14 @@ public class ConfigurarBD {
 							
 		PreparedStatement insert;
 		insert = connection.prepareStatement(query);
-		
+		//System.out.println("Precio!!!!:"+cv.precio.toString());
 		insert.setString(1, cv.nombre.trim());
-		insert.setInt(2,Integer.parseInt(cv.precio.trim()));
+		if(cv.precio.trim() == ""){
+			insert.setInt(2,0);
+		}else{
+			insert.setInt(2,Integer.parseInt(cv.precio.trim()));
+		}
+		
 		insert.setInt(3,Integer.parseInt(cv.caducidad.trim()));
 		insert.setString(4,cv.descripcion.trim());		
 		try 
