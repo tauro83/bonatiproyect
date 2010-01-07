@@ -7,9 +7,15 @@
 
 package TransferObjects;
 
+import java.sql.Date;
+import java.util.List;
+
 public class Pago {
-	public String fecha;
+	
+	public String fecha; //No deberia ir este atributo porque debe ser en tipo de dato Date
 	public String hora;
 	public int total;
+	public Date fechaPago;
+	public List detalle;
 	
 }
