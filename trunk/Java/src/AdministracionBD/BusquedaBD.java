@@ -42,7 +42,7 @@ public class BusquedaBD
 					"FROM usuario;";
 			selectAllUsuarios = connection.prepareStatement(query);
 			
-			query = "SELECT nombre, rut, telefono, correo, apaterno, amaterno " +
+			query = "SELECT nombre, rut, correo, apaterno, amaterno " +
 					"FROM clientepresencial;";
 			selectAllClientes = connection.prepareStatement(query);
 			
@@ -113,13 +113,15 @@ public class BusquedaBD
     		while(result.next())
     		{  
     			cliente = new Cliente();
+
+    				cliente.setNombre(result.getString(1).trim());
+        			cliente.setRut(result.getString(2).trim());
+        			cliente.setEmail(result.getString(3).trim());
+        			cliente.setApellido(result.getString(4).trim());
+        			cliente.setApellido2(result.getString(5).trim());
+    
     			
-    			cliente.setNombre(result.getString(1).trim());
-    			cliente.setRut(result.getString(2).trim());
-    			cliente.setTelefono2(result.getString(3).trim());
-    			cliente.setEmail(result.getString(4).trim());
-    			cliente.setApellido(result.getString(5).trim());
-    			cliente.setApellido2(result.getString(6).trim());
+
     			
     			clientes.add(cliente);
     		}
