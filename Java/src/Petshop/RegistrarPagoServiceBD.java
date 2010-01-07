@@ -11,9 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import TransferObjects.Pago;
 import TransferObjects.Producto;;
@@ -70,23 +70,18 @@ public class RegistrarPagoServiceBD {
     	return p;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public int registrarPago(Pago p){
-    	int result=0;
+    	//System.out.println("wiiiiiiiiiiiiiiiiiiii");
+		int result=0;
     	try{
-    		Calendar c = Calendar.getInstance();
-    		int hora = c.get(Calendar.HOUR_OF_DAY);
-    		int minutos = c.get(Calendar.MINUTE);
-    		int segundos = c.get(Calendar.SECOND);
 
-			//insert.setDate(1, (java.sql.Date) new Date());
-			//insert.setTime(2, new Time(hora, minutos, segundos));
-			//insert.setInt(3, 0);
-			//insert.setInt(4, p.total);
-
+			insert.setDate(1, p.fechaPago);
+			insert.setTime(2, new Time(System.currentTimeMillis()));
+			insert.setInt(3, 0);
+			insert.setInt(4, p.total);
 			
 
-
-			
 			result= insert.executeUpdate();
 		} 
     	catch (SQLException e) {
