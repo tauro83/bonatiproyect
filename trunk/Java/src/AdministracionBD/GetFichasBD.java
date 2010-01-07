@@ -47,8 +47,8 @@ public class GetFichasBD {
 		while(result.next())
 		{			
 			c.setRut(result.getString(1).trim());
-			c.setTelefono(result.getString(2).trim());
-			c.setTelefono2(result.getString(3).trim());
+			c.setTelefono(result.getString(2));
+			c.setTelefono2(result.getString(3));
 			c.setNombre(result.getString(4).trim());
 			c.setEmail(result.getString(5).trim());
 			c.setEstado(result.getBoolean(6));
