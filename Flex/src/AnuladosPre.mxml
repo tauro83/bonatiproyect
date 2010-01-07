@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Anulados Preoperatorio" borderColor="#15AD8F">
+<mx:Script>
+		<![CDATA[
+			import services.anularPreoperatorio;
+        	 //=======================================================================
+			// FECHA CREACIÓN: 16/11/09
+			// AUTOR: Nicolas Delgado
+			// Panel en el cual se muestran el Costo , Descripción, Servicio, hora,
+			// Fecha, Responsable y Nombre de catalogo, que representa un registro de 
+			// Peluquería realizado por una mascota.
+			//=======================================================================
+				
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+            import mx.core.Application;
+			
+			import services.anularPeluqueria;
+			import transferObjects.anuPeluqueria;
+			
+			/**
+			* Esta variable se encarga de obtener desde la base datos los datos asociado 
+			* a un registro de peluqueria de todas las mascota que alguna vez se han 
+			* realizado una atención.
+			*/
+			[Bindable]
+			private var vacunaciones:ArrayCollection;
+			
+			
+			/**
+			* Evento del boton "Volver", el cual redirige  a la página
+			* anterior (en donde se muestra un listado de todo los clientes y mascotas
+			* que poseen un registro en la peluquería).
+			*/
+
+			
+           /**
+			* Se obtienen todos los registro de peluquería que se encuentran registrados en 
+			* la base de datos, que serán mostrados por el datagrid en el panel, en este
+			* panel seran mostrados solamente el costo, descripción, servicio, hora, fecha,
+			* responsable y nombre del catalogo.
+			*/
+			public function getAllVacunacionesV():void
+		    {
+		   		var vacunacionService:anularPreoperatorio = new anularPreoperatorio ();
+		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
+				vacunacionService.getAllVacunacionesV();
+		    }
+		   
+	         /**
+			* Se obtienen todos los registro de peluquería que se encuentran registrados en 
+			* la base de datos, que serán mostrados por el datagrid en el panel, en este
+			* panel seran mostrados solamente el costo, descripción, servicio, hora, fecha,
+			* responsable y nombre del catalogo.
+			*/
+		    public function getAllVacunacionesResult(event:ResultEvent):void
+		    {
+		   		vacunaciones = event.result as ArrayCollection;
+		    }
+			
+			
+			/**
+			* Se toma el objeto cliente con sus respectivos 
+			* datos, y se insertan en los campos correspondientes tanto del 
+			* Cliente y Mascota.
+			*/
+			public function setDatos(vacu:anuPeluqueria):void
+			{
+				getAllVacunacionesV();
+         	}
+         	
+            
+            private function actionVolver():void
+            {
+            	this.setVisible(false,false);
+            	Application.application.pabellonIni.setVisible(true,false);
+            }
+           	
+		]]>
+	</mx:Script>	
+	
+	
+	
+	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
+	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
+	<mx:DataGrid x="10" y="27" width="724" height="318" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
+		<mx:columns>	
+			<mx:DataGridColumn width="110" headerText="rutCliente" dataField="rutCliente" id="rutCliente" draggable="false"/>	
+			<mx:DataGridColumn width="110" headerText="nombreMascota" dataField="nombreMascota" id="nombreMascota" draggable="false"/>
+			<mx:DataGridColumn width="110" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>			
+			<mx:DataGridColumn width="200" headerText="Sintomas" dataField="sintomas" id="sintomas" draggable="false"/>
+			<mx:DataGridColumn width="200" headerText="motivo" dataField="motivo" id="motivo" draggable="false"/>		
+		</mx:columns>
+	</mx:DataGrid>
+	
+</mx:Panel>
