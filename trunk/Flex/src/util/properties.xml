@@ -23,7 +23,7 @@
 				<mensaje key="19">Error al editar el aviso</mensaje>
 				<mensaje key="20">Diagnostico no registrado</mensaje>	
 				<mensaje key="21">Actual Control no registrado</mensaje>
-				<mensaje key="22">Proximo Control no registrado</mensaje>	
+				<mensaje key="22">Pr&#243;ximo Control no registrado</mensaje>	
 				<mensaje key="23">No se puede eliminar la vacuna, otros registros la utilizan</mensaje>
 				<mensaje key="24">Telefono incorrecto</mensaje>	
 				<mensaje key="25">Celular incorrecto</mensaje>	
@@ -53,7 +53,7 @@
 				<mensaje key="15">Ingrese una fecha inicio anterior a la actual</mensaje>
 				<mensaje key="16">La fecha de inicio, debe ser anterior a la fecha de t&#233;rmino</mensaje>
 				<mensaje key="17">Ingrese Solamente Letras</mensaje>
-				<mensaje key="18">Ingrese Solamente Numeros</mensaje>
+				<mensaje key="18">Ingrese Solamente N&#250;meros</mensaje>
 				<mensaje key="19">Ingrese Email Correctamente</mensaje>
 				<mensaje key="20">Ingrese un email que coincida con el anterior</mensaje>
 				<mensaje key="21">Ingrese el Rut</mensaje>
@@ -65,22 +65,22 @@
 				<mensaje key="27">Ingrese una especie antes de registrar</mensaje>				
 				<mensaje key="28">Ingrese una fecha inicio anterior a la actual</mensaje>				
 				<mensaje key="29">Ingrese una fecha de inicio, anterior a la fecha de t&#233;rmino</mensaje>
-				<mensaje key="30">Ingrese al menos un numero de tel&#233;fono</mensaje>
-				<mensaje key="31">Ingrese un nuevo diagnostico</mensaje>
+				<mensaje key="30">Ingrese al menos un n&#250mero de tel&#233;fono</mensaje>
+				<mensaje key="31">Ingrese un nuevo diagn&#243;stico</mensaje>
 				<mensaje key="32">Seleccione una Mascota para registrar Control</mensaje>
-				<mensaje key="33">Seleccione el nombre de un Veterinario para la atención</mensaje>				
-				<mensaje key="34">Seleccione una fecha para la atención</mensaje>
+				<mensaje key="33">Seleccione el nombre de un Veterinario para la atenci&#243;n</mensaje>				
+				<mensaje key="34">Seleccione una fecha para la atenci&#243;n</mensaje>
 				<mensaje key="35">Añada un servicio realizado a la mascota</mensaje>				
 				<mensaje key="36">Seleccione una Vacuna de la lista Vacunas Agregadas</mensaje>				
 				<mensaje key="37">Seleccione un servicio de la lista Servicios</mensaje>				
-				<mensaje key="38">Seleccione una Mascota para registrar la atencion</mensaje>				
+				<mensaje key="38">Seleccione una Mascota para registrar la atenci&#243;n</mensaje>				
 				<mensaje key="39">Añada una vacuna aplicada a la mascota</mensaje>				
 				<mensaje key="40">Seleccione una Vacuna de la lista Vacunas</mensaje>				
-				<mensaje key="41">Seleccione el nombre de un ayudante para la atención</mensaje>				
-				<mensaje key="42">Añada una cirugía realizada a la mascota</mensaje>				
-				<mensaje key="43">Ingrese un diagnostico para la cirugía</mensaje>				
-				<mensaje key="44">Seleccione una cirugía de la lista Cirugías realizadas</mensaje>				
-				<mensaje key="45">Seleccione una cirugía de la tabla Cirugías</mensaje>			
+				<mensaje key="41">Seleccione el nombre de un ayudante para la atenci&#243;n</mensaje>				
+				<mensaje key="42">Añada una cirug&#237;a realizada a la mascota</mensaje>				
+				<mensaje key="43">Ingrese un diagnostico para la cirug&#237;a</mensaje>				
+				<mensaje key="44">Seleccione una cirug&#237;a de la lista Cirug&#237;as realizadas</mensaje>				
+				<mensaje key="45">Seleccione una cirug&#237;a de la tabla Cirug&#237;as</mensaje>			
 				<mensaje key="46">Ingrese la fecha de la consulta</mensaje>	
 				<mensaje key="47">Ingrese el responsable de la consulta</mensaje>
 				<mensaje key="48">Ingrese la anamnesis de la consulta</mensaje>	
@@ -89,7 +89,7 @@
 		</tipoMensaje>
 		<tipoMensaje name="Pregunta">
 			<mensajes>
-				<mensaje key="1">Confirme eliminación</mensaje>
+				<mensaje key="1">Confirme eliminaci&#243;n</mensaje>
 				<mensaje key="2">Confirme purgar</mensaje>
 				<mensaje key="3">¿Est&#225; seguro que desea eliminar Cliente?</mensaje>
 				<mensaje key="4">¿Est&#225; seguro que desea eliminar Usuario?</mensaje>
@@ -119,7 +119,7 @@
 				<mensaje key="17">Se ha purgado el Usuario exitosamente</mensaje>
 				<mensaje key="18">No se ha editado el usuario</mensaje>
 				<mensaje key="19">Se han realizado los cambios exitosamente</mensaje>
-				<mensaje key="20">Ha cancelado la edición de datos</mensaje>
+				<mensaje key="20">Ha cancelado la edici&#243;n de datos</mensaje>
 				<mensaje key="21">Estad&#237;sticas por rango de fecha para Cl&#237;nica</mensaje>
 				<mensaje key="22">Se ha editado el Catalogo exitosamente</mensaje>
 				<mensaje key="23">Se ha editado el Registro exitosamente</mensaje>
@@ -135,12 +135,12 @@
 				<mensaje key="33">Se ha editado el Aviso exitosamente</mensaje>
 				<mensaje key="34">Se ha registrado diagnostico exitosamente</mensaje>
 				<mensaje key="35">Se ha registrado Actual Control exitosamente</mensaje>
-				<mensaje key="36">Se ha registrado Proximo Control exitosamente</mensaje>
+				<mensaje key="36">Se ha registrado pr&#243;ximo Control exitosamente</mensaje>
 				<mensaje key="37">Se ha registrado Consulta exitosamente</mensaje>
-				<mensaje key="38">Se ha registrado atención de peluqueria exitosamente</mensaje>				
+				<mensaje key="38">Se ha registrado atenci&#243;n de peluqueria exitosamente</mensaje>				
 				<mensaje key="39">Cliente no se encuentra registrado</mensaje>				
-				<mensaje key="40">Se ha registrado vacunación exitosamente</mensaje>				
-				<mensaje key="41">Se ha registrado una Cirugía exitosamente</mensaje>
+				<mensaje key="40">Se ha registrado vacunaci&#243;n exitosamente</mensaje>				
+				<mensaje key="41">Se ha registrado una Cirug&#237;a exitosamente</mensaje>
 				<mensaje key="42">Se ha anulado el Control exitosamente</mensaje>
 				<mensaje key="43">Se ha registrado el Pago exitosamente</mensaje>
 				
