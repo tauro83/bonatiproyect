@@ -10,7 +10,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import TransferObjects.anuPeluqueria;
@@ -273,8 +276,17 @@ public class anularPreoperatorioBD {
 	 {
 		 int result = 0;
 		 try {
+			
+	    	Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR)-1900;
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			Date date = new Date(year,month, day);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fecha = formatter.format(date); 
+			 
 			setEstado.setInt(1, 2);
-			setEstado.setString(2, motivo);
+			setEstado.setString(2, "Fecha: "+fecha+" "+motivo);
 			setEstado.setInt(3, estado);
 			setEstado.setString(4, nombreMascota);
 			setEstado.setString(5, hora);
