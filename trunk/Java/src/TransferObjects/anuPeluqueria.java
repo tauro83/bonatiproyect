@@ -22,7 +22,16 @@ public class anuPeluqueria {
 	 private int estado;
 	 private String responsable;
 	 private String nombreCatalogo;
+	 public String motivo;
 	 
+	public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
+
 	/**
 	*  retorna rut del cliente.
 	*/
