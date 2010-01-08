@@ -98,9 +98,36 @@
 		    				for(i=0;i<largo;i++){
 		    					var textNom:String = serviciosAdds.pop();
 		    					var cat2:CatPeluqueria = new CatPeluqueria();
-		    					var listaCat:Array = textNom.split(" ",2);
-		    					cat2.nombre = listaCat.pop();
-		    					cat2.servicio = listaCat.pop();
+		    					var listaCat:Array = textNom.split(" ",11);
+		    					
+		    					var nombresS:Array = new Array();
+		    					var iss:int;
+		    					var mas:int = listaCat.length;
+		    					for(iss = 0;iss<mas;iss++){
+		   							var ns2:String = listaCat.pop();
+		   							if(ns2 != ""){
+		   								nombresS.push(ns2);
+		   							}
+		   				
+		   						}
+		   						
+		   						cat2.servicio = nombresS.pop();
+		   						
+		   						var iss2:int;
+		    					var nombre3:String = "";
+		    					nombre3 = nombresS.pop();	
+		   						var mas2:int = nombresS.length;
+		   						for(iss2 = 0;iss2<mas2;iss2++){
+		   							var ns4:String = nombresS.pop();
+		   							if(ns4 != ""){
+		   								nombre3 = nombre3.concat(" "+ns4);
+		   							}
+		   				
+		   						}
+		    					
+		    					Alert.show("nom: "+nombre3);
+		    					cat2.nombre = nombre3;
+		    					
 		    					newPeluqueria.tiposServicios.addItem(cat2.servicio);
 		    					newPeluqueria.tiposNombres.addItem(cat2.nombre);
 		    				}
