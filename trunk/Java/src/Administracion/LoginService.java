@@ -49,10 +49,12 @@ public class LoginService
 	
 	public Usuario getUsuario(String nombre, String contra) throws SQLException
 	{
+			Usuario usuario = new Usuario();
     		Connection connection=DBConnectionManager.getConnection();
-    		LoginBD log= new LoginBD(connection);
+    		LoginBD log= new LoginBD(connection);    		
+    		usuario =  log.getUsuario(nombre, contra);
     		connection.close();
-			return log.getUsuario(nombre, contra);
+    		return usuario;
 	}
 	
 	public Usuario consultarPermisos(Usuario login){
