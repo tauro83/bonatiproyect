@@ -20,8 +20,9 @@ public class AddUsuario {
 	 */
 	public static String addUsuario(Usuario u, String usuario) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
-		AddUsuarioBD aubd = new AddUsuarioBD(connection);		
-		return aubd.addUsuario(u, usuario);
+		AddUsuarioBD aubd = new AddUsuarioBD(connection);
 		connection.close();
+		return aubd.addUsuario(u, usuario);
+		
 	}
 }
