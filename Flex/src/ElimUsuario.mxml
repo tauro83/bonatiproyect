@@ -17,8 +17,6 @@
             import mx.events.CloseEvent;
             import mx.rpc.events.ResultEvent;
             import mx.core.Application;
-			
-			
 			import transferObjects.UsuarioElim;
 			import mx.rpc.events.ResultEvent;
 			import administracion.UsuarioElimService;
@@ -75,9 +73,14 @@
 			 */
 			private function deleteUsuario(clave:String):void
 			{
-				var usuarioElimService:UsuarioElimService=new UsuarioElimService();
-				usuarioElimService.addEventListener(ResultEvent.RESULT,deleteUsuarioResult);
-				usuarioElimService.hideUser(clave, Application.application.login2.usuarioActivo);
+				if(Application.application.getUsuario().usuario!==clave){
+					 var usuarioElimService:UsuarioElimService=new UsuarioElimService();
+					usuarioElimService.addEventListener(ResultEvent.RESULT,deleteUsuarioResult);
+					usuarioElimService.hideUser(clave, Application.application.login2.usuarioActivo);
+				}else{
+					labelMessage.text = "El usuario conectado, no puede ser eliminado";
+				}
+				
 			}
 			/**
 			 * 

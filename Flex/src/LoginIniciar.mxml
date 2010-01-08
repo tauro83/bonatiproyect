@@ -486,13 +486,24 @@
 				    Alert.show("Acceso denegado");
 				}
 			}
+			
+			private function limpiarUser():void
+			{
+				nombre.text = "";
+			}
+			
+			private function limpiarPass():void
+			{
+				pass.text = "";
+			}
+			
  		]]>
  	</mx:Script>	
 	
 	<mx:Image x="-6" y="0" source="../images/gato.jpg" width="455" height="426" alpha="1.0"/>
 	<mx:Text x="407" y="164" text="Ingrese su contraseña&#xa;" fontWeight="bold" fontSize="12"/>
-	<mx:TextArea x="482" y="130" height="19" width="196" id="nombre" fontStyle="normal"/>
-	<mx:TextArea x="482" y="192" height="19" width="196" displayAsPassword="true" id="pass"/>
+	<mx:TextArea x="482" y="130" height="19" mouseDown="limpiarUser()"  width="196" id="nombre" fontStyle="normal"/>
+	<mx:TextArea x="482" y="192" height="19"  mouseDown="limpiarPass()" width="196" displayAsPassword="true" id="pass"/>
 	<mx:Button x="647" y="302" label="Iniciar" id="AceptarUsuario" width="102" height="23" click="existLogin()" cornerRadius="6"/> 
 	<mx:Text x="407" y="102" text="Ingrese su nombre&#xa;" fontWeight="bold" fontSize="12"/>
 	<mx:Label x="457" y="22" text="Bienvenido" fontWeight="bold" fontSize="30"/>
