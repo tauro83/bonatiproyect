@@ -225,9 +225,13 @@
 			 **/
 			private function volver():void
             {
+            	//Application.application.setInvisible();
+            	//Application.application.agenda2.setVisible(true,false);
+            	//Application.application.menuAgenda1.setVisible(true,false);
+            	
             	Application.application.setInvisible();
-            	Application.application.agenda2.setVisible(true,false);
-            	Application.application.menuAgenda1.setVisible(true,false);
+            	Application.application.panel2.setVisible(true,false);
+            	Application.application.AdmOpciones1.setVisible(true,false);
             }
             
             /**
@@ -424,7 +428,7 @@
 				}
 				
 			}
-			public function rut():void{
+			public function rut(event:Event):void{
 			
 			   rutClienteInput.text = gridCliente.selectedItem.rut;
 			   nuevaRut2 = gridCliente.selectedItem.rut;
@@ -438,7 +442,7 @@
 		]]>
 	</mx:Script>
 	
-	<mx:Button x="632" y="353" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()" height="23"/>
+	<mx:Button x="632" y="353" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="{volver()}" height="23"/>
 	<mx:ComboBox x="96" y="24" width="150" id="combobox" change="seleccionarBusqueda(event)" >
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccionar-"/>
@@ -472,7 +476,7 @@
 		</mx:ArrayCollection>
 	</mx:ComboBox>
 	
-	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridCliente" visible="true" dataProvider="{clientes}" click="{rut()}">
+	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridCliente" visible="true" dataProvider="{clientes}" click="{rut(event)}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
 			<mx:DataGridColumn headerText="Apellido paterno" dataField="apellido"/>
