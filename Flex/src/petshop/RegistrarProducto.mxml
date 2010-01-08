@@ -55,9 +55,9 @@
 				var message:int= event.result as int;	
 				var msj:String = "";
 				if(message==1){
-					mens.text	=  Properties.getMensaje("Informacion","24");
 					this.resetVars()
-			 	}
+			 		msj	=  Properties.getMensaje("Informacion","24");
+				}
 				else{
 					msj = "";				
 				}		
