@@ -124,8 +124,6 @@
 		   							}
 		   				
 		   						}
-		    					
-		    					Alert.show("nom: "+nombre3);
 		    					cat2.nombre = nombre3;
 		    					
 		    					newPeluqueria.tiposServicios.addItem(cat2.servicio);
