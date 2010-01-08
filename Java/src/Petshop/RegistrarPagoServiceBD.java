@@ -16,7 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import TransferObjects.Pago;
-import TransferObjects.Producto;;
+import TransferObjects.Producto;
+import TransferObjects.DetallePago;
 /**
  * Clase que ejecuta la inserción de un nuevo registro de Aviso Web en la 
  * Base de Datos
@@ -25,6 +26,7 @@ import TransferObjects.Producto;;
 public class RegistrarPagoServiceBD {
 	PreparedStatement select;
 	PreparedStatement insert;
+	PreparedStatement insertdetalle;
 	
 	public RegistrarPagoServiceBD(Connection connection){
 		
@@ -41,6 +43,12 @@ public class RegistrarPagoServiceBD {
 		    		"VALUES (?, ?, ?, ?);";
 			
 			insert = connection.prepareStatement(query);
+			
+			query = "INSERT INTO detallepago(fecha, hora, codigoproducto, cantidad, subtotal) " +
+		    		"VALUES (?, ?, ?, ?, ?);";
+			
+			insertdetalle = connection.prepareStatement(query);;
+
 
 		} 
 		catch (SQLException e) {
@@ -66,7 +74,6 @@ public class RegistrarPagoServiceBD {
     	catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	System.out.println(p.nombre);
     	return p;
 	}
 	
@@ -76,11 +83,22 @@ public class RegistrarPagoServiceBD {
 		int result=0;
     	try{
 
+    		Time t = new Time(System.currentTimeMillis());
 			insert.setDate(1, p.fechaPago);
-			insert.setTime(2, new Time(System.currentTimeMillis()));
+			insert.setTime(2, t);
 			insert.setInt(3, 0);
 			insert.setInt(4, p.total);
 			
+			/*for(int i = 0; i < p.detalle.size(); i++){
+				DetallePago dp = (DetallePago)p.detalle.get(i);
+				if(dp != null){
+					insertdetalle.setDate(1, p.fechaPago);
+					insertdetalle.setTime(2, t);
+					insertdetalle.setInt(3, dp.cantidad);
+					insertdetalle.setInt(4, dp.subtotal);
+				}
+
+			}*/
 
 			result= insert.executeUpdate();
 		} 
