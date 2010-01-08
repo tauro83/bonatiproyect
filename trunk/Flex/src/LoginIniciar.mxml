@@ -445,11 +445,13 @@
 					Application.application.AdmOpciones1.bConSer.enabled=true;
 					Application.application.AdmOpciones1.bConUsu.enabled=true;
 					Application.application.AdmOpciones1.bConVac.enabled=true;
+					Application.application.AdmOpciones1.servCatPel.enabled=true;
 				}else{
 					Application.application.AdmOpciones1.bConMas.enabled=false;
 					Application.application.AdmOpciones1.bConSer.enabled=false;
 					Application.application.AdmOpciones1.bConUsu.enabled=false;
 					Application.application.AdmOpciones1.bConVac.enabled=false;
+					Application.application.AdmOpciones1.servCatPel.enabled=false;
 				}
 			}
 			// PERMISOS ================================< 
