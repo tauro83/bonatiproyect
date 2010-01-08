@@ -91,14 +91,14 @@ public class anularPeluqueria {
 	 * @param 0=activado, 1=desactivo, 2=anulado
 	 * @return 2 si ha anulado correctamente y 0 de lo contrario
 	 */
-	public int anular(int estado,String nombreMascota,String hora,String nombreCatalogo)
+	public int anular(int estado,String nombreMascota,String hora,String nombreCatalogo,String motivo)
     {
 		int result = 0;
     	try  
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
-			result = vacunacionBD.anular(estado,nombreMascota,hora,nombreCatalogo);
+			result = vacunacionBD.anular(estado,nombreMascota,hora,nombreCatalogo,motivo);
 			connection.close();
 		} 
     	catch (SQLException e) 
