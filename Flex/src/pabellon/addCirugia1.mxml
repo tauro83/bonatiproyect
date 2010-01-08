@@ -54,63 +54,7 @@
 		    
 		    
 
-			/**
-		 	 * 	Funcion que busca un cliente, en la base de datos, para esto primero verifica 
-			 * si el rut esta ingresado correctamente, en caso de estar incorrecto lo informa por pantalla.
-			 * En caso contrario realiza las llamadas a la capa de java, la cual procesara la soliitud, y 
-			 * retornara si el cliente existe o no.
-			 * @author  "Jimmy Muñoz"
-			 * @param event Evento
-			 */
-        	private function buscarCliente(event:Event):void{
-        		if(this.rutEnvi != this.nombRutInput.rutClienteInput.text){
-        			if(nombRutInput.rutClienteDVInput.text != "" && nombRutInput.rutClienteInput.text != ""){
-        				if(!Validacion.validaRut(nombRutInput.rutClienteInput.text, nombRutInput.rutClienteDVInput.text)){
-							labelMessage.text = Properties.getMensaje("Error", "4");
-						}
-						else{
-							labelMessage.text = "";
-							nombRutInput.rutClienteInput.errorString = "";
-							getCliente(nombRutInput.rutClienteInput.text);
-						}
-        			}
-        		}		
-        	}
-        	
-        	/**
-		 	 * 	Metodo que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
-			 * el cual envia las solicitudes, y devuelve los resultados.
-			 * @author  "Jimmy Muñoz"
-			 */			 
-        	private function getCliente(rutCliente:String):void{
-				var addMascotaService:AddCirugiaService = new AddCirugiaService();
-				addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
-				addMascotaService.getCliente(rutCliente);
-			}
 			
-			
-			/**
-		 	 * 	Metodo que gestiona la comunicacion con la capa logica, a traves del servicio AddCirugiaService
-			 * el cual envia las solicitudes, y devuelve los resultados. Se procesa el resultado del metodo 
-			 * anterior.
-			 * @author  "Jimmy Muñoz"
-			 * @param event Evento
-			 */
-			private function getClienteResult(event:ResultEvent):void{
-				clienteBD = event.result as Cliente;
-				
-				if(clienteBD.nombre == null){
-        			labelMessage.text = Properties.getMensaje("Informacion", "39");
-        			
-        		}
-        		else{
-        			this.nombRutInput.inputClienteNombre.text = clienteBD.apellido.split(" ",1).pop()+" "+clienteBD.apellido2.split(" ",1).pop()+" "+clienteBD.nombre.split(" ",1).pop();
-        			this.nomEnvi = this.nombRutInput.inputClienteNombre.text;
-        			this.rutEnvi = this.nombRutInput.rutClienteInput.text;
-        			labelMessage.text = "Se ha accedido al cliente "+clienteBD.nombre;
-        			ini();
-        		}
-			}
         	
 			/**
 		 	* 	Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
@@ -272,16 +216,18 @@
 			*/
 			public function iniciarPanel():void
 			{
-				this.clientesC = new ArrayCollection();
+				/*this.clientesC = new ArrayCollection();
 				this.cliente2C = new ArrayCollection();
 				this.nomEnvi="";
 				this.rutEnvi="";
 				editaC=false;
+				editaC=true;*/
+				this.nombRutInput.getAllClientes();
 				this.nombRutInput.inputClienteNombre.text="";
 				this.nombRutInput.inputClienteNombre.typedText="";
 				this.nombRutInput.rutClienteInput.text="";
 				this.nombRutInput.rutClienteDVInput.text="";
-				editaC=true;
+				
 				this.getTiposCirugias();
 				this.getTiposVeterinarios();
 				this.getTiposAyudantes();
@@ -303,32 +249,7 @@
 				this.getTiposAyudantes();
 			}
 			
-			/**
-			*  Metodo que inicializa los valores de los clientes del sistema, para seleccionarlo 
-			 * ingresando su apellido. Llamando a la funcion de BusquedaService.
-			 * @author  "Jimmy Muñoz"
-			 */
-		   private function getAllClientes():void
-		   {
-		   		if(editaC){
-		   			this.labelMessage.text="";
-		   			var busquedaService:BusquedaService = new BusquedaService();
-		   			busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResult);
-					busquedaService.getAllClientes();
-					this.editaC=false;
-				}		   		
-		   }
-		   
-		   /**
-			* Metodo que almacena el resultado del metodo anterior en el arraycollection cliente2.
-			* Y llama a la funcion concatena.
-			 * @author  "Jimmy Muñoz"
-			*/
-		   private function getAllClientesResult(event:ResultEvent):void
-		   {
-		   		cliente2C = event.result as ArrayCollection;
-		   		concatena();
-		   }
+			
 		   
 		   /**
 			* Metodo que concatena el apellido paterno, con el apellido materno, y el nombre, para mostrarlo 

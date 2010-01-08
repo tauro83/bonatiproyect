@@ -104,65 +104,7 @@
 		   		}
 		   }
 			
-			/**
-			 * Funcion que busca un cliente, en la base de datos, para esto primero verifica 
-			 * si el rut esta ingresado correctamente, en caso de estar incorrecto lo informa por pantalla.
-			 * En caso contrario realiza las llamadas a la capa de java, la cual procesara la soliitud, y 
-			 * retornara si el cliente existe o no.
-		 	 * 	@author  "Jimmy Muñoz"
-			 * @param event Evento
-			 */
-        	private function buscarCliente(event:Event):void{
-        		if(this.rutEnvi != this.nombRutInput.rutClienteInput.text){
-        			if(nombRutInput.rutClienteDVInput.text != "" && nombRutInput.rutClienteInput.text != ""){
-        				if(!Validacion.validaRut(nombRutInput.rutClienteInput.text, nombRutInput.rutClienteDVInput.text)){
-							labelMessage.text = Properties.getMensaje("Error", "4");
-						}
-						else{
-							labelMessage.text = "";
-							nombRutInput.rutClienteInput.errorString = "";
-							getCliente(nombRutInput.rutClienteInput.text);
-						}
-        			}
-        		}
-        				
-        	}
-        	
-        	/**
-			 * Metodo que gestiona la comunicacion con la capa logica, a traves del servicio 
-			 * AddVacunaonService el cual envia las solicitudes, y devuelve los resultados.
-		 	 * 	@author  "Jimmy Muñoz"
-			 */
-        	private function getCliente(rutCliente:String):void{
-				var addpelService:AddPeluqueriaService = new AddPeluqueriaService();
-				addpelService.addEventListener(ResultEvent.RESULT,getClienteResult);
-				addpelService.getCliente(rutCliente);
-			}
 			
-			
-			/**
-			 * Metodo que gestiona la comunicacion con la capa logica, a traves del servicio 
-			 * AddvacunacionService el cual envia las solicitudes, y devuelve los resultados. 
-			 * Se procesa el resultado del metodo 
-			 * anterior.
-		 	 * @author  "Jimmy Muñoz"
-			 * @param event Evento
-			 */
-			private function getClienteResult(event:ResultEvent):void{
-				clienteBD = event.result as Cliente;
-				
-				if(clienteBD.nombre == null){
-        			labelMessage.text = Properties.getMensaje("Informacion", "39");
-        			
-        		}
-        		else{
-        			this.nombRutInput.inputClienteNombre.text = clienteBD.apellido.split(" ",1).pop()+" "+clienteBD.apellido2.split(" ",1).pop()+" "+clienteBD.nombre.split(" ",1).pop();
-        			this.nomEnvi = this.nombRutInput.inputClienteNombre.text;
-        			this.rutEnvi = this.nombRutInput.rutClienteInput.text;
-        			labelMessage.text = "Se ha accedido al cliente "+clienteBD.nombre;
-        			ini();
-        		}
-			}
         	
 			/**
 			 * Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido 
@@ -274,14 +216,16 @@
 			 */
 			public function iniciarPanel():void
 			{
-				this.clientesP = new ArrayCollection();
+				/*this.clientesP = new ArrayCollection();
 				this.cliente2P = new ArrayCollection();
 				this.nomEnvi="";
 				this.rutEnvi="";
 				editaP=false;
+				editaP=true;*/
+				this.nombRutInput.getAllClientes();
 				this.nombRutInput.inputClienteNombre.text="";
 				this.nombRutInput.inputClienteNombre.typedText="";
-				editaP=true;
+				
 				this.getTiposVeterinarios();
 				this.getAllCatalogo();
 				this.mascotas=new ArrayCollection();
@@ -305,32 +249,7 @@
 			
 			
 			
-			/**
-			 * Metodo que inicializa los valores de los clientes del sistema, para seleccionarlo 
-			 * ingresando su apellido. Llamando a la funcion de BusquedaService.
-		 	 * 	@author  "Jimmy Muñoz"
-			 */
-		   private function getAllClientesP():void
-		   {
-		   		if(editaP){
-		   			this.labelMessage.text="";
-		   			var busquedaService:BusquedaService = new BusquedaService();
-		   			busquedaService.addEventListener(ResultEvent.RESULT,getAllClientesResultP);
-					busquedaService.getAllClientes();
-					this.editaP=false;
-		   		}
-		   }
-		   
-		    /**
-			 * Metodo que almacena el resultado del metodo anterior en el arraycollection cliente2.
-			 * Y llama a la funcion concatena.
-		 	 * 	@author  "Jimmy Muñoz"
-			 */
-		   private function getAllClientesResultP(event:ResultEvent):void
-		   {
-		   		cliente2P = event.result as ArrayCollection;
-		   		concatenaP();
-		   }
+			
 		   
 		   /**
 			* Metodo que concatena el apellido paterno, con el apellido materno, y el nombre, para mostrarlo 
@@ -355,108 +274,7 @@
 		   		
 		   }
 		   
-		   /**
-			* Metodo que busca al cliente, al momento de soltar el autocomplete del apellido, 
-			* procesando los datos, partiendo el texto, y guardandolo en el nombreN, apellidomN
-			* y en apellidopN.
-		 	* 	@author  "Jimmy Muñoz"
-			*/
-		   private function buscarCliente2():void
-		   {
-		   	  if(this.nomEnvi != this.nombRutInput.inputClienteNombre.text){
-		   		dg.setFocus();
-		   		this.labelMessage.text="";
-		   		var nombre:String = nombRutInput.inputClienteNombre.text;
-		   		if(nombRutInput.inputClienteNombre.text != ""){
-		   			var largo:int = cliente2P.length;
-		   			var i:int;
-		   			var sss:Array;
-		   			
-		   			sss = nombRutInput.inputClienteNombre.text.split(" ",3);
-
-		   			
-		   			/**
-		   			 * obtiene los datos de la division del nombre seleccionado.
-			 		*/
-		   			var nombreN:String = sss.pop();
-		   			var apellidomN:String = sss.pop();
-		   			var apellidopN:String = sss.pop();
-		   			
-		   			/**
-		   			 * Compara los datos obtenidos de la division, con los que se 
-		   			 * encuentran en el arreglo de clientes.
-			 		*/
-		   			for(i=0;i<largo;i++){
-		   				var newCli:Cliente = cliente2P.getItemAt(i,0) as Cliente;
-		   				if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
-		   					this.nombRutInput.rutClienteInput.text=newCli.rut.substring(0,8);
-		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre+" "+newCli.apellido;
-		   					this.nomEnvi = this.nombRutInput.inputClienteNombre.text;
-        					this.rutEnvi = this.nombRutInput.rutClienteInput.text;
-		   					sacaDigito();
-		   					ini();
-		   					break;
-		   				}
-
-		   			}
-		   			this.nombRutInput.inputClienteNombre.text=this.nomEnvi;
-		   			this.nombRutInput.rutClienteInput.text=this.rutEnvi;
-		   		}
-		   	  }
-		 
-		   }
 		   
-		   
-		   /**
-		   	* Función para obtener el dígito verificador, y para guardarlo en 
-		   	* el input dedicado a almacenar esa variable.
-		 	* 	@author  "Jimmy Muñoz"
-			*/
-		   private function sacaDigito():void{        			
-        			
-        			var Numero:String = nombRutInput.rutClienteInput.text;
-					var suma:int = 0;
-					var rut:String = Numero;
-					var NumMag:int = 2;
-					var Resto:int = 0;
-					var j:int ;
-					var i:int;
-					var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
-					var ParteNumerica:Array = new Array();
-					if (rut.length == 0) { 
-
-					}
-					for ( j =0, i =0; j < rut.length; j++){
-						if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
-							ParteNumerica[i] = rut.charAt(i);
-							++i;
-						}
-					}
-				
-					for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
-						suma += ParteNumerica[i] * NumMag;
-						trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
-						if (NumMag>6){
-							NumMag =1;	
-						}	
-					}
-					
-					Resto = 11-(suma%11);
-					if(Resto == 10){
-						this.nombRutInput.rutClienteDVInput.text="K";	
-					}
-					else{
-						if(Resto == 11){
-							this.nombRutInput.rutClienteDVInput.text="0";	
-						}
-						else{
-							this.nombRutInput.rutClienteDVInput.text=""+Resto;
-						}
-							
-					}
-					
-        		
-     		}
      		
      		/**
 		   	* Metodo que obtiene las vacunas desde la base de datos. Desde la clase configuracionServices.
