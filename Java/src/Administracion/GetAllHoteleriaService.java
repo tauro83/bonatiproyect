@@ -60,6 +60,7 @@ public class GetAllHoteleriaService {
     			lista.add(hotel);
     			
     		}
+    		connection.close();
 		} 
     	catch (SQLException e) 
     	{
