@@ -378,13 +378,6 @@ public class GetFichasBD {
 			e.printStackTrace();
 		}
 		
-		
-		
-
-		
-		
-		
-		
 		return atenciones;
     }
 	

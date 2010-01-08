@@ -104,7 +104,6 @@ public class ConfigurarBD {
     	{
 			e.printStackTrace();
 		}
-    	connection.close(); 
     	return configuraciones;
 		
 	}
@@ -137,7 +136,6 @@ public class ConfigurarBD {
     	{
 			e.printStackTrace();
 		}
-    	connection.close();  
     	return configuraciones;
 	}
 	
@@ -179,7 +177,6 @@ public class ConfigurarBD {
     	{
 			e.printStackTrace();
 		}
-    	connection.close(); 
 	}
 	/**
 	 * registra una nueva configuracion especificando el tipo
@@ -207,7 +204,6 @@ public class ConfigurarBD {
     	{
 			e.printStackTrace();
 		}
-    	connection.close(); 
 	}
 	
 	/**
@@ -246,7 +242,6 @@ public class ConfigurarBD {
     	{
 			e.printStackTrace();
 		}
-    	connection.close(); 
 	}
 	
 	/**
@@ -273,7 +268,6 @@ public class ConfigurarBD {
     	{
 			out = "0";
 		}
-    	connection.close(); 
     	
     	
     	return out;
@@ -303,7 +297,6 @@ public class ConfigurarBD {
     	{
 			out = "0";
 		}
-    	connection.close(); 
     	return out;
 	}
 	
@@ -340,7 +333,6 @@ public class ConfigurarBD {
     	{
 			out = e.toString();
 		}
-    	connection.close(); 
     	
     	return out;
     	
@@ -373,7 +365,6 @@ public class ConfigurarBD {
     	{
 			e.printStackTrace();
 		}
-    	connection.close(); 
 		
     	return out;
     	
