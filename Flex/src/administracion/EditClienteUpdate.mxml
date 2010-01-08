@@ -132,6 +132,7 @@
 					clienteAuxEditado.region    = region.text;
 					clienteAuxEditado.comuna    = comuna.text;
 					clienteAuxEditado.email     = email.text;
+					clienteAuxEditado.estado    = true;
 					//clienteAuxEditado.email2    = email2.text;	
 			}
 			
