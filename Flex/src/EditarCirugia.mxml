@@ -227,7 +227,8 @@
 			public function seleccionarFecha():void{
 				fechaSeleccionada = new String();
 				if(fecha.text != ""){
-					fechaSeleccionada =  fecha.selectedDate.date+"/"+(fecha.selectedDate.month+1)+"/"+fecha.selectedDate.fullYear;
+					//fechaSeleccionada =  fecha.selectedDate.date+"/"+(fecha.selectedDate.month+1)+"/"+fecha.selectedDate.fullYear;
+					fechaSeleccionada = fecha.text;
 				}
 				else{
 					fechaSeleccionada = null;
