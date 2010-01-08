@@ -13,10 +13,20 @@
 				Application.application.addCirug.visible = true;	
 			}
 			public function verRegistrarPreOperatorio():void{
+				//Application.application.setInvisible();
+				//Application.application.panelClinicaPrincipal.visible=false;
+				//this.visible = true;
+				//Application.application.regPreoOp1.iniciar();
+				//Application.application.regPreoOp1.visible = true;	
+				
+				
 				Application.application.setInvisible();
-				Application.application.panelClinicaPrincipal.visible=false;
 				this.visible = true;
 				Application.application.regPreoOp1.visible = true;	
+				Application.application.regPreoOp1.iniciarPanel();
+				
+				
+				
 			}
 			public function verRegistrarPostOperatorio():void{
 				Application.application.setInvisible();
@@ -165,7 +175,7 @@
 					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="25" y="10" label="Registrar" width="100%" textAlign="left" id="PreOlink" click="verRegistrarPreOperatorio()"/>
 
 					<mx:LinkButton x="25" y="40" label="Editar" id="bEditPreO"/>
-					<mx:LinkButton x="25" y="70" label="Anular" click="verPurgarPreoperatorio()" id="bEliPreO"/>
+					<mx:LinkButton x="25" y="70" label="Anular" click=" verPurgarPreoperatorio()" id="bEliPreO"/>
 					<mx:LinkButton x="25" y="100" label="Bitacora" click="verAnuladosPreoperatorio()" id="reanulado"/>
 
 				</mx:Canvas>
