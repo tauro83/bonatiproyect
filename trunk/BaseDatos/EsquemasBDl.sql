@@ -390,7 +390,7 @@ create table serviciospeluqueria(
 	descripcion CHAR(200),
 	estado integer DEFAULT '0',
 	motivo character(200) DEFAULT 0,
-	constraint PK_peluqueriaServ primary key (mascotaNombre,hora,clienteRut,fecha,servicio,nuevahora,nuevafecha),
+	constraint PK_peluqueriaServ primary key (mascotaNombre,hora,clienteRut,fecha,servicio,nuevahora,nuevafecha,nombre),
 	CONSTRAINT PK_catalogo FOREIGN KEY (servicio, nombre)
       REFERENCES catpeluqueria (servicio, nombre) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
