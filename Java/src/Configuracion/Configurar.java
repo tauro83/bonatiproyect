@@ -25,7 +25,6 @@ public class Configurar {
 	public static ArrayList getConfiguracion(String tipo) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);	
-		connection.close();
 		return conBD.getConfiguraciones(tipo);
 		
 	}
@@ -38,7 +37,6 @@ public class Configurar {
 	public static ArrayList getRazas(String especie) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);		
-		connection.close();
 		return conBD.getRazas(especie);
 		
 	}
@@ -52,7 +50,6 @@ public class Configurar {
 	public static ArrayList getConfiguracionVacuna() throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);
-		connection.close();
 		return conBD.getConfiguracionesVacunas();
 	}
 	
@@ -66,7 +63,6 @@ public class Configurar {
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);
 		conBD.regConfiguracion(tipo,nombre);
-		connection.close();
 	}
 	/**
 	 * Registrar la configuracion
@@ -79,7 +75,6 @@ public class Configurar {
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);
 		conBD.regRaza(especie,raza);
-		connection.close();
 	}
 	/**
 	 * Eliminar la configuracion especificando el nombre de la configuracion y el nombre del dato
@@ -91,7 +86,6 @@ public class Configurar {
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);
 		conBD.elimConfiguracion(tipo,nombre);
-		connection.close();
 	}
 	
 	/**
@@ -104,7 +98,6 @@ public class Configurar {
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);
 		conBD.elimRaza(especie,raza);
-		connection.close();
 	}
 	
 	/**
@@ -114,7 +107,6 @@ public class Configurar {
 	public static String elimConfiguracionVacuna(String nombre) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);
-		connection.close();
 		return conBD.elimConfiguracionVacuna(nombre);
 	}
 	/**
@@ -127,7 +119,6 @@ public class Configurar {
 	public static String regConfiguracionVacuna(ConfiguracionVacuna cv) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);
-		connection.close();
 		return conBD.regConfiguracionVacuna(cv);
 	}
 	
@@ -139,7 +130,6 @@ public class Configurar {
 	public static List getAsuntos() throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);
-		connection.close();
 		return conBD.getAsuntos();
 	}
 }
