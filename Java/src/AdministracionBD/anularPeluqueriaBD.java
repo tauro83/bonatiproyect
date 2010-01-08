@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TransferObjects.anuPeluqueria;
+import TransferObjects.anuPreoperatorio;
 
 public class anularPeluqueriaBD {
 	PreparedStatement selectAllVacunaciones;
@@ -33,7 +34,7 @@ public class anularPeluqueriaBD {
 			
 			query = "SELECT clienterut, " +
 					"mascotanombre, " +
-					"servicio, hora, fecha, costo, descripcion, estado, responsable,nombre " +
+					"servicio, hora, fecha, costo, descripcion, estado, responsable,nombre, motivo " +
 					"FROM serviciospeluqueria;";
 			selectAllVacunaciones = connection.prepareStatement(query);
 			
@@ -48,7 +49,7 @@ public class anularPeluqueriaBD {
 			setMascota = connection.prepareStatement(query);
 			
 			query = "UPDATE serviciospeluqueria " +
-					"SET estado = ? " + 
+					"SET estado = ?, motivo = ?  " + 
 					"WHERE estado = ? AND mascotanombre= ? AND hora= ? AND nombre= ? ;";
 			setEstado = connection.prepareStatement(query);
 		}
@@ -269,15 +270,16 @@ public class anularPeluqueriaBD {
 	* @param 0=activado, 1=desactivo, 2=anulado
 	* @return 2 si ha anulado correctamente y 0 de lo contrario
 	*/
-	 public int anular(int estado,String nombreMascota,String hora,String nombreCatalogo)
+	 public int anular(int estado,String nombreMascota,String hora,String nombreCatalogo,String motivo)
 	 {
 		 int result = 0;
 		 try {
 			setEstado.setInt(1, 2);
-			setEstado.setInt(2, estado);
-			setEstado.setString(3, nombreMascota);
-			setEstado.setString(4, hora);
-			setEstado.setString(5, nombreCatalogo);
+			setEstado.setString(2, motivo);
+			setEstado.setInt(3, estado);
+			setEstado.setString(4, nombreMascota);
+			setEstado.setString(5, hora);
+			setEstado.setString(6, nombreCatalogo);
 			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
@@ -334,5 +336,53 @@ public class anularPeluqueriaBD {
 			e.printStackTrace();
 		 }
 		 return result; 
+	 }
+	 
+	 public List getAllVacunacionesV()
+	 {
+		 	List vacunaciones = new ArrayList();
+		 	anuPeluqueria vacu;
+		 	
+	    	try 
+	    	{
+	    		/**
+	    		 * Inicializa la consulta sql de la tabla de peluquería.
+	    		 */
+	    		ResultSet result = selectAllVacunaciones.executeQuery();
+	    		while(result.next())
+	    		{  
+	    				
+	    			vacu = new anuPeluqueria();
+	    			
+	    			vacu.setRutCliente(result.getString(1).trim());
+	    			vacu.setNombreMascota(result.getString(2).trim());
+	    			vacu.setServicio(result.getString(3).trim());
+	    			vacu.setHora(result.getString(4).trim());
+	    			vacu.setFecha(result.getString(5).trim());
+	    			vacu.setCosto(result.getString(6).trim());
+	    			vacu.setDescripcion(result.getString(7).trim());
+	    			vacu.setEstado(result.getInt(8));
+	    			vacu.setResponsable(result.getString(9).trim());
+	    			vacu.setNombreCatalogo(result.getString(10).trim());
+	    			vacu.setMotivo(result.getString(11).trim());
+	    			
+	    			int estado2 = vacu.getEstado();
+	    			
+	    			/**
+	    			 * Esta condicción se encarga de buscar todos los registro de peluquería 
+	    			 * que posean estado 1.
+	    			 */
+	    			if(estado2==2)
+	    			{
+	    				
+	    				vacunaciones.add(vacu);
+	    			}
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return vacunaciones;
 	 }
 }
