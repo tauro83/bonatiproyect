@@ -173,7 +173,6 @@ public class CirugiaBD {
 			setEstado.setString(2, nombre);
 			setEstado.setString(3, fecha);
 			setEstado.setString(4, hora);
-			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
 		 catch (SQLException e) {
@@ -197,7 +196,6 @@ public class CirugiaBD {
 			setEstado.setString(2, nombre);
 			setEstado.setString(3, fecha);
 			setEstado.setString(4, hora);
-			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
 		 catch (SQLException e) {
