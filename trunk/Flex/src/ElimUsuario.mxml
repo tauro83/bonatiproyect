@@ -73,10 +73,12 @@
 			 */
 			private function deleteUsuario(clave:String):void
 			{
+				
 				if(Application.application.getUsuario().usuario!==clave){
-					 var usuarioElimService:UsuarioElimService=new UsuarioElimService();
+					var usuarioElimService:UsuarioElimService=new UsuarioElimService();
 					usuarioElimService.addEventListener(ResultEvent.RESULT,deleteUsuarioResult);
 					usuarioElimService.hideUser(clave, Application.application.login2.usuarioActivo);
+					
 				}else{
 					labelMessage.text = "El usuario conectado, no puede ser eliminado";
 				}
