@@ -37,6 +37,7 @@
 				
 				numericStepperFac = new ClassFactory(NumericStepper);
                 numericStepperFac.properties = {minimum:0, maximum:100, value:1};
+                labelMessage.text = "";
 			}
 
 			public function cancelar():void{
@@ -69,9 +70,21 @@
 				np.subtotal = parseInt(producto.precio)*parseInt(np.cantidad);
 				
 				if(np.precio != null){
-					totalPago.costo.text = parseInt(totalPago.costoBruto) + parseInt(np.precio) +"";
-					totalPago.formatear();
+					sumar();
 				}
+				
+				pagos.refresh();
+				
+			}
+			
+			private function sumar():void{
+				var suma:int = 0;
+				for(var i:int = 0; i<pagos.length; i++){
+					if(pagos.getItemAt(i).precio != null)
+						suma = suma + parseInt(pagos.getItemAt(i).precio);
+				}
+				totalPago.costo.text = suma + "";
+				totalPago.formatear();
 			}
 			
 			public function guardarCambio(evt:Event):void{
@@ -124,12 +137,12 @@
 	 ]]>
        
     </mx:Script>
-	<mx:DataGrid x="19" y="45" width="718" height="275" editable="true" dataProvider="{pagos}" itemFocusOut="guardarCambio(event)" doubleClick="agregarNewProducto()" doubleClickEnabled="true">
+	<mx:DataGrid x="19" id="pags" y="45" width="718" height="275" editable="true" dataProvider="{pagos}" itemFocusOut="guardarCambio(event)" keyFocusChange="guardarCambio(event)" doubleClick="agregarNewProducto()" doubleClickEnabled="true">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Código" dataField="codigoProducto" width="80"/>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre" width="120" editable="false"/>
 			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" editable="false"/>
-			<mx:DataGridColumn headerText="Cantidad" dataField="cantidad" width="70" editable="true" itemEditor="{numericStepperFac}" editorDataField="value"/>
+			<mx:DataGridColumn visible="false" headerText="Cantidad" dataField="cantidad" width="70" editable="true" itemEditor="{numericStepperFac}" editorDataField="value"/>
 			<mx:DataGridColumn headerText="Precio" dataField="precio" width="70" editable="false"/>
 			<mx:DataGridColumn headerText="Subtotal" dataField="subtotal" width="70" editable="false"/>
 		</mx:columns>
