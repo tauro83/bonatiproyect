@@ -240,18 +240,31 @@
 			
 			public function iniciarPanel():void
 			{
+				
+				nombreRutIn.inputClienteNombre.text = "";
+			 	nombreRutIn.rutClienteDVInput.text = "";
+			 	nombreRutIn.rutClienteInput.text = "";
 				this.mascotas=new ArrayCollection();
 				this.dg.doubleClickEnabled=true;
 				this.labelMessage.text="";
-//				this.rutClienteInput.text="";
-				//this.rutClienteDVInput.text="";
+				
+				
+				//Application.application.regPreoOp.getAllUsuarios();
+				Application.application.regPreoOp.iniciarPreopeUpdate();
+				
+			}
+			public function vuelve():void{
+				
+				this.setVisible(false,false);
+				Application.application.pabellonIni.setVisible(true,false);
+
 			}
 			
 				
         ]]>
     </mx:Script>
 	<mx:Button x="545.75" y="369" label="Visualizar" visible="true" id="registrar" />
-	<mx:Button x="635.75" y="369" label="Cancelar" width="84" id="cancelar" visible="true"/>
+	<mx:Button x="635.75" y="369" label="Cancelar" width="84" id="cancelar" visible="true" click="{vuelve()}"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="10" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
 	<mx:DataGrid id="dg" color="0x323232" width="681" rowCount="3" y="92" x="38.75" variableRowHeight="true" dataProvider="{mascotas}" click="{seleccionarPreOpe(event)}" visible="true" height="269">

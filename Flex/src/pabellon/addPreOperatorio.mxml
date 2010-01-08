@@ -22,22 +22,101 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
 			import mx.core.Application;
+			
+			[Bindable]
+			private var usuarios:ArrayCollection;
+			[Bindable]
+			private var usuarios2:ArrayCollection;
+			[Bindable]
+			private var responsableSeleccionado:String;
 			[Bindable]
 			private var pacotilla:Mascota2; 
 			
 			[Bindable]
 			public var preope:Preoperatorio = new Preoperatorio();
 			
+			
+			
+			public function iniciarPreopeUpdate():void{
+			 	
+			 	//panel de busqueda de las mascotas
+			 	//Application.application.regPreoOp1.nombreRutIn.inputClienteNombre.text = "";
+			 	//Application.application.regPreoOp1.nombreRutIn.rutClienteDVInput.text = "";
+			 	//Application.application.regPreoOp1.nombreRutIn.rutClienteInput.text = "";
+			 	//Application.application.regPreoOp1.mascotas = new ArrayCollection();
+			 	
+			 	//panel de preoPeratprioUpdate
+			 	sintomas.text        = "";
+			 	diagnostico.text     = "";
+			    responsable.text     = "";
+			    ayudante.text        = "";
+			 	observaciones.text   = "";
+			 	fechaPre.text		 = "";
+			 	getAllUsuarios();
+			 	
+			 	//labelMessage.text = "";
+			 	//buscadorCliente.getAllClientes();
+			 	
+			    //esto no se edita, solo muestra los datos de la mascota y del cliente
+			    
+			    nombre.text 	= "";
+			    raza.text   	= "";
+			    sexo.text		= "";
+			    fecha.text  	= "";
+			 }
+			 
+		
 			/**
-			 * Funcion que carga los datos de la cita que se quiere editar  en panle respectivo para la 
-			 * edicion
-			 * 
-			 */ 
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que recibe el panel EditUsuario (newRegUsuar), para almacenarlo, 
+			 * inicializa la variable personService, para poder llamar a los metodos de este
+			 * para lograr comunicarse con las clases y metodos de java.	 		
+			 * */
+			 
+			public function getAllUsuarios():void
+			{
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
+				personService.getAllUsuariosE();
+				
+			}
+			
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  28 Septiembre
+			 *  @Descripcion Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
+			 * del datagrid, para mostrar los datos de los usuarios que existen en el sistema.	 		
+			 * */
+			 
+			 
+			private function getAllUsuariosEResult(event:ResultEvent):void
+			{
+				usuarios = event.result as ArrayCollection;	
+				usuarios2 = new ArrayCollection();
+				responsableSeleccionado = usuarios.getItemAt(0).usuario.split(" ",1).pop();
+				for(var i:int = 0; i<usuarios.length; i++){
+					usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
+				}					
+			}
+			 
+			 
+			public function asignarResponsable(event:Event):void{
+				var itemSeleccionado:Object = event.currentTarget.selectedItem;
+				responsableSeleccionado = itemSeleccionado.usuario;
+				
+				//funcion que dado un responsable se consultan las horas disponisbles de este
+				//consultarHoras();		
+			}
+			
+			
+			
 			public function carga(mascotilla:Mascota2):void
 			{       //esto es lo que podra edita el usuario
 					pacotilla = mascotilla;
 				    sintomas.text        = "";
-				    veterinario.text     = "";
+				    responsable.text     = "";
 				    ayudante.text       = "";
 				    diagnostico.text     = "";
 				    //esto no se edita, solo muestra los datos de la mascota y del cliente
@@ -58,8 +137,8 @@
 					preope.observaciones   = observaciones.text;
 					preope.sintomas        = sintomas.text;
 					preope.diagnostico     = diagnostico.text;
-					preope.fecha		   = fecha.text;
-				    preope.responsable     = veterinario.text;
+					preope.fecha		   = fechaPre.text;
+				    preope.responsable     = responsable.text;
 				    preope.ayudante        = ayudante.text;
 				   
 				    
@@ -101,7 +180,7 @@
 			public function cancelarEditaCita(event:Event = null):void
 			{
 				
-			    //Alert.show(selectedRow.hora);
+			    Application.application.regPreoOp1.iniciarPanel();
 			    Application.application.regPreoOp1.setVisible(true,false);
 			    Application.application.regPreoOp.setVisible(false,false);
 			    Application.application.regPreoOp1.labelMessage.text="Usted ha cancelado la operación";
@@ -122,12 +201,7 @@
             {label:"Ayudante Hotelería"},
             {label:"Ayudante Cirugía"} ]);
             
-            [Bindable]
-            public var usuarios:ArrayCollection = new ArrayCollection(
-            [ {label:"Todos", data:1}, 
-            {label:"Claudio Bonati"}, 
-            {label:"Patricio Castro"},
-            ]);
+            
             [Bindable]
             public var razas:ArrayCollection = new ArrayCollection(
             [{label:"Montés"}, 
@@ -153,19 +227,19 @@
 	<mx:Label x="10.05" y="320" text="Veterinario:" width="128"/>
 	<mx:TextArea x="399.7" y="45" height="141" width="333.55" id="diagnostico"/>
 	<mx:Label x="399.7" y="20" text="Diagnóstico" width="78"/>
-	<mx:ComboBox x="133.55" y="318" id="veterinario" dataProvider="{usuarios}" width="160"></mx:ComboBox>
 	<mx:ComboBox x="133.55" y="354" id="ayudante" dataProvider="{ayudantes}" width="160"></mx:ComboBox>
 	<mx:Button x="495.25" y="382" label="Guardar" width="87" click="{preOpeModificado()} "/>
 	<mx:Button x="603.55" y="382" label="Cancelar" width="91.4" click="{cancelarEditaCita()}"/>
 	<mx:TextArea x="133.55" y="199" height="61" id="sintomas"/>
-	<mx:TextInput x="133" y="31" id="nombre"/>
-	<mx:TextInput x="133.55" y="139" id="fecha"/>
+	<mx:TextInput x="133" y="31" id="nombre" editable="false"/>
+	<mx:TextInput x="133.55" y="139" id="fecha" editable="false" enabled="true"/>
 	<mx:Label x="10" y="141" text="Fecha nacimiento:" width="107.95"/>
-	<mx:TextInput x="133" y="97" id="sexo"/>
-	<mx:TextInput x="133" y="61.85" id="raza"/>
+	<mx:TextInput x="133" y="97" id="sexo" editable="false"/>
+	<mx:TextInput x="133" y="61.85" id="raza" editable="false"/>
 	<mx:TextArea x="399.7" y="246" height="105" width="333.55" id="observaciones"/>
 	<mx:Label x="399.7" y="220" text="Observaciones" width="93"/>
 	<mx:Label x="10" y="281" text="Fecha           :" width="145"/>
-	<mx:DateField x="133" y="279" width="115" id="fecha0"/>
+	<mx:DateField x="133" y="279" width="115" id="fechaPre" editable="true" enabled="true"/>
+	<mx:ComboBox id="responsable" x="133" y="318" dataProvider="{usuarios2}" close="asignarResponsable(event)"></mx:ComboBox>
 	
 </mx:Panel>
