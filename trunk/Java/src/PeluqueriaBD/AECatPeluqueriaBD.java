@@ -93,7 +93,6 @@ public class AECatPeluqueriaBD {
 			setEstado.setInt(1, 2);
 			setEstado.setString(2, cata.getNombre());
 			setEstado.setString(3, cata.getServicio());
-			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
 		 catch (SQLException e) {
@@ -116,7 +115,6 @@ public class AECatPeluqueriaBD {
 			setEstado.setInt(1, 1);
 			setEstado.setString(2, cata.getNombre());
 			setEstado.setString(3, cata.getServicio());
-			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
 		 catch (SQLException e) {
