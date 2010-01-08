@@ -30,7 +30,7 @@ public class CitaEditDB
 		try 
 		{
 			String query="";
-			System.out.println("Entro a editar la CITA");
+			
 			query = "UPDATE cita"+
 			   " SET rutcliente = ?, nombremascota = ?, fecha =?, hora = ?,servicio = ?, responsable = ? "+
 				 "WHERE fecha = ? AND hora = ? AND servicio = ? AND responsable = ?;";
@@ -51,29 +51,7 @@ public class CitaEditDB
 	 * @return void. Solo captura algun error si es que hubiera en la base de datos.
 	 */
 	
-	/*
-	public CitaEditDB(Connection connection, String rut)
-	{
-		this.rut= rut;
-		//this.hora=hora;
-		//this.servicio=servicio;
-		//this.responsable= responsable;
-		conn = connection;
-		try 
-		{		
-			String query = "UPDATE cita " +
-			"SET rutcliente = ?, nombremascota = ?, fecha = ?, hora = ?, servicio = ?, responsable = ? " +
-		    "WHERE rutcliente = "+rut+";";
-			 insert = connection.prepareStatement(query);
-			 //rutcliente = "+rut+";";
-			
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-	}
-	*/
+
 
 	/**@autor: Raúl López
 	 * Ingresa a una nuevacita a la base de datos
@@ -86,16 +64,7 @@ public class CitaEditDB
     	int result=0;
     	try 
     	{
-    		/*
-    		System.out.println(person.getCliente()+".");
-    		System.out.println(person.getFecha()+".");
-    		System.out.println(person.getHora()+".");
-    		*/
     		
-    		System.out.println(fech);
-    		System.out.println(hor);
-    		System.out.println(servi);
-    		System.out.println(respon);
     		
     		insert.setString(1, person.getCliente());
 			insert.setString(2, person.getMascota());
@@ -112,7 +81,7 @@ public class CitaEditDB
 			
 			result = insert.executeUpdate();
 			
-			System.out.println(+result);
+			
 			
     		
 		} 

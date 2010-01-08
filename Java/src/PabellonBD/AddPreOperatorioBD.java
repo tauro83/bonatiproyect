@@ -44,7 +44,7 @@ public class AddPreOperatorioBD {
 		
 		try 
     	{
-			System.out.print("Entra Try");
+			
 			
 			Calendar c = Calendar.getInstance();
     		int hora = c.get(Calendar.HOUR_OF_DAY);
@@ -67,7 +67,7 @@ public class AddPreOperatorioBD {
 			result=""+insert.executeQuery();
 			//result=insert.executeUpdate();
 			
-			System.out.println("hola:"+result);
+			
 		} 
     	catch (SQLException e) 
     	{

@@ -87,10 +87,10 @@ public class EditarPeluServiceBD
 			List ltS = pelu.getTiposServicios();
 			
 			int n = ltS.size();
-			System.out.println("antes for");
+			
 			
 			for(int i=0;i<n;i++){
-				System.out.println("entro for");
+				
 				String tipPel = (String) ltS.get(i);
 				String tipNom = (String) ltN.get(i);
 				
@@ -101,7 +101,7 @@ public class EditarPeluServiceBD
 	    		Time t2 = new Time(hora, minutos, segundos);
 				
 				if(tipPel != null){
-					System.out.println("entro if");
+					
 					String costo = getCosto(tipPel,tipNom,catalogos);
 					insert.setString(1, tipPel);
 					insert.setString(2, tipNom);
@@ -206,9 +206,7 @@ public class EditarPeluServiceBD
 	
 	public List getServiciosAnteriores(String responsable,Date fecha, String hora)
     {
-		//System.out.println(responsable);
-		//System.out.print(fecha);
-		//System.out.println(hora);
+		
 		
     	List serviciosAnteriores=new ArrayList();
     	Peluqueria peluqueria;
@@ -229,11 +227,7 @@ public class EditarPeluServiceBD
     		{
     			peluqueria = new Peluqueria();
     			
-    			//System.out.println(resultete.getString(1).trim()+": esto es = a"+responsable);
-    			//System.out.println(resultete.getDate(2)+": esto es = a"+fecha);
-    			//System.out.println(resultete.getString(3).trim()+": esto es igual a"+hora);
-    			//if(responsable.equals(resultete.getString(1).trim()) && fecha.equals(resultete.getDate(2)) && hora.equals(resultete.getString(3).trim())){
-    				//System.out.println("nunk entra");
+    			
     				peluqueria.setFecha(resultete.getDate(1));
     				peluqueria.setHora(resultete.getString(2));
     				peluqueria.setServicio(resultete.getString(3));
