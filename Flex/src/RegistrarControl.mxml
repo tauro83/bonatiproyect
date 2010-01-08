@@ -388,9 +388,9 @@
 			{
 				var result:int = event.result as int ;
 				if(!result>0)
-					labelMessage.text += " - " + Properties.getMensaje("Error", "22");
+					labelMessage.text += " y " + Properties.getMensaje("Error", "22");
 				else{
-					labelMessage.text += " - " + Properties.getMensaje("Informacion", "36");
+					labelMessage.text += " y " + Properties.getMensaje("Informacion", "36");
 					Application.application.agenda2.iniciarAgenda();
 					borrarDatosProximoControl();
 					this.currentState="";
