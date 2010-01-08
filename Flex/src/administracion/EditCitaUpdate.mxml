@@ -83,9 +83,11 @@
 				    rut.text = clientillo.cliente;
 				    hora.text   = clientillo.hora;
 				    fecha.text	= clientillo.fecha;
-				    responsable.text = clientillo.usuario;
+				    //responsable.text = clientillo.usuario;
 				    listMascotas.text= clientillo.mascota;
 				    servicio.text=clientillo.servicio;
+				    
+				     
 				    //le asigno las inicales de responsable (primera letra nombre mas el apellido)
 				    //clienteAuxEditado.usuario = clientillo.usuario;
 				    
@@ -144,32 +146,7 @@
 					carga1();
 					
 			}
-			public function iniciales():String{
-			   var usuarillo:Array  = new Array();
-			   var usuarillo2:Array  = new Array();
-			   var usuarillo3:Array  = new Array();
-			   var nombreUsu:String;
-			   var apaternoUsu:String;
-			   var aux:String
-			   var i:int;
-			   for(i = 0; i<usuarios.length ; i++){
-						
-					usuarillo = usuarios[i].nombre.split(" ",1);
-					nombreUsu  = usuarillo.pop();
-						
-					usuarillo2 = usuarios[i].apellidoPaterno.split(" ",1);
-					apaternoUsu= usuarillo2.pop();
-					if(responsable.text == nombreUsu + " " + apaternoUsu){
-						usuarillo3 = usuarios[i].usuario.split(" ",1);
-						aux = usuarillo3.pop();
-						//clienteAuxEditado.usuario = aux;
-						
-						
-					}
-				}
-				return aux;
-			
-			}
+
 			/**
 			 * @author  "Raul Lopez"
 			 * @Fecha  28 Septiembre
@@ -330,18 +307,10 @@
 			 **/
 			
 			public function consultarHoras():void{
-				
 				if(fecha.text != ""){
-					this.fecha.selectedDate = Application.application.agenda2.calendario.selectedDate;
 					var diaAgenda:DiaAgendaServices = new DiaAgendaServices();
 					diaAgenda.addEventListener(ResultEvent.RESULT,consultarHorasDisponiblesResult);
-					var dia:Number = fecha.selectedDate.date;
-					
-					var mes:Number = (fecha.selectedDate.month+1);
-					
-					var ano:Number = fecha.selectedDate.fullYear;
-					
-					diaAgenda.getDiaAgenda(dia+"/"+mes+"/"+ano);
+					diaAgenda.getDiaAgenda(fecha.selectedDate.date+"/"+(fecha.selectedDate.month+1)+"/"+fecha.selectedDate.fullYear);
 				}
 			}
 			
@@ -351,10 +320,10 @@
 			 *  Funcion que filtra las horas disponibles del sistema
 			 **/
 			private function consultarHorasDisponiblesResult(event:ResultEvent):void{
-				
 				var horas:ArrayCollection = new ArrayCollection();
                 var horasOcupadas:ArrayCollection = new ArrayCollection();
                 
+                // retorno de todas las citas
 				horas = event.result as ArrayCollection;
 				
 				for(var i:int=0; i< horas.length; i++){
@@ -363,6 +332,8 @@
 					}
 				}
 				
+				// horas libres que posteriormente son llenadas si no hay choque de horas
+				// con las horas ocupadas
 				horasLibres  = new ArrayCollection();
 				
 				if(!horasOcupadas.contains("10:30")){horasLibres.addItem({label:"10:30"});}
@@ -379,9 +350,9 @@
 				if(!horasOcupadas.contains("18:30")){horasLibres.addItem({label:"18:30"});}
 				if(!horasOcupadas.contains("19:00")){horasLibres.addItem({label:"19:00"});}
 				if(!horasOcupadas.contains("19:30")){horasLibres.addItem({label:"19:30"});}
+				if(!horasOcupadas.contains("20:00")){horasLibres.addItem({label:"20:00"});}
 				
 				hora.dataProvider = horasLibres;
-				
 			}
 			
 			/**
@@ -389,12 +360,16 @@
 			 * 	@Fecha  27   Octubre
 			 *  Funcion que luego de seleccionado un responsable se buscan las horas disponible de este 
 			 **/
+			
 			public function asignarResponsable(event:Event):void{
 				var itemSeleccionado:Object = event.currentTarget.selectedItem;
-				responsableSeleccionado = itemSeleccionado.usuario;
-				consultarHoras();
-				//Alert.show(itemSeleccionado.usuario.split(" ",1).pop());			
+				//responsableSeleccionado = itemSeleccionado.usuario;
+				responsableSeleccionado = responsable2.text;
+				
+				//funcion que dado un responsable se consultan las horas disponisbles de este
+				consultarHoras();		
 			}
+			
 	       /*
 	      private function cargaUsuarios(event:Event = null):void{
 	       	Alert.show("asd");
@@ -453,17 +428,17 @@
 	<mx:Label x="10" y="68" id="labelRut" text="Rut Cliente    :" width="145"/>
 	<mx:Label x="10" y="154" text="Fecha           :" width="145"/>
 	<mx:Label x="10" y="256" text="Hora             :" width="145"/>
-	<mx:DateField x="163" y="152" width="115" id="fecha" formatString="DD/MM/YYYY"/>
 	<mx:Label x="10" y="301" text="Servicio         :" width="145"/>
 	<mx:Button x="590" y="347" label="Cancelar" width="112" click="{cancelarEditaCita()}"/>
 	<mx:Button x="425" y="347" label="Guardar " width="123" click="{clienteModificado()} "/>
 	<mx:Label x="10" y="205" text="Responsable :" width="145"/>
 	<mx:Label x="10" y="113" text="Mascotas      :" width="123"/>
-	<mx:ComboBox id="responsable" x="163" y="203" dataProvider="{usuarios2}" change ="asignarResponsable(event)"></mx:ComboBox>
-	<mx:ComboBox id="hora" x="163" y="254" width="160" dataProvider="{horasLibres}" editable="true" enabled="true"/>
 	<mx:ComboBox x="163" y="111" id="listMascotas" labelField="nombre" resize="false"  dataProvider="{mascotas}">
 	</mx:ComboBox>
 	<mx:TextInput x="163" y="299" width="140" id="servicio" enabled="true" maxChars="20" editable="false"/>
+	<mx:ComboBox id="hora" x="163" y="254" width="160" dataProvider="{horasLibres}"/>
+	<mx:DateField id="fecha" x="163" y="152" width="158" formatString="DD/MM/YYYY" change="consultarHoras()"/>
+	<mx:TextInput x="161" y="203" id="responsable2" enabled="false"/>
 	
 	
 </mx:Panel>
