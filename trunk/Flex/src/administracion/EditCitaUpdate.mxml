@@ -87,7 +87,7 @@
 				    listMascotas.text= clientillo.mascota;
 				    servicio.text=clientillo.servicio;
 				    //le asigno las inicales de responsable (primera letra nombre mas el apellido)
-				    clienteAuxEditado.usuario = iniciales();
+				    //clienteAuxEditado.usuario = clientillo.usuario;
 				    
 				    fech    	= clientillo.fecha;
 				    hor     	= clientillo.hora;
@@ -138,7 +138,7 @@
 					clienteAuxEditado.fecha =  fecha.selectedDate.getDate() + "/" + (fecha.selectedDate.getMonth()+1) + "/" +fecha.selectedDate.getFullYear();
 					clienteAuxEditado.hora       = hora.text;
 					clienteAuxEditado.servicio 	 	= servicio.text;
-					clienteAuxEditado.usuario  = iniciales();
+					//clienteAuxEditado.usuario  = usuario.text;OJOJOJOJOJOJOJOJOJOJOJOJOJO
 					//var la:String = iniciales();
 					//Alert.show(la);
 					carga1();
@@ -460,7 +460,7 @@
 	<mx:Label x="10" y="205" text="Responsable :" width="145"/>
 	<mx:Label x="10" y="113" text="Mascotas      :" width="123"/>
 	<mx:ComboBox id="responsable" x="163" y="203" dataProvider="{usuarios2}" change ="asignarResponsable(event)"></mx:ComboBox>
-	<mx:ComboBox id="hora" x="163" y="254" width="160" dataProvider="{horasLibres}"/>
+	<mx:ComboBox id="hora" x="163" y="254" width="160" dataProvider="{horasLibres}" editable="true" enabled="true"/>
 	<mx:ComboBox x="163" y="111" id="listMascotas" labelField="nombre" resize="false"  dataProvider="{mascotas}">
 	</mx:ComboBox>
 	<mx:TextInput x="163" y="299" width="140" id="servicio" enabled="true" maxChars="20" editable="false"/>
