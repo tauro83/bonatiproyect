@@ -69,10 +69,10 @@
 			* Este metodo se  encarga de realizar la anulación de un registro de peluquería
 			* pasando como parametro el estado que posee el objeto que se desea anular.
 			*/
-			public function anular(estado:int,nombreMascota:String,hora:String,nombreCatalogo:String):void
+			public function anular(estado:int,nombreMascota:String,hora:String,nombreCatalogo:String,motivo:String):void
 			{
 				var vacunacionService:anularPeluqueria = new anularPeluqueria();
-				vacunacionService.anular(estado,nombreMascota,hora,nombreCatalogo);
+				vacunacionService.anular(estado,nombreMascota,hora,nombreCatalogo,motivo);
 			}
 
             /**
@@ -113,8 +113,18 @@
                 for (var i:int = 0; i < allRows; i++){
                     if (vacunaciones[i].sel)
                 	{
+                		
                         vacu = vacunaciones[i] as anuPeluqueria;
-                        anular(vacu.estado,vacu.nombreMascota,vacu.hora,vacu.nombreCatalogo);
+                        
+                        if(comboboxMotivo.selectedLabel=='Otros'){
+                        	vacu.motivo=motivo.text;
+                        }
+                        
+                        else{
+                        	vacu.motivo=comboboxMotivo.text;
+                        }
+                        
+                        anular(vacu.estado,vacu.nombreMascota,vacu.hora,vacu.nombreCatalogo,vacu.motivo);
                        
                         vacunaciones.removeItemAt(i);
                         allRows = vacunaciones.length;
