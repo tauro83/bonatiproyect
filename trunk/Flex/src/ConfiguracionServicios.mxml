@@ -12,6 +12,10 @@
 			import mx.rpc.events.ResultEvent;
 			import services.configuracionServices;			
 			import util.Properties;
+			import mx.controls.Alert;
+			import mx.core.Application;
+         
+			
 			
 			[Bindable]private var servicios:ArrayCollection;
 			private var confs:configuracionServices= new configuracionServices();
@@ -33,7 +37,19 @@
 			 * */
 			public function cargarDatosR(event:ResultEvent):void
 			{
-				servicios = event.result as ArrayCollection;	
+				servicios = event.result as ArrayCollection;
+				var s1:String = "Peluquería";
+				var ban:Boolean = false;
+				for(var i:int = 0; i<servicios.length; i++){
+					if(s1.localeCompare(servicios.getItemAt(i).nombre)==0){
+						Application.application.AdmOpciones1.servCatPel.visible = true;
+						ban = true;
+         			}
+				}
+				if(!ban){
+					Application.application.AdmOpciones1.servCatPel.visible = false;
+				}
+				
 			}
 			 
 			/** 
