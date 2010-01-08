@@ -150,7 +150,8 @@
 	   private function verAnuladosPeluqueria():void{
 			Application.application.setInvisible();
 			this.visible = true;
-         	Application.application.AnuladoPelu.visible = true;
+         	      Application.application.AnuladoPelu.visible = true;
+			Application.application.AnuladoPelu.getAllVacunacionesV();
 	 }
 
          
