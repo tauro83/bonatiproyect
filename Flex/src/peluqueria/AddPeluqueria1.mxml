@@ -95,7 +95,7 @@
 		   		var max:int = listCatalogosP.length;
 		   		var catalog:CatPeluqueria;
 		   		var catalog2:CatPeluqueria;
-		   		
+		   		//inicio aqui tambien edito 
 		   		for(i=0;i<max;i++){
 		   			catalog= listCatalogosP.getItemAt(i,0) as CatPeluqueria;
 		   			catalog2 = new CatPeluqueria();
@@ -113,6 +113,7 @@
 		   			catalog2.nombre = ""+catalog.servicio.split(" ",1).pop()+" "+nombre;
 		   			listCatP.addItem(catalog2);
 		   		}
+		   		/// fin hasta aqui edito tambien
 		   }
 			
 			
