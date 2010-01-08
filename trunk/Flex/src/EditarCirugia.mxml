@@ -338,7 +338,7 @@
 	
 	<!-- Tabla de Cirugias encontradas -->
 	<mx:Canvas x="0" y="0" width="759" height="426" visible="true" id="busqueda">
-	<mx:DataGrid x="33" y="179" width="690" id="Tabla" enabled="true" height="144" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="editarCirugia(event)" itemClick="consultarAccion(event)" click="consultarAccion(event)">
+	<mx:DataGrid x="24" y="179" width="711" id="Tabla" enabled="true" height="144" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="editarCirugia(event)" itemClick="consultarAccion(event)" click="consultarAccion(event)">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Cirugía" dataField="tipoCir" width="80" visible="false"/>
 			<mx:DataGridColumn headerText="Responsable" dataField="veterinario" width="95"/>
@@ -358,16 +358,16 @@
 
 	<!-- Datos de Busqueda -->
 	
-	<mx:Label x="33" y="153" text="Cirugías:" fontWeight="bold"/>
-	<mx:Label x="33" y="10" text="Cliente:" fontWeight="bold"/>
-	<mx:Label x="352" y="72" text="Cirugía:" fontWeight="bold"/>
-	<mx:Label x="33" y="72" text="Mascota:" fontWeight="bold"/>
-	<mx:Button x="621" y="331" label="Cancelar" width="102" height="23" cornerRadius="6" click="volver2()"/>
-	<mx:Label x="33.2" y="97" text="Nombre:" width="55.75"/>
-	<mx:Label x="352" y="97" text="Responsable:" width="93" height="22"/>
-	<mx:Label x="352" y="134" text="Fecha:" width="55.75" height="20"/>
-	<mx:DateField x="444.75" y="132" width="161" id="fecha" change="seleccionarFecha()" editable="true" formatString="DD/MM/YYYY"/>
-	<mx:ComboBox x="444.75" y="95" dataProvider="{responsables}" width="139" id="responsable" change="buscarCirugias()">
+	<mx:Label x="24" y="153" text="Cirugías:" fontWeight="bold"/>
+	<mx:Label x="24" y="10" text="Cliente:" fontWeight="bold"/>
+	<mx:Label x="339" y="74" text="Cirugía:" fontWeight="bold"/>
+	<mx:Label x="24" y="72" text="Mascota:" fontWeight="bold"/>
+	<mx:Button x="633" y="331" label="Cancelar" width="102" height="23" cornerRadius="6" click="volver2()"/>
+	<mx:Label x="24.2" y="97" text="Nombre:" width="55.75"/>
+	<mx:Label x="339" y="97" text="Responsable:" width="93" height="22"/>
+	<mx:Label x="339" y="134" text="Fecha:" width="55.75" height="20"/>
+	<mx:DateField x="431.75" y="132" width="161" id="fecha" change="seleccionarFecha()" editable="true" formatString="DD/MM/YYYY"/>
+	<mx:ComboBox x="431.75" y="95" dataProvider="{responsables}" width="139" id="responsable" change="buscarCirugias()">
 	</mx:ComboBox>
 		<mx:DataGrid  color="0x323232" width="189" rowCount="3" y="126" x="454" variableRowHeight="true" dataProvider="{mascotas}"  visible="false" height="84" change="tablaSeleccionada = true">
 		    <mx:columns>
@@ -375,8 +375,8 @@
 		        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" visible="false" width="100"/>
 		    </mx:columns>
 		</mx:DataGrid>
-		<mx:ComboBox id="dg2" x="106" y="95" dataProvider="{mascotas}" width="207" change="buscarCirugias()" labelField="nombre"></mx:ComboBox>
-		<ns1:BuscadorNombreRut x="33" y="36" keyFocusChange="mascotasFiltrar()" mouseFocusChange="mascotasFiltrar()" id="buscadorCliente">
+		<mx:ComboBox id="dg2" x="97" y="95" dataProvider="{mascotas}" width="207" change="buscarCirugias()" labelField="nombre"></mx:ComboBox>
+		<ns1:BuscadorNombreRut x="24" y="36" keyFocusChange="mascotasFiltrar()" mouseFocusChange="mascotasFiltrar()" id="buscadorCliente">
 		</ns1:BuscadorNombreRut>
 	</mx:Canvas>
 	
