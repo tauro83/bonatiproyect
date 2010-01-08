@@ -403,7 +403,7 @@
 					newCita.servicio= agendaDia.selectedItem.servicio;
 					newCita.usuario = agendaDia.selectedItem.usuario;
 					
-					newCitaUpdate.usuario.text = agendaDia.selectedItem.responsable;
+					newCitaUpdate.responsable2.text = agendaDia.selectedItem.responsable;
 					
 					
 				    Application.application.agenda2.setVisible(false,false);
