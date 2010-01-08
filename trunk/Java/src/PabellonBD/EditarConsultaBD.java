@@ -28,7 +28,7 @@ public class EditarConsultaBD
 		conn = connection;
 		try 
 		{
-			System.out.println("entro acacacacacacacacacac");
+			
 			String query="";
 			
 			query = "UPDATE consulta"+
@@ -52,36 +52,7 @@ public class EditarConsultaBD
 		}
 	}
 	
-	
-	/*
-	public EditarConsultaBD(Connection connection, String rutillo)
-	{
-		System.out.println("entro al constructor rutillooooooooooo");
-		this.rut= rutillo;
-		//this.hora=hora;
-		//this.servicio=servicio;
-		//this.responsable= responsable;
-		conn = connection;
-		try 
-		{		
-			String query = "UPDATE consulta"+
-			   " SET anamnesis=?, servicio = ?, hora = ?, fecha = ?,costo = ?, rut = ?, nombre = ?, responsable = ?"+
-				 "WHERE rut = "+rutillo+";";
-			 insert = connection.prepareStatement(query);
-			 
-			 
-			query = "SELECT anamnesis, servicio, hora, fecha, costo, rut, nombre, responsable "+
-				"FROM consulta where rut = "+rutillo+";";
-					
-			selectAll = connection.prepareStatement(query);
-			
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-	}
-	*/
+
 
 	/**
 	 * Ingresa a una nueva persona a la base de datos
@@ -94,14 +65,7 @@ public class EditarConsultaBD
     	int result=0;
     	try 
     	{
-    		/*
-    		System.out.println(person.getCliente()+".");
-    		System.out.println(person.getFecha()+".");
-    		System.out.println(person.getHora()+".");
-    		System.out.println(person.getMascota()+".");
-    		System.out.println(person.getServicio()+".");
-    		System.out.println(person.getUsuario()+".");
-    		*/
+    		
     		
     		System.out.println(consulta.getAnamnesis()+".");
     		System.out.println(consulta.getRut()+".");
