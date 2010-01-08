@@ -99,7 +99,18 @@
 		   		for(i=0;i<max;i++){
 		   			catalog= listCatalogosP.getItemAt(i,0) as CatPeluqueria;
 		   			catalog2 = new CatPeluqueria();
-		   			catalog2.nombre = ""+catalog.servicio.split(" ",1).pop()+" "+catalog.nombre.split(" ",1).pop();
+		   			var nombre:String = "";
+		   			var nombres:Array = catalog.nombre.split(" ",10);
+		   			var inombre:int;
+		   			var mas:int = nombres.length;
+		   			for(inombre = 0;inombre<mas;inombre++){
+		   				var ns:String = nombres.pop();
+		   				if(ns != ""){
+		   					nombre = ns.concat(" "+nombre);
+		   				}
+		   				
+		   			}		   			
+		   			catalog2.nombre = ""+catalog.servicio.split(" ",1).pop()+" "+nombre;
 		   			listCatP.addItem(catalog2);
 		   		}
 		   }
@@ -338,6 +349,7 @@
 	<mx:Button x="632" y="353" label="Volver" width="103" id="cancelar" visible="true" height="23" click="{vuelve()}"/>
 	
 	<mx:Label x="25" y="65" text="Mascotas:" width="112.75" fontWeight="bold"/>
+	<mx:Button x="632" y="44" label="Button"/>
 
 	
 </mx:Panel>
