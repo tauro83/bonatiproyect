@@ -37,5 +37,6 @@ package transferObjects
 		public var responsable:String; // representa a la person aque presto el servicio.
 		public var nombreCatalogo:String; // representa al nombre del catalogo.
 		public var estado:int; // representa el estado en que se encuentra el registro de peluquería.
+		public var motivo:String;
 	}
 }
