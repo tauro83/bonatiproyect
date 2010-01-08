@@ -43,6 +43,7 @@ public class GetAllMascotas {
      */
 	public List getAllMascotas() throws SQLException{
 		GetAllMascotasDB object= new GetAllMascotasDB(connection);
+		connection.close();
 		return object.getAllMascotas();
 	}
 
