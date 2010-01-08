@@ -389,7 +389,7 @@ create table serviciospeluqueria(
 	costo char(20),
 	descripcion CHAR(200),
 	estado integer DEFAULT '0',
-	motivo character(50) DEFAULT 0,
+	motivo character(200) DEFAULT 0,
 	constraint PK_peluqueriaServ primary key (mascotaNombre,hora,clienteRut,fecha,servicio,nuevahora,nuevafecha),
 	CONSTRAINT PK_catalogo FOREIGN KEY (servicio, nombre)
       REFERENCES catpeluqueria (servicio, nombre) MATCH SIMPLE
@@ -448,7 +448,7 @@ CREATE TABLE preoperatorio
   responsable character(30),
   ayudante character(30),
   estado integer DEFAULT '0',
-  motivo character(50) DEFAULT 0,		
+  motivo character(100) DEFAULT 0,		
   CONSTRAINT pk_preoperatorio PRIMARY KEY (rut, fecha, hora)
 );
 
