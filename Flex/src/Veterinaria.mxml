@@ -264,6 +264,7 @@
   			regPreoOp1.setVisible(false,false);
   			visualizaPre.setVisible(false,false);
 			AnuladoPre.setVisible(false,false);
+			AnuladoPelu.setVisible(false,false);
 		 	<!--Autor: }Nicolas -->
 			
 		 		
@@ -519,7 +520,8 @@
 	</ns1:RegistrarConsulta2>
 	<ns1:AnuladosPre x="241" y="134" id="AnuladoPre" visible="false" borderColor="#15AD8F">
 	</ns1:AnuladosPre>
-	
+	<ns1:AnuladosPeluqueria x="241" y="134" id="AnuladoPelu" visible="false" borderColor="#15AD8F">
+	</ns1:AnuladosPeluqueria>
 	<!--Autor: }nicolas-->
 	
 	<!--Autor: Esteban{ -->
