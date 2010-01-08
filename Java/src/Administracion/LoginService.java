@@ -47,10 +47,11 @@ public class LoginService
 	    	return result;
 	}
 	
-	public Usuario getUsuario(String nombre, String contra)
+	public Usuario getUsuario(String nombre, String contra) throws SQLException
 	{
     		Connection connection=DBConnectionManager.getConnection();
     		LoginBD log= new LoginBD(connection);
+    		connection.close();
 			return log.getUsuario(nombre, contra);
 	}
 	

@@ -22,5 +22,6 @@ public class AddUsuario {
 		Connection connection=DBConnectionManager.getConnection();
 		AddUsuarioBD aubd = new AddUsuarioBD(connection);		
 		return aubd.addUsuario(u, usuario);
+		connection.close();
 	}
 }
