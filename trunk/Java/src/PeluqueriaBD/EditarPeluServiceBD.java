@@ -76,11 +76,11 @@ public class EditarPeluServiceBD
     		s11 = pelu.getHoraAntigua().substring(0,2);
     		s22 = pelu.getHoraAntigua().substring(3,5);
     		s33 = pelu.getHoraAntigua().substring(6);
-    		//System.out.println("s1: "+s11+" s2: "+s22+" s3: "+s33);
+    		
     		int hora2 = (int)Integer.parseInt(s11);
     		int minu2 = (int)Integer.parseInt(s22);
     		int seg2 = (int)Integer.parseInt(s33);
-    		//System.out.println("hora: "+hora2+". minu: "+minu2+". seg: "+seg2);
+    		
     		Time t = new Time(hora2, minu2, seg2);
 			
 			List ltN = pelu.getTiposNombres();

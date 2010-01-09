@@ -65,12 +65,7 @@ public class EditarConsultaBD
     	int result=0;
     	try 
     	{
-    		
-    		
-    		System.out.println(consulta.getAnamnesis()+".");
-    		System.out.println(consulta.getRut()+".");
-    		
-    		
+    	
 
     		insert.setString(1, consulta.getAnamnesis());
     		insert.setString(2, consulta.getServicio());
@@ -87,7 +82,7 @@ public class EditarConsultaBD
 			
 			
 			result= insert.executeUpdate();
-			System.out.println(+result);
+			
 			
 		} 
     	catch (SQLException e) 
@@ -106,7 +101,7 @@ public class EditarConsultaBD
     		ResultSet result = selectAll.executeQuery();
     		while(result.next())
     		{
-    			  System.out.println("rut: "+rutCliente+".");
+    			  
     		  
     			  Consulta consulta= new Consulta();
     			  consulta.setAnamnesis(result.getString(1));

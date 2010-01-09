@@ -64,8 +64,7 @@ public class ClienteEditDB
     	int result=0;
     	try 
     	{
-    		System.out.println(person.nombre);
-    		System.out.println(person.email);
+    		
     		insert.setString(1, person.getNombre());
 			insert.setString(2, person.getApellido());
 			insert.setString(3, person.getApellido2());
