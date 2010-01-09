@@ -79,7 +79,7 @@ public class EditarPeluService {
 			EditarPeluServiceBD peluqueriaDB= new EditarPeluServiceBD(connection);
 			result = peluqueriaDB.editarPeluqueria(pelu,catalogoss);		
 			connection.close();
-			System.out.println("cierra");
+			
 		} catch (SQLException e) 
 		{
 			e.printStackTrace();
@@ -155,7 +155,7 @@ public class EditarPeluService {
     {
     	List serviciosAgregados = new ArrayList();
     	Peluqueria d = new Peluqueria();
-    	//System.out.println(responsable);
+    	
 
     	try 
 		{
