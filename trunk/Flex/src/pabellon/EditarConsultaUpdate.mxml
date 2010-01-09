@@ -119,8 +119,10 @@
 			   	  Application.application.editConsulta.labelMessage.text ="La Consulta ha sido modificada exitosamente";
 			   	  this.setVisible(false,false);
 			   	  Application.application.editConsulta.setVisible(true,false);
-			   	  Application.application.editConsulta.getConsultas();
-			      //Alert.show("ok");
+			   	  Application.application.editConsulta.iniciarPanel();
+			   	  
+			   	  //Application.application.editConsulta.getConsultas();
+			      
 			   }
 			   else
 			   {

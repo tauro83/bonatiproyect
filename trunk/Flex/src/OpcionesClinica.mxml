@@ -163,6 +163,7 @@
 			    Application.application.setInvisible();
 				this.visible = true;
 				Application.application.editConsultaUpdate.iniciar();
+				Application.application.editConsulta.labelMessage.text="";
 				Application.application.editConsulta.visible = true;	
 			}
 		]]>
