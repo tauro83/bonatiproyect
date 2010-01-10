@@ -13,6 +13,7 @@ public class Producto {
 	public String precio;
 	public String categoria;
 	public String descripcion;
+	public int cantidad;
 	
 	public String getDescripcion() {
 		return descripcion;
@@ -43,5 +44,11 @@ public class Producto {
 	}
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
+	}
+	public int getCantidad() {
+		return cantidad;
+	}
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 }
