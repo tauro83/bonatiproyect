@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="cargarClientesEliminados()" width="779"  height="466" borderColor="#15AD8F" title="Purgar Cliente" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779"  height="466" borderColor="#15AD8F" title="Purgar Cliente" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
 		<mx:Script>
 		<![CDATA[
 		
@@ -303,23 +303,23 @@
 			</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Button x="601" y="342" enabled="false" label="Purgar" id="purgarCliente" click="{deleteRow()}"  toolTip="Cuidado!!, esto eliminara los clientes seleccionados para siempre"/>
-	<mx:Button x="674" y="342" label="Cancelar" id="cancelar" toolTip="Cancela la operación"  click="cancelando()"/>
+	<mx:Button x="537" y="342" enabled="false" label="Purgar" id="purgarCliente" click="{deleteRow()}"  toolTip="Cuidado!!, esto eliminara los clientes seleccionados para siempre" width="102" height="23"/>
+	<mx:Button x="647" y="342" label="Cancelar" id="cancelar" toolTip="Cancela la operación"  click="cancelando()" width="102" height="23"/>
 	<mx:CheckBox x="10" y="48" id="todo" click="{seleccionarTodo()}"/>
 	<mx:Label x="32" y="48" text="Seleccionar todo"/>
-	<mx:Button x="511" y="342" enabled="false" id="reactivarCliente" label="Reactivar" click="{Reactivar()}" width="82"/>
+	<mx:Button x="423" y="342" enabled="false" id="reactivarCliente" label="Reactivar" click="{Reactivar()}" width="102" height="23"/>
 	
 	
 			<!-- input Cliente -->
-	<fc:AutoComplete id="inputClienteNombre" x="59" y="10" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
-	<fc:AutoComplete id="inputClienteRut" x="59" y="10" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
-	<fc:AutoComplete id="inputClienteTel" x="59" y="10" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
-	<fc:AutoComplete id="inputClienteEmail" x="59" y="10" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
-	<fc:AutoComplete id="inputClienteApellido" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
-	<fc:AutoComplete id="inputClienteApellido2" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
+	<fc:AutoComplete id="inputClienteNombre" x="599" y="19" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputClienteRut" x="599" y="19" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
+	<fc:AutoComplete id="inputClienteTel" x="599" y="19" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
+	<fc:AutoComplete id="inputClienteEmail" x="599" y="19" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido" x="599" y="19" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido2" x="599" y="19" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
 	
 	<!-- Cliente: combobox y grid -->
-	<mx:ComboBox x="294" y="9" id="comboboxCliente" width="150" visible="true" change="{seleccionarCliente(event)}" close="{cargarClientesEliminados()}">
+	<mx:ComboBox x="10" y="19" id="comboboxCliente" width="150" visible="true" change="{seleccionarCliente(event)}" close="{cargarClientesEliminados()}">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Apellido Materno"/>
