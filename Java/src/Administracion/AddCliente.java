@@ -24,9 +24,10 @@ public class AddCliente {
 	
 	public static String addCliente(Cliente c, String usuario) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
-		AddClienteBD acbd = new AddClienteBD(connection);	
+		AddClienteBD acbd = new AddClienteBD(connection);			
+		String retorno = acbd.addCliente(c, usuario);
 		connection.close();
-		return acbd.addCliente(c, usuario);
+		return retorno;
 	}
 
 }
