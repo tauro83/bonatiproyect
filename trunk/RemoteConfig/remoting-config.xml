@@ -329,4 +329,21 @@
            			<source>Petshop.RegistrarPagoService</source>
            	</properties>
     	</destination>
+
+	<destination id="EditarPreOperatorioService">
+           	<properties>
+           			<source>Pabellon.EditarPreOperatorioService	</source>
+           	</properties>
+    	</destination>
+    	<destination id="PurgarConsultaService">
+           	<properties>
+           			<source>Pabellon.PurgarConsultaService</source>
+           	</properties>
+    	</destination>
+    	
+    	<destination id="EliminarProductoService">
+           	<properties>
+           			<source>Petshop.EliminarProductoService	</source>
+           	</properties>
+    	</destination>
 </service>
