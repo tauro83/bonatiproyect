@@ -58,5 +58,9 @@ package hoteleria
 		this.getOperation("consultar").send(rut,nombre);
 		}
 
+		public function cargarMascotas(rut:String):void
+		{
+		this.getOperation("cargarMascotas").send(rut);
+		}
 	}
 }
