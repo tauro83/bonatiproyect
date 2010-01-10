@@ -23,7 +23,21 @@ public class anuPreoperatorio {
 	public String nombreMascota;
 	public String costo;
 	public String motivo;
+	public String fechaA;
+	public String usuarioA;
 	
+	public String getFechaA() {
+		return fechaA;
+	}
+	public void setFechaA(String fechaA) {
+		this.fechaA = fechaA;
+	}
+	public String getUsuarioA() {
+		return usuarioA;
+	}
+	public void setUsuarioA(String usuarioA) {
+		this.usuarioA = usuarioA;
+	}
 	public String getMotivo() {
 		return motivo;
 	}
