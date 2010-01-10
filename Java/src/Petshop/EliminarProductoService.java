@@ -1,89 +1,87 @@
 package Petshop;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-import java.util.*;
-
-import AdministracionBD.ClienteElimPurgServiceBD;
+import PetshopBD.EliminarProductoBD;
 import Bd.DBConnectionManager;
-import TransferObjects.Producto;
 
+import TransferObjects.Producto;
 
 public class EliminarProductoService {
 
-	public int eliminarProducto(String codigo)
-	{
-		int result=0;
-		try 
-		{
-			
-		Connection connection=DBConnectionManager.getConnection();
-		ClienteElimPurgServiceBD clienteElimPurgServiceBD= new ClienteElimPurgServiceBD(connection);
-		
-		//result= clienteElimPurgServiceBD.eliminarCliente(codigo);
-		
-		connection.close();
-	
-		}catch (SQLException e) 
-		{
-		e.printStackTrace();
-		}
-		return result;
-		
-		//System.out.println("Clave: "+clave+" entra al try");
-		
-	}
-	
-	public int purgarCliente(String rut)
-	{
-		int result=0;
-		try 
-		{
-			
-		Connection connection=DBConnectionManager.getConnection();
-		ClienteElimPurgServiceBD clienteElimPurgServiceBD= new ClienteElimPurgServiceBD(connection);
-		
-		//result= clienteElimPurgServiceBD.pugarCliente(rut);
-		
-		connection.close();
-	
-		}catch (SQLException e) 
-		{
-		e.printStackTrace();
-		}
-		return result;
-		
-		//System.out.println("Clave: "+clave+" entra al try");
-		
-	}
-	
-	public int reactivarCliente(String rut)
-	{
-		int result=0;
-		try 
-		{
-			
-		Connection connection=DBConnectionManager.getConnection();
-		ClienteElimPurgServiceBD clienteElimPurgServiceBD= new ClienteElimPurgServiceBD(connection);
-		
-		result= clienteElimPurgServiceBD.reactivarCliente(rut);
-		
-		connection.close();
-	
-		}catch (SQLException e) 
-		{
-		e.printStackTrace();
-		}
-		return result;
-		
-		//System.out.println("Clave: "+clave+" entra al try");
-		
-	}
-	
-	
 
+	public List<Producto> getProductosActivosTipo()
+    {
+    	List<Producto> productosTipo=new ArrayList<Producto>();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			EliminarProductoBD eliminarBD= new EliminarProductoBD(connection);
+			productosTipo= eliminarBD.getProductosActivosTipo();
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return productosTipo;
+    }
 	
+	public List<Producto> getProductosInactivosTipo()
+    {
+    	List<Producto> productosTipo=new ArrayList<Producto>();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			EliminarProductoBD eliminarBD= new EliminarProductoBD(connection);
+			productosTipo= eliminarBD.getProductosInactivosTipo();
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return productosTipo;
+    }
 	
+	public List<Producto> cargarProductosDetalle(Producto pro)
+    {
+    	List<Producto> productos=new ArrayList<Producto>();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			EliminarProductoBD eliminarBD= new EliminarProductoBD(connection);
+			productos= eliminarBD.cargarProductosDetalle(pro);
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return productos;
+    }
 	
+	public int anularProducto(String codigo)
+	{
+		int result=0;
+		try 
+		{
+			
+		Connection connection=DBConnectionManager.getConnection();
+		EliminarProductoBD eliminarBD= new EliminarProductoBD(connection);
+
+		result= eliminarBD.anularProducto(codigo);
+		
+		connection.close();
+	
+		}catch (SQLException e) 
+		{
+		e.printStackTrace();
+		}
+		return result;
+		
+	}
 }
