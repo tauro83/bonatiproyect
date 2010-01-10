@@ -8,6 +8,7 @@ package Administracion;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import TransferObjects.Mascota;
@@ -42,9 +43,11 @@ public class GetAllMascotas {
      * @return retorna una lista con todas las mascotas
      */
 	public List getAllMascotas() throws SQLException{
-		GetAllMascotasDB object= new GetAllMascotasDB(connection);
+		GetAllMascotasDB object= new GetAllMascotasDB(connection);		
+		List l = new ArrayList();
+		l = object.getAllMascotas();
 		connection.close();
-		return object.getAllMascotas();
+		return l;
 	}
 
 }

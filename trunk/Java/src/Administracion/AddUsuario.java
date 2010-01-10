@@ -21,8 +21,9 @@ public class AddUsuario {
 	public static String addUsuario(Usuario u, String usuario) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		AddUsuarioBD aubd = new AddUsuarioBD(connection);
+		String retorno = aubd.addUsuario(u, usuario);
 		connection.close();
-		return aubd.addUsuario(u, usuario);
+		return retorno;
 		
 	}
 }
