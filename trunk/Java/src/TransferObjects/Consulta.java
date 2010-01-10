@@ -1,7 +1,5 @@
 package TransferObjects;
 
-import java.sql.Date;
-
 public class Consulta {
 	
 	
@@ -14,6 +12,7 @@ private String fecha;
 private String costo;
 private String anamnesis;
 private String hora;
+private int estado;
 
 public String getNombre() {
 	return nombre;
@@ -71,4 +70,10 @@ public String getHora() {
 	return hora;
 }
 
+public void setEstado(int estado) {
+	this.estado = estado;
+}
+public int getEstado() {
+	return estado;
+}
 }
