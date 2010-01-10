@@ -89,10 +89,11 @@
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
 	<mx:DataGrid x="10" y="27" width="724" height="318" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
 		<mx:columns>	
-			<mx:DataGridColumn width="110" headerText="rutCliente" dataField="rutCliente" id="rutCliente" draggable="false"/>	
-			<mx:DataGridColumn width="110" headerText="nombreMascota" dataField="nombreMascota" id="nombreMascota" draggable="false"/>			
-			<mx:DataGridColumn width="150" headerText="Sintomas" dataField="sintomas" id="sintomas" draggable="false"/>
-			<mx:DataGridColumn width="350" headerText="                                           Detalles" dataField="motivo" id="motivo" draggable="false"/>		
+			<mx:DataGridColumn width="110" headerText="Rut Cliente" dataField="rutCliente" id="rutCliente" draggable="false"/>	
+			<mx:DataGridColumn width="110" headerText="Nombre Mascota" dataField="nombreMascota" id="nombreMascota" draggable="false"/>			
+			<mx:DataGridColumn width="150" headerText="Fecha" dataField="fechaA" id="fechaA" draggable="false"/>
+			<mx:DataGridColumn width="150" headerText="Usuario" dataField="usuarioA" id="usuarioA" draggable="false"/>
+			<mx:DataGridColumn width="350" headerText="Motivo" dataField="motivo" id="motivo" draggable="false"/>		
 		</mx:columns>
 	</mx:DataGrid>
 	
