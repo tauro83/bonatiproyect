@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="cargarClientes()" width="779"  height="466" borderColor="#15AD8F" title="Eliminar Cliente" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779"  height="466" borderColor="#15AD8F" title="Eliminar Cliente" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc" xmlns:ns1="util.*">
+	
 		<mx:Script>
 		<![CDATA[
+			import mx.automation.delegates.controls.AlertFormAutomationImpl;
+			import mx.accessibility.AlertAccImpl;
 		
 		//=======================================================================
 			// FECHA: CREACIÓN: 21 Septiembre
@@ -197,7 +200,7 @@
              *@Descripcion Borra columna de la tabla
              * */
            	private function deleteRow():void {
-			 Alert.show("Está seguro que desea eliminar Cliente ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			   Alert.show("Está seguro que desea eliminar Cliente ?, Tanto el cliente como sus mascotas quedarán en estado inactivo!! vea más en < Opciones Eliminación > ","OJO!!    Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
 			}
             
           /**
@@ -207,7 +210,7 @@
           ***/
             
             private function delRowHandler(evt:CloseEvent):void {
-			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL )) return;
 			  quitarFila();
 			}
 			
@@ -278,8 +281,34 @@
             }
             
             
+            private function verOpciones():void
+            {
+            	this.currentState = 'OpcionesEliminacion';
+            	clienteRutName.inputClienteNombre.text = tablaClientes.selectedItem.nombre;
+            /* 	+ '' + tablaClientes.selectedItem.apellido + tablaClientes.selectedItem.apellido2; */ 
+            	
+            	
+            }
+            
 		]]> 
   	</mx:Script>	
+  	
+  		<mx:states>
+				<mx:State name="OpcionesEliminacion">
+						<mx:RemoveChild target="{tablaClientes}"/>
+						<mx:RemoveChild target="{button1}"/>
+						<mx:RemoveChild target="{eliminarCliente}"/>
+						<mx:RemoveChild target="{cancelar}"/>
+						<mx:RemoveChild target="{comboboxCliente}"/>
+						<mx:RemoveChild target="{label1}"/>
+						<mx:RemoveChild target="{todo}"/>
+						<mx:AddChild position="lastChild">
+								<ns1:BuscadorNombreRut x="31" y="27" id="clienteRutName">
+								</ns1:BuscadorNombreRut>
+						</mx:AddChild>
+				</mx:State>
+		</mx:states>
+  	
 	
 	<mx:DataGrid x="10" y="99" width="739" height="220" id="tablaClientes" dataProvider="{clientes}" click="Activar()">
 		<mx:columns>
@@ -303,22 +332,22 @@
 			</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Button x="577" y="342" enabled="false" label="Eliminar" id="eliminarCliente" click="{deleteRow()}"  toolTip="Elimina el o los clientes seleccionados"/>
-	<mx:Button x="674" y="342" label="Cancelar" id="cancelar" toolTip="Cancela la operación" click="cancelando()"/>
+	<mx:Button x="540" y="341" enabled="false" label="Eliminar" id="eliminarCliente" click="{deleteRow()}"  toolTip="Elimina el o los clientes seleccionados" width="102" height="23"/>
+	<mx:Button x="650" y="341" label="Cancelar" id="cancelar" toolTip="Cancela la operación" click="cancelando()" width="102" height="23"/>
 	<mx:CheckBox x="10" y="48" id="todo" click="{seleccionarTodo()}"/>
-	<mx:Label x="32" y="48" text="Seleccionar todo"/>
+	<mx:Label x="32" y="48" text="Seleccionar todo" id="label1"/>
 	
 	
 		<!-- input Cliente -->
-	<fc:AutoComplete id="inputClienteNombre" x="59" y="10" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
-	<fc:AutoComplete id="inputClienteRut" x="59" y="10" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
-	<fc:AutoComplete id="inputClienteTel" x="59" y="10" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
-	<fc:AutoComplete id="inputClienteEmail" x="59" y="10" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
-	<fc:AutoComplete id="inputClienteApellido" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
-	<fc:AutoComplete id="inputClienteApellido2" x="59" y="10" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
+	<fc:AutoComplete id="inputClienteNombre" x="599" y="23" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputClienteRut" x="599" y="22" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
+	<fc:AutoComplete id="inputClienteTel" x="599" y="22" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
+	<fc:AutoComplete id="inputClienteEmail" x="599" y="22" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido" x="599" y="22" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido2" x="599" y="22" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
 	
 	<!-- Cliente: combobox y grid -->
-	<mx:ComboBox x="294" y="9" id="comboboxCliente" width="150" visible="true" change="{seleccionarCliente(event)}" close="{cargarClientes()}">
+	<mx:ComboBox x="10" y="22" id="comboboxCliente" width="150" visible="true" change="{seleccionarCliente(event)}" close="{cargarClientes()}">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Apellido Materno"/>
@@ -329,4 +358,6 @@
 			<mx:Object label="Teléfono"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
+	<mx:Button x="387" y="342" label="Opciones Eliminación" width="145" height="23" id="button1" click="{verOpciones()}"/>
+	
 </mx:Panel>
