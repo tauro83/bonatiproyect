@@ -20,6 +20,7 @@ package transferObjects
 		public var hora:String;	
 		public var anamnesis:String;
 		public var costo:String;
+		public var estado:int;
 
 	}
 }
