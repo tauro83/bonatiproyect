@@ -244,7 +244,49 @@ public class anularPreoperatorioBD {
 	    			vacu.setResponsable(result.getString(7).trim());
 	    			vacu.setAyudante(result.getString(8).trim());
 	    			vacu.setObservaciones(result.getString(9).trim());
-	    			vacu.setMotivo(result.getString(10).trim());
+	    			
+	    			int puesto=0;
+	    			String v=result.getString(10).trim();
+	    			String palabra="";
+	    			for(int i=0;i<v.length();i++){
+	    				String h=v.substring(i,i+1);
+	    				if(h.equals(" ")){   				
+	    					if(puesto==0){
+	    						vacu.setFechaA(palabra);
+	    						//System.out.println("Fecha: "+palabra);
+	    						palabra="";
+	    						
+	    					}
+	    					if(puesto==1){
+	    						vacu.setUsuarioA(palabra);
+	    						//System.out.println("Usuario: "+palabra);
+	    						palabra="";
+	    						
+	    					}
+	    					if(puesto==2){
+	    						vacu.setMotivo(palabra);
+	    						//System.out.println("Motivo: "+palabra);
+	    						palabra="";
+	    						
+	    					}
+	    					puesto++;
+	    				}
+	    				else{
+	    					if(puesto==0){
+	    						palabra=palabra+h;
+	    						//System.out.print("F: "+h);
+	    					}
+	    					if(puesto==1){
+	    						palabra=palabra+h;
+	    						//System.out.print("U: "+h);
+	    					}
+	    					if(puesto==2){
+	    						palabra=palabra+h;
+	    						System.out.print("M: "+h);
+	    					}
+	    				}
+	    				
+	    			}
 	    			
 	    			int estado2 = vacu.getEstado();
 	    			
@@ -286,7 +328,7 @@ public class anularPreoperatorioBD {
 			String fecha = formatter.format(date); 
 			 
 			setEstado.setInt(1, 2);
-			setEstado.setString(2, "Fecha: "+fecha+" "+motivo);
+			setEstado.setString(2,fecha+" "+motivo);
 			setEstado.setInt(3, estado);
 			setEstado.setString(4, nombreMascota);
 			setEstado.setString(5, hora);
