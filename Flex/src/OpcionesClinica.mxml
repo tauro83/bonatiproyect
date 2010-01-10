@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="134" width="240" height="466" layout="absolute" title="Opciones del módulo" borderColor="#15AD8F">
 	<mx:Style source="css/AccordionStyle.css"/>
 	<mx:Script>
@@ -28,6 +28,17 @@
 				
 				
 			}
+
+
+			public function verEditPreo():void{
+				Application.application.setInvisible();
+				Application.application.panelClinicaPrincipal.visible=false;
+				this.visible = true;
+				Application.application.editPreO.visible = true;	
+				Application.application.editPreO.ini();
+	     		
+			}
+
 			public function verRegistrarPostOperatorio():void{
 				Application.application.setInvisible();
 				this.visible = true;
@@ -175,7 +186,7 @@
 				<mx:Canvas label="      Pre-Operatorio" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="25" y="10" label="Registrar" width="100%" textAlign="left" id="PreOlink" click="verRegistrarPreOperatorio()"/>
 
-					<mx:LinkButton x="25" y="40" label="Editar" id="bEditPreO"/>
+					<mx:LinkButton x="25" y="40" label="Editar" width="100%" textAlign="left" id="EdirPreOlink" click="{verEditPreo()}"/>
 					<mx:LinkButton x="25" y="70" label="Anular" click=" verPurgarPreoperatorio()" id="bEliPreO"/>
 					<mx:LinkButton x="25" y="100" label="Bitacora" click="verAnuladosPreoperatorio()" id="reanulado"/>
 
