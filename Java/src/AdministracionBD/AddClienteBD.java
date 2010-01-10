@@ -48,7 +48,7 @@ public class AddClienteBD {
 				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); " + "INSERT INTO bitacora2(fecha, usuario, servicio, accion) VALUES (?, ?, ?, ?);";	
 		insert = connection.prepareStatement(query);
 		
-		insert.setString(1, c.rut);
+		insert.setString(1, c.rut+c.rut2);
 		if(c.telefono.trim().equals("")){
 			insert.setNull(2, 0);
 		}else{
