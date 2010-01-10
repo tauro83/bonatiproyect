@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Pre-Operatorio" xmlns:ns1="util.*">
+	<mx:Script>
+		<![CDATA[
+			import transferObjects.Preoperatorio;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import mx.events.CloseEvent;
+			import mx.core.Application;
+			 
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.controls.CheckBox;
+			import mx.rpc.events.FaultEvent;
+			import mx.events.DropdownEvent;
+			
+		    [Bindable] private var preoperatorios:ArrayCollection;
+		    [Bindable] private var horaAntigua:String;
+		    [Bindable] private var fechaAntigua:String;
+			/**
+         	 * Función de prueba que inicializa las tablas
+         	 * 
+         	 */	
+		    public function cargarPreOperatorios():void{
+		    	var rut:String = clienteRutName.rutClienteInput.text+clienteRutName.rutClienteDVInput.text
+		 
+            	var preo:EditarPreOperatorioService = new EditarPreOperatorioService();
+            	preo.addEventListener(ResultEvent.RESULT,cargarPreoResult);
+            	preo.cargarPreOperatorios(rut);
+            }
+            public function cargarPreoResult(event:ResultEvent):void{
+				preoperatorios = event.result as ArrayCollection;
+				dg.dataProvider = preoperatorios;
+			}
+			
+			public function ini():void{
+	     		preoperatorios.removeAll();
+	           	preoperatorios.refresh();
+	     		this.currentState = '';
+	     		clienteRutName.getAllClientes();
+	     		clienteRutName.rutClienteInput.enabled = true;
+         		clienteRutName.rutClienteDVInput.enabled = true;
+         		clienteRutName.inputClienteNombre.enabled = true;
+	     		clienteRutName.inputClienteNombre.text= '';
+	     		clienteRutName.rutClienteDVInput.text = '';
+	     		clienteRutName.rutClienteInput.text   = '';
+	     		labelMessage.text = '';
+	     		visualizar.enabled = false;
+	           
+				
+	        }
+	        private function guardar():void{
+	       		 var preo:Preoperatorio = new Preoperatorio();
+	       		 var rut:String = clienteRutName.rutClienteInput.text + clienteRutName.rutClienteDVInput.text;
+	        	preo.rut     = rut;
+	        	preo.nombre = nombre.text;
+	        	preo.fecha = fecha0.text;
+	        	preo.hora = hora.text;
+	        	preo.responsable = veterinario.text;
+	        	preo.ayudante = ayudante.text;
+	        	preo.sintomas = sintomas.text;
+	        	preo.diagnostico = diagnostico.text;
+	        	preo.observaciones = observaciones.text
+	        	
+	        	var preoEdit:EditarPreOperatorioService = new EditarPreOperatorioService();
+            	preoEdit.addEventListener(ResultEvent.RESULT,editarPreoResult);
+            	preoEdit.editarPreOperatorio(preo, rut,fAntigua.text, hAntigua.text);
+	        }
+			
+			
+			   public function editarPreoResult(event:ResultEvent):void{
+				if(event.result!=0){
+					labelMessage.text = 'Los datos se actualizaron correctamente';
+					currentState = '';
+					visualizar.enabled = false;
+					this.cargarPreOperatorios();
+					
+				}
+				else{
+					labelMessage.text = 'Error al actualizar los datos';
+				}
+				}
+				
+			private function cancela():void{
+				this.visible = false;	
+			    Application.application.panelClinicaPrincipal.visible= true;
+					
+				}
+				
+			public function editar():void{
+				if(dg.selectedItem.nombre != ''){
+				this.currentState='EditarPre';
+				}
+				else labelMessage.text = "Seleccione primero una fecha para editar";	
+			}	
+			public function activar():void
+			{
+			if(dg.selectedItem.nombre != ''){
+				visualizar.enabled = true;
+			}
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:states>
+		<mx:State name="EditarPre">
+			<mx:RemoveChild target="{label1}"/>
+			<mx:RemoveChild target="{dg}"/>
+			<mx:RemoveChild target="{visualizar}"/>
+			<mx:RemoveChild target="{cancelar}"/>
+			<mx:RemoveChild target="{labelMessage}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="9.95" y="10" text="Mascota" width="98" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="9.95" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="11.4" y="61" text="Preoperatorio" width="115.55" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="11.4" y="262" text="Ayudante: " width="78"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="11.35" y="87" text="Síntomas:" width="63.4" height="17.931034"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="11.45" y="226" text="Veterinario:" width="128"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextArea x="399.7" y="45" height="141" width="333.55" id="diagnostico" text="{preoperatorios[dg.selectedIndex].diagnostico}"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="399.7" y="20" text="Diagnóstico" width="78"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:ComboBox x="134.95" y="224" id="veterinario" dataProvider="{dg.selectedItem.responsable}" width="160" enabled="false"></mx:ComboBox>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:ComboBox x="134.95" y="260" id="ayudante" width="160" dataProvider="{preoperatorios[dg.selectedIndex].ayudante}" enabled="false"></mx:ComboBox>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="495.25" y="382" label="Guardar" width="87" click="{guardar()}"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="603.55" y="382" label="Cancelar" width="91.4"  click="currentState= ''"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextArea x="134.95" y="86" height="91" id="sintomas" text="{dg.selectedItem.sintomas}"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextInput x="133" y="31" id="nombre" text="{dg.selectedItem.nombre}" editable="false" enabled="false"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="11.45" y="302" text="Hora: " width="78"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:ComboBox id="hora" x="134.45" y="300" dataProvider="{dg.selectedItem.hora}" labelField="hora" width="160" enabled="false"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextArea x="399.7" y="246" height="105" width="333.55" id="observaciones" text="{preoperatorios[dg.selectedIndex].observaciones}"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="399.7" y="220" text="Observaciones" width="93"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="11.4" y="187" text="Fecha           :" width="145"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:DateField x="134.4" y="185" width="115" id="fecha0" text="{dg.selectedItem.fecha}" enabled="false"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{dg}"/>
+			<mx:RemoveChild target="{clienteRutName}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="72" y="346" text="{dg.selectedItem.hora}" id="hAntigua" visible="false"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="72" y="372" text="{dg.selectedItem.fecha}" id="fAntigua" visible="false"/>
+			</mx:AddChild>
+		</mx:State>
+	</mx:states>
+	<mx:DataGrid x="52" y="85" width="638" id="dg"  enabled="true" height="235" dataProvider="{preoperatorios}" doubleClickEnabled="true" doubleClick="{editar()}" click="{activar()}" >
+		<mx:toolTip>Pre-operatorios registrados en el sistema</mx:toolTip>
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre Mascota" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Fecha Atención" dataField="fecha"/>
+			<mx:DataGridColumn headerText="Hora Atención" dataField="hora"/>
+			<mx:DataGridColumn headerText="Veterinario" dataField="responsable"/>
+			<mx:DataGridColumn headerText="Sintomas" dataField="sintomas"/>
+			<mx:DataGridColumn headerText="Diagnostico" dataField="diagnostico" />
+		    </mx:columns>
+	</mx:DataGrid>
+	<mx:Button label="Editar Ficha" id="visualizar"   height="23" width="102" x="478" y="328" cornerRadius="6" toolTip="Visualizar mascota seleccionada" click="{editar()}" enabled="false"/>
+	<mx:Label x="10" y="10" text="Lista de mascotas que tienen fichas de post-operatorio" fontWeight="bold" id="label1"/>
+	<mx:Label x="169" y="372" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="588" y="328" label="Cancelar" id="cancelar" width="102" height="23" cornerRadius="6" toolTip="Regresa al panel anterior" click="{cancela()}"/>
+	<ns1:BuscadorNombreRut x="52" y="36" id="clienteRutName" mouseFocusChange="{cargarPreOperatorios()}"/>
+	
+	
+</mx:Panel>
