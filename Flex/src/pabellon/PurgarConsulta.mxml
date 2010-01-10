@@ -2,22 +2,33 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466"  borderColor="#15AD8F" xmlns:fc="http://www.adobe.com/2006/fc" title="Anular Consulta" xmlns:ns1="util.*">
 	<mx:Script>
 		<![CDATA[
-	
+		
+			//===============================================
+			// FECHA CREACIÓN:                       
+			// AUTOR: Victor Silva                    
+			// …. Anular una consulta veterinaria 
+			//===============================================
+			import mx.controls.List;
 			import mx.collections.ArrayCollection;
-			import mx.controls.Alert;
-			import transferObjects.Cliente; 
 			import mx.rpc.events.ResultEvent;
 			import mx.events.CloseEvent;
-			import mx.core.Application;
-			 
 			import flash.events.MouseEvent;
             import mx.events.FlexEvent;
             import mx.controls.CheckBox;
 			import mx.rpc.events.FaultEvent;
-			import PurgarCliente;
 			import mx.events.DropdownEvent;
 			
 			import services.PurgarConsultaService;
+			import transferObjects.Consulta;
+        	import mx.controls.DateField;
+        	import mx.controls.Alert;
+		    import flash.events.*;
+			import mx.controls.Image;
+		    import mx.core.Application;
+		   
+			
+			[Bindable]private var consultas:ArrayCollection = new ArrayCollection;
+			[Bindable]private var purgar:PurgarConsultaService = new PurgarConsultaService;
 	
 			
 			 /**
@@ -25,7 +36,7 @@
              *@Descripcion Borra columna de la tabla
              * */
            	private function deleteRow():void {
-			 Alert.show("Está seguro que desea eliminar la(s) consulta(s) ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			 Alert.show("Está seguro que desea anular la(s) consulta(s) ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
 			}
             
 			
@@ -51,7 +62,8 @@
                 for (var i:int = 0; i < allRows; i++){
                     if (consultas[i].sel)
                 	{
-                        EliminaConsulta(consultas[i].hora, consultas[i].fecha, consultas[i].servicio);
+         
+                        EliminaConsulta(dg.selectedItem.hora, dg.selectedItem.fecha, dg.selectedItem.servicio);               	
                         consultas.removeItemAt(i);
                         allRows = consultas.length;
                         dg.dataProvider = consultas;
@@ -83,13 +95,17 @@
 				var result:int = event.result as int ;
 				if(result>0)
 				{
-				   labelMessage.text = "Consulta eliminada";
+				   labelMessage.text = "Consulta(s) anulada(s) de forma correcta ";
+				   this.currentState = '';
 				}
-				Activar();
+				todo.selected=false;
+				anul.enabled=false;
+				{Activar()};
+				
 			}
             
             
-                /**
+			/**
           * @Fecha  03 Octubre
           *@Descripcion Funcion que activa o desactiva el boton "Eliminar" cuando es seleccionado uno o mas clientes
           ***/
@@ -100,17 +116,23 @@
             	if(dg.selectedItem.nombre !=null)
             	{
             		ver.enabled = true;
+            		
             	}
             	else ver.enabled = false;
-            	
+            		
             	for (var i:int = 0; i < allRows; i++){
             		if(consultas[i].sel)
             		seleccion=true;
             	}
-            	if(seleccion)
+            	if(seleccion && consultas[dg.selectedIndex].estado==0)
             		anul.enabled=true;
+            		
             		else
             			anul.enabled=false;
+            if(consultas[dg.selectedIndex].estado==0)
+            	labelMessage.text = 'Consulta activa';
+            	else 
+            	labelMessage.text = 'Consulta nula';
             }
             
             
@@ -118,9 +140,11 @@
                  private function seleccionarTodo():void{
                 var allRows:int = consultas.length;
                 for (var i:int = 0; i < allRows; i++){
-                    if (todo.selected){ 
-                        consultas[i].sel = true;
-                        anul.enabled=true;
+                    if (todo.selected && consultas[i].estado==0){ 
+                        	consultas[i].sel = true;
+                    		if(verNulas.enabled==true)
+                        		anul.enabled=true;
+                    
                     }
                     else{
                         consultas[i].sel = false;
@@ -129,14 +153,225 @@
                 }
                 dg.dataProvider = consultas;           
             }
-		]]>
-	</mx:Script>
-	
-	     
-	
-	
-	
-	
+
+        	
+			
+			/**
+		 	* 	@author  
+			* 	@Fecha  27 Octubre
+			* Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
+			* de la comunicacion con la capa logica.
+			* @param event Evento
+			*/
+	        public function ini():void{
+	           	consultas.removeAll();
+	           	consultas.refresh();
+	           	clienteRutName.getAllClientes();
+	           	clienteRutName.rutClienteInput.enabled = true;
+         		clienteRutName.rutClienteDVInput.enabled = true;
+         		clienteRutName.inputClienteNombre.enabled = true;
+	           	clienteRutName.inputClienteNombre.text = "";
+			 	clienteRutName.rutClienteDVInput.text = "";
+			 	clienteRutName.rutClienteInput.text = "";
+			 	ver.enabled = false;
+			 	labelMessage.text="";
+			 	
+			 	verTodas.enabled = true;
+			 	verActivas.enabled = false;
+			 	this.filtrarActivas();
+			 	verNulas.enabled = true;
+			 	
+				
+	        }
+     		
+     		public function cancela():void{
+     		
+     		   this.visible = false;
+     		   Application.application.panelClinicaPrincipal.setVisible(true,false);
+     		}
+     		
+     		/**
+		 	* 	@author  
+			* 	@Fecha  27 Octubre
+			* Metodo que cargan las consultas activas de un cliente en esspecifico.
+			*/
+     		
+     		public function cargarActivasCliente():void{
+		    var rut:String = clienteRutName.rutClienteInput.text+clienteRutName.rutClienteDVInput.text
+            	purgar.addEventListener(ResultEvent.RESULT,cargarConsultasResult);
+            	purgar.cargarConsultas(rut);
+            }
+            public function cargarConsultasResult(event:ResultEvent):void{
+            	consultas.refresh()
+				consultas = event.result as ArrayCollection;
+				dg.dataProvider = consultas;
+				if(verActivas.enabled == false && clienteRutName.rutClienteInput.text != '')
+				labelMessage.text = 'Todas las consultas activas del cliente: ' + clienteRutName.inputClienteNombre.text;
+			}
+			
+			/**
+		 	* 	@author  
+			* 	@Fecha  27 Octubre
+			* Metodo que cargan las consultas activas de un cliente en especifico.
+			*/
+			public function cargarNulasCliente():void{
+		    var rut:String = clienteRutName.rutClienteInput.text+clienteRutName.rutClienteDVInput.text
+            	purgar.addEventListener(ResultEvent.RESULT,cargarConsultasNulasResult);
+            	purgar.cargarConsultasNulas(rut);
+            }
+            public function cargarConsultasNulasResult(event:ResultEvent):void{
+            	consultas.refresh()
+				consultas = event.result as ArrayCollection;
+				dg.dataProvider = consultas;
+			}
+			
+			/**
+		 	* 	@author  
+			* 	@Fecha  27 Octubre
+			* Metodo que carga todas las consultas (activas/nulas) de un cliente en esspecifico.
+			*/
+				public function cargarTodasCliente():void{
+		    var rut:String = clienteRutName.rutClienteInput.text+clienteRutName.rutClienteDVInput.text
+            	purgar.addEventListener(ResultEvent.RESULT,cargarTodasResult);
+            	purgar.cargarConsultasTodas(rut);
+            }
+            public function cargarTodasResult(event:ResultEvent):void{
+            	consultas.refresh()
+				consultas = event.result as ArrayCollection;
+				dg.dataProvider = consultas;
+			}
+			
+			/**
+		 	* 	@author  
+			* 	@Fecha  27 Octubre
+			* Metodo que realiza un filtrado de solo las consultas activas, si el campo rut de
+			 * la busqueda de clientes tiene un rut realiza el filtro a las consultas de este,
+			 * sino carga todos las consultas activas de la BD
+			*/
+			public function filtrarActivas():void{
+				if(clienteRutName.rutClienteInput.text == ""){
+					/*En este caso se cargan todas las consultas activas de la BD*/
+					purgar.addEventListener(ResultEvent.RESULT,TodasActivasResult);
+					purgar.cargarTodasActivas();
+					labelMessage.text = 'Todas las consultas activas del sistema ';	
+				}else{ /*Se cargar consultas activas del cliente seleccionado*/
+				{cargarActivasCliente()};
+				labelMessage.text = 'Todas las consultas activas del cliente: ' + clienteRutName.inputClienteNombre.text;
+				}
+				verActivas.enabled=false;
+				verTodas.enabled  =true;
+				verNulas.enabled  =true;
+				
+			}
+			
+			/**
+		 	* 	@author  
+			* 	@Fecha  27 Octubre
+			* Metodo que realiza un filtrado de solo las consultas nulas, si el campo rut de
+			* la busqueda de clientes tiene un rut realiza el filtro a las consultas de este,
+			* sino carga todos las consultas nulas de la BD
+			*/
+			public function filtrarNulas():void{
+				if(clienteRutName.rutClienteInput.text == ""){
+					/*En este se cargan todas las consultas nulas en la BD*/
+					purgar.addEventListener(ResultEvent.RESULT,TodasNulasResult);
+					purgar.cargarTodasNulas();
+					labelMessage.text = 'Todas las consultas nulas del sistema '; 				
+				}else{ /*Se cargar consultas nulas del cliente seleccionado*/
+			    {cargarNulasCliente()};
+			    labelMessage.text = 'Todas las consultas nulas del cliente: ' + clienteRutName.inputClienteNombre.text;
+			 }
+			 verActivas.enabled=true;
+			 verTodas.enabled  =true;
+			 verNulas.enabled  =false;
+			 
+			}
+			
+				/**
+		 	* 	@author  
+			* 	@Fecha  27 Octubre
+			* Metodo que realiza un filtrado de todas las consultas, si el campo rut de
+			* la busqueda de clientes tiene un rut realiza el filtro a las consultas de este,
+			* sino carga todos las consultas de la BD
+			*/
+			public function filtrarTodas():void{
+				if(clienteRutName.rutClienteInput.text == ""){
+					/*En este caso se cargan todas las consultas de la BD*/
+					purgar.addEventListener(ResultEvent.RESULT, TodasResult);
+					purgar.cargarTodas();
+					labelMessage.text = 'Todas las consultas del sistema';
+				
+				}else{ /*Se cargan todas las consultas (activas/nulas) del cliente seleccionado*/
+				{cargarTodasCliente()};
+				labelMessage.text = 'Todas las consultas del cliente: ' + clienteRutName.inputClienteNombre.text;
+				}
+				verActivas.enabled=true;
+				verTodas.enabled  =false;
+				verNulas.enabled  =true;
+				
+			}
+			
+			
+			/**
+		 	* 	@author  
+			* Conjunto de metodos que reciben las resupestas de los filtros
+			*/
+			public function TodasActivasResult(event:ResultEvent):void{
+				consultas.refresh()
+				consultas = event.result as ArrayCollection;
+				dg.dataProvider = consultas;
+			}
+			public function TodasNulasResult(event:ResultEvent):void{
+				consultas.refresh()
+				consultas = event.result as ArrayCollection;
+				dg.dataProvider = consultas;
+			}
+			public function TodasResult(event:ResultEvent):void{
+				consultas.refresh()
+				consultas = event.result as ArrayCollection;
+				dg.dataProvider = consultas;
+			}
+			
+			public function cambiarEnable():void{
+				verActivas.enabled=false;
+				verTodas.enabled  =true;
+				verNulas.enabled  =true;
+			}
+			public function consultar():void{
+				if(clienteRutName.inputClienteNombre.text == "" && clienteRutName.rutClienteInput.text == ""){
+					purgar.addEventListener(ResultEvent.RESULT,consultarClienteResult);
+					purgar.ConsultarCliente(dg.selectedItem.rut);
+				}
+			}
+			public function consultarClienteResult(event:ResultEvent):void{
+				var nombre:String;
+				nombre = event.result as String;
+				clienteRutName.inputClienteNombre.text = nombre;
+				//clienteRutName.rutClienteInput.text = dg.selectedIndex.text[0-8];
+			}
+			public function VerAnul():void{
+				labelMessage.text = 'Solo Lectura';
+				if(consultas[dg.selectedIndex].estado==0){
+					anul.enabled=true;
+					consultas[dg.selectedIndex].sel = true;
+					labelMessage.text = 'Consulta activa';
+				}
+				else{ anul.enabled=false;
+					labelMessage.text = 'Consulta nula';
+				}
+			}
+			public function LlenarCliente():void{
+			var rut:String = dg.selectedItem.cliente.split(" ", 1).pop();
+         	var largo:int = rut.length;
+         	clienteRutName.rutClienteInput.text = rut.substring(0,largo-1);
+         	clienteRutName.rutClienteDVInput.text = rut.charAt(largo-1);
+         	clienteRutName.llenarApellido();
+				
+			}
+			
+				
+        ]]>
+    </mx:Script>
 	
 	<mx:states>
 		<mx:State name="Ver">
@@ -150,28 +385,28 @@
 				<mx:Label x="25" y="133" text="Responsable:"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Label x="457" y="89" text="Fecha:"/>
+				<mx:Label x="488" y="89" text="Fecha:"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:DateField x="526" y="87" width="165" text="{dg.selectedItem.fecha}" id="fecha" editable="false" enabled="true" displayedMonth="{dg.selectedItem.fecha}" change="{dg.selectedItem.fecha}"/>
+				<mx:DateField x="574" y="87" width="165" text="{dg.selectedItem.fecha}" id="fecha" editable="false" enabled="false" displayedMonth="{dg.selectedItem.fecha}" change="{dg.selectedItem.fecha}"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:Label x="25" y="214" text="Anamnesis:"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextArea x="162" y="228" width="575" height="122" id="anamnesis" text="{dg.selectedItem.anamnesis}"/>
+				<mx:TextArea x="115" y="228" width="622" height="122" id="anamnesis" text="{dg.selectedItem.anamnesis}" editable="false"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:Label x="25" y="170" text="Servicio:"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Label x="457" y="170" text="Costo:"/>
+				<mx:Label x="488" y="170" text="Costo:"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextInput x="526" y="168" width="165" id="costo" text="{dg.selectedItem.costo}"/>
+				<mx:TextInput x="574" y="168" width="165" id="costo" text="{dg.selectedItem.costo}" editable="false"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Button x="635" y="368" label="Volver" cornerRadius="6" width="102" height="23" click="currentState= ''"/>
+				<mx:Button x="635" y="368" label="Volver" cornerRadius="6" width="102" height="23" click="currentState= '', anul.enabled=false, labelMessage.text='A presionado volver',dg.selectedItem.sel = false "/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:ComboBox x="115" y="168" id="servicio" width="160" editable="false" enabled="true" dataProvider="{dg.selectedItem.servicio}">
@@ -184,110 +419,45 @@
 				<mx:TextInput x="115" y="87" width="160" id="mascota"  enabled="true" editable="false" text="{dg.selectedItem.nombre}"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:ComboBox id="responsable" x="115" y="131" width="142" dataProvider="{dg.selectedItem.responsable}"></mx:ComboBox>
+				<mx:ComboBox id="responsable" x="115" y="131" width="160" dataProvider="{dg.selectedItem.responsable}" editable="false"></mx:ComboBox>
 			</mx:AddChild>
-			<mx:RemoveChild target="{anul}"/>
+			<mx:RemoveChild target="{clienteRutName}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="25" y="38" text="Rut:" width="37" id="label2"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="242.5" y="36" text="-" width="14.75" textAlign="center" id="label6"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextInput x="115" y="34" width="130.5" id="rutClienteInput1"   editable="false" text="{clienteRutName.rutClienteInput.text}"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextInput restrict="0-9 K" x="253.5" y="34" width="19.5" id="rutClienteDVInput1"  editable="false" text="{clienteRutName.rutClienteDVInput.text}"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="488" y="38" text="Nombre:"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextInput x="574" y="36" id="nombre" editable="false" enabled="true" width="160" text="{clienteRutName.inputClienteNombre.text}"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{anul}" name="x" value="533"/>
+			<mx:SetProperty target="{anul}" name="y" value="369"/>
+			<mx:RemoveChild target="{verTodas}"/>
+			<mx:RemoveChild target="{verNulas}"/>
+			<mx:RemoveChild target="{verActivas}"/>
+			<mx:RemoveChild target="{label7}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="488" y="133" text="Hora:"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextInput x="574" y="131" text="{dg.selectedItem.hora}"/>
+			</mx:AddChild>
 		</mx:State>
 	</mx:states>
 	
-	<mx:Script>
-        <![CDATA[
-        	import transferObjects.Consulta;
-        	import services.AddConsultaService;
-        	import transferObjects.ConfiguracionVacuna;
-        	import transferObjects.Cliente;
-        	import services.AddMascotaService;
-        	import mx.controls.DateField;
-        	import mx.controls.Alert;
-            import mx.collections.ArrayCollection;
-        	import mx.controls.Alert;
-			import mx.events.CloseEvent;
-			import mx.events.ValidationResultEvent;            
-  			import flash.display.Sprite;
-		    import flash.events.*;
-		    import flash.net.FileReference;
-		    import flash.net.FileReferenceList;
-		    import mx.rpc.events.ResultEvent;
-			import mx.controls.Image;
-		    import mx.core.Application;
-		    import transferObjects.Person;
-		    import pabellon.addCirugia;
-		    import pabellon.addCirugia1;
-		    import pabellon.AddCirugiaService;
-		    import Policlinico.AddVacunacion;
-		    import services.BusquedaService;
-		    import services.configuracionServices;
-		    import pabellon.EditCirugiaService;
-		   
-			
-			//editando para cargar las consultas
-			[Bindable]
-			private var consultas:ArrayCollection = new ArrayCollection;
-		    
-		      
-		   [Bindable]private var vacunas:ArrayCollection;
-			private var confs:configuracionServices= new configuracionServices();
-			
-			/**
-		 	* 	@author  
-			* 	@Fecha  27 Octubre
-			* Funcion que llena la tabla de mascotas asociadas al cliente, despues de haber obtenido el resultado
-			* de la comunicacion con la capa logica.
-			* @param event Evento
-			*/
-	        private function ini():void{
-	     
-	           	consultas.removeAll();
-	           	getConsultas();
-	           	consultas.refresh();
-				
-	        }
-	         
-	
-			public function getConsultas():void{
-				var addConsultaService:EditarConsultaService = new EditarConsultaService();
-				addConsultaService.addEventListener(ResultEvent.RESULT,getEditConsultasResult);
-				
-				addConsultaService.getAllConsultas(clienteRutName.rutClienteInput.text+clienteRutName.rutClienteDVInput.text);
-			}
-			
-			
-			public function getEditConsultasResult(event:ResultEvent):void{
-				
-				consultas = event.result as ArrayCollection;
-			}
-			
-			
-			/**
-		 	* 	@author  
-			* 	@Fecha  27 Octubre
-			* Metodo que inicializa todos los valores y variables de este panel.
-			*/
-			public function iniciarPanel():void
-			{	
-				this.dg.doubleClickEnabled=true;
-				this.labelMessage.text="";
-				/* this.rutClienteInput.text="";
-				this.rutClienteDVInput.text="";
-				this.inputClienteNombre.text=""; */
-			}
-			
-		   
-     		
-     		public function cancela():void{
-     		
-     		   this.visible = false;
-     		   Application.application.panelClinicaPrincipal.setVisible(true,false);
-     		}
-				
-        ]]>
-    </mx:Script>
-	
-	
-	
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente:" width="84.75" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="106" x="25" click="{Activar()}" variableRowHeight="true" itemDoubleClick="currentState='Ver'" dataProvider="{consultas}" height="238">
+	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="106" x="25" click="{Activar(), LlenarCliente()}" variableRowHeight="true" itemDoubleClick="currentState='Ver'" dataProvider="{consultas}" height="238">
 	    <mx:columns>
 	    <mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" >
 			 	<mx:itemRenderer>
@@ -306,12 +476,15 @@
 	        <mx:DataGridColumn dataField="costo" headerText="Costo" width="100"/>
 	    </mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="522" y="353" label="Visualizar" visible="true" id="ver" width="102" height="23" click="currentState='Ver'" enabled="false"/>
+	<mx:Button x="522" y="353" label="Visualizar" visible="true" id="ver" width="102" height="23" click="currentState='Ver', VerAnul()" enabled="false"/>
 	<mx:Button x="632" y="353" label="Cancelar" width="103" id="cancelar" visible="true" height="23" click="cancela()"/>
-	<mx:CheckBox x="24" y="80" id="todo"/>
+	<mx:CheckBox x="24" y="80" id="todo" click="{seleccionarTodo()}"/>
 	<mx:Label x="46" y="80" text="Seleccionar todo" id="label1"/>
-	<ns1:BuscadorNombreRut x="25" y="36" id="clienteRutName" mouseFocusChange="{ini()}">
-	</ns1:BuscadorNombreRut>
+	<ns1:BuscadorNombreRut x="25" y="36" id="clienteRutName"  mouseFocusChange="{cargarActivasCliente(),cambiarEnable()}"/>
 	<mx:Button x="420" y="354" label="Anular" width="94" enabled="false" id="anul" click="{deleteRow()}"/>
+	<mx:Label x="10" y="352" text="Ver:" id="label7"/>
+	<mx:LinkButton x="46" y="350" label="Todas" width="53" fontWeight="normal" id="verTodas" click="{filtrarTodas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas de este, sino verá todas las consultas del sistema" />
+	<mx:LinkButton x="140" y="350" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
+	<mx:LinkButton x="92" y="350" label="Activas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{filtrarActivas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
 	
 </mx:Panel>
