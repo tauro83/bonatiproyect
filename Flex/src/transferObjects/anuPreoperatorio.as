@@ -39,5 +39,7 @@ package transferObjects
 		public var observaciones:String;
 		public var sintomas:String;
 		public var motivo:String;
+		public var fechaA:String;
+		public var usuarioA:String;
 	}
 }
