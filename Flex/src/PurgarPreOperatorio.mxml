@@ -117,11 +117,11 @@
                 	{
                         vacu = vacunaciones[i] as anuPreoperatorio;
                         if(comboboxMotivo.selectedLabel=='Otros'){
-                        	vacu.motivo="usuario:"+Application.application.login2.usuarioActivo+" Motivo: "+motivo.text;
+                        	vacu.motivo=Application.application.login2.usuarioActivo+" "+motivo.text;
                         }
                         
                         else{
-                        	vacu.motivo="usuario:"+Application.application.login2.usuarioActivo+" Motivo: "+comboboxMotivo.text;
+                        	vacu.motivo="usuario:"+Application.application.login2.usuarioActivo+" Motivo:"+comboboxMotivo.text;
                         }
                         
                         anular(vacu.estado,vacu.nombreMascota,vacu.hora,vacu.motivo);
