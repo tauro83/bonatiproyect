@@ -18,5 +18,6 @@ package transferObjects
 		public var codigo:String;
 		public var precio:String;
 		public var descripcion:String;
+		public var cantidad:int;
 	}
 }
