@@ -106,7 +106,7 @@ public class anularPeluqueriaBD {
 	    			int h=0;
 	    			int estado1=vacu.getEstado();
 	    			
-	    			while(result1.next() && h==0)
+	    			while(result1.next() && h==0 && estado1==0)
 		    		{ 
 	    			//System.out.println("ar" + " "+result1);
 	    			
@@ -124,7 +124,7 @@ public class anularPeluqueriaBD {
 		    		}
 	    			
 	    			int g=0;
-	    			while(result2.next() && g==0)
+	    			while(result2.next() && g==0 && estado1==0)
 		    		{ 
 	    			//System.out.println("ar" + " "+result1);
 	    			
@@ -151,7 +151,7 @@ public class anularPeluqueriaBD {
 	    					bandera=1;
 	    				}
 	    			}
-	    			if(bandera==0)
+	    			if(bandera==0 && estado1==0)
 	    			{
 	    				vacunaciones.add(vacu);
 	    			}
