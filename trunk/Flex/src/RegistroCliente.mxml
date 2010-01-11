@@ -116,8 +116,43 @@
 				     if(te=="1"){ 
 
 				     if(ce=="1"){
+				     	
+				     /*if(region.text!="" && comunas.text!=""){
+				     	Alert.show("no comuna, no region");
+				         	cl=new Cliente();
+							cl.nombre = nombre.text;
+							cl.apellido = apellido.text;
+							cl.apellido2 = apellido2.text;
+							cl.rut =  rut.text;
+							cl.rut2 =  rut2.text;
+							cl.telefono = telefono.text;
+							cl.telefono2 = telefono2.text;
+							cl.celular = celular.text;
+							cl.celular2 = celular2.text;
+							cl.direccion = direccion.text;
+							cl.region = region.selectedLabel;
+							cl.email = email.text;
+							cl.email2 = email2.text;
+							cl.estado=true;
+							//cl.comuna=SeleccionComunas();
+							cl.comuna=comunas.selectedLabel;				
+		
+							w.regCliente(cl,Application.application.login2.usuarioActivo);
+							w.addEventListener(ResultEvent.RESULT,registroClienteResultado);
+				     }
+				     
+				     else{
+				     	if(comunas.text==""){
+				     		Alert.show("no comuna");
+				     		labelMessage.text = Properties.getMensaje("Advertencia", "49");
+				     	}
+				     	if(region.text==""){
+				     		Alert.show("no region");
+				     		labelMessage.text = Properties.getMensaje("Advertencia", "49");
+				     	}
+				     }*/
 				
-				    if(email.text!=""){
+				    if(email.text!="" && region.text!=" " && comunas.text!=" " || email.text!="" && region.text==" " && comunas.text==" "){
 				    	if(h==true){
 				    	if(email.text==email2.text ){
 				    		cl=new Cliente();
@@ -152,8 +187,19 @@
 							labelMessage.text = Properties.getMensaje("Error", "28");
 						}
 				    }
-								
+				    
 				    else{
+				    	if(email.text=="" && region.text=="" && comunas.text=="") {
+				    		
+				    	}
+				    	
+				    	else{
+				    		labelMessage.text = Properties.getMensaje("Advertencia", "49");	
+				    	}
+				    }
+								
+			       if(email.text=="" && email2.text=="" && region.text!=" " && comunas.text!=" " || email.text=="" && email2.text=="" && region.text==" " && comunas.text==" "){
+				    	if(email.text=="" && email2.text=="" && region.text!=" " && comunas.text!=" " || email.text=="" && email2.text=="" && region.text==" " && comunas.text==" "){
 				    	cl=new Cliente();
 						cl.nombre = nombre.text;
 						cl.apellido = apellido.text;
@@ -174,7 +220,21 @@
 	
 						w.regCliente(cl,Application.application.login2.usuarioActivo);
 						w.addEventListener(ResultEvent.RESULT,registroClienteResultado);
+				    	}
+				    	
+				    	else{
+				    		if(email.text=="" && email2.text=="" && region.text==" " && comunas.text==" ") {
+				    			
+				    		}
+				    		else{
+				    			Alert.show("xaoo");
+				    			labelMessage.text = Properties.getMensaje("Advertencia", "49");
+				    		}
+				    	 }
 				    }
+				    
+				    
+				   
 				   
 				    }
 				    
@@ -193,24 +253,13 @@
 				    	
 				    labelMessage.text = Properties.getMensaje("Advertencia", "21");
 				    }
-				}
-				else{
-					labelMessage.text = Properties.getMensaje("Advertencia", "6");
-				}
+					}
+					else{
+						labelMessage.text = Properties.getMensaje("Advertencia", "6");
+					}
 				}
 				else
-				{
-					/*if(te=="2" || ce=="2"){
-						if(te=="2"){
-							labelMessage.text = Properties.getMensaje("Error", "24");
-					     }   
-					
-						if(ce=="2"){
-							labelMessage.text = Properties.getMensaje("Error", "25");
-
-						}
-					}*/
-					
+				{					
 						labelMessage.text = Properties.getMensaje("Advertencia", "4");
 					
 				}					
