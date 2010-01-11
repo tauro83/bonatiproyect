@@ -59,7 +59,8 @@
 				this.cNom.text = cliente.nombre;
 				this.cDir.text = cliente.direccion;
 				this.cRut.text = cliente.rut;
-				this.cTel.text = cliente.telefono;			
+				this.cTel.text = cliente.telefono;	
+				this.cel.text  = cliente.telefono2;		
 				
 			}
 			/** 
@@ -96,7 +97,7 @@
 			
 			]]> 
  	</mx:Script>
-	<mx:DataGrid x="25" y="178.25" width="709" height="157" dataProvider="{atenciones}">
+	<mx:DataGrid x="25" y="197.25" width="709" height="138" dataProvider="{atenciones}">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
 			<mx:DataGridColumn headerText="Fecha" dataField="sfecha"/>
@@ -112,13 +113,15 @@
 	<mx:Label x="442.7" y="114" text="Fecha nacimiento:" width="107"/>
 	<mx:Label x="442.7" y="35.9" text="Nombre:" width="63.4" height="17.931034"/>
 	<mx:Label x="25" y="88" text="Teléfono:" width="78"/>
-	<mx:Label x="25" y="114" text="Dirección:" width="78" height="17.25"/>
+	<mx:Label x="25" y="114" text="Celular:" width="78"/>
+	<mx:Label x="25" y="142" text="Dirección:" width="78" height="17.25"/>
 	<mx:Label x="442.7" y="61.9" text="Raza:" width="78"/>
-	<mx:Label x="25" y="152.25" text="Atenciones" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
+	<mx:Label x="25" y="171.25" text="Atenciones" fontSize="10" fontFamily="Verdana" fontWeight="bold"/>
 	<mx:TextInput x="127.1" y="34" width="217.75" editable="false" id="cNom"/>
 	<mx:TextInput x="127.1" y="60" width="138.75" editable="false" height="20" id="cRut"/>
 	<mx:TextInput x="127.1" y="86" width="138.75" editable="false" height="20" id="cTel"/>
-	<mx:TextInput x="127.1" y="112" width="217.75" editable="false" height="19.25" id="cDir"/>
+	<mx:TextInput x="127.1" y="112" width="138.75" editable="false" height="20" id="cel"/>
+	<mx:TextInput x="127.1" y="140" width="217.75" editable="false" height="19.25" id="cDir"/>
 	<mx:TextInput x="594.25" y="33.9" width="139.75" editable="false" height="20" id="mNom"/>
 	<mx:TextInput x="594.25" y="61.9" width="139.75" editable="false" height="20" id="mRaza"/>
 	<mx:TextInput x="594.25" y="89.9" width="139.75" editable="false" height="20" id="mSex"/>
