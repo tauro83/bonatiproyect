@@ -13,11 +13,15 @@ package transferObjects
     
 	public class Producto
 	{
+		public var checkbox:CheckBox = new CheckBox;
+		public var sel:Boolean;
+		
 		public var nombre:String;
 		public var categoria:String;
 		public var codigo:String;
 		public var precio:String;
 		public var descripcion:String;
 		public var cantidad:int;
+		
 	}
 }
