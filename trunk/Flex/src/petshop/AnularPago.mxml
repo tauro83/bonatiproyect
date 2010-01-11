@@ -33,9 +33,10 @@ xmlns:fc="http://www.adobe.com/2006/fc"	width="779" height="466" borderColor="#1
 			
 			public function getAllPagos():void
 			{
-				var usuarioElimService:ElimPagoService = new ElimPagoService();
-				usuarioElimService.addEventListener(ResultEvent.RESULT,getAllPagosResult);
-				usuarioElimService.getAllPagosE();
+				nroSelec = 0;
+				var pagoElimService:ElimPagoService = new ElimPagoService();
+				pagoElimService.addEventListener(ResultEvent.RESULT,getAllPagosResult);
+				pagoElimService.getAllPagos();
 			}
 			/**
 			 * Obtiene el resultado del llamado a la capa dos y tres
@@ -51,8 +52,8 @@ xmlns:fc="http://www.adobe.com/2006/fc"	width="779" height="466" borderColor="#1
 			 */
 			
 			private function cancelarAction():void{
-				this.setVisible(false,false);
-				Application.application.panel2.setVisible(true,false);
+				this.visible = false;
+				Application.application.panelPetshop.visible = true;
 			}
 			/**
 			 * Selecciona o deselecciona todos los checkboxes
@@ -72,7 +73,7 @@ xmlns:fc="http://www.adobe.com/2006/fc"	width="779" height="466" borderColor="#1
             * elimina una fila dentro de la tabla
             */
            	private function deleteRow():void {
-			 Alert.show("Está seguro que desea anular Pago ","Confirme anular ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+           		Alert.show("Está seguro que desea anular Pago ","Confirme anular", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
 			}
 			/**
 			 * Purga un pago que está en la base de datos
@@ -80,9 +81,9 @@ xmlns:fc="http://www.adobe.com/2006/fc"	width="779" height="466" borderColor="#1
 			 */
 			private function deletePago(fecha:String, hora:String):void
 			{
-				var usuarioElimService:ElimPagoService=new ElimPagoService();
-				usuarioElimService.addEventListener(ResultEvent.RESULT,deletePagoResult);
-				usuarioElimService.deletePagoH(fecha, hora);
+				var pagoElimService:ElimPagoService=new ElimPagoService();
+				pagoElimService.addEventListener(ResultEvent.RESULT,deletePagoResult);
+				pagoElimService.deletePago(fecha, hora);
 			}
 			
 			/**
@@ -94,10 +95,10 @@ xmlns:fc="http://www.adobe.com/2006/fc"	width="779" height="466" borderColor="#1
 			{
 				var result:int = event.result as int ;
 				if(nroSelec>1){
-					labelMessage.text = "Pagos Anulados con éxito";
+					labelMessage.text = "Pagos anulados exitosamente";
 				}
 				else
-					labelMessage.text = "Pago Anulado con éxito";
+					labelMessage.text = "Pago anulado exitosamente";
 				getAllPagos();
 			}
 			/**
@@ -123,7 +124,10 @@ xmlns:fc="http://www.adobe.com/2006/fc"	width="779" height="466" borderColor="#1
                         allRows = persons.length;
                         tablaPagos.dataProvider = persons;
                         i=-1;
-                    }   
+                    }
+                }
+                if(nroSelec==0){
+                   	labelMessage.text = "No hay pagos seleccionados";
                 }              
             }
 				

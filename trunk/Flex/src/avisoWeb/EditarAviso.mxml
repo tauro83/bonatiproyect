@@ -22,10 +22,15 @@
 			import avisoWeb.AvisoWeb;
 			import avisoWeb.AvisoWebService;
 			import util.Properties;
+			import services.configuracionServices;
+			import mx.collections.ArrayCollection;
+		
 			
 			private var idAviso:int;
 			private var avisoWebService:AvisoWebService;
 			private var aviso:AvisoWeb;
+			[Bindable]public var asuntos:ArrayCollection;		
+			
 			
 			
 			
@@ -80,6 +85,27 @@
 					
 			}	
 			
+			/**
+			 * Función que obtiene los asuntos registrados en la base de datos
+			 * @autor "Erwin Díaz"
+			 * 
+			 */
+			public function getAsuntos():void{
+				var conServ:configuracionServices = new configuracionServices();
+				conServ.addEventListener(ResultEvent.RESULT,saveAsuntos);
+				conServ.getAsuntos();
+			}
+			
+			/**
+			 * Función que retorna loos asuntos registrados en la base de datos
+			 * @autor "Erwin Díaz"
+			 * 
+			 * 
+			 */
+			public function saveAsuntos(event:ResultEvent):void{
+				asuntos = event.result as ArrayCollection;
+			}
+			
 			
 			/**
 		 	 * 	@author  Erwin Díaz
@@ -126,7 +152,6 @@
 		]]>
 	</mx:Script> 
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="464" label="Editar" click="registrar()" y="366" id="regCatalogo" enabled="true" toolTip="Registrar aviso"/>
-	<mx:TextInput x="138" y="225" width="201" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="asunto"  enabled="true" maxChars="20" toolTip="Asunto del aviso"/>
 	<mx:TextInput x="186" y="117" id="telefono"  restrict="0-9" enabled="true"  maxChars="20" width="153" toolTip="Número de teléfono"/>
 	<mx:TextInput x="138" y="117" id="telefono0"  restrict="0-9" enabled="true"  maxChars="4" width="31" toolTip="Código de área"/>
 	<mx:Label x="26" y="119" text="Teléfono:"  textAlign="left"/>
@@ -145,4 +170,5 @@
 	<mx:TextArea x="138" y="265" height="79" width="576" toolTip="Descripción del aviso" id="descripcion"/>
 	<mx:TextInput x="138" y="34" id="nomb" editable="false" width="201"/>
 	<mx:TextInput x="138" y="75" id="apaterno" editable="false" width="201"/>
+	<mx:ComboBox x="135" y="225" width="204" id="asunto" dataProvider="{asuntos}"></mx:ComboBox>
 </mx:Panel>

@@ -17,6 +17,10 @@
             import mx.events.CloseEvent;
             import mx.rpc.events.ResultEvent;
             import mx.core.Application;
+            import util.Properties;
+			
+			
+			
 			import transferObjects.UsuarioElim;
 			import mx.rpc.events.ResultEvent;
 			import administracion.UsuarioElimService;
@@ -73,16 +77,9 @@
 			 */
 			private function deleteUsuario(clave:String):void
 			{
-				
-				if(Application.application.getUsuario().usuario!==clave){
-					var usuarioElimService:UsuarioElimService=new UsuarioElimService();
-					usuarioElimService.addEventListener(ResultEvent.RESULT,deleteUsuarioResult);
-					usuarioElimService.hideUser(clave, Application.application.login2.usuarioActivo);
-					
-				}else{
-					labelMessage.text = "El usuario conectado, no puede ser eliminado";
-				}
-				
+				var usuarioElimService:UsuarioElimService=new UsuarioElimService();
+				usuarioElimService.addEventListener(ResultEvent.RESULT,deleteUsuarioResult);
+				usuarioElimService.hideUser(clave, Application.application.login2.usuarioActivo);
 			}
 			/**
 			 * 
@@ -92,7 +89,7 @@
 			private function deleteUsuarioResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
-				labelMessage.text = "Usuario(s) eliminado(s) con éxito";
+				labelMessage.text = Properties.getMensaje("Informacion", "16");
 				getAllUsuarios();
 			}
 			/**
@@ -114,11 +111,19 @@
                     if (persons[i].sel)
                 	{
                        	nroSelec++;
-                        deleteUsuario(persons[i].usuario);
-                        persons.removeItemAt(i);
-                        allRows = persons.length;
-                        tablaUsuarios.dataProvider = persons;
-                        i=-1;
+                       	var s1:String = persons[i].usuario;
+                       	var s2:String = Application.application.login2.usuarioActivo;
+                       	if(s1.localeCompare(s2)==0){
+                       		labelMessage.text = "Usuario "+s1+" tiene sesión iniciada";
+                       	}
+                       	else{
+                       		deleteUsuario(persons[i].usuario);
+	                        persons.removeItemAt(i);
+	                        allRows = persons.length;
+	                        tablaUsuarios.dataProvider = persons;
+	                        i=-1;
+                       	}
+	                    
                     }   
                 }              
             }
