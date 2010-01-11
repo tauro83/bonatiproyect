@@ -124,13 +124,13 @@ public class UsuarioElimBD
     		{
     			person= new UsuarioElim();
    
-    			person.setNombre(result.getString(1));
-    			person.setApellidoPaterno(result.getString(2));
-    			person.setApellidoMaterno(result.getString(3));
-    			person.setUsuario(result.getString(4));
-    			person.setCargo(result.getString(5));
-    			person.setContrasena(result.getString(6));
-    			person.setServicio(result.getString(7));
+    			person.setNombre(result.getString(1).trim());
+    			person.setApellidoPaterno(result.getString(2).trim());
+    			person.setApellidoMaterno(result.getString(3).trim());
+    			person.setUsuario(result.getString(4).trim());
+    			person.setCargo(result.getString(5).trim());
+    			person.setContrasena(result.getString(6).trim());
+    			person.setServicio(result.getString(7).trim());
     			person.setEditar(result.getBoolean(8));
  			    person.setRegistrar(result.getBoolean(8));
     			person.setEliminar(result.getBoolean(10));
@@ -197,13 +197,13 @@ public class UsuarioElimBD
     		{
     			person= new UsuarioElim();
    
-    			person.setNombre(result.getString(1));
-    			person.setApellidoPaterno(result.getString(2));
-    			person.setApellidoMaterno(result.getString(3));
-    			person.setUsuario(result.getString(4));
-    			person.setCargo(result.getString(5));
-    			person.setContrasena(result.getString(6));
-    			person.setServicio(result.getString(7));
+    			person.setNombre(result.getString(1).trim());
+    			person.setApellidoPaterno(result.getString(2).trim());
+    			person.setApellidoMaterno(result.getString(3).trim());
+    			person.setUsuario(result.getString(4).trim());
+    			person.setCargo(result.getString(5).trim());
+    			person.setContrasena(result.getString(6).trim());
+    			person.setServicio(result.getString(7).trim());
     			person.setEditar(result.getBoolean(8));
  			    person.setRegistrar(result.getBoolean(8));
     			person.setEliminar(result.getBoolean(10));
