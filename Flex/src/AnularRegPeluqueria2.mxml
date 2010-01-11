@@ -117,11 +117,11 @@
                         vacu = vacunaciones[i] as anuPeluqueria;
                         
                         if(comboboxMotivo.selectedLabel=='Otros'){
-                        	vacu.motivo=motivo.text;
+                        	vacu.motivo=Application.application.login2.usuarioActivo+" "+motivo.text;
                         }
                         
                         else{
-                        	vacu.motivo=comboboxMotivo.text;
+                        	vacu.motivo=Application.application.login2.usuarioActivo+"  "+comboboxMotivo.text;
                         }
                         
                         anular(vacu.estado,vacu.nombreMascota,vacu.hora,vacu.nombreCatalogo,vacu.motivo);
@@ -219,7 +219,6 @@
 			<mx:DataGridColumn width="130" headerText="Nombre Catalogo" dataField="nombreCatalogo" id="nombreCatalogo" draggable="false"/>	
 			<mx:DataGridColumn width="90" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
 			<mx:DataGridColumn width="90" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>	
-			<mx:DataGridColumn width="60" headerText="Costo" dataField="costo" id="costo" draggable="false"/>	
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:CheckBox x="25" y="152" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
