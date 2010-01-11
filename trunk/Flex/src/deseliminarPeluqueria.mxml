@@ -177,8 +177,7 @@
 			<mx:DataGridColumn width="100" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
 			<mx:DataGridColumn width="130" headerText="Nombre Catalogo" dataField="nombreCatalogo" id="nombreCatalogo" draggable="false"/>	
 			<mx:DataGridColumn width="90" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
-			<mx:DataGridColumn width="90" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>	
-			<mx:DataGridColumn width="60" headerText="Costo" dataField="costo" id="costo" draggable="false"/>	
+			<mx:DataGridColumn width="90" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>		
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:CheckBox x="25" y="10" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
