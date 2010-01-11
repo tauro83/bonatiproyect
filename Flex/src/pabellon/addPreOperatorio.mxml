@@ -129,6 +129,45 @@
 				    
 			}
 			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  20 Septiembre
+			 * @Funcion que verifica que todos los campos del formulario tengan la información que se pide
+			 * con esto nos referimos a no tener datos de entrada vacía.
+			 * .
+			 */
+			private function iniListener2():Boolean
+			{
+				var aux:Boolean=false;
+				if(sintomas.text== "" || fechaPre.text== "" || responsable.text== "" || ayudante.text== "" || diagnostico.text== "" || observaciones.text== ""){
+				     aux=false;
+				}
+				else{
+				  aux = true;
+				}
+				return aux;
+				
+			}
+			
+			
+			
+			/**
+			 * @author  "Raul Lopez"
+			 * @Fecha  20 Septiembre
+			 * @Funcion  que verifica si todos los campos estan con la información correspondiente
+			 * si estan todos los campos llenados, el método llama al clienteModificado el cual copia todos los campos del panel
+			 * en un objeto de tipo cliente con los datos finales de como fue editado el cliente.
+			 */
+			public function verificaEdicion():void
+			{
+			   if(iniListener2()==true){
+			      preOpeModificado();
+			      carga1();
+			   }
+			   else{
+			     mensaje.text = "No ha ingresado información en todos los campos";
+			   }
+			}
 			public function preOpeModificado():void
 			{
 				    
@@ -142,8 +181,8 @@
 				    preope.ayudante        = ayudante.text;
 				   
 				    
-				    //Alert.show(preope.sintomas);
-					carga1();
+				    
+					//carga1();
 					
 					
 					
@@ -221,25 +260,26 @@
 	<mx:Label x="10" y="99" text="Sexo:" width="78"/>
 	<mx:Label x="9.95" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
 	<mx:Label x="10" y="63.85" text="Raza:" width="78"/>
-	<mx:Label x="10" y="185" text="Preoperatorio" width="115.55" fontWeight="bold"/>
-	<mx:Label x="10" y="356" text="Ayudante: " width="78"/>
-	<mx:Label x="9.95" y="211" text="Síntomas:" width="63.4" height="17.931034"/>
-	<mx:Label x="10.05" y="320" text="Veterinario:" width="128"/>
+	<mx:Label x="10" y="178" text="Preoperatorio" width="115.55" fontWeight="bold"/>
+	<mx:Label x="10" y="349" text="Ayudante: " width="78"/>
+	<mx:Label x="9.95" y="204" text="Síntomas:" width="63.4" height="17.931034"/>
+	<mx:Label x="10.05" y="313" text="Veterinario:" width="128"/>
 	<mx:TextArea x="399.7" y="45" height="141" width="333.55" id="diagnostico"/>
 	<mx:Label x="399.7" y="20" text="Diagnóstico" width="78"/>
-	<mx:ComboBox x="133.55" y="354" id="ayudante" dataProvider="{ayudantes}" width="160"></mx:ComboBox>
-	<mx:Button x="495.25" y="382" label="Guardar" width="87" click="{preOpeModificado()} "/>
-	<mx:Button x="603.55" y="382" label="Cancelar" width="91.4" click="{cancelarEditaCita()}"/>
-	<mx:TextArea x="133.55" y="199" height="61" id="sintomas"/>
+	<mx:ComboBox x="133.55" y="347" id="ayudante" dataProvider="{ayudantes}" width="160"></mx:ComboBox>
+	<mx:Button x="517.25" y="359" label="Guardar" width="87" click="{verificaEdicion()} "/>
+	<mx:Button x="625.55" y="359" label="Cancelar" width="91.4" click="{cancelarEditaCita()}"/>
+	<mx:TextArea x="133.55" y="192" height="61" id="sintomas"/>
 	<mx:TextInput x="133" y="31" id="nombre" editable="false"/>
 	<mx:TextInput x="133.55" y="139" id="fecha" editable="false" enabled="true"/>
 	<mx:Label x="10" y="141" text="Fecha nacimiento:" width="107.95"/>
 	<mx:TextInput x="133" y="97" id="sexo" editable="false"/>
 	<mx:TextInput x="133" y="61.85" id="raza" editable="false"/>
-	<mx:TextArea x="399.7" y="246" height="105" width="333.55" id="observaciones"/>
-	<mx:Label x="399.7" y="220" text="Observaciones" width="93"/>
-	<mx:Label x="10" y="281" text="Fecha           :" width="145"/>
-	<mx:DateField x="133" y="279" width="115" id="fechaPre" editable="true" enabled="true"/>
-	<mx:ComboBox id="responsable" x="133" y="318" dataProvider="{usuarios2}" close="asignarResponsable(event)"></mx:ComboBox>
+	<mx:TextArea x="399.7" y="230" height="105" width="333.55" id="observaciones"/>
+	<mx:Label x="399.7" y="204" text="Observaciones" width="93"/>
+	<mx:Label x="10" y="274" text="Fecha           :" width="145"/>
+	<mx:DateField x="133" y="272" width="115" id="fechaPre" editable="true" enabled="true"/>
+	<mx:ComboBox id="responsable" x="133" y="311" dataProvider="{usuarios2}" close="asignarResponsable(event)"></mx:ComboBox>
+	<mx:Label x="156" y="399" width="407" height="17" id="mensaje" textAlign="center" fontWeight="bold"/>
 	
 </mx:Panel>
