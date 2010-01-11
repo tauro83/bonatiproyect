@@ -78,7 +78,7 @@ public class ElimPagoService {
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			ElimPagoBD personDB= new ElimPagoBD(connection);
-			persons= personDB.getAllPagosEBD();		
+			persons= personDB.getAllPagosBD();		
 			connection.close();
 		} 
     	catch (SQLException e) 
