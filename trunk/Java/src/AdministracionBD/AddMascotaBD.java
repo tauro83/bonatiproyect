@@ -55,7 +55,8 @@ public class AddMascotaBD{
 			
 			/**Consulta a la base de datos, Selecciona todas las mascotas registradas en la base de datos*/
 			query = "SELECT rut, nombre, fechanacimiento, claseanimal, raza, sexo, estado " +
-					"FROM mascota;";			
+					"FROM mascota " +
+					"WHERE estado = 'TRUE';";			
 			selectAll = connection.prepareStatement(query);
 			
 			/**Selecciona datos especificos de los clientes presenciales*/
@@ -107,7 +108,7 @@ public class AddMascotaBD{
 			add.setString(4, mascota.getClaseAnimal());
 			add.setString(5, mascota.getRaza());
 			add.setString(6, mascota.getSexo());
-			add.setBoolean(7, mascota.getEstado());
+			add.setBoolean(7, true);
 			
 			Calendar c = Calendar.getInstance();
 			int year = c.get(Calendar.YEAR)-1900;
