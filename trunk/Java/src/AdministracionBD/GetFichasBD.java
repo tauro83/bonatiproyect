@@ -380,7 +380,7 @@ public class GetFichasBD {
 		
 		
 		String queryPreoperatorio = "SELECT rut, nombre, observaciones, sintomas, diagnostico, fecha, hora, "+ 
-        "responsable, ayudante, estado, motivo  FROM preoperatorio  WHERE clienterut='"+ rut.trim()+"' AND nombre='" +nombre.trim() +"'";	
+        "responsable, ayudante, estado, motivo  FROM preoperatorio  WHERE rut='"+ rut.trim()+"' AND nombre='" +nombre.trim() +"'";	
 
 		try 
 		{
