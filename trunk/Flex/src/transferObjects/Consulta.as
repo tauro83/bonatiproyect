@@ -21,6 +21,5 @@ package transferObjects
 		public var anamnesis:String;
 		public var costo:String;
 		public var estado:int;
-
 	}
 }
