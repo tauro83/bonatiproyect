@@ -53,6 +53,7 @@
 				buscadorCliente.inputClienteNombre.text = "";
 				buscadorCliente.rutClienteDVInput.text = "";
 				buscadorCliente.rutClienteInput.text = "";
+				mascotas = new ArrayCollection();
 				dg2.text = "";
 				responsable.text = "";
 				fecha.text = "";
