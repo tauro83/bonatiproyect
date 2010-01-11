@@ -121,7 +121,7 @@
                         }
                         
                         else{
-                        	vacu.motivo="usuario:"+Application.application.login2.usuarioActivo+" Motivo:"+comboboxMotivo.text;
+                        	vacu.motivo=Application.application.login2.usuarioActivo+"  "+comboboxMotivo.text;
                         }
                         
                         anular(vacu.estado,vacu.nombreMascota,vacu.hora,vacu.motivo);
