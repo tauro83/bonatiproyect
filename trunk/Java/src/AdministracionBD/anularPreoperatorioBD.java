@@ -245,48 +245,41 @@ public class anularPreoperatorioBD {
 	    			vacu.setAyudante(result.getString(8).trim());
 	    			vacu.setObservaciones(result.getString(9).trim());
 	    			
-	    			int puesto=0;
 	    			String v=result.getString(10).trim();
+	    			int i=0;
+	    			String h=v.substring(0,1);
 	    			String palabra="";
-	    			for(int i=0;i<v.length();i++){
-	    				String h=v.substring(i,i+1);
-	    				if(h.equals(" ")){   				
-	    					if(puesto==0){
-	    						vacu.setFechaA(palabra);
-	    						//System.out.println("Fecha: "+palabra);
-	    						palabra="";
-	    						
-	    					}
-	    					if(puesto==1){
-	    						vacu.setUsuarioA(palabra);
-	    						//System.out.println("Usuario: "+palabra);
-	    						palabra="";
-	    						
-	    					}
-	    					if(puesto==2){
-	    						vacu.setMotivo(palabra);
-	    						//System.out.println("Motivo: "+palabra);
-	    						palabra="";
-	    						
-	    					}
-	    					puesto++;
-	    				}
-	    				else{
-	    					if(puesto==0){
-	    						palabra=palabra+h;
-	    						//System.out.print("F: "+h);
-	    					}
-	    					if(puesto==1){
-	    						palabra=palabra+h;
-	    						//System.out.print("U: "+h);
-	    					}
-	    					if(puesto==2){
-	    						palabra=palabra+h;
-	    						System.out.print("M: "+h);
-	    					}
-	    				}
-	    				
+	    			
+	    			while(!h.equals(" ")){
+	    				palabra=palabra+h;
+	    				i++;
+	    				h=v.substring(i,i+1);
 	    			}
+	    			
+	    			vacu.setFechaA(palabra);
+	    			
+	    			h=v.substring(i+1,i+2);
+	    			palabra="";
+	    			i++;
+	    			
+	    			while(!h.equals(" ")){
+	    				palabra=palabra+h;
+	    				i++;
+	    				h=v.substring(i,i+1);
+	    			}
+	    			
+	    			vacu.setUsuarioA(palabra);
+	    			h=v.substring(i,i+1);
+	    			palabra="";
+	    			
+	    			while(i<v.length() && i+1<v.length()){
+	    				palabra=palabra+h;
+	    				i++;
+	    				h=v.substring(i,i+1);
+	    			}
+	    			h=v.substring(i,i+1);
+	    			palabra=palabra+h;
+	    			vacu.setMotivo(palabra);
 	    			
 	    			int estado2 = vacu.getEstado();
 	    			
