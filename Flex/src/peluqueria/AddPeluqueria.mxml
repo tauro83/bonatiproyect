@@ -99,7 +99,7 @@
 		    					var textNom:String = serviciosAdds.pop();
 		    					var cat2:CatPeluqueria = new CatPeluqueria();
 		    					var listaCat:Array = textNom.split(" ",11);
-		    					///inicio aqui se edito
+		    					
 		    					var nombresS:Array = new Array();
 		    					var iss:int;
 		    					var mas:int = listaCat.length;
@@ -125,7 +125,7 @@
 		   				
 		   						}
 		    					cat2.nombre = nombre3;
-		    					//hasta aqui ....
+		    					
 		    					newPeluqueria.tiposServicios.addItem(cat2.servicio);
 		    					newPeluqueria.tiposNombres.addItem(cat2.nombre);
 		    				}
