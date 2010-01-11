@@ -378,6 +378,33 @@ public class GetFichasBD {
 			e.printStackTrace();
 		}
 		
+		
+		String queryPreoperatorio = "SELECT rut, nombre, observaciones, sintomas, diagnostico, fecha, hora, "+ 
+        "responsable, ayudante, estado, motivo  FROM preoperatorio  WHERE clienterut='"+ rut.trim()+"' AND nombre='" +nombre.trim() +"'";	
+
+		try 
+		{
+			selectAll = connection.prepareStatement(queryPreoperatorio);
+			ResultSet result = selectAll.executeQuery();
+			while(result.next())
+			{
+				at = new Atencion();
+				at.setClienteRut(result.getString(1));
+				at.setMascotaNombre(result.getString(2));
+				at.setServicio("Preoperatorio");
+				at.setHora(""+result.getString(7));
+				at.setSfecha(""+result.getString(6));
+				at.setCosto("$");
+				
+				atenciones.add(at);
+			}
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}		
+		
+		
 		return atenciones;
     }
 	
