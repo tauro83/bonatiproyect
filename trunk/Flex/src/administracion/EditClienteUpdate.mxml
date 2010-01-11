@@ -182,10 +182,10 @@
 			 */
 		 	 private function iniListener():void
 			{
-				nombre.addEventListener(KeyboardEvent.KEY_UP,validarNombre);
+				//nombre.addEventListener(KeyboardEvent.KEY_UP,validarNombre);
 				email2.addEventListener(KeyboardEvent.KEY_UP,validarEmail);
-				apellido.addEventListener(KeyboardEvent.KEY_UP,validarApaterno);
-				apellido2.addEventListener(KeyboardEvent.KEY_UP,validarAmaterno);
+				//apellido.addEventListener(KeyboardEvent.KEY_UP,validarApaterno);
+				//apellido2.addEventListener(KeyboardEvent.KEY_UP,validarAmaterno);
 				direccion.addEventListener(KeyboardEvent.KEY_UP,validarDirec);
 				
 				
