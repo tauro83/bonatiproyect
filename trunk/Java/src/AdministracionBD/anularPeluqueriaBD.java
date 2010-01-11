@@ -20,6 +20,7 @@ import TransferObjects.anuPreoperatorio;
 public class anularPeluqueriaBD {
 	PreparedStatement selectAllVacunaciones;
 	PreparedStatement setEstado;
+	PreparedStatement setEstado1;
 	PreparedStatement setCliente;
 	PreparedStatement setMascota;
 	/**
@@ -34,7 +35,7 @@ public class anularPeluqueriaBD {
 			
 			query = "SELECT clienterut, " +
 					"mascotanombre, " +
-					"servicio, hora, fecha, costo, descripcion, estado, responsable,nombre, motivo " +
+					"servicio, hora, fecha, descripcion, estado, responsable,nombre, motivo " +
 					"FROM serviciospeluqueria;";
 			selectAllVacunaciones = connection.prepareStatement(query);
 			
@@ -52,6 +53,11 @@ public class anularPeluqueriaBD {
 					"SET estado = ?, motivo = ?  " + 
 					"WHERE estado = ? AND mascotanombre= ? AND hora= ? AND nombre= ? ;";
 			setEstado = connection.prepareStatement(query);
+			
+			query = "UPDATE serviciospeluqueria " +
+			"SET estado = ? " + 
+			"WHERE estado = ? AND mascotanombre= ? AND hora= ? AND nombre= ? ;";
+			setEstado1 = connection.prepareStatement(query);
 		}
 		catch (SQLException e) 
 		{
@@ -86,11 +92,10 @@ public class anularPeluqueriaBD {
 	    			vacu.setServicio(result.getString(3).trim());
 	    			vacu.setHora(result.getString(4).trim());
 	    			vacu.setFecha(result.getString(5).trim());
-	    			vacu.setCosto(result.getString(6).trim());
-	    			vacu.setDescripcion(result.getString(7).trim());
-	    			vacu.setEstado(result.getInt(8));
-	    			vacu.setResponsable(result.getString(9).trim());
-	    			vacu.setNombreCatalogo(result.getString(10).trim());
+	    			vacu.setDescripcion(result.getString(6).trim());
+	    			vacu.setEstado(result.getInt(7));
+	    			vacu.setResponsable(result.getString(8).trim());
+	    			vacu.setNombreCatalogo(result.getString(9).trim());
 	    			
 	    			
 	    			String rut2 = vacu.getNombreMascota().trim();
@@ -98,7 +103,7 @@ public class anularPeluqueriaBD {
 	    			int h=0;
 	    			int estado1=vacu.getEstado();
 	    			
-	    			while(result1.next() && h==0 && estado1==0)
+	    			while(result1.next() && h==0)
 		    		{ 
 	    			//System.out.println("ar" + " "+result1);
 	    			
@@ -116,7 +121,7 @@ public class anularPeluqueriaBD {
 		    		}
 	    			
 	    			int g=0;
-	    			while(result2.next() && g==0 && estado1==0 )
+	    			while(result2.next() && g==0)
 		    		{ 
 	    			//System.out.println("ar" + " "+result1);
 	    			
@@ -183,11 +188,10 @@ public class anularPeluqueriaBD {
 	    			vacu.setServicio(result.getString(3).trim());
 	    			vacu.setHora(result.getString(4).trim());
 	    			vacu.setFecha(result.getString(5).trim());
-	    			vacu.setCosto(result.getString(6).trim());
-	    			vacu.setDescripcion(result.getString(7).trim());
-	    			vacu.setEstado(result.getInt(8));
-	    			vacu.setResponsable(result.getString(9).trim());
-	    			vacu.setNombreCatalogo(result.getString(10).trim());
+	    			vacu.setDescripcion(result.getString(6).trim());
+	    			vacu.setEstado(result.getInt(7));
+	    			vacu.setResponsable(result.getString(8).trim());
+	    			vacu.setNombreCatalogo(result.getString(9).trim());
 	    			
 	    			String rut2 = vacu.getNombreMascota().trim();
 	    			int estado2 = vacu.getEstado();
@@ -238,11 +242,10 @@ public class anularPeluqueriaBD {
 	    			vacu.setServicio(result.getString(3).trim());
 	    			vacu.setHora(result.getString(4).trim());
 	    			vacu.setFecha(result.getString(5).trim());
-	    			vacu.setCosto(result.getString(6).trim());
-	    			vacu.setDescripcion(result.getString(7).trim());
-	    			vacu.setEstado(result.getInt(8));
-	    			vacu.setResponsable(result.getString(9).trim());
-	    			vacu.setNombreCatalogo(result.getString(10).trim());
+	    			vacu.setDescripcion(result.getString(6).trim());
+	    			vacu.setEstado(result.getInt(7));
+	    			vacu.setResponsable(result.getString(8).trim());
+	    			vacu.setNombreCatalogo(result.getString(9).trim());
 	    			
 	    			int estado2 = vacu.getEstado();
 	    			
@@ -299,13 +302,13 @@ public class anularPeluqueriaBD {
 	 {
 		 int result = 0;
 		 try {
-				setEstado.setInt(1, 1);
-				setEstado.setInt(2, estado);
-				setEstado.setString(3, nombreMascota);
-				setEstado.setString(4, hora);
-				setEstado.setString(5, nombreCatalogo);
-				setEstado.executeQuery();
-				result = setEstado.executeUpdate();
+				setEstado1.setInt(1, 1);
+				setEstado1.setInt(2, estado);
+				setEstado1.setString(3, nombreMascota);
+				setEstado1.setString(4, hora);
+				setEstado1.setString(5, nombreCatalogo);
+				setEstado1.executeQuery();
+				result = setEstado1.executeUpdate();
 		 } 
 		 catch (SQLException e) {
 			e.printStackTrace();
@@ -324,12 +327,12 @@ public class anularPeluqueriaBD {
 	 {
 		 int result = 0;
 		 try {
-				setEstado.setInt(1, 0);
-				setEstado.setInt(2, estado);
-				setEstado.setString(3, nombreMascota);
-				setEstado.setString(4, hora);
-				setEstado.setString(5, nombreCatalogo);
-				setEstado.executeQuery();
+				setEstado1.setInt(1, 0);
+				setEstado1.setInt(2, estado);
+				setEstado1.setString(3, nombreMascota);
+				setEstado1.setString(4, hora);
+				setEstado1.setString(5, nombreCatalogo);
+				setEstado1.executeQuery();
 				result = setEstado.executeUpdate();
 		 } 
 		 catch (SQLException e) {
