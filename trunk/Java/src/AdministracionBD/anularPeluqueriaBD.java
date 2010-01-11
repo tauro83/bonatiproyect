@@ -11,7 +11,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import TransferObjects.anuPeluqueria;
@@ -277,8 +280,17 @@ public class anularPeluqueriaBD {
 	 {
 		 int result = 0;
 		 try {
+			 
+			Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR)-1900;
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			Date date = new Date(year,month, day);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fecha = formatter.format(date); 
+			 
 			setEstado.setInt(1, 2);
-			setEstado.setString(2, motivo);
+			setEstado.setString(2, fecha+" "+motivo);
 			setEstado.setInt(3, estado);
 			setEstado.setString(4, nombreMascota);
 			setEstado.setString(5, hora);
@@ -362,12 +374,46 @@ public class anularPeluqueriaBD {
 	    			vacu.setServicio(result.getString(3).trim());
 	    			vacu.setHora(result.getString(4).trim());
 	    			vacu.setFecha(result.getString(5).trim());
-	    			vacu.setCosto(result.getString(6).trim());
-	    			vacu.setDescripcion(result.getString(7).trim());
-	    			vacu.setEstado(result.getInt(8));
-	    			vacu.setResponsable(result.getString(9).trim());
-	    			vacu.setNombreCatalogo(result.getString(10).trim());
-	    			vacu.setMotivo(result.getString(11).trim());
+	    			vacu.setDescripcion(result.getString(6).trim());
+	    			vacu.setEstado(result.getInt(7));
+	    			vacu.setResponsable(result.getString(8).trim());
+	    			vacu.setNombreCatalogo(result.getString(9).trim());
+	    			
+	    			String v=result.getString(10).trim();
+	    			int i=0;
+	    			String h=v.substring(0,1);
+	    			String palabra="";
+	    			
+	    			while(!h.equals(" ")){
+	    				palabra=palabra+h;
+	    				i++;
+	    				h=v.substring(i,i+1);
+	    			}
+	    			
+	    			vacu.setFechaA(palabra);
+	    			
+	    			h=v.substring(i+1,i+2);
+	    			palabra="";
+	    			i++;
+	    			
+	    			while(!h.equals(" ")){
+	    				palabra=palabra+h;
+	    				i++;
+	    				h=v.substring(i,i+1);
+	    			}
+	    			
+	    			vacu.setUsuarioA(palabra);
+	    			h=v.substring(i,i+1);
+	    			palabra="";
+	    			
+	    			while(i<v.length() && i+1<v.length()){
+	    				palabra=palabra+h;
+	    				i++;
+	    				h=v.substring(i,i+1);
+	    			}
+	    			h=v.substring(i,i+1);
+	    			palabra=palabra+h;
+	    			vacu.setMotivo(palabra);
 	    			
 	    			int estado2 = vacu.getEstado();
 	    			
