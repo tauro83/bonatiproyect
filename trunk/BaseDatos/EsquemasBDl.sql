@@ -182,6 +182,7 @@ CREATE TABLE cirugia
   fecha character(10) NOT NULL,
   costo character(20),
   estado integer DEFAULT 0,
+  motivo character(200) DEFAULT 0,	
   servicio character varying(20) NOT NULL DEFAULT 'Pabellon'::character varying,
   CONSTRAINT pk_cirugia PRIMARY KEY (mascotanombre, hora, clienterut, fecha),
   CONSTRAINT cirugia_ayudante_fkey FOREIGN KEY (ayudante)
@@ -251,6 +252,7 @@ create table atencioncontrol(
 	responsable character(30),
 	servicio character (20),
 	costo character(7),
+        motivo character(200) DEFAULT 0,
 	CONSTRAINT atencioncontrol_pkey PRIMARY KEY (hora, fecha, responsable),
 	CONSTRAINT atencioncontrol_usuario_fkey FOREIGN KEY (responsable)
 		REFERENCES usuario (usuario) MATCH FULL
@@ -308,6 +310,7 @@ create table vacunacion(
 	estado integer DEFAULT '0',
 	fechacaducidad date,
 	descripcion CHAR(200),
+        motivo character(200) DEFAULT 0,
 	servicio character varying(20) NOT NULL DEFAULT 'Policlinico'::character varying,
 	constraint PK_vacuna primary key (mascotaNombre,hora,clienteRut,fecha,vacuna)
 );
@@ -323,6 +326,7 @@ CREATE TABLE consulta
   nombre character(20),
   responsable character(20),
   estado integer DEFAULT '0',
+  motivo character(200) DEFAULT 0,
   CONSTRAINT consulta_pkey PRIMARY KEY (hora, fecha, servicio),
   CONSTRAINT consulta_rut_fkey FOREIGN KEY (rut, nombre)
       REFERENCES mascota (rut, nombre) MATCH SIMPLE
@@ -343,6 +347,7 @@ CREATE TABLE atencionpostoperatorio
   apellido character(50),
   nombrecliente character(50),
   estado integer DEFAULT 0,
+  motivo character(200) DEFAULT 0,
   CONSTRAINT pkey_atencionpostoperatorio PRIMARY KEY (hora, fecha, servicio),
   CONSTRAINT fk_atencionpostoperatorio_reference_mascota FOREIGN KEY (nombremascota, rut)
       REFERENCES mascota (nombre, rut) MATCH SIMPLE
@@ -448,7 +453,7 @@ CREATE TABLE preoperatorio
   responsable character(30),
   ayudante character(30),
   estado integer DEFAULT '0',
-  motivo character(100) DEFAULT 0,		
+  motivo character(200) DEFAULT 0,		
   CONSTRAINT pk_preoperatorio PRIMARY KEY (rut, fecha, hora)
 );
 
