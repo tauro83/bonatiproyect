@@ -8,7 +8,7 @@
 			<mx:LinkButton x="10" y="130" label="Desactivar" click="verEliminarPeluqueria()" textAlign="left" id="bDesAtePel"/>
 			<mx:LinkButton x="10" y="70" label="Activar" click="verDeseliminarPeluqueria()" textAlign="left" id="bActAtePel"/>
 			<mx:LinkButton x="10" y="40" label="Editar" textAlign="left" id="editRegPel" click="{editPel()}"/>
-			<mx:LinkButton x="10" y="160" label="Bitacora" click="verAnuladosPeluqueria()" textAlign="left" id="anul"/>
+			<mx:LinkButton x="10" y="160" label="Bitacora" click="verAnuladosPeluqueria()" textAlign="left" id="Peluanul2"/>
 		</mx:Canvas>
 		<mx:Canvas label="Catálogo" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="10" label="Registrar" click="{regcatalogo()}" textAlign="left" id="regCatalogo"/>
@@ -150,8 +150,9 @@
 	   private function verAnuladosPeluqueria():void{
 			Application.application.setInvisible();
 			this.visible = true;
-         	      Application.application.AnuladoPelu.visible = true;
+                  Application.application.AnuladoPelu.visible = true;
 			Application.application.AnuladoPelu.getAllVacunacionesV();
+			Application.application.AnuladoPelu.actionVolver();
 	 }
 
          
