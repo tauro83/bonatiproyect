@@ -477,7 +477,7 @@
 				email.text = "";
 				email2.text = "";	
 				region.selectedItem="";	
-				comunas.selectedItem="";	
+				this.comunas.setVisible(false,false);	
 				labelMessage.text ="";
 				Check.selection=null;
 				valor=0;
