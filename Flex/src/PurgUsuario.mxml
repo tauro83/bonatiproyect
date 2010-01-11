@@ -20,6 +20,7 @@
 			import mx.rpc.events.ResultEvent;
 			import administracion.UsuarioElimService;
 			import mx.core.Application;
+			import util.Properties;
 			
 			[Bindable]
 			private var persons:ArrayCollection;
@@ -93,7 +94,7 @@
 			private function deleteUsuarioResult(event:ResultEvent):void
 			{
 				var result:int = event.result as int ;
-			    labelMessage.text = "Usuario(s) purgado(s) con éxito";
+				labelMessage.text = Properties.getMensaje("Informacion", "17");
 				getAllUsuarios();
 			}
 			/**

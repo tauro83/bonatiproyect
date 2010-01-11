@@ -161,15 +161,15 @@
 	
 	
 	<!-- AutoComplete para cada parametro -->
-	<fc:AutoComplete id="inputNombreMas" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="nombreMascota" visible="false"/>
-	<fc:AutoComplete id="inputRaza" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="raza" visible="false"/>
-	<fc:AutoComplete id="inputSexo" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="sexo" visible="false"/>
-	<fc:AutoComplete id="inputNombreCliente" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="nombre" visible="false"/>
-    <fc:AutoComplete id="inputApellidoPaterno" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="apellidoPaterno" visible="false"/>
-	<fc:AutoComplete id="inputRut" x="572" y="24" width="150" dataProvider="{atenciones}" labelField="clienterut" visible="false"/>
+	<fc:AutoComplete id="inputNombreMas" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="nombreMascota" visible="false"/>
+	<fc:AutoComplete id="inputRaza" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="raza" visible="false"/>
+	<fc:AutoComplete id="inputSexo" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="sexo" visible="false"/>
+	<fc:AutoComplete id="inputNombreCliente" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="nombre" visible="false"/>
+    <fc:AutoComplete id="inputApellidoPaterno" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="apellidoPaterno" visible="false"/>
+	<fc:AutoComplete id="inputRut" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="clienterut" visible="false"/>
 	
 
-	<mx:ComboBox x="96" y="24" width="150" id="comboBox" change="seleccionarBusqueda(event)">
+	<mx:ComboBox x="91" y="8" width="150" id="comboBox" change="seleccionarBusqueda(event)">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="Nombre Mascota"/>
@@ -184,7 +184,7 @@
 
 	
 	
-	<mx:DataGrid x="30" y="82" width="719" id="Tabla" enabled="true" height="260" dataProvider="{atenciones}" itemDoubleClick="editarAtencion()">
+	<mx:DataGrid x="30" y="62" width="719" id="Tabla" enabled="true" height="280" dataProvider="{atenciones}" itemDoubleClick="editarAtencion()">
 		<mx:toolTip>Muestra las mascotas registradas en el sistema que tienen atenciones de post-operatorio no bloqueadas</mx:toolTip>
 		<mx:columns>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota"/>
@@ -198,12 +198,12 @@
 	     </mx:columns>
 	</mx:DataGrid>
 	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="350" click="editarAtencion()" cornerRadius="6" toolTip="Visualizar mascota seleccionada"/>
-	<mx:Label x="30" y="56" text="Mascota" fontWeight="bold"/>
-	<mx:Label x="348.5" y="56" text="Cliente" fontWeight="bold"/>
+	<mx:Label x="25" y="36" text="Mascota" fontWeight="bold"/>
+	<mx:Label x="348" y="36" text="Cliente" fontWeight="bold"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="647" y="350" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6" toolTip="Regresa al panel anterior"/>
-	<mx:Label x="518" y="26" text="Buscar"/>
-	<mx:Text x="30" y="26" id="textFiltrar" text="Filtrar por"/>
+	<mx:Label x="526" y="8" text="Buscar"/>
+	<mx:Text x="25" y="10" id="textFiltrar" text="Filtrar por"/>
 	
 
 

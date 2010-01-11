@@ -50,8 +50,9 @@
 					Application.application.editarAviso.telefono.text = newAviso.telefono;
 					Application.application.editarAviso.celular0.text = newAviso.celular0;
 					Application.application.editarAviso.celular.text = newAviso.celular;
-					Application.application.editarAviso.asunto.text = newAviso.asunto;
 					Application.application.editarAviso.descripcion.text = newAviso.descripcion;
+					Application.application.editarAviso.getAsuntos();
+					Application.application.editarAviso.asunto.selectedItem = newAviso.asunto;
 					
 					Application.application.regCatalogo.setVisible(false, false);
 					Application.application.editarAviso.setVisible(true, false);
@@ -141,18 +142,18 @@
             }
 		]]>
 	</mx:Script>
-	<mx:Label x="10" y="12" text="Buscar"/>
-	<mx:Text x="217" y="12" id="textFiltrar" text="Filtrar por"/>
+	<mx:Label x="518" y="8" text="Buscar"/>
+	<mx:Text x="25" y="10" id="textFiltrar" text="Filtrar por"/>
 	
 	<!-- AutoComplete -->
-	<fc:AutoComplete id="idA" x="59" y="10" width="150" dataProvider="{avisos}" labelField="id" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="nombre" x="59" y="10" width="150" dataProvider="{avisos}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="apellido" x="59" y="10" width="150" dataProvider="{avisos}" labelField="apaterno" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="cel" x="59" y="10" width="150" dataProvider="{avisos}" labelField="celular" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="codTel" x="59" y="10" width="150" dataProvider="{avisos}" labelField="telefono0" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="tel" x="59" y="10" width="150" dataProvider="{avisos}" labelField="telefono" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="asunto" x="59" y="10" width="150" dataProvider="{avisos}" labelField="asunto" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="descripcion" x="59" y="10" width="150" dataProvider="{avisos}" labelField="descripción" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="idA" x="584" y="8" width="150" dataProvider="{avisos}" labelField="id" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="nombre" x="584" y="8" width="150" dataProvider="{avisos}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="apellido" x="584" y="8" width="150" dataProvider="{avisos}" labelField="apaterno" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="cel" x="584" y="8" width="150" dataProvider="{avisos}" labelField="celular" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="codTel" x="584" y="8" width="150" dataProvider="{avisos}" labelField="telefono0" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="tel" x="584" y="8" width="150" dataProvider="{avisos}" labelField="telefono" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="asunto" x="584" y="8" width="150" dataProvider="{avisos}" labelField="asunto" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="descripcion" x="584" y="8" width="150" dataProvider="{avisos}" labelField="descripción" visible="false" toolTip="ingrese texto para búsqueda"/>
 	
 	
 	<mx:DataGrid x="30" y="50" width="700" height="299" id="Tabla" enabled="true" dataProvider="{avisos}" itemDoubleClick="editarAviso(event)">
@@ -172,7 +173,7 @@
 	<mx:Button x="628" y="368" label="Cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
 	
 	<!-- Opciones de busqueda -->
-	<mx:ComboBox x="283" y="10" width="150" id="combobox" change="seleccionarBusqueda(event)" toolTip="Seleccione un parámetro de búsqueda">
+	<mx:ComboBox x="91" y="8" width="150" id="combobox" change="seleccionarBusqueda(event)" toolTip="Seleccione un parámetro de búsqueda">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="ID"/>
