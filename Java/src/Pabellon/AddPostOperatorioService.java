@@ -10,7 +10,7 @@ import Bd.DBConnectionManager;
 
 public class AddPostOperatorioService {
 	
-	public static String addPostOperatorio(PostOperatorio postOpe) throws SQLException{
+	public static int addPostOperatorio(PostOperatorio postOpe) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		AddPostOperatorioBD postOpeBD = new AddPostOperatorioBD(connection);		
 		return postOpeBD.registroPostOperatorio(postOpe);
