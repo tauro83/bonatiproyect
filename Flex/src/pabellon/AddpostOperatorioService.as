@@ -31,7 +31,7 @@ package pabellon
 		}
 		
 		/**
-		 	 * 	@author  "Raúl López"
+		 	 * 	@author  "Cristian Bravo"
 			 * 	@Fecha  28 Septiembre
 			 *  @Descripcion Metodo que en caso de error, muestra en a traves de 
 			 * un popup, esto se debe a que estos son errores de sistema, por lo 
@@ -39,7 +39,8 @@ package pabellon
 			 * */
 		private function faultHandler(event:FaultEvent):void
 		{
-			Alert.show("Error en AddPostOperatorioService, Detalle: "+event.fault.message);
+			
+			//Alert.show("Error en AddPostOperatorioService, Detalle: "+event.fault.message);
 		}
 		
 		public function AddPostOpe(postope:PostOperatorio):void
