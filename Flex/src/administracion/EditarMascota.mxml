@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Mascota">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Mascota" xmlns:ns1="util.*">
 	<mx:Script>
 
         <![CDATA[
@@ -53,57 +53,7 @@
 			
 		      
 			 
-			 /**
-		 	 * 	@author  "Cristian Bravo"
-			 * 	@Fecha  12/09/2009
-			 *  @Descripcion Funcion que busca un cliente, en la base de datos, para esto primero verifica 
-			 * si el rut esta ingresado correctamente, en caso de estar incorrecto lo informa por pantalla.
-			 * En caso contrario realiza las llamadas a la capa de java, la cual procesara la soliitud, y 
-			 * retornara si el cliente existe o no	
-			 * */
-			 
-        	public function buscarCliente(event:Event):void{
-        		ini(event);
-        		var Numero:String = rutClienteInput.text;
-        		var Dv:String = rutClienteDVInput.text;
-				var suma:int = 0;
-				var rut:String = Numero;
-				var NumMag:int = 2;
-				var Resto:int = 0;
-				var j:int ;
-				var i:int;
-				var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
-				var ParteNumerica:Array = new Array();
-				
-				if (rut.length == 0) { 
-
-				}
-				for ( j =0, i =0; j < rut.length; j++){
-					if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
-						ParteNumerica[i] = rut.charAt(i);
-						++i;
-					}
-				}
-				
-				for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
-					suma += ParteNumerica[i] * NumMag;
-					trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
-					if (NumMag>6){
-						NumMag =1;	
-					}	
-				}
-				
-				Resto = 11-(suma%11);
-				if(DigVer[Resto] != Dv.toUpperCase()){
-					labelMessage.text = "El Rut que ha ingresado es incorrecto.";
-				}
-				else{
-					labelMessage.text = "";
-					rutClienteInput.errorString = "";
-					getCliente(rutClienteInput.text+rutClienteDVInput.text);
-				}		
-        	}
-        	
+		
         	 /**
 		 	 * 	@author  "Cristian Bravo"
 			 * 	@Fecha  12/09/2009
@@ -113,36 +63,11 @@
 			 
         	private function getCliente(rutCliente:String):void{
 				var addMascotaService:AddMascotaService = new AddMascotaService();
-				addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
+				//addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
 				addMascotaService.getCliente(rutCliente);
 			}
 			
-			
-			/**
-		 	 * 	@author  "Cristian Bravo"
-			 * 	@Fecha  12/09/2009
-			 *  @Descripción Metodo que gestiona la comunicacion con la capa logica,para verificar si esta el cliente registrado.
-			 *  La funcion envia las solicitudes y devuelve los resultados. 
-			 */
-			 
-			public function getClienteResult(event:ResultEvent):void{
-				nombreCliente = event.result as String;
-				
-				if(nombreCliente == null){
-        			labelMessage.text = "Cliente no registrado."
-        			Application.application.AdmIngreso2.setVisible(true);
-        			Application.application.AdmIngreso2.labelMessage.text = "El cliente ingresado no esta registrado."
-        			Application.application.AdmIngreso2.rut.text = rutClienteInput.text;
-        			Application.application.AdmIngreso2.rut2.text = rutClienteDVInput.text;
-        			
-        			ini(event);
-        		}
-        		else{
-        			labelMessage.text = "Se ha accedido al cliente "+nombreCliente;
-        			ini(event);
-        		}
-			}
-        
+	
 			
 			/**
 		 	 * 	@author  "Cristian Bravo"
@@ -170,7 +95,7 @@
 			public function getMascotas():void{
 				var addMascotaService:AddCirugiaService = new AddCirugiaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addMascotaService.getMascotas(rutClienteInput.text);
+				addMascotaService.getMascotas(nombreRutIn.rutClienteInput.text);
 			}
 			
 			/**
@@ -196,8 +121,7 @@
 				this.mascotas=new ArrayCollection();
 				this.dg.doubleClickEnabled=true;
 				this.labelMessage.text="";
-				this.rutClienteInput.text="";
-				this.rutClienteDVInput.text="";
+				
 			}
 	 
 		    /**
@@ -220,7 +144,7 @@
 					newMascota.claseAnimal   = dg.selectedItem.claseAnimal;
 					newMascota.raza= dg.selectedItem.raza;
 					newMascota.sexo = dg.selectedItem.sexo;
-					newMascota.rutCliente = rutClienteInput.text+rutClienteDVInput.text;
+					newMascota.rutCliente = nombreRutIn.rutClienteInput.text+nombreRutIn.rutClienteDVInput.text;
 					
 				    this.visible = false;
 				    Application.application.AdEditarMascota3.visible = true;
@@ -250,11 +174,6 @@
 				
         ]]>
     </mx:Script>
-	
-	<mx:Label x="25" y="38" text="Rut:" width="84"/>
-	<mx:Label x="184.25" y="38" text="-" width="14.75" textAlign="center"/>
-	<mx:TextInput  restrict="0-9" x="85.75" y="36" width="90.5" id="rutClienteInput" maxChars="9" change="rutClienteDVInput.enabled=true"/>
-	<mx:TextInput x="207" y="36" width="19.5" id="rutClienteDVInput" maxChars="1" restrict="K k 0-9" focusOut="buscarCliente(event)"/>
 	
 	<mx:Panel x="121.5" y="-12" width="585" height="323" layout="absolute"  visible="false" id="ficha">
 			<mx:Label x="10" y="63" text="Nombre:" width="97"/>
@@ -288,5 +207,9 @@
 	<mx:Button x="632" y="353" label="Cancelar" width="102" id="cancelar" visible="true" click="cancelando()" height="23"/>
 	
 	<mx:Label x="25" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
+	<mx:Button label="Editar" height="23" width="102" x="522" y="353" click=" seleccionarMascota(event)" cornerRadius="6"/>
+	<ns1:BuscadorNombreRut x="39" y="28" id="nombreRutIn" keyFocusChange="getMascotas()" mouseFocusChange="getMascotas()">
+	</ns1:BuscadorNombreRut>
 	
 </mx:Panel>
+
