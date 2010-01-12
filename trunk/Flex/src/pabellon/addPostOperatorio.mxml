@@ -48,7 +48,7 @@
 			
 			private function registrar():void
 			{					
-					this.mens.text 				= Properties.getMensaje("Informacion", "33");			 
+					//this.mens.text 				= Properties.getMensaje("Informacion", "33");			 
 					postope			  		= new PostOperatorio();
 					postope.shora			= this.hora.selectedLabel.toString();
 					postope.stfecha			= this.fecha.text.toString();
@@ -76,12 +76,12 @@
 				var msj:String = "";
 				if(message==1){
 					msj = Properties.getMensaje("Advertencia", "30");
-				 	Application.application.regPostOp1.labelMessage.text = "PostOperatorio de "+nombre.text+" fue registrado";
+				 	Application.application.regPostOp1.labelMessage.text = "PostOperatorio fue registrado exitosamente";
 					resetVars(); 		
 				 	cancelando();		
     		 	}
 				else{ 
-					msj = Properties.getMensaje("Error", "19");				
+					//msj = Properties.getMensaje("Error", "19");				
 				}		
 				mens.text = msj;
 					
