@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class CirugiaBD {
 	PreparedStatement selectAllClientes;
 	PreparedStatement selectAllMascotas;
 	PreparedStatement setEstado;
+	String query="";
+	Connection connection2;
 	
 	/**
 	 * Se declaran las consultas hacia la base de datos
@@ -34,7 +37,8 @@ public class CirugiaBD {
 	{
 		try 
 		{
-			String query="", queryCliente="", queryMascota="";
+			String queryCliente="", queryMascota="";
+			connection2 = connection;
 			
 			query = "SELECT clienterut, mascotanombre, hora, " +
 					"ayudante, responsable, servicio, estado, fecha " +
@@ -52,10 +56,7 @@ public class CirugiaBD {
 							"WHERE nombre = ? AND rut = ? ;";
 			selectAllMascotas = connection.prepareStatement(queryMascota);
 			
-			query = "UPDATE cirugia " +
-					"SET estado = ? " + 
-					"WHERE mascotanombre=? and fecha=? and hora=? ;";
-			setEstado = connection.prepareStatement(query);
+			
 		}
 		catch (SQLException e) 
 		{
@@ -164,15 +165,19 @@ public class CirugiaBD {
 	  * @param 0=activado, 1=desactivo, 2=anulado
 	  * @return 1 si ha anulado correctamente y 0 de lo contrario
 	  * @author  "Esteban Cruz"
+	 * @throws SQLException 
 	  */
-	 public int anularCirugia(String nombre, String fecha, String hora)
+	 public int anularCirugia(String nombre, String fecha, String hora) throws SQLException
 	 {
+		 //estado, nombre, fecha, hora
+		 query = "UPDATE cirugia " +
+			"SET estado = '2' " + 
+			"WHERE mascotanombre='"+nombre +"' and fecha='"+fecha+"' and hora='"+hora+"';";
+		 setEstado = connection2.prepareStatement(query);
+		 
 		 int result = 0;
 		 try {
-			setEstado.setInt(1, 2);
-			setEstado.setString(2, nombre);
-			setEstado.setString(3, fecha);
-			setEstado.setString(4, hora);
+			
 			result = setEstado.executeUpdate();
 		 } 
 		 catch (SQLException e) {
