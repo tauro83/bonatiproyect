@@ -33,10 +33,10 @@ public class AddPostOperatorioBD {
 	{
 		this.connection = connection;
 	}
-	public String registroPostOperatorio(PostOperatorio postOpe)
+	public int registroPostOperatorio(PostOperatorio postOpe)
     {
 		System.out.println("LLEGO A postOperatorioBD");
-		String result = null;	
+		int result = 0;	
 		String query="";
 		PreparedStatement insert;
 		
@@ -55,23 +55,16 @@ public class AddPostOperatorioBD {
 	        insert.setString(6, postOpe.getCosto());
 	        insert.setString(7, postOpe.getNombreMascota());
 	        insert.setString(8, postOpe.getRut());
-	        System.out.println("AAAA?11"+postOpe.getCosto());
-			result=""+insert.executeQuery();
+	        //System.out.println("AAAA?11"+postOpe.getCosto());
+			insert.executeQuery();
+	        result = insert.executeUpdate();
     	} 
     	catch (SQLException e) 
     	{
 			e.printStackTrace();
-			result = " "+e.toString(); 
 			
 		}
-    	if(result.length()==1){
-    		return "1";
-    		
-    	}
-    	else {
-    		return   "0";  	
-		}
-    	
-    }
-	
+
+return  result;	
+}
 }
