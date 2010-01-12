@@ -27,6 +27,7 @@ public class EditarMascotaService {
 	
 	public int insertMascotaE(Mascota person, String usuario)
     {
+		System.out.println("asdasdas " + person.getNombre() + " " + usuario);
 		int result=0;
 		try 
 		{
