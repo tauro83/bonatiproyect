@@ -206,6 +206,8 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
             	actWebaviso.setVisible(false,false);
 				anuWebaviso.setVisible(false,false);
 				activarPago.setVisible(false,false);
+								
+				confCirugias.setVisible(false,false);
             	<!--Autor: }Jimmy Muñoz -->
             	
             	<!--Autor: Andres G.{-->
@@ -668,6 +670,9 @@ color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize
 	</ns4:AddVacunacion1>
 	<ns4:AddVacunacion x="240" y="133" id="addVacuna" visible="false">
 	</ns4:AddVacunacion>
+	
+	<ns1:configuracionCirugia x="241" y="134" id="confCirugias" visible="false">
+	</ns1:configuracionCirugia>
 	<!--Autor: }Jimmy -->
 	
 	<!--Autor: Raul Lopez{ -->
