@@ -436,7 +436,6 @@ public class ConfigurarBD {
 			out = "0";
 		}
     	
-    	connection.close();
     	return out;
 	}
 	
@@ -452,18 +451,16 @@ public class ConfigurarBD {
 		String query = "";
 		String out = "";
 		
-		query = "INSERT INTO cirugiaobj(nombre,precio,descripcion) VALUES(?,?,?,?);";
+		query = "INSERT INTO cirugiaobj(nombre,precio,descripcion) VALUES(?,?,?);";
 							
 		PreparedStatement insert;
 		insert = connection.prepareStatement(query);
-		//System.out.println("Precio!!!!:"+cv.precio.toString());
 		insert.setString(1, cv.nombre.trim());
 		if(cv.precio.trim() == ""){
 			insert.setInt(2,0);
 		}else{
 			insert.setInt(2,Integer.parseInt(cv.precio.trim()));
 		}
-		
 		
 		insert.setString(3,cv.descripcion.trim());		
 		try 
@@ -475,7 +472,6 @@ public class ConfigurarBD {
     	{
 			out = e.toString();
 		}
-    	connection.close();
     	return out;
     	
 	}
