@@ -388,7 +388,7 @@ public class PostOperatorioBD {
 	    			 */
 	    			if(estado2==1)
 	    			{
-	    				System.out.println("hola ");
+	    				//System.out.println("hola ");
 	    				vacunaciones.add(vacu);
 	    			}
 	    		}
