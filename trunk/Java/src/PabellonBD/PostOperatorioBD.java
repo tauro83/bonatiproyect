@@ -24,7 +24,7 @@ public class PostOperatorioBD {
 	PreparedStatement elimReg;
 	PreparedStatement anulReg;
 	PreparedStatement insert;
-	
+	PreparedStatement selectAllVacunaciones;
 	
 	/**
 	 * Se declaran las consultas hacia la base de datos
@@ -72,7 +72,7 @@ public class PostOperatorioBD {
 			elimReg = connection.prepareStatement(query);
 			
 			query = "UPDATE atencionpostoperatorio "+
-			   "SET estado = '1' " +
+			   "SET estado = '1', motivo = ? " +
 			   "WHERE atencionpostoperatorio.hora = ? and " +
 			   "atencionpostoperatorio.rut = ? and atencionpostoperatorio.nombremascota = ?;";
 			anulReg = connection.prepareStatement(query);
@@ -81,6 +81,12 @@ public class PostOperatorioBD {
 			   "VALUES(?, ?, ?, ?, ?, ?);";
 			insert = connection.prepareStatement(query);
 			
+			query = "SELECT rut, " +
+			"nombremascota, " +
+			"motivo, estado " +
+			"FROM atencionpostoperatorio;";
+	         	selectAllVacunaciones = connection.prepareStatement(query);
+
 			
 		}
 		catch (SQLException e) 
@@ -124,14 +130,23 @@ public class PostOperatorioBD {
 	 * Trata de obtener todos las cirugías registrados en la base de datos
 	 * @return Lista con todas las cirugías registradas
 	 */
-	public int anulAtencionBD(String hora, String rut, String nomMascota)
+	public int anulAtencionBD(String hora, String rut, String nomMascota, String motivo)
     {
     	int result=0;
     	try 
     	{
-    		anulReg.setString(1, hora);
-    		anulReg.setString(2, rut);
-    		anulReg.setString(3, nomMascota);
+    		Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR)-1900;
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			Date date = new Date(year,month, day);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fecha = formatter.format(date); 
+    		
+			anulReg.setString(1,fecha+" "+motivo);
+    		anulReg.setString(2, hora);    		
+    		anulReg.setString(3, rut);
+    		anulReg.setString(4, nomMascota);
     		anulReg.executeQuery();
     		result= anulReg.executeUpdate();
 		} 
@@ -297,5 +312,89 @@ public class PostOperatorioBD {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+        public List getAllVacunacionesV()
+	 {
+		 	List vacunaciones = new ArrayList();
+		 	PostOperatorio vacu;
+		 	
+	    	try 
+	    	{
+	    		/**
+	    		 * Inicializa la consulta sql de la tabla de peluquería.
+	    		 */
+	    		ResultSet result = selectAllVacunaciones.executeQuery();
+	    		while(result.next())
+	    		{  
+	    			vacu = new PostOperatorio();
+	    			
+	    			vacu.setRut(result.getString(1).trim());	
+	    			vacu.setNombreMascota(result.getString(2).trim());
+	    			
+	    			String v=result.getString(3).trim();
+	    			vacu.setEstado(result.getInt(4));
+	    			int i=0;
+	    			String h=v.substring(0,1);
+	    			String palabra="";
+	    			
+	    			while(!h.equals(" ")){
+	    				palabra=palabra+h;
+	    				i++;
+	    				h=v.substring(i,i+1);
+	    			}
+	    			//System.out.println("F: "+palabra);
+	    			vacu.setFechaA(palabra);
+	    			
+	    			h=v.substring(i+1,i+2);
+	    			//System.out.println("P: "+h);
+	    			palabra="";
+	    			i++;
+	    			int bandera=2;
+	    			
+	    			while(!h.equals("") && bandera!=1 && i<v.length()){
+	    				//System.out.println("Xaoooo");
+	    				palabra=palabra+h;
+	    				
+	    				if(i+1<v.length() && i<v.length()){
+	    					i++;
+		    				h=v.substring(i,i+1);
+		    				bandera=0;
+	    				}
+	    				
+	    				else{
+	    					bandera=1;
+	    				}
+	    				
+	    			}
+	    			
+	    			if(bandera==2){
+	    				palabra=palabra+h;
+	    			}
+	    			
+	    			
+	    			//System.out.println("U: "+palabra);
+	    			vacu.setUsuarioA(palabra);
+	    			
+	    			
+	    			int estado2 = vacu.getEstado();
+	    			
+	    			
+	    			/**
+	    			 * Esta condicción se encarga de buscar todos los registro de peluquería 
+	    			 * que posean estado 1.
+	    			 */
+	    			if(estado2==1)
+	    			{
+	    				System.out.println("hola ");
+	    				vacunaciones.add(vacu);
+	    			}
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return vacunaciones;
+	 }
 	 
 }
