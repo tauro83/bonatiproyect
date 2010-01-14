@@ -142,7 +142,7 @@ public class Configurar {
 	 * la capa ConfiguracionBD
 	 * @return una lista con todas las tuplas del tipo enviado como parametro
 	 */
-	public static ArrayList getConfiguracionCirugia() throws SQLException{
+	public static ArrayList getConfiguracionCirugias() throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);
 		ArrayList ar = conBD.getConfiguracionesCirugias();
@@ -168,7 +168,7 @@ public class Configurar {
 	 * nombre, descripcion, precio, fecha de caducidad.
 	 * @return un mensaje si el registro fue exitoso
 	 */
-	public static String regConfiguracionVacuna(configCirugia cv) throws SQLException{
+	public static String regConfiguracionCirugia(configCirugia cv) throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);
 		String ars = conBD.regConfiguracionCirugia(cv);
