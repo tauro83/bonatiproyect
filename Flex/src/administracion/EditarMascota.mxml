@@ -130,12 +130,9 @@
 			 *  @Descripción Metodo que selecciona una mascota del data grid
 			 */
 			 
-			public function seleccionarMascota(event:Event):void
+			public function seleccionarMascota():void
 			{
-				var selectedRow:Object = event.currentTarget.selectedItem;
-				
-				  
-				
+		
 					var newMascotaUpdate:EditMascotaUpdate = Application.application.AdEditarMascota3;
 					newMascota = new Mascota();					
 					
@@ -193,9 +190,10 @@
 	</mx:Panel>	
 
 	
+	
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="709" rowCount="3" y="92" x="25" variableRowHeight="true" dataProvider="{mascotas}"  visible="true" height="240" doubleClickEnabled="true" itemDoubleClick="{seleccionarMascota(event)}" >
+	<mx:DataGrid id="dg" color="0x323232" width="709" rowCount="3" y="92" x="25" variableRowHeight="true" dataProvider="{mascotas}"  visible="true" height="240" doubleClickEnabled="true" itemDoubleClick="{seleccionarMascota()}" >
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
@@ -207,9 +205,9 @@
 	<mx:Button x="632" y="353" label="Cancelar" width="102" id="cancelar" visible="true" click="cancelando()" height="23"/>
 	
 	<mx:Label x="25" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
-	<mx:Button label="Editar" height="23" width="102" x="522" y="353" click=" seleccionarMascota(event)" cornerRadius="6"/>
 	<ns1:BuscadorNombreRut x="39" y="28" id="nombreRutIn" keyFocusChange="getMascotas()" mouseFocusChange="getMascotas()">
 	</ns1:BuscadorNombreRut>
+	<mx:Button x="518" y="354" label="Editar" width="102" height="23" click="seleccionarMascota()"/>
 	
 </mx:Panel>
 
