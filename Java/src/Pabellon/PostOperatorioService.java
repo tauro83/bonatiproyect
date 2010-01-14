@@ -65,14 +65,14 @@ public class PostOperatorioService{
 	 * Elimina un registro en la base de datos
 	 * @return Lista con todos los usuarios registrados
 	 */
-	public int anulAtencion(String hora, String rut, String nomMascota)
+		public int anulAtencion(String hora, String rut, String nomMascota, String motivo)
     {
 		int result=0;
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			PostOperatorioBD userDB= new PostOperatorioBD(connection);
-			result= userDB.anulAtencionBD(hora, rut, nomMascota);
+			result= userDB.anulAtencionBD(hora, rut, nomMascota, motivo);
 			connection.close();
 		} catch (SQLException e) 
 		{
@@ -159,6 +159,24 @@ public class PostOperatorioService{
 			e.printStackTrace();
 		}
 		return persons;
+    }
+
+
+	public List getAllVacunacionesV()
+    {
+		List vacunaciones = new ArrayList();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			PostOperatorioBD vacunacionBD= new PostOperatorioBD(connection);
+			vacunaciones = vacunacionBD.getAllVacunacionesV();
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return vacunaciones;
     }
 }
 
