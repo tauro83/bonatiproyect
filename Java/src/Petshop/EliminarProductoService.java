@@ -84,4 +84,45 @@ public class EliminarProductoService {
 		return result;
 		
 	}
+	
+	public int eliminarVarios(String nombre, String precio, String categoria, String descripcion )
+	 {
+		int result = 0;
+		
+		try 
+		{
+			
+		Connection connection=DBConnectionManager.getConnection();
+		EliminarProductoBD eliminarBD= new EliminarProductoBD(connection);
+
+		result= eliminarBD.eliminarVarios(nombre, precio, categoria, descripcion);
+		
+		connection.close();
+	
+		}catch (SQLException e) 
+		{
+		e.printStackTrace();
+		}
+		return result;
+	 }
+
+	public int PurgarProductoTipo(String nombre, String precio, String categoria, String descripcion ){
+		
+		int result=0;
+		try 
+		{
+			
+		Connection connection=DBConnectionManager.getConnection();
+		EliminarProductoBD eliminarBD= new EliminarProductoBD(connection);
+
+		result= eliminarBD.PurgarProductoTipo(nombre,precio,categoria, descripcion );
+		
+		connection.close();
+	
+		}catch (SQLException e) 
+		{
+		e.printStackTrace();
+		}
+		return result;
+	}
 }
