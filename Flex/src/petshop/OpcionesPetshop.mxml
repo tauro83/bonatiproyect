@@ -54,23 +54,22 @@
 				 Application.application.elimPago.getAllPagos();
 				 Application.application.elimPago.visible = true;  			 
 			}
+
 			public function verActPago():void
 			{
 				 Application.application.setInvisible();
 				 this.visible = true;
 				 Application.application.activarPago.visible = true;  			 
 			}
-			public function anularProducto():void{
-			     Application.application.setInvisible();
-			     this.visible = true;
-			     Application.application.eliminarPulgarProducto.visible = true;
-			     Application.application.eliminarPulgarProducto.currentState = 'PurgarRestaurar';
-			}
-			public function anulaRestauraProducto():void{
-			     Application.application.setInvisible();
-			     this.visible = true;
-			     Application.application.eliminarPulgarProducto.visible = true;
-			     Application.application.eliminarPulgarProducto.currentState = '';  
+
+				public function anularProducto():void
+			{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.eliminarPurgarproducto.currentState = '';
+				Application.application.eliminarPurgarproducto.iniciar();
+				Application.application.eliminarPurgarproducto.visible =true;
+				
 			}
 		]]>
 	</mx:Script>
@@ -84,8 +83,7 @@
 		<mx:Canvas label="Producto" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="10" label="Registrar" click="regProducto()" id="bRegProdu"/>
 			<mx:LinkButton x="10" y="40" label="Editar" click="ediProducto()" id="bEditPro"/>
-			<mx:LinkButton x="10" y="100" label="Purgar" click="anularProducto()" id="bPurgProd"/>
-			<mx:LinkButton x="10" y="70" label="Eliminar" click="{anulaRestauraProducto()}" id="bEliProd"/>
+			<mx:LinkButton x="10" y="70" label="Eliminar" click="{anularProducto()}" id="bEliProd"/>
 		</mx:Canvas>
 	    </mx:Accordion>
 		
