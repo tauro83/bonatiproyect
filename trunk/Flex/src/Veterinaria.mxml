@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*" xmlns:ns5="hoteleria.*" xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xmlns:ns8="modbitacora.*"> 
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="*" 
+
+creationComplete="manejadorCreationComplete (event);" height="600" width="1020" xmlns:ns2="administracion.*" 
+
+xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*" xmlns:ns5="hoteleria.*" 
+
+xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xmlns:ns8="modbitacora.*"> 
 
     <mx:Script>
         <![CDATA[
@@ -60,7 +66,9 @@
                 botonClinica.addEventListener (MouseEvent.CLICK, climanejadorClick);
 
 				<!--Autor:Camilo{-->
-				botonPeluqueria.addEventListener (MouseEvent.CLICK, verPanelPeluqueria);				
+				botonPeluqueria.addEventListener (MouseEvent.CLICK, verPanelPeluqueria);		
+
+		
 				<!--Autor:Camilo}-->
 				              
                 botonHotel.addEventListener(MouseEvent.CLICK, hotelclimanejadorClick);
@@ -162,9 +170,10 @@
 				registrarHoteleria.setVisible(false,false);
 				editPreO.setVisible(false,false);
 				purgarConsulta.setVisible(false,false);
+				eliminarPurgarproducto.setVisible(false,false);
 				
 
-            	<!--Erwin Díaz-->
+            	<!--Erwin DÃ­az-->
             	elimusuario.setVisible(false,false);
             	elimficha.setVisible(false,false);
             	purgficha.setVisible(false,false);
@@ -179,7 +188,7 @@
             	bitacoraList.setVisible(false,false);
             	confServCat.setVisible(false,false);
             	
-            	<!--Autor: Jimmy Muñoz{-->
+            	<!--Autor: Jimmy MuÃ±oz{-->
             	AdEditarUsuar3.setVisible(false,false);
             	addCirug.setVisible(false,false);
             	cliRegistro2.setVisible(false,false);
@@ -197,7 +206,7 @@
             	actWebaviso.setVisible(false,false);
 				anuWebaviso.setVisible(false,false);
 				activarPago.setVisible(false,false);
-            	<!--Autor: }Jimmy Muñoz -->
+            	<!--Autor: }Jimmy MuÃ±oz -->
             	
             	<!--Autor: Andres G.{-->
             	graficosClinica1.setVisible(false,false);
@@ -297,7 +306,7 @@
             {
             	setInvisible();
             	panelOpciones.setVisible(true,false);
-            	if(botonLogin.label=="Iniciar Sesión"){
+            	if(botonLogin.label=="Iniciar SesiÃ³n"){
             		login2.setVisible(true,false);
             	}
             	else{
@@ -392,7 +401,7 @@
             
 
             //raullrich
- 			<!--Autor: Raúl López{-->
+ 			<!--Autor: RaÃºl LÃ³pez{-->
  			private function editCita(event:Event):void
  			{
    				 agenda2.labelMessage.text="";
@@ -400,7 +409,7 @@
     		     editarCita.setVisible(true,false);
     		     menuAgenda1.setVisible(true, false);
  			}
- 			<!--Autor: Raúl López{-->
+ 			<!--Autor: RaÃºl LÃ³pez{-->
             
  			private function editarCliente(event:Event):void
  			{
@@ -410,7 +419,7 @@
    				panelEditaCLi.setVisible(true,false);
               
  			}
-            <!--Autor: Raúl López{-->
+            <!--Autor: RaÃºl LÃ³pez{-->
             
                               <!--Autor: Victor{--> 
            private function eliminaCliente (event:Event):void
@@ -563,11 +572,15 @@
 	</ns1:LoginIniciar >
 	<ns1:LoginCerrar x="241" y="134" id="login3" visible="false" borderColor="#15AD8F">
 	</ns1:LoginCerrar>
-	<mx:Button x="580" y="30" label="Ayuda" width="110" height="50" id="botonAyuda" icon="@Embed(source='../images/Help.png')" enabled="true" click="showWindow();" labelPlacement="bottom"/>
-	<mx:Button x="880" y="30" label="Iniciar Sesión" width="110" height="50" icon="@Embed(source='../images/Users.png')" id="botonLogin" enabled="true" labelPlacement="bottom"/>
+	<mx:Button x="580" y="30" label="Ayuda" width="110" height="50" id="botonAyuda" icon="@Embed
+
+(source='../images/Help.png')" enabled="true" click="showWindow();" labelPlacement="bottom"/>
+	<mx:Button x="880" y="30" label="Iniciar SesiÃ³n" width="110" height="50" icon="@Embed
+
+(source='../images/Users.png')" id="botonLogin" enabled="true" labelPlacement="bottom"/>
 	<!--Autor: }Esteban -->
 	
-	<!--Erwin Díaz-->
+	<!--Erwin DÃ­az-->
 	<ns1:BitacoraEventos x="241" y="134" id="bitacoraEventos" visible="false" borderColor="#15AD8F">
 	</ns1:BitacoraEventos>
 	<ns1:ElimUsuario x="241" y="134" id="elimusuario" visible="false" borderColor="#15AD8F">
@@ -598,18 +611,44 @@
 	</ns1:ConfigServCat>
 	
 	
-	<mx:Image x="365" y="0" width="174" height="104" source="../images/fotos-animales-perros-peq.jpg" autoLoad="true"/>
-	<mx:TextArea x="0" y="0" width="366" height="104" borderStyle="none" fontFamily="Arial" editable="false" fontSize="27" fontWeight="bold" fontStyle="normal" backgroundColor="#FFFFFF" color="#0202CB" themeColor="#0060FF" borderColor="#FFFFFF" enabled="true" wordWrap="false"/>
+	<mx:Image x="365" y="0" width="174" height="104" source="../images/fotos-animales-perros-peq.jpg" 
+
+autoLoad="true"/>
+	<mx:TextArea x="0" y="0" width="366" height="104" borderStyle="none" fontFamily="Arial" editable="false" 
+
+fontSize="27" fontWeight="bold" fontStyle="normal" backgroundColor="#FFFFFF" color="#0202CB" themeColor="#0060FF" 
+
+borderColor="#FFFFFF" enabled="true" wordWrap="false"/>
 	<mx:Image x="275" y="10" width="76" height="70" source="../images/Simbolo.JPG" autoLoad="true"/>
-	<mx:Label x="10" y="10"  text="Hospital Veterinario" width="274" height="43" fontFamily="Arial" color="#0202CB" fontSize="27" fontWeight="bold" enabled="true"/>
-	<mx:Label x="30" y="47" text="Claudio Bonati" fontFamily="Arial" fontSize="27" color="#15AD8F" fontWeight="bold"/>
-	<mx:Button x="738" y="30" label="Búsqueda" width="100" height="50" icon="@Embed(source='../images/Search.png')" labelPlacement="bottom" fillAlphas="[0.6, 0.4, 0.75, 0.65]" enabled="false" click="mostrarBusqueda()" id="botonBusqueda"/>
-	<mx:Button enabled="false" x="170" y="104" label="Agenda" width="171" height="30" cornerRadius="4" id="botonAgenda" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
-	<mx:Button enabled="false" x="340" y="104" label="Clínica" width="171" height="30" cornerRadius="4" id="botonClinica" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
-	<mx:Button enabled="false" x="510" y="104" label="Peluquería" width="171" height="30" id="botonPeluqueria" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
-	<mx:Button enabled="false" x="680" y="104" label="Pet Shop" width="171" height="30" id="botonPetshop" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12" click="mostrarPetshop()"/>
-	<mx:Button enabled="false" x="850" y="104" label="Hotelería" width="170" height="30" id="botonHotel" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
-	<mx:Button enabled="false" x="0" y="104" label="Administración" height="30" width="171" id="botonAdmin" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Label x="10" y="10"  text="Hospital Veterinario" width="274" height="43" fontFamily="Arial" 
+
+color="#0202CB" fontSize="27" fontWeight="bold" enabled="true"/>
+	<mx:Label x="30" y="47" text="Claudio Bonati" fontFamily="Arial" fontSize="27" color="#15AD8F" 
+
+fontWeight="bold"/>
+	<mx:Button x="738" y="30" label="BÃºsqueda" width="100" height="50" icon="@Embed
+
+(source='../images/Search.png')" labelPlacement="bottom" fillAlphas="[0.6, 0.4, 0.75, 0.65]" enabled="false" 
+
+click="mostrarBusqueda()" id="botonBusqueda"/>
+	<mx:Button enabled="false" x="170" y="104" label="Agenda" width="171" height="30" cornerRadius="4" 
+
+id="botonAgenda" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="340" y="104" label="ClÃ­nica" width="171" height="30" cornerRadius="4" 
+
+id="botonClinica" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="510" y="104" label="PeluquerÃ­a" width="171" height="30" id="botonPeluqueria" 
+
+color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="680" y="104" label="Pet Shop" width="171" height="30" id="botonPetshop" 
+
+color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12" click="mostrarPetshop()"/>
+	<mx:Button enabled="false" x="850" y="104" label="HotelerÃ­a" width="170" height="30" id="botonHotel" 
+
+color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+	<mx:Button enabled="false" x="0" y="104" label="AdministraciÃ³n" height="30" width="171" id="botonAdmin" 
+
+color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
 	<ns2:EditUsuarioUpdate x="241" y="134" id="AdEditarUsuar3" visible="false">
 	</ns2:EditUsuarioUpdate>
 	<ns2:EditarUsuario x="240" y="133" id="AdEditarUsuar2" visible="false">
@@ -650,6 +689,7 @@
 	<ns5:RegistrarHoteleria x="241" y="134" id="registrarHoteleria" visible="false"/>
 	<ns3:EditarPreOperatorio x="241" y="134" id="editPreO" visible="false"         />	
 	<ns3:PurgarConsulta x="241" y="134" id="purgarConsulta" visible="false"        />
+	<ns7:EliminarPulgar x="241" y="134" id="eliminarPurgarproducto" visible="false" />
 	 <!--Autor: Vitoxone}--> 
 	
 	<!--Autor: Camilo{ -->
