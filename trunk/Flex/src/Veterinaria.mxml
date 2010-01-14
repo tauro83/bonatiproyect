@@ -574,12 +574,8 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
 	</ns1:LoginIniciar >
 	<ns1:LoginCerrar x="241" y="134" id="login3" visible="false" borderColor="#15AD8F">
 	</ns1:LoginCerrar>
-	<mx:Button x="580" y="30" label="Ayuda" width="110" height="50" id="botonAyuda" icon="@Embed
-
-(source='../images/Help.png')" enabled="true" click="showWindow();" labelPlacement="bottom"/>
-	<mx:Button x="880" y="30" label="Iniciar Sesión" width="110" height="50" icon="@Embed
-
-(source='../images/Users.png')" id="botonLogin" enabled="true" labelPlacement="bottom"/>
+	<mx:Button x="580" y="30" label="Ayuda" width="110" height="50" id="botonAyuda" icon="@Embed(source='../images/Help.png')"/>
+	<mx:Button x="880" y="30" label="Iniciar Sesión" width="110" height="50" icon="@Embed(source='../images/Users.png')" id="botonLogin" enabled="true" labelPlacement="bottom"/>
 	<!--Autor: }Esteban -->
 	
 	<!--Erwin Díaz-->
@@ -628,9 +624,7 @@ color="#0202CB" fontSize="27" fontWeight="bold" enabled="true"/>
 	<mx:Label x="30" y="47" text="Claudio Bonati" fontFamily="Arial" fontSize="27" color="#15AD8F" 
 
 fontWeight="bold"/>
-	<mx:Button x="738" y="30" label="Búsqueda" width="100" height="50" icon="@Embed
-
-(source='../images/Search.png')" labelPlacement="bottom" fillAlphas="[0.6, 0.4, 0.75, 0.65]" enabled="false" 
+	<mx:Button x="738" y="30" label="Búsqueda" width="100" height="50" icon="@Embed(source='../images/Search.png')" labelPlacement="bottom" fillAlphas="[0.6, 0.4, 0.75, 0.65]" enabled="false" 
 
 click="mostrarBusqueda()" id="botonBusqueda"/>
 	<mx:Button enabled="false" x="170" y="104" label="Agenda" width="171" height="30" cornerRadius="4" 
