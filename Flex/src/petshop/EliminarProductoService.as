@@ -1,8 +1,3 @@
-// FECHA CREACIÓN: 22/11/09
-// AUTOR: Raul Lopez  
-// Comentario: Clase que se encarga de realizar la conexion entre la capa
-// lógica y la interfaz
-//=======================================================================
 package petshop
 {
 	import mx.controls.Alert;
@@ -10,12 +5,11 @@ package petshop
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
+	
+	import transferObjects.Producto;
+	
 	import util.host;
-	/**
-	 * Clase encargada de realizar la conexión entre la capa
-	 * lógica y la interfaz gráfica
-	 * @autor Raul Lopez  
-	 */
+	
 	public class EliminarProductoService extends RemoteObject
 	{
 		public function EliminarProductoService()
@@ -33,31 +27,49 @@ package petshop
 		
 		/**
 		 * @param event Evento recogido en caso de una falla en la llamada hacia la capa lógica
-		 * @autor Raul Lopez
 		 */ 
 		private function faultHandler(event:FaultEvent):void
 		{
 			Alert.show("Error en EliminarProductoService, Detalle: "+event.fault.message);
 		}
 		
-		/**
-		 * @param codigo String que se envia a la clase java, en la cual se elimina el producto que
-		 * corresponda al su codigo id correspondiente
-		 * @autor Raul Lopez
-		 */ 
-		public function eliminarProducto(codigo:String):void
+
+		public function eliminarProducto(rut:String):void
 		{
-			this.getOperation("eliminarProducto").send(codigo);
+			this.getOperation("eliminarProducto").send(rut);
 		}
 		
 		/**
-		 * Se obtienen todos los productos disponibles que están registrados en la base de datos
-		 * @autor Raul Lopez
+		 * Se obtienen todos los clientes que están registrados en la base de datos
 		 */ 
-		public function getProductosActivos():void
+		public function getProductosActivosTipo():void
 		{
-			this.getOperation("getProductosActivos").send();
+			this.getOperation("getProductosActivosTipo").send();
 		}
+		
+		public function getProductosInactivosTipo():void
+		{
+			this.getOperation("getProductosInactivosTipo").send();
+		}
+		
+		public function cargarProductosDetalle(pro:Producto ):void
+		{
+			this.getOperation("cargarProductosDetalle").send(pro);
+		}
+		
+		public function anularProducto(codigo:String):void
+		{
+			this.getOperation("anularProducto").send(codigo);
+		}
+		
+		public function eliminarVarios(nombre:String, precio:String, categoria:String, descripcion:String):void
+		{
+			this.getOperation("eliminarVarios").send(nombre, precio, categoria, descripcion);
+		}
+		public function PurgarProductoTipo(nombre:String, precio:String, categoria:String, descripcion:String):void
+		{
+			this.getOperation("PurgarProductoTipo").send(nombre, precio, categoria, descripcion);
+		}	
 
 	}
 }
