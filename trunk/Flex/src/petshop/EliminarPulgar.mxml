@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="util.*" title="Eliminar Producto">
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.List;
+			import transferObjects.Producto;
+
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.rpc.events.ResultEvent;
+			import mx.events.CloseEvent;
+			import mx.core.Application;
+			 
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.controls.CheckBox;
+			import mx.rpc.events.FaultEvent;
+			import mx.events.DropdownEvent;
+			
+			[Bindable]private var productosActivos:ArrayCollection;
+			[Bindable]private var productosEspecificos:ArrayCollection;
+			[Bindable]private var cantidad:ArrayCollection = new ArrayCollection();
+			
+			[Bindable]private var productosInactivos:ArrayCollection;
+			private var numero:int;
+			private var pro:Producto= new Producto();
+			private var i:int;
+			
+			var ps:EliminarProductoService = new EliminarProductoService();
+			
+			
+			
+			public function getProductosActivosTipo():void{
+				
+				var  ps:EliminarProductoService = new EliminarProductoService();
+				ps.addEventListener(ResultEvent.RESULT,getProductosActivosTipoResult);
+				{ps.getProductosActivosTipo()};
+			 	
+	
+			}
+			
+			 public function getProductosActivosTipoResult(event:ResultEvent):void
+		   {
+		   		productosActivos = event.result as ArrayCollection;
+		   	    dg.dataProvider = productosActivos;		   		
+		   		
+		   }
+		   
+		   
+		   
+		   public function getProductosInactivosTipo():void{
+				
+				var  ps:EliminarProductoService = new EliminarProductoService();
+				ps.addEventListener(ResultEvent.RESULT,getProductosActivosTipoInactivosResult);
+				{ps.getProductosInactivosTipo()};
+			 	
+	
+			}
+			
+			 public function getProductosActivosTipoInactivosResult(event:ResultEvent):void
+		   {
+		   		productosInactivos = event.result as ArrayCollection;
+		   		dg2.dataProvider = productosInactivos;
+		   		
+		   }
+		   
+			public function iniciar():void{
+				
+				{getProductosActivosTipo()};	
+				{getProductosInactivosTipo()};
+					 
+			   	ver.enabled= false;
+			   	todo.selected = false;
+/* 			    reactivar.enabled= false;
+            	purgar.enabled = false;  */
+			   	labelMessage.text = 'Listado de productos actuales';
+			 	
+			 }
+			 
+		public function pasarADetalle():void
+		{
+			pro.nombre      = dg.selectedItem.nombre;
+			pro.precio      = dg.selectedItem.precio;
+			pro.categoria   = dg.selectedItem.categoria;
+			pro.descripcion = dg.selectedItem.descripcion;
+			
+ 			{cargarProductosEspecificos(pro)};
+ 				currentState = 'VerDetalle';
+		}
+		
+		public function PurgarProductoTipo():void
+		{
+			var  ps:EliminarProductoService = new EliminarProductoService();
+				 ps.addEventListener(ResultEvent.RESULT,purgarProductoTipoResult);
+				 {ps.PurgarProductoTipo(nombre.text, precio.text, categoria.text, descripcion.text)};
+		}
+		
+		   public function purgarProductoTipoResult(event:ResultEvent):void
+		   {
+		   	
+		   		var result:int = event.result as int ;
+				if(result>0)
+				{
+				   labelMessage.text = 'Error al purgar el Producto'; 
+				}
+				else labelMessage.text ='Producto purgado correctamente'; 
+				{getProductosActivosTipo()};
+				this.currentState = '';
+		   }
+		   
+		
+		public function cargarProductosEspecificos(pro:Producto):void
+		{
+			var  ps:EliminarProductoService = new EliminarProductoService();
+				ps.addEventListener(ResultEvent.RESULT,cargarProductosEspecificosoResult);
+				{ps.cargarProductosDetalle(pro)};
+		}	 
+		
+		 public function cargarProductosEspecificosoResult(event:ResultEvent):void
+		   {
+		   	
+		   		productosEspecificos = event.result as ArrayCollection;
+		   		 dgDetalle.dataProvider = productosEspecificos; 
+		   		 if(productosEspecificos.length == 0){
+		   			labelMessage.text = "No hay stock de este producto";
+ 					eliminar2.label = "Purgar";
+		   		 }else{
+		   		 	labelMessage.text = "";
+ 					eliminar2.label = "Eliminar";
+ 					eliminar2.enabled = false;
+					}
+		   }
+		   
+		   public function anularProducto():void
+		   {
+		   	
+		   	if(productosEspecificos.length != 0){
+				   	var codigo:String;
+				   	var  ps:EliminarProductoService = new EliminarProductoService();
+						ps.addEventListener(ResultEvent.RESULT,anularproductoResult);
+		
+				   	
+				   	
+				   	for(var i:int = 0; i < productosEspecificos.length; i++){
+				   		if(productosEspecificos[i].sel){
+				   			codigo = productosEspecificos[i].codigo;
+							ps.anularProducto(codigo);
+				   		}
+		
+				   }
+		   	}
+		   	else {PurgarProductoTipo()};
+		   
+		   }
+		   public function anularproductoResult(event:ResultEvent):void
+		   {
+		   	
+		   		var result:int = event.result as int ;
+				if(result>0)
+				{
+				   labelMessage.text = 'Error al eliminar el Producto'; 
+				}
+				else labelMessage.text ='Producto eliminado correctamente'; 
+				{pasarADetalle()};
+				
+		   }
+		   
+		   public function volver():void
+		   {
+		   	{iniciar()};
+		   currentState = '';
+		   labelMessage.text = 'Listado de productos actuales';
+		   eliminar2.label = "Eliminar";
+		   }
+		   
+		 /**
+          * @Fecha  03 Octubre
+          *@Descripcion Funcion que activa o desactiva el boton "Anular" del estado base
+          *  cuando es seleccionado uno o mas tipos de producto.
+          ***/
+             
+            private function Activar():void{
+            	var filas:int = productosActivos.length;
+            	var seleccion:Boolean=false;
+            	var seleccion2:Boolean = false;
+            	
+            	for (var i:int = 0; i < filas; i++){
+            		if(productosActivos[i].sel)
+            		seleccion=true;
+            	}
+            	if(seleccion)
+            		anularproduct.enabled=true;
+            		else
+            			anularproduct.enabled=false;
+            			
+            	if(this.currentState == 'VerDetalle'){
+            		for (var j:int = 0; j < productosEspecificos.length; j++){
+            			if(productosEspecificos[j].sel)
+            				seleccion2=true;
+            			}
+            			if(seleccion2)
+            				eliminar2.enabled=true;
+            			else
+            				eliminar2.enabled=false;
+            		
+            	}		
+            }
+            
+           
+             private function anularVarios2():void
+            {
+            	var ps:EliminarProductoService = new EliminarProductoService();
+				ps.addEventListener(ResultEvent.RESULT,anularVariosResult);
+				
+				for(var i:int = 0; i < productosActivos.length; i++){
+					if(productosActivos[i].sel){
+					ps.eliminarVarios(productosActivos[i].nombre, productosActivos[i].precio, productosActivos[i].categoria, productosActivos[i].descripcion);
+						
+					}
+					}
+					
+					{iniciar()};
+				} 
+            	
+            public function anularVariosResult(event:ResultEvent):void
+            {
+            	var result:int = event.result as int ;
+				if(result>0)
+				{
+				   labelMessage.text = 'Error al eliminar las Productos'; 
+				}
+				else labelMessage.text ='Productos eliminados correctamente'; 
+				{getProductosActivosTipo()};
+            }
+            
+           
+        public function SeleccionarTodo():void
+            {
+            if(this.currentState != "VerDetalle" && this.currentState != "PugarRestaurar"){
+            	for(i = 0; i< productosActivos.length; i++){
+            		anularproduct.enabled= true
+            		if(todo.selected == true){
+            			
+            			productosActivos[i].sel = true;
+            		}
+            			else{
+            				productosActivos[i].sel = false;
+            				anularproduct.enabled = false;
+            			} 
+            		
+            	}
+            }
+            if(this.currentState == "VerDetalle"){
+            	
+           
+            	for(i = 0; i< productosEspecificos.length; i++){
+            		/* reactivar.enabled= true;
+            		purgar.enabled = true; */
+            		if(todo.selected == true){
+            			productosEspecificos[i].sel = true;
+            			eliminar2.enabled = true;
+            		}
+            			else{
+            				eliminar2.enabled = false;
+            				productosEspecificos[i].sel = false;
+            			} 
+            		
+            	}
+            }
+            if(this.currentState == "PurgarRestaurar"){
+            	
+            	for(i = 0; i< productosInactivos.length; i++){
+            		reactivar.enabled= true;
+            		purgar.enabled = true; 
+            		if(todo.selected == true){
+            			productosInactivos[i].sel = true;
+            		}
+            			else{
+            				productosInactivos[i].sel = false;
+ 							reactivar.enabled= false;
+            				purgar.enabled = false;            				
+            			} 
+            		
+            	}
+            	
+            }
+            
+            }
+			public function irARegistro():void
+			{
+				Application.application.setInvisible();
+				this.visible = false;
+				Application.application.regProducto.visible = true;
+				Application.application.opcionesPetshop.visible = true;
+				
+				Application.application.regProducto.nombre.text = nombre.text;
+				Application.application.regProducto.precio.text = precio.text;
+				Application.application.regProducto.categorias.selectedLabel.text = categoria.text;
+				Application.application.regProducto.descripcion.text = descripcion.text;
+				
+			}
+			
+		]]>
+	</mx:Script>
+	
+	
+	<mx:states>
+		<mx:State name="PurgarRestaurar">
+			<mx:RemoveChild target="{anularproduct}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="538" y="368" label="Purgar" id="purgar" toolTip="Cuidado!!, esto eliminara los clientes seleccionados para siempre" width="102" height="23"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="428" y="368" id="reactivar" label="Reactivar" width="102" height="23"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{cancelar}" name="x" value="648"/>
+			<mx:SetProperty target="{ver}" name="x" value="318"/>
+			<mx:RemoveChild target="{dg}"/>
+			<mx:AddChild position="lastChild">
+				<mx:DataGrid x="20" y="113" width="718.5" id="dg2" height="248" dataProvider="{productosInactivos}">
+						<mx:columns>
+		<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox1" >
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>
+			<mx:DataGridColumn headerText="Cantidad" dataField="cantidad" width="80"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre" width="120"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" />
+			<mx:DataGridColumn headerText="Precio" dataField="precio" width="70"/>
+			<mx:DataGridColumn headerText="Categoria" dataField="categoria" width="70"/>
+		</mx:columns>
+				</mx:DataGrid>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="VerDetalle">
+			<mx:SetProperty target="{label1}" name="y" value="174"/>
+			<mx:SetProperty target="{todo}" name="y" value="174"/>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="20.5" y="10" text="Producto:" width="74" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{ver}"/>
+			<mx:RemoveChild target="{dg}"/>
+			<mx:AddChild position="lastChild">
+			
+		<mx:DataGrid x="20" y="200" width="718" id="dgDetalle" dataProvider="{productosEspecificos}" click="{Activar()}">
+			<mx:columns>
+				<mx:DataGridColumn width="20" headerText="" dataField="checkbox"  >
+			 		<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>
+		
+			<mx:DataGridColumn headerText="Codigo" dataField="codigo" width="120"/>
+			<mx:DataGridColumn headerText="Precio" dataField="precio" width="90"/>
+			<mx:DataGridColumn headerText="Categoria" dataField="categoria" width="100"/>
+			</mx:columns>
+				</mx:DataGrid>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="20" y="46" text="Nombre:" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextInput x="82" y="44" text="{dg.selectedItem.nombre}" enabled="false" id="nombre"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="20" y="87" text="Cantidad:" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextInput x="84" y="85" text="{dg.selectedItem.cantidad}" enabled="false" id="cant"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="342" y="44" text="Descripción:" fontWeight="bold" height="20"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:TextArea x="435" y="43" width="237" height="123" text="{dg.selectedItem.descripcion}" enabled="false" id="descripcion"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{anularproduct}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="537" y="370" label="Eliminar" width="102" click="{anularProducto()}" id="eliminar2" height="23"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{cancelar}" name="label" value="Volver"/>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="427" y="370" label="Agregar" width="102" height="23" toolTip="Ir al registro para aumentar stock del producto" click="irARegistro()"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{cancelar}" name="x" value="647"/>
+			<mx:SetProperty target="{cancelar}" name="y" value="370"/>
+			<mx:AddChild position="lastChild">
+				<mx:Text x="84" y="131" text="{dg.selectedItem.precio}" visible="true" width="166" id="precio"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Text x="84" y="157" text="{dg.selectedItem.categoria}" visible="true" width="195" id="categoria"/>
+			</mx:AddChild>
+		</mx:State>
+	</mx:states>
+		
+	<mx:Label x="169" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Button x="541.5" y="368" enabled="false" label="Eliminar" id="anularproduct" click="{anularVarios2()}"   toolTip="Anula todos los tipos de producto seleccionados" width="102" height="23"/>
+	<mx:Button x="651.5" y="368" label="Cancelar" id="cancelar" toolTip="Volver a Productos" click="{volver()}"  width="102" height="23"/>
+	<mx:CheckBox x="20.5" y="78" id="todo" click="{SeleccionarTodo()}"/>
+	<mx:Label x="42.5" y="78" text="Seleccionar todo" id="label1"/>
+	<mx:DataGrid x="20.5" y="114" width="718" height="244" id="dg" dataProvider="{productosActivos}" click="ver.enabled=true, Activar()" doubleClickEnabled="true" doubleClick="{pasarADetalle()}">
+		<mx:columns>
+		<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" >
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>
+			<mx:DataGridColumn headerText="Cantidad" dataField="cantidad" width="80"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre" width="120"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" />
+			<mx:DataGridColumn headerText="Precio" dataField="precio" width="70"/>
+			<mx:DataGridColumn headerText="Categoria" dataField="categoria" width="70"/>
+		</mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="431.5" y="368" label="Ver" visible="true"  width="102" id="ver" click="{pasarADetalle()}" height="23"/>
+	
+</mx:Panel>
