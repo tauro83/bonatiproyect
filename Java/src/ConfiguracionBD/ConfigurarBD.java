@@ -17,6 +17,7 @@ import TransferObjects.ConfiguracionVacuna;
 import TransferObjects.configCirugia;
 import TransferObjects.Mascota;
 import TransferObjects.Usuario;
+import TransferObjects.configCirugia;
 
 public class ConfigurarBD {
 	PreparedStatement selectAll;
@@ -380,12 +381,12 @@ public class ConfigurarBD {
 	
 	/**
 	 * obtiene la Cirugias
-	 * @return una lista de configuraciones de vacunas, esta lista es del tipo COnfiguracionVacuna
+	 * @return una lista de configuraciones de Cirugia, esta lista es del tipo COnfiguracionVacuna
 	 * @throws SQLException 
 	 */
 	public ArrayList getConfiguracionesCirugias() throws SQLException {
 		ArrayList configuraciones=new ArrayList();
-		ConfiguracionVacuna conf;
+		configCirugia conf;
 		String query = "SELECT nombre,precio,descripcion FROM cirugiaobj";
 		
 		try 
@@ -394,7 +395,7 @@ public class ConfigurarBD {
 			ResultSet result = selectAll.executeQuery();
     		while(result.next())
     		{
-    			conf = new ConfiguracionVacuna();
+    			conf = new configCirugia();
     			conf.setNombre(result.getString(1));
     			conf.setPrecio(result.getString(2));
     			conf.setDescripcion(result.getString(3));
