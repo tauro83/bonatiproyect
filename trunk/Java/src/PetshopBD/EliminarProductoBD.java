@@ -18,6 +18,8 @@ public class EliminarProductoBD {
 	private PreparedStatement contar;
 	private PreparedStatement contarInactivos;
 	private PreparedStatement Reactivar;
+	private PreparedStatement EliminarVarios;
+	private PreparedStatement Purgar;
 	
 	Connection connection;
 	Connection conn;
@@ -31,12 +33,9 @@ public class EliminarProductoBD {
 		{
 		String query="";
 		
-		query = "INSERT INTO Cita (rutcliente,nombremascota,fecha,hora,servicio,responsable) "+
-		"VALUES (?, ?, ?, ?,?,? );";			
-//		insert = connection.prepareStatement(query);
 
 		query = "SELECT DISTINCT nombre,precio,categoria, descripcion "+
-		"FROM producto where estado= 0;";
+		"FROM producto;";
 		selectDistintos = connection.prepareStatement(query);
 		
 		query = "SELECT DISTINCT nombre,precio,categoria, descripcion "+
@@ -65,10 +64,21 @@ public class EliminarProductoBD {
 		
 		Anular= connection.prepareStatement(query);
 		
+		
+		query = "UPDATE producto " + "SET estado = 1" + 
+		"where nombre= ? and precio= ? and categoria= ? and descripcion= ?";
+		
+		EliminarVarios = connection.prepareStatement(query);
+		
+		
 		query = "UPDATE producto "+
 		   "SET estado= 0" +
 		   "Where codigo =?;";
 		Reactivar = connection.prepareStatement(query);
+	
+		query = "DELETE FROM producto where nombre= ? and precio= ? and categoria= ? and descripcion= ?;";
+		
+		Purgar = connection.prepareStatement(query);
 		
 		}
 		catch (SQLException e) 
@@ -122,7 +132,6 @@ public class EliminarProductoBD {
 				e.printStackTrace();
 			}
 	   	 }
-	    	System.out.print("SE encontraron :   " + productos.size());
 	    	return productos;
 	    }
 	 
@@ -217,5 +226,30 @@ public class EliminarProductoBD {
 	    	
 	    }
 	 
+	 public int eliminarVarios(String nombre, String precio, String categoria, String descripcion ) throws SQLException
+	 {
+		 int result = 0;
+		 EliminarVarios.setString(1, nombre);
+		 EliminarVarios.setString(2, precio);
+		 EliminarVarios.setString(3, categoria);
+		 EliminarVarios.setString(4, descripcion);
+		 
+		 EliminarVarios.executeQuery();
+		 result= EliminarVarios.executeUpdate();
+		 return result;
+	 }
+
+	 public int PurgarProductoTipo(String nombre, String precio, String categoria, String descripcion ) throws SQLException{
+			int result=0;
+	    	Purgar.setString(1, nombre);
+	    	Purgar.setString(2, precio);
+	    	Purgar.setString(3, categoria);
+	    	Purgar.setString(4, descripcion);
+			Purgar.executeQuery();
+			result= Purgar.executeUpdate();
+	    	
+			return result;
+	 }
+
 }
 
