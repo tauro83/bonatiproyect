@@ -34,6 +34,35 @@ public class PostOperatorio extends Atencion{
 	private String rut;
 	
 	private String apellidoDueño;
+        public String motivo;
+	public String fechaA;
+	public String usuarioA;
+	public int estado; 
+	
+	public int getEstado() {
+		return estado;
+	}
+	public void setEstado(int estado) {
+		this.estado = estado;
+	}
+	public String getMotivo() {
+		return motivo;
+	}
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
+	public String getFechaA() {
+		return fechaA;
+	}
+	public void setFechaA(String fechaA) {
+		this.fechaA = fechaA;
+	}
+	public String getUsuarioA() {
+		return usuarioA;
+	}
+	public void setUsuarioA(String usuarioA) {
+		this.usuarioA = usuarioA;
+	}
 	
 	
 	public PostOperatorio(String hora, Date fecha, String cost){
