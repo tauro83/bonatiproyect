@@ -28,7 +28,9 @@ package transferObjects{
 		public var sexo:String;
 		public var raza:String;
 		public var estado:int;
-		
+		public var motivo:String;
+		public var fechaA:String;
+		public var usuarioA:String;
 		
 	}
 }
