@@ -6,7 +6,7 @@
 
 package transferObjects
 {
-	[RemoteClass(alias="TransferObjects.ConfiguracionVacuna")]
+	[RemoteClass(alias="TransferObjects.configCirugia")]
 	public class configCirugia
 	{
 		public var nombre:String;
