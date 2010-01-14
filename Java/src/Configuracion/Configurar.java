@@ -13,6 +13,7 @@ import Bd.DBConnectionManager;
 import TransferObjects.Configuracion;
 import TransferObjects.ConfiguracionVacuna;
 import ConfiguracionBD.ConfigurarBD;
+import TransferObjects.configCirugia;
 
 public class Configurar { 
 
@@ -130,6 +131,51 @@ public class Configurar {
 	public static List getAsuntos() throws SQLException{
 		Connection connection=DBConnectionManager.getConnection();
 		ConfigurarBD conBD = new ConfigurarBD(connection);
-		return conBD.getAsuntos();
+		List lss = conBD.getAsuntos();
+		connection.close();
+		return lss;
 	}
+	
+	/**
+	 * Obtiene una lista de todas las Cirugias
+	 * @param tipo obtiene las configuraciones que corresponden a las Cirugias, desde de 
+	 * la capa ConfiguracionBD
+	 * @return una lista con todas las tuplas del tipo enviado como parametro
+	 */
+	public static ArrayList getConfiguracionCirugia() throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		ConfigurarBD conBD = new ConfigurarBD(connection);
+		ArrayList ar = conBD.getConfiguracionesCirugias();
+		connection.close();
+		return ar;
+	}
+	
+	/**
+	 * Elimina una configuracion de Cirugia
+	 * @param corresponde al nombre de la Cirugia que se desea eliminar
+	 */
+	public static String elimConfiguracionCirugia(String nombre) throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		ConfigurarBD conBD = new ConfigurarBD(connection);
+		String ars = conBD.elimConfiguracionCirugia(nombre);
+		connection.close();
+		return ars;
+	}
+	/**
+	 * registra la configuraicon de Cirugia
+	 * @param cv es un objeto del tipo configuracionCirugia, el cual es enviado a la capa 3
+	 * para registrarse en la BD, este objeto contiene informacion de la Cirugia, tal como:
+	 * nombre, descripcion, precio, fecha de caducidad.
+	 * @return un mensaje si el registro fue exitoso
+	 */
+	public static String regConfiguracionVacuna(configCirugia cv) throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		ConfigurarBD conBD = new ConfigurarBD(connection);
+		String ars = conBD.regConfiguracionCirugia(cv);
+		connection.close();
+		return ars;
+		
+	}
+	
+	
 }

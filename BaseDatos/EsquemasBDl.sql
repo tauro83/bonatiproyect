@@ -36,6 +36,7 @@ drop table producto cascade;
 drop table asuntowebaviso cascade;
 drop table comuna cascade;
 drop table bitacora2 cascade;
+drop table cirugiaobj cascade;
 
 CREATE TABLE usuario
 (
@@ -537,4 +538,12 @@ CREATE TABLE bitacora2
   usuario character(50) NOT NULL,
   servicio character(20),
   accion character(120)
+);
+
+CREATE TABLE cirugiaobj
+(
+	nombre	CHAR(20) primary key,
+	precio  int,
+	descripcion CHAR(50)
+	
 );

@@ -14,6 +14,7 @@ import java.util.List;
 
 import TransferObjects.Configuracion;
 import TransferObjects.ConfiguracionVacuna;
+import TransferObjects.configCirugia;
 import TransferObjects.Mascota;
 import TransferObjects.Usuario;
 
@@ -371,6 +372,107 @@ public class ConfigurarBD {
     	catch (SQLException e) 
     	{
 			e.printStackTrace();
+		}
+    	
+    	return out;
+    	
+	}
+	
+	/**
+	 * obtiene la Cirugias
+	 * @return una lista de configuraciones de vacunas, esta lista es del tipo COnfiguracionVacuna
+	 * @throws SQLException 
+	 */
+	public ArrayList getConfiguracionesCirugias() throws SQLException {
+		ArrayList configuraciones=new ArrayList();
+		ConfiguracionVacuna conf;
+		String query = "SELECT nombre,precio,descripcion FROM cirugiaobj";
+		
+		try 
+    	{
+    		selectAll = connection.prepareStatement(query);
+			ResultSet result = selectAll.executeQuery();
+    		while(result.next())
+    		{
+    			conf = new ConfiguracionVacuna();
+    			conf.setNombre(result.getString(1));
+    			conf.setPrecio(result.getString(2));
+    			conf.setDescripcion(result.getString(3));
+    			
+    			configuraciones.add(conf);
+    		}
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	connection.close();
+    	return configuraciones;
+	}
+	
+	/**
+	 * Elimina la configuracion de la Cirugia
+	 * @param nombre es el valor de la Cirugia que sera eliminada
+	 */
+	public String elimConfiguracionCirugia(String nombre) throws SQLException
+	{
+		String query = "";
+		nombre = nombre.trim();		
+		query = "DELETE FROM cirugiaobj WHERE nombre = ?";
+		String out = "1";
+		
+		PreparedStatement insert;
+		insert = connection.prepareStatement(query);
+		insert.setString(1, nombre);
+		
+		try 
+    	{
+			insert.executeUpdate();
+			
+		} 
+    	catch (SQLException e) 
+    	{
+			out = "0";
+		}
+    	
+    	connection.close();
+    	return out;
+	}
+	
+	
+	
+	/**
+	 * Registra la configuracion
+	 * @param cv corresponde a un obtejo que encapsula los datos de una Cirugia
+	 * los cuales seran registrados en la base de datos. 
+	 */
+	public String regConfiguracionCirugia(configCirugia cv) throws SQLException
+	{
+		String query = "";
+		String out = "";
+		
+		query = "INSERT INTO cirugiaobj(nombre,precio,descripcion) VALUES(?,?,?,?);";
+							
+		PreparedStatement insert;
+		insert = connection.prepareStatement(query);
+		//System.out.println("Precio!!!!:"+cv.precio.toString());
+		insert.setString(1, cv.nombre.trim());
+		if(cv.precio.trim() == ""){
+			insert.setInt(2,0);
+		}else{
+			insert.setInt(2,Integer.parseInt(cv.precio.trim()));
+		}
+		
+		
+		insert.setString(3,cv.descripcion.trim());		
+		try 
+    	{
+			
+			insert.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+			out = e.toString();
 		}
     	connection.close();
     	return out;

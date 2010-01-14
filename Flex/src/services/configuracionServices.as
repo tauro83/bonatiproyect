@@ -15,6 +15,7 @@ package services
 	import mx.rpc.remoting.mxml.RemoteObject;
 	import util.host;
 	import transferObjects.ConfiguracionVacuna;
+	import transferObjects.configCirugia;
 	
 	/** 
 	 *  Clase que gesitiona la conexion. Mediante el constructor
@@ -139,5 +140,31 @@ package services
 		{
 			this.getOperation("getAsuntos").send();
 		}
+		
+		/**
+		 * obtenien un arrayCollection de Cirugias, las cuales seran cargadas en el popup  
+		 */		
+		public function getConfiguracioneCirugias():void
+		{
+			this.getOperation("getConfiguracionCirugias").send();
+		}
+		
+		/**
+		 * Registrar configuracion
+		 * @param cv objeto que registra una Cirugia 
+		 */			 
+		public function regConfiguracionCirugia(cv:configCirugia):void
+		{
+			this.getOperation("regConfiguracionCirugia").send(cv);
+		}
+		/**
+		 * Eliminar vacuna
+		 * @param nombre valor que sera eliminado de la tabla de Cirugias
+		 */	
+		public function elimConfiguracionCirugia(nombre:String):void
+		{
+			this.getOperation("elimConfiguracionCirugia").send(nombre);
+		}
+		
 	}
 }
