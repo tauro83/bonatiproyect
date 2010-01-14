@@ -2,6 +2,7 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Registro Cirugía" xmlns:fc="http://www.adobe.com/2006/fc" xmlns:ns1="util.*">
 	<mx:Script>
         <![CDATA[
+        	import transferObjects.configCirugia;
         	//=======================================================================
 			// FECHA: CREACIÓN: 13/10/09
 			// AUTOR: jimmy muñoz
@@ -51,7 +52,7 @@
 		    
 		    [Bindable] 
 		    public var cliente:Person;
-		    
+		    private var confs:configuracionServices= new configuracionServices();
 		    
 
 			
@@ -101,11 +102,11 @@
 			*/		
 			private function getTiposCirugias():void
 			{
-				var addMascotaService:AddCirugiaService = new AddCirugiaService();
-				addMascotaService.addEventListener(ResultEvent.RESULT,getTiposC);
-				addMascotaService.getTiposCirugias();
-			}
-			
+     			confs.getConfiguracioneCirugias();
+     			confs.addEventListener(ResultEvent.RESULT,getTiposC);
+     		} 
+     		
+     					
 			/**
 		 	* Metodo que procesa el resultado del evento anterior, almacenando la lista resultante en la 
 			* variable tiposC. Que corresponde a la lista de todas las cirugias que existen.
@@ -195,7 +196,8 @@
 					var i:int;
 					var large:int = tiposC.length;
 					for(i=0;i<large;i++){
-						var text:String = tiposC.getItemAt(i,0) as String;
+						var tcc:configCirugia = tiposC.getItemAt(i,0) as configCirugia;
+						var text:String = tcc.nombre;
 						nuevacir.tiposCir1.push(text);
 						nuevacir.tiposCir2.push(text);
 					}
@@ -391,6 +393,8 @@
      			dg.setFocus();
 
      		}
+     		
+     		
 				
         ]]>
     </mx:Script>
