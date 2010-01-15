@@ -189,13 +189,15 @@
 				    }
 				    
 				    else{
-				    	if(email.text=="" && region.text=="" && comunas.text=="") {
+				    	if(email.text=="" && region.text==" " && comunas.text==" ") {
 				    		
 				    	}
 				    	
-				    	else{
+				    	if(comunas.text==" ") {
+				    		
 				    		labelMessage.text = Properties.getMensaje("Advertencia", "49");	
 				    	}
+				    		
 				    }
 								
 			       if(email.text=="" && email2.text=="" && region.text!=" " && comunas.text!=" " || email.text=="" && email2.text=="" && region.text==" " && comunas.text==" "){
@@ -227,7 +229,7 @@
 				    			
 				    		}
 				    		else{
-				    			Alert.show("xaoo");
+				    			
 				    			labelMessage.text = Properties.getMensaje("Advertencia", "49");
 				    		}
 				    	 }
