@@ -226,14 +226,39 @@ public class EditarPeluServiceBD
     		while(resultete.next())
     		{
     			peluqueria = new Peluqueria();
-    			
-    			
-    				peluqueria.setFecha(resultete.getDate(1));
-    				peluqueria.setHora(resultete.getString(2));
-    				peluqueria.setServicio(resultete.getString(3));
-    				peluqueria.setNombre(resultete.getString(4));
+    			Date fechi;
+    			fechi = resultete.getDate(1);
+    			String fechas;
+				int diaN, mesN, anoN;
+				diaN = fechi.getDate();
+				mesN = fechi.getMonth()+1;
+				anoN = fechi.getYear()+1900;
+				
+				if(diaN<10){
+					if(mesN<10){
+						fechas = "0"+diaN+"/0"+mesN+"/"+anoN;
+					}
+					else{
+						fechas = "0"+diaN+"/"+mesN+"/"+anoN;
+					}
+					
+				}
+				else{
+					if(mesN<10){
+						fechas = ""+diaN+"/0"+mesN+"/"+anoN;
+					}
+					else{
+						fechas = ""+diaN+"/"+mesN+"/"+anoN;
+					}
+				}
+				
+				peluqueria.setFechaS(fechas);
+    			//peluqueria.setFecha(resultete.getDate(1));
+    			peluqueria.setHora(resultete.getString(2));
+    			peluqueria.setServicio(resultete.getString(3));
+    			peluqueria.setNombre(resultete.getString(4));
     				
-    				serviciosAnteriores.add(peluqueria);
+    			serviciosAnteriores.add(peluqueria);
     			//}
     		}
 		} 
