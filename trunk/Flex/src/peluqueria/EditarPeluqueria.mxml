@@ -126,13 +126,32 @@
 		   		var max:int = listCatalogosP.length;
 		   		var catalog:CatPeluqueria;
 		   		var catalog2:CatPeluqueria;
-		   		
+		   		/*
 		   		for(i=0;i<max;i++){
 		   			catalog= listCatalogosP.getItemAt(i,0) as CatPeluqueria;
 		   			catalog2 = new CatPeluqueria();
 		   			catalog2.nombre = ""+catalog.servicio.split(" ",1).pop()+" "+catalog.nombre.split(" ",1).pop();
 		   			listCatP.addItem(catalog2);
 		   		}
+		   		*/
+		   		for(i=0;i<max;i++){
+		   			catalog= listCatalogosP.getItemAt(i,0) as CatPeluqueria;
+		   			catalog2 = new CatPeluqueria();
+		   			var nombre:String = "";
+		   			var nombres:Array = catalog.nombre.split(" ",10);
+		   			var inombre:int;
+		   			var mas:int = nombres.length;
+		   			for(inombre = 0;inombre<mas;inombre++){
+		   				var ns:String = nombres.pop();
+		   				if(ns != ""){
+		   					nombre = ns.concat(" "+nombre);
+		   				}
+		   				
+		   			}		   			
+		   			catalog2.nombre = ""+catalog.servicio.split(" ",1).pop()+" "+nombre;
+		   			listCatP.addItem(catalog2);
+		   		}
+		   		
 		   }
 			
 			
