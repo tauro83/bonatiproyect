@@ -31,7 +31,7 @@
 		    import flash.net.FileReferenceList;
 			
 			private var u1:Cliente;
-			private var clienteAuxEditado:Cliente;
+			private var clienteAuxEditado:Cliente = new Cliente();;
 			private var verdadero:Boolean=false;
 			public  var rutete:String;
             import mx.core.Application;
@@ -50,7 +50,7 @@
 				apellido.text	= "";
 				apellido2.text	= "";					
 				rut.text 		= "";
-				rut2.text 		= "";
+				
 				telefono.text 	= "";	
 				telefono2.text 	= "";	
 				celular.text    = "";
@@ -61,7 +61,8 @@
 				email.text      = "";
 				email2.text     = "";
 				//mens.text		= "";
-
+				clienteAuxEditado = new Cliente();
+				
 			}
 			
 			/**
@@ -74,23 +75,57 @@
 			
 			public function carga(clienteSelec:Cliente):void
 			{       //asigno el cliente entregado desde panel EditarCliente
-				    clienteAuxEditado = clienteSelec;
-					var person:Cliente= new Cliente();
+			
+					var list:Array  = new Array();
+					var list2:Array = new Array();
+					var list3:Array = new Array();
 					
-					person.nombre    = clienteSelec.nombre;
-					person.apellido  = clienteSelec.apellido;
-					person.apellido2 = clienteSelec.apellido2;
-					person.rut       = clienteSelec.rut;
-					person.rut2 	 = clienteSelec.rut2;
-					person.telefono  = clienteSelec.telefono;
-					person.telefono2 = clienteSelec.telefono2;
-					person.celular   = clienteSelec.celular;
-					person.celular2  = clienteSelec.celular2;
-					person.direccion = clienteSelec.direccion;
-					person.region    = clienteSelec.region;
-					person.comuna    = clienteSelec.comuna;
-					person.email     = clienteSelec.email;
-					person.email2    = clienteSelec.email2;	
+					var AuxcodCiudad:String;
+					var Aux2codCiudad:String;
+					var codCiudad:String;
+					var telSolo:String;
+					
+					var AuxcodCel:String;
+					var Aux2codCel:String;
+					var codCel:String;
+					var numCel:String;
+				   
+				    list          = clienteSelec.nombre.split(" ",1);
+					nombre.text   = list.pop();
+					list          = clienteSelec.apellido.split(" ",1);
+					apellido.text = list.pop();
+					list          = clienteSelec.apellido2.split(" ",1);
+					apellido2.text= list.pop(); 
+					list    	  = clienteSelec.rut.split(" ",1);
+					rut.text	  = list.pop();
+					
+					
+					
+					list2 = clienteSelec.telefono.split(" ",1);
+			   	    AuxcodCiudad = list2.pop();
+			        Aux2codCiudad= AuxcodCiudad;
+			        codCiudad    = AuxcodCiudad.slice(0,2);//
+			   		telSolo      = Aux2codCiudad.slice(2,8);//
+			   		
+					telefono.text  = codCiudad;
+					telefono2.text = telSolo;
+					
+					
+					
+					list3     = clienteSelec.celular.split(" ",1);
+			        AuxcodCel = list3.pop();
+			        Aux2codCel= AuxcodCel;
+			        codCel    = AuxcodCel.charAt(0);
+			        numCel    = Aux2codCel.slice(1,8);
+					
+					celular.text   = codCel;
+					celular2.text  = numCel;
+					
+					direccion.text = clienteSelec.direccion;
+					region.text    = clienteSelec.region;
+					comuna.text    = clienteSelec.comuna;
+					email.text     = clienteSelec.email;
+					email2.text    = clienteSelec.email;	
 			}
 			/**
 			 * @author  "Raul Lopez"
@@ -99,6 +134,12 @@
 			 * si estan todos los campos llenados, el método llama al clienteModificado el cual copia todos los campos del panel
 			 * en un objeto de tipo cliente con los datos finales de como fue editado el cliente.
 			 */
+			 
+			public function wap():void{
+			 	  clienteModificado();
+			      carga1();
+			
+			}
 			public function verificaEdicion():void
 			{
 			   if(iniListener2()==true){
@@ -118,11 +159,13 @@
 			public function clienteModificado():void
 			{
 					//Alert.show("CREANDO OBJECT");
+					
+					
 					clienteAuxEditado.nombre    = nombre.text;
 					clienteAuxEditado.apellido  = apellido.text;
 					clienteAuxEditado.apellido2 = apellido2.text;
-					clienteAuxEditado.rut       = rut.text.concat(rut2.text);
-					rutete						= rut.text.concat(rut2.text);
+					clienteAuxEditado.rut       = rut.text;
+					rutete						= rut.text;
 					//clienteAuxEditado.rut2 	 	= rut2.text;
 					clienteAuxEditado.telefono  = telefono.text.concat(telefono2.text);
 					//clienteAuxEditado.telefono2 = telefono2.text;
@@ -182,10 +225,9 @@
 			 */
 		 	 private function iniListener():void
 			{
-				//nombre.addEventListener(KeyboardEvent.KEY_UP,validarNombre);
+				
 				email2.addEventListener(KeyboardEvent.KEY_UP,validarEmail);
-				//apellido.addEventListener(KeyboardEvent.KEY_UP,validarApaterno);
-				//apellido2.addEventListener(KeyboardEvent.KEY_UP,validarAmaterno);
+				
 				direccion.addEventListener(KeyboardEvent.KEY_UP,validarDirec);
 				
 				
@@ -201,11 +243,8 @@
 			private function iniListener2():Boolean
 			{
 				var aux:Boolean=false;
-				if(nombre.text== "" || apellido.text== "" || apellido2.text== "" || rut.text== "" || rut2.text== "" || telefono.text== "" ||
-				   telefono2.text== "" || celular.text== "" || celular2.text== "" || direccion.text== "" || region.text== "" ||
-				   comuna.text == "" || email.text== "" || email2.text== ""){
-				   if(Validacion.longitudMinima(nombre.text)&& Validacion.longitudMinima(apellido.text) && Validacion.longitudMinima(apellido2.text) &&
-				      Validacion.longitudMinima(apellido2.text) && Validacion.longitudMinima(direccion.text)){
+				if(direccion.text== "" || email.text== "" || email2.text== "" || nombre.text == "" || apellido.text == "" || apellido2.text == ""){
+				   if(Validacion.longitudMinima(direccion.text)){
 				     aux=false;
 				   }
 				   
@@ -217,24 +256,7 @@
 				return aux;
 				
 			}
-		    /**
-			 * @author  "Raul Lopez"
-			 * @Fecha  20 Septiembre
-			 * @Funcion que valida la extensión mínima que debe de tener el nombre de un cliente
-			 */
-		  	private function validarNombre(event:Event):void
-			{
-				if(Validacion.longitudMinima(nombre.text))
-				{
-					mensaje.text="";
-					
-				}
-				else
-				{
-					mensaje.text="Ingrese un nombre mas largo";
-					
-				}	
-		  	}
+		    
 		  
 			/**
 			 * @author  "Raul Lopez"
@@ -761,18 +783,16 @@
 	
 	
 	<mx:Label x="20" y="30" text="Nombre:" width="97" />
-	<mx:TextInput restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" x="125" y="28" width="201" id="nombre"  click="{iniListener()}" enabled="true"  maxChars="12"/>
+	<mx:TextInput restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" x="125" y="28" width="201" id="nombre"  enabled="true"  maxChars="12"/>
 	<mx:Label x="20" y="79" text="Apellido Paterno:" width="112" />
-	<mx:TextInput restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" x="125" y="77" width="201" id="apellido" click="{iniListener()}" enabled="true" maxChars="12"/>
+	<mx:TextInput restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" x="125" y="77" width="201" id="apellido"  enabled="true" maxChars="12"/>
 	<mx:Label x="20" y="128" text="Apellido Materno:" width="112" />
-	<mx:TextInput  restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" x="125" y="126" width="201" id="apellido2" click="{iniListener()}" enabled="true" maxChars="12"/>
+	<mx:TextInput  restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" x="125" y="126" width="201" id="apellido2" enabled="true" maxChars="12"/>
 	<mx:Label x="20" y="177" text="Rut:" width="97"/>
 	<mx:TextInput x="125" y="175" width="140" id="rut" enabled="true" maxChars="8" editable="false"/>
 	<mx:Label x="169" y="275" text="-" textAlign="center"/>
-	<mx:TextInput x="290" y="175" width="36" id="rut2" enabled="true" maxChars="1" editable="false"/>
 	<mx:Label x="20" y="226" text="Teléfono Fijo:" width="97"/>
 	<mx:TextInput  x="125" y="224" width="40" id="telefono" enabled="true" maxChars="2"/>
-	<mx:Label x="268" y="177" text="-" textAlign="center"/>
 	<mx:TextInput restrict="0-9" x="190" y="224" width="136" id="telefono2" enabled="true" maxChars="10"/>
 	<mx:Label x="20" y="275" text="Celular:" width="97"/>
 	<mx:TextInput  restrict="0-9" x="125" y="273" width="40" id="celular" enabled="true" maxChars="1"/>

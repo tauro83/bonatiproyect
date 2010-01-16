@@ -175,7 +175,7 @@
           
           private function editarCliente():void
           {
-          	Application.application.panelEditaCLi.reiniciar();
+          	Application.application.panelEditaCLi.limpiarTodo();
           	Application.application.setInvisible();
           	//Application.application.AdmIngreso2.limpiarTodo();
             this.visible = true;
