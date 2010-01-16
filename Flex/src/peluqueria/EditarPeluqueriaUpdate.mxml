@@ -410,7 +410,7 @@
 	
 	<mx:DataGrid x="418.75" y="37" width="316.25" height="156" id="tablaServiciosAnteriores" dataProvider="{serviciosAnteriores}">
 			<mx:columns>
-				<mx:DataGridColumn headerText="Fecha" dataField="fecha" width="80"/>
+				<mx:DataGridColumn headerText="Fecha" dataField="fechaS" width="80"/>
 				<mx:DataGridColumn headerText="Hora" dataField="hora" width="70"/>
 				<mx:DataGridColumn headerText="Servicio" dataField="servicio" width="80"/>
 				<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
