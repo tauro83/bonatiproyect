@@ -126,14 +126,7 @@
 		   		var max:int = listCatalogosP.length;
 		   		var catalog:CatPeluqueria;
 		   		var catalog2:CatPeluqueria;
-		   		/*
-		   		for(i=0;i<max;i++){
-		   			catalog= listCatalogosP.getItemAt(i,0) as CatPeluqueria;
-		   			catalog2 = new CatPeluqueria();
-		   			catalog2.nombre = ""+catalog.servicio.split(" ",1).pop()+" "+catalog.nombre.split(" ",1).pop();
-		   			listCatP.addItem(catalog2);
-		   		}
-		   		*/
+		   		
 		   		for(i=0;i<max;i++){
 		   			catalog= listCatalogosP.getItemAt(i,0) as CatPeluqueria;
 		   			catalog2 = new CatPeluqueria();
