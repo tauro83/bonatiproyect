@@ -149,11 +149,11 @@
 	<mx:Label x="17" y="325" text="Costo: " width="78"/>
 	<mx:Button x="523" y="354" label="Guardar" width="102" height="23" click="{registrar()} "/>
 	<mx:Button x="632" y="353" label="Cancelar" width="102" height="23" click="{cancelando()}"/>
-	<mx:TextInput x="133" y="31" id="nombre" editable="false"  width="160" height="22"/>
-	<mx:TextInput x="465" y="61.8" id="sexo" editable="false"  width="160" height="22"/>
-	<mx:Label x="17" y="63.8" text="Fecha Nacimiento:" width="107.95"/>
-	<mx:TextInput x="133" y="61.8" id="fechaNacimiento" editable="false"  width="160" height="22"/>
-	<mx:TextInput x="465" y="30.95" id="raza" editable="false"  width="160" height="22"/>
+	<mx:TextInput x="133" y="31" id="nombre" editable="false"  width="160" height="22" enabled="false"/>
+	<mx:TextInput x="465" y="61.8" id="sexo" editable="false"  width="160" height="22" enabled="false"/>
+	<mx:Label x="17" y="63.8" text="Fecha Nacimiento:" width="107.95" />
+	<mx:TextInput x="133" y="61.8" id="fechaNacimiento" editable="false"  width="160" height="22" enabled="false"/>
+	<mx:TextInput x="465" y="30.95" id="raza" editable="false"  width="160" height="22" enabled="false"/>
 	<mx:Label x="17" y="180" text="Hora: " width="78"/>
 	<mx:ComboBox id="hora" x="133" y="180" dataProvider="{horas}" labelField="hora" width="160"/>
 	<mx:TextArea x="133" y="223" height="80" width="514" id="indicaciones"/>
