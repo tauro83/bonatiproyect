@@ -53,7 +53,7 @@
 			[Bindable]
 			public var newMascota:Mascota2;
 			
-			public function seleccionarPostOpe(event:Event):void
+			public function seleccionarPostOpe():void
 			{
 				  
 				   
@@ -122,9 +122,9 @@
 				
         ]]>
     </mx:Script>
-	<mx:Button x="523" y="354" label="Visualizar" visible="true" id="registrar"  width="102" height="23"/>
+	<mx:Button x="518" y="354" label="Visualizar" width="102" height="23" click="seleccionarPostOpe()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="686.75" rowCount="3" y="100" x="33" variableRowHeight="true" dataProvider="{mascotas}" click="{seleccionarPostOpe(event)}" visible="true" height="245">
+	<mx:DataGrid id="dg" color="0x323232" width="686.75" rowCount="3" y="100" x="33" variableRowHeight="true" dataProvider="{mascotas}" click="{seleccionarPostOpe()}" visible="true" height="245">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
