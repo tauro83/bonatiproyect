@@ -204,11 +204,12 @@
 			   res = event.result as int;
 			   if(res > 0)
 			   {
-			      //Alert.show("ok");
-			      Application.application.ediCliUp.setVisible(false,false);
-			  	  Application.application.panelEditaCLi.labelMessage.text="Sus cambios se realizaron con éxito";
-			  	  Application.application.panelEditaCLi.reiniciar();
-			 	  Application.application.panelEditaCLi.setVisible(true,false);
+			 	  
+			 	  Application.application.panel2.labelMessage.text ="El Cliente fue editado exitosamente";
+			   	  this.setVisible(false,false);			   	  
+			   	  Application.application.panel2.setVisible(true,false);
+			 	  
+			 	  
 			   }
 			   else
 			   {
@@ -333,11 +334,18 @@
 			 */
 			public function cancela():void
 			{
-			    
-			  Application.application.ediCliUp.setVisible(false,false);
-			  Application.application.panelEditaCLi.labelMessage.text="Usted ha cancelado la edición de datos";
-			  Application.application.panelEditaCLi.reiniciar();
-			  Application.application.panelEditaCLi.setVisible(true,false);
+			  /*
+			 this.setVisible(false,false);
+             Application.application.panelEditaCLi.setVisible(true,false);
+             Application.application.panelEditaCLi.limpiarTodo();
+             */
+             
+             
+			 this.setVisible(false,false);		
+			 Application.application.panelEditaCLi.getAllClientesE();   	  
+			 Application.application.panelEditaCLi.setVisible(true,false);
+			 
+			 
 			}
 			
 			/**

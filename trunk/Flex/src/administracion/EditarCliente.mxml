@@ -6,9 +6,9 @@
 		
 			//=======================================================================
 			// FECHA CREACIÓN: 06/10/09
-			// AUTOR: Esteban Cruz
+			// AUTOR: Raúl López
 			// Panel de busqueda del sistema, dentro de esta se pueden realizar 
-			// busquedas para: Mascota, Cliente, Atencion, Producto, Aviso, Usuario
+			// busqueda para: Cliente, 
 			//=======================================================================
 			
 			import mx.binding.utils.ChangeWatcher;
@@ -36,14 +36,13 @@
 			
 			[Bindable]
 			public var newCli:Cliente;
-			//private var clientillo:ClienteService;
 			private var clienteAux:Cliente;
 			private var clienteAuxEditado:Cliente;
 			public var newCli2:EditClienteUpdate;
 
 
 		
-		            /**
+		     /**
 			 *  Hace visible los elementos correspondientes al objeto
 			 *  que se selecciono desde el 1er combobox
 			 *  @author  "Esteban Cruz"
@@ -57,6 +56,7 @@
 				inputClienteRut.setVisible(false,false);
 				inputClienteApellido2.setVisible(false,false);
 				inputClienteApellido.setVisible(false,false);
+				textBuscar.setVisible(true, false);
 				getAllClientesE();
 				
 			  switch (combobox.selectedLabel)
@@ -89,7 +89,12 @@
 			  }
             }
 			
-			public function reiniciar():void
+			
+			/**
+			 *  Hace invisible a todos los elementos del componente
+			 *  @author  "Esteban Cruz"
+			 **/
+			private function limpiarTodo():void
             {
             	
             	combobox.selectedIndex=0;
@@ -100,18 +105,6 @@
             	inputClienteRut.dataProvider=null;
             	inputClienteApellido.dataProvider=null;
             	inputClienteApellido2.dataProvider=null;
-            	
-            	
-            	textBuscar.visible=false;
-            	limpiarTodo();
-            }
-			/**
-			 *  Hace invisible a todos los elementos del componente
-			 *  @author  "Esteban Cruz"
-			 **/
-			private function limpiarTodo():void
-            {
-            	
             	
             	inputClienteEmail.setVisible(false,false);
             	inputClienteNombre.setVisible(false,false);
@@ -149,7 +142,7 @@
 				
 			}
 			
-			public function rut(event:Event):void{
+			public function rute(event:Event):void{
 			
 			   if(gridCliente.selectedItem){   	 	
             	  Application.application.ediCliUp.carga(gridCliente.selectedItem as Cliente);
@@ -161,14 +154,12 @@
 			
 			private function volver():void
             {
-            	//Application.application.setInvisible();
-            	//Application.application.agenda2.setVisible(true,false);
-            	//Application.application.menuAgenda1.setVisible(true,false);
-            	
-            	Application.application.setInvisible();
+            	this.limpiarTodo();
+            	this.setVisible(false,false);
             	Application.application.panel2.setVisible(true,false);
-            	Application.application.AdmOpciones1.setVisible(true,false);
             }
+            
+            
             
 		public function Seleccionar(event:Event):void{
             if(inputClienteNombre.selectedIndex==0);
@@ -199,17 +190,17 @@
 	<mx:Button x="632" y="353" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="{volver()}" height="23"/>
 	
 	<mx:Text x="30" y="26" id="textFiltrar" text="Filtrar por"/>
-	<mx:Text x="523" y="26" text="Buscar" id="textBuscar" visible="false"/>
+	<mx:Text x="523" y="26" text="Buscar" id="textBuscar" visible="true"/>
 
 	<!-- AutoComplete para cada parametro -->
 	
 	<!-- input Cliente -->
-	<fc:AutoComplete close="Seleccionar(event)" id="inputClienteNombre" x="572" y="24" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
-	<fc:AutoComplete close="Seleccionar(event)" id="inputClienteRut" x="572" y="24" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
-	<fc:AutoComplete close="Seleccionar(event)" id="inputClienteTel" x="572" y="24" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
-	<fc:AutoComplete close="Seleccionar(event)" id="inputClienteEmail" x="572" y="24" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
-	<fc:AutoComplete close="Seleccionar(event)" id="inputClienteApellido" x="572" y="24" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
-	<fc:AutoComplete close="Seleccionar(event)" id="inputClienteApellido2" x="572" y="24" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
+	<fc:AutoComplete id="inputClienteNombre" close="Seleccionar(event)"  x="572" y="24" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
+	<fc:AutoComplete id="inputClienteRut" close="Seleccionar(event)"  x="572" y="24" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
+	<fc:AutoComplete id="inputClienteTel" close="Seleccionar(event)"  x="572" y="24" width="150" dataProvider="{clientes}" labelField="telefono2" visible="false"/>
+	<fc:AutoComplete id="inputClienteEmail" close="Seleccionar(event)"  x="572" y="24" width="150" dataProvider="{clientes}" labelField="email" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido" close="Seleccionar(event)" x="572" y="24" width="150" dataProvider="{clientes}" labelField="apellido" visible="false"/>
+	<fc:AutoComplete id="inputClienteApellido2" close="Seleccionar(event)"  x="572" y="24" width="150" dataProvider="{clientes}" labelField="apellido2" visible="false"/>
 	
 	<!-- Cliente: combobox y grid -->
 	<mx:ComboBox x="96" y="24" id="combobox" width="150" change="seleccionarBusqueda(event)">
@@ -220,24 +211,23 @@
 			<mx:Object label="E-mail"/>
 			<mx:Object label="Nombre"/>
 			<mx:Object label="Rut"/>
-			<mx:Object label="Teléfono"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
 	
-	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridCliente" visible="true" dataProvider="{clientes}" doubleClickEnabled="true" itemDoubleClick="{rut(event)}">
+	<mx:DataGrid x="30" y="52" width="692" height="283" id="gridCliente" visible="true" dataProvider="{clientes}" doubleClickEnabled="true" itemDoubleClick="{rute(event)}">
 		<mx:columns>
-			<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre" />
 			<mx:DataGridColumn headerText="Apellido paterno" dataField="apellido"/>
 			<mx:DataGridColumn headerText="Apellido materno" dataField="apellido2"/>
-			<mx:DataGridColumn headerText="Rut" dataField="rut"/>
+			<mx:DataGridColumn headerText="Rut" dataField="rut" id="rut"/>
 			<mx:DataGridColumn headerText="Codigo" dataField="rut2" visible="false"/>
-			<mx:DataGridColumn headerText="E-mail" dataField="email"/>
-			<mx:DataGridColumn headerText="E-mail2" dataField="email2" visible="false"/>
+			<mx:DataGridColumn headerText="E-mail" dataField="email" id="email"/>
+			<mx:DataGridColumn headerText="E-mail2" dataField="email2" visible="false" />
 			<mx:DataGridColumn headerText="Teléfono" dataField="telefono" visible="false"/>
 			<mx:DataGridColumn headerText="Teléfono2" dataField="telefono2" visible="false"/>
-			<mx:DataGridColumn headerText="Celular" dataField="celular" visible="false"/>
+			<mx:DataGridColumn headerText="Celular" dataField="celular" visible="false" />
 			<mx:DataGridColumn headerText="Celular2" dataField="celular2" visible="false"/>
-			<mx:DataGridColumn headerText="Direccion" dataField="direccion" visible="false"/>
+			<mx:DataGridColumn headerText="Direccion" dataField="direccion" visible="false" />
 			<mx:DataGridColumn headerText="Region" dataField="region" visible="false"/>
 			<mx:DataGridColumn headerText="Comuna" dataField="comuna" visible="false"/>
 			<mx:DataGridColumn headerText="Estado" dataField="estado" visible="false"/>
@@ -245,6 +235,6 @@
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Button x="522" y="353" label="Visualizar" click="{rut(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="522" y="353" label="Visualizar" click="{rute(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
 	
 </mx:Panel>
