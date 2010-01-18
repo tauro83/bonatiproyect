@@ -109,19 +109,17 @@ public class ClienteEditDB
     		{
     			person= new Cliente();
    
-    			person.setNombre(result.getString(1));
-    			person.setApellido(result.getString(2));
-    			person.setApellido2(result.getString(3));
-    			person.setRut(result.getString(4));
-    			person.setTelefono(result.getString(5));
-    			person.setCelular(result.getString(6));
-    			person.setDireccion(result.getString(7));
-    			person.setRegion(result.getString(8));
-    			person.setComuna(result.getString(9));
-    			person.setEmail(result.getString(10));
- 			    
-    			
-
+    			person.setNombre(result.getString(1).trim());
+    			person.setApellido(result.getString(2).trim());
+    			person.setApellido2(result.getString(3).trim());
+    			person.setRut(result.getString(4).trim());
+    			person.setTelefono(result.getString(5).trim());
+    			person.setCelular(result.getString(6).trim());
+    			person.setDireccion(result.getString(7).trim());
+    			person.setRegion(result.getString(8).trim());
+    			person.setComuna(result.getString(9).trim());
+    			person.setEmail(result.getString(10).trim());
+ 		
     			persons.add(person);
     		}
 		} 
