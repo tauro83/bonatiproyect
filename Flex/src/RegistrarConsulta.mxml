@@ -185,10 +185,12 @@
 			public function limpio():void
 			{
 				this.mascotas=new ArrayCollection();
-				this.labelMessage.text="";			
+				this.labelMessage.text="";
+				buscadorCliente.getAllClientes();			
 				buscadorCliente.inputClienteNombre.text = "";
 			 	buscadorCliente.rutClienteDVInput.text = "";
 			 	buscadorCliente.rutClienteInput.text = "";
+			 	
 			}	
 			
 
