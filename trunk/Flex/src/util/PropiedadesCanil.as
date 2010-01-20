@@ -19,7 +19,6 @@ package util
 		 import mx.controls.Alert;
 		public static function  getCaniles(key:String):String
 		{
-			Alert.show("legaaaaaaa");
 			try
 			{
 				var xml:XML = new XML(settingClass.data)

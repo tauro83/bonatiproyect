@@ -15,7 +15,7 @@
 				caniles  = new ArrayCollection;
 				//Alert.show("asdasd");
 				//Alert.show(""+PropiedadesCanil.getCaniles("1"));
-				var numCaniles:int = 10;//parseInt(PropiedadesCanil.getCaniles("1"));
+				var numCaniles:int = parseInt(PropiedadesCanil.getCaniles("1"));
 			
 
 				for(var i:int = 0; i<numCaniles; i++){
