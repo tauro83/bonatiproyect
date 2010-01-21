@@ -26,12 +26,12 @@
 			<mx:LinkButton x="10" y="70" label="Eliminar" textAlign="left" click="eliminarUsuario()" id="linkEliminarUsAd"/>
 			<mx:LinkButton x="10" y="100" label="Purgar" textAlign="left" id="linkPurgarUsAd" click="purgarUsuario()"/>
 		</mx:Canvas>
-		<mx:Canvas label="Configuración" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
+		<mx:Canvas label="Configuración" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF" x="-31" y="304">
 			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="43" label="Mascotas" textAlign="left" click="configurarMascota()" id="bConMas"/>
-			<mx:LinkButton x="10" y="133" label="Usuarios" textAlign="left"  click="configurarUsuario()" id="bConUsu"/>
-			<mx:LinkButton x="10" y="73" label="Servicios Generales" textAlign="left"  click="configurarServicios()" id="bConSer" width="135"/>
-			<mx:LinkButton x="10" y="103" label="Servicios Peluquería" textAlign="left"  click="configurarServCat()" id="servCatPel"/>
-			<mx:LinkButton x="10" y="163" label="Vacunas" textAlign="left"  click="{configurarVacunas()}" id="bConVac"/>
+			<mx:LinkButton x="10" y="73" label="Usuarios" textAlign="left"  click="configurarUsuario()" id="bConUsu"/>
+			<mx:LinkButton x="10" y="133" label="Servicios Generales" textAlign="left"  click="configurarServicios()" id="bConSer" width="135"/>
+			<mx:LinkButton x="10" y="164" label="Servicios Peluquería" textAlign="left"  click="configurarServCat()" id="servCatPel" visible="false"/>
+			<mx:LinkButton x="10" y="103" label="Vacunas" textAlign="left"  click="{configurarVacunas()}" id="bConVac"/>
 			<mx:LinkButton x="10" y="13" label="Cirugías" id="linkCiru" click="{configurarCirugias()}"/>
 		</mx:Canvas>
 	</mx:Accordion>
