@@ -47,7 +47,7 @@
             		var elimItem:PostOperatorioService = new PostOperatorioService();
 					elimItem.addEventListener(ResultEvent.RESULT,deleteAtencionResult);
 					elimItem.anulAtencion(tablaAtenciones.selectedItem.shora.toString(),
-					this.clienterut.text.toString(), this.nomMascota.text.toString(),Application.application.login2.usuarioActivo);
+					tablaAtenciones.selectedItem.stfecha.toString(),this.clienterut.text.toString(), this.nomMascota.text.toString(),Application.application.login2.usuarioActivo);
 					
             	}
             }
