@@ -75,8 +75,8 @@ public class PostOperatorioBD {
 			elimReg = connection.prepareStatement(query);
 			
 			query = "UPDATE atencionpostoperatorio "+
-			   "SET estado = '1', motivo = ? " +
-			   "WHERE atencionpostoperatorio.hora = ? and " +
+			   "SET estado = '2' " +
+			   "WHERE atencionpostoperatorio.hora = ? and atencionpostoperatorio.fecha = ? and " +
 			   "atencionpostoperatorio.rut = ? and atencionpostoperatorio.nombremascota = ?;";
 			anulReg = connection.prepareStatement(query);
 		
@@ -133,21 +133,16 @@ public class PostOperatorioBD {
 	 * Trata de obtener todos las cirugías registrados en la base de datos
 	 * @return Lista con todas las cirugías registradas
 	 */
-	public int anulAtencionBD(String hora, String rut, String nomMascota, String motivo)
+	public int anulAtencionBD(String hora, String fecha, String rut, String nomMascota, String motivo)
     {
     	int result=0;
     	try 
     	{
-    		Calendar c = Calendar.getInstance();
-			int year = c.get(Calendar.YEAR)-1900;
-			int month = c.get(Calendar.MONTH);
-			int day = c.get(Calendar.DAY_OF_MONTH);
-			Date date = new Date(year,month, day);
-			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-			String fecha = formatter.format(date); 
-    		
-			anulReg.setString(1,fecha+" "+motivo);
-    		anulReg.setString(2, hora);    		
+    		/**
+			No modificar esta función, en especial al insertar la fecha
+			*/
+			anulReg.setString(1, hora);
+    		anulReg.setString(2, fecha);    		
     		anulReg.setString(3, rut);
     		anulReg.setString(4, nomMascota);
     		anulReg.executeQuery();
