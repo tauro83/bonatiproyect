@@ -65,14 +65,14 @@ public class PostOperatorioService{
 	 * Elimina un registro en la base de datos
 	 * @return Lista con todos los usuarios registrados
 	 */
-		public int anulAtencion(String hora, String rut, String nomMascota, String motivo)
+		public int anulAtencion(String hora, String fecha, String rut, String nomMascota, String motivo)
     {
 		int result=0;
 		try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			PostOperatorioBD userDB= new PostOperatorioBD(connection);
-			result= userDB.anulAtencionBD(hora, rut, nomMascota, motivo);
+			result= userDB.anulAtencionBD(hora, fecha, rut, nomMascota, motivo);
 			connection.close();
 		} catch (SQLException e) 
 		{
