@@ -51,8 +51,8 @@ package services
 		/**
 		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos
 		 */ 
-		public function anulAtencion(hora:String, rut:String, nomMascota:String, motivo:String):void{
-			this.getOperation("anulAtencion").send(hora, rut, nomMascota, motivo);
+		public function anulAtencion(hora:String, fecha:String, rut:String, nomMascota:String, motivo:String):void{
+			this.getOperation("anulAtencion").send(hora, fecha, rut, nomMascota, motivo);
 		}
 		/**
 		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos
