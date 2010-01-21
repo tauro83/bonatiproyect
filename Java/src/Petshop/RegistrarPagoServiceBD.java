@@ -83,7 +83,13 @@ public class RegistrarPagoServiceBD {
 		int result=0;
     	try{
 
-    		Time t = new Time(System.currentTimeMillis());
+    		//Time t = new Time(System.currentTimeMillis());
+    		Calendar c = Calendar.getInstance();
+    		int hora = c.get(Calendar.HOUR_OF_DAY);
+    		int minutos = c.get(Calendar.MINUTE);
+    		int segundos = c.get(Calendar.SECOND);
+    		
+    		Time t = new Time(hora, minutos, segundos);
 			insert.setDate(1, p.fechaPago);
 			insert.setTime(2, t);
 			insert.setInt(3, 0);
