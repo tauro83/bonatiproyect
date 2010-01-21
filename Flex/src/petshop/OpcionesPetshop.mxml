@@ -71,12 +71,21 @@
 				Application.application.eliminarPurgarproducto.visible =true;
 				
 			}
+			public function verReporteVentas():void
+			{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.repvent.iniciarPanel();
+				Application.application.repvent.visible = true;
+				
+			}
 		]]>
 	</mx:Script>
 	
 	<mx:Accordion styleName="Accordion3" x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Pago" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="10" label="Registrar" click="verRegistrarPago()" id="bRegPago"/>
+			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="100" label="Reporte de Ventas" click="verReporteVentas()" id="repVen"/>
 			<mx:LinkButton x="10" y="40" label="Editar"  click="verEditarPago()" id="bEditPag"/>
 			<mx:LinkButton x="10" y="70" label="Anular" click="verAnuPago()" id="bAnuPag"/>
 		</mx:Canvas>
