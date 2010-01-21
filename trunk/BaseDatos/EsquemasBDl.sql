@@ -110,7 +110,7 @@ CREATE TABLE atencionpedicure
 	hora time,
 	fecha date ,
 	costo varchar(20),	
-	descripcion varchar(500),
+	descripcion text,
 	nombre varchar(20),
 	primary key (hora,fecha,servicio),
 	FOREIGN KEY (rutcliente,nombremascota) REFERENCES Mascota(rut,nombre) MATCH FULL ON UPDATE RESTRICT ON DELETE RESTRICT
@@ -124,7 +124,7 @@ CREATE TABLE atencionbanio
 	hora time,
 	fecha date ,
 	costo varchar(20),	
-	comentario varchar(500),
+	comentario text,
 	primary key (hora,fecha,servicio),
 	FOREIGN KEY (rutcliente,nombremascota) REFERENCES Mascota(rut,nombre) MATCH FULL ON UPDATE RESTRICT ON DELETE RESTRICT
 );
@@ -141,7 +141,7 @@ CREATE TABLE corte
 	costo varchar(20),	
 	nombre varchar(20),
 	categoria varchar(20),	
-	descripcion varchar(500),
+	descripcion text,
 	primary key (hora,fecha,servicio),
 	FOREIGN KEY (rutcliente,nombremascota) REFERENCES Mascota(rut,nombre) MATCH FULL ON UPDATE RESTRICT ON DELETE RESTRICT
 );
@@ -183,7 +183,7 @@ CREATE TABLE cirugia
   fecha character(10) NOT NULL,
   costo character(20),
   estado integer DEFAULT 0,
-  motivo character(200) DEFAULT 0,	
+  motivo text DEFAULT 0,	
   servicio character varying(20) NOT NULL DEFAULT 'Pabellon'::character varying,
   CONSTRAINT pk_cirugia PRIMARY KEY (mascotanombre, hora, clienterut, fecha),
   CONSTRAINT cirugia_ayudante_fkey FOREIGN KEY (ayudante)
@@ -202,7 +202,7 @@ create table diagnosticos(
 	mascotaNombre CHAR(50) not null,
 	hora time not null,
 	fecha CHAR(10) not null,
-	diagnostico CHAR(200),
+	diagnostico text,
 	nuevaFecha CHAR(10) not null,
 	tipoCirugia CHAR(30),
 	nuevaHora time not null,
@@ -214,7 +214,7 @@ create table diagnosticos(
 create table atencionvacuna(
 	precio character(15),
 	nombre character(50),
-	descripcion character(100),
+	descripcion text,
 	fechacaducidad date,
 	servicio character varying(20) NOT NULL DEFAULT 'Pabellon'::character varying,
 	hora character(10),
@@ -226,7 +226,7 @@ create table atencionvacuna(
 
 create table atencioncirugia (
 	estado boolean,
-	diagnostico character(100),
+	diagnostico text,
 	tipo character(50),
 	servicio character varying(20) NOT NULL DEFAULT 'Pabellon'::character varying,
 	hora character(10),
@@ -236,7 +236,7 @@ create table atencioncirugia (
 );
 
 create table atencionconsulta(
-	anamnesis character(100),
+	anamnesis text,
 	servicio character varying(20) NOT NULL DEFAULT 'Pabellon'::character varying,
 	hora character(10),
 	fecha date NOT NULL,
@@ -247,13 +247,13 @@ create table atencionconsulta(
 create table atencioncontrol(
 	cliente character(9),
 	mascota character(30),
-	descripcion character(500),
+	descripcion text,
 	fecha date NOT NULL,
 	hora character(10) NOT NULL,
 	responsable character(30),
 	servicio character (20),
 	costo character(7),
-        motivo character(200) DEFAULT 0,
+        motivo text DEFAULT 0,
 	CONSTRAINT atencioncontrol_pkey PRIMARY KEY (hora, fecha, responsable),
 	CONSTRAINT atencioncontrol_usuario_fkey FOREIGN KEY (responsable)
 		REFERENCES usuario (usuario) MATCH FULL
@@ -265,9 +265,9 @@ create table atencioncontrol(
 
 
 create table atencionpreoperatorio(
-	observaciones character(100),
-	sintomas character(100),
-	diagnosticos character(100),
+	observaciones text,
+	sintomas text,
+	diagnosticos text,
 	servicio character varying(20) NOT NULL DEFAULT 'Pabellon'::character varying,
 	hora character(10),
 	fecha date NOT NULL,
@@ -296,7 +296,7 @@ CREATE TABLE vacuna
 	nombre	CHAR(20) primary key,
 	precio  int,
 	caducidad int,
-	descripcion CHAR(50)
+	descripcion text
 	
 );
 
@@ -310,15 +310,15 @@ create table vacunacion(
 	costo char(20),
 	estado integer DEFAULT '0',
 	fechacaducidad date,
-	descripcion CHAR(200),
-        motivo character(200) DEFAULT 0,
+	descripcion text,
+        motivo text DEFAULT 0,
 	servicio character varying(20) NOT NULL DEFAULT 'Policlinico'::character varying,
 	constraint PK_vacuna primary key (mascotaNombre,hora,clienteRut,fecha,vacuna)
 );
 
 CREATE TABLE consulta
 (
-  anamnesis character(300),
+  anamnesis text,
   servicio character(20) NOT NULL,
   hora character(20) NOT NULL,
   fecha character(20) NOT NULL,
@@ -327,7 +327,7 @@ CREATE TABLE consulta
   nombre character(20),
   responsable character(20),
   estado integer DEFAULT '0',
-  motivo character(200) DEFAULT 0,
+  motivo text DEFAULT 0,
   CONSTRAINT consulta_pkey PRIMARY KEY (hora, fecha, servicio),
   CONSTRAINT consulta_rut_fkey FOREIGN KEY (rut, nombre)
       REFERENCES mascota (rut, nombre) MATCH SIMPLE
@@ -338,7 +338,7 @@ CREATE TABLE atencionpostoperatorio
 (
   medicamentos character(50),
   alimentos character(50),
-  indicaciones character(50),
+  indicaciones text,
   servicio character varying(20) NOT NULL DEFAULT 'Pabellon'::character varying,
   hora character(10) NOT NULL,
   fecha character(10) NOT NULL,
@@ -366,7 +366,7 @@ CREATE TABLE catpeluqueria
   servicio character(20) NOT NULL,
   nombre character(20) NOT NULL,
   precio integer,
-  descripcion character(160),
+  descripcion text,
   estado integer DEFAULT '0',
   CONSTRAINT catpeluqueria_pkey PRIMARY KEY (servicio, nombre)
 );
@@ -393,9 +393,9 @@ create table serviciospeluqueria(
 	nuevafecha date not null,
 	nuevahora time not null,
 	costo char(20),
-	descripcion CHAR(200),
+	descripcion text,
 	estado integer DEFAULT '0',
-	motivo character(200) DEFAULT 0,
+	motivo text DEFAULT 0,
 	constraint PK_peluqueriaServ primary key (mascotaNombre,hora,clienteRut,fecha,servicio,nuevahora,nuevafecha,nombre),
 	CONSTRAINT PK_catalogo FOREIGN KEY (servicio, nombre)
       REFERENCES catpeluqueria (servicio, nombre) MATCH SIMPLE
@@ -413,7 +413,7 @@ CREATE TABLE atencionalojamiento
   mascota character(30),
   canil int,
   fechaSalida date NOT NULL,
-  comentario character(500),
+  comentario text,
   diasEstadia int,
   eliminado boolean,
   estado integer DEFAULT '0',
@@ -426,7 +426,7 @@ CREATE TABLE atencionalojamiento
 create table control(
 	cliente character(9),
 	mascota character(30),
-	descripcion character(500),
+	descripcion text,
 	fecha date NOT NULL,
 	hora character(10) NOT NULL,
 	responsable character(30),
@@ -446,15 +446,15 @@ CREATE TABLE preoperatorio
 (
   rut character(9) NOT NULL,
   nombre character(50) NOT NULL,
-  observaciones character(50),
-  sintomas character(50),
-  diagnostico character(50),
+  observaciones text,
+  sintomas text,
+  diagnostico text,
   fecha character(10) NOT NULL,
   hora character(10) NOT NULL,
   responsable character(30),
   ayudante character(30),
   estado integer DEFAULT '0',
-  motivo character(200) DEFAULT 0,		
+  motivo text DEFAULT 0,		
   CONSTRAINT pk_preoperatorio PRIMARY KEY (rut, fecha, hora)
 );
 
@@ -491,8 +491,8 @@ CREATE TABLE avisoweb
   telefono character(20),
   celular0 character(4),
   celular character(20),
-  asunto character(50),
-  descripcion character(160),
+  asunto text,
+  descripcion text,
   estado integer DEFAULT '0',
   CONSTRAINT avisoweb_pkey PRIMARY KEY (nombre, id)
 );
@@ -513,7 +513,7 @@ CREATE TABLE producto
   precio character(20),
   categoria character(20),
   codigo character(20) NOT NULL,
-  descripcion character(50),
+  descripcion text,
   estado integer default 0,
   CONSTRAINT producto_pkey PRIMARY KEY (codigo)
 ); 
@@ -544,6 +544,6 @@ CREATE TABLE cirugiaobj
 (
 	nombre	CHAR(20) primary key,
 	precio  int,
-	descripcion CHAR(50)
+	descripcion text
 	
 );
