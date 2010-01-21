@@ -130,7 +130,7 @@
 				<mx:Label x="11.45" y="226" text="Veterinario:" width="128"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextArea x="399.7" y="45" height="141" width="333.55" id="diagnostico" text="{preoperatorios[dg.selectedIndex].diagnostico}"/>
+				<mx:TextArea x="399.7" y="45" height="141" width="333.55" id="diagnostico" text="{preoperatorios.getItemAt(dg.selectedIndex).diagnostico}"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:Label x="399.7" y="20" text="Diagnóstico" width="78"/>
@@ -139,7 +139,7 @@
 				<mx:ComboBox x="134.95" y="224" id="veterinario" dataProvider="{dg.selectedItem.responsable}" width="160" enabled="false"></mx:ComboBox>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:ComboBox x="134.95" y="260" id="ayudante" width="160" dataProvider="{preoperatorios[dg.selectedIndex].ayudante}" enabled="false"></mx:ComboBox>
+				<mx:ComboBox x="134.95" y="260" id="ayudante" width="160" dataProvider="{preoperatorios.getItemAt(dg.selectedIndex).ayudante}" enabled="false"></mx:ComboBox>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:Button x="495.25" y="382" label="Guardar" width="87" click="{guardar()}"/>
@@ -160,7 +160,7 @@
 				<mx:ComboBox id="hora" x="134.45" y="300" dataProvider="{dg.selectedItem.hora}" labelField="hora" width="160" enabled="false"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextArea x="399.7" y="246" height="105" width="333.55" id="observaciones" text="{preoperatorios[dg.selectedIndex].observaciones}"/>
+				<mx:TextArea x="399.7" y="246" height="105" width="333.55" id="observaciones" text="{preoperatorios.getItemAt(dg.selectedIndex).observaciones}"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:Label x="399.7" y="220" text="Observaciones" width="93"/>

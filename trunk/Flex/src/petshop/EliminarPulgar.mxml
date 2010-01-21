@@ -26,7 +26,7 @@
 			private var pro:Producto= new Producto();
 			private var i:int;
 			
-			var ps:EliminarProductoService = new EliminarProductoService();
+			public var ps:EliminarProductoService = new EliminarProductoService();
 			
 			
 			
@@ -385,15 +385,15 @@
 			</mx:AddChild>
 			<mx:SetProperty target="{cancelar}" name="label" value="Volver"/>
 			<mx:AddChild position="lastChild">
-				<mx:Button x="427" y="370" label="Agregar" width="102" height="23" toolTip="Ir al registro para aumentar stock del producto" click="irARegistro()"/>
+				<mx:Button x="427" y="370" visible="false" label="Agregar" width="102" height="23" toolTip="Ir al registro para aumentar stock del producto" click="irARegistro()"/>
 			</mx:AddChild>
 			<mx:SetProperty target="{cancelar}" name="x" value="647"/>
 			<mx:SetProperty target="{cancelar}" name="y" value="370"/>
 			<mx:AddChild position="lastChild">
-				<mx:Text x="84" y="131" text="{dg.selectedItem.precio}" visible="true" width="166" id="precio"/>
+				<mx:Text x="84" y="131" text="{dg.selectedItem.precio}" visible="false" width="166" id="precio"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Text x="84" y="157" text="{dg.selectedItem.categoria}" visible="true" width="195" id="categoria"/>
+				<mx:Text x="84" y="157" text="{dg.selectedItem.categoria}" visible="false" width="195" id="categoria"/>
 			</mx:AddChild>
 		</mx:State>
 	</mx:states>
@@ -401,9 +401,9 @@
 	<mx:Label x="169" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="541.5" y="368" enabled="false" label="Eliminar" id="anularproduct" click="{anularVarios2()}"   toolTip="Anula todos los tipos de producto seleccionados" width="102" height="23"/>
 	<mx:Button x="651.5" y="368" label="Cancelar" id="cancelar" toolTip="Volver a Productos" click="{volver()}"  width="102" height="23"/>
-	<mx:CheckBox x="20.5" y="78" id="todo" click="{SeleccionarTodo()}"/>
-	<mx:Label x="42.5" y="78" text="Seleccionar todo" id="label1"/>
-	<mx:DataGrid x="20.5" y="114" width="718" height="244" id="dg" dataProvider="{productosActivos}" click="ver.enabled=true, Activar()" doubleClickEnabled="true" doubleClick="{pasarADetalle()}">
+	<mx:CheckBox x="20.5" y="31" id="todo" click="{SeleccionarTodo()}"/>
+	<mx:Label x="42.5" y="31" text="Seleccionar todo" id="label1"/>
+	<mx:DataGrid x="20.5" y="66" width="718" height="292" id="dg" dataProvider="{productosActivos}" click="ver.enabled=true, Activar()" doubleClickEnabled="true" doubleClick="{pasarADetalle()}">
 		<mx:columns>
 		<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" >
 			 	<mx:itemRenderer>
