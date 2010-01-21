@@ -254,6 +254,8 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
 		    	registrarPago.setVisible(false, false);
 		    	editarPago.setVisible(false,false);
 		        editarPago2.setVisible(false,false);
+		        
+		        repvent.setVisible(false, false);
 		 		<!--Autor: }Sebastian -->   
 		 		
 		 	    <!--Autor: Cristian{ -->
@@ -805,4 +807,6 @@ color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize
 		<mx:Text x="931" y="4" text=" " id="usuarioON" fontWeight="bold"/>
 	    <mx:Text x="880" y="4" text="Usuario:" id="usuarioON0" fontWeight="bold" visible="false"/>
 	    <mx:Label x="580" y="4" id="userX"  fontWeight="bold" width="410" textAlign="center"/>
+	    <ns7:ReporteVentas x="241" y="134" visible="false" id="repvent">
+	    </ns7:ReporteVentas>
 </mx:Application>
