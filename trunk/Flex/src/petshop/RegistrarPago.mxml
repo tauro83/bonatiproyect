@@ -130,7 +130,9 @@
 				}
 				else{
 					//siregistrado	
-					labelMessage.text = Properties.getMensaje("Informacion", "43");				
+					labelMessage.text = Properties.getMensaje("Informacion", "43");	
+					pagos.removeAll();
+					totalPago.costo.text = "$0";			
 				}
 			}
 			

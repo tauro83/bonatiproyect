@@ -164,8 +164,8 @@
 	<fc:AutoComplete id="inputNombreMas" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="nombreMascota" visible="false"/>
 	<fc:AutoComplete id="inputRaza" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="raza" visible="false"/>
 	<fc:AutoComplete id="inputSexo" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="sexo" visible="false"/>
-	<fc:AutoComplete id="inputNombreCliente" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="nombre" visible="false"/>
-    <fc:AutoComplete id="inputApellidoPaterno" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="apellidoPaterno" visible="false"/>
+	<fc:AutoComplete id="inputNombreCliente" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="nombreCliente" visible="false"/>
+    <fc:AutoComplete id="inputApellidoPaterno" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="apellido" visible="false"/>
 	<fc:AutoComplete id="inputRut" x="584" y="8" width="150" dataProvider="{atenciones}" labelField="clienterut" visible="false"/>
 	
 
