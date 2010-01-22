@@ -296,7 +296,7 @@
 				var message:String= event.result as String;	
 				var msj:String = "";
 				if(message=="1"){
-					msj = nombre.text + " "+ apellido.text+Properties.getMensaje("Informacion", "3");
+					msj = Properties.getMensaje("Informacion", "3");
 				 	limpiarTodo(); 					
     		 	}
     		 	
@@ -561,13 +561,13 @@
 			private function changeData():void
 			{
 			
-			if(Check.selectedValue=="Antiguo"){
+			if(Check.selectedValue=="Inválido"){
 	 		   c="TRUE";	
 	 		   valor=1;		  
 	 		}
 			
 				
-			if(Check.selectedValue=="Nuevo"){
+			if(Check.selectedValue=="Valido"){
 				valor=2;		
 	 		}	 		
 	 		
@@ -1078,8 +1078,8 @@
 	</mx:Button>	
 	<mx:Label id="labelMessage" x="176" y="399" width="407" textAlign="center" fontWeight="bold" height="17"/>
 	<mx:RadioButtonGroup id="Check" change="changeData()"/>
-	<mx:RadioButton x="143" y="93" label="Nuevo" groupName="Check" />
-	<mx:RadioButton x="143" y="119" label="Antiguo" groupName="Check"/>
+	<mx:RadioButton x="143" y="93" label="Valido" groupName="Check" />
+	<mx:RadioButton x="143" y="119" label="Inválido" groupName="Check"/>
 
 
 	
