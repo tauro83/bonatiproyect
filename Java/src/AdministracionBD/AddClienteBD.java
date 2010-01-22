@@ -57,7 +57,7 @@ public class AddClienteBD {
 		if(c.celular.trim().equals("")){
 			insert.setNull(3, 0);
 		}else{
-			insert.setInt(3,Integer.parseInt(c.celular+c.telefono2));
+			insert.setInt(3,Integer.parseInt(c.celular+c.celular2));
 		}
 		insert.setString(4, c.nombre);
 		insert.setString(5, c.apellido);
