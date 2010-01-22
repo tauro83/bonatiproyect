@@ -346,4 +346,10 @@
            			<source>Petshop.EliminarProductoService	</source>
            	</properties>
     	</destination>
+
+	<destination id="ReporteVentaService">
+           	<properties>
+           			<source>Petshop.ReporteVentaService</source>
+           	</properties>
+    	</destination>
 </service>
