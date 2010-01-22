@@ -567,7 +567,7 @@
 	 		}
 			
 				
-			if(Check.selectedValue=="Valido"){
+			if(Check.selectedValue=="Válido"){
 				valor=2;		
 	 		}	 		
 	 		
@@ -1078,7 +1078,7 @@
 	</mx:Button>	
 	<mx:Label id="labelMessage" x="176" y="399" width="407" textAlign="center" fontWeight="bold" height="17"/>
 	<mx:RadioButtonGroup id="Check" change="changeData()"/>
-	<mx:RadioButton x="143" y="93" label="Valido" groupName="Check" />
+	<mx:RadioButton x="143" y="93" label="Válido" groupName="Check" />
 	<mx:RadioButton x="143" y="119" label="Inválido" groupName="Check"/>
 
 
