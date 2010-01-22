@@ -233,6 +233,9 @@ public class anularPreoperatorioBD {
 	    		ResultSet result = selectAllVacunaciones.executeQuery();
 	    		while(result.next())
 	    		{  
+	    			if(!result.getString(10).trim().equals("0")){
+	    				
+	    			
 	    			vacu = new anuPreoperatorio();
 	    			
 	    			vacu.setRutCliente(result.getString(1).trim());	
@@ -256,7 +259,12 @@ public class anularPreoperatorioBD {
 	    				h=v.substring(i,i+1);
 	    			}
 	    			
-	    			vacu.setFechaA(palabra);
+	    			int estado2 = vacu.getEstado();
+	    			
+	    			if(estado2==2){
+	    				vacu.setFechaA(palabra);	
+	    			}
+	    			
 	    			
 	    			h=v.substring(i+1,i+2);
 	    			palabra="";
@@ -281,7 +289,7 @@ public class anularPreoperatorioBD {
 	    			palabra=palabra+h;
 	    			vacu.setMotivo(palabra);
 	    			
-	    			int estado2 = vacu.getEstado();
+	    			estado2 = vacu.getEstado();
 	    			
 	    			/**
 	    			 * Esta condicción se encarga de buscar todos los registro de peluquería 
@@ -292,6 +300,7 @@ public class anularPreoperatorioBD {
 	    				
 	    				vacunaciones.add(vacu);
 	    			}
+	    		}
 	    		}
 			} 
 	    	catch (SQLException e) 

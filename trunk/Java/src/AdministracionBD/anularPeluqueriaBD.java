@@ -366,7 +366,9 @@ public class anularPeluqueriaBD {
 	    		ResultSet result = selectAllVacunaciones.executeQuery();
 	    		while(result.next())
 	    		{  
+	    			if(!result.getString(10).trim().equals("0")){
 	    				
+	    			
 	    			vacu = new anuPeluqueria();
 	    			
 	    			vacu.setRutCliente(result.getString(1).trim());
@@ -426,6 +428,7 @@ public class anularPeluqueriaBD {
 	    				
 	    				vacunaciones.add(vacu);
 	    			}
+	    		}
 	    		}
 			} 
 	    	catch (SQLException e) 
