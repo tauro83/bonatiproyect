@@ -111,6 +111,8 @@
 					edicionRutClienteInput.text = s.substring(0,s.length-1);
 					edicionRutClienteDVInput.text = s.charAt(s.length-1);
 					
+					diagC.text = "";
+					
 					edicionNombreMascotaInput.text = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
 					labelMessage.text = Properties.getMensaje("Advertencia", "31");
 					
@@ -219,7 +221,23 @@
 			private function getDiagnosticosResult(event:ResultEvent):void{
 				diagnosticos = event.result as ArrayCollection;
             	tablaDiagnosticos.dataProvider = diagnosticos;
-            	listaCirugias = diagnosticos;
+            	
+            	
+            	
+            	
+            	//listaCirugias = diagnosticos;
+            	
+            	for(var i:int = 0; i < diagnosticos.length; i++){
+            		var s:String = diagnosticos.getItemAt(i).tipoCir;
+            		if (!listaCirugias.contains(s)){
+            			listaCirugias.addItem(s);
+            		}
+            	}
+            	
+            	
+            	
+            	
+            	
             	listaCirugias.removeItemAt(listaCirugias.length-1);
 			} 
 			/**
@@ -397,7 +415,7 @@
 		<mx:Label x="10" y="61.85" text="Cirugía:" width="110" fontWeight="bold"/>
 		<mx:Label x="10" y="164" text="Diagnósticos:" width="110" fontWeight="bold"/>
 		<mx:Label x="24.55" y="84.85" text="Cirugía:" width="63.4" height="17.931034"/>
-		<mx:ComboBox x="133" y="82.85" width="158.25" id="cirugiasBox" dataProvider="{listaCirugias}" labelField="tipoCir"></mx:ComboBox>
+		<mx:ComboBox x="133" y="82.85" width="158.25" id="cirugiasBox" dataProvider="{listaCirugias}"></mx:ComboBox>
 		<mx:TextArea x="459.45" y="82.85" width="265.55" height="89.95" id="diagC"/>
 		<mx:Label x="9.95" y="10" text="Mascota:" width="127" fontWeight="bold"/>
 		<mx:Label x="24.55" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
