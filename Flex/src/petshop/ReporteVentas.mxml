@@ -10,7 +10,9 @@
 	 	public var reportes:ArrayCollection = new ArrayCollection();
 	 	
 		
-		public function iniciarPanel():void{         		
+		public function iniciarPanel():void{
+			fechaFin.selectedDate = new Date();
+			getReporteVenta(new Date(), fechaFin.selectedDate);        		
         }
 		 
 		 public function getReporteVenta(fechaInicio:Date, fechaFin:Date):void{

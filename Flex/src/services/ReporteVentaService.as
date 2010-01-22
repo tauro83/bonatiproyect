@@ -49,7 +49,7 @@ package services
 	 	 * 	@param event Evento de posible error en comunicacion con capa 2	 		
 		 * */
 		private function faultHandler(event:FaultEvent):void{
-			Alert.show("Error en BitacoraCitaService, Detalle: "+event.fault.message);
+			Alert.show("Error en ReporteVentaService, Detalle: "+event.fault.message);
 		}
 		/**
 		 * Metodo que solicita a la capa 2 los datos de todos las mascotas
