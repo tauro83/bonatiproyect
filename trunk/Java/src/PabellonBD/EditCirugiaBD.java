@@ -41,7 +41,8 @@ public class EditCirugiaBD
 		{
 			String query="";
 			query = "SELECT costo, fecha, responsable, hora, mascotanombre, clienterut, ayudante "+
-					"FROM cirugia;";
+					"FROM cirugia " +
+					"WHERE estado = '0';";
 			//Consulta a Base de Datos			
 			select = connection.prepareStatement(query);
 			
