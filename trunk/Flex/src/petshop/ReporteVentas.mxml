@@ -53,8 +53,9 @@
 			<mx:DataGrid x="25" y="82" width="711" id="Tabla" enabled="true" height="266" dataProvider="{reportes}">
 				<mx:columns>
 					<mx:DataGridColumn width="70" headerText="Codigo" dataField="codigo" draggable="false"/>
+					<mx:DataGridColumn width="70" headerText="Nombre" dataField="nombreProducto" draggable="false"/>
 					<mx:DataGridColumn width="80" headerText="Unidades" dataField="unidades" draggable="false"/>
-					<mx:DataGridColumn width="100" headerText="Fecha" dataField="fecha" draggable="false">
+					<mx:DataGridColumn width="100" headerText="Fecha Reporte" dataField="fecha" draggable="false">
 						<mx:itemRenderer>
 				          <mx:Component>
 				               <mx:VBox>
