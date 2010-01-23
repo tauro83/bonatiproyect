@@ -49,7 +49,7 @@
 			 	sintomas.text        = "";
 			 	diagnostico.text     = "";
 			    responsable.text     = "";
-			    ayudante.text        = "";
+//			    ayudante.text        = "";
 			 	observaciones.text   = "";
 			 	fechaPre.text		 = "";
 			 	getAllUsuarios();
@@ -117,7 +117,7 @@
 					pacotilla = mascotilla;
 				    sintomas.text        = "";
 				    responsable.text     = "";
-				    ayudante.text       = "";
+//				    ayudante.text       = "";
 				    diagnostico.text     = "";
 				    //esto no se edita, solo muestra los datos de la mascota y del cliente
 				    nombre.text 	= mascotilla.nombre;
@@ -139,7 +139,7 @@
 			private function iniListener2():Boolean
 			{
 				var aux:Boolean=false;
-				if(sintomas.text== "" || fechaPre.text== "" || responsable.text== "" || ayudante.text== "" || diagnostico.text== "" || observaciones.text== ""){
+				if(sintomas.text== "" || fechaPre.text== "" || responsable.text== "" || diagnostico.text== "" || observaciones.text== ""){
 				     aux=false;
 				}
 				else{
@@ -178,7 +178,7 @@
 					preope.diagnostico     = diagnostico.text;
 					preope.fecha		   = fechaPre.text;
 				    preope.responsable     = responsable.text;
-				    preope.ayudante        = ayudante.text;
+				    //preope.ayudante        = ayudante.text;
 				   
 				    
 				    
@@ -204,14 +204,14 @@
 			   var message:String= event.result as String;
 			   if(message == "0")
 			   {
-			   	  Application.application.panelClinicaIni.labelMessage.text ="El post operatorio ha sido ingresado exitosamente";
+			   	  Application.application.panelClinicaIni.labelMessage.text ="El Pre operatorio ha sido editado exitosamente";
 			   	  this.setVisible(false,false);			   	  
 			   	  Application.application.panelClinicaIni.setVisible(true,false);
 			     
 			   }
 			   else
 			   {
-			      Alert.show("no");
+			      Alert.show("Error conexión");
 			   }
 			}
 			
@@ -232,6 +232,7 @@
             {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
             {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]);
 			
+			/*
 			[Bindable]
             public var ayudantes:ArrayCollection = new ArrayCollection(
             [ {label:"Todos", data:1}, 
@@ -239,7 +240,7 @@
             {label:"Ayudante Peluquería"},
             {label:"Ayudante Hotelería"},
             {label:"Ayudante Cirugía"} ]);
-            
+            */
             
             [Bindable]
             public var razas:ArrayCollection = new ArrayCollection(
@@ -253,6 +254,8 @@
             {label:"Hembra"},
             ]);
             
+            //<mx:ComboBox x="133.55" y="347" id="ayudante" dataProvider="{ayudantes}" width="160"></mx:ComboBox>
+            
 
 		]]>
 	</mx:Script>
@@ -260,16 +263,15 @@
 	<mx:Label x="10" y="99" text="Sexo:" width="78"/>
 	<mx:Label x="9.95" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
 	<mx:Label x="10" y="63.85" text="Raza:" width="78"/>
-	<mx:Label x="10" y="178" text="Preoperatorio" width="115.55" fontWeight="bold"/>
-	<mx:Label x="10" y="349" text="Ayudante: " width="78"/>
-	<mx:Label x="9.95" y="204" text="Síntomas:" width="63.4" height="17.931034"/>
-	<mx:Label x="10.05" y="313" text="Veterinario:" width="128"/>
+	<mx:Label x="10" y="204" text="Preoperatorio" width="115.55" fontWeight="bold"/>
+	<mx:Label x="9.95" y="230" text="Síntomas:" width="63.4" height="17.931034"/>
+	<mx:Label x="10.05" y="339" text="Responsable:" width="128"/>
 	<mx:TextArea x="399.7" y="45" height="141" width="333.55" id="diagnostico"/>
 	<mx:Label x="399.7" y="20" text="Diagnóstico" width="78"/>
-	<mx:ComboBox x="133.55" y="347" id="ayudante" dataProvider="{ayudantes}" width="160"></mx:ComboBox>
+	
 	<mx:Button x="517.25" y="359" label="Guardar" width="87" click="{verificaEdicion()} "/>
 	<mx:Button x="625.55" y="359" label="Cancelar" width="91.4" click="{cancelarEditaCita()}"/>
-	<mx:TextArea x="133.55" y="192" height="61" id="sintomas"/>
+	<mx:TextArea x="133.55" y="218" height="61" id="sintomas"/>
 	<mx:TextInput x="133" y="31" id="nombre" editable="false"/>
 	<mx:TextInput x="133.55" y="139" id="fecha" editable="false" enabled="true"/>
 	<mx:Label x="10" y="141" text="Fecha nacimiento:" width="107.95"/>
@@ -277,9 +279,9 @@
 	<mx:TextInput x="133" y="61.85" id="raza" editable="false"/>
 	<mx:TextArea x="399.7" y="230" height="105" width="333.55" id="observaciones"/>
 	<mx:Label x="399.7" y="204" text="Observaciones" width="93"/>
-	<mx:Label x="10" y="274" text="Fecha           :" width="145"/>
-	<mx:DateField x="133" y="272" width="115" id="fechaPre" editable="true" enabled="true"/>
-	<mx:ComboBox id="responsable" x="133" y="311" dataProvider="{usuarios2}" close="asignarResponsable(event)"></mx:ComboBox>
+	<mx:Label x="10" y="300" text="Fecha           :" width="145"/>
+	<mx:DateField x="133" y="298" width="115" id="fechaPre" editable="true" enabled="true"/>
+	<mx:ComboBox id="responsable" x="133" y="337" dataProvider="{usuarios2}" close="asignarResponsable(event)"></mx:ComboBox>
 	<mx:Label x="156" y="399" width="407" height="17" id="mensaje" textAlign="center" fontWeight="bold"/>
 	
 </mx:Panel>
