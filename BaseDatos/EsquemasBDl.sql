@@ -515,8 +515,18 @@ CREATE TABLE producto
   codigo character(20) NOT NULL,
   descripcion text,
   estado integer default 0,
+  stock integer default 0,
   CONSTRAINT producto_pkey PRIMARY KEY (codigo)
 ); 
+
+CREATE TABLE productovendido
+(
+  codigo character(15) NOT NULL,
+  unidades integer,
+  precio integer,
+  fecha date,
+  CONSTRAINT productovendido_pkey PRIMARY KEY (codigo)
+);
 
 CREATE TABLE asuntowebaviso
 (
