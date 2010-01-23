@@ -23,7 +23,7 @@ import TransferObjects.Venta;
 public class ReporteVentaBD
 {
 
-	PreparedStatement selectbetween, selectmenor, selectmayor, selectall;
+	PreparedStatement selectbetween, selectmenor, selectmayor, selectall, consultarNombre;
 	Connection conn;
 	
 	
@@ -57,6 +57,12 @@ public class ReporteVentaBD
 			query = "SELECT codigo, unidades, precio, fecha " +
 					"FROM productoVendido;";
 			selectall = connection.prepareStatement(query);
+			
+			query = "SELECT nombre " +
+					"FROM producto " +
+					"WHERE codigo = ?;";
+			consultarNombre = connection.prepareStatement(query);
+			
 		} 
 		catch (SQLException e) 
 		{
@@ -67,12 +73,12 @@ public class ReporteVentaBD
 	 * @param fecha
 	 * @return Lista de DiaAgenda pertenecientes a la fecha
 	 */
-    public List getReporteVenta(Date fechaInicio, Date fechaFin)
+    public List<Venta> getReporteVenta(Date fechaInicio, Date fechaFin)
     {
 		//System.out.println("Fecha Inicio: "+fechaInicio.toString());
 		//System.out.println("Fecha Fin: "+fechaFin.toString());
 		
-    	List reportes=new ArrayList();
+    	List<Venta> reportes=new ArrayList<Venta>();
     	Venta venta;
     	
     	try 
@@ -116,6 +122,16 @@ public class ReporteVentaBD
     			venta.precio = result.getInt(3);
     			venta.fecha = result.getDate(4);
     			
+    			consultarNombre.setString(1, venta.codigo.trim());
+    			ResultSet result2 = consultarNombre.executeQuery();
+
+    			while(result2.next()){
+    				
+    				venta.nombreProducto = result2.getString(1);
+    				if (venta.nombreProducto == null){
+    					venta.nombreProducto = "Indefinido";
+    				}
+    			}    		
     			reportes.add(venta);
 
     		}
