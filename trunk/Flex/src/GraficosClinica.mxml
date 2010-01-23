@@ -16,12 +16,12 @@
 		import mx.events.CalendarLayoutChangeEvent;
 		import services.GetEstadisticasClinica;
 		import transferObjects.EstadisticasClinica;
-		import services.Mensajes;
+		import util.Properties;
 				
 		[Bindable]public var expenses:ArrayCollection ;
 		[Bindable]
 		private var titulo:String = "Estadísticas por rango de fecha para Clinica";
-		private var gep:GetEstadisticasClinica;
+		private var gec:GetEstadisticasClinica;
 		private var fechaActual:Date = new Date();
 
 		private function getEstadisticasR(event:ResultEvent):void
@@ -37,12 +37,11 @@
 			 *  @Descripcion realiza los set de fechas. Este metodo es llamado tras la accion
 			 *  de los cambios de rangos en las opciones de visualizar la estadistica.	
 			 * */
-		private function changeData():void
-		{
+		private function changeData():void{
 			if(fechaIni.selectedDate!=null && fechaFin.selectedDate!=null){
 				if(fechaIni.selectedDate.getTime()<=fechaFin.selectedDate.getTime()){
 					if(fechaIni.selectedDate.getTime()<fechaActual.getTime()){
-						 gep = new GetEstadisticasClinica();
+						 gec = new GetEstadisticasClinica();
 						var iDia:String		= fechaIni.selectedDate.getDate().toString();
 						var iMes:String		= (fechaIni.selectedDate.getMonth()+1).toString();
 						var iAnio:String	= fechaIni.selectedDate.getFullYear().toString();
@@ -52,30 +51,33 @@
 						//Alert.show(fechaActual.getTime().toString());
 	 					var inicio:String	= iAnio+"-"+iMes+"-"+iDia;
 	 					var fin:String		= fAnio+"-"+fMes+"-"+fDia;
-	 					gep.addEventListener(ResultEvent.RESULT,getEstadisticasR);
+	 					gec.addEventListener(ResultEvent.RESULT,getEstadisticasR);
 	 					
 	 					if(servicio.selectedValue=="Pabellón"){
-	 						gep.getEstadisticas(1,inicio,fin);
+	 						gec.getEstadisticas(1,inicio,fin);
 	 					}
 	 					if(servicio.selectedValue=="Policlínico"){
-	 						gep.getEstadisticas(2,inicio,fin);
+	 						gec.getEstadisticas(2,inicio,fin);
 	 					}
 	 					
 	 					
 						
 					     mens.text = "";  
-					}else
-					{
-						 mens.text = "Ingrese una fecha inicio anterior a la actual"; 
+					}
+					else{
+						//mensaje: fecha de inicio debe ser anterior a la actual
+						 mens.text = Properties.getMensaje("Advertencia", "15");
 					}
 				}
 				else{
-					mens.text = Mensajes.getMensajeError(7);
+					//mensaje: fecha de inicio debe ser anterior a la de fin
+					mens.text = Properties.getMensaje("Advertencia", "16");
 				}
 			}
 		}
 		]]>
 	</mx:Script>
+	<mx:DateFormatter id="formatDateTime" formatString="DD/MM/YYYY" />
 	<mx:SeriesInterpolate id="changeEffect" duration="2000"/>
 	<mx:Panel horizontalAlign="center" layout="absolute" title="{titulo}" width="779" height="466" borderColor="#15AD8F">
 		<mx:ColumnChart id="myChart" dataProvider="{expenses}"  height="316" width="540" x="209" y="36" showDataTips="true">
@@ -88,9 +90,9 @@
      	</mx:ColumnChart>
      		<mx:Legend horizontalAlign="right" dataProvider="{myChart}" width="199" x="550" y="10"/>
 			
-			<mx:DateField id="fechaIni"  x="89" y="36" width="112" change="changeData()"/>
+			<mx:DateField id="fechaIni"  x="89" y="36" width="112" change="changeData()" formatString="DD/MM/YYYY"/>				 
 			<mx:Label x="10" y="38" text="Inicio:" width="58"/>
-			<mx:DateField id="fechaFin"   x="89" y="67" width="112" change="changeData()"/>
+			<mx:DateField id="fechaFin"  x="89" y="67" width="112" change="changeData()" formatString="DD/MM/YYYY"/>
 			<mx:Label x="10" y="69" text="Término:" width="71"/>
 			<mx:Label x="10" y="10" text="Rango de fechas:"/>
 			<mx:Label x="10" y="108" text="Tipo de atención:"/>
