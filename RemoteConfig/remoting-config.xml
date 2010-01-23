@@ -347,9 +347,14 @@
            	</properties>
     	</destination>
 
-	<destination id="ReporteVentaService">
+		<destination id="ReporteVentaService">
            	<properties>
            			<source>Petshop.ReporteVentaService</source>
+           	</properties>
+    	</destination>
+    	<destination id="GetEstadisticasClinica">
+           	<properties>
+           			<source>Clinica.GetEstadisticasClinica</source>
            	</properties>
     	</destination>
 </service>
