@@ -113,8 +113,8 @@ public class ClienteEditDB
     			person.setApellido(result.getString(2).trim());
     			person.setApellido2(result.getString(3).trim());
     			person.setRut(result.getString(4).trim());
-    			person.setTelefono(result.getString(5).trim());
-    			person.setCelular(result.getString(6).trim());
+    			person.setTelefono(result.getString(5));
+    			person.setCelular(result.getString(6));
     			person.setDireccion(result.getString(7).trim());
     			person.setRegion(result.getString(8).trim());
     			person.setComuna(result.getString(9).trim());
