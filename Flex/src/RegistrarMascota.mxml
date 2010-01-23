@@ -311,6 +311,15 @@
 				if(buscadorCliente.rutClienteInput.text != ""){
 					buscarCliente(null);
 				}
+			}
+			/**
+			 * Funcion que inicia el calendario
+			 * 
+			 */  
+			public function iniciarCalendario():void{
+				fechaNacimientoInput.dayNames = ["D", "L", "M", "M", "J", "V", "S", "D"];
+				fechaNacimientoInput.monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+										 "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 			}	
         ]]>
     </mx:Script>
@@ -370,8 +379,8 @@
 		
 		<!-- OPCIONES PARA SUBIR IMAGEN -->
 	</mx:Canvas>
-	<mx:TextInput restrict="A-Z a-z -" x="96.75" y="99" width="209" id="nombreInput" maxChars="50" focusIn="analizar()"/>
-	<mx:DateField x="96.75" y="132" width="134" id="fechaNacimientoInput" formatString="DD/MM/YYYY"/>
+	<mx:TextInput restrict="A-Z a-z ñ Ñ" x="96.75" y="99" width="209" id="nombreInput" maxChars="50" focusIn="analizar()"/>
+	<mx:DateField x="96.75" y="132" width="134" id="fechaNacimientoInput" formatString="DD/MM/YYYY" yearNavigationEnabled="true" initialize="iniciarCalendario()"/>
 	<mx:ComboBox x="96.75" labelField="nombre" y="166" width="209" id="claseAnimalInput" close="selRazas(event);" dataProvider="{especies}">
 	</mx:ComboBox>
 	<mx:ComboBox x="427.25" y="164" width="229" id="razaInput" dataProvider="{razas}" labelField="nombre">
