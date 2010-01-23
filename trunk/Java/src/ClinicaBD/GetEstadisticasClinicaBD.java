@@ -35,8 +35,8 @@ public class GetEstadisticasClinicaBD {
 	 * @param inicio Fecha de inicio de estadistica
 	 * @param fin Fecha de fin de estadistica
 	 */
-	public List getEstadisticasBD(int tipo, String inicio,String fin) throws SQLException
-    {
+	public List getEstadisticasBD(int tipo, String inicio,String fin) throws SQLException{
+		
     	List atenciones=new ArrayList();
     	if(tipo==1){
     		String queryPreOperatorio =  "select count(*) from atencionpreoperatorio where fecha between '"+inicio+"' and '"+fin+"'";
