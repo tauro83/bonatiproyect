@@ -554,6 +554,6 @@ CREATE TABLE productovendido
   codigo character(15) NOT NULL,
   unidades integer,
   precio integer,
-  fecha date,
+  fecha date DEFAULT now(),
   CONSTRAINT productovendido_pkey PRIMARY KEY (codigo, fecha)
 );
