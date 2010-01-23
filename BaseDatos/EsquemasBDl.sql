@@ -547,3 +547,12 @@ CREATE TABLE cirugiaobj
 	descripcion text
 	
 );
+
+CREATE TABLE productovendido
+(
+  codigo character(15) NOT NULL,
+  unidades integer,
+  precio integer,
+  fecha date,
+  CONSTRAINT productovendido_pkey PRIMARY KEY (codigo, fecha)
+);
