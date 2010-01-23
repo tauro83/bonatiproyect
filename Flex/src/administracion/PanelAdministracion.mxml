@@ -181,8 +181,10 @@
           private function editarCliente():void
           {
           	
-          	Application.application.panelEditaCLi.limpiarTodo();
+          	
           	Application.application.setInvisible();
+          	Application.application.panelEditaCLi.limpiarTodo();
+          	
           	Application.application.AdmOpciones1.setVisible(true,false);
           	Application.application.panelEditaCLi.setVisible(true,false);
   	

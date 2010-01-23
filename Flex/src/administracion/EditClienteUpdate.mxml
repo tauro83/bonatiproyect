@@ -100,7 +100,7 @@
 					rut.text	  = list.pop();
 					
 					
-					
+					if(clienteSelec.telefono != null){
 					list2 = clienteSelec.telefono.split(" ",1);
 			   	    AuxcodCiudad = list2.pop();
 			        Aux2codCiudad= AuxcodCiudad;
@@ -109,9 +109,9 @@
 			   		
 					telefono.text  = codCiudad;
 					telefono2.text = telSolo;
+					}
 					
-					
-					
+					if(clienteSelec.celular != null){
 					list3     = clienteSelec.celular.split(" ",1);
 			        AuxcodCel = list3.pop();
 			        Aux2codCel= AuxcodCel;
@@ -120,12 +120,15 @@
 					
 					celular.text   = codCel;
 					celular2.text  = numCel;
+					}
+					
 					
 					direccion.text = clienteSelec.direccion;
 					region.text    = clienteSelec.region;
 					comuna.text    = clienteSelec.comuna;
 					email.text     = clienteSelec.email;
 					email2.text    = clienteSelec.email;	
+					
 			}
 			/**
 			 * @author  "Raul Lopez"
