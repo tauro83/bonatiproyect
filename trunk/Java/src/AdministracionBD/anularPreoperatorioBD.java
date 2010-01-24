@@ -36,7 +36,7 @@ public class anularPreoperatorioBD {
 			
 			query = "SELECT rut, " +
 					"nombre, " +
-					"hora, fecha, sintomas, estado, responsable, ayudante, observaciones, motivo " +
+					"hora, fecha, sintomas, estado, responsable, observaciones, motivo " +
 					"FROM preoperatorio;";
 			selectAllVacunaciones = connection.prepareStatement(query);
 			
@@ -90,9 +90,8 @@ public class anularPreoperatorioBD {
 	    			vacu.setSintomas(result.getString(5).trim());
 	    			vacu.setEstado(result.getInt(6));
 	    			vacu.setResponsable(result.getString(7).trim());
-	    			vacu.setAyudante(result.getString(8).trim());
-	    			vacu.setObservaciones(result.getString(9).trim());
-	    			vacu.setMotivo(result.getString(10).trim());
+	    			vacu.setObservaciones(result.getString(8).trim());
+	    			vacu.setMotivo(result.getString(9).trim());
 	    			
 	    			String rut2 = vacu.getNombreMascota().trim();
 	    			String rut3=vacu.getRutCliente().trim();
@@ -187,9 +186,8 @@ public class anularPreoperatorioBD {
 	    			vacu.setSintomas(result.getString(5).trim());
 	    			vacu.setEstado(result.getInt(6));
 	    			vacu.setResponsable(result.getString(7).trim());
-	    			vacu.setAyudante(result.getString(8).trim());
-	    			vacu.setObservaciones(result.getString(9).trim());
-	    			vacu.setMotivo(result.getString(10).trim());
+	    			vacu.setObservaciones(result.getString(8).trim());
+	    			vacu.setMotivo(result.getString(9).trim());
 	    			
 	    			String rut2 = vacu.getNombreMascota().trim();
 	    			int estado2 = vacu.getEstado();
@@ -233,7 +231,7 @@ public class anularPreoperatorioBD {
 	    		ResultSet result = selectAllVacunaciones.executeQuery();
 	    		while(result.next())
 	    		{  
-	    			if(!result.getString(10).trim().equals("0")){
+	    			if(!result.getString(9).trim().equals("0")){
 	    				
 	    			
 	    			vacu = new anuPreoperatorio();
@@ -245,10 +243,10 @@ public class anularPreoperatorioBD {
 	    			vacu.setSintomas(result.getString(5).trim());
 	    			vacu.setEstado(result.getInt(6));
 	    			vacu.setResponsable(result.getString(7).trim());
-	    			vacu.setAyudante(result.getString(8).trim());
-	    			vacu.setObservaciones(result.getString(9).trim());
+	    			vacu.setObservaciones(result.getString(8).trim());
+	    			vacu.setMotivo(result.getString(9).trim());
 	    			
-	    			String v=result.getString(10).trim();
+	    			String v=result.getString(9).trim();
 	    			int i=0;
 	    			String h=v.substring(0,1);
 	    			String palabra="";
