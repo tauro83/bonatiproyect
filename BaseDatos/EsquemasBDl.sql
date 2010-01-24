@@ -37,6 +37,7 @@ drop table asuntowebaviso cascade;
 drop table comuna cascade;
 drop table bitacora2 cascade;
 drop table cirugiaobj cascade;
+drop table productovendido cascade;
 
 CREATE TABLE usuario
 (
