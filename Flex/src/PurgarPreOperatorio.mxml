@@ -216,10 +216,9 @@
                         </mx:Component>
              	</mx:itemRenderer>
             </mx:DataGridColumn>		
-			<mx:DataGridColumn width="100" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
-			<mx:DataGridColumn width="100" headerText="Ayudante" dataField="ayudante" id="ayudante" draggable="false"/>
-			<mx:DataGridColumn width="200" headerText="Sintomas" dataField="sintomas" id="sintomas" draggable="false"/>
-			<mx:DataGridColumn width="70" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
+			<mx:DataGridColumn width="120" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
+			<mx:DataGridColumn width="220" headerText="Sintomas" dataField="sintomas" id="sintomas" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
 			<mx:DataGridColumn width="90" headerText="Fecha" dataField="fecha" id="fecha" draggable="false"/>
 			<mx:DataGridColumn width="130" headerText="Observaciones" dataField="observaciones" id="observaciones" draggable="false"/>		
 		</mx:columns>
