@@ -505,7 +505,7 @@ CREATE TABLE raza
   CONSTRAINT pk_raza PRIMARY KEY (nombre, especie),
   CONSTRAINT raza_especie_fkey FOREIGN KEY (especie)
       REFERENCES especie (nombre) MATCH FULL
-      ON UPDATE CASCADE ON DELETE RESTRICT
+      ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE producto
