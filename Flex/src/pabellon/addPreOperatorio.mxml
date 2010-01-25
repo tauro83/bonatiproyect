@@ -280,7 +280,7 @@
 	<mx:TextArea x="399.7" y="230" height="105" width="333.55" id="observaciones"/>
 	<mx:Label x="399.7" y="204" text="Observaciones" width="93"/>
 	<mx:Label x="10" y="300" text="Fecha           :" width="145"/>
-	<mx:DateField x="133" y="298" width="115" id="fechaPre" editable="true" enabled="true"/>
+	<mx:DateField x="133" y="298" width="115" id="fechaPre" editable="true" enabled="true" formatString="DD/MM/YYYY"/>
 	<mx:ComboBox id="responsable" x="133" y="337" dataProvider="{usuarios2}" close="asignarResponsable(event)"></mx:ComboBox>
 	<mx:Label x="156" y="399" width="407" height="17" id="mensaje" textAlign="center" fontWeight="bold"/>
 	
