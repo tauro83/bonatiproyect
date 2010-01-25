@@ -101,33 +101,54 @@
 					
 					
 					if(clienteSelec.telefono != null){
-					list2 = clienteSelec.telefono.split(" ",1);
-			   	    AuxcodCiudad = list2.pop();
-			        Aux2codCiudad= AuxcodCiudad;
-			        codCiudad    = AuxcodCiudad.slice(0,2);//
-			   		telSolo      = Aux2codCiudad.slice(2,8);//
+					  
+					  if(clienteSelec.telefono == "0"){
+					    telefono.text  = " ";
+					    telefono2.text = " ";
+					  }
+					  else{
+					    list2 = clienteSelec.telefono.split(" ",1);
+			   	        AuxcodCiudad = list2.pop();
+			            Aux2codCiudad= AuxcodCiudad;
+			            codCiudad    = AuxcodCiudad.slice(0,2);
+			   		    telSolo      = Aux2codCiudad.substr(2,Aux2codCiudad.length);
 			   		
-					telefono.text  = codCiudad;
-					telefono2.text = telSolo;
+			   		
+					    telefono.text  = codCiudad;
+					    telefono2.text = telSolo;
+					  }
 					}
 					
 					if(clienteSelec.celular != null){
-					list3     = clienteSelec.celular.split(" ",1);
-			        AuxcodCel = list3.pop();
-			        Aux2codCel= AuxcodCel;
-			        codCel    = AuxcodCel.charAt(0);
-			        numCel    = Aux2codCel.slice(1,8);
+					 
+					  if(clienteSelec.celular == "0"){
+					  	celular.text   = " ";
+					    celular2.text  = " ";
+					  
+					  }
+					  else{
+					    list3     = clienteSelec.celular.split(" ",1);
+			            AuxcodCel = list3.pop();
+			            Aux2codCel= AuxcodCel;
+			            codCel    = AuxcodCel.slice(0,1);
+			            numCel    = Aux2codCel.substr(1,Aux2codCel.length);
 					
-					celular.text   = codCel;
-					celular2.text  = numCel;
+					    celular.text   = codCel;
+					    celular2.text  = numCel;
+					  }
 					}
 					
-					
-					direccion.text = clienteSelec.direccion;
+					if(clienteSelec.direccion != null){
+					   direccion.text = clienteSelec.direccion;
+					}
+			        
 					region.text    = clienteSelec.region;
 					comuna.text    = clienteSelec.comuna;
-					email.text     = clienteSelec.email;
-					email2.text    = clienteSelec.email;	
+					
+					if(clienteSelec.email != null){
+					   email.text     = clienteSelec.email;
+					   email2.text    = clienteSelec.email;	
+					}
 					
 			}
 			/**
@@ -169,14 +190,24 @@
 					clienteAuxEditado.apellido2 = apellido2.text;
 					clienteAuxEditado.rut       = rut.text;
 					rutete						= rut.text;
-					//clienteAuxEditado.rut2 	 	= rut2.text;
-					clienteAuxEditado.telefono  = telefono.text.concat(telefono2.text);
-					//clienteAuxEditado.telefono2 = telefono2.text;
-					clienteAuxEditado.celular   = celular.text.concat(celular2.text);
-					//clienteAuxEditado.celular2  = celular2.text;
+					
+					if(telefono.text != "" && telefono2.text != ""){
+					  clienteAuxEditado.telefono  = telefono.text.concat(telefono2.text);
+					}
+					else{
+					  clienteAuxEditado.telefono = "0";
+					}
+					if(celular.text != "" && celular2.text != "" ){
+					  clienteAuxEditado.celular   = celular.text.concat(celular2.text);
+					}
+					else{
+					  clienteAuxEditado.celular = "0";
+					}
+					
 					clienteAuxEditado.direccion = direccion.text;
 					clienteAuxEditado.region    = region.text;
 					clienteAuxEditado.comuna    = comuna.text;
+					
 					clienteAuxEditado.email     = email.text;
 					clienteAuxEditado.estado    = true;
 					//clienteAuxEditado.email2    = email2.text;	
@@ -247,10 +278,10 @@
 			private function iniListener2():Boolean
 			{
 				var aux:Boolean=false;
-				if(direccion.text== "" || email.text== "" || email2.text== "" || nombre.text == "" || apellido.text == "" || apellido2.text == ""){
-				   if(Validacion.longitudMinima(direccion.text)){
+				if(direccion.text== "" || nombre.text == "" || apellido.text == "" || apellido2.text == ""){
+				   //if(Validacion.longitudMinima(direccion.text)){
 				     aux=false;
-				   }
+				   //}
 				   
 				}
 				
@@ -277,40 +308,7 @@
 					mensaje.text = "Los email no coinciden, ingreselos nuevamente";
 				}
 			}
-		    /**
-			 * @author  "Raul Lopez"
-			 * @Fecha  20 Septiembre
-			 * @Funcion que valida la extensión del apellido del cliente
-			 */
-			private function validarApaterno(event:Event):void
-			{
-				if(Validacion.longitudMinima(apellido.text))
-				{
-					mensaje.text="";
-					
-				}
-				else
-				{
-					mensaje.text="Ingrese un Apellido mas largo";
-				}	
-			}//clienteModificado(), carga1()
-			/**
-			 * @author  "Raul Lopez"
-			 * @Fecha  20 Septiembre
-			 * @Funcion que valida la extensión del apellido materno del cliente
-			 */
-			private function validarAmaterno(event:Event):void
-			{
-				if(Validacion.longitudMinima(apellido2.text))
-				{
-					mensaje.text="";
-					
-				}
-				else
-				{
-					mensaje.text="Ingrese un Apellido mas largo";
-				}	
-			}
+		 
 			
 			/**
 			 * @author  "Raul Lopez"
@@ -804,11 +802,11 @@
 	<mx:Label x="169" y="275" text="-" textAlign="center"/>
 	<mx:Label x="20" y="226" text="Teléfono Fijo:" width="97"/>
 	<mx:TextInput  x="125" y="224" width="40" id="telefono" enabled="true" maxChars="2"/>
-	<mx:TextInput restrict="0-9" x="190" y="224" width="136" id="telefono2" enabled="true" maxChars="10"/>
+	<mx:TextInput restrict="0-9" x="190" y="224" width="136" id="telefono2" enabled="true" maxChars="7"/>
 	<mx:Label x="20" y="275" text="Celular:" width="97"/>
-	<mx:TextInput  restrict="0-9" x="125" y="273" width="40" id="celular" enabled="true" maxChars="1"/>
+	<mx:TextInput  restrict="0-9" x="125" y="273" width="40" id="celular" enabled="true" maxChars="2"/>
 	<mx:Label x="169" y="226" text="-" textAlign="center"/>
-	<mx:TextInput restrict="0-9" x="190" y="273" width="136" id="celular2" enabled="true" maxChars="7"/>
+	<mx:TextInput restrict="0-9" x="190" y="273" width="136" id="celular2" enabled="true" maxChars="8"/>
 	<mx:Label x="413" y="30" text="Dirección:" width="97"/>
 	<mx:TextInput restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú 0-9" x="540" y="28" width="201" id="direccion" click="{iniListener()}" enabled="true" maxChars="200"/>
 	<mx:Label x="413" y="79" text="Región:" width="112"/>
