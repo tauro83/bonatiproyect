@@ -78,6 +78,7 @@ public class editarProductoBD {
 	    				vacu.setDescripcion(result.getString(1));
 	    			}
 	    			vacu.setPrecio(result.getString(2).trim());
+	    			
 	    			if(result.getString(3)!=null){
 	    				vacu.setCategoria(result.getString(3));	 
 	    			}
