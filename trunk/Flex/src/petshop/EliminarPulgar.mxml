@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="util.*" title="Eliminar Producto">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="util.*" title="Eliminar Producto" xmlns:fc="http://www.adobe.com/2006/fc" >
 	<mx:Script>
 		<![CDATA[
 			import mx.controls.List;
@@ -46,6 +46,66 @@
 		   		
 		   }
 		   
+		         /**
+			* Se hace visible el input correspondiente a la opción
+			* elegida en el combobox, las cuales pueden ser por el nombre,
+			* precio, categoría, descripción, codigo barra.
+			*/
+            private function seleccionarBusqueda (event:Event):void
+            {   
+            	inputNombreProducto.setVisible(false,false);
+				inputCategoria.setVisible(false,false);
+				inputPrecio.setVisible(false,false);
+				inputDescripcion.setVisible(false,false);
+				inputCodigoBarra.setVisible(false,false);
+				textBuscar.setVisible(true, false);
+				this.getProductosActivosTipo();
+				
+            	switch (combobox.selectedLabel)
+				{
+					
+			    /**
+			    * El usuario Selecciona la opción nombre producto
+			    */
+				case 'Nombre Producto':		
+					inputNombreProducto.setVisible(true,false);
+					inputNombreProducto.selectedItem=false;
+					
+				break; 
+				
+			    /**
+			    * El usuario Selecciona la opción categoría
+			    */
+				case 'Categoria':
+					inputCategoria.setVisible(true,false);
+					inputCategoria.selectedItem=false;
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opción precio
+			    */				
+				case 'Precio':
+					inputPrecio.setVisible(true,false);
+					inputPrecio.selectedItem=false;
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opción descripción
+			    */
+				case 'Descripcion':
+					inputDescripcion.setVisible(true,false);
+					inputDescripcion.selectedItem=false;
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opción código barra
+			    */
+				case 'Codigo Barra':
+					inputCodigoBarra.setVisible(true,false);
+					inputCodigoBarra.selectedItem=false;
+				break;
+				}
+            }
 		   
 		   
 		   public function getProductosInactivosTipo():void{
@@ -300,9 +360,50 @@
 				
 			}
 			
+			 /**
+			*  Corrige error de seleccionar el primero elemento del autocomplete
+			*  Del textInput del nombre, precio, código de barra, descripción
+			*  y categoría
+			* */
+		    public function Seleccionar(event:Event):void
+			{
+			    if(inputNombreProducto.selectedIndex==0)
+			    {
+			    	inputNombreProducto.text=inputNombreProducto.selectedLabel;
+			    }
+			    if(inputPrecio.selectedIndex==0)
+			    {
+			    	inputPrecio.text==inputPrecio.selectedLabel;
+			    }
+			    if(inputCategoria.selectedIndex==0)
+			    {
+			    	inputCategoria.text=inputCategoria.selectedLabel;
+			    }
+			    if(inputDescripcion.selectedIndex==0)
+			    {
+			    	inputDescripcion.text==inputDescripcion.selectedLabel;
+			    }
+			    if(inputCodigoBarra.selectedIndex==0)
+			    {
+			    	inputCodigoBarra.text=inputCodigoBarra.selectedLabel;
+			    }
+
+			}
+			
 		]]>
 	</mx:Script>
-	
+	<!-- Opciones de busqueda -->
+	<mx:ComboBox x="76" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccionar-"/>
+			<mx:Object label="Nombre Producto"/>
+			<mx:Object label="Categoria"/>
+			<mx:Object label="Codigo Barra"/> 
+			<mx:Object label="Descripcion"/> 
+			<mx:Object label="Precio"/> 
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
 	
 	<mx:states>
 		<mx:State name="PurgarRestaurar">
@@ -334,13 +435,17 @@
 		</mx:columns>
 				</mx:DataGrid>
 			</mx:AddChild>
+			<mx:RemoveChild target="{combobox}"/>
+			<mx:RemoveChild target="{textBuscar}"/>
+			<mx:RemoveChild target="{inputNombreProducto}"/>
+			<mx:RemoveChild target="{inputPrecio}"/>
+			<mx:RemoveChild target="{inputCategoria}"/>
+			<mx:RemoveChild target="{inputCodigoBarra}"/>
+			<mx:RemoveChild target="{inputDescripcion}"/>
 		</mx:State>
 		<mx:State name="VerDetalle">
 			<mx:SetProperty target="{label1}" name="y" value="174"/>
 			<mx:SetProperty target="{todo}" name="y" value="174"/>
-			<mx:AddChild position="lastChild">
-				<mx:Label x="20.5" y="10" text="Producto:" width="74" fontWeight="bold"/>
-			</mx:AddChild>
 			<mx:RemoveChild target="{ver}"/>
 			<mx:RemoveChild target="{dg}"/>
 			<mx:AddChild position="lastChild">
@@ -365,13 +470,13 @@
 				<mx:Label x="20" y="46" text="Nombre:" fontWeight="bold"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextInput x="82" y="44" text="{dg.selectedItem.nombre}" enabled="false" id="nombre"/>
+				<mx:TextInput x="82" y="44" text="{dg.selectedItem.nombre}" enabled="false" id="nombre" width="168"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:Label x="20" y="87" text="Cantidad:" fontWeight="bold"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextInput x="84" y="85" text="{dg.selectedItem.cantidad}" enabled="false" id="cant"/>
+				<mx:TextInput x="82" y="85" text="{dg.selectedItem.cantidad}" enabled="false" id="cant" width="168"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:Label x="342" y="44" text="Descripción:" fontWeight="bold" height="20"/>
@@ -395,15 +500,22 @@
 			<mx:AddChild position="lastChild">
 				<mx:Text x="84" y="157" text="{dg.selectedItem.categoria}" visible="false" width="195" id="categoria"/>
 			</mx:AddChild>
+			<mx:RemoveChild target="{combobox}"/>
+			<mx:RemoveChild target="{inputNombreProducto}"/>
+			<mx:RemoveChild target="{inputPrecio}"/>
+			<mx:RemoveChild target="{inputCategoria}"/>
+			<mx:RemoveChild target="{inputCodigoBarra}"/>
+			<mx:RemoveChild target="{inputDescripcion}"/>
+			<mx:RemoveChild target="{textBuscar}"/>
 		</mx:State>
 	</mx:states>
 		
 	<mx:Label x="169" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="541.5" y="368" enabled="false" label="Eliminar" id="anularproduct" click="{anularVarios2()}"   toolTip="Anula todos los tipos de producto seleccionados" width="102" height="23"/>
 	<mx:Button x="651.5" y="368" label="Cancelar" id="cancelar" toolTip="Volver a Productos" click="{volver()}"  width="102" height="23"/>
-	<mx:CheckBox x="20.5" y="31" id="todo" click="{SeleccionarTodo()}"/>
-	<mx:Label x="42.5" y="31" text="Seleccionar todo" id="label1"/>
-	<mx:DataGrid x="20.5" y="66" width="718" height="292" id="dg" dataProvider="{productosActivos}" click="ver.enabled=true, Activar()" doubleClickEnabled="true" doubleClick="{pasarADetalle()}">
+	<mx:CheckBox x="10" y="51" id="todo" click="{SeleccionarTodo()}"/>
+	<mx:Label x="32" y="51" text="Seleccionar todo" id="label1"/>
+	<mx:DataGrid x="20.5" y="77" width="718" height="281" id="dg" dataProvider="{productosActivos}" click="ver.enabled=true, Activar()" doubleClickEnabled="true" doubleClick="{pasarADetalle()}">
 		<mx:columns>
 		<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" >
 			 	<mx:itemRenderer>
@@ -414,11 +526,33 @@
             </mx:DataGridColumn>
 			<mx:DataGridColumn headerText="Cantidad" dataField="cantidad" width="80"/>
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre" width="120"/>
+			<mx:DataGridColumn headerText="Código" dataField="codigo" width="120"/>
 			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" />
 			<mx:DataGridColumn headerText="Precio" dataField="precio" width="70"/>
-			<mx:DataGridColumn headerText="Categoria" dataField="categoria" width="70"/>
+			<mx:DataGridColumn headerText="Categoría" dataField="categoria" width="70"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="431.5" y="368" label="Ver" visible="true"  width="102" id="ver" click="{pasarADetalle()}" height="23"/>
+	
+	<!-- AutoComplete -->
+	
+	<!-- Nombre Del Producto -->
+	<fc:AutoComplete id="inputNombreProducto" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productosActivos}"  labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda" />
+	
+	<!-- Precio -->
+	<fc:AutoComplete id="inputPrecio" close="Seleccionar(event)" x="599" y="8" width="150" dataProvider="{productosActivos}" labelField="precio" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Categoria -->
+	<fc:AutoComplete id="inputCategoria" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productosActivos}" labelField="categoria" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Codigo de Barra -->
+	<fc:AutoComplete id="inputCodigoBarra" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productosActivos}" labelField="codigo" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Descripcion -->
+	<fc:AutoComplete id="inputDescripcion" x="599" close="Seleccionar(event)" y="8" width="150" dataProvider="{productosActivos}" labelField="descripcion" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+	
+	
+	
 	
 </mx:Panel>
