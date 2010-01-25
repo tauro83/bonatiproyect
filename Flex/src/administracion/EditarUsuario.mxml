@@ -22,12 +22,17 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
 			import mx.core.Application;
+			import services.configuracionServices;
+			import mx.collections.ArrayCollection;
 			
-			[Bindable]
-			private var usuarios:ArrayCollection;
-			private var usuars:ArrayCollection;
-			private var usuars2:ArrayCollection;
-			public var newRegUsuar:EditUsuarioUpdate;
+			
+			[Bindable]private var usuarios:ArrayCollection;
+			[Bindable]private var usuars:ArrayCollection;
+			[Bindable]private var usuars2:ArrayCollection;
+			[Bindable]public var newRegUsuar:EditUsuarioUpdate;
+			[Bindable]private var cargos:ArrayCollection;
+			[Bindable]private var servicios:ArrayCollection;
+			private var confs:configuracionServices= new configuracionServices()
 					
 			/**
 		 	 * 	Metodo que obtiene los datos del datagrid, en el cual se muestran
@@ -82,6 +87,9 @@
 					listCont2 = newUsuario.apellidoMaterno.split(" ",1);
 					newRegUsuar.amat.text=listCont2.pop();	
 					
+					newRegUsuar.cargosE = this.cargos;
+					newRegUsuar.serviciosE = this.servicios;
+					
 					newRegUsuar.setVisible(true,false);
 
 				}
@@ -100,6 +108,8 @@
 			public function getAllUsuarios():void
 			{
 				labelMessage.text="";
+				cargarDatos();
+				cargarDatosSer();
 				newRegUsuar = Application.application.AdEditarUsuar3;
 				var personService:UsuarioEditService = new UsuarioEditService();
 				personService.addEventListener(ResultEvent.RESULT,getAllUsuariosEResult);
@@ -180,6 +190,47 @@
 			{
 				this.setVisible(false,false);
 				Application.application.panel2.setVisible(true,false);
+			}
+			
+			/** 
+			 *  Obtiene las especies desde el actionScript
+		 	 * 	@author  "Jimmy Muñoz"
+			 * */
+			public function cargarDatos():void
+			{	
+				var confs2:configuracionServices= new configuracionServices();
+				confs2.getConfiguraciones("Cargo");
+				confs2.addEventListener(ResultEvent.RESULT,cargarDatosCargosR);
+			}
+			
+			/** 
+			 *  Asigna el retorno del llamado de cargarDatos a un arrayCollection para mostrar las configuraciones
+		 	 * 	@author  "Jimmy Muñoz"
+			 * */
+			public function cargarDatosCargosR(event:ResultEvent):void
+			{
+				cargos = event.result as ArrayCollection;
+			}
+			
+			/** 
+			 *  Obtiene las especies desde el actionScript
+		 	 * 	@author  "Jimmy Muñoz"
+			 * */	 
+			 
+			public function cargarDatosSer():void
+			{
+				confs.getConfiguraciones("Servicio");
+				confs.addEventListener(ResultEvent.RESULT,cargarDatosSerR);
+			}
+			
+			/** 
+			 *  Asigna el retorno del llamado de cargarDatos a un
+			 *   arrayCollection para mostrar las configuraciones
+		 	 * 	@author  "Jimmy Muñoz"
+			 * */
+			public function cargarDatosSerR(event:ResultEvent):void
+			{
+				servicios = event.result as ArrayCollection;
 			}
 			
 		]]>
