@@ -46,14 +46,30 @@ public class PetshopBD {
 	public int regProductoBD(Producto person)
     {
 		String result = null;
+		
+		//Formateando parametros
+		
+		person.nombre = person.nombre.toUpperCase();
+		String codigo = "";
+		for(int i=0;i<13-person.codigo.length();i++){
+			codigo+="0";
+		}
+		codigo += person.codigo;
+		
+		String nombre =person.nombre;
+		for(int j=0;j<16-person.nombre.length();j++){
+			nombre+=" ";
+		}
+		
+		
 		try 
     	{
 			String prec =  person.precio.replace(".", "");
 			prec = prec.replace("$", "");
-			insert.setString(1, person.nombre);
+			insert.setString(1, nombre);
 			insert.setString(2, prec);
 			insert.setString(3, person.categoria);
-			insert.setString(4, person.codigo);
+			insert.setString(4, codigo);
 			insert.setString(5, person.descripcion);
 			
 			result=""+insert.executeUpdate();
