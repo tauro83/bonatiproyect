@@ -179,11 +179,11 @@
              * Borra columna de la tabla
              * */
            	private function deleteRow():void {
-			 Alert.show("Está seguro que desea purgar usuario ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			 Alert.show("Está seguro que desea purgar cliente ","Confirme eliminación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
 			}
 			
 			private function Reactivar():void {
-			 Alert.show("Está seguro que desea reactivar usuario ","Confirme la acción ", Alert.YES | Alert.NO, this, reacRowHandler, null, Alert.NO);
+			 Alert.show("Está seguro que desea reactivar cliente ","Confirme la acción ", Alert.YES | Alert.NO, this, reacRowHandler, null, Alert.NO);
 			}
             
           /**
