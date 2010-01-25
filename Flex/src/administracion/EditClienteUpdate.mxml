@@ -29,6 +29,8 @@
 		    import flash.events.*;
 		    import flash.net.FileReference;
 		    import flash.net.FileReferenceList;
+		    
+		    import services.Validaremail;
 			
 			private var u1:Cliente;
 			private var clienteAuxEditado:Cliente = new Cliente();;
@@ -80,6 +82,10 @@
 					var list2:Array = new Array();
 					var list3:Array = new Array();
 					
+					var list4:Array  = new Array();
+					var list5:Array = new Array();
+					var list6:Array = new Array();
+					
 					var AuxcodCiudad:String;
 					var Aux2codCiudad:String;
 					var codCiudad:String;
@@ -89,6 +95,11 @@
 					var Aux2codCel:String;
 					var codCel:String;
 					var numCel:String;
+					
+					var direc:String;
+					var mail:String;
+					var mail2:String;
+					var auxWa:String;
 				   
 				    list          = clienteSelec.nombre.split(" ",1);
 					nombre.text   = list.pop();
@@ -101,12 +112,7 @@
 					
 					
 					if(clienteSelec.telefono != null){
-					  
-					  if(clienteSelec.telefono == "0"){
-					    telefono.text  = " ";
-					    telefono2.text = " ";
-					  }
-					  else{
+					  	
 					    list2 = clienteSelec.telefono.split(" ",1);
 			   	        AuxcodCiudad = list2.pop();
 			            Aux2codCiudad= AuxcodCiudad;
@@ -116,17 +122,16 @@
 			   		
 					    telefono.text  = codCiudad;
 					    telefono2.text = telSolo;
-					  }
+					  
+					}
+					else{
+					
+						telefono.text  = "";
+					    telefono2.text = "";
 					}
 					
 					if(clienteSelec.celular != null){
 					 
-					  if(clienteSelec.celular == "0"){
-					  	celular.text   = " ";
-					    celular2.text  = " ";
-					  
-					  }
-					  else{
 					    list3     = clienteSelec.celular.split(" ",1);
 			            AuxcodCel = list3.pop();
 			            Aux2codCel= AuxcodCel;
@@ -135,19 +140,28 @@
 					
 					    celular.text   = codCel;
 					    celular2.text  = numCel;
-					  }
+					}
+					else{
+					  	celular.text   ="";
+					    celular2.text  ="";
 					}
 					
 					if(clienteSelec.direccion != null){
-					   direccion.text = clienteSelec.direccion;
+					
+						//list4     = clienteSelec.direccion.split(" ",1);
+			          //  direc = list3.pop();
+					    direccion.text = clienteSelec.direccion;
 					}
 			        
 					region.text    = clienteSelec.region;
 					comuna.text    = clienteSelec.comuna;
 					
 					if(clienteSelec.email != null){
-					   email.text     = clienteSelec.email;
-					   email2.text    = clienteSelec.email;	
+						
+					   //list5        = clienteSelec.email.split(" ",1);
+			           //mail         = list3.pop();
+					   email.text   = clienteSelec.email;
+					   email2.text  = clienteSelec.email;	
 					}
 					
 			}
@@ -191,18 +205,32 @@
 					clienteAuxEditado.rut       = rut.text;
 					rutete						= rut.text;
 					
-					if(telefono.text != "" && telefono2.text != ""){
-					  clienteAuxEditado.telefono  = telefono.text.concat(telefono2.text);
+					//clienteAuxEditado.telefono  = telefono.text.concat(telefono2.text);
+					//clienteAuxEditado.celular   = celular.text.concat(celular2.text);
+					
+					
+					
+					if( telefono.text == "" && telefono2.text == ""){
+						clienteAuxEditado.telefono =  "0";
+					    clienteAuxEditado.telefono2 = "0";
 					}
 					else{
-					  clienteAuxEditado.telefono = "0";
+						clienteAuxEditado.telefono =  telefono.text;
+					    clienteAuxEditado.telefono2 = telefono2.text;
+					
 					}
-					if(celular.text != "" && celular2.text != "" ){
-					  clienteAuxEditado.celular   = celular.text.concat(celular2.text);
+					if(celular.text == "" && celular2.text == ""){
+						clienteAuxEditado.celular   = "0";
+						clienteAuxEditado.celular2  = "0";
+						
+					}else{
+					    clienteAuxEditado.celular   = celular.text;
+						clienteAuxEditado.celular2  = celular2.text; 
 					}
-					else{
-					  clienteAuxEditado.celular = "0";
-					}
+					
+					
+					
+					
 					
 					clienteAuxEditado.direccion = direccion.text;
 					clienteAuxEditado.region    = region.text;
@@ -278,11 +306,9 @@
 			private function iniListener2():Boolean
 			{
 				var aux:Boolean=false;
-				if(direccion.text== "" || nombre.text == "" || apellido.text == "" || apellido2.text == ""){
+				if( nombre.text == "" || apellido.text == ""){
 				   //if(Validacion.longitudMinima(direccion.text)){
 				     aux=false;
-				   //}
-				   
 				}
 				
 				else{
@@ -819,11 +845,11 @@
 	<mx:TextInput x="539" y="175" width="201" id="email" enabled="true" maxChars="40"/>
 	<mx:Label x="413" y="226" text="Confirmación E-mail:" width="132"/>
 	<mx:TextInput x="539" y="224" width="201" id="email2" click="{iniListener()}" enabled="true" maxChars="40"/>
-	<mx:Button x="557" y="302" width="102" label="Cancelar" id="cancelarClienteIng" click="{cancela()}" height="23" cornerRadius="6">
+	<mx:Button x="632" y="353" width="102" label="Cancelar" id="cancelarClienteIng" click="{cancela()}" height="23" cornerRadius="6">
 	</mx:Button>
-	<mx:Button x="413" y="302" width="102" label="Guardar" id="guardaEditCliente" click="{verificaEdicion()}" height="23" cornerRadius="6">
+	<mx:Button x="522" y="353" width="102" label="Guardar" id="guardaEditCliente" click="{verificaEdicion()}" height="23" cornerRadius="6">
 	</mx:Button>
-	<mx:Label x="165" y="362" width="407" height="17" id="mensaje" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="165" y="399" width="407" height="17" id="mensaje" textAlign="center" fontWeight="bold"/>
 	
 	
 </mx:Panel>

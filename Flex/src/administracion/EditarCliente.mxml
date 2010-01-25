@@ -94,7 +94,7 @@
 			 *  Hace invisible a todos los elementos del componente
 			 *  @author  "Esteban Cruz"
 			 **/
-			private function limpiarTodo():void
+			public function limpiarTodo():void
             {
             	
             	combobox.selectedIndex=0;

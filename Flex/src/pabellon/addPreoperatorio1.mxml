@@ -263,14 +263,14 @@
 				
         ]]>
     </mx:Script>
-	<mx:Button x="635.75" y="369" label="Cancelar" width="84" id="cancelar" visible="true" click="{vuelve()}"/>
+	<mx:Button x="635.75" y="369" label="Volver" width="84" id="cancelar" visible="true" click="{vuelve()}"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="10" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
 	<mx:DataGrid id="dg" color="0x323232" width="681" rowCount="3" y="92" x="38.75" dataProvider="{mascotas}" doubleClickEnabled="true" itemDoubleClick="{seleccionarPreOpe(event)}" visible="true" height="269">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
-	        <mx:DataGridColumn dataField="claseAnimal" headerText="Tipo" width="100"/>
+	        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" width="100"/>
 	        <mx:DataGridColumn dataField="raza" headerText="Raza" width="100"/>
 	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
 	    </mx:columns>
