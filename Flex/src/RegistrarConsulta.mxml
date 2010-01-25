@@ -111,6 +111,7 @@
 					consul.rutClienteDVInput1.text=buscadorCliente.rutClienteDVInput.text;
 					this.setVisible(false,false);
 					consul.setVisible(true,false);
+					consul.getAllUsuarios();
 				}
 				else{
 					this.labelMessage.text="Seleccione una Mascota para registrar la consulta";
