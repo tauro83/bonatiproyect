@@ -96,6 +96,7 @@
             	combobox.selectedItem="-Seleccionar-";
             	textBuscar.setVisible(false,false);
             	this.productos = new ArrayCollection();
+            	mens.text= "";
           
             }
             
@@ -137,6 +138,7 @@
             		this.setVisible(false,false);            	 	
             		Application.application.editProducto2.setDatos(tablaProductos.selectedItem as Producto);
             		Application.application.editProducto2.setVisible(true,false);
+            		Application.application.editProducto2.mens.text = " ";
             	}
             }
             
@@ -184,7 +186,7 @@
     </mx:Script>
 	
 	<!-- Botón Visualizar -->
-	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarProductos(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarProductos(event)}" toolTip="Visualiza el producto seleccionado" width="102" height="23" cornerRadius="6"/>
 	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
 	<mx:Text x="10" y="10" id="textFiltrar" text="Filtrar por"/>
 	
@@ -231,5 +233,6 @@
 	
 	<!-- Descripcion -->
 	<fc:AutoComplete id="inputDescripcion" x="599" close="Seleccionar(event)" y="8" width="150" dataProvider="{productos}" labelField="descripcion" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	
 </mx:Panel>
