@@ -67,11 +67,12 @@
 				np.cantidad = 1;
 				np.nombre = producto.nombre;
 				np.precio = producto.precio;
-				np.subtotal = parseInt(producto.precio)*parseInt(np.cantidad);
+				np.subtotal = producto.precio;//np.subtotal = parseInt(producto.precio)*parseInt(np.cantidad);
 				
 				if(np.precio != null){
 					sumar();
 				}
+				
 				
 				pagos.refresh();
 				
@@ -135,6 +136,9 @@
 					totalPago.costo.text = "$0";			
 				}
 			}
+			private function ini():void{
+				totalPago.costo.editable=false;
+			}
 			
 	 ]]>
        
@@ -146,7 +150,7 @@
 			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" editable="false"/>
 			<mx:DataGridColumn visible="false" headerText="Cantidad" dataField="cantidad" width="70" editable="true" itemEditor="{numericStepperFac}" editorDataField="value"/>
 			<mx:DataGridColumn headerText="Precio" dataField="precio" width="70" editable="false"/>
-			<mx:DataGridColumn headerText="Subtotal" dataField="subtotal" width="70" editable="false"/>
+			<mx:DataGridColumn headerText="Subtotal" dataField="subtotal" width="70" editable="false" visible="false"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="19" y="19" text="Detalle Compra:" fontWeight="bold"/>
@@ -154,7 +158,7 @@
 	<mx:Button x="662" y="357" label="Cancelar" click="cancelar()"/>
 	<mx:Button x="590" y="357" label="Pagar" click="pagar()"/>
 	<mx:Label x="167" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<ns2:Precio x="575" y="327" width="162" id="totalPago">
+	<ns2:Precio x="575" y="327" width="162" id="totalPago" initialize="ini()">
 	</ns2:Precio>
 	
 </mx:Panel>
