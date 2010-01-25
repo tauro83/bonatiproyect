@@ -40,11 +40,23 @@ public class AddCirugiaService {
 		 * En este proceso se divide en nombre del veterinario y del ayudante para acceder a la base de
 		 * datos, para en los procesos posteriores procesar dicha informacion 
 		 */
+		int hasAyu;
 		this.getAllUsuariosE();
 		String nombreVet = nuevaCir.getVeterinario();
 		String nombres[] = nombreVet.split(" ");
-		String nombreAyu = nuevaCir.getAyudante();
-		String nombresa[] = nombreAyu.split(" ");
+		String nombreAyu;
+		String nombresa[];
+		if(nuevaCir.getAyudante()!= ""){
+			nombreAyu = nuevaCir.getAyudante();
+			nombresa = nombreAyu.split(" ");
+			hasAyu = 1;
+		}
+		else{
+			hasAyu = 0;
+			nombreAyu = "";
+			nombresa = null;
+		}
+		
 		
 		
 		int n = persons.size();
@@ -69,24 +81,29 @@ public class AddCirugiaService {
 			}
 		}
 		
-		/**
-		 * En este proceso se accede a la base de datos para obtener los id de los 
-		 * ayudantes, para almacenarlos en la base de datos. 
-		 */
-		for(int i=0;i<n;i++){
-			Usuario u = (Usuario) persons.get(i); 
+		if(hasAyu == 1){
 			/**
-			 * En este codigo se quitan los espacios en blancos que se obtienen de la base de datos
-			 */
-			String nombre = u.getNombre().trim();
-			String nombre2 = u.getApellidoPaterno().trim();
-			/**
-			 * En este codigo se comparan los datos obtenidos con los que llegan de la capa 1
-			 * para ver cual es el veterinario correspondiente.			
-			 */
-			if(nombre.equals(nombresa[0]) && nombre2.equals(nombresa[1])){
-				nuevaCir.setAyudante(u.getUsuario().trim());
+		 	* En este proceso se accede a la base de datos para obtener los id de los 
+		 	* ayudantes, para almacenarlos en la base de datos. 
+		 	*/
+			for(int i=0;i<n;i++){
+				Usuario u = (Usuario) persons.get(i); 
+				/**
+			 	* En este codigo se quitan los espacios en blancos que se obtienen de la base de datos
+			 	*/
+				String nombre = u.getNombre().trim();
+				String nombre2 = u.getApellidoPaterno().trim();
+				/**
+			 	* En este codigo se comparan los datos obtenidos con los que llegan de la capa 1
+			 	* para ver cual es el veterinario correspondiente.			
+			 	*/
+				if(nombre.equals(nombresa[0]) && nombre2.equals(nombresa[1])){
+					nuevaCir.setAyudante(u.getUsuario().trim());
+				}
 			}
+		}
+		else{
+			nuevaCir.setAyudante("");
 		}
 
 		int result=0;
