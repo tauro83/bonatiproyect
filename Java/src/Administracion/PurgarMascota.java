@@ -15,12 +15,12 @@ public class PurgarMascota {
 			e.printStackTrace();
 		}
 	}
-	public int purgarMascota(String rut, String nombre){
+	public int purgarMascota(String rut, String nombre, String usuario){
 		int result=0;
 		
 		try{			
 			PurgarMascotaDB mascotaDB= new PurgarMascotaDB(connection);
-			result= mascotaDB.purgarMascota(rut, nombre);	
+			result= mascotaDB.purgarMascota(rut, nombre, usuario);	
 			connection.close();
 			
 		}
