@@ -127,7 +127,7 @@
 			 var citaservices: citaServices = new citaServices();
 				citaservices.addEventListener(ResultEvent.RESULT,getMascotasResult);
 				citaservices.getMascotas(clienteRutname.rutClienteInput.text + clienteRutname.rutClienteDVInput.text);
-				
+			
 				
 			}
 			
@@ -143,6 +143,21 @@
 				listMascotas.labelField = 'nombre';
 			}
 			
+		
+		   public function iniciarPanel():void{
+     
+     		    clienteRutname.getAllClientes();
+     			clienteRutname.rutClienteInput.enabled = true;
+         		clienteRutname.rutClienteDVInput.enabled = true;
+         		clienteRutname.inputClienteNombre.enabled = true;
+         		clienteRutname.enabled = true;
+         		listMascotas.enabled = true;
+         		
+         		clienteRutname.rutClienteInput.text = "";
+         		clienteRutname.rutClienteDVInput.text = "";
+         		clienteRutname.inputClienteNombre.text = "";
+         		listMascotas.text = "";
+         	}
 		
        ]]>
        
