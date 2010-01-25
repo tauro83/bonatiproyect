@@ -42,8 +42,7 @@
 				//mens.text = "está registrando";			 
 				aviso               = new aviWeb();
 				aviso.id			= ultimoId + 1;
-				aviso.nombre        = nomb.text;
-				aviso.apaterno      = apaterno.text;
+				
 				aviso.telefono0		= fonoInput.telefono0.text;
 				aviso.telefono		= fonoInput.telefono.text;
 				aviso.celular0		= fonoInput.celular0.text;
@@ -95,7 +94,7 @@
 				var msj:String = "";
 				if(message=="1"){
 					msj = "Aviso Web No Fue registrado";
-				 	Application.application.editarAvisoList.labelMessage.text = nomb.text +" "+ apaterno.text +" Fue Registrado";
+				 	//Application.application.editarAvisoList.labelMessage.text = nomb.text +" "+ apaterno.text +" Fue Registrado";
 					resetVars(); 		
 				 	{cancelando()};		
     		 	}
@@ -116,8 +115,8 @@
 			 
 			public function resetVars():void
 			{				
-				nomb.text 		= "";
-				apaterno.text 		= "";
+				
+				
 				fonoInput.telefono0.text 		= "";
 				fonoInput.telefono.text 		= "";
 				fonoInput.celular0.text 		= "";
@@ -169,8 +168,7 @@
 				fonoInput.celular.x = 148;
 				fonoInput.telefono.x = 148;
 				
-				nomb.text 		= "";
-				apaterno.text 		= "";
+			
 				fonoInput.telefono0.text 		= "";
 				fonoInput.telefono.text 		= "";
 				fonoInput.celular0.text 		= "";
@@ -192,13 +190,9 @@
 				
 		]]>
 	</mx:Script> 
-	<mx:TextInput x="135" y="35" id="nomb" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" maxChars="20"/>
-	<mx:TextInput x="135" y="70" id="apaterno" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" maxChars="20"/>
 	<mx:TextArea x="135" y="265" height="68" width="599" toolTip="Descripción del aviso" id="descripcion" maxChars="160"/>
 	
 	<mx:Button  width="102" height="23" x="522" label="Registrar" click="{registrar()}" y="353" id="regCatalogo" enabled="true" toolTip="Registrar aviso"/>
-	<mx:Label x="25" y="35" text="Nombre:" width="69" />
-	<mx:Label x="25" y="70" text="Apellido Paterno:" width="104" />
 	<mx:Label x="25" y="266" text="Descripción:"/>
 	<mx:Label x="25" y="227" text="Asunto:"/>
 	<mx:Label x="25" y="10" text="Cliente:" fontWeight="bold" width="69"/>
@@ -206,9 +200,11 @@
 	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	<mx:Button x="632" y="353" width="102" label="Volver" id="cancelarCatalogo" click="cancelando()" height="23" cornerRadius="6" toolTip="Cancelar la edición de aviso">
 	</mx:Button>
-	<ns2:telefonoInput x="25" y="105" id="fonoInput">
+	<ns2:telefonoInput x="25" y="93" id="fonoInput">
 	</ns2:telefonoInput>
 	<mx:ComboBox x="135" y="225" width="211" id="asunto" dataProvider="{asuntos}"></mx:ComboBox>
+	<ns2:BuscadorNombreRut x="25" y="36">
+	</ns2:BuscadorNombreRut>
 	
 
 	
