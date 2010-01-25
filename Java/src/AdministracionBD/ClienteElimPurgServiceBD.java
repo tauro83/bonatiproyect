@@ -163,7 +163,7 @@ public class ClienteElimPurgServiceBD {
 	    			cliente.setEmail(result.getString(10));
 	    		//	cliente.setEmail2(result.getString(14));
 	    		//	cliente.setEstado(result.getBoolean(15));
-	    			System.out.println(cliente.getNombre());
+	    			
 	    			
 	    			clientes.add(cliente);
 	    		}
@@ -176,7 +176,7 @@ public class ClienteElimPurgServiceBD {
 	    }
 	    public List getClientesEliminados()
 	    {
-	    	System.out.println("LLEGO A CLIENTEEdit BD / getAllClienteE");
+	    	
 	    	List clientes=new ArrayList();
 	    	Cliente cliente;
 	    	try 
@@ -201,7 +201,7 @@ public class ClienteElimPurgServiceBD {
 	    			cliente.setEmail(result.getString(10));
 	    		//	cliente.setEmail2(result.getString(14));
 	    		//	cliente.setEstado(result.getBoolean(15));
-	    			System.out.println(cliente.getNombre());
+	    			
 	    			
 	    			clientes.add(cliente);
 	    		}

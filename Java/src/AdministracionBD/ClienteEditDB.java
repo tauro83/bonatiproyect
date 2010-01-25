@@ -64,19 +64,48 @@ public class ClienteEditDB
     	int result=0;
     	try 
     	{
+    		System.out.println(person.getNombre());
+    		System.out.println(person.getApellido());
+    		System.out.println(person.getApellido2());
+    		System.out.println(person.getRut());
+    		System.out.print(person.telefono+":telefono");
+    		System.out.print(person.celular+":celular");
+    		System.out.println(person.getDireccion());
+    		System.out.println(person.getRegion());
+    		System.out.println(person.getComuna());
+    		System.out.println(person.getEmail());
+    		
     		
     		insert.setString(1, person.getNombre());
 			insert.setString(2, person.getApellido());
 			insert.setString(3, person.getApellido2());
 			insert.setString(4, person.getRut());
-			insert.setInt(5, Integer.parseInt(person.telefono));	
-			insert.setInt(6, Integer.parseInt(person.celular));	
+			
+			
+			
+			if(person.telefono!="0"){
+				insert.setInt(5, Integer.parseInt(person.telefono+person.telefono2));	
+			}
+			else{
+				insert.setNull(5, 0);
+			}
+			
+			if(person.celular!="0"){
+				insert.setInt(6, Integer.parseInt(person.celular+person.celular2));	
+			}
+			else{
+				insert.setNull(6, 0);
+			}
+			//insert.setInt(6, Integer.parseInt(person.celular));	
+			
+			
 			insert.setString(7, person.getDireccion());
 			insert.setString(8, person.getRegion());
 			insert.setString(9, person.getComuna());
 			insert.setString(10, person.getEmail());
 			insert.setBoolean(11, person.estado);
 			insert.setString(12, rutillo);
+			
 			
 			Calendar cal = Calendar.getInstance();
 			int year = cal.get(Calendar.YEAR)-1900;
@@ -113,12 +142,16 @@ public class ClienteEditDB
     			person.setApellido(result.getString(2).trim());
     			person.setApellido2(result.getString(3).trim());
     			person.setRut(result.getString(4).trim());
+    			
     			person.setTelefono(result.getString(5));
     			person.setCelular(result.getString(6));
+    			
     			person.setDireccion(result.getString(7).trim());
     			person.setRegion(result.getString(8).trim());
     			person.setComuna(result.getString(9).trim());
+    			
     			person.setEmail(result.getString(10).trim());
+    			
  		
     			persons.add(person);
     		}
