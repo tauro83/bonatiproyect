@@ -36,7 +36,9 @@
 				 Application.application.setInvisible();
 				 this.visible = true;
 				 Application.application.editProducto.visible = true;	
-				 Application.application.editProducto.limpiarTodo();  			 
+				 Application.application.editProducto.limpiarTodo();
+				 Application.application.editProducto.cargarDatos();
+				  			 
 			}
 
 			public function verAnuPago():void

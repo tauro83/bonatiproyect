@@ -15,8 +15,13 @@
         import mx.collections.ArrayCollection;
         import transferObjects.Producto;
         import mx.core.Application;
-        import mx.rpc.events.ResultEvent;	
-    
+        import mx.rpc.events.ResultEvent;
+        import services.configuracionServices;
+        import transferObjects.Configuracion;
+			
+				
+    	[Bindable]private var servicios:ArrayCollection;		
+			
     	[Bindable]
 		private var vacunaciones:ArrayCollection;
 	
@@ -61,7 +66,28 @@
 				
 							
 		}
-		
+		/** 
+			 *  Obtiene las categorias desde el actionScript
+		 	 * 	@author  "Erwin Díaz"
+			 * */
+			public function cargarDatos():void
+			{
+				var confs:configuracionServices= new configuracionServices();
+				confs.getConfiguraciones("CatProd");
+				confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
+			}
+			
+			/** 
+			 *  Asigna el retorno del llamado de cargarDatos a un
+			 *   arrayCollection para mostrar las configuraciones
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
+			public function cargarDatosR(event:ResultEvent):void
+			{
+				servicios = event.result as ArrayCollection;
+				servicios.addItemAt("--Seleccione--",0);
+				cat.selectedIndex = 0;	
+			}
 		/**
 		 * Una vez modificado los dato y que se ha llama a la función que modifica 
 		 * los datos directamente en la base de datos, se muestra el mensaje
@@ -118,17 +144,11 @@
 	<mx:Label x="29" y="114" text="Precio:"/>
 	<mx:Label x="25" y="203" text="Descripción:"/>
 	<mx:TextArea x="123" y="202" id="des" maxChars="160" width="611" height="131"/>
-	<mx:Label x="29" y="159" text="Categoria:" width="69" />
+	<mx:Label x="29" y="159" text="Categoría:" width="69" />
 	<mx:Label x="27" y="30" text="Codigo barra:" width="88" />
 	<mx:TextInput x="123" y="28" id="cod" editable="false" enabled="true"/>
-	<mx:ComboBox x="125" y="157" id="cat">
-			<mx:ArrayCollection>
-			<mx:Object label="--Seleccione--" data="a"/>
-	        <mx:Object label="Alimento" data="b"/>
-	        <mx:Object label="Medicamento" data="c"/>
-	        <mx:Object label="Otro" data="d"/>
-		</mx:ArrayCollection>
-	</mx:ComboBox>
+	<mx:ComboBox x="125" y="157" id="cat" dataProvider="{servicios}"  labelField="nombre" width="158"/>
+
 	<ns1:Precio x="122" y="108" width="161" id="precio">
 	</ns1:Precio>
 	
