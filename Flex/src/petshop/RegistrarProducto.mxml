@@ -102,7 +102,7 @@
 
 		]]>
 	</mx:Script>
-	<mx:TextInput x="122" y="70" width="163" restrict="q w e r t y u i o p a s d f g h j k lz x c v b n m Q W E R T Y U I O P A S D F G H J K L Z X C V B N M" includeInLayout="true" id="nombre"  enabled="true" maxChars="17"/>
+	<mx:TextInput x="122" y="70" width="163" restrict="q w e r t y u i o p a s d f g h j k lz x c v b n m Q W E R T Y U I O P A S D F G H J K L Z X C V B N M" includeInLayout="true" id="nombre"  enabled="true" maxChars="15"/>
 	<mx:Label x="27" y="72" text="Nombre:" width="69" />
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="632" label="Cancelar" y="353" click="cancelar()"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="522" id="regist" label="Registrar" y="353" enabled="false" click="registrar()"/>
@@ -114,7 +114,7 @@
 	<mx:TextArea x="123" y="188" id="descripcion" maxChars="160" width="611" height="131"/>
 	<mx:Label x="27" y="150" text="Categoria:" width="69" />
 	<mx:Label x="27" y="35" text="Código barra:" width="88"  />
-	<mx:TextInput x="122" y="33" id="codBarra" restrict="0-9" width="163" maxChars="13"/>
+	<mx:TextInput x="122" y="33" id="codBarra" restrict="0-9" width="163" maxChars="12"/>
 	<mx:ComboBox x="123" y="148" id="categorias" close="activarBoton()" toolTip="Seleccione una categoría para continuar">
 		<mx:ArrayCollection>
 	         	<mx:Object label="--Seleccione--" data="a"/>
