@@ -38,6 +38,7 @@ drop table comuna cascade;
 drop table bitacora2 cascade;
 drop table cirugiaobj cascade;
 drop table productovendido cascade;
+drop table categproducto cascade;
 
 CREATE TABLE usuario
 (
@@ -557,4 +558,9 @@ CREATE TABLE productovendido
   precio integer,
   fecha date DEFAULT now(),
   CONSTRAINT productovendido_pkey PRIMARY KEY (codigo, fecha)
+);
+
+CREATE TABLE categproducto
+(
+  nombre character(30) NOT NULL
 );
