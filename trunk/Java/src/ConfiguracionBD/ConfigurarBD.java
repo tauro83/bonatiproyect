@@ -91,6 +91,9 @@ public class ConfigurarBD {
 		if(tipo.equals("ServPel")){
 			query = "SELECT nombre  FROM serviciopeluq;";
 		}
+		if(tipo.equals("CatProd")){
+			query = "SELECT nombre  FROM categproducto;";
+		}
 				
 		try 
     	{

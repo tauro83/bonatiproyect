@@ -10,10 +10,41 @@
 			import mx.core.Application;			
 			import util.Properties; 
 			import transferObjects.Producto;
+			import transferObjects.Configuracion;
 			import petshop.PetshopService;
 			import mx.rpc.events.ResultEvent;
+			import services.configuracionServices;
+			import mx.collections.ArrayCollection;   
+			
 			private var rprod:PetshopService;
 			private var producto:Producto;
+			[Bindable]private var servicios:ArrayCollection;		
+			
+			
+			/** 
+			 *  Obtiene las categorias desde el actionScript
+		 	 * 	@author  "Erwin Díaz"
+			 * */
+			public function cargarDatos():void
+			{
+				var confs:configuracionServices= new configuracionServices();
+				confs.getConfiguraciones("CatProd");
+				confs.addEventListener(ResultEvent.RESULT,cargarDatosR);
+			}
+			
+			/** 
+			 *  Asigna el retorno del llamado de cargarDatos a un
+			 *   arrayCollection para mostrar las configuraciones
+		 	 * 	@author  "Camilo Verdugo"
+			 * */
+			public function cargarDatosR(event:ResultEvent):void
+			{
+				servicios = event.result as ArrayCollection;
+				servicios.addItemAt("--Seleccione--",0);
+				categorias.selectedIndex = 0;	
+			}
+			 
+			
 			
 			/**
 		 	 *  Método que crea una instancia del transferObject catalogo,
@@ -112,15 +143,9 @@
 	</ns1:Precio>
 	<mx:Label x="27" y="189" text="Descripción:"/>
 	<mx:TextArea x="123" y="188" id="descripcion" maxChars="160" width="611" height="131"/>
-	<mx:Label x="27" y="150" text="Categoria:" width="69" />
+	<mx:Label x="27" y="150" text="Categoría:" width="69" />
 	<mx:Label x="27" y="35" text="Código barra:" width="88"  />
 	<mx:TextInput x="122" y="33" id="codBarra" restrict="0-9" width="163" maxChars="12"/>
-	<mx:ComboBox x="123" y="148" id="categorias" close="activarBoton()" toolTip="Seleccione una categoría para continuar">
-		<mx:ArrayCollection>
-	         	<mx:Object label="--Seleccione--" data="a"/>
-	         	<mx:Object label="Alimento" data="b"/>
-	         	<mx:Object label="Medicamento" data="c"/>
-	            <mx:Object label="Otro" data="d"/>
-	    </mx:ArrayCollection>
-	</mx:ComboBox>
+	<mx:ComboBox x="123" y="148" id="categorias" dataProvider="{servicios}"  labelField="nombre" close="activarBoton()" toolTip="Seleccione una categoría para continuar" width="160"/>
+		
 </mx:Panel>
