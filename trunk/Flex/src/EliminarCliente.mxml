@@ -358,6 +358,6 @@
 			<mx:Object label="Teléfono"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:Button x="387" y="342" label="Opciones Eliminación" width="145" height="23" id="button1" click="{verOpciones()}"/>
+	<mx:Button x="387" y="342" label="Opciones Eliminación" width="145" height="23" id="button1" click="{verOpciones()}" visible="false"/>
 	
 </mx:Panel>
