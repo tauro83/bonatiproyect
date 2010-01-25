@@ -159,7 +159,7 @@
 	<mx:TextArea x="133" y="223" height="80" width="514" id="indicaciones"/>
 	<mx:Label x="17" y="224" text="Indicaciones:" width="93"/>
 	<mx:Label x="17" y="152" text="Fecha:" width="78"/>
-	<mx:DateField x="133" y="150" width="160" id="fecha"/>
+	<mx:DateField x="133" y="150" width="160" id="fecha" formatString="DD/MM/YYY"/>
 	<ns1:Precio x="133" y="323" id="costo">
 	</ns1:Precio>
 	
