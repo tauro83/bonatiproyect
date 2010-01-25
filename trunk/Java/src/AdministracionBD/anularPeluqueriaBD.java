@@ -295,7 +295,6 @@ public class anularPeluqueriaBD {
 			setEstado.setString(4, nombreMascota);
 			setEstado.setString(5, hora);
 			setEstado.setString(6, nombreCatalogo);
-			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
 		 catch (SQLException e) {
