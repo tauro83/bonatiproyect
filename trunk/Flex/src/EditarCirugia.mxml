@@ -324,7 +324,19 @@
 				d.clienteRut = Tabla.selectedItem.clienteRut.split(" ",1).pop();
 				d.diagnostico = diagC.text;
 				d.mascotaNombre = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
-				d.nuevaFecha = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+				
+				var dia:String = date.getDate() + "";
+				var mes:String = date.getMonth() + "";
+				
+				if(date.getDate()<10){
+					dia = "0" + date.getDate();
+				}
+				if(date.getMonth()<10){
+					mes = "0" + (date.getMonth()+1);
+				}
+				
+				d.nuevaFecha = dia +"/"+ mes +"/"+ date.getFullYear();
+			
 				d.fecha = Tabla.selectedItem.fecha.split(" ",1).pop();
 				d.hora = Tabla.selectedItem.hora.split(" ",1).pop();
 				d.tipoCir = cirugiasBox.text;
@@ -398,6 +410,7 @@
 		<mx:ComboBox id="dg2" x="97" y="95" dataProvider="{mascotas}" width="207" change="buscarCirugias()" labelField="nombre"></mx:ComboBox>
 		<ns1:BuscadorNombreRut x="24" y="36" keyFocusChange="mascotasFiltrar()" mouseFocusChange="mascotasFiltrar()" id="buscadorCliente">
 		</ns1:BuscadorNombreRut>
+		<mx:DateField x="594" y="44" visible="false" id="fechaTrucha"/>
 	</mx:Canvas>
 	
 	<mx:Canvas x="0" y="0" width="759" height="426" visible="false" id="edicion">

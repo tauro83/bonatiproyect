@@ -110,11 +110,17 @@
 			 * */
 			 
 			 public function iniciar():void{
+			 	currentState="BusquedaRut";
 			 	buscadorCliente.getAllClientes();
 			 	
 			 	buscadorCliente.inputClienteNombre.text = "";
 			 	buscadorCliente.rutClienteDVInput.text = "";
 			 	buscadorCliente.rutClienteInput.text = "";
+			 	
+			 	buscadorCliente.inputClienteNombre.editable = true;
+			 	buscadorCliente.rutClienteDVInput.editable = true;
+			 	buscadorCliente.rutClienteInput.editable = true;
+			 	
 			 	labelMessage.text = "";
 			 	registrarNuevoControl.visible = false
 			 	mascotas = new ArrayCollection();
@@ -184,6 +190,12 @@
             public function nuevoControl():void{
             	//cambia de estado
             	currentState="NuevoControl";
+            	
+            	
+            	buscadorCliente.rutClienteDVInput.editable = false;
+            	buscadorCliente.rutClienteInput.editable = false;
+            	buscadorCliente.inputClienteNombre.editable = false;
+            	
             	//Consulta si se ha seleccionado un item de la tabla
             	if(datagrid1.selectedItem){
 					this.labelMessage.text="";
@@ -209,6 +221,9 @@
             	//formulario siguiente
             	if(currentState == "NuevoControl"){
             		currentState="BusquedaRut";
+            		buscadorCliente.inputClienteNombre.editable = true;
+				 	buscadorCliente.rutClienteDVInput.editable = true;
+				 	buscadorCliente.rutClienteInput.editable = true;
             	}
             	else{
             		//Cambia de este panel al panel que senaliza lo que se debe seleccionar para una nueva accion
@@ -224,6 +239,9 @@
 			 * */
             public function buscarPorRut():void{
             	currentState="BusquedaRut";
+        	    buscadorCliente.inputClienteNombre.editable = true;
+			 	buscadorCliente.rutClienteDVInput.editable = true;
+			 	buscadorCliente.rutClienteInput.editable = true;
             }
             /**
 		 	 * 	@author  "Sebastian Arancibia"
@@ -237,6 +255,10 @@
             	if(currentState == "BusquedaNombre"){
             		buscadorCliente.rutClienteInput.text = " ";
             		buscadorCliente.rutClienteDVInput.text = " ";
+            		
+            		buscadorCliente.inputClienteNombre.editable = true;
+				 	buscadorCliente.rutClienteDVInput.editable = true;
+				 	buscadorCliente.rutClienteInput.editable = true;
             	}
             	
             }
@@ -542,7 +564,7 @@
 				<mx:Label x="24" y="102" text="Nombre:" width="64" id="label6"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextInput x="96" y="100" id="nombreMascota" width="195"/>
+				<mx:TextInput x="96" y="100" id="nombreMascota" width="195" editable="false"/>
 			</mx:AddChild>
 			<mx:SetProperty target="{label0}" name="x" value="21"/>
 			<mx:RemoveChild target="{label1}"/>

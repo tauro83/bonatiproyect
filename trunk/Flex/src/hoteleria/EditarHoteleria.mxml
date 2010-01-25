@@ -52,9 +52,9 @@
          		
          		listaMascotas.text = Tabla.selectedItem.mascota.split(" ",1).pop();
          		
-         		buscadorCliente.rutClienteInput.enabled = false;
-         		buscadorCliente.rutClienteDVInput.enabled = false;
-         		buscadorCliente.inputClienteNombre.enabled = false;
+         		buscadorCliente.rutClienteInput.editable = false;
+         		buscadorCliente.rutClienteDVInput.editable = false;
+         		buscadorCliente.inputClienteNombre.editable = false;
          		listaMascotas.enabled = false;
          		
          		fecha.selectedDate = Tabla.selectedItem.fechaIngreso;
@@ -104,9 +104,9 @@
          		getAllHotel();
      		    currentState = "";
      		    registrar.visible = false;
-     			buscadorCliente.rutClienteInput.enabled = true;
-         		buscadorCliente.rutClienteDVInput.enabled = true;
-         		buscadorCliente.inputClienteNombre.enabled = true;
+     			buscadorCliente.rutClienteInput.editable = true;
+         		buscadorCliente.rutClienteDVInput.editable = true;
+         		buscadorCliente.inputClienteNombre.editable = true;
          		listaMascotas.enabled = true;
          		
          		buscadorCliente.rutClienteInput.text = "";
