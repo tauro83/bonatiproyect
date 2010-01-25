@@ -332,7 +332,6 @@ public class anularPreoperatorioBD {
 			setEstado.setInt(3, estado);
 			setEstado.setString(4, nombreMascota);
 			setEstado.setString(5, hora);
-			setEstado.executeQuery();
 			result = setEstado.executeUpdate();
 		 } 
 		 catch (SQLException e) {
