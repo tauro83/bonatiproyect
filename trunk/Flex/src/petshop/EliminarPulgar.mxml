@@ -393,7 +393,7 @@
 		]]>
 	</mx:Script>
 	<!-- Opciones de busqueda -->
-	<mx:ComboBox x="76" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
+	<mx:ComboBox x="20.5" y="10" width="150" change="seleccionarBusqueda(event)" id="combobox">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Nombre Producto"/>
@@ -513,8 +513,8 @@
 	<mx:Label x="169" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="541.5" y="368" enabled="false" label="Eliminar" id="anularproduct" click="{anularVarios2()}"   toolTip="Anula todos los tipos de producto seleccionados" width="102" height="23"/>
 	<mx:Button x="651.5" y="368" label="Cancelar" id="cancelar" toolTip="Volver a Productos" click="{volver()}"  width="102" height="23"/>
-	<mx:CheckBox x="10" y="51" id="todo" click="{SeleccionarTodo()}"/>
-	<mx:Label x="32" y="51" text="Seleccionar todo" id="label1"/>
+	<mx:CheckBox x="20.5" y="51" id="todo" click="{SeleccionarTodo()}"/>
+	<mx:Label x="42.5" y="51" text="Seleccionar todo" id="label1"/>
 	<mx:DataGrid x="20.5" y="77" width="718" height="281" id="dg" dataProvider="{productosActivos}" click="ver.enabled=true, Activar()" doubleClickEnabled="true" doubleClick="{pasarADetalle()}">
 		<mx:columns>
 		<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" >
