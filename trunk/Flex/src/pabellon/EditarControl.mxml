@@ -22,6 +22,9 @@
 			import services.AddMascotaService;
 			import transferObjects.Mascota;
 			import transferObjects.Diagnostico;
+			import services.configuracionServices;
+			import pabellon.AddCirugiaService;
+			import util.Properties;
 			
 			[Bindable]
 			private var cirugias:ArrayCollection = new ArrayCollection();
@@ -40,11 +43,13 @@
 			[Bindable]
 			private var tablaSeleccionada:Boolean = false;
 			[Bindable]
-			private var listaCirugias:ArrayCollection = new ArrayCollection( 
-				[{label:" "}, {label:"Diario"}, {label:"Semanal"}, {label:"Mensual"}, {label:"Anual"}] );
+			private var listaCirugias:ArrayCollection = new ArrayCollection();
+
 
 			
 			public function iniciarPanel():void{
+				buscadorCliente.getAllClientes();
+				
 				buscadorCliente.inputClienteNombre.text = "";
 				buscadorCliente.rutClienteDVInput.text = "";
 				buscadorCliente.rutClienteInput.text = "";
@@ -55,13 +60,13 @@
 				busqueda.visible = true;
 				edicion.visible = false;
 				labelMessage.text = "";
-				
-				
-				
+
 				getAllUsuarios();
 				buscarCirugias();
 				
 			}
+			
+			
 			//Funcion que busca las cirugias para retornarlas a la tabla
 			public function buscarCirugias():void{
 				//Crea clase para la conexion con la capa de java	
@@ -99,8 +104,6 @@
 				if(selectedRow.fecha != null){
 					busqueda.visible = false;
 					edicion.visible = true;
-					//edicionRutClienteInput.text = buscadorCliente.rutClienteInput.text;
-					//edicionRutClienteDVInput.text = buscadorCliente.rutClienteDVInput.text;
 					
 					var s:String =  Tabla.selectedItem.clienteRut.split(" ",1).pop();
 					
@@ -108,13 +111,10 @@
 					edicionRutClienteDVInput.text = s.charAt(s.length-1);
 					
 					edicionNombreMascotaInput.text = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
-					labelMessage.text = "Ingrese el nuevo diagnóstico";
+					labelMessage.text = Properties.getMensaje("Advertencia", "31");
 					
 					llenarTablaDiagnosticos();
 					
-				}
-				else{
-					labelMessage.text = "Debe seleccionar un item de control";
 				}
 			}
 			/**
@@ -139,7 +139,7 @@
 				editar.visible=false;
 				//Consulta tipo de retorno
 				if(i==0){
-					labelMessage.text = "Se ha agregado el nueva descripción";
+					labelMessage.text = Properties.getMensaje("Informacion", "34");
 				}
 				else{
 					labelMessage.text = "";
@@ -149,50 +149,12 @@
 			* Funcion que busca cliente
 			*/
 			 private function buscarCliente():void{
-        		//Revisa el correcto ingreso del rut
-        		/*var Numero:String = rutClienteInput.text;
-        		var Dv:String = rutClienteDVInput.text;
-				var suma:int = 0;
-				var rut:String = Numero;
-				var NumMag:int = 2;
-				var Resto:int = 0;
-				var j:int ;
-				var i:int;
-				var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
-				var ParteNumerica:Array = new Array();
-				
-				if (rut.length == 0) { 
-					//return false; 
-					}
-				for ( j =0, i =0; j < rut.length; j++){
-					if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
-						ParteNumerica[i] = rut.charAt(i);
-						++i;
-					}
-				}
-				
-				for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
-					suma += ParteNumerica[i] * NumMag;
-					trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
-					if (NumMag>6){
-						NumMag =1;	
-					}	
-				}
-				*/
-				//Resto = 11-(suma%11);
-				//if(DigVer[Resto] != Dv.toUpperCase()){
-				//	labelMessage.text = "El Rut que ha ingresado es incorrecto.";
-				//	mascotas = new ArrayCollection();
-				
-				//}
-				//else{
-					labelMessage.text = "";
-					//rutClienteInput.errorString = "";
-					getCliente(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteInput.text);
-				//}		
+				labelMessage.text = "";
+				getCliente(buscadorCliente.rutClienteInput.text+buscadorCliente.rutClienteInput.text);
         	}
+        	
 			/**
-			 * 
+			 * Retorna el cliente
 			 * */
 			private function getCliente(rutCliente:String):void{
 				var addMascotaService: AddMascotaService = new AddMascotaService();
@@ -209,10 +171,10 @@
 				
 				//retorna null si el cliente no esta registrado en la base de datos
 				if(nombreCliente == null){
-        			labelMessage.text = "Cliente no registrado."
+        			labelMessage.text = Properties.getMensaje("Error", "2");
         		}
         		else{
-        			labelMessage.text = "Se ha accedido al cliente " + nombreCliente + " satisfactoriamente.";
+        			labelMessage.text = Properties.getMensaje("Informacion", "1");
         			getMascotas();
         			buscarCirugias();
         		}
@@ -232,7 +194,7 @@
 				edicionRutClienteDVInput.text = s.charAt(s.length-1);
 				
 				edicionNombreMascotaInput.text = Tabla.selectedItem.mascotaNombre.split(" ",1).pop();
-				labelMessage.text = "Ingrese el nuevo diagnóstico";
+				labelMessage.text = Properties.getMensaje("Advertencia", "31");
 				
 				llenarTablaDiagnosticos();
 				
@@ -256,6 +218,8 @@
 			private function getDiagnosticosResult(event:ResultEvent):void{
 				diagnosticos = event.result as ArrayCollection;
             	tablaDiagnosticos.dataProvider = diagnosticos;
+            	listaCirugias = diagnosticos;
+            	listaCirugias.removeItemAt(listaCirugias.length-1);
 			} 
 			/**
 			 * Funcion que captura la fecha y la guarda en un string
@@ -263,7 +227,8 @@
 			public function seleccionarFecha():void{
 				fechaSeleccionada = new String();
 				if(fecha.text != ""){
-					fechaSeleccionada =  fecha.selectedDate.date+"/"+(fecha.selectedDate.month+1)+"/"+fecha.selectedDate.fullYear;
+					//fechaSeleccionada =  fecha.selectedDate.date+"/"+(fecha.selectedDate.month+1)+"/"+fecha.selectedDate.fullYear;
+					fechaSeleccionada = fecha.text;
 				}
 				else{
 					fechaSeleccionada = null;
@@ -356,11 +321,11 @@
 				
 				if(result>0)
 				{
-				   labelMessage.text="Diágnostico guardado";
+				   labelMessage.text= Properties.getMensaje("Informacion", "34");
 				   llenarTablaDiagnosticos();
 				}
 				else
-				   labelMessage.text="La descripcion no fue guardada";
+				   labelMessage.text= Properties.getMensaje("Error", "20");
 				   
 			}
 			
@@ -374,7 +339,7 @@
 	
 	<!-- Tabla de Cirugias encontradas -->
 	<mx:Canvas x="0" y="0" width="759" height="426" visible="true" id="busqueda">
-	<mx:DataGrid x="33" y="179" width="690" id="Tabla" enabled="true" height="144" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="editarCirugia(event)" itemClick="consultarAccion(event)" click="consultarAccion(event)">
+	<mx:DataGrid x="24" y="179" width="711" id="Tabla" enabled="true" height="144" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="editarCirugia(event)" itemClick="consultarAccion(event)" click="consultarAccion(event)">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Control" dataField="tipoCir" width="80" visible="false"/>
 			<mx:DataGridColumn headerText="Responsable" dataField="veterinario" width="95"/>
@@ -384,26 +349,26 @@
 			<mx:DataGridColumn headerText="Costo" dataField="costo" width="55" visible="false"/>
 			<mx:DataGridColumn headerText="Cliente" dataField="clienteRut" width="80"/>
 			<mx:DataGridColumn headerText="Mascota" dataField="mascotaNombre" width="60"/>
-			<mx:DataGridColumn headerText="Descripcion" dataField="descripcion" visible="false"/>
+			<mx:DataGridColumn headerText="Diagnóstico" dataField="diagnostico" visible="false"/>
 		</mx:columns>
 	</mx:DataGrid>
 	
 	<!-- Botones -->
 	
-	<mx:Button label="Descripción" height="23" width="102" x="511" y="331" cornerRadius="6" visible="false" id="editar" click="editarCirugiaB()"/>
+	<mx:Button label="Diagnosticar" height="23" width="102" x="511" y="331" cornerRadius="6" visible="false" id="editar" click="editarCirugiaB()"/>
 
 	<!-- Datos de Busqueda -->
 	
-	<mx:Label x="33" y="153" text="Controles:" fontWeight="bold"/>
-	<mx:Label x="33" y="10" text="Cliente:" fontWeight="bold"/>
-	<mx:Label x="352" y="72" text="Control:" fontWeight="bold"/>
-	<mx:Label x="33" y="72" text="Mascota:" fontWeight="bold"/>
-	<mx:Button x="621" y="331" label="Cancelar" width="102" height="23" cornerRadius="6" click="volver2()"/>
-	<mx:Label x="33.2" y="97" text="Nombre:" width="55.75"/>
-	<mx:Label x="352" y="97" text="Responsable:" width="93" height="22"/>
-	<mx:Label x="352" y="127" text="Fecha:" width="55.75" height="20"/>
-	<mx:DateField x="444.75" y="132" width="161" id="fecha" change="seleccionarFecha()" editable="true" formatString="DD/MM/YYYY"/>
-	<mx:ComboBox x="444.75" y="95" dataProvider="{responsables}" width="139" id="responsable" change="buscarCirugias()">
+	<mx:Label x="24" y="153" text="Controles:" fontWeight="bold"/>
+	<mx:Label x="24" y="10" text="Cliente:" fontWeight="bold"/>
+	<mx:Label x="339" y="74" text="Control:" fontWeight="bold"/>
+	<mx:Label x="24" y="72" text="Mascota:" fontWeight="bold"/>
+	<mx:Button x="633" y="331" label="Cancelar" width="102" height="23" cornerRadius="6" click="volver2()"/>
+	<mx:Label x="24.2" y="97" text="Nombre:" width="55.75"/>
+	<mx:Label x="339" y="97" text="Responsable:" width="93" height="22"/>
+	<mx:Label x="339" y="134" text="Fecha:" width="55.75" height="20"/>
+	<mx:DateField x="431.75" y="132" width="161" id="fecha" change="seleccionarFecha()" editable="true" formatString="DD/MM/YYYY"/>
+	<mx:ComboBox x="431.75" y="95" dataProvider="{responsables}" width="139" id="responsable" change="buscarCirugias()">
 	</mx:ComboBox>
 		<mx:DataGrid  color="0x323232" width="189" rowCount="3" y="126" x="454" variableRowHeight="true" dataProvider="{mascotas}"  visible="false" height="84" change="tablaSeleccionada = true">
 		    <mx:columns>
@@ -411,8 +376,8 @@
 		        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" visible="false" width="100"/>
 		    </mx:columns>
 		</mx:DataGrid>
-		<mx:ComboBox id="dg2" x="106" y="95" dataProvider="{mascotas}" width="207" change="buscarCirugias()" labelField="nombre"></mx:ComboBox>
-		<ns1:BuscadorNombreRut x="33" y="36" keyFocusChange="mascotasFiltrar()" mouseFocusChange="mascotasFiltrar()" id="buscadorCliente">
+		<mx:ComboBox id="dg2" x="97" y="95" dataProvider="{mascotas}" width="207" change="buscarCirugias()" labelField="nombre"></mx:ComboBox>
+		<ns1:BuscadorNombreRut x="24" y="36" keyFocusChange="mascotasFiltrar()" mouseFocusChange="mascotasFiltrar()" id="buscadorCliente">
 		</ns1:BuscadorNombreRut>
 	</mx:Canvas>
 	
@@ -422,16 +387,16 @@
 		<mx:TextInput x="133.5" y="33.95" width="138.75" editable="false" height="20" id="mascNomC" enabled="false"/>
 		<mx:Button x="561.5" y="314" label="Guardar" visible="true" id="registrar" click="guardarDiagnostico()"/>
 		<mx:Button x="641.5" y="314" label="Cancelar" width="84" id="cancelar" visible="true" click="volver(1)"/>
-		<mx:Label x="362" y="83.85" text="Descripción:" width="81.9"/>
+		<mx:Label x="362" y="83.85" text="Diagnóstico:" width="81.9"/>
 		<mx:Label x="324.95" y="10" text="Cliente:" width="109" fontWeight="bold"/>
 		<mx:Label x="362" y="33.95" text="Rut:" width="71.95"/>
 		<mx:TextInput x="459.6" y="31.95" width="113.35" editable="false" height="20" id="edicionRutClienteInput"/>
 		<mx:Label x="575.95" y="33.95" text="-" width="12.25"/>
 		<mx:TextInput x="588.2" y="31.95" width="19.5" id="edicionRutClienteDVInput" restrict="K k 0-9" editable="false"/>
 		<mx:Label x="10" y="61.85" text="Control:" width="110" fontWeight="bold"/>
-		<mx:Label x="10" y="164" text="Descripción:" width="110" fontWeight="bold"/>
-		<mx:Label x="24.55" y="84.85" text="Controles:" width="63.4" height="17.931034"/>
-		<mx:ComboBox x="133" y="82.85" width="158.25" id="cirugiasBox" dataProvider="{listaCirugias}"></mx:ComboBox>
+		<mx:Label x="10" y="164" text="Diagnósticos:" width="110" fontWeight="bold"/>
+		<mx:Label x="24.55" y="84.85" text="Control:" width="63.4" height="17.931034"/>
+		<mx:ComboBox x="133" y="82.85" width="158.25" id="cirugiasBox" dataProvider="{listaCirugias}" labelField="tipoCir"></mx:ComboBox>
 		<mx:TextArea x="459.45" y="82.85" width="265.55" height="89.95" id="diagC"/>
 		<mx:Label x="9.95" y="10" text="Mascota:" width="127" fontWeight="bold"/>
 		<mx:Label x="24.55" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
@@ -440,8 +405,8 @@
 			<mx:columns>
 				<mx:DataGridColumn headerText="Fecha" dataField="nuevaFecha" width="80"/>
 				<mx:DataGridColumn headerText="Hora" dataField="nuevaHora" width="70"/>
-				<mx:DataGridColumn headerText="Control" dataField="tipoCir" width="150"/>
-				<mx:DataGridColumn headerText="Descripción" dataField="descripcion"/>
+				<mx:DataGridColumn headerText="Cirugía" dataField="tipoCir" width="150"/>
+				<mx:DataGridColumn headerText="Diagnóstico" dataField="diagnostico"/>
 			</mx:columns>
 		</mx:DataGrid>
 	</mx:Canvas>
