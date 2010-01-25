@@ -86,7 +86,7 @@ create table mascota
 	estado bool,
 	imagen bytea,
 	CONSTRAINT pk_mascota PRIMARY KEY (nombre,rut),
-	CONSTRAINT fk_mascota_reference_ClientePresencial FOREIGN KEY (rut)	REFERENCES ClientePresencial(rut) MATCH SIMPLE ON UPDATE RESTRICT ON DELETE RESTRICT
+	CONSTRAINT fk_mascota_reference_ClientePresencial FOREIGN KEY (rut)	REFERENCES ClientePresencial(rut) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE bitacora
