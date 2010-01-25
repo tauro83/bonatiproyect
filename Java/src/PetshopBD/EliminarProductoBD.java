@@ -34,8 +34,8 @@ public class EliminarProductoBD {
 		String query="";
 		
 
-		query = "SELECT DISTINCT nombre,precio,categoria, descripcion "+
-		"FROM producto;";
+		query = "SELECT  nombre,precio,categoria, descripcion, stock, codigo "+
+		"FROM producto where estado=0;";
 		selectDistintos = connection.prepareStatement(query);
 		
 		query = "SELECT DISTINCT nombre,precio,categoria, descripcion "+
@@ -103,6 +103,8 @@ public class EliminarProductoBD {
 	    			producto.setPrecio(result.getString(2));
 	    			producto.setCategoria(result.getString(3));
 	    			producto.setDescripcion(result.getString(4));
+	    			producto.setCantidad(result.getInt(5));
+	    			producto.setCodigo(result.getString(6));
 	    			
 	    			productos.add(producto);
 	    		}
@@ -111,27 +113,6 @@ public class EliminarProductoBD {
 	    	{
 				e.printStackTrace();
 			}
-	    	
-	    	//CONSULTA 2
-	   	 
-	   	 for(int i=0; i<productos.size(); i++){
-		 try 
-	    	{
-			 contar.setString(1, productos.get(i).getNombre());
-			 contar.setString(2, productos.get(i).getPrecio());
-			 contar.setString(3, productos.get(i).getCategoria());
-			 contar.setString(4, productos.get(i).getDescripcion());
-		 ResultSet result2 =  contar.executeQuery();
-		 while(result2.next())
- 		{
-			 productos.get(i).setCantidad((result2.getInt(1)));
- 		}
-	    	} 
-	    	catch (SQLException e) 
-	    	{
-				e.printStackTrace();
-			}
-	   	 }
 	    	return productos;
 	    }
 	 
