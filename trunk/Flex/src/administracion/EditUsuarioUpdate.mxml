@@ -19,6 +19,8 @@
 			import services.Validacion;
 			import transferObjects.Usuario;
 			import mx.core.Application;
+			import services.configuracionServices;
+			import mx.collections.ArrayCollection;
 		
 			private var vUsuario:Boolean;
 			private var vNombre:Boolean;
@@ -27,6 +29,8 @@
 			private var ru:UsuarioService= new UsuarioService();
 			private var vApaterno:Boolean;
 			private var u1:Usuario;
+			[Bindable]public var cargosE:ArrayCollection;
+			[Bindable]public var serviciosE:ArrayCollection;
 			
 			
 			/**
@@ -270,26 +274,10 @@
 	<mx:TextInput x="155" y="63" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" id="apat" click="iniListener()" enabled="true" maxChars="20"/>
 	<mx:TextInput x="512" y="63" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" id="amat" click="iniListener()" enabled="true" maxChars="20"/>
 	<mx:TextInput x="155" y="105" id="usua" enabled="true" click="iniListener()" maxChars="20" editable="false"/>
-	<mx:ComboBox x="155" y="142" id="carg">
-		<mx:ArrayCollection>
-         	<mx:Object label="Ayudante" data="a"/>
-         	<mx:Object label="Veterinario" data="a"/>
-         	<mx:Object label="Peluquero" data="b"/>
-         	<mx:Object label="Secretaria" data="b"/>
-         	<mx:Object label="Otro" data="b"/>
-    	</mx:ArrayCollection>	
-	</mx:ComboBox>
+	<mx:ComboBox x="155" y="142" id="carg" dataProvider="{cargosE}" labelField="nombre" width="163"/>
 	<mx:TextInput x="155" y="186" displayAsPassword="true" editable="true" width="160" enabled="true"  id="cont" click="iniListener()" maxChars="20"/>
 	<mx:TextInput x="512" y="186" displayAsPassword="true" width="160" enabled="true" id="rcon"  click="iniListener()" maxChars="20"/>
-	<mx:ComboBox x="155" y="227" id="serv">
-	<mx:ArrayCollection>
-         	<mx:Object label="Policlinico I" data="a"/>
-         	<mx:Object label="Policlinoco II" data="b"/>
-            <mx:Object label="Hoteleria" data="c"/>
-            <mx:Object label="Peluqueria" data="d"/>
-            <mx:Object label="PetShop" data="d"/>
-    </mx:ArrayCollection>	
-	</mx:ComboBox>
+	<mx:ComboBox x="155" y="227" id="serv" dataProvider="{serviciosE}" labelField="nombre" width="163"/>
 	<mx:CheckBox x="155" y="269" label="Registrar" id="preg"/>
 	<mx:CheckBox x="253" y="269" label="Editar" id="pedi"/>
 	<mx:CheckBox x="351.5" y="269" label="Eliminar" id="peli"/>
