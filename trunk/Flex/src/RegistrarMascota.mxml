@@ -379,6 +379,8 @@
 		
 		<!-- OPCIONES PARA SUBIR IMAGEN -->
 	</mx:Canvas>
+	<ns2:BuscadorNombreRut x="26" y="36" id="buscadorCliente">
+	</ns2:BuscadorNombreRut>
 	<mx:TextInput restrict="A-Z a-z ñ Ñ" x="96.75" y="99" width="209" id="nombreInput" maxChars="50" focusIn="analizar()"/>
 	<mx:DateField x="96.75" y="132" width="134" id="fechaNacimientoInput" formatString="DD/MM/YYYY" yearNavigationEnabled="true" initialize="iniciarCalendario()"/>
 	<mx:ComboBox x="96.75" labelField="nombre" y="166" width="209" id="claseAnimalInput" close="selRazas(event);" dataProvider="{especies}">
@@ -396,8 +398,7 @@
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente" fontWeight="bold"/>
 	<mx:Label x="25" y="73" text="Mascota" fontWeight="bold"/>
-	<ns2:BuscadorNombreRut x="26" y="36" id="buscadorCliente">
-	</ns2:BuscadorNombreRut>
+
 	<!--
 	<mx:TileList x="465.75" y="9" width="200.5" height="135" dataProvider="{files}" itemRenderer="components.ItemRenderer"></mx:TileList>
 	-->
