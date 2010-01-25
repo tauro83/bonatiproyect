@@ -16,8 +16,14 @@
 			getReporteVenta(null, fechaFin.selectedDate); 
 			total.costo.editable = false;    		
         }
+        
+        public function rango():void{
+        	fechaIni.selectableRange = {rangeEnd: fechaFin.selectedDate};
+        	fechaFin.selectableRange = {rangeStart: fechaIni.selectedDate};
+        }
 		 
 		 public function getReporteVenta(fechaInicio:Date, fechaFin:Date):void{
+		 	rango();
 			var reporteVentaService:ReporteVentaService = new ReporteVentaService();
 			reporteVentaService.addEventListener(ResultEvent.RESULT,getReporteVentaResult);
 			reporteVentaService.getReporteVenta(fechaInicio, fechaFin);
