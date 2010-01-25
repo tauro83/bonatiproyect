@@ -58,6 +58,7 @@
 				var editHoteleriaService:editarProducto1 = new editarProducto1();
 				editHoteleriaService.addEventListener(ResultEvent.RESULT,editProductoResult);
 				editHoteleriaService.modificarProducto(p.descripcion,p.categoria,p.precio,p.nombre,p.codigo);
+				
 							
 		}
 		
@@ -77,9 +78,10 @@
 			 * En caso de ser correcto
 			 */ 
 	     	if(result > 0 ){
-				mens.text = "Registro Modificado correctamente";
+				Application.application.editProducto.mens.text = "Registro Modificado correctamente";
 				Application.application.editProducto2.setVisible(false,false);
             	Application.application.editProducto.setVisible(true,false);
+            	Application.application.editProducto.getAllVacunaciones();
 			}
 			/**
 			 * En caso de ser incorrecto
@@ -98,6 +100,8 @@
         	Application.application.editProducto2.setVisible(false,false);
         	Application.application.editProducto.setVisible(true,false);
         	Application.application.editProducto.limpiarTodo();
+        	Application.application.editProducto.getAllVacunaciones();       	
+        	
 		}
 	
 	
@@ -109,7 +113,7 @@
 	<mx:TextInput x="122" y="67" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="nomb"  enabled="true" maxChars="20"/>
 	<mx:Label x="27" y="69" text="Nombre:" width="69" />
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="632" label="Cancelar" y="353" id="volver" click="Actionvolver()" />
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="522" label="Editar" y="353" click="guardarProducto()"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="522" label="Editar" y="353" click="guardarProducto(),Application.application.editProducto.getAllVacunaciones()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	<mx:Label x="29" y="114" text="Precio:"/>
 	<mx:Label x="25" y="203" text="Descripción:"/>
@@ -119,10 +123,10 @@
 	<mx:TextInput x="123" y="28" id="cod" editable="false" enabled="true"/>
 	<mx:ComboBox x="125" y="157" id="cat">
 			<mx:ArrayCollection>
-			<mx:Object label="-Seleccionar-"/>
-			<mx:Object label="Comida"/>
-			<mx:Object label="Juguetes"/>			
-			<mx:Object label="Medicamento"/>
+			<mx:Object label="--Seleccione--" data="a"/>
+	        <mx:Object label="Alimento" data="b"/>
+	        <mx:Object label="Medicamento" data="c"/>
+	        <mx:Object label="Otro" data="d"/>
 		</mx:ArrayCollection>
 	</mx:ComboBox>
 	<ns1:Precio x="122" y="108" width="161" id="precio">
