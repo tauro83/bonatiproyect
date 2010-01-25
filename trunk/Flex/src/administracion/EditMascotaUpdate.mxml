@@ -48,6 +48,7 @@
 			public var mascoti:Mascota;
 			[Bindable] private var especies:ArrayCollection = new ArrayCollection();
 		    [Bindable] private var razas:ArrayCollection = new ArrayCollection();
+		    [Bindable] private var nombreAntiguo:String;
 		    
 			
 			 
@@ -100,7 +101,11 @@
 			 
 			public function carga(mascotilla:Mascota):void
 			{       //asigno el cliente entregado desde panel EditarCliente
+			
+			
+				 
 					nombre.text = mascotilla.nombre.split(" ", 1).pop();
+					nombreAntiguo = nombre.text;
 				    clienteAuxEditado = mascotilla;
 				    fechaNacimiento.text = mascotilla.fechaNacimiento;
 				    
@@ -120,6 +125,8 @@
 				     
 				     esp = mascotilla.claseAnimal;
 				     raz = mascotilla.raza;
+				     
+				     
 				    
 			}
 			
@@ -154,7 +161,7 @@
 			  //Alert.show(" entra a funcion carga1");
 			  var auxiliar:EditarMascotaService = new EditarMascotaService();
 			  auxiliar.addEventListener(ResultEvent.RESULT,carga1Result);
-			  auxiliar.insertMascotaE(clienteAuxEditado, Application.application.login2.usuarioActivo);
+			  auxiliar.insertMascotaE(clienteAuxEditado,nombreAntiguo, Application.application.login2.usuarioActivo);
 			  
 			}
 			
@@ -251,14 +258,14 @@
     </mx:Script>
 	
 	
-	<mx:TextInput x="163" y="41" width="160" id="nombre" maxChars="20" editable="false" enabled="false"/>
+	<mx:TextInput x="163" y="41" width="160" id="nombre" maxChars="20"/>
 	
 	
 	
 	<mx:Label x="25" y="43" text="Nombre:" width="130"/>
 	<mx:Label x="25" y="85" text="Fecha  Nacimiento :" width="145"/>
 	<mx:Label x="25" y="126" text="Especie:" width="145"/>
-	<mx:DateField x="163" y="83" width="160" id="fechaNacimiento"/>
+	<mx:DateField x="163" y="83" width="160" id="fechaNacimiento" formatString="DD/MM/YYYY"/>
 	<mx:Label x="25" y="178" text="Raza:" width="145"/>
 	<mx:Button x="632" y="353" label="Cancelar" width="102" click="{cancelarEditaCita()}" height="23"/>
 	<mx:Button x="522" y="353" label="Guardar " width="102" click="{clienteModificado()} " height="23"/>
