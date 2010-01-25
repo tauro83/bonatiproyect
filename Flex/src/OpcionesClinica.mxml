@@ -218,8 +218,7 @@
 				<mx:Canvas label="      Post-Operatorio" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="25" y="10" label="Registrar" width="100%" textAlign="left" id="PostOLink" click="verRegistrarPostOperatorio()"/>
 					<mx:LinkButton x="25" y="40" label="Editar" width="100%" textAlign="left" id="editarPostO" click="verEditarPostOperatorio()"/>
-					<mx:LinkButton x="25" y="70" label="Anular" width="100%" textAlign="left" id="anulPost" click="verAnulPostOperatorio()"/>
-					<mx:LinkButton x="25" y="100" label="Bitacora" click="verAnuladosPostOperatorio()" id="reanulado1"/>
+					<mx:LinkButton x="25" y="70" label="Anular" width="100%" textAlign="left" id="anulPost" click="verAnulPostOperatorio()"/>					
 				</mx:Canvas>
 			</mx:Accordion>
 		</mx:Canvas>
