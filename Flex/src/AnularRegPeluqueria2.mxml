@@ -73,6 +73,7 @@
 			{
 				var vacunacionService:anularPeluqueria = new anularPeluqueria();
 				vacunacionService.anular(estado,nombreMascota,hora,nombreCatalogo,motivo);
+				
 			}
 
             /**
@@ -130,6 +131,7 @@
                         allRows = vacunaciones.length;
                         tablaVacunaciones.dataProvider = vacunaciones;
                         i=-1;
+                        
                     }   
                 }
                 motivo.text="";
@@ -186,6 +188,7 @@
             public function limpiarTodo():void{
             	todo.selected=false;
             	barraMsj.setVisible(false,false);
+            	comboboxMotivo.selectedIndex=0;
             }
            	
            	private function seleccionarMotivo (event:Event):void
