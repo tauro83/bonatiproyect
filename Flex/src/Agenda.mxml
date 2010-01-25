@@ -337,6 +337,10 @@
             	cargarServicios();
             	servicioOutput.text = "Todos";
             	fechaOutput.text = fechaActual.getDate() + "/" + (fechaActual.getMonth()+1) + "/" +fechaActual.getFullYear();
+            	
+            	servicioInput.text = "Todos";
+            	usuarioInput.text = "Todos";
+            	
             	getDiaAgenda();
             } 
             
