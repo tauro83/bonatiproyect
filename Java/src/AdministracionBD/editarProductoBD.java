@@ -74,9 +74,13 @@ public class editarProductoBD {
 	    		{  
 	    			
 	    			vacu = new Producto();
-	    			vacu.setDescripcion(result.getString(1).trim());	
+	    			if(result.getString(1)!=null){
+	    				vacu.setDescripcion(result.getString(1));
+	    			}
 	    			vacu.setPrecio(result.getString(2).trim());
-	    			vacu.setCategoria(result.getString(3).trim());
+	    			if(result.getString(3)!=null){
+	    				vacu.setCategoria(result.getString(3));	 
+	    			}
 	    			vacu.setCodigo(result.getString(4).trim());
 	    			vacu.setNombre(result.getString(5).trim());
 	    			vacunaciones.add(vacu);
