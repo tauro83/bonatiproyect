@@ -424,6 +424,7 @@
 			     	Application.application.registrarCita.fecha.data = calendario.selectedDate;
 			     	Application.application.registrarCita.hora.text = agendaDia.selectedItem.hora; 
 			   	 	Application.application.registrarCita.servicio.text = servicioInput.selectedLabel;
+			   	 	Application.application.registrarCita.iniciarPanel();
 			    	
 			    	if(calendario.selectedDate != null)
 			    		Application.application.registrarCita.fecha.selectedDate = calendario.selectedDate;
