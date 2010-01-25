@@ -16,16 +16,17 @@ public class PurgarMascotaDB {
 		
 		this.connection = connection;
 		
-		String query = "DELETE "+
-		"FROM mascota WHERE rut=? AND nombre=?; " +
-		"INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
-		"VALUES (?, ?, ?, ?);";
+		String query = "UPDATE mascota "+
+		   "SET estado =2 "+
+			 "WHERE rut=? AND nombre=?; " +
+			 "INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
+			   "VALUES (?, ?, ?, ?);";
 
 		delete = connection.prepareStatement(query);
 		
 	}
 
-	public int purgarMascota(String rut,String nombre){
+	public int purgarMascota(String rut,String nombre,String usuario){
 		int x=0;
 		try{
 			delete.setString(1, rut);
@@ -39,7 +40,7 @@ public class PurgarMascotaDB {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 			String fecha = formatter.format(date);
 			delete.setString(3, fecha);
-			delete.setString(4, "usuario");
+			delete.setString(4, usuario);
 			delete.setString(5, "Administración");
 			delete.setString(6, "Purga mascota: "+nombre);
 			
