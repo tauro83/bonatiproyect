@@ -405,7 +405,7 @@
 			<mx:columns>
 				<mx:DataGridColumn headerText="Fecha" dataField="nuevaFecha" width="80"/>
 				<mx:DataGridColumn headerText="Hora" dataField="nuevaHora" width="70"/>
-				<mx:DataGridColumn headerText="Cirugía" dataField="tipoCir" width="150"/>
+				<mx:DataGridColumn headerText="Control" dataField="tipoCir" width="150"/>
 				<mx:DataGridColumn headerText="Diagnóstico" dataField="diagnostico"/>
 			</mx:columns>
 		</mx:DataGrid>
