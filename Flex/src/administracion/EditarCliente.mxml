@@ -115,6 +115,7 @@
             	combobox.selectedItem="-Seleccionar-";
             	textBuscar.setVisible(false,false);
             	this.clientes = new ArrayCollection();
+            	clientes = null;
             	
             }
 			

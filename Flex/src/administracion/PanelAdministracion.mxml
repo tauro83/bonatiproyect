@@ -43,6 +43,8 @@
 	 <mx:Script>
         <![CDATA[   
          import mx.core.Application;
+         import administracion.EditarCliente;
+         import transferObjects.Cliente;
          
            private function configurarVacunas():void
          {
@@ -183,10 +185,13 @@
           	
           	
           	Application.application.setInvisible();
-          	Application.application.panelEditaCLi.limpiarTodo();
+          	
           	
           	Application.application.AdmOpciones1.setVisible(true,false);
           	Application.application.panelEditaCLi.setVisible(true,false);
+          	Application.application.panelEditaCLi.limpiarTodo();
+          	
+          	
   	
           }
           
