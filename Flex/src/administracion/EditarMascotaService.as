@@ -13,9 +13,10 @@ package administracion
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	import util.host;
 	
 	import transferObjects.Mascota;
+	
+	import util.host;
 	
 	/**
 	 * Clase encargada de realizar la conexión entre la capa
@@ -54,9 +55,9 @@ package administracion
 		 * Se inserta un nuevo objeto de mascota en la base de datos
 		 */ 
 		
-		public function insertMascotaE(person:Mascota, usuario:String):void
+		public function insertMascotaE(person:Mascota,nombreAntiguo:String, usuario:String):void
 		{
-			this.getOperation("insertMascotaE").send(person, usuario);
+			this.getOperation("insertMascotaE").send(person, nombreAntiguo, usuario);
 		}
 
 			
