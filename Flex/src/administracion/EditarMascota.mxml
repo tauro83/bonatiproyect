@@ -95,7 +95,7 @@
 			public function getMascotas():void{
 				var addMascotaService:AddCirugiaService = new AddCirugiaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addMascotaService.getMascotas(nombreRutIn.rutClienteInput.text);
+				addMascotaService.getMascotas(nombreRutIn.rutClienteInput.text+nombreRutIn.rutClienteDVInput.text);
 			}
 			
 			/**
