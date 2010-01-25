@@ -50,13 +50,14 @@
 	</mx:Script>
 	<mx:SeriesInterpolate id="changeEffect" duration="2000"/>
 	<mx:Panel horizontalAlign="center" layout="absolute" title="Reporte de Ventas" width="779" height="466" borderColor="#15AD8F">
-			<mx:DateField id="fechaIni" formatString="DD/MM/YYYY"  x="89" y="36" width="112" change="getReporteVenta(fechaIni.selectedDate, fechaFin.selectedDate)"/>
-			<mx:Label x="25" y="38" text="Inicio:" width="58"/>
-			<mx:DateField id="fechaFin" formatString="DD/MM/YYYY" x="355.5" y="36" width="112" change="getReporteVenta(fechaIni.selectedDate, fechaFin.selectedDate)"/>
-			<mx:Label x="291.5" y="38" text="Término:" width="71"/>
-			<mx:Label x="25" y="10" text="Rango de fechas" fontWeight="bold"/>
+			<mx:DateField id="fechaIni" formatString="DD/MM/YYYY"  x="89" y="62" width="112" change="getReporteVenta(fechaIni.selectedDate, fechaFin.selectedDate)"/>
+			<mx:Label x="25" y="64" text="Inicio:" width="58"/>
+			<mx:Label x="25" y="10" text="Reporte de ventas de: vacunas, implementos y medicamentos." width="428"/>
+			<mx:DateField id="fechaFin" formatString="DD/MM/YYYY" x="355.5" y="62" width="112" change="getReporteVenta(fechaIni.selectedDate, fechaFin.selectedDate)"/>
+			<mx:Label x="291.5" y="64" text="Término:" width="71"/>
+			<mx:Label x="25" y="36" text="Rango de fechas" fontWeight="bold"/>
 			<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
-			<mx:DataGrid x="25" y="82" width="711" id="Tabla" enabled="true" height="266" dataProvider="{reportes}">
+			<mx:DataGrid x="25" y="105" width="711" id="Tabla" enabled="true" height="243" dataProvider="{reportes}">
 				<mx:columns>
 					<mx:DataGridColumn width="70" headerText="Codigo" dataField="codigo" draggable="false"/>
 					<mx:DataGridColumn width="70" headerText="Nombre" dataField="nombreProducto" draggable="false"/>
