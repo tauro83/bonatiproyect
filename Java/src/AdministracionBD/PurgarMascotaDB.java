@@ -16,8 +16,7 @@ public class PurgarMascotaDB {
 		
 		this.connection = connection;
 		
-		String query = "UPDATE mascota "+
-		   "SET estado =2 "+
+		String query = "DELETE FROM mascota "+
 			 "WHERE rut=? AND nombre=?; " +
 			 "INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
 			   "VALUES (?, ?, ?, ?);";
