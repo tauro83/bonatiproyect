@@ -101,10 +101,21 @@ public class UsuarioElimBD
 			
 			deleteUsuario.executeQuery();
 			result= deleteUsuario.executeUpdate();
+			System.out.println(result);
 		} 
     	catch (SQLException e) 
     	{
-			e.printStackTrace();
+    		//e.printStackTrace();
+    		String resultsa = e.toString();
+    		
+			if(resultsa.length()>80){
+				System.out.println(">80");
+				return 0;
+			}
+			else
+				System.out.println("menoooor a 80");
+				return 1;
+			
 		}
     	return result;
     }
