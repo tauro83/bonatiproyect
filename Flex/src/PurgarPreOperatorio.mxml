@@ -90,14 +90,14 @@
            				Alert.show("¿Está, seguro que desea anular el o lo(s) registro(s) de Preoperatorio(s)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
            			}
            			else{
-           				Alert.show("Debe ingresar un motivo para el o lo(s) registro(s) de Preoperatorio(s)","Campo incompleto");
+           				Alert.show("Debe ingresar un motivo para el o los registro(s) de Preoperatorio(s)","Campo incompleto");
            			}
            		}
            		if(comboboxMotivo.selectedIndex==1 || comboboxMotivo.selectedIndex==2){
-         			Alert.show("¿Está, seguro que desea anular el o lo(s) registro(s) de Preoperatorio(s)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+         			Alert.show("¿Está, seguro que desea anular el o los registro(s) de Preoperatorio(s)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
          		}
          		if(comboboxMotivo.selectedIndex==0){
-         			Alert.show("Debe seleccionar un motivo para anular el o lo(s) registro(s) de Preoperatorio(s)","Campo incompleto");
+         			Alert.show("Debe seleccionar un motivo para anular el o los registro(s) de Preoperatorio(s)","Campo incompleto");
          		}
 			}
 			
@@ -207,7 +207,7 @@
 		]]>
 	</mx:Script>
 <!-- Tabla con datos -->
-	<mx:DataGrid x="25" y="178" width="709" height="134" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion el o los(s) registro(s) de preoperatorio(s) que desea anular">
+	<mx:DataGrid x="25" y="178" width="709" height="134" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion el o los registro(s) de preoperatorio(s) que desea anular">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
 			 	<mx:itemRenderer>
@@ -237,8 +237,8 @@
 	<mx:Label x="25" y="62" text="Apellido Paterno:" width="103"/>
 	<mx:Label x="405" y="61.9" text="Raza:" width="78"/>
 	<mx:Text x="25" y="124" text="Peluquería&#xa;" fontWeight="bold" height="20"/>
-	<mx:Button x="522" y="354" label="Anular" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula el o los(s) registro(s) de preoperatorio(s) seleccionada(s)"/>
-	<mx:TextInput x="261" y="320" width="473" id="motivo" toolTip="Ingrese el motivo por el cual desea anular el o los(s) registro(s) de preoperatorio(s)" visible="false"/>
+	<mx:Button x="522" y="354" label="Anular" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula el o los registro(s) de preoperatorio(s) seleccionada(s)"/>
+	<mx:TextInput x="261" y="320" width="473" id="motivo" toolTip="Ingrese el motivo por el cual desea anular el o los registro(s) de preoperatorio(s)" visible="false"/>
 	<mx:Text x="25" y="322" text="Motivo" fontWeight="bold"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
 	<mx:ComboBox x="76" y="320" id="comboboxMotivo" change="seleccionarMotivo(event)">
