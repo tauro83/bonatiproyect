@@ -43,6 +43,7 @@
 				Application.application.setInvisible();
 				this.visible = true;
 				Application.application.regPostOp1.visible = true;
+				Application.application.regPostOp1.iniciarPanel1();
 
 			}
 			public function verNuevaAtencion():void{
