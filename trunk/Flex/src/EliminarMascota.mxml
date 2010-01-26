@@ -6,7 +6,7 @@
 // Componente que tiene un grafico que elimina una mascota del sistema
 //=======================================================================
 -->
-<mx:Canvas show="getAllMascotas()" initialize="getAllMascotas()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466">
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466" xmlns:ns1="util.*">
 	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Eliminar Mascota">
 		
 		<mx:Script>
@@ -36,7 +36,6 @@
 			
 			private function deleteMascota():void{
    				if(tablaMascotas.selectedItem!=null){
-   					//Alert.show("¿Está seguro que desea eliminar los datos seleccionados? ","Confirme eliminación ", Alert.YES | Alert.NO);
    					var mascotaService:DeleteMascota=new DeleteMascota();
 					mascotaService.addEventListener(ResultEvent.RESULT,deleteMascotaResult);
 					var m:Mascota = mascotas.getItemAt(tablaMascotas.selectedIndex) as Mascota;
@@ -58,6 +57,7 @@
 				}
 			}
 			public function getAllMascotas():void{
+				nombreRutIn.getAllClientes();
 				var mascotaService:GetAllMascotas=new GetAllMascotas();
 				mascotaService.addEventListener(ResultEvent.RESULT,getAllMascotasResult);
 				mascotaService.getAllMascotas();
@@ -70,7 +70,9 @@
 				
 				for(i=0;i<lista.length;i++){
 					var masc:Mascota = lista.getItemAt(i) as Mascota;
-					if(masc.estado)
+					var rut:String = nombreRutIn.rutClienteInput.text+nombreRutIn.rutClienteDVInput.text;
+					//Alert.show(" "+rut+"  "+masc.rutCliente);
+					if(masc.estado && masc.rutCliente==rut)
 						mascotas.addItem(masc);
 				}
 				
@@ -105,7 +107,7 @@
 		
 		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="628" label="Cancelar" y="320" id="cancelar" click="cancelando()" toolTip="Cierra la ventana y vuelve a la anterior">
 		</mx:Button>
-		<mx:DataGrid x="30" y="30" width="700" height="283" dataProvider="{mascotas}" allowMultipleSelection="true" 
+		<mx:DataGrid x="30" y="90" width="700" height="223" dataProvider="{mascotas}" allowMultipleSelection="true" 
 			editable="false" id="tablaMascotas" resizableColumns="true" showHeaders="true" 
 			sortableColumns="true" visible="true" toolTip="Presione Ctrl para seleccionar múltriples objetos">
 			<mx:columns>
@@ -126,6 +128,10 @@
 			</mx:columns>
 		</mx:DataGrid>
 		<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+		<mx:Label x="25" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
+		<mx:Label x="25" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
+		<ns1:BuscadorNombreRut x="39" y="28" id="nombreRutIn" keyFocusChange=" {getAllMascotas()}" mouseFocusChange="{getAllMascotas()}">
+		</ns1:BuscadorNombreRut>
 		
 		
 		
