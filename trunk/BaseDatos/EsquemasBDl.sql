@@ -563,7 +563,7 @@ CREATE TABLE productovendido
 
 CREATE TABLE categproducto
 (
-  nombre character(30) NOT NULL
+  nombre character(30) NOT NULL primary key
 );
 
 CREATE TABLE estadisticasclinica
