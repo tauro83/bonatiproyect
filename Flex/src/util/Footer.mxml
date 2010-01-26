@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+
+ 
+/*
+ * Contributors:
+ * 
+ */
+ -->
+<PrintComponent xmlns="org.print.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="461" 
+	height="30">
+	<mx:Label text="Reporte Clínica Bonati" color="#000000" fontWeight="bold" fontSize="16" top="0" left="0" width="243"/>
+	<mx:Label text="Page {pageNumber}" fontSize="12" right="0" top="0" color="#000000"/>
+</PrintComponent>

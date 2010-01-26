@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="org.print.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="595" height="842" xmlns:ns1="util.*">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			[Bindable]public var dataArray2:ArrayCollection = new ArrayCollection();
+			
+			public override function loadData() : void
+			{
+				//myText.htmlText = dataProvider.text;
+				//image.source = dataProvider.logo;
+				//myText2.htmlText = dataProvider.text;
+			}
+			public function setDataProv(arr:ArrayCollection):void
+			{
+				this.dataArray2 = arr;	
+			}
+
+		]]>
+	</mx:Script>
+	
+	<ns1:Footer showInFirstPage="false" showInMiddlePages="true" showInLastPage="true" width="100%">
+	</ns1:Footer>
+	<ns1:Header showInAllPages="true" width="100%">
+	</ns1:Header>
+	<ReportDataGrid id="rGriid" dataProvider="{dataArray2}" fontSize="10" wordWrap="true" width="100%"/>
+	
+	
+	
+</Report>
