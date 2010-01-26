@@ -104,15 +104,17 @@
 					var arrservicios:ArrayCollection = new ArrayCollection();
 					var ieus:int;
 					var maxeus:int = this.servicios.length;
+					
 					for(ieus=0;ieus<maxeus;ieus++){
-						if(cargos.getItemAt(ieus).nombre==newUsuario.servicio){
+						if(servicios.getItemAt(ieus).nombre==newUsuario.servicio){
 							arrservicios.addItem(servicios.getItemAt(ieus));
 						}
 					}
 					
-					for(ieu=0;ieu<maxeus;ieu++){
-						arrservicios.addItem(servicios.getItemAt(ieu));
+					for(ieus=0;ieus<maxeus;ieus++){
+						arrservicios.addItem(servicios.getItemAt(ieus));
 					}
+					
 					newRegUsuar.serviciosE = arrservicios;
 					newRegUsuar.setVisible(true,false);
 

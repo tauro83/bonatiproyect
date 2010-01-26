@@ -54,7 +54,6 @@
 				{nameT:"Editar Cliente"},
 				{nameT:"Registro Preoperatorio"},
 				{nameT:"Editar consulta"},
-				{nameT:"Editar Control"},
 				{nameT:"Eliminar Cliente"},
 				{nameT:"Editar Pre-Operatorio"},
 				{nameT:"Anular Consulta"},	
@@ -67,6 +66,7 @@
 			 * */
            	private function setInvi():void
            	{
+           		consulti.visible = false;
            		anuCirugia.visible = false;
            		delVacu.visible = false;
            		anuVacu.visible = false;
@@ -100,11 +100,9 @@
            		addPag.visible = false;
            		elimPagAyu.visible = false;
            		anuPagAyu.visible = false;
-           		
            		ediCliAy.visible=false;
            		adPreo.visible=false;
-           		consulti.visible=false;
-           		
+           		consulti.visible=false;           		
            		elimCli.visible = false;
            		ediPre.visible = false;
            		anulConsul.visible = false;

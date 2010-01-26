@@ -530,7 +530,6 @@
 	<mx:ComboBox x="96" y="24" width="150" id="combobox" change="seleccionarBusqueda(event)" >
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccionar-"/>
-			<mx:Object label="Atencion"/>
 			<mx:Object label="Cliente"/> 
 			<mx:Object label="Mascota"/> 
 			<mx:Object label="Producto"/> 
