@@ -26,8 +26,8 @@ public class EditarPostOperatorioBD {
 	public EditarPostOperatorioBD(Connection connection) throws SQLException{
 		this.connection = connection;
 		 query = "UPDATE atencionpostoperatorio "+
-		   "SET indicaciones=?, hora=?, fecha=?, "+
-		 "WHERE hora=? AND fecha=? AND servicio=Pabellon;";
+		   "SET indicaciones=?, hora=?, fecha=? "+
+		 "WHERE hora=? AND fecha=? AND servicio='Pabellon';";
 
 			 update = connection.prepareStatement(query);
 	}
@@ -37,15 +37,16 @@ public class EditarPostOperatorioBD {
 	 * Por facilidad de implementacion esta funcion toma una lista con los elementos a actualizar
 	 * en la base de datos y los rellena en la sentencia sql para luego ejecutarla
 	 */
-	public int editarPostOperatorio(String fecha, String hora,PostOperatorio p){
+	public int editarPostOperatorio(String fecha, String hora,String fecha2, String hora2, String indicaciones){
 		int result=0;
 		try{
-			update.setString(1, p.indicaciones);
-			update.setString(2, p.shora);
-			update.setString(3, p.stfecha);
-			update.setString(7, hora);
-			update.setString(8, fecha);
+			update.setString(1, indicaciones);
+			update.setString(2, hora2);
+			update.setString(3, fecha2);
+			update.setString(4, hora);
+			update.setString(5, fecha);
 			result  = update.executeUpdate();
+			System.out.println("ASDASDASDS  "+result);
 			connection.close();
 		}
 		catch(SQLException e){

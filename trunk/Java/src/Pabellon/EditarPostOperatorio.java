@@ -34,12 +34,12 @@ public class EditarPostOperatorio {
 	 * @return Entero que representa si la actualización fue exitosa o no.
 	 * @throws SQLException
 	 */
-	public int editarPostOperatorio(String fecha, String hora, PostOperatorio p) throws SQLException{
+	public int editarPostOperatorio(String fecha, String hora, String fecha2, String hora2,String indic) throws SQLException{
 		connection=DBConnectionManager.getConnection();
 		EditarPostOperatorioBD object = new EditarPostOperatorioBD(connection);
 		
 		
-		int result = object.editarPostOperatorio(fecha, hora, p);
+		int result = object.editarPostOperatorio(fecha, hora, fecha2, hora2,indic);
 		connection.close();
 		return result;
 	}
