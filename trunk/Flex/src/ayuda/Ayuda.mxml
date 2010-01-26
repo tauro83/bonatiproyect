@@ -56,7 +56,8 @@
 				{nameT:"Registrar Usuario"},				
 				{nameT:"Registrar Vacunación"},					
 				{nameT:"Retirar Mascota de Hotelería"},				
-				{nameT:"Visualizar Ficha"}			
+				{nameT:"Visualizar Ficha"},
+				{nameT:"Editar Control"}		
 			]);
            	
            	/**
@@ -106,6 +107,7 @@
            		anulConsul.visible = false;
            		registrarPostoperatorio.visible = false;
            		regHot.visible = false;
+           		edicontrol.visible = false;
            		
            		//eliminaProducto.visible= false;
            		
@@ -262,6 +264,9 @@
 						regHot.visible = true;
 					break;
 					
+					case "Editar control":
+						edicontrol.visible = true;
+					break;
 					/**
 					case "Eliminar Producto":
 						eliminaProducto.visible= true;
@@ -369,6 +374,8 @@
 	<ns1:regPostOperatorio x="345" y="50" id ="registrarPostoperatorio" visible="false">
 	</ns1:regPostOperatorio>
 	<ns1:regiHot x="345" y="50" visible="false" id="regHot"/>
+	<ns1:ediControl x="345" y="50" id="edicontrol">
+	</ns1:ediControl>
 	<!-->
 	<ns1:elimProducto x="345" y="50" id="eliminaProducto" visible="false">
 	</ns1:elimProducto>
