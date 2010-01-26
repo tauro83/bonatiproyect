@@ -55,9 +55,9 @@ package administracion
 		 * Se inserta un nuevo objeto de mascota en la base de datos
 		 */ 
 		
-		public function insertMascotaE(person:Mascota,nombreAntiguo:String, usuario:String):void
+		public function insertMascotaE(person:Mascota,usuario:String):void
 		{
-			this.getOperation("insertMascotaE").send(person, nombreAntiguo, usuario);
+			this.getOperation("insertMascotaE").send(person,usuario);
 		}
 
 			
