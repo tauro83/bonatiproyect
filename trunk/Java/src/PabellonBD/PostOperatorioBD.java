@@ -381,7 +381,8 @@ public class PostOperatorioBD {
 	    			postOperatorio.nombreCliente = result.getString(4).trim();
 	    			postOperatorio.apellido = result.getString(5).trim();
 	    			postOperatorio.clienterut = result.getString(6).trim();
-	    			postOperatorios.add(postOperatorio);
+	    			if(!isInList(postOperatorios,postOperatorio))
+	    				postOperatorios.add(postOperatorio);
 	    			
 	    		}
 			} 
@@ -391,7 +392,21 @@ public class PostOperatorioBD {
 			}
 	    	return postOperatorios;
 	    }
-
+	 
+	 public boolean isInList(List lista, PostOperatorio pos){
+			boolean value= false;
+			PostOperatorio p;
+			for (int i=0;i<lista.size();i++){
+				p = (PostOperatorio)lista.get(i);
+				System.out.println(p.clienterut+" "+pos.clienterut+"  "+p.nombreMascota+" "+pos.nombreMascota);
+				if(p.clienterut.compareTo(pos.clienterut)==0 && p.nombreMascota.compareTo(pos.nombreMascota)==0){
+					value=true;
+				}
+					
+			}
+			
+			return value;
+		}
 
 
 	public List getAllPostOperatorioActivoBD() {

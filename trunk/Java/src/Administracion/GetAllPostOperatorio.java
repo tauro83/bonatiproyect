@@ -61,7 +61,8 @@ public class GetAllPostOperatorio {
     			post.setRut(result.getString(9));
     			post.setApellidoDueño(result.getString(10).trim());
     			post.setNombreDueño(result.getString(11).trim());
-    			lista.add(post);
+    			if(!isInList(lista, post))
+    				lista.add(post);
     			
     		}
     		connection.close();
@@ -75,4 +76,16 @@ public class GetAllPostOperatorio {
 		
 	}
 
+	public boolean isInList(List lista, PostOperatorio pos){
+		boolean value= false;
+		PostOperatorio p;
+		for (int i=0;i<lista.size();i++){
+			p = (PostOperatorio)lista.get(i);
+			System.out.println(p.clienterut+" "+pos.clienterut+"  "+p.nombreMascota+" "+pos.nombreMascota);
+			if(p.clienterut.equalsIgnoreCase(pos.clienterut) && p.nombreMascota.equalsIgnoreCase(pos.nombreMascota))
+				value=true;
+		}
+		
+		return value;
+	}
 }
