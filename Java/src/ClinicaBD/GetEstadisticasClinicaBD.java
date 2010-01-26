@@ -36,19 +36,7 @@ public class GetEstadisticasClinicaBD {
 	 * @param fin Fecha de fin de estadistica
 	 */
 	public List getEstadisticasBD(int tipo, String inicio,String fin) throws SQLException{
-		System.out.println("tipo: "+tipo+" inicio: "+inicio+" fin: "+fin);
     	List atenciones=new ArrayList();
-    	String diaIni, mesIni, añoIni;
-    	String diaFin, mesFin, añoFin;
-    	diaIni=inicio.substring(7, 8);
-		mesIni=inicio.substring(5,6);
-		añoIni=inicio.substring(0,4);
-		System.out.println(diaIni+" / "+mesIni+" / "+añoIni);
-		diaFin=fin.substring(7, 8);
-		mesFin=fin.substring(5,6);
-		añoFin=fin.substring(0,4);
-		String inicio2=new String(diaIni+"/"+mesIni+"/"+añoIni);
-		String fin2=new String(diaFin+"/"+mesFin+"/"+añoFin);
     	if(tipo==1){
     		
     		String queryPreOperatorio =  "select count(*) from estadisticasclinica where tipo=1 and area=1 and fecha between '"+inicio+"' and '"+fin+"'";
