@@ -14,7 +14,7 @@ package services
 	 * lógica y la interfaz gráfica
 	 * @autor Erwin Díaz
 	 */
-	public class PostOperatorioService extends RemoteObject
+	public class EditarPostOperatorio extends RemoteObject
 	{
 		public function PostOperatorioService()
 		{
