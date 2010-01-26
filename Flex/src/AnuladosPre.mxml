@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Bitacora Preoperatorio Anulados" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Bitacora Preoperatorio" borderColor="#15AD8F">
 <mx:Script>
 		<![CDATA[
 			import services.anularPreoperatorio;
@@ -87,7 +87,7 @@
 	
 	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
-	<mx:DataGrid x="10" y="27" width="724" height="318" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
+	<mx:DataGrid x="10" y="27" width="724" height="318" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Muestra el o los registro(s) de preoperatorio anulado(s)">
 		<mx:columns>	
 			<mx:DataGridColumn width="110" headerText="Rut Cliente" dataField="rutCliente" id="rutCliente" draggable="false"/>	
 			<mx:DataGridColumn width="110" headerText="Nombre Mascota" dataField="nombreMascota" id="nombreMascota" draggable="false"/>			
