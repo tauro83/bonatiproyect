@@ -25,6 +25,7 @@ public class DiaAgenda {
 	/** Atributo que corresponde al cliente de una cita */
 	public String cliente;
 	
+	public String nombreCliente;
 	
 	/**
      * Esta clase agrega cada uno de los metodos de los set y get de
