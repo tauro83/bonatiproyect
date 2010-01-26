@@ -81,6 +81,7 @@
         	private function selClaseAnimal(event:Event):void {
         		var confs2:configuracionServices= new configuracionServices();			
 				confs2.getConfiguraciones("Especie");
+				
 				confs2.addEventListener(ResultEvent.RESULT,cargarDatosR);			
 			}
 			
