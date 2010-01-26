@@ -103,7 +103,7 @@
            		
            		ediCliAy.visible=false;
            		adPreo.visible=false;
-           		consulti.visible=true;
+           		consulti.visible=false;
            		
            		elimCli.visible = false;
            		ediPre.visible = false;
