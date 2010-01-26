@@ -27,10 +27,11 @@
 		</mx:Canvas>
 		<mx:Canvas label="Configuración" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF" x="-31" y="304">
 			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="43" label="Mascotas" textAlign="left" click="configurarMascota()" id="bConMas"/>
-			<mx:LinkButton x="10" y="73" label="Usuarios" textAlign="left"  click="configurarUsuario()" id="bConUsu"/>
-			<mx:LinkButton x="10" y="133" label="Servicios Generales" textAlign="left"  click="configurarServicios()" id="bConSer" width="135"/>
-			<mx:LinkButton x="10" y="164" label="Servicios Peluquería" textAlign="left"  click="configurarServCat()" id="servCatPel" visible="false"/>
-			<mx:LinkButton x="10" y="103" label="Vacunas" textAlign="left"  click="{configurarVacunas()}" id="bConVac"/>
+			<mx:LinkButton x="10" y="72" label="Productos" textAlign="left" click="configProd()" id="productos"/>
+			<mx:LinkButton x="10" y="102" label="Usuarios" textAlign="left"  click="configurarUsuario()" id="bConUsu"/>
+			<mx:LinkButton x="10" y="162" label="Servicios Generales" textAlign="left"  click="configurarServicios()" id="bConSer" width="135"/>
+			<mx:LinkButton x="10" y="193" label="Servicios Peluquería" textAlign="left"  click="configurarServCat()" id="servCatPel" visible="false"/>
+			<mx:LinkButton x="10" y="132" label="Vacunas" textAlign="left"  click="{configurarVacunas()}" id="bConVac"/>
 			<mx:LinkButton x="10" y="13" label="Cirugías" id="linkCiru" click="{configurarCirugias()}"/>
 		</mx:Canvas>
 		<mx:Canvas label="Bitácora" width="100%" height="100%">
@@ -88,6 +89,15 @@
          	this.visible = true;
          	Application.application.confMascota.resetVars();
          	Application.application.confMascota.visible = true;
+         	
+         }
+          private function configProd():void
+         {
+         	Application.application.setInvisible();
+         	this.visible = true;
+         	Application.application.confcateprod.resetVars();
+         	Application.application.confcateprod.cargarDatos();
+         	Application.application.confcateprod.visible = true;
          	
          }
          
