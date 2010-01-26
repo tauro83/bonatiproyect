@@ -51,6 +51,8 @@
 				{nameT:"Eliminar Pago"},
 				{nameT:"Anular Pago"},
 				{nameT:"Eliminar Producto"},
+				{nameT:"Editar Cliente"},
+				{nameT:"Registro Preoperatorio"},
 				{nameT:"Editar Control"}			
 			]);
            	
@@ -92,7 +94,10 @@
            		addPag.visible = false;
            		elimPagAyu.visible = false;
            		anuPagAyu.visible = false;
-           		editarControl.visible = false;
+           		
+           		ediCliAy.visible=false;
+           		adPreo.visible=false;
+           		
            		//eliminaProducto.visible= false;
            		
            	}
@@ -220,9 +225,14 @@
 					case "Anular Pago":
 						anuPagAyu.visible= true;
 					break;
-					case "Editar Control":
-						editarControl.visible= true;
+					
+					case "Editar Cliente":
+						ediCliAy.visible= true;
 					break;
+					case "Registro Preoperatorio":
+						adPreo.visible= true;
+					break;
+					
 					/**
 					case "Eliminar Producto":
 						eliminaProducto.visible= true;
@@ -318,8 +328,11 @@
 	</ns1:anuPagoayu>
 	<ns1:elimPagoAyu x="345" y="50" id="elimPagAyu" visible="false">
 	</ns1:elimPagoAyu>
-	<ns1:editarControl x="345" y="50" id="editarControl" visible="false">
-	</ns1:editarControl>
+	<ns1:editarCliAyuda x="345" y="50" visible="false" id="ediCliAy">
+	</ns1:editarCliAyuda>
+	<ns1:regPreo x="345" y="50" visible="false" id="adPreo">
+	</ns1:regPreo>
+	
 	<!-->
 	<ns1:elimProducto x="345" y="50" id="eliminaProducto" visible="false">
 	</ns1:elimProducto>
