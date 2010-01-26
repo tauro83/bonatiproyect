@@ -32,10 +32,10 @@
 	    	public function sincronizar2():void{
 	    		
 	        	var bmcProd:BMCgetProductos = new BMCgetProductos();
-		    		bmcProd.getProductos();
-		    		bmcProd.addEventListener(ResultEvent.RESULT,getProdR2);		
+		    	bmcProd.getProductos();
+		    	bmcProd.addEventListener(ResultEvent.RESULT,getProdR2);		
 	    	}
-	        private function getProdR2(event:ResultEvent):void
+	        public function getProdR2(event:ResultEvent):void
 	        {
 	        	productos = event.result as ArrayCollection;
 	        }
