@@ -93,9 +93,16 @@
 			 */
 			private function deleteUsuarioResult(event:ResultEvent):void
 			{
-				var result:int = event.result as int ;
-				labelMessage.text = Properties.getMensaje("Informacion", "17");
+				var message:int= event.result as int;	
+				if(message==1){
+					labelMessage.text = Properties.getMensaje("Informacion", "17");
+				}
+				else{
+				//	labelMessage.text = Properties.getMensaje("Error", "31");
+					labelMessage.text = "No de puede purgar Usuario ya que aún es referido";
+				}		
 				getAllUsuarios();
+				
 			}
 			/**
 			 * Borra el mensaje que se muestra en la etiqueta de mensajes del panel
