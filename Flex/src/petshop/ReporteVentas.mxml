@@ -48,6 +48,7 @@
 		}
 	    private function sincronizarR(event:ResultEvent):void{
 	    	var conectado:Boolean = event.result as Boolean;
+	    	sincB.enabled = true;
 	    	if(conectado){
 	    		mens.text = "Reporte obtenido";
 	    		this.iniciarPanel();
@@ -60,6 +61,7 @@
 	    private function sincronizar():void{
 	    	var bmc:BMCSincronizar = new BMCSincronizar();
 	    	mens.text = "Obteniendo reporte ...";
+	    	sincB.enabled = false;
 	    	bmc.conectar();
 			bmc.addEventListener(ResultEvent.RESULT,sincronizarR);
 	    }    
@@ -97,6 +99,6 @@
 			<mx:Label x="459" y="356" text="Total en Ventas:"/>
 			<ns1:Precio x="574" y="356" id="total">
 			</ns1:Precio>
-			<mx:Button x="647" y="32" label="Sincronizar" click="sincronizar()"/>
+			<mx:Button x="647" y="32" label="Sincronizar" click="sincronizar()" id="sincB"/>
 	</mx:Panel>
 </mx:VBox>

@@ -27,8 +27,8 @@
 			{
 				 Application.application.setInvisible();
 				 this.visible = true;
-				 Application.application.regProducto.cargarDatos();
-				 Application.application.regProducto.visible = true;				 
+				 Application.application.regProducto.visible = true;
+				 Application.application.regCatalogo.mens.text = "";	 
 			}
 
 			public function ediProducto():void
