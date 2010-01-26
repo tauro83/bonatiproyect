@@ -30,6 +30,7 @@
 				{nameT:"Editar Catalogo"},
 				{nameT:"Editar Cliente"},
 				{nameT:"Editar consulta"},
+				{nameT:"Editar Control"},	
 				{nameT:"Editar Mascota"},
 				{nameT:"Editar Pre-Operatorio"},
 				{nameT:"Editar Registro de Hotelería"},
@@ -52,12 +53,11 @@
 				{nameT:"Registrar Peluquería"},
 				{nameT:"Registrar PostOperatorio"},	
 				{nameT:"Registro Preoperatorio"},			
-				{nameT:"Registrar Producto"},
 				{nameT:"Registrar Usuario"},				
 				{nameT:"Registrar Vacunación"},					
 				{nameT:"Retirar Mascota de Hotelería"},				
-				{nameT:"Visualizar Ficha"},
-				{nameT:"Editar Control"}		
+				{nameT:"Visualizar Ficha"}
+					
 			]);
            	
            	/**
