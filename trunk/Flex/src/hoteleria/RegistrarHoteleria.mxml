@@ -99,6 +99,22 @@
          		}
          		iniciarPanel();
          	}
+         	
+         	
+         	public function activarBoton():void{
+         		
+         		if(fecha1.selectedDate == null || fecha2.selectedDate == null || costoIntput.costo.text == "" || costoIntput.costo.text == "$"
+         			|| canilIntput.selectedLabel == "" || mascotasList.selectedLabel == "" || fecha1.selectedDate > fecha2.selectedDate){
+         				
+         				regist.enabled = false;
+         			}
+         			else
+         				regist.enabled = true;
+         				
+         				if(fecha1.selectedDate > fecha2.selectedDate)
+         					labelMessage.text = 'La fecha de ingreso debe ser anterior a la fecha de salida';
+         					else labelMessage.text = '';
+         	}
                   
              public function validaFechasNulas():Boolean{
              	  var ok:Boolean;
@@ -209,7 +225,6 @@
 			private function getAddMascotasResult(event:ResultEvent):void{
 				mascotas = event.result as ArrayCollection;
 				
-				sacar();
 			}
 			
 	/////////////////////////////////////////////////////////////////////////////	
@@ -301,15 +316,6 @@
 	
 	<mx:states>
 		<mx:State name="Registros">
-			<mx:SetProperty target="{textinput1}" name="x" value="667"/>
-			<mx:SetProperty target="{textinput1}" name="y" value="34"/>
-			<mx:SetProperty target="{label2}" name="x" value="542"/>
-			<mx:SetProperty target="{label2}" name="y" value="36"/>
-			<mx:SetProperty target="{textinput1}" name="editable" value="false"/>
-			<mx:SetProperty target="{textinput1}" name="enabled" value="false"/>
-			<mx:AddChild position="lastChild">
-				<mx:CheckBox x="714" y="34" label="Checkbox" width="18" selected="false" toolTip="Ignorar"/>
-			</mx:AddChild>
 			<mx:SetProperty target="{button2}" name="x" value="657"/>
 			<mx:SetProperty target="{button1}" name="x" value="577"/>
 			<mx:SetProperty target="{button1}" name="width" value="72"/>
@@ -320,10 +326,8 @@
 		</mx:State>
 		<mx:State name="RegistroHoteleria">
 			<mx:RemoveChild target="{label1}"/>
-			<mx:RemoveChild target="{textinput1}"/>
-			<mx:RemoveChild target="{label2}"/>
 			<mx:AddChild position="lastChild">
-				<mx:Button x="572" y="368" label="Registrar" id="regist" click="{registrar()}" enabled="true"/>
+				<mx:Button x="572" y="368" label="Registrar" id="regist" click="{registrar()}" enabled="false"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:Button x="659" y="368" label="Cancelar" id="cancelar" click="{iniciarPanel()}"/>
@@ -340,19 +344,18 @@
 			<mx:AddChild position="lastChild">
 				<mx:Form width="290" height="124" y="155" verticalGap="8" paddingBottom="0" paddingRight="0" paddingTop="5" right="447">
 					<mx:FormItem label="Ingreso:                                    " width="267" required="false">
-						<mx:DateField width="161" id="fecha1" editable="true" showToday="true" formatString="DD/MM/YYYY"/>
+						<mx:DateField width="161" id="fecha1" editable="true" showToday="true" formatString="DD/MM/YYYY" change="{activarBoton()}"/>
 					</mx:FormItem>
 					
 					<mx:FormItem label="Salida:" width="265" required="false">
-						<mx:DateField width="161" id="fecha2" editable="true" formatString="DD/MM/YYYY" change="verifica()"/>
+						<mx:DateField width="161" id="fecha2" editable="true" formatString="DD/MM/YYYY" change="verifica(), activarBoton()"/>
 					</mx:FormItem>
 					
 					<mx:FormItem label="Canil:" width="268">
-						<ns2:Caniles id="canilIntput" text="{Tabla.selectedItem.canil}"/>
+						<ns2:Caniles id="canilIntput" text="{Tabla.selectedItem.canil}" close="activarBoton()"/>
 					</mx:FormItem>
 					<mx:FormItem label="Costo:" width="267" required="false">
-						<ns2:Precio id="costoIntput" label=" ">
-						</ns2:Precio>
+						<ns2:Precio id="costoIntput" label=" " click="regist.enabled = false" dataChange="activarBoton" keyFocusChange="activarBoton()"/>
 					</mx:FormItem>
 					
 				</mx:Form>
@@ -360,7 +363,7 @@
 			<mx:AddChild position="lastChild">
 				<mx:Form width="280" height="34" y="90" verticalGap="8" paddingBottom="0" paddingRight="0" paddingTop="5" right="457">
 					<mx:FormItem label="Nombre:" width="263" height="27" horizontalAlign="left" required="false">
-						<mx:ComboBox labelField="nombre" id="mascotasList" dataProvider="{mascotas}"  width="159" click="verDisponibilidad()"></mx:ComboBox>
+						<mx:ComboBox labelField="nombre" id="mascotasList" dataProvider="{mascotas}"  width="159"/>
 					</mx:FormItem>
 					
 				</mx:Form>
@@ -379,7 +382,7 @@
 				<mx:Label x="342.25" y="155" text="Comentario:" width="93" height="22"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextArea x="429" y="154" id="comentarioCuadro" width="296" height="113"/>
+				<mx:TextArea x="429" y="154" id="comentarioCuadro" width="296" height="113" click="{activarBoton()}"/>
 			</mx:AddChild>
 			<mx:SetStyle target="{labelMessage}" name="fontWeight" value="bold"/>
 		</mx:State>
@@ -397,10 +400,8 @@
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="27" y="34" text="Registros Actuales:" fontWeight="bold" id="label1"/>
-	<mx:Button x="582" y="358" label="Nuevo" id="button1" click="currentState='RegistroHoteleria', regist.visible =true, cancelar.label='Cancelar', labelMessage.text = ''"/>
+	<mx:Button x="582" y="358" label="Nuevo" id="button1" click="currentState='RegistroHoteleria', regist.enabled =false, cancelar.label='Cancelar', labelMessage.text = ''"/>
 	<mx:Button x="652" y="358" label="Cancelar" id="button2" click="cancelarOperacion()"/>
-	<mx:Label x="572" y="34" text="Caniles Disponibles:" fontWeight="bold" id="label2"/>
-	<mx:TextInput x="697" y="32" width="31" text="5" id="textinput1"/>
 	<mx:Label x="194" y="388" width="390" id="labelMessage"/>
 	
 </mx:Panel>
