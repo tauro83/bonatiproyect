@@ -1,5 +1,5 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" show="getAllDatos()" activate="getAllDatos()" layout="absolute" 
-	width="779" height="466" borderColor="#15AD8F" title="Anular Control Agendado" x="241" y="133" 
+	width="779" height="466" borderColor="#15AD8F" title="Anular Control" x="241" y="133" 
 	xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
