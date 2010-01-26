@@ -97,7 +97,7 @@ public class EditarConsultaBD
 
     	try 
     	{
-    		selectAll.setString(1, rutCliente);
+    		selectAll.setString(1, rutCliente.trim());
     		ResultSet result = selectAll.executeQuery();
     		while(result.next())
     		{
