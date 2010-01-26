@@ -78,13 +78,19 @@ Ademas de cagarle la vida a 10 weones]]></mx:value>
 			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
 				<mx:DataGrid x="88.5" y="141" height="292" width="575" alpha="0.0" styleName="dataAvisos" dataProvider="{avisos}" fontWeight="bold" fontSize="11">
 					<mx:columns>
-						<mx:DataGridColumn headerText="Asunto" dataField="asunto"/>
-						<mx:DataGridColumn headerText="Nombre" dataField="nombre"/>
+						<mx:DataGridColumn headerText="" dataField="asunto"/>
+						<mx:DataGridColumn headerText="" dataField="nombre"/>
 					</mx:columns>
 				</mx:DataGrid>
 			</mx:AddChild>
 			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
 				<mx:Button x="43" y="504" label="Button" click="{getAllAvisos()}"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="88.5" y="120.25" text="Asunto" styleName="portada" fontSize="22" textDecoration="normal"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="354.5" y="120.25" text="Solicitante" styleName="portada" fontSize="22"/>
 			</mx:AddChild>
 		</mx:State>
 	</mx:states>
