@@ -280,7 +280,7 @@
 			private function getMascotas():void{
 				var addpelService:AddMascotaService = new AddMascotaService();
 				addpelService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addpelService.getMascotas(nombreRutIn.rutClienteInput.text);
+				addpelService.getMascotas(nombreRutIn.rutClienteInput.text + nombreRutIn.rutClienteDVInput.text);
 			}
 			
 			/**
