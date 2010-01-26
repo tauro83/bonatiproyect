@@ -57,9 +57,9 @@ package petshop
 			this.getOperation("cargarProductosDetalle").send(pro);
 		}
 		
-		public function anularProducto(codigo:String):void
+		public function anularProducto(codigo:String, numero:int):void
 		{
-			this.getOperation("anularProducto").send(codigo);
+			this.getOperation("anularProducto").send(codigo, numero);
 		}
 		
 		public function eliminarVarios(nombre:String, precio:String, categoria:String, descripcion:String):void
