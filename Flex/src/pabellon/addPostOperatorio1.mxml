@@ -53,6 +53,20 @@
 			[Bindable]
 			public var newMascota:Mascota2;
 			
+		public function iniciarPanel1():void{
+     		    buscadorCliente.getAllClientes();
+     			buscadorCliente.rutClienteInput.enabled = true;
+         		buscadorCliente.rutClienteDVInput.enabled = true;
+         		buscadorCliente.inputClienteNombre.enabled = true;
+         		buscadorCliente.enabled = true;
+         		
+         		buscadorCliente.rutClienteInput.text = "";
+         		buscadorCliente.rutClienteDVInput.text = "";
+         		buscadorCliente.inputClienteNombre.text = "";
+     			
+         	}
+		
+			
 			public function seleccionarPostOpe():void
 			{
 				  
@@ -132,7 +146,7 @@
 	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
 	    </mx:columns>
 	</mx:DataGrid>
-	<ns1:BuscadorNombreRut x="33" y="36" keyFocusChange="mascotasFiltrar()" mouseFocusChange="mascotasFiltrar()" id="buscadorCliente">
+	<ns1:BuscadorNombreRut x="33" y="36"  keyFocusChange="mascotasFiltrar()" mouseFocusChange="mascotasFiltrar()" id="buscadorCliente">
 	</ns1:BuscadorNombreRut>
 	<mx:Label x="33" y="10" text="Cliente:" fontWeight="bold"/>
 	
