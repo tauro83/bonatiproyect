@@ -45,6 +45,7 @@
 			import services.GetCatalogos;
 			import transferObjects.CatPeluqueria;
 			import peluqueria.EditarPeluqueriaUpdate;
+			import services.AddMascotaService;
 			
 			[Bindable]
 			private var files:ArrayCollection=new ArrayCollection();
@@ -277,7 +278,7 @@
 		 	 * 	@author  "Raul Lopez"
 			 */
 			private function getMascotas():void{
-				var addpelService:AddPeluqueriaService = new AddPeluqueriaService();
+				var addpelService:AddMascotaService = new AddMascotaService();
 				addpelService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
 				addpelService.getMascotas(nombreRutIn.rutClienteInput.text);
 			}
