@@ -46,7 +46,6 @@ public class EditarPostOperatorioBD {
 			update.setString(4, hora);
 			update.setString(5, fecha);
 			result  = update.executeUpdate();
-			System.out.println("ASDASDASDS  "+result);
 			connection.close();
 		}
 		catch(SQLException e){
