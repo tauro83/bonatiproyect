@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Mascota" xmlns:ns1="util.*">
+	<mx:Script>
+
+        <![CDATA[
+        
+            //=======================================================================
+			// FECHA: CREACIÓN: 12/09/2009
+			// AUTOR: Cristian Bravo
+			// Panel de selección de una mascota, para proceder a editar los datos de ésta.
+			//=======================================================================
+
+        	import services.AddMascotaService;
+        	import mx.controls.DateField;
+        	import mx.controls.Alert;
+            import mx.collections.ArrayCollection;
+        	import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.events.ValidationResultEvent;            
+  			import flash.display.Sprite;
+		    import flash.events.*;
+		    import flash.net.FileReference;
+		    import flash.net.FileReferenceList;
+		    import mx.rpc.events.ResultEvent;
+//			import components.ItemRenderer;
+//			import events.FileUploaderEvent;
+			import mx.controls.Image;
+			import services.MascotaService;
+		    import transferObjects.Mascota;
+		    import services.PersonService;
+		    import transferObjects.Person;
+		    import transferObjects.Cirugia;
+		    import mx.core.Application;
+		    import pabellon.AddCirugiaService;
+			
+			[Bindable]
+			private var files:ArrayCollection=new ArrayCollection();
+		    private var vResult:ValidationResultEvent;
+		    public var nombreCliente:String;
+		    [Bindable]
+		    public var tiposC:ArrayCollection;
+		    [Bindable]
+		    public var vetesC:ArrayCollection;
+		    [Bindable]
+		    public var ayudantesC:ArrayCollection;
+		    [Bindable] 
+		    public var mascotas:ArrayCollection = new ArrayCollection();
+		    
+		    [Bindable] 
+		    public var cliente:Person;
+		    [Bindable]
+			public var newMascota:Mascota;
+			
+		      
+			 
+		
+        	 /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripcion Metodo que obtiene un cliente.
+			 * */
+			 
+			 
+        	private function getCliente(rutCliente:String):void{
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				//addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
+				
+				addMascotaService.getCliente(rutCliente);
+				
+				getMascotas();
+			}
+			
+	
+			
+			/**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha   12/09/2009
+			 *  @Descripción Funcion que completa la tabla de mascotas asociadas al cliente, despues de haber obtenido
+			 *  La comunicacion con la capa logica. 
+			 */
+			 
+	        public function ini(event:Event):void{
+	        	//datosMascota.visible = true;
+	        	
+	           	mascotas.removeAll();
+	           	getMascotas();
+				mascotas.refresh();
+	        }
+	     
+			
+			/**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha  12/09/2009
+			 *  @Descripción Metodo que realiza la comunicacion a la capa logica.
+			 *  Solicitando todas las mascotas que le pertenescan a un determinado cliente
+			 */
+			 
+			public function getMascotas():void{
+				
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
+				addMascotaService.getMascotas(nombreRutIn.rutClienteInput.text+nombreRutIn.rutClienteDVInput.text);
+			}
+			
+			/**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha   12/09/2009
+			 *  @Descripción Metodo que solicita todas las mascotas asociadas a un cliente  
+			 */
+			 
+	    	public function getAddMascotasResult(event:ResultEvent):void{
+				mascotas = event.result as ArrayCollection;
+			}
+			
+			/**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha   12/09/2009
+			 *  @Descripción Metodo que que inicializa todos los valores y variables del panel
+			 */
+			 
+			public function iniciarPanel():void
+			{
+				
+			
+				this.mascotas=new ArrayCollection();
+				this.dg.doubleClickEnabled=true;
+				this.labelMessage.text="";
+				
+			}
+	 
+		    /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha   12/09/2009
+			 *  @Descripción Metodo que selecciona una mascota del data grid
+			 */
+			 
+			public function seleccionarMascota():void
+			{
+		
+					var newMascotaUpdate:EditMascotaUpdate = Application.application.AdEditarMascota3;
+					newMascota = new Mascota();					
+					
+					newMascota.nombre = dg.selectedItem.nombre;
+				    newMascota.fechaNacimiento = dg.selectedItem.fechaNacimiento;
+					newMascota.claseAnimal   = dg.selectedItem.claseAnimal;
+					newMascota.raza= dg.selectedItem.raza;
+					newMascota.sexo = dg.selectedItem.sexo;
+					newMascota.rutCliente = nombreRutIn.rutClienteInput.text+nombreRutIn.rutClienteDVInput.text;
+					
+				    this.visible = false;
+				    Application.application.AdEditarMascota3.visible = true;
+				    
+				    
+					newMascotaUpdate.carga(newMascota);				    				    
+				    Application.application.AdEditarMascota3.setVisible(true,false);
+				    
+				    // Application.application.editarCita.hora.text = selectedRow.hora;
+			 	
+
+			}
+			
+			  /**
+		 	 * 	@author  "Cristian Bravo"
+			 * 	@Fecha   12/09/2009
+			 *  @Descripción Metodo que cancela la operacion de editar una mascota
+			 */
+			
+			  private function cancelando():void{
+				this.setVisible(false,false);
+				Application.application.panel2.setVisible(true,false);
+			}
+			
+			
+			
+				
+        ]]>
+    </mx:Script>
+	
+	<mx:Panel x="121.5" y="-12" width="585" height="323" layout="absolute"  visible="false" id="ficha">
+			<mx:Label x="10" y="63" text="Nombre:" width="97"/>
+			<mx:Label x="10" y="125" text="Tipo Animal:" width="97"/>
+			<mx:Label x="10" y="95" text="Fecha Nacimiento:" width="114.5"/>
+			<mx:Label x="10" y="155" text="Raza:" width="97"/>
+			<mx:Label x="10" y="181" text="Sexo:" width="97"/>
+			<mx:Label x="172" y="10" width="211" text="{dg.selectedItem.rut}" textAlign="center" id="rutClienteSeleccionado"/>
+			<mx:Label x="172" y="23" width="211" text="{dg.selectedItem.nombre}" textAlign="center"/>
+			<mx:Image x="343" y="61" source="{dg.selectedItem.imagenMascota}" width="209" height="157" id="fichaImagen"/>
+			<mx:Button x="501" y="245" label="Salir" click="ficha.visible=false"/>
+			<mx:Label x="129" y="63" width="165" text="{dg.selectedItem.nombreMascota}"/>
+			<mx:Label x="129" y="95" width="165" text="{dg.selectedItem.fechaNacimiento}"/>
+			<mx:Label x="129" y="125" width="165" text="{dg.selectedItem.tipoAnimal}"/>
+			<mx:Label x="129" y="155" width="165" text="{dg.selectedItem.raza}"/>
+			<mx:Label x="129" y="181" width="165" text="{dg.selectedItem.sexo}"/>
+	</mx:Panel>	
+
+	
+	
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:Label x="25" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
+	<mx:DataGrid id="dg" color="0x323232" width="709" rowCount="3" y="92" x="25" variableRowHeight="true" dataProvider="{mascotas}"  visible="true" height="240" doubleClickEnabled="true" itemDoubleClick="{seleccionarMascota()}" >
+	    <mx:columns>
+	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
+	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
+	        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" width="100"/>
+	        <mx:DataGridColumn dataField="raza" headerText="Raza" width="100"/>
+	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
+	    </mx:columns>
+	</mx:DataGrid>
+	<mx:Button x="632" y="353" label="Cancelar" width="102" id="cancelar" visible="true" click="cancelando()" height="23"/>
+	
+	<mx:Label x="25" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
+	<ns1:BuscadorNombreRut x="39" y="28" id="nombreRutIn" keyFocusChange="getMascotas()" mouseFocusChange="getMascotas()">
+	</ns1:BuscadorNombreRut>
+	<mx:Button x="518" y="354" label="Editar" width="102" height="23" click="seleccionarMascota()"/>
+	
+</mx:Panel>
+
