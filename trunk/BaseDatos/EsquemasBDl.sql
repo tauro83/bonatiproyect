@@ -40,6 +40,7 @@ drop table cirugiaobj cascade;
 drop table productovendido cascade;
 drop table categproducto cascade;
 drop table estadisticasclinica cascade;
+drop table bitacorapost cascade;
 
 CREATE TABLE usuario
 (
@@ -574,3 +575,14 @@ CREATE TABLE estadisticasclinica
   id serial NOT NULL,
   PRIMARY KEY(id)
 )
+
+CREATE TABLE bitacorapost
+(
+  clienterut character(10) NOT NULL,
+  nombremascota character(20) NOT NULL,
+  fechaa character(10) NOT NULL,
+  usuarioa character(50) NOT NULL,
+  motivo character(120),
+  servicio character(20),
+  CONSTRAINT bitacorapost_pkey PRIMARY KEY (clienterut, fechaa, nombremascota)
+);
