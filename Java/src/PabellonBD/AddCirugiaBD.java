@@ -98,7 +98,12 @@ public class AddCirugiaBD {
 			add.setString(2, newCirugia.getMascotaNombre());
 			add.setTime(3, t);
 			add.setString(4, newCirugia.getVeterinario());
-			add.setString(5, newCirugia.getAyudante());
+			if(newCirugia.getAyudante()!="a"){
+				add.setString(5, newCirugia.getAyudante());
+			}
+			else{
+				add.setNull(5, 0);
+			}
 			add.setString(6, newCirugia.getFecha());
 			add.setString(7, newCirugia.getCosto());
 			//agregando los datos a estadisticasClinica

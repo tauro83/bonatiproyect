@@ -103,7 +103,7 @@ public class AddCirugiaService {
 			}
 		}
 		else{
-			nuevaCir.setAyudante("");
+			nuevaCir.setAyudante("a");
 		}
 
 		int result=0;
