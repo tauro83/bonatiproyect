@@ -4,7 +4,7 @@ package util
 	{
 		public var text:String;
 		
-		[Embed(source="../images/Simbolo.JPG")] 
+		[Embed(source="../images/Simbolo.png")] 
 		public var logo:Class;	
 					
 		public function ReportDP(text:String)
