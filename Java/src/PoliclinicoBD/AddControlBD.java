@@ -8,6 +8,7 @@
 package PoliclinicoBD;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -25,7 +26,7 @@ import TransferObjects.Control;
 public class AddControlBD{
 	PreparedStatement addProxControl;
 	PreparedStatement addActuControl;
-	
+	PreparedStatement addEstadisticas;
 	/**
 	 * Constructor de MascotaBD
 	 * @param connection Enlace para la conexion a la base de datos
@@ -45,6 +46,11 @@ public class AddControlBD{
 			query = "INSERT INTO atencioncontrol(cliente, mascota, descripcion, fecha, hora, responsable, servicio, costo) "+
 					"VALUES (?, ?, ?, ?, ?, ?, ?, ?);";			
 			addActuControl = connection.prepareStatement(query);
+			
+			query="INSERT INTO estadisticasclinica("+
+            "tipo, fecha, area)"+
+			" VALUES (?, ?, ?);";
+			addEstadisticas = connection.prepareStatement(query);
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -68,6 +74,14 @@ public class AddControlBD{
 				addProxControl.setString(6, cita.usuario);
 				
 				result= addProxControl.executeUpdate();
+				//agregando datos a estadisticas clinica
+				String[] l =cita.fecha.split("/");
+				Date date = new Date(Integer.parseInt(l[2])-1900, Integer.parseInt(l[1])-1, Integer.parseInt(l[0]));
+				addEstadisticas.setInt(1, 2);
+				addEstadisticas.setDate(2, date);
+				addEstadisticas.setInt(3, 2);
+				addEstadisticas.executeUpdate();
+				//
 			} 
 	 	catch (SQLException e) {
 				e.printStackTrace();

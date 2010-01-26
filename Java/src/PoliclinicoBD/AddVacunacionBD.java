@@ -28,6 +28,7 @@ public class AddVacunacionBD {
 	PreparedStatement add;
 	PreparedStatement selectAll;
 	PreparedStatement getAllClientes;
+	PreparedStatement addEstadisticas;
 	Connection conn;
 	public int caduci=0;;
 	
@@ -56,6 +57,11 @@ public class AddVacunacionBD {
 					"FROM clientepresencial;";
 			
 			getAllClientes = connection.prepareStatement(query);
+			
+			query="INSERT INTO estadisticasclinica("+
+            "tipo, fecha, area)"+
+			" VALUES (?, ?, ?);";
+			addEstadisticas = connection.prepareStatement(query);
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -66,7 +72,7 @@ public class AddVacunacionBD {
 	 * Metodo que se comunica con la base de datos, en el cual se registra una nueva cirugia, 
 	 * para esto primero se captura la hora del sistema, para realizar el registro, esto se 
 	 * almacena en la variable t.
-	 * Luego se prepara el statement add en el cual se le ingresan todos los datos para realizar
+	 * Luego se prepara el statement addEstadisticas en el cual se le ingresan todos los datos para realizar
 	 * la insercion en la cirugia.
 	 * Una vez completada la insercion anterior, se procede a insertar los diagnosticos, y los 
 	 * tipos de cirugia en la tabla diagnostico.
@@ -103,8 +109,15 @@ public class AddVacunacionBD {
 					add.setString(7, costo);
 					add.setDate(8, fecha);
 					add.setString(9, newVacuna.getDescripcion());
-
 					result2= add.executeUpdate();
+					
+					//agregando datos a estadisticas clincia
+					addEstadisticas.setInt(1, 2);
+					addEstadisticas.setDate(2, newVacuna.getFecha());
+					addEstadisticas.setInt(3, 3);
+					addEstadisticas.executeUpdate();
+
+					//
 				}
 				
 			}
