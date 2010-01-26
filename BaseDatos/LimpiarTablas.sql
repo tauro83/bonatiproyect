@@ -37,3 +37,7 @@ DELETE FROM clientepresencial CASCADE;
 DELETE FROM serviciopeluq CASCADE;
 DELETE FROM usuario CASCADE;
 DELETE FROM bitacora2 CASCADE;
+DELETE FROM estadisticasclinica CASCADE;
+DELETE FROM categproducto CASCADE;
+DELETE FROM productovendido CASCADE;
+DELETE FROM cirugiaobj CASCADE;
