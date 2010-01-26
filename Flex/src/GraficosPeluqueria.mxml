@@ -96,15 +96,15 @@
 	</mx:Script>
 	<mx:SeriesInterpolate id="changeEffect" duration="2000"/>
 	<mx:Panel horizontalAlign="center" layout="absolute" title="Estadísticas por rango de fecha para Peluqueria" width="779" height="466" borderColor="#15AD8F">
-		<mx:ColumnChart id="myChart" dataProvider="{expenses}"  height="316" width="525" x="209" y="36" showDataTips="true">
+		<mx:ColumnChart  id="myChart" dataProvider="{expenses}"  height="316" width="525" x="209" y="36" showDataTips="true">
 	        <mx:horizontalAxis>
-	           <mx:CategoryAxis dataProvider="{expenses}" categoryField="tipo"/>
+	           <mx:CategoryAxis  dataProvider="{expenses}" categoryField="tipo"/>
 	        </mx:horizontalAxis>
 	        <mx:series>
-	           <mx:ColumnSeries xField="tipo" yField="numAtenciones" displayName="N° de atenciones realizadas" />
+	           <mx:ColumnSeries showDataEffect="changeEffect" xField="tipo" yField="numAtenciones" displayName="N° de atenciones realizadas" />
 	        </mx:series>
      	</mx:ColumnChart>
-     		<mx:Legend horizontalAlign="right" dataProvider="{myChart}" width="199" x="550" y="10"/>
+     		<mx:Legend  horizontalAlign="right" dataProvider="{myChart}" width="199" x="550" y="10"/>
 			
 			<mx:DateField id="fechaIni" formatString="DD/MM/YYYY"  x="89" y="36" width="112" change="changeData(event)"/>
 			<mx:Label x="25" y="38" text="Inicio:" width="58"/>
