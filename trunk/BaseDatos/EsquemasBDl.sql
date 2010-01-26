@@ -584,5 +584,6 @@ CREATE TABLE bitacorapost
   usuarioa character(50) NOT NULL,
   motivo character(120),
   servicio character(20),
-  CONSTRAINT bitacorapost_pkey PRIMARY KEY (clienterut, fechaa, nombremascota)
+  hora character(20) NOT NULL,
+  CONSTRAINT bitacorapost_pkey PRIMARY KEY (clienterut, fechaa, nombremascota, hora)
 );
