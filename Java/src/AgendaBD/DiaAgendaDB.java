@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import Agenda.DiaAgenda;
+import Administracion.*;
 /**
  * Clase para la conexion entre la base de datos y la capa logica
  * @langversion Java
@@ -70,7 +71,10 @@ public class DiaAgendaDB
 	    			cita.setServicio((result.getString(5).trim()));
 	    			cita.setResponsable((result.getString(6).trim()));
 
+	    			AddMascotaService ams = new AddMascotaService();
 	    			
+	    			cita.nombreCliente = ams.getCliente(cita.cliente);
+
 	    			citas.add(cita);
     			}
     		}
