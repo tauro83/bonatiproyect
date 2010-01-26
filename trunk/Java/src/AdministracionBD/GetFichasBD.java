@@ -394,7 +394,7 @@ public class GetFichasBD {
 				at.setServicio("Preoperatorio");
 				at.setHora(""+result.getString(7));
 				at.setSfecha(""+result.getString(6));
-				at.setCosto("$");
+				at.setCosto("");
 				
 				atenciones.add(at);
 			}
