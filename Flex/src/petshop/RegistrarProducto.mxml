@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" title="Registrar Producto" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="util.*">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" title="Listado de Productos" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="util.*">
 	<mx:Script>
 		<![CDATA[
 			import services.BMCObtenerProductos;
@@ -32,7 +32,7 @@
 	        private function getProdR(event:ResultEvent):void
 	        {
 	        	productos = event.result as ArrayCollection;
-	        	mens.text = "Productos obtenidos";
+	        	mens.text = "Productos sincronizados";
 	        }
 	        
 		    private function sincronizar():void{
@@ -52,14 +52,14 @@
 	<mx:Label x="25" y="36" text="Para obtener los productos de la caja registradora, seleccione sincronizar." width="428"/>
 	<mx:Label x="25" y="100" text="Listado de productos en el sistema" width="428"/>
 	<mx:Label x="25" y="10" text="Sincronizar" fontWeight="bold"/>
-	<mx:Button x="647" y="32" label="Sincronizar" click="sincronizar()" id="sincB"/>
+	<mx:Button x="647" y="34" label="Sincronizar" click="sincronizar()" id="sincB"/>
 	
 	<mx:Label x="25" y="74" text="Productos" fontWeight="bold"/>
 	<mx:DataGrid x="25" y="138" width="711" height="240" id="tablaProductos" dataProvider="{productos}"  >
 		<mx:columns>		
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"   draggable="false"/>
 			<mx:DataGridColumn headerText="Codigo Barra" dataField="codigo"   draggable="false"/>
-			<mx:DataGridColumn headerText="Stock" dataField="stock"  draggable="false"/>
+			<mx:DataGridColumn headerText="Stock" dataField="cantidad"  draggable="false"/>
 			<mx:DataGridColumn headerText="Precio" dataField="precio"   draggable="false"/>
 			
 		</mx:columns>
