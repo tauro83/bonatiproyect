@@ -54,7 +54,7 @@
 			
 		]]>
 	</mx:Script>
-	<mx:Text x="10" y="10" text="Editar Registro Peluquería&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir al sub menu y seleccionar &#xa;&#xa;&#x9;3. Seleccionar Editar&#xa;&#xa;    4.Buscar por rut del cliente o apellidos &#xa;&#xa;    5.Seleccionar el registro a editar&#xa;&#xa;&#x9;6.Pulsar boton Editar&#xa;&#xa;&#x9;7. Ingresar datos a editar&#xa;&#x9;&#xa;&#x9;8. Presionar el  botón Guardar&#xa;&#xa;&#x9;" width="335" height="312" id="textAyuda"/>
+	<mx:Text x="10" y="10" text="Editar Registro Peluquería&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir al sub menu y seleccionar &#xa;&#xa;&#x9;3. Seleccionar Editar&#xa;&#xa;    4.Buscar por rut del cliente o apellidos &#xa;&#xa;    5.Seleccionar el registro a editar&#xa;&#xa;&#x9;6.Pulsar boton Editar&#xa;&#xa;&#x9;7. Ingresar fechas o servicios a agregar&#xa;&#x9;&#xa;&#x9;8. Presionar el  botón Guardar&#xa;&#xa;&#x9;" width="335" height="312" id="textAyuda"/>
 	<mx:LinkButton x="167" y="36" label="barra principal" id="linkBarraPrincipal" click=" verBarra()" color="blue" width="109"/>
 	<mx:LinkButton x="196" y="63" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
 </mx:Canvas>
