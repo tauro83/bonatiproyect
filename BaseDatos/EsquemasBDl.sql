@@ -570,6 +570,6 @@ CREATE TABLE estadisticasclinica
   tipo integer NOT NULL,
   fecha date,
   area integer NOT NULL,
-  id serial NOT NULL
+  id serial NOT NULL,
   PRIMARY KEY(id)
 )
