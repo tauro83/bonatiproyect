@@ -334,11 +334,11 @@
         ]]>
     </mx:Script>
 	
-	<ns1:BuscadorNombreRut x="25" y="36" id="nombRutInput"  keyFocusChange="getMascotas()" mouseFocusChange="getMascotas()">
+	<ns1:BuscadorNombreRut x="25" y="36" id="nombRutInput">
 	</ns1:BuscadorNombreRut>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente:" width="84.75" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="92" x="25" variableRowHeight="true" dataProvider="{mascotas}" itemDoubleClick="{regVacu()}"  visible="true" height="244">
+	<mx:DataGrid id="dg" color="0x323232" width="710" rowCount="3" y="92" x="25" variableRowHeight="true" dataProvider="{mascotas}" itemDoubleClick="{regVacu()}"  visible="true" height="244" focusIn="{getMascotas()}">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
