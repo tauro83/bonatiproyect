@@ -7,6 +7,9 @@
 
 package services
 {	
+	
+	import TransferObjects.AvisoWeb;
+	
 	import mx.controls.Alert;
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
@@ -14,7 +17,6 @@ package services
 	import mx.rpc.remoting.mxml.RemoteObject;
 	
 	import util.host;
-	/* import transferObjects.AvisoWeb; */
 	/**
 	 * Clase encargada de realizar la conexión entre la capa
 	 * lógica y la interfaz gráfica
@@ -77,9 +79,9 @@ package services
 		 * Actualiza un aviso web
 		 * @autor Erwin Díaz
 		 */
-/* 		public function upAvisoWeb(aviso:AvisoWeb):void
+ 		public function upAvisoWeb(aviso:AvisoWeb):void
 		{
 			this.getOperation("upAvisoWeb").send(aviso);
-		} */
+		} 
 	}
 }
