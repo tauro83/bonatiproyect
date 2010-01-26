@@ -355,7 +355,7 @@
 						<ns2:Caniles id="canilIntput" text="{Tabla.selectedItem.canil}" close="activarBoton()"/>
 					</mx:FormItem>
 					<mx:FormItem label="Costo:" width="267" required="false">
-						<ns2:Precio id="costoIntput" label=" " click="regist.enabled = false" dataChange="activarBoton" keyFocusChange="activarBoton()"/>
+						<ns2:Precio id="costoIntput" label=" " click="regist.enabled = false" dataChange="activarBoton()" keyFocusChange="activarBoton()"/>
 					</mx:FormItem>
 					
 				</mx:Form>
