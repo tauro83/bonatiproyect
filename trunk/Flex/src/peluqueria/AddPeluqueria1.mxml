@@ -26,6 +26,7 @@
 			import mx.controls.Alert;
 			import services.GetCatalogos;
 			import transferObjects.CatPeluqueria;
+			import services.AddMascotaService;
 			
 			[Bindable]
 		    public var clienteBD:Cliente;
@@ -138,9 +139,9 @@
 		 	 * 	@author  "Jimmy Muñoz"
 			 */
 			private function getMascotas():void{
-				var addpelService:AddPeluqueriaService = new AddPeluqueriaService();
+				var addpelService:AddMascotaService = new AddMascotaService();
 				addpelService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addpelService.getMascotas(nombRutInput.rutClienteInput.text);
+				addpelService.getMascotas(nombRutInput.rutClienteInput.text+nombRutInput.rutClienteDVInput.text);
 			}
 			
 			/**
