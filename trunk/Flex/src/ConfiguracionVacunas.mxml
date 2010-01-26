@@ -97,7 +97,8 @@
 					cv.descripcion = desc.text;
 					cv.caducidad = cadu.text;				
 					confs.regConfiguracionVacuna(cv);
-					ltexto.text = Properties.getMensaje("Informacion", "25");
+					//ltexto.text = Properties.getMensaje("Informacion", "25");
+					ltexto.text = "Se ha registrado la cirugía exitosamente";
 					nomb.text = "";
 					desc.text = "";
 					cadu.text = "";		
