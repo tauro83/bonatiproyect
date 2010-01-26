@@ -6,7 +6,7 @@
 // Componente que tiene un grafico que elimina una mascota del sistema
 //=======================================================================
 -->
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466" xmlns:ns1="util.*">
+<mx:Canvas show="ini()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466" xmlns:ns1="util.*">
 	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Eliminar Mascota">
 		
 		<mx:Script>
@@ -33,7 +33,9 @@
 				return "0";
 			}			
 			
-			
+			private function ini():void{
+				this.mens.text="";
+			}
 			private function deleteMascota():void{
    				if(tablaMascotas.selectedItem!=null){
    					var mascotaService:DeleteMascota=new DeleteMascota();
