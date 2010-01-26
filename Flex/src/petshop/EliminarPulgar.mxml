@@ -108,26 +108,10 @@
             }
 		   
 		   
-		   public function getProductosInactivosTipo():void{
-				
-				var  ps:EliminarProductoService = new EliminarProductoService();
-				ps.addEventListener(ResultEvent.RESULT,getProductosActivosTipoInactivosResult);
-				{ps.getProductosInactivosTipo()};
-			 	
-	
-			}
-			
-			 public function getProductosActivosTipoInactivosResult(event:ResultEvent):void
-		   {
-		   		productosInactivos = event.result as ArrayCollection;
-		   		dg2.dataProvider = productosInactivos;
-		   		
-		   }
-		   
 			public function iniciar():void{
 				
-				{getProductosActivosTipo()};	
-				{getProductosInactivosTipo()};
+				{getProductosActivosTipo()};
+				this.currentState = '';	
 					 
 			   	ver.enabled= false;
 			   	todo.selected = false;
@@ -144,7 +128,6 @@
 			pro.categoria   = dg.selectedItem.categoria;
 			pro.descripcion = dg.selectedItem.descripcion;
 			
- 			{cargarProductosEspecificos(pro)};
  				currentState = 'VerDetalle';
 		}
 		
@@ -167,49 +150,19 @@
 				{getProductosActivosTipo()};
 				this.currentState = '';
 		   }
-		   
-		
-		public function cargarProductosEspecificos(pro:Producto):void
-		{
-			var  ps:EliminarProductoService = new EliminarProductoService();
-				ps.addEventListener(ResultEvent.RESULT,cargarProductosEspecificosoResult);
-				{ps.cargarProductosDetalle(pro)};
-		}	 
-		
-		 public function cargarProductosEspecificosoResult(event:ResultEvent):void
-		   {
-		   	
-		   		productosEspecificos = event.result as ArrayCollection;
-		   		 dgDetalle.dataProvider = productosEspecificos; 
-		   		 if(productosEspecificos.length == 0){
-		   			labelMessage.text = "No hay stock de este producto";
- 					eliminar2.label = "Purgar";
-		   		 }else{
-		   		 	labelMessage.text = "";
- 					eliminar2.label = "Eliminar";
- 					eliminar2.enabled = false;
-					}
-		   }
-		   
+
 		   public function anularProducto():void
 		   {
-		   	
-		   	if(productosEspecificos.length != 0){
-				   	var codigo:String;
+				   	var codigo:String = dg.selectedItem.codigo;
+				   	
+				   	var actual:int = cant.value;
+				   	
 				   	var  ps:EliminarProductoService = new EliminarProductoService();
 						ps.addEventListener(ResultEvent.RESULT,anularproductoResult);
 		
 				   	
-				   	
-				   	for(var i:int = 0; i < productosEspecificos.length; i++){
-				   		if(productosEspecificos[i].sel){
-				   			codigo = productosEspecificos[i].codigo;
-							ps.anularProducto(codigo);
-				   		}
-		
-				   }
-		   	}
-		   	else {PurgarProductoTipo()};
+				   	var numero:int = canti.value;
+							ps.anularProducto(codigo, actual - numero);
 		   
 		   }
 		   public function anularproductoResult(event:ResultEvent):void
@@ -218,10 +171,10 @@
 		   		var result:int = event.result as int ;
 				if(result>0)
 				{
-				   labelMessage.text = 'Error al eliminar el Producto'; 
+				   labelMessage.text = 'Producto eliminado correctamente'; 
 				}
 				else labelMessage.text ='Producto eliminado correctamente'; 
-				{pasarADetalle()};
+				{this.iniciar()};
 				
 		   }
 		   
@@ -444,45 +397,22 @@
 			<mx:RemoveChild target="{inputDescripcion}"/>
 		</mx:State>
 		<mx:State name="VerDetalle">
-			<mx:SetProperty target="{label1}" name="y" value="174"/>
-			<mx:SetProperty target="{todo}" name="y" value="174"/>
 			<mx:RemoveChild target="{ver}"/>
 			<mx:RemoveChild target="{dg}"/>
 			<mx:AddChild position="lastChild">
-			
-		<mx:DataGrid x="20" y="200" width="718" id="dgDetalle" dataProvider="{productosEspecificos}" click="{Activar()}">
-			<mx:columns>
-				<mx:DataGridColumn width="20" headerText="" dataField="checkbox"  >
-			 		<mx:itemRenderer>
-                        <mx:Component>
-                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
-                        </mx:Component>
-             	</mx:itemRenderer>
-            </mx:DataGridColumn>
-		
-			<mx:DataGridColumn headerText="Codigo" dataField="codigo" width="120"/>
-			<mx:DataGridColumn headerText="Precio" dataField="precio" width="90"/>
-			<mx:DataGridColumn headerText="Categoria" dataField="categoria" width="100"/>
-			</mx:columns>
-				</mx:DataGrid>
+				<mx:Label x="20" y="76" text="Nombre:" fontWeight="bold"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Label x="20" y="46" text="Nombre:" fontWeight="bold"/>
+				<mx:TextInput x="82" y="74" text="{dg.selectedItem.nombre}" enabled="false" id="nombre" width="168"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextInput x="82" y="44" text="{dg.selectedItem.nombre}" enabled="false" id="nombre" width="168"/>
+				<mx:Label x="20" y="117" text="Stock:" fontWeight="bold"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Label x="20" y="87" text="Cantidad:" fontWeight="bold"/>
+				<mx:Label x="342" y="74" text="Descripción:" fontWeight="bold" height="20"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextInput x="82" y="85" text="{dg.selectedItem.cantidad}" enabled="false" id="cant" width="168"/>
-			</mx:AddChild>
-			<mx:AddChild position="lastChild">
-				<mx:Label x="342" y="44" text="Descripción:" fontWeight="bold" height="20"/>
-			</mx:AddChild>
-			<mx:AddChild position="lastChild">
-				<mx:TextArea x="435" y="43" width="237" height="123" text="{dg.selectedItem.descripcion}" enabled="false" id="descripcion"/>
+				<mx:TextArea x="435" y="73" width="237" height="123" text="{dg.selectedItem.descripcion}" enabled="false" id="descripcion"/>
 			</mx:AddChild>
 			<mx:RemoveChild target="{anularproduct}"/>
 			<mx:AddChild position="lastChild">
@@ -507,11 +437,28 @@
 			<mx:RemoveChild target="{inputCodigoBarra}"/>
 			<mx:RemoveChild target="{inputDescripcion}"/>
 			<mx:RemoveChild target="{textBuscar}"/>
+			<mx:RemoveChild target="{label1}"/>
+			<mx:RemoveChild target="{todo}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="10" y="25" text="Información del producto:" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="6" y="195" text="Eliminación:" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Label x="20" y="251" text="Cantidad:" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:NumericStepper x="87" y="249" id="canti" maximum="1000000"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:NumericStepper x="82" y="115" id="cant" value="{dg.selectedItem.cantidad}" maxHeight="100000" maximum="1000000"/>
+			</mx:AddChild>
 		</mx:State>
 	</mx:states>
 		
 	<mx:Label x="169" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-	<mx:Button x="541.5" y="368" enabled="false" label="Eliminar" id="anularproduct" click="{anularVarios2()}"   toolTip="Anula todos los tipos de producto seleccionados" width="102" height="23"/>
+	<mx:Button x="541.5" y="368" enabled="false" label="Eliminar Todo" id="anularproduct" click="{anularVarios2()}"   toolTip="Anula todos los tipos de producto seleccionados" width="102" height="23"/>
 	<mx:Button x="651.5" y="368" label="Cancelar" id="cancelar" toolTip="Volver a Productos" click="{volver()}"  width="102" height="23"/>
 	<mx:CheckBox x="20.5" y="51" id="todo" click="{SeleccionarTodo()}"/>
 	<mx:Label x="42.5" y="51" text="Seleccionar todo" id="label1"/>
@@ -532,7 +479,7 @@
 			<mx:DataGridColumn headerText="Categoría" dataField="categoria" width="70"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="431.5" y="368" label="Ver" visible="true"  width="102" id="ver" click="{pasarADetalle()}" height="23"/>
+	<mx:Button x="431.5" y="368" label="Editar Stock" visible="true"  width="102" id="ver" click="{pasarADetalle()}" height="23"/>
 	
 	<!-- AutoComplete -->
 	
