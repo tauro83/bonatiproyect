@@ -71,14 +71,14 @@
 				<mensaje key="32">Seleccione una Mascota para registrar Control</mensaje>
 				<mensaje key="33">Seleccione el nombre de un Veterinario para la atenci&#243;n</mensaje>				
 				<mensaje key="34">Seleccione una fecha para la atenci&#243;n</mensaje>
-				<mensaje key="35">A�ada un servicio realizado a la mascota</mensaje>				
+				<mensaje key="35">A&#241;ada un servicio realizado a la mascota</mensaje>				
 				<mensaje key="36">Seleccione una Vacuna de la lista Vacunas Agregadas</mensaje>				
 				<mensaje key="37">Seleccione un servicio de la lista Servicios</mensaje>				
 				<mensaje key="38">Seleccione una Mascota para registrar la atenci&#243;n</mensaje>				
-				<mensaje key="39">A�ada una vacuna aplicada a la mascota</mensaje>				
+				<mensaje key="39">A&#241;ada una vacuna aplicada a la mascota</mensaje>				
 				<mensaje key="40">Seleccione una Vacuna de la lista Vacunas</mensaje>				
 				<mensaje key="41">Seleccione el nombre de un ayudante para la atenci&#243;n</mensaje>				
-				<mensaje key="42">A�ada una cirug&#237;a realizada a la mascota</mensaje>				
+				<mensaje key="42">A&#241;ada una cirug&#237;a realizada a la mascota</mensaje>				
 				<mensaje key="43">Ingrese un diagnostico para la cirug&#237;a</mensaje>				
 				<mensaje key="44">Seleccione una cirug&#237;a de la lista Cirug&#237;as realizadas</mensaje>				
 				<mensaje key="45">Seleccione una cirug&#237;a de la tabla Cirug&#237;as</mensaje>			
@@ -92,11 +92,11 @@
 			<mensajes>
 				<mensaje key="1">Confirme eliminaci&#243;n</mensaje>
 				<mensaje key="2">Confirme purgar</mensaje>
-				<mensaje key="3">�Est&#225; seguro que desea eliminar Cliente?</mensaje>
-				<mensaje key="4">�Est&#225; seguro que desea eliminar Usuario?</mensaje>
-				<mensaje key="5">�Est&#225; seguro que desea purgar Mascota?</mensaje>
-				<mensaje key="6">�Est&#225; seguro que desea purgar Usuario?</mensaje>
-				<mensaje key="7">�Est&#225; seguro que desea reactivar Usuario?</mensaje>
+				<mensaje key="3">&#191;Est&#225; seguro que desea eliminar Cliente?</mensaje>
+				<mensaje key="4">&#191;Est&#225; seguro que desea eliminar Usuario?</mensaje>
+				<mensaje key="5">&#191;Est&#225; seguro que desea purgar Mascota?</mensaje>
+				<mensaje key="6">&#191;Est&#225; seguro que desea purgar Usuario?</mensaje>
+				<mensaje key="7">&#191;Est&#225; seguro que desea reactivar Usuario?</mensaje>
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="Informacion">
