@@ -83,7 +83,7 @@
 			*/
            	private function deleteRow():void 
            	{
-			    Alert.show("¿Está seguro que desea desactivar el o los registro(s) de peluquería(s)? ","Confirme desactivar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			    Alert.show("¿Está seguro que desea eliminar el o los registro(s) de peluquería(s)? ","Confirme eliminar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
        
 			}
 			
@@ -110,7 +110,7 @@
                         i=-1;
                     }   
                 }
-                barraMsj.text="Registro(s) de peluquería desactivado";              
+                barraMsj.text="Registro(s) de peluquería eliminar";              
             }
 			
 			/**
@@ -168,7 +168,7 @@
 		]]>
 	</mx:Script>
 <!-- Tabla con datos -->
-	<mx:DataGrid x="25" y="178" width="709" height="167" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion el o los registro(s) de peluquería(s) que desea desactivar">
+	<mx:DataGrid x="25" y="178" width="709" height="167" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion el o los registro(s) de peluquería(s) que desea eliminar">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
 			 	<mx:itemRenderer>
@@ -205,6 +205,6 @@
 	<mx:Text x="478.4" y="36" id="mNom" width="150"/>
 	<mx:Text x="478.4" y="61.9" id="mRaz" width="150"/>
 	<mx:Text x="478.4" y="87.95" id="mSex" width="150"/>
-	<mx:Button x="522" y="354" label="Desactivar" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Desactiva el o los registro(s) de peluquería(s)"/>
+	<mx:Button x="522" y="354" label="Desactivar" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Eliminar el o los registro(s) de peluquería(s)"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
 </mx:Panel>
