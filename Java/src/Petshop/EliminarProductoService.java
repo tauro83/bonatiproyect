@@ -64,7 +64,7 @@ public class EliminarProductoService {
 		return productos;
     }
 	
-	public int anularProducto(String codigo)
+	public int anularProducto(String codigo, int numero)
 	{
 		int result=0;
 		try 
@@ -73,7 +73,7 @@ public class EliminarProductoService {
 		Connection connection=DBConnectionManager.getConnection();
 		EliminarProductoBD eliminarBD= new EliminarProductoBD(connection);
 
-		result= eliminarBD.anularProducto(codigo);
+		result= eliminarBD.anularProducto(codigo, numero);
 		
 		connection.close();
 	
