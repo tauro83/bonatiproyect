@@ -59,7 +59,7 @@ public class EliminarProductoBD {
 		
 		
 		query = "UPDATE producto "+
-		   "SET estado= 1" +
+		   "SET stock= ?" +
 		   "Where codigo =?;";
 		
 		Anular= connection.prepareStatement(query);
@@ -196,13 +196,18 @@ public class EliminarProductoBD {
 	    	return productos;
 	    }
 	 
-	 public int anularProducto(String codigo) throws SQLException
+	 public int anularProducto(String codigo, int numero) throws SQLException
 	    {
+		 	System.out.println("LLEGARON  :" + codigo);
+			System.out.println("LLEGARON  :" + numero);
 	    	int result=0;
-	    	Anular.setString(1, codigo);
+	    	Anular.setInt(1, numero);
+	    	Anular.setString(2, codigo);
 			Anular.executeQuery();
 			result= Anular.executeUpdate();
 	    	
+			
+	
 			return result;
 	    	
 	    }
