@@ -49,7 +49,7 @@
 		]]>
 	</mx:Script>
 	<mx:SeriesInterpolate id="changeEffect" duration="2000"/>
-	<mx:Panel horizontalAlign="center" layout="absolute" title="Reporte de Ventas" width="779" height="466" borderColor="#15AD8F">
+	<mx:Panel horizontalAlign="center" layout="absolute"  title="Reporte de Ventas" width="779" height="466" borderColor="#15AD8F">
 			<mx:DateField id="fechaIni" formatString="DD/MM/YYYY"  x="89" y="62" width="112" change="getReporteVenta(fechaIni.selectedDate, fechaFin.selectedDate)"/>
 			<mx:Label x="25" y="64" text="Inicio:" width="58"/>
 			<mx:Label x="25" y="10" text="Reporte de ventas de: vacunas, implementos y medicamentos." width="428"/>
