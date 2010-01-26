@@ -54,7 +54,9 @@
 				{nameT:"Editar Cliente"},
 				{nameT:"Registro Preoperatorio"},
 				{nameT:"Editar consulta"},
-				{nameT:"Editar Control"}			
+				{nameT:"Editar Control"},
+				{nameT:"Eliminar Cliente"},
+				{nameT:"Editar Pre-Operatorio"}			
 			]);
            	
            	/**
@@ -99,6 +101,9 @@
            		ediCliAy.visible=false;
            		adPreo.visible=false;
            		consulti.visible=true;
+           		
+           		elimCli.visible = false;
+           		ediPre.visible = false;
            		
            		//eliminaProducto.visible= false;
            		
@@ -237,7 +242,12 @@
 					case "Editar consulta":
 						consulti.visible= true;
 					break;
-					
+					case "Eliminar Cliente":
+						elimCli.visible = true;
+					break;
+					case "Editar Pre-Operatorio":
+						ediPre.visible = true;
+					break;
 					
 					/**
 					case "Eliminar Producto":
@@ -340,6 +350,8 @@
 	</ns1:regPreo>
 	<ns1:editConsult x="345" y="50" visible="false" id="consulti">
 	</ns1:editConsult>
+	<ns1:elimCli x="345" y="50" visible="false" id="elimCli"/>
+	<ns1:editPre x="345" y="50" id="ediPre"/>
 	
 	<!-->
 	<ns1:elimProducto x="345" y="50" id="eliminaProducto" visible="false">
