@@ -88,7 +88,7 @@
 			private function registrarNombre(event:Event):void
 			{
 				var cv:ConfiguracionVacuna = new ConfiguracionVacuna();
-				if(nomb.text.length>0 &&  cadu.length>0){
+				if(nomb.text.length>0){
 					cv.nombre = nomb.text;
 					var precio:String  = prec.costoBruto.replace("$","");
 					precio = precio.replace(".","");
@@ -98,7 +98,7 @@
 					cv.caducidad = cadu.text;				
 					confs.regConfiguracionVacuna(cv);
 					//ltexto.text = Properties.getMensaje("Informacion", "25");
-					ltexto.text = "Se ha registrado la cirugía exitosamente";
+					ltexto.text = "Se ha registrado la vacuna exitosamente";
 					nomb.text = "";
 					desc.text = "";
 					cadu.text = "";		
