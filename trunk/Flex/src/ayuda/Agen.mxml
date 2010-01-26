@@ -34,7 +34,7 @@
 			
 		]]>
 	</mx:Script>
-	<mx:Text x="10" y="10" text="Ver Agenda&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción Agenda&#xa;&#xa;&#x9;2. Ir al menú y seleccionar Ver Agenda&#xa;&#xa;&#x9;3. Para ver:&#xa;&#xa;&#x9;&#x9;a. Seleccionar un responsable o ver todos&#xa;&#xa;&#x9;&#x9;b. Seleccionar un servicio o ver todos&#xa;&#xa;&#x9;4. Para registrar nueva cita:&#xa;&#x9;&#x9;&#xa;&#x9;&#x9;a. Seleccionar un servicio&#xa;&#xa;&#x9;&#x9;b. Hacer doble click sobre una hora libre o un click y &#xa;&#x9;&#x9;    luego presionar el botón agendar&#xa;&#xa;&#x9;5. Para editar cita:&#xa;&#xa;&#x9;&#x9;a. Hacer doble click sobre una hora acupada o &#xa;&#x9;&#x9;    un click y luego presionar el botón editar" width="355" height="332" id="textAyuda"/>
+	<mx:Text x="10" y="10" text="Ver Agenda&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción Agenda&#xa;&#x9;2. Ir al menú y seleccionar Ver Agenda&#xa;&#x9;3. Para ver:&#xa;&#xa;&#x9;&#x9;a. Seleccionar un responsable o ver todos&#xa;&#x9;&#x9;b. Seleccionar un servicio o ver todos&#xa;&#xa;&#x9;4. Para registrar nueva cita:&#xa;&#x9;&#xa;&#x9;&#x9;a. Seleccionar un servicio&#xa;&#x9;&#x9;b. Hacer doble click sobre una hora libre o un click y &#xa;&#x9;&#x9;    luego presionar el botón agendar&#xa;&#xa;&#x9;5. Para editar cita:&#xa;&#xa;&#x9;&#x9;a. Hacer doble click sobre una hora acupada o &#xa;&#x9;&#x9;    un click y luego presionar el botón editar&#xa;     6. Para editar cita:&#xa;&#xa;&#x9;&#x9;a. Hacer doble click sobre una hora acupada o &#xa;&#x9;&#x9;    un click y luego presionar el botón eliminar" width="355" height="332" id="textAyuda"/>
 	<mx:Image   id="barra" visible="false" x="94" y="137">
 		<mx:source>../images/ayuda/Administracion.png</mx:source>
 	</mx:Image>
