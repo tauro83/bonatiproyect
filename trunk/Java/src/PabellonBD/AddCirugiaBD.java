@@ -138,6 +138,7 @@ public class AddCirugiaBD {
 			addEstadisticas.executeUpdate();			
 			//
 			
+			
 		} 
     	catch (SQLException e) {
 			e.printStackTrace();
