@@ -102,7 +102,6 @@ CREATE TABLE bitacora
   cliente character(20),
   mascota character(20),
   servicio character(20),
-  estado boolean DEFAULT true,
   CONSTRAINT pk_bitacora PRIMARY KEY (usuario, accion, fechaaccion, horaaccion)
 ) ;
 
@@ -489,7 +488,7 @@ CREATE TABLE detallepago
 
 CREATE TABLE avisoweb
 (
-  id integer NOT NULL,
+  id serial NOT NULL,
   nombre character(20) NOT NULL,
   apaterno character(20) NOT NULL,
   telefono0 character(4),
@@ -575,7 +574,7 @@ CREATE TABLE estadisticasclinica
   area integer NOT NULL,
   id serial NOT NULL,
   PRIMARY KEY(id)
-);
+)
 
 CREATE TABLE bitacorapost
 (
@@ -585,6 +584,6 @@ CREATE TABLE bitacorapost
   usuarioa character(50) NOT NULL,
   motivo character(120),
   servicio character(20),
-  hora character(20) not null,
-  CONSTRAINT bitacorapost_pkey PRIMARY KEY (clienterut, fechaa, nombremascota,hora)
+  hora character(20) NOT NULL,
+  CONSTRAINT bitacorapost_pkey PRIMARY KEY (clienterut, fechaa, nombremascota, hora)
 );
