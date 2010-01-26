@@ -44,11 +44,22 @@
 			private function removeTaskRecord():void
             {
             	if(tablaAtenciones.selectedItem){
-            		var elimItem:PostOperatorioService = new PostOperatorioService();
-					elimItem.addEventListener(ResultEvent.RESULT,deleteAtencionResult);
-					elimItem.anulAtencion(tablaAtenciones.selectedItem.shora.toString(),
-					tablaAtenciones.selectedItem.stfecha.toString(),this.clienterut.text.toString(), this.nomMascota.text.toString(),Application.application.login2.usuarioActivo);
-					
+	            	if(comboboxMotivo.selectedIndex == 0)
+	            		ltexto.text = "Seleccione un motivo";
+	            	else{
+	            		var motiv:String = "";
+	            		if(comboboxMotivo.selectedLabel=='Otros'){
+	                    	motiv = motivo.text;
+	                    }
+	                    else{
+	                    	motiv = comboboxMotivo.text;
+	                    }
+	            		var elimItem:PostOperatorioService = new PostOperatorioService();
+						elimItem.addEventListener(ResultEvent.RESULT,deleteAtencionResult);
+						elimItem.anulAtencion(tablaAtenciones.selectedItem.shora.toString(),
+						tablaAtenciones.selectedItem.stfecha.toString(),this.clienterut.text.toString(), 
+						this.nomMascota.text.toString(),Application.application.login2.usuarioActivo+" "+motiv);
+	            	}
             	}
             }
 
@@ -103,8 +114,26 @@
 				razaMascota.text = "";
 				sexoMascota.text = "";
 				clienterut.text = "";
-				updateTable();
+				comboboxMotivo.selectedIndex = 0;
+            	updateTable();
 			}
+			/**
+			 * En caso que se seleccione la categoría otros aparece un text imput para ingresar el motivo
+			 * manualmente
+			 * 
+			 */
+			private function seleccionarMotivo (event:Event):void
+            {   
+            	if(comboboxMotivo.selectedLabel=='Otros')
+				{
+					motivo.visible=true;
+				}
+				else
+				{
+					motivo.visible=false;
+					motivo.text="";
+				}
+           	}
 			/**
 			 * Al cancelar la operación se muestra un panel que solo tiene el 
 			 * mensaje "seleccione una opcion del menú"
@@ -127,7 +156,7 @@
 	<mx:Label x="393.7" y="35.9" text="Nombre:" width="63.4" height="17.931034"/>
 	<mx:Label x="393.7" y="61.9" text="Raza:" width="78"/>
 	<mx:Label x="187" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
-	<mx:DataGrid x="24" y="144" width="710" height="197" id="tablaAtenciones" dataProvider="{atenciones}" itemDoubleClick="{deleteRow()}">
+	<mx:DataGrid x="24" y="144" width="710" height="168" id="tablaAtenciones" dataProvider="{atenciones}" itemDoubleClick="{deleteRow()}">
 		<mx:toolTip>Se muestran todas las atenciones que no han sido bloquedas</mx:toolTip>
 		<mx:columns>
 			<mx:DataGridColumn width="60" headerText="Hora" dataField="shora" id="hora" sortable="false" draggable="false"/>
@@ -135,6 +164,16 @@
 			<mx:DataGridColumn width="180" headerText="Indicaciones" dataField="indicaciones" id="indicaciones" sortable="false" draggable="false"/>
 			</mx:columns>
 	</mx:DataGrid>
+	<mx:Text x="25" y="322" text="Motivo" fontWeight="bold"/>
+	<mx:ComboBox x="76" y="320" id="comboboxMotivo" change="seleccionarMotivo(event)">
+			<mx:ArrayCollection>
+			<mx:Object label="--Seleccione--"/>
+			<mx:Object label="Registro incorrecto"/>
+			<mx:Object label="Registro indeseado "/>
+			<mx:Object label="Otros"/> 
+			</mx:ArrayCollection>
+	</mx:ComboBox>
+	<mx:TextInput x="261" y="320" width="473" id="motivo" toolTip="Ingrese el motivo por el cual desea anular el o los registro(s) de preoperatorio(s)" visible="false"/>
 	<mx:Button x="523" y="350" label="Anular" id="purgarAtenciones" click="{deleteRow()}" toolTip="Elimina la seleccionada" width="102" height="23" cornerRadius="6"/>
 	<mx:Button x="647" y="350" label="Cancelar" click="cancelando()" id="cancelar" toolTip="Cancela la operación y regresa al panel anterior" width="102" height="23" cornerRadius="6"/>
 	<mx:Label x="24.15" y="62" text="Apellido:" width="78"/>

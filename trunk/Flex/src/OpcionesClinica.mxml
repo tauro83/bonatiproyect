@@ -88,6 +88,13 @@
 				Application.application.AnuladoPre.getAllVacunacionesV();
 				Application.application.AnuladoPre.actionVolver();
 			}
+			public function verAnuladosPostoperatorio():void{
+				Application.application.setInvisible();
+				this.visible=true;
+				Application.application.AnuladoPost.visible = true;
+				Application.application.AnuladoPost.getAllVacunacionesV();
+				Application.application.AnuladoPost.actionVolver();
+			}
 
 			private function verAnulPostOperatorio ():void{
             	Application.application.setInvisible();
@@ -220,6 +227,7 @@
 					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="25" y="10" label="Registrar" width="100%" textAlign="left" id="PostOLink" click="verRegistrarPostOperatorio()"/>
 					<mx:LinkButton x="25" y="40" label="Editar" width="100%" textAlign="left" id="editarPostO" click="verEditarPostOperatorio()"/>
 					<mx:LinkButton x="25" y="70" label="Anular" width="100%" textAlign="left" id="anulPost" click="verAnulPostOperatorio()"/>					
+					<mx:LinkButton x="25" y="100" label="Bitacora" click="verAnuladosPostoperatorio()" id="reanulado0"/>
 				</mx:Canvas>
 			</mx:Accordion>
 		</mx:Canvas>
