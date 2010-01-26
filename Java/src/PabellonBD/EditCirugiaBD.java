@@ -86,7 +86,10 @@ public class EditCirugiaBD
     			cirugia.setHora(result.getTime(4).toString());
     			cirugia.setMascotaNombre(result.getString(5).trim());
     			cirugia.setClienteRut(result.getString(6).trim());
-    			cirugia.setAyudante(result.getString(7).trim());
+    			
+    			String ay = result.getString(7);
+    			if(ay != null)
+    				cirugia.setAyudante(ay.trim());
     			
     			//Compara uno de los datos ingresados
     			if(!rutCliente.equals("") && !rutCliente.equals(cirugia.getClienteRut()))
