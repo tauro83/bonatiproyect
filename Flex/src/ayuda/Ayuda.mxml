@@ -374,7 +374,7 @@
 	<ns1:regPostOperatorio x="345" y="50" id ="registrarPostoperatorio" visible="false">
 	</ns1:regPostOperatorio>
 	<ns1:regiHot x="345" y="50" visible="false" id="regHot"/>
-	<ns1:ediControl x="345" y="50" id="edicontrol">
+	<ns1:ediControl x="345" y="50" id="edicontrol" visible="false">
 	</ns1:ediControl>
 	<!-->
 	<ns1:elimProducto x="345" y="50" id="eliminaProducto" visible="false">
