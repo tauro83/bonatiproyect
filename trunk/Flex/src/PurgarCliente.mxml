@@ -310,6 +310,7 @@
 	<mx:Button x="423" y="342" enabled="false" id="reactivarCliente" label="Restaurar" click="{Reactivar()}" width="102" height="23"/>
 	
 	
+	
 			<!-- input Cliente -->
 	<fc:AutoComplete id="inputClienteNombre" x="599" y="19" width="150" dataProvider="{clientes}" labelField="nombre" visible="false"/>
 	<fc:AutoComplete id="inputClienteRut" x="599" y="19" width="150" dataProvider="{clientes}" labelField="rut" visible="false"/>
