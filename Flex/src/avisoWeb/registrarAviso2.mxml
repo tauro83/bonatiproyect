@@ -20,6 +20,7 @@
 			import mx.rpc.events.ResultEvent;
 			import mx.core.Application;
 			import services.Mensajes;
+			import services.AddMascotaService;
 			import transferObjects.aviWeb;
 			import avisoWeb.RegistroAvisoWebService;
 			
@@ -50,7 +51,8 @@
 				aviso.asunto		= asunto.text;
 				aviso.descripcion	= descripcion.text;
 				
-				avisoWebService = new RegistroAvisoWebService();
+				//avisoWebService = new RegistroAvisoWebService();
+				var addMascotaService:AddMascotaService = new AddMascotaService();
 				avisoWebService.addEventListener(ResultEvent.RESULT,registroAvisoResultado);																					
 				avisoWebService.registroAvisoWeb(aviso);				
 			}
