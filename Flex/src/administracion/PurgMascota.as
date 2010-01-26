@@ -9,6 +9,7 @@ package administracion{
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
+	
 	import util.host;
 	
 	public class PurgMascota extends RemoteObject{
@@ -27,8 +28,8 @@ package administracion{
 		private function faultHandler(event:FaultEvent):void{
 			Alert.show("Error en PurgarMascota, Detalle: "+event.fault.message);
 		}
-		public function purgMascota(rutCliente:String,nombre:String):void{
-			this.getOperation("purgarMascota").send(rutCliente,nombre);
+		public function purgMascota(rutCliente:String,nombre:String, usuario:String):void{
+			this.getOperation("purgarMascota").send(rutCliente,nombre, usuario);
 		}
 	}
 	
