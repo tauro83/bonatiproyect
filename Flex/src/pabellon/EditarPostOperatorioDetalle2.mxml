@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779" height="466" title="Editar Atención Post-Operatorio" borderColor="#15AD8F"  xmlns:ns1="util.*">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"  width="779" 
+	height="466" title="Editar Atención Post-Operatorio" borderColor="#15AD8F"  xmlns:ns1="util.*">
 	<mx:Script>
 		<![CDATA[
 			import transferObjects.PostOperatorio;
@@ -24,28 +25,36 @@
 			import pabellon.EditarPostOperatorio;
 			import mx.formatters.DateFormatter;
 			import services.EditPostOperatorio;
+			import util.Properties;
 			[Bindable]
 			private var atencion:PostOperatorio;
 			[Bindable]
-			private var horas:ArrayCollection;
+            public var horas:ArrayCollection = new ArrayCollection(
+            [{hora:"10:30"}, {hora:"11:00"}, {hora:"11:30"}, {hora:"12:00"}, {hora:"12:30"}, 
+            {hora:"15:30"}, {hora:"16:00"}, {hora:"16:30"}, {hora:"17:00"}, {hora:"17:30"}, 
+            {hora:"18:00"}, {hora:"18:30"}, {hora:"19:00"}, {hora:"19:30"}]);
 			[Bindable]
 			public var fechast:String;
 			[Bindable]
 			public var horast:String;
+			[Bindable]
+			private var postO:PostOperatorio;
 			
 			private function editar():void{
-				var postO:PostOperatorio;
-				postO.stfecha = this.fecha.text;
-				postO.shora = this.hora.text;
-				postO.indicaciones = this.indicaciones.text;
 				var edit:EditPostOperatorio = new EditPostOperatorio();
-				edit.editarPostOperatorio(fechast, horast, postO);
+				edit.editarPostOperatorio(fechast, horast, fecha.text, hora.text, indicaciones.text);
 				edit.addEventListener(ResultEvent.RESULT,result);		
+				Alert.show("editar post2");	
 			}
 			private function result(event:ResultEvent):void{
 				var res:int = event as int;
-				if(res!=0){
-					mens.text="Post Operatorio Editado";
+				if(res==0){
+					//Se ha editado el Registro exitosamente
+					mens.text=Properties.getMensaje("Informacion","23");
+				}
+				else{
+					//Error al editar Post Operatorio
+					mens.text=Properties.getMensaje("Error","32");
 				}
 			}
 			private function cancelando():void{
@@ -63,7 +72,7 @@
 	<mx:Label x="16.95" y="35.95" text="Nombre:" width="63.4" height="17.931034"/>
 	<mx:Label x="16.95" y="65.8" text="Raza:" width="46"/>
 	<mx:Label x="17" y="111" text="Postoperatorio" width="98" fontWeight="bold"/>
-	<mx:Button x="523" y="354" label="Guardar" width="102" height="23" click="{editar()} "/>
+	<mx:Button x="523" y="354" label="Guardar" width="102" height="23" click="{editar()}"/>
 	<mx:Button x="632" y="353" label="Cancelar" width="102" height="23" click="{cancelando()}"/>
 	<mx:TextInput x="133" y="31" id="nombre" editable="false"  width="160" height="22"/>
 	<mx:TextInput x="487" y="30.95" id="sexo" editable="false"  width="160" height="22"/>
@@ -73,7 +82,7 @@
 	<mx:TextArea x="133" y="223" height="80" width="514" id="indicaciones"/>
 	<mx:Label x="17" y="224" text="Indicaciones:" width="93"/>
 	<mx:Label x="17" y="152" text="Fecha:" width="78"/>
-	<mx:DateField x="133" y="150" width="160" id="fecha"/>
+	<mx:DateField x="133" y="150" width="160" id="fecha" formatString="DD/MM/YYY"/>
 	
 	
 </mx:Panel>
