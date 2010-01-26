@@ -58,7 +58,8 @@
 				{nameT:"Eliminar Cliente"},
 				{nameT:"Editar Pre-Operatorio"},
 				{nameT:"Anular Consulta"},	
-				{nameT:"Registrar PostOperatorio"}			
+				{nameT:"Registrar PostOperatorio"},
+				{nameT:"Registrar Hotelería"}			
 			]);
            	
            	/**
@@ -108,6 +109,7 @@
            		ediPre.visible = false;
            		anulConsul.visible = false;
            		registrarPostoperatorio.visible = false;
+           		regHot.visible = false;
            		
            		//eliminaProducto.visible= false;
            		
@@ -260,7 +262,9 @@
 					case "Registrar PostOperatorio":
 						registrarPostoperatorio.visible = true;
 					break;	
-					
+					case "Registrar Hotelería":
+						regHot.visible = true;
+					break;
 					
 					/**
 					case "Eliminar Producto":
@@ -366,9 +370,9 @@
 	<ns1:elimCli x="345" y="50" visible="false" id="elimCli"/>
 	<ns1:editPre x="345" y="50" id="ediPre" visible="false"/>
 	<ns1:anuConsul x="345" y="50" visible="false" id="anulConsul"/>
-	<ns1:regPostOperatorio x="345" y="50" id ="registrarPostoperatorio">
+	<ns1:regPostOperatorio x="345" y="50" id ="registrarPostoperatorio" visible="false">
 	</ns1:regPostOperatorio>
-	
+	<ns1:regiHot x="345" y="50" visible="false" id="regHot"/>
 	<!-->
 	<ns1:elimProducto x="345" y="50" id="eliminaProducto" visible="false">
 	</ns1:elimProducto>
