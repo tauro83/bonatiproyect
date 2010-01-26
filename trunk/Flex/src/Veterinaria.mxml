@@ -187,6 +187,7 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
             	AnulPostD.setVisible(false,false);
             	bitacoraList.setVisible(false,false);
             	confServCat.setVisible(false,false);
+            	confcateprod.setVisible(false,false);
             	
             	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
@@ -609,6 +610,9 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
 	</ns8:bitacoraList>
 	<ns1:ConfigServCat x="241" y="134" id="confServCat" visible="false" borderColor="#15AD8F">
 	</ns1:ConfigServCat>
+	<ns1:Configcategprod x="241" y="134" id="confcateprod" visible="false" borderColor="#15AD8F">
+	</ns1:Configcategprod>
+	
 	
 	
 	<mx:Image x="365" y="0" width="174" height="104" source="../images/fotos-animales-perros-peq.jpg" 

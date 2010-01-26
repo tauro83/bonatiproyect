@@ -169,7 +169,10 @@ public class ConfigurarBD {
 		}
 		if(tipo.equals("ServPel")){
 			query = "INSERT INTO serviciopeluq VALUES (?);";
-		}		
+		}
+		if(tipo.equals("CatProd")){
+			query = "INSERT INTO categproducto VALUES (?);";
+		}
 		
 				
 		PreparedStatement insert;
@@ -238,7 +241,10 @@ public class ConfigurarBD {
 		}
 		if(tipo.equals("ServPel")){
 			query = "DELETE FROM serviciopeluq WHERE nombre = ?";
-		}		
+		}
+		if(tipo.equals("CatProd")){
+			query = "DELETE FROM categproducto WHERE nombre = ?";
+		}
 		 	
 		PreparedStatement insert;
 		insert = connection.prepareStatement(query);		
