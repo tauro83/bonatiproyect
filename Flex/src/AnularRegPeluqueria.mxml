@@ -208,7 +208,7 @@
     </mx:Script>
 	
 	<!-- Botón Visualizar -->
-	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el registro de peluquería seleccionado" width="102" height="23" cornerRadius="6"/>
 	
 	<mx:Text x="10" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
 	<mx:Text x="382" y="36" text="Mascota" fontWeight="bold"/>
