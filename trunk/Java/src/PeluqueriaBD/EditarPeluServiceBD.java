@@ -149,8 +149,9 @@ public class EditarPeluServiceBD
     }    
     
       
-	public List getAllPeluquerias(String rutCliente, String nombreMascota)
+	public List getAllPeluquerias( String nombreMascota, String rutCliente)
     {
+		
     	List peluquerias=new ArrayList();
     	try 
     	{
@@ -158,7 +159,8 @@ public class EditarPeluServiceBD
     		ResultSet result = selectAll.executeQuery();
     		while(result.next())
     		{	
-    			if(rutCliente.equals(result.getString(1).substring(0, 8)) && nombreMascota.equals(result.getString(2)) ){
+    			
+    			if(rutCliente.equals(result.getString(1).trim()) && nombreMascota.trim().equals(result.getString(2).trim()) ){
     				
     				//clienterut, mascotanombre, hora, responsable, fecha 
     				Date fecha;

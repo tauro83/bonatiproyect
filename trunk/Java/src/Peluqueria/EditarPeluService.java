@@ -95,14 +95,14 @@ public class EditarPeluService {
 	 * @return peluquerias, listado de atenciones de peluqueria.
 	 */
 
-    public List  getAllPeluquerias(String rutCliente, String nombreMascota)
+    public List  getAllPeluquerias( String nombreMascota,String rutCliente)
     {
     	List peluquerias =new ArrayList();
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			EditarPeluServiceBD peluqueriaDB= new EditarPeluServiceBD(connection);
-			peluquerias = peluqueriaDB.getAllPeluquerias(rutCliente, nombreMascota);		
+			peluquerias = peluqueriaDB.getAllPeluquerias(nombreMascota,rutCliente);		
 			connection.close();
 		} 
     	catch (SQLException e) 
