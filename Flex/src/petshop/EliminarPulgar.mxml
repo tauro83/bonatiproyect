@@ -128,7 +128,9 @@
 			pro.categoria   = dg.selectedItem.categoria;
 			pro.descripcion = dg.selectedItem.descripcion;
 			
+			
  				currentState = 'VerDetalle';
+				canti.value = 0;
 		}
 		
 		public function PurgarProductoTipo():void
@@ -449,10 +451,10 @@
 				<mx:Label x="20" y="251" text="Cantidad:" fontWeight="bold"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:NumericStepper x="87" y="249" id="canti" maximum="1000000"/>
+				<mx:NumericStepper x="87" y="249" id="canti" minimum="0" maximum="{cant.value}" value="0"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:NumericStepper x="82" y="115" id="cant" value="{dg.selectedItem.cantidad}" maxHeight="100000" maximum="1000000"/>
+				<mx:NumericStepper x="82" y="115" id="cant" value="{dg.selectedItem.cantidad}" maxHeight="100000" maximum="1000000" enabled="false"/>
 			</mx:AddChild>
 		</mx:State>
 	</mx:states>
