@@ -66,5 +66,10 @@ package Policlinico
 		{
 			this.getOperation("addActualControl").send(control);
 		}
+		
+		public function updateControl(control:Control):void
+		{
+			this.getOperation("updateControl").send(control);
+		}
 	}
 }
