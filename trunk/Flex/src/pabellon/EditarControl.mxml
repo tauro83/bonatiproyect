@@ -266,6 +266,14 @@
 						break;
 				}
 			}
+			
+				public function volver():void{
+			
+				
+			        this.visible = false;
+            		Application.application.panelClinicaPrincipal.visible = true;
+			    
+			}
 		]]>
 	</mx:Script>
 	
@@ -301,7 +309,7 @@
 	</mx:DataGrid>
 	<mx:Button label="Editar" id="eliminar" height="23" width="102" x="537" y="338" click="editarAtencion()" cornerRadius="6" toolTip="Anula el control seleccionado" enabled="true"/>
 	<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
-	<mx:Button x="647" y="338" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6" toolTip="Regresa al panel anterior"/>
+	<mx:Button x="647" y="339" label="Cancelar" id="button1" click="volver()" width="102"/>
 	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
 	<mx:Text x="313" y="12" id="textFiltrar" text="Filtrar por"/>
 	
