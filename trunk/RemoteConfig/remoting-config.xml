@@ -357,4 +357,9 @@
            			<source>Clinica.GetEstadisticasClinica</source>
            	</properties>
     	</destination>
+		<destination id="BMC">
+           	<properties>
+           			<source>BMC.BMC</source>
+           	</properties>
+    	</destination>
 </service>
