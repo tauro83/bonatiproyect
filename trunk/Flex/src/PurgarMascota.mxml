@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas show="getAllMascotas()" initialize="getAllMascotas()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466">
+<mx:Canvas show="getAllMascotas()" initialize="getAllMascotas()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466" xmlns:ns1="util.*">
 	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Mascota">
 		
 		<mx:Script>
@@ -93,7 +93,8 @@
 				
 				for(i=0;i<lista.length;i++){
 					var masc:Mascota = lista.getItemAt(i) as Mascota;
-					if(!masc.estado)
+					var rut:String = nombreRutIn.rutClienteInput.text+nombreRutIn.rutClienteDVInput.text;
+					if(!masc.estado  && masc.rutCliente==rut)
 						mascotas.addItem(masc);
 				}
 				
@@ -106,15 +107,15 @@
 		]]>
 		
 		</mx:Script>
-		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="518" label="Purgar" y="321" id="borrarMascota" click="purgarMascota()" toolTip="Purga una mascota totalmente del sistema">
+		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="518" label="Purgar" y="341" id="borrarMascota" click="purgarMascota()" toolTip="Purga una mascota totalmente del sistema">
 		</mx:Button>
-		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="408" label="Restaurar" y="321" id="borrarMascota0" click="restoreMascota()">
+		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="408" label="Restaurar" y="341" id="borrarMascota0" click="restoreMascota()">
 			<mx:toolTip>Restaura una mascota para dejarla habilitada en el sistema</mx:toolTip>
 		</mx:Button>
 		
-		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="628" label="Cancelar" y="321" id="cancelar" click="cancelando()" toolTip="Cierra la ventana y vuelve a la anterior">
+		<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="628" label="Cancelar" y="341" id="cancelar" click="cancelando()" toolTip="Cierra la ventana y vuelve a la anterior">
 		</mx:Button>
-		<mx:DataGrid x="30" y="30" width="700" height="283" dataProvider="{mascotas}" allowMultipleSelection="true" 
+		<mx:DataGrid x="30" y="90" width="700" height="243" dataProvider="{mascotas}" allowMultipleSelection="true" 
 			editable="false" id="tablaMascotas" resizableColumns="true" showHeaders="true" 
 			sortableColumns="true" visible="true" toolTip="Presione Ctrl para seleccionar múltriples objetos">
 			<mx:columns>
@@ -135,6 +136,10 @@
 			</mx:columns>
 		</mx:DataGrid>
 		<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+		<mx:Label x="25" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
+		<ns1:BuscadorNombreRut x="39" y="28" id="nombreRutIn" keyFocusChange=" {getAllMascotas()}" mouseFocusChange="{getAllMascotas()}">
+		</ns1:BuscadorNombreRut>
+		<mx:Label x="25" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
 		
 		
 		
