@@ -398,7 +398,7 @@ public class PostOperatorioBD {
 			PostOperatorio p;
 			for (int i=0;i<lista.size();i++){
 				p = (PostOperatorio)lista.get(i);
-				System.out.println(p.clienterut+" "+pos.clienterut+"  "+p.nombreMascota+" "+pos.nombreMascota);
+				//System.out.println(p.clienterut+" "+pos.clienterut+"  "+p.nombreMascota+" "+pos.nombreMascota);
 				if(p.clienterut.compareTo(pos.clienterut)==0 && p.nombreMascota.compareTo(pos.nombreMascota)==0){
 					value=true;
 				}
