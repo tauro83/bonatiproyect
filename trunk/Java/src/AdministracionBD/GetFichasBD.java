@@ -237,9 +237,9 @@ public class GetFichasBD {
     	
     	
     	
-		String queryPostoperatorio = "SELECT medicamentos, alimentos, indicaciones, servicio, hora, fecha,"+ 
+		String queryPostoperatorio = "SELECT medicamentos, alimentos, indicaciones, servicio, estado,hora, fecha,"+ 
 	       	"costo, nombremascota, rut, apellido, nombrecliente FROM atencionpostoperatorio "+
-	       	"WHERE rut='"+ rut.trim()+"' AND nombremascota='" +nombre.trim() +"'";	
+	       	"WHERE rut='"+ rut.trim()+"' AND nombremascota='" +nombre.trim() +"' AND estado='0'" ;	
 
 		try 
 		{
