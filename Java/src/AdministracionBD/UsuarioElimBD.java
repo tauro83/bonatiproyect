@@ -33,6 +33,7 @@ public class UsuarioElimBD
 	PreparedStatement deleteUsuario;
 	PreparedStatement eliminar;
 	PreparedStatement selectAllPurg;
+	PreparedStatement reactivar;
 	
 	/**
 	 * Se declaran las consultas hacia la base de datos
@@ -69,12 +70,63 @@ public class UsuarioElimBD
 			   "VALUES (?, ?, ?, ?);";
 			eliminar= connection.prepareStatement(query);
 			
+			query = "UPDATE usuario "+
+			   "SET estado = 'TRUE' " +
+			   "WHERE usuario = ?; " +
+			   "INSERT INTO bitacora2(fecha, usuario, servicio, accion) "+
+			   "VALUES (?, ?, ?, ?);";
+			reactivar = connection.prepareStatement(query);
+			
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/**
+	 * Elimina un usuario de la base de datos
+	 * @param clave Nombre de usuario obtenido desde la capa de interfáz con el usuario
+	 * @return 1 si se ha eliminado correctamente, -1 o 0 la eliminación ha fallado
+	 */
+    public int reactivarUser(String clave, String usuario)
+    {
+    	int result=0;
+    	try 
+    	{
+    		reactivar.setString(1, clave);
+    		Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR)-1900;
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			Date date = new Date(year,month, day);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fecha = formatter.format(date);
+    		
+			reactivar.setString(2, fecha);
+			reactivar.setString(3, usuario);
+			reactivar.setString(4, "Administración");
+			reactivar.setString(5, "Restaura el usuario: "+clave);
+			
+			reactivar.executeQuery();
+			result= reactivar.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+    		//e.printStackTrace();
+    		String resultsa = e.toString();
+    		
+			if(resultsa.length()>80){
+				return 0;
+			}
+			else
+				return 1;
+			
+		}
+    	return result;
+    }
+    
 	/**
 	 * Elimina un usuario de la base de datos
 	 * @param clave Nombre de usuario obtenido desde la capa de interfáz con el usuario
@@ -117,6 +169,7 @@ public class UsuarioElimBD
 		}
     	return result;
     }
+    
     
     /**
      * Trata de obtener todos los usuarios registrados en la base de datos

@@ -162,6 +162,51 @@
             	Application.application.panel2.setVisible(true,false);
             	Application.application.AdmOpciones1.setVisible(true,false);
             }
+            private function reactivarUsuario():void
+            {
+                var allRows:int = persons.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (persons[i].sel)
+                	{
+                        nroSelec++;
+                        reacUsuario(persons[i].usuario);
+                        persons.removeItemAt(i);
+                        allRows = persons.length;
+                        tablaUsuarios.dataProvider = persons;
+                        i=-1;
+                    }   
+                }              
+            }
+            /**
+            * @autor "Erwin Díaz"
+			 * Restaura un usuario que está en la base de datos
+			 * llama a una función remota y retorna una lista con todos
+			 * los usuarios registrados
+			 */
+			private function reacUsuario(clave:String):void
+			{
+				var usuarioElimService:UsuarioElimService=new UsuarioElimService();
+				usuarioElimService.addEventListener(ResultEvent.RESULT,reacUsuarioResult);
+				usuarioElimService.reactivarUser(clave, Application.application.login2.usuarioActivo);
+			}
+			/**
+			 * 
+			 * Muestra un mensaje de acuerdo al resultado de la operación
+			 * en la capa dos
+			 */
+			private function reacUsuarioResult(event:ResultEvent):void
+			{
+				var message:int= event.result as int;	
+				if(message==1){
+					labelMessage.text = "Se ha restaurado Usuario exitosamente";
+				}
+				else{
+				//	labelMessage.text = Properties.getMensaje("Error", "31");
+					labelMessage.text = "Usuario no re puede reactivar";
+				}		
+				getAllUsuarios();
+				
+			}
             
 		]]> 
   	</mx:Script>	
@@ -193,4 +238,7 @@
 		<mx:toolTip>Seleccione todos los usuarios, en caso contrario ninguno</mx:toolTip>
 	</mx:CheckBox>
 	<mx:Label x="25" y="10" text="Seleccionar todo"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="412" label="Restaurar" y="353" id="restaurar" click="reactivarUsuario()">
+		<mx:toolTip>Restaura una mascota para dejarla habilitada en el sistema</mx:toolTip>
+	</mx:Button>
 </mx:Panel>

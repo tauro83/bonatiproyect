@@ -54,6 +54,29 @@ public class UsuarioElimService
 		}
 		return result;
     }
+	
+	/**
+	 * Reactiva el usuario
+	 * @param clave es el nombre de usuario
+	 * con este parámetro se hace la selección de
+	 * una tupla en la base de datos
+	 * @return retorna el estado de la conexion
+	 */
+	public int reactivarUser(String clave, String usuario)
+    {
+		int result=0;
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			UsuarioElimBD userDB= new UsuarioElimBD(connection);
+			result= userDB.reactivarUser(clave, usuario);
+			connection.close();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
+    }
 
 	/**
 	 * Funcion que permite ocultar un usuario

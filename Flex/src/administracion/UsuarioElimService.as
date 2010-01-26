@@ -74,6 +74,14 @@ package administracion
 		{
 			this.getOperation("getAllUsuariosP").send();
 		}
-		
+		/**
+		 *Función que restaura todos los usuarios que están marcados
+		 * como eliminados 
+		 * 
+		 */		
+		public function reactivarUser(clave:String, usuario:String):void
+		{
+			this.getOperation("reactivarUser").send(clave, usuario);
+		}
 	}
 }
