@@ -107,18 +107,7 @@ public class AddCirugiaBD {
 			add.setString(6, newCirugia.getFecha());
 			add.setString(7, newCirugia.getCosto());
 			result2= add.executeUpdate();
-			//agregando los datos a estadisticasClinica
-			String[] l =newCirugia.getFecha().split("/");
-			Date date = new Date(Integer.parseInt(l[2])-1900, Integer.parseInt(l[1])-1, Integer.parseInt(l[0]));
-			addEstadisticas.setInt(1, 1);
-			addEstadisticas.setDate(2, date);
-			addEstadisticas.setInt(3, 3);
-			addEstadisticas.executeUpdate();			
-			//
-			
-			
-			
-			
+						
 			List ltc = newCirugia.getTiposCirugias();
 			int n = ltc.size();
 			for(int i=0;i<n;i++){
@@ -139,6 +128,16 @@ public class AddCirugiaBD {
 				}
 				
 			}
+			
+			//agregando los datos a estadisticasClinica
+			String[] l =newCirugia.getFecha().split("/");
+			Date date = new Date(Integer.parseInt(l[2])-1900, Integer.parseInt(l[1])-1, Integer.parseInt(l[0]));
+			addEstadisticas.setInt(1, 1);
+			addEstadisticas.setDate(2, date);
+			addEstadisticas.setInt(3, 3);
+			addEstadisticas.executeUpdate();			
+			//
+			
 		} 
     	catch (SQLException e) {
 			e.printStackTrace();
