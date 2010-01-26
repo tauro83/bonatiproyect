@@ -32,7 +32,8 @@
 				<mensaje key="28">Corregir e-mail</mensaje>		
 				<mensaje key="29">Error al anular Control</mensaje>
 				<mensaje key="30">Error al registrar Pago</mensaje>	
-				<mensaje key="31">Error al purgar Usuario</mensaje>	
+				<mensaje key="31">Error al purgar Usuario</mensaje>
+				<mensaje key="32">Error al editar Post Operatorio</mensaje>	
 			</mensajes>
 		</tipoMensaje>	
 		<tipoMensaje name="Advertencia">

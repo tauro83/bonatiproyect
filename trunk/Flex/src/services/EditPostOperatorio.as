@@ -7,7 +7,6 @@ package services
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	import transferObjects.PostOperatorio;
 	
 	import util.host;
 	/**
@@ -23,8 +22,8 @@ package services
 			var amfChannel:AMFChannel=new AMFChannel("my-amf",host.getUrl());
 			channel.addChannel(amfChannel);
 			this.channelSet=channel;
-			this.destination="EditarPostOperatorioService";
-			this.source="Services.EditarPostOperatorioService";
+			this.destination="EditarPostOperatorio";
+			this.source="Pabellon.EditarPostOperatorio";
 			this.addEventListener(FaultEvent.FAULT,faultHandler);
 		}
 		
@@ -37,8 +36,8 @@ package services
 		/**
 		 * Se obtienen todas los registros de post-operatorio activos del sistema
 		 */ 
-		public function editarPostOperatorio(fecha:String, hora:String, post:PostOperatorio):void{
-			this.getOperation("editarPostOperatorio").send(fecha, hora, post);
+		public function editarPostOperatorio(fecha:String, hora:String, fecha2:String, hora2:String,indic:String):void{
+			this.getOperation("editarPostOperatorio").send(fecha, hora, fecha2, hora2, indic);
 		}
 	}
 }
