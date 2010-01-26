@@ -159,7 +159,7 @@ public class BMC {
             //BD.setProductosNuevos(BMC.readPRGU());
             return false;
         }
-        return true;
+        return false;
     }
     //REPORTE DE VENTAS
     public  static boolean obtenerReporteDiario() throws IOException, InterruptedException, SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
@@ -181,8 +181,8 @@ public class BMC {
            BD.setProductosVendidos(BMC.readREPC());
            return true;
         }if(retorno.contains("ECR is not ready")){
-           BD.setProductosVendidos(BMC.readREPC());
-          //return false;
+           //BD.setProductosVendidos(BMC.readREPC());
+           return false;
         }
        return true;
     }
@@ -193,8 +193,9 @@ public class BMC {
         ArrayList<ProductoNuevo> pn = new ArrayList();
         pn = BD.getProductosNuevos();
         BMC.printPnuevos(pn);
-
-        FileWriter fstream = new FileWriter("C:\\Windows\\PRGU.01");
+        //C:\Archivos de programa\jboss-4.0.5.GA\jboss-4.0.5.GA\jboss-4.0.5.GA\bin
+        FileWriter fstream = new FileWriter("C:\\Archivos de programa\\jboss-4.0.5.GA\\jboss-4.0.5.GA\\jboss-4.0.5.GA\\bin\\PRGU.01");
+       // FileWriter fstream = new FileWriter("C:\\Windows\\PRGU.01");
         BufferedWriter out = new BufferedWriter(fstream);
 
         out.write("*\n");
@@ -270,7 +271,7 @@ public class BMC {
            //BD.updateStock(BMC.readPRGX());
            return false;
         }
-        return true;
+        return false;
     }
 
     //REPORTE de VENTAS
@@ -278,7 +279,7 @@ public class BMC {
     public static ArrayList<ProductoVendido> readREPC() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
         ArrayList<ProductoVendido> pvendidos    = new ArrayList();
 
-        File file = new File("C:\\Windows\\REPC.01");
+        File file = new File("C:\\Archivos de programa\\jboss-4.0.5.GA\\jboss-4.0.5.GA\\jboss-4.0.5.GA\\bin\\REPC.01");
         FileInputStream fis = null;
         BufferedInputStream bis = null;
         DataInputStream dis = null;
@@ -327,7 +328,7 @@ public class BMC {
     {
       
         ArrayList<ProductoNuevo> pnuevos = new ArrayList();
-        File file = new File("C:\\Windows\\PRGU.01");
+        File file = new File("C:\\Archivos de programa\\jboss-4.0.5.GA\\jboss-4.0.5.GA\\jboss-4.0.5.GA\\bin\\PRGU.01");
 
         FileInputStream fis = null;
         BufferedInputStream bis = null;
@@ -374,7 +375,7 @@ public class BMC {
     public static ArrayList<ProductoStock> readPRGX() throws InstantiationException, ClassNotFoundException, IllegalAccessException, SQLException{
         ArrayList<ProductoStock> pstock    = new ArrayList();
 
-        File file = new File("C:\\Windows\\PRGX.01");
+        File file = new File("C:\\Archivos de programa\\jboss-4.0.5.GA\\jboss-4.0.5.GA\\jboss-4.0.5.GA\\bin\\PRGX.01");
         FileInputStream fis = null;
         BufferedInputStream bis = null;
         DataInputStream dis = null;
