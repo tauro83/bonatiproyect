@@ -89,7 +89,7 @@
 				if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)){
 					return;	
 				} 
-			  	else{
+			  	else{//evt.detal==Alert.YES
 			  		for(var i:int=0;i<hotelerias.length;i++){
 	           			if(hotelerias[i].sel==true){
 	           				retirarMascota(hotelerias[i].fechaIngreso, hotelerias[i].fechaSalida, hotelerias[i].canil);
