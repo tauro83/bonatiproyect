@@ -110,7 +110,8 @@
 		</mx:Button>
 		<mx:DataGrid x="30" y="90" width="700" height="243" dataProvider="{mascotas}" allowMultipleSelection="true" 
 			editable="false" id="tablaMascotas" resizableColumns="true" showHeaders="true" 
-			sortableColumns="true" visible="true" toolTip="Presione Ctrl para seleccionar múltriples objetos">
+			sortableColumns="true" visible="true" toolTip="Presione Ctrl para seleccionar múltriples objetos" 
+			focusIn="{getAllMascotas()}">
 			<mx:columns>
 				<!--
 				<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" sortable="false" draggable="false">
@@ -131,7 +132,7 @@
 		<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 		<mx:Label x="25" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
 		<mx:Label x="25" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
-		<ns1:BuscadorNombreRut x="39" y="28" id="nombreRutIn" keyFocusChange=" {getAllMascotas()}" mouseFocusChange="{getAllMascotas()}">
+		<ns1:BuscadorNombreRut x="39" y="28" id="nombreRutIn">
 		</ns1:BuscadorNombreRut>
 		
 		
