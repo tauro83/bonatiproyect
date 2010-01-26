@@ -57,10 +57,10 @@ public class PetshopBD {
 		codigo += person.codigo;
 		
 		String nombre =person.nombre.trim();
-		for(int j=0;j<16-person.nombre.length();j++){
-			nombre+=".";
+		for(int j=0;j<15-person.nombre.length();j++){
+			nombre+=" ";
 		}
-		
+		nombre+="A";
 		
 		try 
     	{
