@@ -85,7 +85,7 @@
 	           <mx:CategoryAxis dataProvider="{expenses}" categoryField="tipo"/>
 	        </mx:horizontalAxis>
 	        <mx:series>
-	           <mx:ColumnSeries xField="tipo" yField="numAtenciones" displayName="N° de atenciones realizadas" />
+	           <mx:ColumnSeries showDataEffect="{changeEffect}" xField="tipo" yField="numAtenciones" displayName="N° de atenciones realizadas" />
 	        </mx:series>
      	</mx:ColumnChart>
      		<mx:Legend horizontalAlign="right" dataProvider="{myChart}" width="199" x="550" y="10"/>
