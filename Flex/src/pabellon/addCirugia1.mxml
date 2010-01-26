@@ -24,6 +24,7 @@
 		    import services.BusquedaService;
 		    import services.configuracionServices;
 			import services.Validacion;
+			import services.AddMascotaService;
 			
 			[Bindable]
 		    public var clienteBD:Cliente;
@@ -78,9 +79,9 @@
 			* @author  "Jimmy Muñoz"
 			*/
 			private function getMascotas():void{
-				var addMascotaService:AddCirugiaService = new AddCirugiaService();
+				var addMascotaService:AddMascotaService = new AddMascotaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addMascotaService.getMascotas(nombRutInput.rutClienteInput.text);
+				addMascotaService.getMascotas(nombRutInput.rutClienteInput.text+nombRutInput.rutClienteDVInput.text);
 			}
 			
 			/**

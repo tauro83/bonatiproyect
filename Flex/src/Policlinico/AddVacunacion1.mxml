@@ -22,6 +22,7 @@
 		    import services.BusquedaService;
 		    import services.configuracionServices;
 			import services.Validacion;
+			import services.AddMascotaService;
 			
 			[Bindable]
 		    public var clienteBD:Cliente;
@@ -76,9 +77,9 @@
 			 * @author  "Jimmy Muñoz"
 			*/
 			private function getMascotas():void{
-				var addvacService:AddVacunacionService = new AddVacunacionService();
+				var addvacService:AddMascotaService = new AddMascotaService();
 				addvacService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addvacService.getMascotas(nombRutInput.rutClienteInput.text);
+				addvacService.getMascotas(nombRutInput.rutClienteInput.text+nombRutInput.rutClienteDVInput.text);
 			}
 			
 			/**
@@ -225,56 +226,7 @@
 		   		
 		   }
 		   
-		   /**
-			*  Metodo que busca al cliente, al momento de soltar el autocomplete del apellido, 
-			 * procesando los datos, partiendo el texto, y guardandolo en el nombreN, apellidomN
-			 * y en apellidopN.
-			 * @author  "Jimmy Muñoz"@author  "Jimmy Muñoz"
-			 */
-		   private function buscarCliente2():void
-		   {
-		   	  if(this.nomEnvi != this.nombRutInput.inputClienteNombre.text){
-		   		dg.setFocus();
-		   		this.labelMessage.text="";
-		   		var nombre:String = nombRutInput.inputClienteNombre.text;
-		   		if(nombRutInput.inputClienteNombre.text != ""){
-		   			var largo:int = cliente2V.length;
-		   			var i:int;
-		   			var sss:Array;
-		   			
-		   			sss = nombRutInput.inputClienteNombre.text.split(" ",3);
-
-		   			
-		   			/**
-		   			 * obtiene los datos de la division del nombre seleccionado.
-			 		*/
-		   			var nombreN:String = sss.pop();
-		   			var apellidomN:String = sss.pop();
-		   			var apellidopN:String = sss.pop();
-		   			
-		   			/**
-		   			 * Compara los datos obtenidos de la division, con los que se 
-		   			 * encuentran en el arreglo de clientes.
-			 		*/
-		   			for(i=0;i<largo;i++){
-		   				var newCli:Cliente = cliente2V.getItemAt(i,0) as Cliente;
-		   				if(nombreN == newCli.nombre && apellidopN == newCli.apellido && apellidomN == newCli.apellido2){
-		   					this.nombRutInput.rutClienteInput.text=newCli.rut.substring(0,8);
-		   					labelMessage.text = "Se ha accedido al cliente "+newCli.nombre;
-		   					this.nomEnvi = this.nombRutInput.inputClienteNombre.text;
-        					this.rutEnvi = this.nombRutInput.rutClienteInput.text;
-		   					sacaDigito();
-		   					ini();
-		   					break;
-		   				}
-
-		   			}
-		   			this.nombRutInput.inputClienteNombre.text=this.nomEnvi;
-		   			this.nombRutInput.rutClienteInput.text=this.rutEnvi;
-		   		}
-		   	  }
-		 
-		   }
+		   
 		   
 		   
 		   /**
