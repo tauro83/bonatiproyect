@@ -37,7 +37,7 @@
 				 this.visible = true;
 				 Application.application.editProducto.visible = true;	
 				 Application.application.editProducto.limpiarTodo();
-				 Application.application.editProducto.cargarDatos();
+				 Application.application.editProducto2.cargarDatos();
 				  			 
 			}
 
