@@ -539,7 +539,8 @@
                     <mx:DataGrid id="agendaDia" x="0" y="0" width="550" height="266" dataProvider="{semanaAgenda}" doubleClickEnabled="true" itemDoubleClick="{seleccionarCita(event)}" itemClick="{consultarAccion(event)}">
                         <mx:columns>
                             <mx:DataGridColumn headerText="Hora" dataField="hora"  fontWeight="bold" width="45"/>
-                            <mx:DataGridColumn headerText="Cliente" dataField="cliente"/>
+                            <mx:DataGridColumn headerText="Cliente" dataField="cliente" visible="false"/>
+                            <mx:DataGridColumn headerText="Cliente" width="150" dataField="nombreCliente"/>
                             <mx:DataGridColumn headerText="Mascota" dataField="mascota"/>
                             <mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
                             <mx:DataGridColumn headerText="Responsable" dataField="responsable"/>
