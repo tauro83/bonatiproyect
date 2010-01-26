@@ -49,8 +49,8 @@
 					newUsuario.apellidoPaterno = Tabla.selectedItem.apellidoPaterno;
 					newUsuario.apellidoMaterno = Tabla.selectedItem.apellidoMaterno;
 					newUsuario.usuario = Tabla.selectedItem.usuario;
-					newUsuario.servicio = Tabla.selectedItem.servicio;
-					newUsuario.cargo = Tabla.selectedItem.cargo;
+					newUsuario.servicio = Tabla.selectedItem.servicio.split(" ",1).pop();
+					newUsuario.cargo = Tabla.selectedItem.cargo.split(" ",1).pop();
 					newUsuario.permisoRegistrar = Tabla.selectedItem.permisoRegistrar;
 					newUsuario.permisoEditar = Tabla.selectedItem.permisoEditar;
 					newUsuario.permisoEliminar = Tabla.selectedItem.permisoEliminar;
@@ -87,8 +87,34 @@
 					listCont2 = newUsuario.apellidoMaterno.split(" ",1);
 					newRegUsuar.amat.text=listCont2.pop();	
 					
-					newRegUsuar.cargosE = this.cargos;
-					newRegUsuar.serviciosE = this.servicios;
+					var arrCargos:ArrayCollection = new ArrayCollection();
+					var ieu:int;
+					var maxeu:int = this.cargos.length;
+					for(ieu=0;ieu<maxeu;ieu++){
+						if(cargos.getItemAt(ieu).nombre==newUsuario.cargo){
+							arrCargos.addItem(cargos.getItemAt(ieu));
+						}
+					}
+					
+					for(ieu=0;ieu<maxeu;ieu++){
+						arrCargos.addItem(cargos.getItemAt(ieu));
+					}
+					newRegUsuar.cargosE = arrCargos;
+					
+					
+					var arrservicios:ArrayCollection = new ArrayCollection();
+					var ieus:int;
+					var maxeus:int = this.servicios.length;
+					for(ieus=0;ieus<maxeu;ieus++){
+						if(cargos.getItemAt(ieus).nombre==newUsuario.servicio){
+							arrservicios.addItem(servicios.getItemAt(ieus));
+						}
+					}
+					
+					for(ieu=0;ieu<maxeu;ieu++){
+						arrservicios.addItem(servicios.getItemAt(ieu));
+					}
+					newRegUsuar.serviciosE = arrservicios;
 					
 					newRegUsuar.setVisible(true,false);
 
