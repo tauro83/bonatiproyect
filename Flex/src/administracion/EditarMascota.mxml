@@ -51,8 +51,19 @@
 		    [Bindable]
 			public var newMascota:Mascota;
 			
-		      
-			 
+ 
+			 public function iniciarPanel1():void{
+     		    nombreRutIn.getAllClientes();
+     			nombreRutIn.rutClienteInput.enabled = true;
+         		nombreRutIn.rutClienteDVInput.enabled = true;
+         		nombreRutIn.inputClienteNombre.enabled = true;
+         		nombreRutIn.enabled = true;
+         		
+         		nombreRutIn.rutClienteInput.text = "";
+         		nombreRutIn.rutClienteDVInput.text = "";
+         		nombreRutIn.inputClienteNombre.text = "";
+     			
+         	}
 		
         	 /**
 		 	 * 	@author  "Cristian Bravo"
