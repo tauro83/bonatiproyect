@@ -91,7 +91,7 @@ public class BMC {
 	public static boolean obtenerProductos() throws IOException, InterruptedException, SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
 	{
 		if(BMC.RespaldarBMC()){
-			System.out.println("PRODUCTOS SIN STOCK CARGADOS");
+			System.out.println("PRODUCTOS CARGADOS");
 			if(BMC.obtenerReporteStock()){
 				System.out.println("STOCK CARGADOS");
 				return true;
@@ -156,8 +156,8 @@ public class BMC {
             BD.setProductosNuevos(BMC.readPRGU());
             return true;
         }if(retorno.contains("ECR is not ready")){
-            BD.setProductosNuevos(BMC.readPRGU());
-            //return false;
+            //BD.setProductosNuevos(BMC.readPRGU());
+            return false;
         }
         return true;
     }
@@ -267,8 +267,8 @@ public class BMC {
            BD.updateStock(BMC.readPRGX());
            return true;
         }if(retorno.contains("ECR is not ready")){
-           BD.updateStock(BMC.readPRGX());
-           //return false;
+           //BD.updateStock(BMC.readPRGX());
+           return false;
         }
         return true;
     }
@@ -307,7 +307,8 @@ public class BMC {
           fis.close();
           bis.close();
           dis.close();
-
+         
+          
           }catch (FileNotFoundException e) {
              e.printStackTrace();
 
