@@ -260,7 +260,7 @@
 						regHot.visible = true;
 					break;
 					
-					case "Editar control":
+					case "Editar Control":
 						edicontrol.visible = true;
 					break;
 					/**
