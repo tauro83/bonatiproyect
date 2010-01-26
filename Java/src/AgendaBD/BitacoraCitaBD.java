@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import TransferObjects.Mascota;
@@ -23,7 +24,7 @@ import Agenda.BitacoraCita;
 public class BitacoraCitaBD
 {
 
-	PreparedStatement selectAll, insert;
+	PreparedStatement selectAll, insert, eliminar, ocultar;
 	Connection conn;
 	
 	
@@ -39,12 +40,24 @@ public class BitacoraCitaBD
 		try 
 		{	//Declaraciones de consultas para la base de datos
 			String query="";			
-			query = "SELECT usuario, accion, fechaaccion, horaaccion, fechaacita, horacita, cliente, mascota, servicio  FROM bitacora;";
+			query = "SELECT usuario, accion, fechaaccion, horaaccion, fechaacita, horacita, cliente, mascota, servicio  FROM bitacora WHERE estado = 'TRUE';";
 			selectAll = connection.prepareStatement(query);
 			
 			
 			query = "INSERT INTO bitacora(usuario, accion, fechaaccion, horaaccion, fechaacita, horacita,cliente, mascota, servicio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			insert = connection.prepareStatement(query);
+			
+			query = "UPDATE bitacora " +
+			   		"SET estado='FALSE' " +
+			   		"WHERE fechaaccion = ?;";
+
+			ocultar = connection.prepareStatement(query);
+			
+			query = "DELETE FROM bitacora " +
+					"WHERE fechaaccion = ?;";
+			
+			eliminar = connection.prepareStatement(query);
+			
 		} 
 		catch (SQLException e) 
 		{
@@ -61,6 +74,27 @@ public class BitacoraCitaBD
     	BitacoraCita bitacora;
     	try 
     	{
+			Calendar c = Calendar.getInstance();
+    		int dia = c.get(Calendar.DATE);
+    		int mes = c.get(Calendar.MONTH);
+    		int ano = c.get(Calendar.YEAR);
+    		
+    		
+    		String actualfech = "";
+    		
+    		actualfech += (ano + "");
+			
+    		if(mes < 10){
+				actualfech += "0";
+			}
+			actualfech += (mes+1);
+			
+			if(dia < 10){
+				actualfech += "0";
+			}
+			actualfech += dia;
+    		
+    		
     		ResultSet result = selectAll.executeQuery();
     		while(result.next())
     		{
@@ -77,6 +111,39 @@ public class BitacoraCitaBD
     			bitacora.servicio = result.getString(9).trim();
     			
     			bitacoras.add(bitacora);
+    			
+    			//System.out.println(bitacora.fechaAccion + "--");
+    			String [] datos = bitacora.fechaAccion.split("/");
+    			String fech = "";
+    			
+    			for(int i = datos.length-1; i >= 0; i--){
+    				//System.out.print(datos[i]);
+    				
+    				if(i<=1 && Integer.parseInt(datos[i]) < 10){
+    					fech += "0" + datos[i];
+    				}
+    				else{
+    					fech += datos[i];
+    				}
+    			}
+    			
+    			
+    			if(Integer.parseInt(actualfech) - Integer.parseInt(fech) > 20000){// 2 Anios 
+    				ocultar.setString(1, bitacora.fechaAccion);
+        			int resultado = ocultar.executeUpdate();
+        	
+    			}
+    			
+    			//Funcion para eliminar pero no funciona
+    			/*if(Integer.parseInt(actualfech) - Integer.parseInt(fech) > 50000){// 5 Anios 
+    				
+    				eliminar.setString(1, bitacora.fechaAccion);
+    				eliminar.executeQuery();
+        			int resultado2 = eliminar.executeUpdate();
+        			
+        	
+    			}*/
+    		
 
     		}
 		} 
