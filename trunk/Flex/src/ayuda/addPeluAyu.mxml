@@ -60,7 +60,7 @@
 	<mx:LinkButton x="56" y="64" label="opciones del módulo" id="linkOpciones" color="blue" click="verOpcMod()"/>
 	<mx:LinkButton x="30" y="232" label="Seleccionar" color="blue" id="selUsr" click="verSelec()"/>
 	<mx:Image x="20" y="170" width="355" height="43" source="../images/ayuda/Peluqueria.PNG" id="barra" visible="false"/>
-	<mx:Image x="95" y="30" width="185" height="332" source="../images/ayuda/MenuPeluqueria.JPG" id="opcMod" visible="false"/>
+	<mx:Image x="95" y="30" width="185" height="332" source="../images/ayuda/MenuPeluqueria.jpg" id="opcMod" visible="false"/>
 	<mx:Image x="10" y="10" width="350" height="332" source="../images/ayuda/selMascotaPol2.JPG" id="selMascotaVacuna" visible="false"/>
 	
 </mx:Canvas>

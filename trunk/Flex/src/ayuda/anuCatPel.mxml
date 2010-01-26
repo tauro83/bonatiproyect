@@ -43,6 +43,6 @@
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:LinkButton x="60" y="64" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
-	<mx:Image x="95" y="30" width="185" height="332" source="../images/ayuda/menuCatalogo.JPG" id="opcMod" visible="false"/>
+	<mx:Image x="95" y="30" width="185" height="332" source="../images/ayuda/menuCatalogo.jpg" id="opcMod" visible="false"/>
 	
 </mx:Canvas>
