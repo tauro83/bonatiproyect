@@ -53,9 +53,9 @@ package peluqueria
 			 * 	@Param Recibe como parametro un objeto de la clase Preoperatorio, para enviarlo a la capa2. 		
 			 * */
 
-		public function getAllPeluquerias(rutillo:String,nombreMascota:String):void
+		public function getAllPeluquerias(nombreMascota:String,rutillo:String):void
 		{
-			this.getOperation("getAllPeluquerias").send(rutillo, nombreMascota);
+			this.getOperation("getAllPeluquerias").send(nombreMascota, rutillo);
 		}
 		
 		/**

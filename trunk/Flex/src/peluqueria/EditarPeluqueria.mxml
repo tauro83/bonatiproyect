@@ -280,7 +280,7 @@
 			private function getMascotas():void{
 				var addpelService:AddMascotaService = new AddMascotaService();
 				addpelService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addpelService.getMascotas(nombreRutIn.rutClienteInput.text + nombreRutIn.rutClienteDVInput.text);
+				addpelService.getMascotas(nombreRutIn.rutClienteInput.text+nombreRutIn.rutClienteDVInput.text);
 			}
 			
 			/**
@@ -311,7 +311,8 @@
 	       		if(dg2.selectedLabel!=""){
 	       			this.labelMessage.text="";
 	       			var nombre:String = dg2.selectedLabel
-	       			getPeluquerias(nombre,nombreRutIn.rutClienteInput.text);
+	       			
+	       			getPeluquerias(nombre,nombreRutIn.rutClienteInput.text+nombreRutIn.rutClienteDVInput.text);
 	       		}
 	       		else{
 	       			this.labelMessage.text="Seleccione una mascota, para ver sus atenciones.";
@@ -328,7 +329,7 @@
 				
 				var edPeluqService:EditarPeluService = new EditarPeluService();
 				edPeluqService.addEventListener(ResultEvent.RESULT,getPeluqueriasResult);
-				edPeluqService.getAllPeluquerias(nombreRutIn.rutClienteInput.text,nombreMasc);
+				edPeluqService.getAllPeluquerias(nombreMasc,rut);
 			}
 			
 			 /**
@@ -614,8 +615,9 @@
     </mx:Script>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente:" width="84.75" fontWeight="bold"/>
-	<ns1:BuscadorNombreRut x="25" y="36" id="nombreRutIn" keyFocusChange="getMascotas()" mouseFocusChange="getMascotas()">
+	<ns1:BuscadorNombreRut x="25" y="36" id="nombreRutIn">
 	</ns1:BuscadorNombreRut>
+	<mx:ComboBox id="dg2" x="90" y="85" width="177" dataProvider="{mascotas}" labelField="nombre" close="{busca()}" focusIn="getMascotas()"></mx:ComboBox>
 	
 	<mx:DataGrid x="25" y="158" width="710" id="Tabla" enabled="true" height="178" dataProvider="{peluquerias}" itemDoubleClick="{mira()}">
 		<mx:columns>
@@ -632,7 +634,7 @@
 	<mx:Label x="25" y="136" text="Registros:" width="112.75" fontWeight="bold"/>
 	<mx:Label x="25" y="64" text="Mascotas:" fontWeight="bold" width="67"/>
 	<mx:Label x="25" y="87" text="Nombre:" width="55.75"/>
-	<mx:ComboBox id="dg2" x="90" y="85" width="177" dataProvider="{mascotas}" labelField="nombre" close="{busca()}"></mx:ComboBox>
+	
 	<mx:Button x="522" y="353" label="Visualizar" width="103" id="cancelar0" visible="true" height="23" click="{ mira()}"/>
 	
 	
