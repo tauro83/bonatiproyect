@@ -58,6 +58,7 @@ public class AddPostOperatorioBD {
 	        //System.out.println("AAAA?11"+postOpe.getCosto());
 			insert.executeQuery();
 	        result = insert.executeUpdate();
+	      
     	} 
     	catch (SQLException e) 
     	{

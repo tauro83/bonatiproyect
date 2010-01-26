@@ -1,6 +1,7 @@
 package AdministracionBD;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,6 +24,7 @@ public class AddConsultaBD {
 	PreparedStatement add;
 	PreparedStatement selectAll;
 	PreparedStatement getAllClientes;
+	PreparedStatement addEstadisticas;
 
 	/**
 	 * Este metodo se encarga de realizar las conexion a base de datos, para poder realizar las consultas
@@ -49,7 +51,10 @@ public class AddConsultaBD {
 			
 			getAllClientes= connection.prepareStatement(query);
 						
-			
+			query="INSERT INTO estadisticasclinica("+
+            "tipo, fecha, area)"+
+			" VALUES (?, ?, ?);";
+			addEstadisticas = connection.prepareStatement(query);
 			
 		} 
 		catch (SQLException e) {
@@ -85,9 +90,15 @@ public class AddConsultaBD {
 			add.setString(6, consulta3.getResponsable().trim());
 			add.setString(7, h.trim());
 			add.setString(8, consulta3.getFecha().trim());
-
-
 			result2= add.executeUpdate();
+			//agregando datos a estadisticas clinica
+			String[] l =consulta3.getFecha().split("/");
+			Date date = new Date(Integer.parseInt(l[2])-1900, Integer.parseInt(l[1])-1, Integer.parseInt(l[0]));
+			addEstadisticas.setInt(1, 2);
+			addEstadisticas.setDate(2, date);
+			addEstadisticas.setInt(3, 1);
+			addEstadisticas.executeUpdate();
+			//
 			}
 				
 

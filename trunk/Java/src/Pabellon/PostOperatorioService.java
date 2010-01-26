@@ -23,8 +23,9 @@ public class PostOperatorioService{
 	/**
 	 * Inserta un registr de postoperatorio en la base de datos
 	 * @return Resultado de la operación realizada
+	 * @throws SQLException 
 	 */
-	public int AddPostOpe(PostOperatorio pos)
+	public int AddPostOpe(PostOperatorio pos) throws SQLException
     {
 		int result = 0;
 		try 
@@ -33,12 +34,15 @@ public class PostOperatorioService{
 			PostOperatorioBD personDB= new PostOperatorioBD(connection);
 			result = personDB.AddPostOpeBD(pos);		
 			
+			
 			connection.close();
+			
 		} 
     	catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
+    	
 		return result;
     }
 	

@@ -28,6 +28,7 @@ public class PostOperatorioBD {
 	PreparedStatement anulReg;
 	PreparedStatement insert;
 	PreparedStatement selectAllVacunaciones;
+	PreparedStatement addEstadisticas;
 	
 	/**
 	 * Se declaran las consultas hacia la base de datos
@@ -90,7 +91,10 @@ public class PostOperatorioBD {
 			"FROM atencionpostoperatorio;";
 	         	selectAllVacunaciones = connection.prepareStatement(query);
 
-			
+	         	query="INSERT INTO estadisticasclinica("+
+	            "tipo, fecha, area)"+
+				" VALUES (?, ?, ?);";
+			addEstadisticas = connection.prepareStatement(query);
 		}
 		catch (SQLException e) 
 		{
@@ -111,7 +115,18 @@ public class PostOperatorioBD {
 			insert.setString(4, pos.clienterut);
 			insert.setString(5, pos.costo);
 			insert.setString(6, pos.indicaciones);
+			
+			//agregando datos a estadisticas
+			String[] l =pos.stfecha.split("/");
+			Date date = new Date(Integer.parseInt(l[2])-1900, Integer.parseInt(l[1])-1, Integer.parseInt(l[0]));
+			addEstadisticas.setInt(1, 1);
+			addEstadisticas.setDate(2, date);
+			addEstadisticas.setInt(3, 2);
+			addEstadisticas.executeUpdate();
+			
+			//
 			result=""+insert.executeUpdate();
+			
 		} 
     	catch (SQLException e) 
     	{
