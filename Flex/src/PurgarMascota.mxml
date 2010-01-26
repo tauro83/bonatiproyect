@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas show="getAllMascotas()" initialize="getAllMascotas()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466" xmlns:ns1="util.*">
+<mx:Canvas show="ini()" xmlns:mx="http://www.adobe.com/2006/mxml" width="779" height="466" xmlns:ns1="util.*">
 	<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Mascota">
 		
 		<mx:Script>
@@ -27,7 +27,9 @@
 			public function getIdServicio():String{
 				return "0";
 			}			
-			
+			private function ini():void{
+				this.mens.text="";
+			}
 			//es la funcion que es llamada desde el mensaje de confirmación de la tarea
 			private function delRowHandler(evt:CloseEvent):void {
 			    if (evt.detail == Alert.YES){
