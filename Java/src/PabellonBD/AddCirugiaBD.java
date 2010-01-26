@@ -106,6 +106,7 @@ public class AddCirugiaBD {
 			}
 			add.setString(6, newCirugia.getFecha());
 			add.setString(7, newCirugia.getCosto());
+			result2= add.executeUpdate();
 			//agregando los datos a estadisticasClinica
 			String[] l =newCirugia.getFecha().split("/");
 			Date date = new Date(Integer.parseInt(l[2])-1900, Integer.parseInt(l[1])-1, Integer.parseInt(l[0]));
@@ -114,7 +115,7 @@ public class AddCirugiaBD {
 			addEstadisticas.setInt(3, 3);
 			addEstadisticas.executeUpdate();			
 			//
-			result2= add.executeUpdate();
+			
 			
 			
 			
