@@ -36,8 +36,8 @@ public class GetCatalogosBD {
 	{
 		ArrayList catalogos	=	new ArrayList();
 		CatPeluqueria cat;
- 		String query						=  "select servicio,nombre,precio,descripcion,estado from catpeluqueria";
-		
+ 		String query =  "select servicio,nombre,precio,descripcion,estado from catpeluqueria where estado != '2'";
+ 	
 		selectAll = connection.prepareStatement(query);
 		result = selectAll.executeQuery();
 		
