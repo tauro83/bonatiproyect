@@ -35,6 +35,7 @@
         	nomb.text=vacu.nombre;
         	des.text=vacu.descripcion;
         	precio.costo.text=vacu.precio;
+        	precioIn.text=precio.costo.text;
         	cat.text=vacu.categoria;
         	cod.text=vacu.codigo;
      	}
@@ -136,7 +137,7 @@
     
     
     
-	<mx:TextInput x="122" y="67" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="nomb"  enabled="true" maxChars="20"/>
+	<mx:TextInput x="122" y="67" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="nomb"  enabled="true" maxChars="20" editable="false"/>
 	<mx:Label x="27" y="69" text="Nombre:" width="69" />
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="632" label="Cancelar" y="353" id="volver" click="Actionvolver()" />
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="522" label="Editar" y="353" click="guardarProducto(),Application.application.editProducto.getAllVacunaciones()"/>
@@ -149,7 +150,8 @@
 	<mx:TextInput x="123" y="28" id="cod" editable="false" enabled="true"/>
 	<mx:ComboBox x="125" y="157" id="cat" dataProvider="{servicios}"  labelField="nombre" width="158"/>
 
-	<ns1:Precio x="122" y="108" width="161" id="precio">
+	<ns1:Precio x="122" y="108" width="161" id="precio" visible="false">
 	</ns1:Precio>
+	<mx:TextInput x="122" y="108" width="161" id="precioIn" editable="false"/>
 	
 </mx:Panel>

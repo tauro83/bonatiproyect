@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="776" height="466" title="Editar Producto" borderColor="#15AD8F" xmlns:ns1="util.*" xmlns:fc="http://www.adobe.com/2006/fc" >
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="776" height="466" title="Editar Producto" borderColor="#15AD8F" xmlns:ns1="util.*" xmlns:fc="http://www.adobe.com/2006/fc"  x="-10" y="-29">
 	 <mx:Script>
         <![CDATA[
         
@@ -17,10 +17,20 @@
             import mx.rpc.events.ResultEvent;
             import mx.core.Application;
 			import services.editarProducto1;
+			
+			import util.reportPrint;
+			import mx.managers.PopUpManager;
+            import mx.containers.TitleWindow;
+            import mx.controls.Alert;
 			 
 			[Bindable]
 			private var productos:ArrayCollection;
-
+			
+			public function getProducs():ArrayCollection
+			{
+				return productos;
+			}
+			
             /**
 			* Se hace visible el input correspondiente a la opción
 			* elegida en el combobox, las cuales pueden ser por el nombre,
@@ -97,6 +107,7 @@
             	textBuscar.setVisible(false,false);
             	this.productos = new ArrayCollection();
             	mens.text= "";
+            	//impriButtonPr.setVisible(false,false);
           
             }
             
@@ -159,6 +170,7 @@
 			* */
 		    public function Seleccionar(event:Event):void
 			{
+				
 			    if(inputNombreProducto.selectedIndex==0)
 			    {
 			    	inputNombreProducto.text=inputNombreProducto.selectedLabel;
@@ -179,8 +191,18 @@
 			    {
 			    	inputCodigoBarra.text=inputCodigoBarra.selectedLabel;
 			    }
+			    
+			    
 
 			}
+			
+			 private function imprime():void
+           	{
+           			
+           			var re:reportPrint = reportPrint(PopUpManager.createPopUp( this, reportPrint , true));
+           			re.cargarDat(this.productos);
+
+	        }
 			     
 	 	]]>
     </mx:Script>
@@ -234,5 +256,6 @@
 	<!-- Descripcion -->
 	<fc:AutoComplete id="inputDescripcion" x="599" close="Seleccionar(event)" y="8" width="150" dataProvider="{productos}" labelField="descripcion" visible="false" toolTip="ingrese texto para búsqueda"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
+	<mx:Button x="413" y="351" label="Imprimir" width="102" height="23" id="impriButtonPr" click="{imprime()}"/>
 	
 </mx:Panel>
