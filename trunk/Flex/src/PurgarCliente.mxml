@@ -307,7 +307,7 @@
 	<mx:Button x="647" y="342" label="Cancelar" id="cancelar" toolTip="Cancela la operación"  click="cancelando()" width="102" height="23"/>
 	<mx:CheckBox x="10" y="48" id="todo" click="{seleccionarTodo()}"/>
 	<mx:Label x="32" y="48" text="Seleccionar todo"/>
-	<mx:Button x="423" y="342" enabled="false" id="reactivarCliente" label="Reactivar" click="{Reactivar()}" width="102" height="23"/>
+	<mx:Button x="423" y="342" enabled="false" id="reactivarCliente" label="Restaurar" click="{Reactivar()}" width="102" height="23"/>
 	
 	
 			<!-- input Cliente -->
