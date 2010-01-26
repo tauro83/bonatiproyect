@@ -7,6 +7,7 @@
 
 package transferObjects
 {
+	import mx.formatters.DateFormatter;
 	[Bindable]
     [RemoteClass(alias="TransferObjects.Control")]
 	public class Control
@@ -27,5 +28,15 @@ package transferObjects
 		public var costo:String;
 		//Servicio al que esta asociado el control que por defecto es "POLICLINICO"
 		public var servicio:String;
+		
+		public var fechas:String
+		
+		//toma la fecha en formato date, la pasa a string y luego la guarda en 'fechas'
+		public function dateToString():void{
+			var dateFormatted:DateFormatter = new DateFormatter();
+			dateFormatted.formatString = "DD/MM/YYYY";
+			this.fechas = dateFormatted.format(this.fecha) as String;
+		}
 	}
+	
 }

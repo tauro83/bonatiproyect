@@ -52,6 +52,7 @@
 				for(i=0;i<lista.length;i++){
 					
 					var control:Control = lista.getItemAt(i) as Control;
+					control.dateToString();
 					controles.addItem(control);
 				}
 				atrib='mascota';
@@ -107,24 +108,12 @@
 			
 			private function doLabel(item:Object, column:DataGridColumn):String {
 				var dateFormatted:DateFormatter = new DateFormatter();
-				dateFormatted.formatString = "DD-MM-YYYY";
+				dateFormatted.formatString = "DD/MM/YYYY";
 				var rawDate:Date = new Date(item[column.dataField]);
 				return dateFormatted.format(rawDate) as String;
 			}
-			/**
-			 *Cambia el formato de la fecha para una mejor lectura del autocomplete
-			 */
 			
-			private function doLabel2(item:Object):String {
-				if(comboBox.selectedItem.label=='Fecha Control'){
-					var dateFormatted:DateFormatter = new DateFormatter();
-					dateFormatted.formatString = "DD-MM-YYYY";
-					var rawDate:Date = new Date(item);
-					return dateFormatted.format(rawDate) as String;
-				}
-				return item as String;
-				
-			}
+			
 			/**
 			 *  Corrige error de seleccionar el primero
 			 * */
@@ -149,7 +138,7 @@
 						atrib='descripcion';
 						break;
 					case 'Fecha Control':
-						atrib='fecha';
+						atrib='fechas';
 						break;
 					case 'Hora':
 						atrib='hora';
@@ -168,7 +157,7 @@
 	<!--Componentes gráficos-->
 	
 	
-	<mx:ComboBox x="379" y="10" width="169" id="comboBox" change="setAtrib()" >
+	<mx:ComboBox x="379" y="10" width="169" id="comboBox" click="setAtrib()" change="setAtrib()" >
 		<mx:ArrayCollection>
 			<mx:Object label="Nombre Mascota"/> 
 			<mx:Object label="Descripción"/>
