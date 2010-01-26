@@ -87,6 +87,23 @@ import TransferObjects.Usuario;
 
 public class BMC {
    
+	
+	public static boolean obtenerProductos() throws IOException, InterruptedException, SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
+	{
+		if(BMC.RespaldarBMC()){
+			System.out.println("PRODUCTOS SIN STOCK CARGADOS");
+			if(BMC.obtenerReporteStock()){
+				System.out.println("STOCK CARGADOS");
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
+		
+		
+	}
        
     public static boolean conectar() throws IOException, InterruptedException{
 
@@ -139,10 +156,10 @@ public class BMC {
             BD.setProductosNuevos(BMC.readPRGU());
             return true;
         }if(retorno.contains("ECR is not ready")){
-           // BD.setProductosNuevos(this.readPRGU());
-            return false;
+            BD.setProductosNuevos(BMC.readPRGU());
+            //return false;
         }
-        return false;
+        return true;
     }
     //REPORTE DE VENTAS
     public  static boolean obtenerReporteDiario() throws IOException, InterruptedException, SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException
@@ -250,10 +267,10 @@ public class BMC {
            BD.updateStock(BMC.readPRGX());
            return true;
         }if(retorno.contains("ECR is not ready")){
-           //BD.updateStock(this.readPRGX());
-           return false;
+           BD.updateStock(BMC.readPRGX());
+           //return false;
         }
-        return false;
+        return true;
     }
 
     //REPORTE de VENTAS
