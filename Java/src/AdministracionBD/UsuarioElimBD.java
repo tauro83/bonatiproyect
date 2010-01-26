@@ -109,11 +109,9 @@ public class UsuarioElimBD
     		String resultsa = e.toString();
     		
 			if(resultsa.length()>80){
-				System.out.println(">80");
 				return 0;
 			}
 			else
-				System.out.println("menoooor a 80");
 				return 1;
 			
 		}
