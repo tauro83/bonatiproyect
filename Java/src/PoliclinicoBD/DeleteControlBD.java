@@ -23,7 +23,7 @@ public class DeleteControlBD {
 	 * @param conn Conexion creada a partir de DBConnectionManager
 	 */
 	public DeleteControlBD(Connection conn) throws SQLException {
-		String query = "retirar from atencioncontrol " +
+		String query = "delete from atencioncontrol " +
 				"where hora=? and fecha=? and responsable=?;";
 		delete = conn.prepareStatement(query);
 	}

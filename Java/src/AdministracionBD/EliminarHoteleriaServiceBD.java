@@ -13,7 +13,7 @@ public class EliminarHoteleriaServiceBD {
 		
 		this.connection = connection;
 		
-		String query = "UPDATE antencionAlojamiento"+
+		String query = "UPDATE atencionAlojamiento "+
 		"SET estado='2' WHERE fechaIngreso=? AND fechaSalida=? AND canil=?;";
 
 		retirar = connection.prepareStatement(query);

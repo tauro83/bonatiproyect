@@ -23,7 +23,8 @@ public class GetAllHoteleriaService {
 		try{    		
 			connection=DBConnectionManager.getConnection();
 			String query = "SELECT *" +
-					"FROM atencionalojamiento";
+					"FROM atencionalojamiento " +
+					"WHERE estado=0";
 			selectAll = connection.prepareStatement(query);
 		}
 		catch(Exception e){
