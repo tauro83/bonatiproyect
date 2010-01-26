@@ -43,8 +43,7 @@
 			private function editar():void{
 				var edit:EditPostOperatorio = new EditPostOperatorio();
 				edit.editarPostOperatorio(fechast, horast, fecha.text, hora.text, indicaciones.text);
-				edit.addEventListener(ResultEvent.RESULT,result);		
-				Alert.show("editar post2");	
+				edit.addEventListener(ResultEvent.RESULT,result);
 			}
 			private function result(event:ResultEvent):void{
 				var res:int = event as int;
