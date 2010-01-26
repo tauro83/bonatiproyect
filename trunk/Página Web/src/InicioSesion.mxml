@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" label="Inicio Sesion" width="100%" height="100%" styleName="colorPanel" alpha="1.0">
+
+<mx:Script>
+        <![CDATA[
+            import mx.effects.easing.Bounce;
+            import mx.core.Application;
+            import mx.events.ValidationResultEvent;
+        
+        
+        public function iniciar():void
+        {
+        	this.enabled = false;
+        	Application.application.Componentes.selectedIndex= "1";
+        	Application.application.Componentes.getChildAt(1).enabled = true;
+        	Application.application.Componentes.getChildAt(2).enabled = true;
+        	Application.application.Componentes.getChildAt(3).enabled = true;
+        	Application.application.Componentes.getChildAt(1).user.text= nombreIntput.text;
+        }
+
+
+  public function verifica():void
+  {
+  	 if(nombreIntput.text !=  "" && passIntput.text != ""){
+  	 	login.enabled =true;
+  	 } 
+  	 else login.enabled = false;
+  }          
+  
+  public function verifica2():void
+  {
+  	if(nombreIntput.text !=  "" && apellido.text != "" && mensaje.text != "" ){
+  	 	registrar.enabled =true;
+  	 }
+  	 else registrar.enabled = false; 
+  }
+        
+        ]]>
+    </mx:Script>
+
+
+<mx:transitions>
+       <mx:Transition>
+            <mx:Parallel 
+              targets="{[loginPanel, registerLink, login, cargo, nombre, pass]}">
+                <mx:Resize duration="500" easingFunction="Bounce.easeOut"/>
+                <mx:Sequence target="{loginPanel}">
+                   <mx:Blur duration="200" blurYFrom="1.0" blurYTo="20.0"/>
+                   <mx:Blur duration="200" blurYFrom="20.0" blurYTo="1"/>
+                </mx:Sequence>
+            </mx:Parallel>
+        </mx:Transition>
+    </mx:transitions>
+
+<mx:states>
+        <mx:State name="Register">
+            <mx:AddChild relativeTo="{loginForm}" 
+                position="lastChild">
+                <mx:FormItem id="cargo" label="Mensaje:" required="true" width="338">
+                    <mx:TextArea height="101" width="260" backgroundColor="#F3F779" id="mensaje" change="verifica2()"/>
+                </mx:FormItem>
+            </mx:AddChild>            
+            <mx:SetProperty target="{loginPanel}"
+                name="title" value="Mensajes"/>            
+            <mx:RemoveChild target="{registerLink}"/>
+            <mx:AddChild relativeTo="{spacer1}" position="before">
+                <mx:LinkButton label="Volver a login" 
+                    click="currentState=''"/>
+            </mx:AddChild>
+            <mx:SetProperty target="{loginPanel}" name="width" value="453"/>
+            <mx:SetProperty target="{loginPanel}" name="height" value="284"/>
+            <mx:SetProperty target="{loginForm}" name="width" value="372"/>
+            <mx:SetProperty target="{loginForm}" name="height" value="199"/>
+            <mx:SetProperty target="{nombre}" name="label" value="Nombre:"/>
+            <mx:SetProperty target="{nombre}" name="required" value="true"/>
+            <mx:SetProperty target="{loginPanel}" name="x" value="265.5"/>
+            <mx:SetProperty target="{loginPanel}" name="y" value="113"/>
+            <mx:RemoveChild target="{pass}"/>
+            <mx:AddChild relativeTo="{cargo}" position="before">
+                <mx:FormItem id="ap" label="Apellido" required="true">
+                    <mx:TextInput id="apellido" change="verifica2()"/>
+                </mx:FormItem>
+            </mx:AddChild>
+            <mx:RemoveChild target="{login}"/>
+            <mx:AddChild relativeTo="{controlbar1}" position="lastChild">
+                <mx:Button label="OK" id="registrar" width="92" enabled="false" click="currentState=''"/>
+            </mx:AddChild>
+            <mx:SetStyle target="{nombreIntput}" name="backgroundColor" value="#F3F779"/>
+        </mx:State>
+    </mx:states>
+
+    <mx:Panel id="loginPanel" 
+        title="Iniciar Sesion"
+        horizontalScrollPolicy="off" verticalScrollPolicy="off" x="342" y="162" alpha="0.68" layout="vertical" themeColor="#090909">
+
+        <mx:Form id="loginForm" color="0x323232">
+        <mx:FormItem label="Usuario:" id="nombre" required="true" alpha="1.0" borderStyle="none" cornerRadius="13">
+            <mx:TextInput id="nombreIntput" change="verifica()"/>
+        </mx:FormItem>
+        <mx:FormItem label="Contraseña" id="pass" required="true" borderStyle="none">
+            <mx:TextInput id="passIntput" change="verifica()" displayAsPassword="true"/>
+        </mx:FormItem>
+    </mx:Form>
+    
+    <mx:ControlBar id="controlbar1">
+        <mx:LinkButton id="registerLink"
+            label="Dejar Mensaje" 
+            click="currentState='Register'" textDecoration="underline"/>
+        <mx:Spacer width="100%" id="spacer1"/>
+        <mx:Button label="Entrar" id="login" click="iniciar()" enabled="false"/>
+    </mx:ControlBar>
+    </mx:Panel>
+    <mx:Label x="250" y="66" text="Supermercados LIDER" width="472" height="62" enabled="true" styleName="portada" fontSize="36" textDecoration="normal"/>
+    <mx:SWFLoader x="902" y="500" source="../msje.GIF" width="32" height="26"/>
+    <mx:Label x="876" y="500" text="0" width="24" height="26" enabled="false" textAlign="right" fontWeight="bold" id="cont"/>
+
+
+</mx:Canvas>

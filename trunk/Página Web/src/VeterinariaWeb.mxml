@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns="*">
+
+
+<mx:Script>
+    <![CDATA[
+        import mx.collections.IViewCursor;
+        import mx.collections.ArrayCollection;
+        import mx.rpc.events.ResultEvent;
+        import mx.events.StyleEvent;
+        import mx.styles.StyleManager;
+        import mx.controls.Alert;
+        
+        private var currentTheme:String = "beige";
+        
+           private function toggleTheme():void
+        {
+            if (currentTheme == "beige")
+            {
+                currentTheme = "blue";
+            }
+            else
+            {
+                currentTheme = "beige";
+            }
+
+            loadStyle();
+        }
+        
+        
+        
+        
+        /* Funcion que carga el estilo grafico que se visualizara en el programa */
+          private function loadStyle():void
+        {
+            var eventDispatcher:IEventDispatcher =
+                StyleManager.loadStyleDeclarations(currentTheme + ".swf");
+            eventDispatcher.addEventListener(StyleEvent.COMPLETE, completeHandler);
+        }
+        
+         private function completeHandler(event:StyleEvent):void
+        {
+            image.source = acb.getStyle("storeLogo");
+            super.initialized = true;
+        }
+
+        
+]]>
+    </mx:Script>
+    
+       
+	<mx:VBox width="990" paddingLeft="0" paddingRight="0" horizontalCenter="0" top="12">
+	    
+	    <mx:ApplicationControlBar id="acb" width="100%" styleName="storeControlBar">
+	        <mx:Image id="image" 
+	                  click="toggleTheme()"
+	                  toolTip="Change Theme"/>
+	                
+	        <mx:ToggleButtonBar
+	            height="100%"
+	            dataProvider="{Componentes}"/>
+	            
+	    </mx:ApplicationControlBar>
+	    <mx:ViewStack id="Componentes" width="100%" height="550" creationPolicy="all">
+	        <Home id="home" label="Inicio" enabled="true"/>
+	        <Peluqueria id="productos" label="Peluquería" width="1004" enabled="true"/>
+	        <Servicios id="proveedores" label="Servicios web"    enabled="true"/>
+	        <p id="mas" label="+" enabled="true"  />
+	        	
+	            
+	    </mx:ViewStack>
+	
+	</mx:VBox>
+	<mx:Style source="beige.css"/>
+	<mx:Style source="main.css"/>
+	
+</mx:Application>

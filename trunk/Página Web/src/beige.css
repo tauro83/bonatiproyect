@@ -1,0 +1,231 @@
+/*
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (C) 2003-2006 Adobe Macromedia Software LLC and its licensors.
+// All Rights Reserved.
+// The following is Sample Code and is subject to all restrictions on such code
+// as contained in the End User License Agreement accompanying this product.
+// If you have received this file from a source other than Adobe,
+// then your use, modification, or distribution of it requires
+// the prior written permission of Adobe.
+//
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+/* Style for color-specific state - Beige */
+
+/*
+//----------------------------
+//  Global styles
+//----------------------------
+*/
+.global
+{
+    highlightAlphas:        .5, .25;
+    borderColor:            #939A9D;
+    headerColors:           #A65904, #E68701;
+    themeColor:             #75B1CE;
+    rollOverColor:          #D6E6EE;
+    selectionColor:         #B8D5E4;
+}
+
+/*
+//----------------------------
+// Type selectors
+//----------------------------
+*/
+Application
+{
+    backgroundColor:		#EAE6DD;
+    backgroundImage:        Embed(source="../imagenes/beige_background.jpg");
+}
+
+/*
+//----------------------------
+// Apply to Panels and Alerts by default
+//----------------------------
+*/
+.windowStatus {
+	color: #FFCC99;
+}
+
+.windowStyles {		/* catalog panel's title text */
+	color: #FFCC99;
+}
+
+/*
+//----------------------------
+// Named styles
+//----------------------------
+*/
+
+.colorPanel /* for the background of some surfaces */
+{
+    borderStyle:            "solid";
+    borderThickness:        0;
+    backgroundColor:		#F3F779;
+    backgroundAlpha:		0.4;
+    color: 					#170505;
+    cornerRadius:           4;
+    dropShadowEnabled:      true;
+	 backgroundImage: Embed(source="../imagenes/perro.jpg");
+}
+
+.homeProgramHeader /* in HomeView */
+{
+    fontWeight:             "bold";
+    fontSize:               13;
+    color:                  #BE7E3F;
+}
+
+
+.instructions
+{
+    alpha:                  .85;
+    color:                  #5C5857;
+}
+
+
+.storeButtonBar
+{
+    cornerRadius:           0;
+    buttonStyleName:        "storeButton";
+    themeColor:             #A65904;
+}
+
+.storeButton
+{
+    cornerRadius:           0;
+    fillColors:             #8F8879, #BCB29F, #A65904, #E68701;
+    fillAlphas:             1, 1;
+    highlightAlphas:        .5, .25;
+    fontWeight:             "normal";
+    selectedOverSkin:       ClassReference("samples.flexstore.ButtonBarButtonSkin");
+    selectedUpSkin:         ClassReference("samples.flexstore.ButtonBarButtonSkin");
+    overSkin:               ClassReference("samples.flexstore.ButtonBarButtonSkin");
+}
+
+.catalogTitleButtonSelected
+{
+    color:                  #FFFFFF;
+    fontWeight:             "bold";
+}
+
+.catalogTitleButtonDeselected
+{
+    color:                  #222222;
+    fontWeight:             "bold";
+}
+
+.catalogTitleButtonHighlighted
+{
+    color:                  #FFCC99;
+    fontWeight:             "bold";
+}
+
+.catalogPanel
+{
+    highlightAlphas:        .5, .25;
+    headerColors:           #A65904, #E68701;
+    borderAlpha:            1;
+    borderColor:            #FFFFFF;
+    borderThicknessRight:   1;
+    borderThicknessBottom:  1;
+    paddingRight:           0;
+    paddingBottom:          0;
+}
+Home
+{
+	backgroundColor: #878A9D;
+	 backgroundImage: Embed(source="../imagenes/perro.jpg");
+}
+Panel
+{
+	backgroundAlpha: 1.0;
+	backgroundColor: #C2EEE6;
+	borderAlpha: 0.7;
+	borderColor: #0A0909;
+	borderStyle: solid;
+	borderThickness: 3;
+	color: #100D0D;
+	cornerRadius: 20;
+	fontStyle: normal;
+	fontWeight: bold;
+	textDecoration: normal;
+	themeColor: #090909;
+	borderThicknessRight: 20;
+	roundedBottomCorners: true;
+	backgroundSize: auto;
+}
+global
+{
+	verticalGap: 0;
+	backgroundDisabledColor: #F3F779;
+}
+DataGrid
+{
+	alternatingItemColors: #EBFBCB, #E0FEE2;
+	borderColor: #4E9F4A;
+	borderStyle: solid;
+	borderThickness: 4;
+	verticalAlign: top;
+	leading: 2;
+	backgroundAlpha: 1.0;
+	headerColors: #0A9220, #DEE02B;
+	selectionColor: #E8F51A;
+	rollOverColor: #E8F51A;
+}
+ComboBox
+{
+	borderColor: #1387D8;
+	fillAlphas: 1.0, 1.0;
+	fillColors: #BCEE8F, #BCEE8F, #5BBB06, #5BBB06;
+	dropdownStyleName: comboBoxDropdown;
+}
+.comboBoxDropdown
+{
+	selectionColor: #3BAA04;
+	rollOverColor: #E8F51A;
+}
+TextInput
+{
+	backgroundColor: #F3F779;
+}
+Button
+{
+	fillAlphas: 1.0, 0.63, 0.63, 0.63;
+	fillColors: #DADCDB, #E8F51A;
+	themeColor: #54FF00;
+	cornerRadius: 7;
+	leading: 2;
+	horizontalGap: 2;
+}
+Canvas
+{
+	backgroundColor: #ebebe9;
+	borderColor: #FDFDFD;
+	backgroundAlpha: 0.32;
+}
+Label.portada
+{
+	fontSize: 19;
+	fontStyle: italic;
+}
+List.foto
+{
+	fontSize: 12;
+}
+DataGrid.dataAvisos
+{
+	borderStyle: inset;
+	borderThickness: 12;
+	verticalScrollBarStyleName: dataGridVerticalScrollBar;
+	rollOverColor: #12B60E;
+	selectionColor: #18CE0A;
+}
+.dataGridVerticalScrollBar
+{
+	cornerRadius: 20;
+}
+
+
