@@ -35,6 +35,21 @@ public class AddControlService {
 			}
 			return result;
 		}
+		
+		public int updateControl(Control control){
+			
+			int result=0;
+			try{
+				Connection connection=DBConnectionManager.getConnection();
+				AddControlBD addControlBD= new AddControlBD(connection);
+				result= addControlBD.updateControl(control);		
+				connection.close();
+			} catch (SQLException e){
+				e.printStackTrace();
+			}
+			return result;
+		}
+		
 		/**
 		 * Crea la conexion a la base de datos para registrar una cita
 		 * @param cita contiene los datos de la cita que se quiere ingresar

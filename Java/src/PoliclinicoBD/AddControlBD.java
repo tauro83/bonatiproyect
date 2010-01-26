@@ -27,6 +27,7 @@ public class AddControlBD{
 	PreparedStatement addProxControl;
 	PreparedStatement addActuControl;
 	PreparedStatement addEstadisticas;
+	PreparedStatement updateControl;
 	/**
 	 * Constructor de MascotaBD
 	 * @param connection Enlace para la conexion a la base de datos
@@ -51,11 +52,41 @@ public class AddControlBD{
             "tipo, fecha, area)"+
 			" VALUES (?, ?, ?);";
 			addEstadisticas = connection.prepareStatement(query);
+			
+			
+			query = "UPDATE atencioncontrol "+
+			   		"SET descripcion=?, costo=? " +
+			   		"WHERE hora=? AND fecha=? AND responsable=?;";
+
+			updateControl = connection.prepareStatement(query);
+			
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	public int updateControl(Control control) {
+	 	int result=0;
+	 	try{
+	
+				updateControl.setString(1, control.getDescripcion());
+				updateControl.setString(2, control.getCosto());
+				
+				updateControl.setString(3, control.getHora());
+				updateControl.setDate(4, control.getFecha());
+				updateControl.setString(5, control.getResponsable());
+
+				result= updateControl.executeUpdate();
+				
+			} 
+	 	catch (SQLException e) {
+				e.printStackTrace();
+			}
+	 	
+	 	return result;
+	}
+	
 	
 	/**
 	 * Ingresa a una nueva Mascota a la base de datos
