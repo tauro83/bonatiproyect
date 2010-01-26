@@ -80,6 +80,7 @@
 				this.visible = true;
 				Application.application.repvent.iniciarPanel();
 				Application.application.repvent.visible = true;
+				Application.application.repvent.mens.text = "";
 				
 			}
 		]]>
@@ -88,14 +89,14 @@
 	<mx:Accordion styleName="Accordion3" x="0" y="0" width="100%" height="100%">
 		<mx:Canvas label="Venta" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="40" label="Registrar" click="verRegistrarPago()" id="bRegPago" visible="false"/>
-			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="10" label="Ver Reporte" click="verReporteVentas()" id="repVen"/>
+			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="10" label="Ver Reportes" click="verReporteVentas()" id="repVen"/>
 			<mx:LinkButton x="10" y="70" label="Editar"  click="verEditarPago()" id="bEditPag" visible="false"/>
 			<mx:LinkButton x="10" y="100" label="Anular" click="verAnuPago()" id="bAnuPag" visible="false"/>
 		</mx:Canvas>
 		<mx:Canvas label="Producto" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
-			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="10" label="Registrar" click="regProducto()" id="bRegProdu"/>
+			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="10" label="Listar" click="regProducto()" id="bRegProdu"/>
 			<mx:LinkButton x="10" y="40" label="Editar" click="ediProducto()" id="bEditPro"/>
-			<mx:LinkButton x="10" y="70" label="Eliminar" click="{anularProducto()}" id="bEliProd"/>
+			<mx:LinkButton x="10" y="70" visible="false" label="Eliminar" click="{anularProducto()}" id="bEliProd"/>
 		</mx:Canvas>
 	    </mx:Accordion>
 		

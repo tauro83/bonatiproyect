@@ -18,7 +18,7 @@
 			
 			private var rprod:PetshopService;
 			private var producto:Producto;
-			[Bindable]private var productos:ArrayCollection;		
+			[Bindable]private var servicios:ArrayCollection;		
 			
 			
 			/** 
@@ -39,13 +39,12 @@
 			 * */
 			public function cargarDatosR(event:ResultEvent):void
 			{
-				
+				servicios = event.result as ArrayCollection;
+				servicios.addItemAt("--Seleccione--",0);
+				categorias.selectedIndex = 0;	
 			}
 			 
-			public function sincronizar():void
-			{
-				
-			}
+			
 			
 			/**
 		 	 *  Método que crea una instancia del transferObject catalogo,
@@ -53,6 +52,28 @@
 			 * */
 			private function registrar():void
 			{				
+				if(nombre.text.length>3){
+					if(precio.costoBruto.length>0){
+						producto				= new Producto();
+						producto.nombre 		= nombre.text;
+						producto.precio 		= precio.costo.text;
+						producto.categoria 		= categorias.selectedLabel.toString();
+						producto.codigo 		= codBarra.text;
+						producto.descripcion 	= descripcion.text;
+						
+						rprod				= new PetshopService();
+						rprod.addEventListener(ResultEvent.RESULT,registroProdResultado);	
+					 	rprod.regProducto(producto);
+					 	this.resetVars();
+					}
+					else
+					{
+						mens.text = Properties.getMensaje("Advertencia", "23");
+					}
+				}
+				else{
+					mens.text = Properties.getMensaje("Advertencia", "4");	
+				}
 				
 				
 			}
@@ -62,7 +83,16 @@
 			 * */
 			private function registroProdResultado(event:ResultEvent):void
 			{
-				
+				var message:int= event.result as int;	
+				var msj:String = "";
+				if(message==1){
+					this.resetVars()
+			 		msj	=  Properties.getMensaje("Informacion","24");
+				}
+				else{
+					msj = "";				
+				}		
+				mens.text = msj;
 					
 			}	
 			/**
@@ -72,7 +102,13 @@
 			 */
 			private function resetVars():void
 			{
+				mens.text 			= "";
 				
+				nombre.text 		= "";
+				precio.costo.text	= "";
+				descripcion.text 	= "";
+				codBarra.text		= "";
+				categorias.selectedIndex = 0;
 			}
 			private function cancelar():void
 			{
@@ -88,27 +124,28 @@
             */
             private function activarBoton():void
             {
-            	
+            	if(categorias.selectedLabel != '--Seleccione--'){
+            		regist.enabled=true;
+            	}
+            	else 
+            		regist.enabled=false;
             }
 
 		]]>
 	</mx:Script>
+	<mx:TextInput x="122" y="70" width="163" restrict="q w e r t y u i o p a s d f g h j k lz x c v b n m Q W E R T Y U I O P A S D F G H J K L Z X C V B N M" includeInLayout="true" id="nombre"  enabled="true" maxChars="15"/>
+	<mx:Label x="27" y="72" text="Nombre:" width="69" />
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="632" label="Cancelar" y="353" click="cancelar()"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="25" x="522" id="regist" label="Registrar" y="353" enabled="false" click="registrar()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
-	<mx:Label x="25" y="36" text="Para obtener los productos de la caja registradora, seleccione sincronizar." width="428"/>
-	<mx:Label x="25" y="10" text="Sincronizar" fontWeight="bold"/>
-	<mx:Button x="647" y="32" label="Sincronizar" click="sincronizar()"/>
-	<mx:Text x="25" y="100" id="textFiltrar" text="Filtrar por"/>
-	
-	<mx:Label x="25" y="74" text="Productos" fontWeight="bold"/>
-	<mx:DataGrid x="25" y="138" width="711" height="240" id="tablaProductos" dataProvider="{productos}"  >
-		<mx:columns>		
-			<mx:DataGridColumn headerText="Nombre" dataField="nombre" id="nombre" draggable="false"/>
-			<mx:DataGridColumn headerText="Categoría" dataField="categoria" id="categoria" draggable="false"/>
-			<mx:DataGridColumn headerText="Codigo Barra" dataField="codigo" id="codigo" draggable="false"/>
-			<mx:DataGridColumn headerText="Descripcion" dataField="descripcion" id="descripcion" draggable="false"/>
-			<mx:DataGridColumn headerText="Precio" dataField="precio" id="precio" draggable="false"/>
-			
-		</mx:columns>
-	</mx:DataGrid>
+	<mx:Label x="27" y="108" text="Precio:"/>
+	<ns1:Precio x="122" y="108" width="161" id="precio">
+	</ns1:Precio>
+	<mx:Label x="27" y="189" text="Descripción:"/>
+	<mx:TextArea x="123" y="188" id="descripcion" maxChars="160" width="611" height="131"/>
+	<mx:Label x="27" y="150" text="Categoría:" width="69" />
+	<mx:Label x="27" y="35" text="Código barra:" width="88"  />
+	<mx:TextInput x="122" y="33" id="codBarra" restrict="0-9" width="163" maxChars="12"/>
+	<mx:ComboBox x="123" y="148" id="categorias" dataProvider="{servicios}"  labelField="nombre" close="activarBoton()" toolTip="Seleccione una categoría para continuar" width="160"/>
 		
 </mx:Panel>
