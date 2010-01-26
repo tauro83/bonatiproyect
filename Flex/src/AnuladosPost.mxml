@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" title="Bitacora Post-Operatorio Anulados" width="779" height="466">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" title="Bitacora Post-Operatorio" width="779" height="466">
 	<mx:Script>
 		<![CDATA[
 			import transferObjects.PostOperatorio;
@@ -91,10 +91,12 @@
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
 	<mx:DataGrid x="10" y="27" width="724" height="318" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
 		<mx:columns>	
-			<mx:DataGridColumn width="110" headerText="Rut Cliente" dataField="rut" id="rut" draggable="false"/>	
+			<mx:DataGridColumn width="110" headerText="Rut Cliente" dataField="clienterut" id="rut" draggable="false"/>	
 			<mx:DataGridColumn width="110" headerText="Nombre Mascota" dataField="nombreMascota" id="nombreMascota" draggable="false"/>			
 			<mx:DataGridColumn width="150" headerText="Fecha" dataField="fechaA" id="fechaA" draggable="false"/>
+			<mx:DataGridColumn width="150" headerText="Hora" dataField="shora" id="shora" draggable="false"/>
 			<mx:DataGridColumn width="150" headerText="Usuario" dataField="usuarioA" id="usuarioA" draggable="false"/>		
+			<mx:DataGridColumn width="150" headerText="Motivo" dataField="motivo" id="motivo" draggable="false"/>		
 		</mx:columns>
 	</mx:DataGrid>
 </mx:Panel>

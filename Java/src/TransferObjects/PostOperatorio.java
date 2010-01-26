@@ -34,7 +34,7 @@ public class PostOperatorio extends Atencion{
 	private String rut;
 	
 	private String apellidoDueño;
-        public String motivo;
+    public String motivo;
 	public String fechaA;
 	public String usuarioA;
 	public int estado; 

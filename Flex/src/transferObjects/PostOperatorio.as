@@ -32,5 +32,6 @@ package transferObjects{
 		public var fechaA:String;
 		public var usuarioA:String;
 		
+		
 	}
 }

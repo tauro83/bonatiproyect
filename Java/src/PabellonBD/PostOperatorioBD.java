@@ -78,18 +78,18 @@ public class PostOperatorioBD {
 			query = "UPDATE atencionpostoperatorio "+
 			   "SET estado = '2' " +
 			   "WHERE atencionpostoperatorio.hora = ? and atencionpostoperatorio.fecha = ? and " +
-			   "atencionpostoperatorio.rut = ? and atencionpostoperatorio.nombremascota = ?;";
+			   "atencionpostoperatorio.rut = ? and atencionpostoperatorio.nombremascota = ?; " +
+			   "INSERT INTO bitacorapost(clienterut, nombreMascota, fechaA, usuarioA, motivo, hora) "+
+			   "VALUES (?,?,?,?,?,?);";
 			anulReg = connection.prepareStatement(query);
 		
 			query = "INSERT INTO atencionpostoperatorio(hora, fecha, nombremascota, rut, costo, indicaciones) "+
 			   "VALUES(?, ?, ?, ?, ?, ?);";
 			insert = connection.prepareStatement(query);
 			
-			query = "SELECT rut, " +
-			"nombremascota, " +
-			"motivo, estado " +
-			"FROM atencionpostoperatorio;";
-	         	selectAllVacunaciones = connection.prepareStatement(query);
+			query = "SELECT clienterut, nombremascota, fechaa, usuarioa, motivo, hora " +
+			"FROM bitacorapost;";
+	         selectAllVacunaciones = connection.prepareStatement(query);
 
 	         	query="INSERT INTO estadisticasclinica("+
 	            "tipo, fecha, area)"+
@@ -153,14 +153,87 @@ public class PostOperatorioBD {
     	int result=0;
     	try 
     	{
-    		/**
-			No modificar esta función, en especial al insertar la fecha
-			*/
+    		Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR)-1900;
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			Date date = new Date(year,month, day);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			String fecha2 = formatter.format(date); 
+			int hora2 = c.get(Calendar.HOUR_OF_DAY);
+    		int minutos = c.get(Calendar.MINUTE);
+    		int segundos = c.get(Calendar.SECOND);
+    		
+    		String h2 = "";
+    		String horastring, minstring, secstring;
+    		horastring = hora2+"";
+    		minstring = minutos+"";
+    		secstring = segundos+"";
+    		
+    		if (hora2<10){
+    			horastring = "0"+hora2;
+    		}
+    		if(minutos<10){
+    			minstring = "0"+minutos;
+    		}
+    		if(segundos<10){
+    			secstring = "0"+segundos;
+    		}
+    		
+    		h2 =horastring+":"+minstring+":"+secstring;
+    		
+    		PostOperatorio vacu = new PostOperatorio();
+    		int i=0;
+    		String v = motivo;
+    		String h = v.substring(i,i+1);
+			String palabra="";
+			int bandera=2;
+			while(!h.equals(" ") && bandera!=1 && i<v.length()){
+				palabra=palabra+h;
+				if(i+1<v.length() && i<v.length()){
+					i++;
+    				h=v.substring(i,i+1);
+    				bandera=0;
+				}
+				else{
+					bandera=1;
+				}
+			}
+			
+			if(bandera==2){
+				palabra=palabra+h;
+			}
+			String usuarioAA= palabra;
+			
+			h = v.substring(i,i+1);
+			palabra="";
+			
+			while(i<v.length() && i+1<v.length()){
+				palabra=palabra+h;
+				i++;
+				h=v.substring(i,i+1);
+			}
+			h=v.substring(i,i+1);
+			palabra=palabra+h;
+			String motivoAA = palabra;
+			
+			
+			System.out.println("usuario: "+usuarioAA+" motivo: "+motivoAA);
+   		
 			anulReg.setString(1, hora);
     		anulReg.setString(2, fecha);    		
     		anulReg.setString(3, rut);
     		anulReg.setString(4, nomMascota);
+    		anulReg.setString(5, rut);
+    		anulReg.setString(6, nomMascota);
+    		anulReg.setString(7, fecha2);
+    		anulReg.setString(8, usuarioAA);
+    		anulReg.setString(9, motivoAA);
+    		anulReg.setString(10, h2);
     		anulReg.executeQuery();
+    		
+    		System.out.println("usuario: "+usuarioAA+" motivo: "+motivoAA);
+       		
     		result= anulReg.executeUpdate();
 		} 
     	catch (SQLException e) 
@@ -340,67 +413,14 @@ public class PostOperatorioBD {
 	    		while(result.next())
 	    		{  
 	    			vacu = new PostOperatorio();
+	    			vacu.clienterut = result.getString(1).trim();
+	    			vacu.nombreMascota = result.getString(2).trim();
+	    			vacu.fechaA = result.getString(3).trim();
+	    			vacu.usuarioA = result.getString(4).trim();
+	    			vacu.motivo = result.getString(5).trim();
+	    			vacu.shora = result.getString(6).trim();
+	    			vacunaciones.add(vacu);
 	    			
-	    			vacu.setRut(result.getString(1).trim());	
-	    			vacu.setNombreMascota(result.getString(2).trim());
-	    			
-	    			String v=result.getString(3).trim();
-	    			vacu.setEstado(result.getInt(4));
-	    			int i=0;
-	    			String h=v.substring(0,1);
-	    			String palabra="";
-	    			
-	    			while(!h.equals(" ")){
-	    				palabra=palabra+h;
-	    				i++;
-	    				h=v.substring(i,i+1);
-	    			}
-	    			//System.out.println("F: "+palabra);
-	    			vacu.setFechaA(palabra);
-	    			
-	    			h=v.substring(i+1,i+2);
-	    			//System.out.println("P: "+h);
-	    			palabra="";
-	    			i++;
-	    			int bandera=2;
-	    			
-	    			while(!h.equals("") && bandera!=1 && i<v.length()){
-	    				//System.out.println("Xaoooo");
-	    				palabra=palabra+h;
-	    				
-	    				if(i+1<v.length() && i<v.length()){
-	    					i++;
-		    				h=v.substring(i,i+1);
-		    				bandera=0;
-	    				}
-	    				
-	    				else{
-	    					bandera=1;
-	    				}
-	    				
-	    			}
-	    			
-	    			if(bandera==2){
-	    				palabra=palabra+h;
-	    			}
-	    			
-	    			
-	    			//System.out.println("U: "+palabra);
-	    			vacu.setUsuarioA(palabra);
-	    			
-	    			
-	    			int estado2 = vacu.getEstado();
-	    			
-	    			
-	    			/**
-	    			 * Esta condicción se encarga de buscar todos los registro de peluquería 
-	    			 * que posean estado 1.
-	    			 */
-	    			if(estado2==1)
-	    			{
-	    				//System.out.println("hola ");
-	    				vacunaciones.add(vacu);
-	    			}
 	    		}
 			} 
 	    	catch (SQLException e) 
