@@ -7,7 +7,7 @@
 			import services.anularPreoperatorio;
         	 //=======================================================================
 			// FECHA CREACIÓN: 16/11/09
-			// AUTOR: Nicolas Delgado
+			// AUTOR: Erwin Díaz
 			// Panel en el cual se muestran el Costo , Descripción, Servicio, hora,
 			// Fecha, Responsable y Nombre de catalogo, que representa un registro de 
 			// Peluquería realizado por una mascota.
@@ -89,7 +89,7 @@
 	
 	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
-	<mx:DataGrid x="10" y="27" width="724" height="318" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
+	<mx:DataGrid x="10" y="27" width="724" height="318" id="tablaVacunaciones" dataProvider="{vacunaciones}">
 		<mx:columns>	
 			<mx:DataGridColumn width="110" headerText="Rut Cliente" dataField="clienterut" id="rut" draggable="false"/>	
 			<mx:DataGridColumn width="110" headerText="Nombre Mascota" dataField="nombreMascota" id="nombreMascota" draggable="false"/>			
