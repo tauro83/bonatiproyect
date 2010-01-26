@@ -39,6 +39,7 @@ drop table bitacora2 cascade;
 drop table cirugiaobj cascade;
 drop table productovendido cascade;
 drop table categproducto cascade;
+drop table estadisticasclinica cascade;
 
 CREATE TABLE usuario
 (
