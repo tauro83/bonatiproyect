@@ -64,7 +64,9 @@
         	private function getCliente(rutCliente:String):void{
 				var addMascotaService:AddMascotaService = new AddMascotaService();
 				//addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
+				
 				addMascotaService.getCliente(rutCliente);
+				
 				getMascotas();
 			}
 			
@@ -94,7 +96,9 @@
 			 */
 			 
 			public function getMascotas():void{
+				
 				var addMascotaService:AddMascotaService = new AddMascotaService();
+				
 				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
 				addMascotaService.getMascotas(nombreRutIn.rutClienteInput.text+nombreRutIn.rutClienteDVInput.text);
 			}
