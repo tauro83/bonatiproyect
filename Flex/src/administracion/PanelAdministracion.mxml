@@ -171,6 +171,7 @@
             Application.application.setInvisible();
             Application.application.AdmOpciones1.setVisible(true,false);
             Application.application.AdEditarMascota2.setVisible(true,false);
+             Application.application.AdEditarMascota2.iniciarPanel1;
          }
           private function eliminarMascota():void{
           		Application.application.setInvisible();
