@@ -37,14 +37,14 @@
 	
 	
 	
-	<mx:Text x="10" y="10" text="Anular Consulta&#xa;&#xa;&#x9;1. Seleccionar en                        la opción Clinica&#xa;&#xa;&#x9;2. Ir a                                    y seleccionar Policlínico&#xa;&#xa;&#x9;3. Seleccionar Anular Consulta&#xa;&#xa;&#x9;4. Seleccione la o las consultas de un cliente ya sea por nombre&#xa;       o por rut&#xa;&#xa;&#x9;5. Seleccioanar la o las consultas que desea eliminar&#xa;   &#xa; 6. Pulsar boton anular." width="355" height="352" id="textAyuda"/>
-	<mx:LinkButton x="121.5" y="36" label="barra principal" color="#0000FF" click="verBarra()" id="linkBarraPrincipal"/>
+	<mx:Text x="10" y="10" text="Anular Consulta&#xa;&#xa;&#x9;1. Seleccionar en la                       la opción Clinica.&#xa;&#xa;&#x9;2. Ir a                                    y seleccionar Policlínico.&#xa;&#xa;&#x9;3. Seleccionar Anular Consulta.&#xa;&#xa;&#x9;4. Seleccione la o las consulta(s) de una mascota  ya sea&#xa;    por nombre o por rut del cliente.&#xa;&#xa;&#x9;5. Seleccionar el o las consulta(s) que desea eliminar.&#xa;   &#xa;    6. Pulsar boton anular." width="355" height="352" id="textAyuda"/>
+	<mx:LinkButton x="130.5" y="36" label="barra principal" color="#0000FF" click="verBarra()" id="linkBarraPrincipal"/>
 	<mx:LinkButton x="74" y="64" label="opciones del módulo" color="#0000FF" id="linkOpciones" click="verOpcMod()"/>
 		<mx:Image x="95" y="10" width="185" height="332" id="opcMod" visible="false">
-		<mx:source>../images/ayuda/menuAdministracion.JPG</mx:source>
+		<mx:source>../images/ayuda/menuConsulta.JPG</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:Image x="10" y="170" width="355" height="43" id="barra" visible="false">
-		<mx:source>../images/ayuda/barra principal.JPG</mx:source>
+		<mx:source>../images/ayuda/Clinica.JPG</mx:source>
 	</mx:Image>
 </mx:Canvas>
