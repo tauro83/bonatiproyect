@@ -53,11 +53,12 @@
 				{nameT:"Eliminar Producto"},
 				{nameT:"Editar Cliente"},
 				{nameT:"Registro Preoperatorio"},
+				{nameT:"Editar consulta"},
 				{nameT:"Editar Control"}			
 			]);
            	
            	/**
-			 *  Hace invisible todos los paneles
+			 *  Hace invisible todos los paneles 
 			 * */
            	private function setInvi():void
            	{
@@ -97,6 +98,7 @@
            		
            		ediCliAy.visible=false;
            		adPreo.visible=false;
+           		consulti.visible=true;
            		
            		//eliminaProducto.visible= false;
            		
@@ -232,6 +234,10 @@
 					case "Registro Preoperatorio":
 						adPreo.visible= true;
 					break;
+					case "Editar consulta":
+						consulti.visible= true;
+					break;
+					
 					
 					/**
 					case "Eliminar Producto":
@@ -332,6 +338,8 @@
 	</ns1:editarCliAyuda>
 	<ns1:regPreo x="345" y="50" visible="false" id="adPreo">
 	</ns1:regPreo>
+	<ns1:editConsult x="345" y="50" visible="false" id="consulti">
+	</ns1:editConsult>
 	
 	<!-->
 	<ns1:elimProducto x="345" y="50" id="eliminaProducto" visible="false">
