@@ -10,6 +10,7 @@
 			// Comentarios: Formulario y validacion de la edicion de un cliente en el sistema.
 			//=======================================================================
 		
+			import util.Properties;
 			import mx.events.FlexMouseEvent;
 			import mx.controls.Text;
 			import mx.controls.Alert;
@@ -46,6 +47,56 @@
 			 * 
 			 */ 
 			
+			private var e:Validaremail=new Validaremail;
+			private var vEmail:Boolean;
+            private var vEmail2:Boolean;
+			
+			/** 
+		     * Este metodo se encarga de comprobar que el email cumpla con todos los parametros 
+		     * correctos exigidos, sin que ningun caracter falte al momento del ingreso del un
+		     * email.  
+		     * 
+		     * @author  "Nicolas Delgado"
+		     *
+		     */	             
+             private function validarEmail():void{
+            	
+            	var em:Boolean;
+            	
+            	em= e.isEmail(email.text);
+            	
+            	if(em==true)
+				{
+					
+					vEmail		= true;
+					mensaje.text = "";
+				}
+				else
+				{
+					
+					vEmail		= false;
+					mensaje.text = Properties.getMensaje("Advertencia", "19");
+					//limpiarEmail();
+					
+				}
+            }
+            
+            /** 
+			* Este metodo se encarga de realizar todas las validaciones desarrollas por teclado por el usuario
+			* en cada uno de los parametros de inserccion de datos para que estos no se encuentren vacios al 
+			* momento que el usuario quiera insertar datos a la base de datos.  
+			* 
+			* @author  "Nicolas Delgado"
+			*
+			*/	
+            private function validaciones():void{
+            	
+            	email.addEventListener(KeyboardEvent.KEY_UP,validarEmail);
+            	email2.addEventListener(KeyboardEvent.KEY_UP,validarEmail2);
+            	
+ 
+            }
+           
 			public function resetVars():void
 			{
 				nombre.text	    = "";
@@ -180,12 +231,22 @@
 			}
 			public function verificaEdicion():void
 			{
-			   if(iniListener2()==true){
-			      clienteModificado();
-			      carga1();
+			   this.validarEmail();
+			   this.validarEmail2();
+			   if(vEmail==true){
+			   	 if(vEmail2 == true){
+			   	 	clienteModificado();
+			        carga1();
+			   	 
+			   	 }else{
+			   	   mensaje.text = "Los email no coinciden, ingreselos nuevamente";
+			   	 }
+			      
+			      
 			   }
 			   else{
-			     mensaje.text = "No ha ingresado información en todos los campos";
+			   	//aqui mostrar error de mail
+			     //mensaje.text = "No ha ingresado información en todos los campos";
 			   }
 			}
 			
@@ -280,21 +341,39 @@
 			}
 			
 			/**
-			 * @author  "Raul Lopez"
-			 * @Fecha  20 Septiembre
 			 * @Funcion que se comunica que llama a los métodos de validacion de nombre, apellido, direccion y mail
-			 * 
-			 * 
+			 * @author  "Raul Lopez"
 			 */
 		 	 private function iniListener():void
 			{
 				
-				email2.addEventListener(KeyboardEvent.KEY_UP,validarEmail);
+				email2.addEventListener(KeyboardEvent.KEY_UP,validarEmail2);
 				
 				direccion.addEventListener(KeyboardEvent.KEY_UP,validarDirec);
 				
 				
 			}
+			
+			/** 
+		    * Este metodo se encarga de comprobar que el email ingresado anteriormente sea igual al 
+		    * email que se encuentra en el segundo parametro de inserccion.  
+		    * 
+		    * @author  "Raul Lopez"
+		    *
+		    */	             
+            private function validarEmail2():void{
+            	if(email.text == email2.text)
+				{
+					vEmail2 = true;	
+					mensaje.text = "";			
+				}
+				else
+				{
+					vEmail2 = false;	
+					mensaje.text = Properties.getMensaje("Advertencia", "20");			
+				}
+            }
+
 			
 			/**
 			 * @author  "Raul Lopez"
@@ -324,7 +403,8 @@
 			 * @Fecha  20 Septiembre
 			 * @Funcion que comprueba que el mail ingresado en la comprobación de mail sea el mismo.
 			 */
-		  	private function validarEmail(event:Event):void
+			 
+		  	private function validarEmailIgual(event:Event):void
 		  	{
 				if(email.text == email2.text){
 					mensaje.text = "";	
@@ -834,7 +914,7 @@
 	<mx:Label x="169" y="226" text="-" textAlign="center"/>
 	<mx:TextInput restrict="0-9" x="190" y="273" width="136" id="celular2" enabled="true" maxChars="8"/>
 	<mx:Label x="413" y="30" text="Dirección:" width="97"/>
-	<mx:TextInput restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú 0-9" x="540" y="28" width="201" id="direccion" click="{iniListener()}" enabled="true" maxChars="200"/>
+	<mx:TextInput restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú 0-9" x="540" y="28" width="201" id="direccion"  enabled="true" maxChars="200"/>
 	<mx:Label x="413" y="79" text="Región:" width="112"/>
 	<mx:ComboBox x="540" y="77" width="201" id="region"  close = "selRegion(event);">
 	</mx:ComboBox>
@@ -842,9 +922,9 @@
 	<mx:ComboBox x="540" y="126" width="201" id="comuna">
 	</mx:ComboBox>
 	<mx:Label x="413" y="177" text="E-Mail:" width="97"/>
-	<mx:TextInput x="539" y="175" width="201" id="email" enabled="true" maxChars="40"/>
+	<mx:TextInput x="539" y="175" width="201" id="email" enabled="true" maxChars="60" click="{validaciones()}"/>
 	<mx:Label x="413" y="226" text="Confirmación E-mail:" width="132"/>
-	<mx:TextInput x="539" y="224" width="201" id="email2" click="{iniListener()}" enabled="true" maxChars="40"/>
+	<mx:TextInput x="539" y="224" width="201" id="email2" click="{validaciones()}" enabled="true" maxChars="40"/>
 	<mx:Button x="632" y="353" width="102" label="Cancelar" id="cancelarClienteIng" click="{cancela()}" height="23" cornerRadius="6">
 	</mx:Button>
 	<mx:Button x="522" y="353" width="102" label="Guardar" id="guardaEditCliente" click="{verificaEdicion()}" height="23" cornerRadius="6">

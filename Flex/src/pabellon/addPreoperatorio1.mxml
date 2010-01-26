@@ -30,6 +30,7 @@
 		    import pabellon.AddPreOperatorioService;
 			import pabellon.addPreOperatorio;
 			import pabellon.AddCirugiaService;
+			import services.AddMascotaService;
 			private var preoperatorio:Preoperatorio;
 			private var preoperatorioEditada:Preoperatorio;
 		   
@@ -57,59 +58,7 @@
                   {label:"Macho", data:1}, 
                   {label:"Hembra", data:2} ]);    
 
-			/**
-			* Funcion que busca un cliente
-			* @param event Evento
-			*/
-        	private function buscarCliente(event:Event):void{
-        		ini(event);
-        		var Numero:String = nombreRutIn.rutClienteInput.text;
-//        		var Dv:String = rutClienteDVInput.text;
-				var suma:int = 0;
-				var rut:String = Numero;
-				var NumMag:int = 2;
-				var Resto:int = 0;
-				var j:int ;
-				var i:int;
-				var DigVer:Array = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "K", "0");
-				var ParteNumerica:Array = new Array();
-				
-				if (rut.length == 0) { 
-
-					}
-				for ( j =0, i =0; j < rut.length; j++){
-					if (rut.charAt(j) != ' ' && rut.charAt(j) != '.' && rut.charAt(j) != '-'){
-						ParteNumerica[i] = rut.charAt(i);
-						++i;
-					}
-				}
-				
-				for (i=ParteNumerica.length-1; i>=0; i--, NumMag++){
-					suma += ParteNumerica[i] * NumMag;
-					trace(suma +' '+ ParteNumerica[i] +' '+ NumMag);
-					if (NumMag>6){
-						NumMag =1;	
-					}	
-				}
-				
-				Resto = 11-(suma%11);
-				/*
-				if(DigVer[Resto] != Dv.toUpperCase()){
-					labelMessage.text = "El Rut que ha ingresado es incorrecto.";
-				}
-				else{
-					labelMessage.text = "";
-//					rutClienteInput.errorString = "";
-					getCliente(nombreRutIn.rutClienteInput.text);
-				}	
-				*/	
-        	}
         	
-        	private function getCliente(rutCliente:String):void{
-				var addMascotaService:AddCirugiaService = new AddCirugiaService();
-				addMascotaService.addEventListener(ResultEvent.RESULT,getClienteResult);
-				addMascotaService.getCliente(rutCliente);
-			}
         	
 			/**
 			* Funcion que llena la tabla de mascotas asociadas al cliente
@@ -149,32 +98,15 @@
 			}
 			
 			
-			/**
-			* Funcion que llama  a retornar todas las mascotas 
-			* 
-			*/
-			private function getAllMascotas():void{
-				var mascotaService:AddCirugiaService = new AddCirugiaService();
-				mascotaService.addEventListener(ResultEvent.RESULT,getAllMascotasResult);
-				mascotaService.getMascotas(newMascota.rut);
-			}
 			
-			/**
-			* Funcion que obtiene todas las mascotas anteriormente llamadas
-			* @param event Evento
-			*/
-			public function getAllMascotasResult(event:ResultEvent):void{
-				mascotas = event.result as ArrayCollection;
-				//mascotas.refresh();
-			}
 			
 			/**
 			* Funcion que llama a retornar todas las mascotas de un cliente
 			*/
 			public function getMascotas():void{
-				var addMascotaService:AddCirugiaService = new AddCirugiaService();
+				var addMascotaService:AddMascotaService = new AddMascotaService();
 				addMascotaService.addEventListener(ResultEvent.RESULT,getAddMascotasResult);
-				addMascotaService.getMascotas(nombreRutIn.rutClienteInput.text);
+				addMascotaService.getMascotas(nombreRutIn.rutClienteInput.text+nombreRutIn.rutClienteDVInput.text);
 				
 			}
 			
@@ -188,23 +120,8 @@
 			}
 			
 
-			public function getClienteResult(event:ResultEvent):void{
-				nombreCliente = event.result as String;
-				
-				if(nombreCliente == null){
-        			labelMessage.text = "Cliente no registrado."
-        			//Application.application.AdmIngreso2.setVisible(true);
-        			Application.application.AdmIngreso2.labelMessage.text = "El cliente ingresado no esta registrado."
-        			Application.application.AdmIngreso2.rut.text = nombreRutIn.rutClienteInput.text;
-        			//Application.application.AdmIngreso2.rut2.text = rutClienteDVInput.text;
-        			
-        			ini(event);
-        		}
-        		else{
-        			labelMessage.text = "Se ha accedido al cliente "+nombreCliente;
-        			ini(event);
-        		}
-			}
+			
+			
 			public function muestra(event:Event):void
 			{
 				    /*
@@ -263,14 +180,15 @@
 				
         ]]>
     </mx:Script>
-	<mx:Button x="635.75" y="369" label="Volver" width="84" id="cancelar" visible="true" click="{vuelve()}"/>
+	<mx:Button x="545.75" y="369" label="Visualizar" visible="true" id="registrar" />
+	<mx:Button x="635.75" y="369" label="Cancelar" width="84" id="cancelar" visible="true" click="{vuelve()}"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="10" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="681" rowCount="3" y="92" x="38.75" dataProvider="{mascotas}" doubleClickEnabled="true" itemDoubleClick="{seleccionarPreOpe(event)}" visible="true" height="269">
+	<mx:DataGrid id="dg" color="0x323232" width="681" rowCount="3" y="92" x="38.75" variableRowHeight="true" dataProvider="{mascotas}" click="{seleccionarPreOpe(event)}" visible="true" height="269">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
-	        <mx:DataGridColumn dataField="claseAnimal" headerText="Especie" width="100"/>
+	        <mx:DataGridColumn dataField="claseAnimal" headerText="Tipo" width="100"/>
 	        <mx:DataGridColumn dataField="raza" headerText="Raza" width="100"/>
 	        <mx:DataGridColumn dataField="sexo" headerText="Sexo" width="100"/>
 	    </mx:columns>
@@ -278,6 +196,5 @@
 	<mx:Label x="10" y="64" text="Mascotas:" width="112.75" fontWeight="bold"/>
 	<ns1:BuscadorNombreRut x="38.75" y="26" id="nombreRutIn" keyFocusChange=" getMascotas()" mouseFocusChange="getMascotas()">
 	</ns1:BuscadorNombreRut>
-	<mx:Button x="543.75" y="368" label="Visualizar" click="{seleccionarPreOpe(event)}" width="84" height="23" cornerRadius="6"/>
 	
 </mx:Panel>
