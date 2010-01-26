@@ -246,7 +246,7 @@
 			   }
 			   else{
 			   	//aqui mostrar error de mail
-			     //mensaje.text = "No ha ingresado información en todos los campos";
+			     mensaje.text = "El email no es válido";
 			   }
 			}
 			
