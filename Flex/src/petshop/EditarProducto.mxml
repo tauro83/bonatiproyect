@@ -1,54 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" title="Editar Registro Producto" width="779" height="466" borderColor="#15AD8F" xmlns:ns1="util.*">
-	<mx:Script>
-		<![CDATA[
-			//=======================================================================
-			// FECHA CREACIÓN: 23/11/09
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="776" height="466" title="Editar Producto" borderColor="#15AD8F" xmlns:ns1="util.*" xmlns:fc="http://www.adobe.com/2006/fc" >
+	 <mx:Script>
+        <![CDATA[
+        
+        	//=======================================================================
+			// FECHA CREACIÓN: 24/11/09
 			// AUTOR: Esteban Cruz
-			// Componente que edita un producto del area de pet-shop
+			// Panel en el cual se muestran los productos existentes en la base 
+			// de datos, junto a todos sus parametros como: nombre, precio, catalogo, 
+			// codigo barra y descripción. Luego se selecciona uno de ellos para 
+			// poder ser editado
 			//=======================================================================
 			
-			
-			//nombre[char],	
-			//Precio[Money],
-			//descripcion[char],
-			//categoria[char],
-			//clientePresencialRut[rut],
-			//codigoBarra[int]
+        	import transferObjects.Producto;
+         	import mx.collections.ArrayCollection;
+            import mx.rpc.events.ResultEvent;
+            import mx.core.Application;
+			import services.editarProducto1;
+			 
+			[Bindable]
+			private var productos:ArrayCollection;
 
-		]]>
-	</mx:Script>
-	<mx:TextInput x="477" y="26" width="163" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú" includeInLayout="true" id="editNombre" enabled="true" maxChars="20"/>
-	<mx:Label x="381" y="26" text="Nombre:" width="69" />
-	<mx:Button width="102" height="25" x="632" label="Cancelar" y="353"/>
-	<mx:Button width="102" height="25" x="522" label="Guardar" y="353"/>
-	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
-	<mx:Label x="381" y="65" text="Precio:"/>
-	<ns1:Precio x="477" y="67" width="161" id="editPrecio">
-	</ns1:Precio>
-	<mx:Label x="381" y="196" text="Descripción:"/>
-	<mx:TextArea x="477" y="195" maxChars="160" width="257" height="136" id="editDescrip"/>
-	<mx:Label x="381" y="108" text="Categoria:" width="69" />
-	<mx:Label x="381" y="154" text="Codigo barra:" width="88" />
-	<mx:TextInput x="477" y="152" id="editCodigo"/>
-	<mx:Text x="30" y="26" text="Filtrar por:&#xa;"/>
-	<mx:ComboBox x="149" y="24">
+            /**
+			* Se hace visible el input correspondiente a la opción
+			* elegida en el combobox, las cuales pueden ser por el nombre,
+			* precio, categoría, descripción, codigo barra.
+			*/
+            private function seleccionarBusqueda (event:Event):void
+            {   
+            	inputNombreProducto.setVisible(false,false);
+				inputCategoria.setVisible(false,false);
+				inputPrecio.setVisible(false,false);
+				inputDescripcion.setVisible(false,false);
+				inputCodigoBarra.setVisible(false,false);
+				textBuscar.setVisible(true, false);
+				getAllVacunaciones();
+				
+            	switch (combobox.selectedLabel)
+				{
+					
+			    /**
+			    * El usuario Selecciona la opción nombre producto
+			    */
+				case 'Nombre Producto':		
+					inputNombreProducto.setVisible(true,false);
+					inputNombreProducto.selectedItem=false;
+					
+				break; 
+				
+			    /**
+			    * El usuario Selecciona la opción categoría
+			    */
+				case 'Categoria':
+					inputCategoria.setVisible(true,false);
+					inputCategoria.selectedItem=false;
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opción precio
+			    */				
+				case 'Precio':
+					inputPrecio.setVisible(true,false);
+					inputPrecio.selectedItem=false;
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opción descripción
+			    */
+				case 'Descripcion':
+					inputDescripcion.setVisible(true,false);
+					inputDescripcion.selectedItem=false;
+				break;
+				
+			    /**
+			    * El usuario Selecciona la opción código barra
+			    */
+				case 'Codigo Barra':
+					inputCodigoBarra.setVisible(true,false);
+					inputCodigoBarra.selectedItem=false;
+				break;
+				}
+            }
+            
+            /**
+            * Este metodo se encarga de dejar limpia la pantalla una vez que
+            * el usuario se salga del panel, se dejan sin información los 
+            * datagrid, textInput y ComboBox. 
+            */
+            public function limpiarTodo():void{
+            	inputNombreProducto.setVisible(false,false);
+				inputCategoria.setVisible(false,false);
+				inputPrecio.setVisible(false,false);
+				inputDescripcion.setVisible(false,false);
+				inputCodigoBarra.setVisible(false,false);
+            	combobox.selectedItem="-Seleccionar-";
+            	textBuscar.setVisible(false,false);
+            	this.productos = new ArrayCollection();
+            	mens.text= "";
+          
+            }
+            
+            /**
+			* Se obtienen todos los registros de productos que están registrados en 
+			* la base de datos, que serán mostrados por el datagrid del panel, en este
+			* panel seran mostrados solamente el Nombre, precio, categoría, 
+			* descripción y código de barra, y en el panel siguiente serán mostrados los
+			* de un registro de producto seleccionado.
+			*/
+			public function getAllVacunaciones():void
+		    {
+		   		var productoService:editarProducto1 = new editarProducto1();
+		   		productoService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
+				productoService.getAllVacunaciones();
+		    }
+		   
+		    /**
+			* Una vez obtenidas todos los registros productos que están registradas 
+			* en la base de datos, son mostrados dentro del datagrid,en este
+			* panel seran mostrados solamente Nombre, precio, categoría, 
+			* descripción y código de barra, y en el panel siguiente serán mostrados los
+			* de un registro de producto seleccionado.
+			*/
+            
+            public function getAllVacunacionesResult(event:ResultEvent):void
+		    {
+		   		productos = event.result as ArrayCollection;
+		    }
+		    
+		    /**
+		    * Una vez seleccionado un cliente, se procede a visualizar la siguiente 
+			* ventana (componente), con los datos correspondientes al producto 
+			* seleccionado y los datos de los registro del producto
+			*/
+		    public function visualizarProductos(event:Event):void
+            {
+            	if(tablaProductos.selectedItem){
+            		this.setVisible(false,false);            	 	
+            		Application.application.editProducto2.setDatos(tablaProductos.selectedItem as Producto);
+            		Application.application.editProducto2.setVisible(true,false);
+            		Application.application.editProducto2.mens.text = " ";
+            	}
+            }
+            
+			/**
+			 * Evento del boton "Volver", el cual redirige a la página
+			 * a la estipulada por defecto por  el modulo de Pet-Shop.
+			 */
+			private function volver():void
+            {
+            	this.setVisible(false,false);
+            	Application.application.panelPetshop.setVisible(true,false);
+            }
+            
+            /**
+			*  Corrige error de seleccionar el primero elemento del autocomplete
+			*  Del textInput del nombre, precio, código de barra, descripción
+			*  y categoría
+			* */
+		    public function Seleccionar(event:Event):void
+			{
+			    if(inputNombreProducto.selectedIndex==0)
+			    {
+			    	inputNombreProducto.text=inputNombreProducto.selectedLabel;
+			    }
+			    if(inputPrecio.selectedIndex==0)
+			    {
+			    	inputPrecio.text==inputPrecio.selectedLabel;
+			    }
+			    if(inputCategoria.selectedIndex==0)
+			    {
+			    	inputCategoria.text=inputCategoria.selectedLabel;
+			    }
+			    if(inputDescripcion.selectedIndex==0)
+			    {
+			    	inputDescripcion.text==inputDescripcion.selectedLabel;
+			    }
+			    if(inputCodigoBarra.selectedIndex==0)
+			    {
+			    	inputCodigoBarra.text=inputCodigoBarra.selectedLabel;
+			    }
+
+			}
+			     
+	 	]]>
+    </mx:Script>
+	
+	<!-- Botón Visualizar -->
+	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
+	<mx:Text x="10" y="10" id="textFiltrar" text="Filtrar por"/>
+	
+	<!-- Botón Cancelar -->
+	
+	<!-- Opciones de busqueda -->
+	<mx:ComboBox x="76" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccionar-"/>
-			<mx:Object label="Nombre"/> 
-			<mx:Object label="Categoría"/> 
+			<mx:Object label="Nombre Producto"/>
+			<mx:Object label="Categoria"/>
+			<mx:Object label="Codigo Barra"/> 
+			<mx:Object label="Descripcion"/> 
+			<mx:Object label="Precio"/> 
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<mx:Text x="30" y="65" text="Buscar:"/>
-	<mx:TextInput x="149" y="63"/>
-	<mx:DataGrid x="30" y="108" width="279" height="223">
-		<mx:columns>
-			<mx:DataGridColumn headerText="Nombre" dataField="col1"/>
-			<mx:DataGridColumn headerText="Categoría" dataField="col2"/>
+	
+	<!-- Tabla con datos -->
+	<mx:DataGrid x="10" y="62" width="739" height="280" id="tablaProductos" dataProvider="{productos}" doubleClickEnabled="true" itemDoubleClick="visualizarProductos(event)" >
+		<mx:columns>		
+			<mx:DataGridColumn headerText="Nombre" dataField="nombre" id="nombre" draggable="false"/>
+			<mx:DataGridColumn headerText="Categoría" dataField="categoria" id="categoria" draggable="false"/>
+			<mx:DataGridColumn headerText="Codigo Barra" dataField="codigo" id="codigo" draggable="false"/>
+			<mx:DataGridColumn headerText="Descripcion" dataField="descripcion" id="descripcion" draggable="false"/>
+			<mx:DataGridColumn headerText="Precio" dataField="precio" id="precio" draggable="false"/>
+			
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:TextInput x="477" y="106" id="editCategoria"/>
-		
 	
+	<!-- AutoComplete -->
+	
+	<!-- Nombre Del Producto -->
+	<fc:AutoComplete id="inputNombreProducto" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productos}"  labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda" />
+	
+	<!-- Precio -->
+	<fc:AutoComplete id="inputPrecio" close="Seleccionar(event)" x="599" y="8" width="150" dataProvider="{productos}" labelField="precio" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Categoria -->
+	<fc:AutoComplete id="inputCategoria" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productos}" labelField="categoria" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Codigo de Barra -->
+	<fc:AutoComplete id="inputCodigoBarra" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productos}" labelField="codigo" visible="false" toolTip="ingrese texto para búsqueda"/>
+	
+	<!-- Descripcion -->
+	<fc:AutoComplete id="inputDescripcion" x="599" close="Seleccionar(event)" y="8" width="150" dataProvider="{productos}" labelField="descripcion" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	
 </mx:Panel>
