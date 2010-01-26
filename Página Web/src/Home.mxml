@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="990" height="550" currentState='' xmlns:ns1="components.*">
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="990" height="550" currentState='' xmlns:ns1="components.*" initialize="this.currentState = 'Bienvenida'">
 	
 	<mx:Script>
 		<![CDATA[
+			import TransferObjects.AvisoWeb;
 			
 			
 			import mx.controls.Alert;
@@ -17,8 +18,65 @@
 			private var avisos:ArrayCollection;
 			
 
-
+						/**
+			 *  Método que crea una instancia del transferObject AvisoWeb,
+			 *  posterior a la validacion de datos  y lo envia a AvisoWebService
+			 * @author  Cristian Bravo		 		
+			 * */
+			 
+			private function registrar():void
+			{					
+			 
+			if(nomb.text == '' || apaterno.text == '' || celular.text == '' || asunto1.text == '' || descripcion.text == ''){
+				mensaje.text = 'No ha llenado todos los campos necesarios';
+			} else{
+			 var aviso:AvisoWeb = new AvisoWeb();
+				
+				aviso.nombre = nomb.text;
+				aviso.apaterno = apaterno.text;
+				aviso.telefono0 = telefono0.text;
+				aviso.telefono = telefono.text;
+				aviso.celular =  celular.text;
+				aviso.asunto = asunto1.text;
+				aviso.descripcion = descripcion.text;
+				
+				//avisoWebService = new RegistroAvisoWebService();
+				var avisoWebService:AvisoWebService = new AvisoWebService();
+				avisoWebService.addEventListener(ResultEvent.RESULT,registroAvisoResultado);																					
+				avisoWebService.upAvisoWeb(aviso);				
+			}
+			}
 			
+			
+			/**
+			 *  retorna el resultado de la accion que se realizo:Registro.
+			 * @author  Cristian Bravo		
+			 * */
+			 
+			 
+			private function registroAvisoResultado(event:ResultEvent):void
+			{
+			var result = event.result as int;
+			
+			 if(result > 0 ){
+			 		this.currentState = 'Avisos';
+			 		this.getAllAvisos();
+			 }
+			 else Alert.show("Error");
+			}
+			public function IniciarRegistro():void{
+				
+				
+				/* this.nomb.text = ' ';
+				this.apaterno.text = ' ';
+				this.celular.text = ' ';
+				this.telefono.text = ' ';
+				this.telefono0.text = ' ';
+				this.descripcion.text = ' ';
+				/* this.asunto1.text = ' ';  */ 
+				this.currentState = 'NuevaEntrada';
+				
+			}
 			
 			
 				/**
@@ -70,13 +128,25 @@ Ademas de cagarle la vida a 10 weones]]></mx:value>
 			<mx:SetProperty target="{text1}" name="x" value="269.5"/>
 			<mx:SetProperty target="{text1}" name="y" value="43"/>
 		</mx:State>
-		<mx:State name="Bienvenida"/>
+		<mx:State name="Bienvenida">
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Text x="10" y="429" text="Av Peña 291" styleName="portada" fontSize="21" fontWeight="bold" color="#191A18" fontStyle="italic" textDecoration="normal"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Text x="10" y="455" text="Fono: (75) 31 0412 – (75) 31 4352" styleName="portada" fontSize="21" fontWeight="bold" color="#191A18" fontStyle="italic" textDecoration="normal"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Text x="10" y="481" text="Cel: (09) 9256 0321" styleName="portada" fontSize="21" fontWeight="bold" color="#191A18" fontStyle="italic" textDecoration="normal"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{text1}" name="x" value="105"/>
+			<mx:SetProperty target="{text1}" name="y" value="230"/>
+		</mx:State>
 		<mx:State name="Avisos">
 			<mx:SetProperty target="{text1}" name="text" value="Avisos Web"/>
 			<mx:SetProperty target="{text1}" name="x" value="277.5"/>
 			<mx:SetProperty target="{text1}" name="y" value="31"/>
 			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:DataGrid x="88.5" y="141" height="292" width="575" alpha="0.0" styleName="dataAvisos" dataProvider="{avisos}" fontWeight="bold" fontSize="11">
+				<mx:DataGrid x="88.5" y="141" height="292" width="575" alpha="0.0" styleName="dataAvisos" dataProvider="{avisos}" fontWeight="bold" fontSize="11" id="dg" doubleClickEnabled="true" doubleClick="currentState =  'AvisoVer'">
 					<mx:columns>
 						<mx:DataGridColumn headerText="" dataField="asunto"/>
 						<mx:DataGridColumn headerText="" dataField="nombre"/>
@@ -84,14 +154,88 @@ Ademas de cagarle la vida a 10 weones]]></mx:value>
 				</mx:DataGrid>
 			</mx:AddChild>
 			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:Button x="43" y="504" label="Button" click="{getAllAvisos()}"/>
+				<mx:Label x="88.5" y="120.25" text="Asunto" styleName="portada" fontSize="22" textDecoration="normal" id="label4"/>
 			</mx:AddChild>
 			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:Label x="88.5" y="120.25" text="Asunto" styleName="portada" fontSize="22" textDecoration="normal"/>
+				<mx:Label x="354.5" y="120.25" text="Solicitante" styleName="portada" fontSize="22" id="label3"/>
 			</mx:AddChild>
 			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:Label x="354.5" y="120.25" text="Solicitante" styleName="portada" fontSize="22"/>
+				<mx:Button x="489" y="441" label="Nueva Entrada" fillAlphas="[1.0, 1.0]" fillColors="[#CAE00F, #CAE00F]" click="{IniciarRegistro()}" id="button1"/>
 			</mx:AddChild>
+		</mx:State>
+		<mx:State name="AvisoVer" basedOn="Avisos">
+			<mx:RemoveChild target="{label3}"/>
+			<mx:RemoveChild target="{dg}"/>
+			<mx:RemoveChild target="{label4}"/>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:TextInput x="203" y="207" id="telefono"  restrict="0-9" enabled="true"  maxChars="20" width="153" toolTip="Número de teléfono" text="{avisos.getItemAt(dg.selectedIndex).telefono}" editable="false"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:TextInput x="155" y="207" id="telefono0"  restrict="0-9" enabled="true"  maxChars="4" width="31" toolTip="Código de área" text="{avisos.getItemAt(dg.selectedIndex).telefono0}" editable="false"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="43" y="209" text="Teléfono:"  textAlign="left"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:TextInput x="155" y="246" id="celular"  restrict="0-9" enabled="true"  maxChars="20" width="153" toolTip="Número de celular" text="{avisos.getItemAt(dg.selectedIndex).celular}" editable="false"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="43" y="248" text="Celular:"  textAlign="left"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="43" y="126" text="Nombre:" width="69" />
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="43" y="167" text="Apellido Paterno:" width="104" />
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="43" y="356" text="Descripción:"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="43" y="315" text="Asunto:"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="43" y="100" text="Cliente" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="43" y="289" text="Aviso" fontWeight="bold"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Button x="484" y="456" width="120" label="Volver" id="cancelarCatalogo" height="25" cornerRadius="6" toolTip="Cancelar la edición de aviso" click="{currentState='Avisos', getAllAvisos()}">
+				</mx:Button>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:TextArea x="155" y="355" height="79" width="371" toolTip="Descripción del aviso" id="descripcion" text="{avisos.getItemAt(dg.selectedIndex).descripcion}" editable="false" backgroundColor="#F3F779"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:TextInput x="155" y="124" id="nomb" editable="false" width="201" text="{avisos.getItemAt(dg.selectedIndex).nombre}"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:TextInput x="155" y="165" id="apaterno" editable="false" width="201" text="{avisos.getItemAt(dg.selectedIndex).apaterno}"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:TextInput x="155" y="313" text="{avisos.getItemAt(dg.selectedIndex).asunto}" id="asunto1" editable="false" backgroundColor="#F3F779"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{button1}"/>
+		</mx:State>
+		<mx:State name="NuevaEntrada" basedOn="AvisoVer">
+			<mx:SetProperty target="{nomb}" name="text"/>
+			<mx:SetProperty target="{apaterno}" name="text"/>
+			<mx:SetProperty target="{telefono}" name="text"/>
+			<mx:SetProperty target="{telefono0}" name="text"/>
+			<mx:SetProperty target="{celular}" name="text"/>
+			<mx:SetProperty target="{asunto1}" name="text"/>
+			<mx:SetProperty target="{descripcion}" name="text"/>
+			<mx:SetProperty target="{telefono}" name="width" value="79"/>
+			<mx:SetProperty target="{celular}" name="width" value="127"/>
+			<mx:SetProperty target="{telefono0}" name="width" value="24"/>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Button x="356" y="456" label="Registrar" width="120" height="25" click="{registrar()}"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{spacer1}"/>
+			<mx:AddChild relativeTo="{linkbutton1}" position="before" target="{spacer1}"/>
+			<mx:SetProperty target="{nomb}" name="editable" value="true"/>
+			<mx:SetProperty target="{apaterno}" name="editable" value="true"/>
 		</mx:State>
 	</mx:states>
 
@@ -101,14 +245,14 @@ Ademas de cagarle la vida a 10 weones]]></mx:value>
 			<mx:Canvas width="100%" height="100%" id="canvas9">
 				<mx:Canvas width="208" height="297" backgroundColor="#ffffff" styleName="homeSection" id="canvas5" y="10">
 					<mx:VBox left="10" top="10" width="186" height="275" verticalGap="0" horizontalAlign="left">
-						<mx:LinkButton label="Bienvenida" click="{currentState=''}" color="#F22E08"/>
+						<mx:LinkButton label="Bienvenida" click="{currentState='Bienvenida'}" color="#F22E08"/>
 						<mx:Label text="----------------------" styleName="sectionHeader" fontSize="13" fontWeight="bold" id="label2"/>
 						<mx:HRule height="5" width="183" id="hrule1"/>
 						<mx:LinkButton label="Quienes Somos" click="{currentState='QuienesSomos'}" id="linkbutton2"/>
 						<mx:LinkButton label="Informacion importante" click="{currentState='Info'}" id="linkbutton1"/>
+						<mx:Spacer height="8" width="100%" id="spacer1"/>
 						<mx:Spacer height="8" width="100%"/>
-						<mx:Spacer height="8" width="100%"/>
-						<mx:LinkButton label="Avisos" click="{currentState='Avisos'}" id="linkbutton10"/>
+						<mx:LinkButton label="Avisos" click="{currentState='Avisos', getAllAvisos()}" id="linkbutton10"/>
 					</mx:VBox>
 				</mx:Canvas>
 			
@@ -117,6 +261,7 @@ Ademas de cagarle la vida a 10 weones]]></mx:value>
 		<mx:Canvas width="752" height="549" id="canvas1">
 			<mx:Image x="629" y="441" source="../imagenes/Simbolo.JPG" id="image1"/>
 			<mx:Text x="129" y="39" text="BienveVido a CLinica Bonati" styleName="portada" id="text1"/>
+			<mx:Label x="169" y="509" width="403" id="mensaje"/>
 		
 		    <!-- can't use binding to set the mapImage source because the style isn't available early enough -->
 		</mx:Canvas>
