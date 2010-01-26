@@ -47,7 +47,7 @@
 			
 		]]>
 	</mx:Script>
-	<mx:Text x="10" y="10" text="Configurar vacunas&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir al sub menú y seleccionar configuración &#xa;&#xa;&#x9;3. Seleccionar Servicios&#xa;&#xa;Registrar nuevo servicio&#xa;&#x9;&#xa;&#x9;1. Ingresar  en el panel derecho los datos&#xa;&#x9;&#xa;&#x9;Observación: La caducidad es el numero en meses&#xa;&#xa;&#x9;2 Seleccionar registrar&#xa;&#xa;Eliminar vacuna&#xa;&#x9;&#xa;&#x9;1. Seleccionar la vacuna del listado&#xa;&#xa;&#x9;2. Seleccionar eliminar" width="355" height="332" id="textAyuda"/>
+	<mx:Text x="10" y="10" text="Configurar vacunas&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción                                 .               &#xa;&#xa;&#x9;2. Ir al sub menú y seleccionar configuración .&#xa;&#xa;&#x9;3. Seleccionar Servicios.&#xa;&#xa;Registrar nuevo servicio&#xa;&#x9;&#xa;&#x9;1. Ingresar  en el panel derecho los datos.&#xa;&#x9;&#xa;&#x9;Observación: La caducidad es el numero en meses.&#xa;&#xa;&#x9;2 Seleccionar registrar.&#xa;&#xa;Eliminar vacuna&#xa;&#x9;&#xa;&#x9;1. Seleccionar la vacuna del listado.&#xa;&#xa;&#x9;2. Seleccionar eliminar." width="355" height="332" id="textAyuda"/>
 	<mx:LinkButton x="177" y="34" label="Administración" id="linkBarraPrincipal" click="verBarra()" color="blue" width="106"/>
 	<mx:Image   id="barra" visible="false" x="94" y="137">
 		<mx:source>../images/ayuda/Administracion.png</mx:source>

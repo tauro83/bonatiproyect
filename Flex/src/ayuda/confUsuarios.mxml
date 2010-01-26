@@ -48,8 +48,8 @@
 			
 		]]>
 	</mx:Script>
-	<mx:Text x="10" y="10" text="Configurar Usuarios&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir al sub menú y seleccionar configuración &#xa;&#xa;&#x9;3. Seleccionar Usuarios&#xa;&#xa;Registrar nuevo cargo&#xa;&#x9;&#xa;&#x9;1. Ingresar el cargo&#xa;&#x9;&#xa;&#x9;2. Seleccionar registrar&#xa;&#xa;Eliminar cargo&#xa;&#x9;&#xa;&#x9;1. Seleccionar el cargo del listado&#xa;&#xa;&#x9;2. Seleccionar eliminar" width="355" height="332" id="textAyuda"/>
-	<mx:LinkButton x="177" y="34" label="Administración" id="linkBarraPrincipal" click="verBarra()" color="blue" width="106"/>
+	<mx:Text x="10" y="10" text="Configurar Usuarios&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción                             .&#xa;&#xa;&#x9;2. Ir al sub menú y seleccionar configuración. &#xa;&#xa;&#x9;3. Seleccionar Usuarios.&#xa;&#xa;Registrar nuevo cargo&#xa;&#x9;&#xa;&#x9;1. Ingresar el cargo.&#xa;&#x9;&#xa;&#x9;2. Seleccionar registrar.&#xa;&#xa;Eliminar cargo&#xa;&#x9;&#xa;&#x9;1. Seleccionar el cargo del listado.&#xa;&#xa;&#x9;2. Seleccionar eliminar." width="355" height="332" id="textAyuda"/>
+	<mx:LinkButton x="172" y="34" label="Administración" id="linkBarraPrincipal" click="verBarra()" color="blue" width="111"/>
 	<mx:Image   id="barra" visible="false" x="94" y="137">
 		<mx:source>../images/ayuda/Administracion.png</mx:source>
 	</mx:Image>
