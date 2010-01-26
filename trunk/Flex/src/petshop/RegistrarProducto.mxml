@@ -22,17 +22,29 @@
 		    	if(conectado){    		
 		    		var bmcProd:BMCgetProductos = new BMCgetProductos();
 		    		bmcProd.getProductos();
-		    		bmcProd.addEventListener(ResultEvent.RESULT,getProdR);		    		
+		    		bmcProd.addEventListener(ResultEvent.RESULT,getProdR);			    		
+	        		 		
 		    	}else{
 		    		mens.text = "Los productos no han sido obtenidos, compruebe la conexión";
-		    	}
-		    		
+		    	}		    		
 	    	}
+	    	
+	    	public function sincronizar2():void{
+	    		
+	        	var bmcProd:BMCgetProductos = new BMCgetProductos();
+		    		bmcProd.getProductos();
+		    		bmcProd.addEventListener(ResultEvent.RESULT,getProdR2);		
+	    	}
+	        private function getProdR2(event:ResultEvent):void
+	        {
+	        	productos = event.result as ArrayCollection;
+	        }
+	        
 	        
 	        private function getProdR(event:ResultEvent):void
 	        {
 	        	productos = event.result as ArrayCollection;
-	        	mens.text = "Productos sincronizados";
+	        	mens.text = "Productos sincronizados";	   
 	        }
 	        
 		    private function sincronizar():void{
