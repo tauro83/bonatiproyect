@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import AvisoWeb.AvisoWeb;
 /**
  * Clase en la que se declaran las consultas hacia la base de datos
  * @author Erwin Díaz
@@ -37,9 +36,13 @@ public class AvisoWebServiceBD {
 				"FROM avisoweb where avisoweb.estado = 1;";
 			selectAllA = connection.prepareStatement(query);
 			
-			query = "UPDATE avisoweb "+
-			   "SET telefono0=?, telefono=?, celular0=?, celular=?, asunto=?, descripcion=? "+
-			   "WHERE id = ?;";
+			
+			query = "INSERT INTO avisoweb (nombre,apaterno,telefono0,telefono,celular0,celular,asunto,descripcion) "+
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+			
+//			query = "UPDATE avisoweb "+
+//			   "SET telefono0=?, telefono=?, celular0=?, celular=?, asunto=?, descripcion=? "+
+//			   "WHERE id = ?;";
 			insert = connection.prepareStatement(query);
 			
 			query = "UPDATE avisoweb "+
@@ -119,31 +122,27 @@ public class AvisoWebServiceBD {
 	 * @param person aviso que es llevado a la base de datos para reemplazar el antiguo aviso
 	 * @return entero que indica si se realiza con éxito la actualización
 	 */
+	
 	public int upAvisoWebBD(AvisoWeb person)
     {
-		String result = null;
+		int result = 0;
 		try 
     	{
-			insert.setString(1, person.telefono0);
-			insert.setString(2, person.telefono);
-			insert.setString(3, person.celular0);
-			insert.setString(4, person.celular);
-			insert.setString(5, person.asunto);
-			insert.setString(6, person.descripcion);
-			insert.setInt(7, person.id);
-			result=""+insert.executeUpdate();
+			insert.setString(1, person.nombre);
+			insert.setString(2, person.apaterno);
+			insert.setString(3, person.telefono0);
+			insert.setString(4, person.telefono);
+			insert.setString(5, "0");
+			insert.setString(6, person.celular);
+			insert.setString(7, person.asunto);
+			insert.setString(8, person.descripcion);
+			result=insert.executeUpdate();
 		} 
     	catch (SQLException e) 
     	{
 			e.printStackTrace();
 		}
-    	if(result.length()==1){
-    		return 1;
-    		
-    	}
-    	else {
-    		return   0;  	
-		}
+    	return result;
     	
     }
 	
