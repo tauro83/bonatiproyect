@@ -5,7 +5,7 @@
 // 				al registrar editar o eliminar un aviso 
 //=======================================================================
 
-package avisoWeb
+package TransferObjects
 {
 	import mx.controls.CheckBox;
 	
