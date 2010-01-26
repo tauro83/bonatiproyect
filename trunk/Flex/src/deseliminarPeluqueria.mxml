@@ -78,7 +78,7 @@
 			*/
            	private function deleteRow():void 
            	{
-			    Alert.show("¿Está seguro que desea activar el o los registro(s) de peluquería(s)? ","Confirme activar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			    Alert.show("¿Está seguro que desea reactivar el o los registro(s) de peluquería(s)? ","Confirme reactivar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
        
 			}
 			
@@ -105,7 +105,7 @@
                         i=-1;
                     }   
                 }
-                barraMsj.text="Registro(s) de peluquería activado"; 
+                barraMsj.text="Registro(s) de peluquería reactivado"; 
                 todo.selected=false;             
             }
 			
@@ -163,7 +163,7 @@
 		]]>
 	</mx:Script>	
 	
-	<mx:DataGrid x="25" y="36" width="709" height="309" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion el o los registro(s) de peluquería(s) que desea activar">
+	<mx:DataGrid x="25" y="36" width="709" height="309" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion el o los registro(s) de peluquería(s) que desea reactivar">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
 			 	<mx:itemRenderer>
@@ -183,6 +183,6 @@
 	<mx:CheckBox x="25" y="10" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
 	<mx:Label x="47" y="10" text="Seleccionar todo"/>
 	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
-	<mx:Button x="522" y="354" label="Activar" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Activar el o los registro(s) de peluquería(s) seleccionada(s)"/>
+	<mx:Button x="522" y="354" label="Activar" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Reactivar el o los registro(s) de peluquería(s) seleccionada(s)"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
 </mx:Panel>
