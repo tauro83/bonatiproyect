@@ -342,7 +342,7 @@ public class ConfigurarBD {
 		if(cv.caducidad ==""){
 			insert.setInt(3,0);
 		}else{
-			insert.setInt(2,Integer.parseInt(cv.caducidad));
+			insert.setInt(3,Integer.parseInt(cv.caducidad));
 		}
 		
 		insert.setString(4,cv.descripcion.trim());		
