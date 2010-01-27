@@ -574,7 +574,7 @@ CREATE TABLE estadisticasclinica
   area integer NOT NULL,
   id serial NOT NULL,
   PRIMARY KEY(id)
-)
+);
 
 CREATE TABLE bitacorapost
 (
