@@ -84,6 +84,27 @@ public class AvisoWebService {
 		}
 		return result;
     }
+	/**
+	 * Trata de editar y/o publicar el aviso registrado en la base de datos
+	 * @return Resultado de la operación realizada
+	 */
+	public int pubAvisoWeb(AvisoWeb aviso)
+    {
+		int result = 0;
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			AvisoWebServiceBD personDB= new AvisoWebServiceBD(connection);
+			result = personDB.pubAvisoWebBD(aviso);		
+			
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
+    }
 
 	public int registrar(AvisoWeb aviso)
     {

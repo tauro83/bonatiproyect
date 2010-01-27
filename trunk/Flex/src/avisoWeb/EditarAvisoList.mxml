@@ -18,11 +18,28 @@
 			import mx.rpc.events.FaultEvent;
 			import mx.controls.Alert;
 			import mx.core.Application;
+			public var select:int = 0;
 			
 			[Bindable]
 			private var avisos:ArrayCollection;
 			private var usuars:ArrayCollection;
 			private var usuars2:ArrayCollection;
+			
+			public function verSelect(seleccionado:int):void
+			{
+				if(seleccionado == 0){
+					verActivas.enabled = false;
+					verNulas.enabled = true;
+					select =0;
+				}
+				if(seleccionado == 1){
+					verActivas.enabled = true;
+					verNulas.enabled = false;
+					select = 1;
+				}
+			}
+			
+			
 			/**
 		 	 * Metodo que obtiene los datos del datagrid, en el cual se muestran
 			 * los datos de los avisos, para procesar los datos del aviso seleccionado, esto 
@@ -41,6 +58,12 @@
 					newAviso.celular = Tabla.selectedItem.celular;
 					newAviso.asunto = Tabla.selectedItem.asunto;
 					newAviso.descripcion = Tabla.selectedItem.descripcion;
+					if(select == 1){
+						Application.application.editarAviso.publicar.visible = true;;
+					}
+					else if(select == 0){
+						Application.application.editarAviso.publicar.visible = false;;
+					}
 					Application.application.editarAviso.resetVars();
 					Application.application.editarAviso.setID(newAviso.id);
 					Application.application.editarAviso.nomb.text = newAviso.nombre;
@@ -68,6 +91,7 @@
 			 * */
 			public function getAllAvisos():void
 			{
+				verSelect(0);
 				var avisoWebService:AvisoWebService = new AvisoWebService();
 				avisoWebService.addEventListener(ResultEvent.RESULT,getAllAvisosResult);
 				avisoWebService.getAllAvisoWeb();
@@ -84,6 +108,24 @@
 				avisos = event.result as ArrayCollection;	
 							
 								
+			}
+			public function getAvisosNotpub():void
+			{
+				verSelect(1);
+				var avisoWebService:AvisoWebService = new AvisoWebService();
+				avisoWebService.addEventListener(ResultEvent.RESULT,getAvisosNotpubResult);
+				avisoWebService.getAllAvisoWebA();
+			}
+			
+			/**
+		 	 * Metodo que El resultado de la llamada en el metodo anterior, a las clases de java
+			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
+			 * del datagrid, para mostrar los datos de los avisos que existen en el sistema.	 		
+			 * */
+			private function getAvisosNotpubResult(event:ResultEvent):void
+			{
+				Tabla.doubleClickEnabled=true;
+				avisos = event.result as ArrayCollection;	
 			}
 			
 			/**
@@ -109,8 +151,13 @@
 				cel.setVisible(false,false);
 				asunto.setVisible(false,false);
 				descripcion.setVisible(false,false);
-				getAllAvisos();
-            	switch (combobox.selectedLabel)
+				if(select ==0){
+            		getAllAvisos();
+				}
+				else if(select ==1){
+            		getAvisosNotpub();
+				}
+				switch (combobox.selectedLabel)
 				{
 				case 'ID':		
 					idA.setVisible(true,false);
@@ -151,7 +198,7 @@
 	<fc:AutoComplete id="codTel" x="584" y="8" width="150" dataProvider="{avisos}" labelField="telefono0" visible="false" toolTip="ingrese texto para búsqueda"/>
 	<fc:AutoComplete id="tel" x="584" y="8" width="150" dataProvider="{avisos}" labelField="telefono" visible="false" toolTip="ingrese texto para búsqueda"/>
 	<fc:AutoComplete id="asunto" x="584" y="8" width="150" dataProvider="{avisos}" labelField="asunto" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="descripcion" x="584" y="8" width="150" dataProvider="{avisos}" labelField="descripción" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="descripcion" x="584" y="8" width="150" dataProvider="{avisos}" labelField="descripcion" visible="false" toolTip="ingrese texto para búsqueda"/>
 	
 	
 	<mx:DataGrid x="30" y="50" width="700" height="299" id="Tabla" enabled="true" dataProvider="{avisos}" itemDoubleClick="editarAviso(event)">
@@ -185,6 +232,9 @@
 			
 		</mx:ArrayCollection>
 	</mx:ComboBox>
+	<mx:Label x="10" y="360" text="Ver:" id="label7"/>
+	<mx:LinkButton x="136" y="357" label="No publicados" width="105" fontWeight="normal" id="verNulas" click="{getAvisosNotpub()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
+	<mx:LinkButton x="46" y="357" label="Publicados" width="82" fontWeight="normal" enabled="true" id="verActivas" click="{getAllAvisos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
 
 	
 </mx:Panel>

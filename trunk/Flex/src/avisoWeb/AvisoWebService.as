@@ -79,5 +79,13 @@ package avisoWeb
 		{
 			this.getOperation("upAvisoWeb").send(aviso);
 		}
+		/**
+		 * Actualiza un aviso web
+		 * @autor Erwin Díaz
+		 */
+		public function pubAvisoWeb(aviso:AvisoWeb):void
+		{
+			this.getOperation("pubAvisoWeb").send(aviso);
+		}
 	}
 }
