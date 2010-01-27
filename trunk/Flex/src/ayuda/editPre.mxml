@@ -37,14 +37,14 @@
 	
 	
 	
-	<mx:Text x="10" y="10" text="Editar Preoperatorio&#xa;&#xa;&#x9;1. Seleccionar en                        la opción Clinica&#xa;&#xa;&#x9;2. Ir a                                    y seleccionar Pabellón&#xa;&#xa;&#x9;3. Seleccionar Editarr Preoperatorio&#xa;&#xa;&#x9;4. Buscar las atenciones preoperatorias de un cliente a travez&#xa;&#x9;&#x9;del apellido o rut de esste&#xa;&#xa;&#x9;5. Seleccione la atencion que desea editar&#xa;&#xa;&#x9;6. Ingrese los nuevos datos que reemplazaran a los antiguos&#xa;&#xa;&#x9;7. Presionar guardar" width="355" height="352" id="textAyuda"/>
+	<mx:Text x="10" y="10" text="Editar Preoperatorio&#xa;&#xa;&#x9;1. Seleccionar en                        la opción Clinica.&#xa;&#xa;&#x9;2. Ir a                                    y seleccionar Pabellón.&#xa;&#xa;&#x9;3. Seleccionar Editarr Preoperatorio.&#xa;&#xa;&#x9;4. Buscar las atenciones preoperatorias de un cliente a&#xa;      travez  del apellido o rut del cliente.&#xa;&#xa;&#x9;5. Seleccione la atención que desea editar.&#xa;&#xa;&#x9;6. Ingrese los nuevos datos que reemplazaran a los&#xa;      antiguos.&#xa;&#xa;&#x9;7. Presionar guardar." width="355" height="352" id="textAyuda"/>
 	<mx:LinkButton x="121.5" y="36" label="barra principal" color="#0000FF" click="verBarra()" id="linkBarraPrincipal"/>
 	<mx:LinkButton x="74" y="64" label="opciones del módulo" color="#0000FF" id="linkOpciones" click="verOpcMod()"/>
 		<mx:Image x="95" y="10" width="185" height="332" id="opcMod" visible="false">
-		<mx:source>../images/ayuda/preoperatorioPanel.JPG</mx:source>
+		<mx:source>../images/ayuda/menuPreoperatorio.jpg</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:Image x="10" y="170" width="355" height="43" id="barra" visible="false">
-		<mx:source>../images/ayuda/barra principal.JPG</mx:source>
+		<mx:source>../images/ayuda/Clinica.jpg</mx:source>
 	</mx:Image>
 </mx:Canvas>
