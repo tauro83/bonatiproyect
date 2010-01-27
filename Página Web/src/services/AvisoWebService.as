@@ -83,5 +83,9 @@ package services
 		{
 			this.getOperation("upAvisoWeb").send(aviso);
 		} 
+		public function registrar(aviso:AvisoWeb):void
+		{
+			this.getOperation("registrar").send(aviso);
+		}
 	}
 }
