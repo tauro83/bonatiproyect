@@ -2,6 +2,8 @@
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" initialize="newpanel()" layout="absolute" width="779" height="466" xmlns:ns1="*" title="Registrar Consulta" borderColor="#15ad8f">
 <mx:Script>
 		<![CDATA[
+			import pabellon.AddCirugiaService;
+			import ayuda.registerConsulta;
 //============================================================================
 // FECHA: CREACIÃ“N: 26-10-09
 // AUTOR: Nicolas Delgado
@@ -53,8 +55,8 @@
              	
              	if(responsable.text!=""){
              		if(fecha.text!=""){
-             			if(anamnesis.text!=""){
-             				
+             			if(costo.text!=""){
+             				if(anamnesis.text!==""){             				
              			
 		             		var addconsult:Consulta=new Consulta();
 		             	
@@ -75,9 +77,13 @@
 					    	Application.application.rConsulta.labelMessage.text= Properties.getMensaje("Informacion", "37");;
 					    	Application.application.rConsulta.setVisible(true,false);
              			}
-             			
              			else{
              				labelMessage.text=Properties.getMensaje("Advertencia", "48");
+             			}
+             			
+             			}
+             			else{
+             				labelMessage.text=Properties.getMensaje("Advertencia", "50");
              			}
              		}
              		
