@@ -107,7 +107,7 @@
 	<mx:DataGrid x="25" y="120" width="709" height="223" id="tablaProductos" dataProvider="{productos}"  >
 		<mx:columns>		
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre"   draggable="false"/>
-			<mx:DataGridColumn headerText="Codigo Barra" dataField="codigo"   draggable="false"/>
+			<mx:DataGridColumn headerText="Código Barra" dataField="codigo"   draggable="false"/>
 			<mx:DataGridColumn headerText="Stock" dataField="cantidad"  draggable="false"/>
 			<mx:DataGridColumn headerText="Precio" dataField="precio"   draggable="false"/>
 			
