@@ -46,8 +46,6 @@ public class AddPeluqueriaService {
 		 */
 		this.getAllUsuariosE();
 		String nombreVet = nuevaPel.getResponsable();
-		String nombres[] = nombreVet.split(" ");
-		
 		
 		int n = persons.size();
 		
@@ -60,13 +58,12 @@ public class AddPeluqueriaService {
 			/**
 			 * En este codigo se quitan los espacios en blancos que se obtienen de la base de datos
 			 */
-			String nombre = u.getNombre().trim();
-			String nombre2 = u.getApellidoPaterno().trim();
+			String nombre = u.getNombre().trim()+" "+u.getApellidoPaterno().trim();
 			/**
 			 * En este codigo se comparan los datos obtenidos con los que llegan de la capa 1
 			 * para ver cual es el veterinario correspondiente.			
 			 */
-			if(nombre.equals(nombres[0]) && nombre2.equals(nombres[1])){
+			if(nombre.equals(nombreVet)){
 				nuevaPel.setResponsable(u.getUsuario().trim());
 			}
 		}

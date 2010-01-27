@@ -49,8 +49,8 @@
 					newUsuario.apellidoPaterno = Tabla.selectedItem.apellidoPaterno;
 					newUsuario.apellidoMaterno = Tabla.selectedItem.apellidoMaterno;
 					newUsuario.usuario = Tabla.selectedItem.usuario;
-					newUsuario.servicio = Tabla.selectedItem.servicio.split(" ",1).pop();
-					newUsuario.cargo = Tabla.selectedItem.cargo.split(" ",1).pop();
+					newUsuario.servicio = Tabla.selectedItem.servicio;
+					newUsuario.cargo = Tabla.selectedItem.cargo;
 					newUsuario.permisoRegistrar = Tabla.selectedItem.permisoRegistrar;
 					newUsuario.permisoEditar = Tabla.selectedItem.permisoEditar;
 					newUsuario.permisoEliminar = Tabla.selectedItem.permisoEliminar;
@@ -58,7 +58,6 @@
 					newUsuario.contrasena = Tabla.selectedItem.contrasena;
 					
 					this.setVisible(false,false);
-					//var user:Usuario = usuarios.removeItemAt(Tabla.selectedIndex) as Usuario;
 					newRegUsuar.resetVars();
 					newRegUsuar.serv.text=newUsuario.servicio;
 					newRegUsuar.carg.text=newUsuario.cargo;
@@ -67,25 +66,12 @@
 					newRegUsuar.peli.selected = newUsuario.permisoEliminar;
 					newRegUsuar.ppur.selected = newUsuario.permisoPurgar;
 					
-					var listCont2:Array = new Array();
-					listCont2 = newUsuario.usuario.split(" ",1);
-					newRegUsuar.usua.text=listCont2.pop();
 					
-					listCont2 = new Array();
-					listCont2 = newUsuario.contrasena.split(" ",1);
-					newRegUsuar.rcon.text = newRegUsuar.cont.text = listCont2.pop();
-					
-					listCont2 = new Array();
-					listCont2 = newUsuario.nombre.split(" ",1);
-					newRegUsuar.nomb.text = listCont2.pop();
-					
-					listCont2 = new Array();
-					listCont2 = newUsuario.apellidoPaterno.split(" ",1);
-					newRegUsuar.apat.text= listCont2.pop();
-					
-					listCont2 = new Array();
-					listCont2 = newUsuario.apellidoMaterno.split(" ",1);
-					newRegUsuar.amat.text=listCont2.pop();	
+					newRegUsuar.usua.text =newUsuario.usuario;
+					newRegUsuar.rcon.text = newRegUsuar.cont.text = newUsuario.contrasena;
+					newRegUsuar.nomb.text = newUsuario.nombre;
+					newRegUsuar.apat.text=newUsuario.apellidoPaterno;
+					newRegUsuar.amat.text = newUsuario.apellidoMaterno;
 					
 					var arrCargos:ArrayCollection = new ArrayCollection();
 					var ieu:int;

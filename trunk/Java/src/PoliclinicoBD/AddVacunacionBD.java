@@ -91,7 +91,6 @@ public class AddVacunacionBD {
     		int segundos = c.get(Calendar.SECOND);
     		
     		Time t = new Time(hora, minutos, segundos);
-			
 			List ltv = newVacuna.getTiposVacunas();
 			int n = ltv.size();
 			for(int i=0;i<n;i++){

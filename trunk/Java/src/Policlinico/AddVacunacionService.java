@@ -46,9 +46,7 @@ public class AddVacunacionService {
 		 * datos, para en los procesos posteriores procesar dicha informacion 
 		 */
 		this.getAllUsuariosE();
-		String nombreVet = nuevaVac.getVeterinario();
-		String nombres[] = nombreVet.split(" ");
-		
+		String nombreVet = nuevaVac.getVeterinario();		
 		
 		int n = persons.size();
 		
@@ -61,13 +59,12 @@ public class AddVacunacionService {
 			/**
 			 * En este codigo se quitan los espacios en blancos que se obtienen de la base de datos
 			 */
-			String nombre = u.getNombre().trim();
-			String nombre2 = u.getApellidoPaterno().trim();
+			String nombre = u.getNombre().trim()+" "+u.getApellidoPaterno().trim();
 			/**
 			 * En este codigo se comparan los datos obtenidos con los que llegan de la capa 1
 			 * para ver cual es el veterinario correspondiente.			
 			 */
-			if(nombre.equals(nombres[0]) && nombre2.equals(nombres[1])){
+			if(nombre.equals(nombreVet)){
 				nuevaVac.setVeterinario(u.getUsuario().trim());
 			}
 		}
