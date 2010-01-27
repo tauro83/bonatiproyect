@@ -148,7 +148,7 @@
 			 
 			public function seleccionarMascota():void
 			{
-		
+		       if(dg.selectedItem!=null){
 					var newMascotaUpdate:EditMascotaUpdate = Application.application.AdEditarMascota3;
 					newMascota = new Mascota();					
 					
@@ -170,7 +170,15 @@
 			 	
 
 			}
+			else{
+				  this.visible = false;
+            		Application.application.AdEditarMascota2.visible = true;
+            		  
+			        Application.application.AdEditarMascota2.labelMessage.text="Seleccione una mascota para editar";
+			    
 			
+			}
+			}
 			  /**
 		 	 * 	@author  "Cristian Bravo"
 			 * 	@Fecha   12/09/2009
@@ -209,7 +217,7 @@
 	
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Label x="25" y="10" text="Cliente:" width="112.75" fontWeight="bold"/>
-	<mx:DataGrid id="dg" color="0x323232" width="709" rowCount="3" y="92" x="25" variableRowHeight="true" dataProvider="{mascotas}"  visible="true" height="240" doubleClickEnabled="true" itemDoubleClick="{seleccionarMascota()}" >
+	<mx:DataGrid id="dg" color="0x323232" width="709" rowCount="3" y="92" x="25" variableRowHeight="true" dataProvider="{mascotas}"  visible="true" height="240" doubleClickEnabled="true" itemDoubleClick="{seleccionarMascota()}">
 	    <mx:columns>
 	        <mx:DataGridColumn dataField="nombre" headerText="Nombre" editable="true" width="100"/>
 	        <mx:DataGridColumn dataField="fechaNacimiento" headerText="Fecha Nacimiento" width="100"/>
