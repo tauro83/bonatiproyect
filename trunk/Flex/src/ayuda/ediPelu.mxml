@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="355" height="332">
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="375" height="382">
 	
 	
 	<mx:Script>
@@ -9,10 +9,10 @@
 			{
 				textAyuda.visible = false;
 				linkBarraPrincipal.visible = false;
-				//barra.visible = true;
-				//botVolver.visible = true;
+				barra.visible = true;
+				botVolver.visible = true;
 				linkOpciones.visible = false;
-				//opcMod.visible = false;
+				opcMod.visible = false;
 				//selUsuario.visible = false;
 
 			}
@@ -21,10 +21,10 @@
 			{
 				textAyuda.visible = false;
 				linkBarraPrincipal.visible = false;
-				//barra.visible = false;
-				//botVolver.visible = true;
+				barra.visible = false;
+				botVolver.visible = true;
 				linkOpciones.visible = false;
-				//opcMod.visible = true;
+				opcMod.visible = true;
 				//selUsuario.visible = false;
 				
 			}
@@ -32,10 +32,10 @@
 			{
 				textAyuda.visible = false;
 				linkBarraPrincipal.visible = false;
-				//barra.visible = false;
-				//botVolver.visible = true;
+				barra.visible = false;
+				botVolver.visible = true;
 				linkOpciones.visible = false;
-				//opcMod.visible = false;
+				opcMod.visible = false;
 				//selUsuario.visible = true;
 			
 			}
@@ -44,17 +44,20 @@
 			{
 				textAyuda.visible = true;
 				linkBarraPrincipal.visible = true;
-				//opcMod.visible = false;
-				//botVolver.visible = false;
+				opcMod.visible = false;
+				botVolver.visible = false;
 				linkOpciones.visible = true;
-				//barra.visible = false;
-				//selUsuario.visible = false;
+				barra.visible = false;
+				
 			
 			}
 			
 		]]>
 	</mx:Script>
-	<mx:Text x="10" y="10" text="Editar Registro Peluquería&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir al sub menu y seleccionar &#xa;&#xa;&#x9;3. Seleccionar Editar&#xa;&#xa;    4.Buscar por rut del cliente o apellidos &#xa;&#xa;    5.Seleccionar el registro a editar&#xa;&#xa;&#x9;6.Pulsar boton Editar&#xa;&#xa;&#x9;7. Ingresar fechas o servicios a agregar&#xa;&#x9;&#xa;&#x9;8. Presionar el  botón Guardar&#xa;&#xa;&#x9;" width="335" height="312" id="textAyuda"/>
-	<mx:LinkButton x="167" y="36" label="barra principal" id="linkBarraPrincipal" click=" verBarra()" color="blue" width="109"/>
-	<mx:LinkButton x="196" y="63" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
+	<mx:Text x="10" y="10" text="Editar Registro Peluquería&#xa;&#x9;&#xa;&#x9;1. Seleccionar la opción                        .&#xa;&#xa;&#x9;2. seleccionar                                .&#xa;&#xa;&#x9;3. Seleccionar Editar.&#xa;&#xa;    4.Buscar por rut del cliente o apellidos .&#xa;&#xa;    5.Seleccionar el registro a editar.&#xa;&#xa;&#x9;6.Pulsar botón Editar.&#xa;&#xa;&#x9;7. Ingresar fechas o servicios a agregar.&#xa;&#x9;&#xa;&#x9;8. Presionar el  botón Guardar.&#xa;&#xa;&#x9;" width="310" height="312" id="textAyuda"/>
+	<mx:LinkButton x="155" y="36" label="barra principal" id="linkBarraPrincipal" click=" verBarra()" color="blue" width="109"/>
+	<mx:LinkButton x="107" y="64" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
+	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
+	<mx:Image x="20" y="170" width="355" height="43" source="../images/ayuda/Peluqueria.png" id="barra" visible="false"/>
+	<mx:Image x="95" y="30" width="185" height="332" source="../images/ayuda/MenuPeluqueria.jpg" id="opcMod" visible="false"/>
 </mx:Canvas>
