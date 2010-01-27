@@ -7,9 +7,7 @@
 			
 			public override function loadData() : void
 			{
-				//myText.htmlText = dataProvider.text;
-				//image.source = dataProvider.logo;
-				//myText2.htmlText = dataProvider.text;
+				// nada
 			}
 			public function setDataProv(arr:ArrayCollection):void
 			{
@@ -18,13 +16,14 @@
 
 		]]>
 	</mx:Script>
+	<ns1:Header showInAllPages="true" width="100%">
+	</ns1:Header>
+	
+	<Body width="100%" height="100%">	
+		<ReportDataGrid id="rGriid" dataProvider="{dataArray2}" fontSize="10" wordWrap="true" width="100%"/>
+	</Body>
 	
 	<ns1:Footer showInFirstPage="false" showInMiddlePages="true" showInLastPage="true" width="100%">
 	</ns1:Footer>
-	<ns1:Header showInAllPages="true" width="100%">
-	</ns1:Header>
-	<ReportDataGrid id="rGriid" dataProvider="{dataArray2}" fontSize="10" wordWrap="true" width="100%"/>
-	
-	
 	
 </Report>
