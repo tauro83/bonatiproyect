@@ -43,22 +43,15 @@ public class AddCirugiaService {
 		int hasAyu;
 		this.getAllUsuariosE();
 		String nombreVet = nuevaCir.getVeterinario();
-		String nombres[] = nombreVet.split(" ");
 		String nombreAyu;
-		String nombresa[];
 		if(nuevaCir.getAyudante()!= ""){
 			nombreAyu = nuevaCir.getAyudante();
-			nombresa = nombreAyu.split(" ");
 			hasAyu = 1;
 		}
 		else{
 			hasAyu = 0;
 			nombreAyu = "";
-			nombresa = null;
 		}
-		
-		
-		
 		int n = persons.size();
 		
 		/**
@@ -70,13 +63,13 @@ public class AddCirugiaService {
 			/**
 			 * En este codigo se quitan los espacios en blancos que se obtienen de la base de datos
 			 */
-			String nombre = u.getNombre().trim();
-			String nombre2 = u.getApellidoPaterno().trim();
+			String nombre = u.getNombre().trim()+" "+u.getApellidoPaterno().trim();
+			//String nombre2 = u.getApellidoPaterno().trim();
 			/**
 			 * En este codigo se comparan los datos obtenidos con los que llegan de la capa 1
 			 * para ver cual es el veterinario correspondiente.			
 			 */
-			if(nombre.equals(nombres[0]) && nombre2.equals(nombres[1])){
+			if(nombre.equals(nombreVet)){
 				nuevaCir.setVeterinario(u.getUsuario().trim());
 			}
 		}
@@ -91,13 +84,13 @@ public class AddCirugiaService {
 				/**
 			 	* En este codigo se quitan los espacios en blancos que se obtienen de la base de datos
 			 	*/
-				String nombre = u.getNombre().trim();
-				String nombre2 = u.getApellidoPaterno().trim();
+				String nombre = u.getNombre().trim()+" "+u.getApellidoPaterno().trim();
+				//String nombre2 = u.getApellidoPaterno().trim();
 				/**
 			 	* En este codigo se comparan los datos obtenidos con los que llegan de la capa 1
 			 	* para ver cual es el veterinario correspondiente.			
 			 	*/
-				if(nombre.equals(nombresa[0]) && nombre2.equals(nombresa[1])){
+				if(nombre.equals(nombreAyu)){
 					nuevaCir.setAyudante(u.getUsuario().trim());
 				}
 			}
@@ -168,43 +161,7 @@ public class AddCirugiaService {
     }
 	
 	
-	/**
-	 * Metodo que retorna una lista de objetos tiposCir, en la cual se encuentran los nombres de las posibles cirugias, 
-	 * que podran ser seleccionadas por el usuario, al momento de registrar una cirugia.
-	 * @autor  Jimmy Muñoz
-	 * @param No recibe parametro.
-	 * @return Listado de tiposCir tipos de cirugias, que seran cargadas en los paneles de flex, para su posterior seleccion.
-	 */
-	public List getTiposCirugias(){
-		List cirus=new ArrayList();
-		//List<tiposCir> tiposcirus=new ArrayList<tiposCir>();
 		
-		cirus.add("Amputación");
-		cirus.add("De Apéndice");
-		cirus.add("De los aparatos respiratorio");
-		cirus.add("De los aparatos cardiovascular");
-		cirus.add("De ojo");
-		cirus.add("De todo tipo de fractura");
-		cirus.add("Del sistema digestivo");
-		cirus.add("Del sistema tegumentario");
-		cirus.add("Del sistema reproductor");
-		cirus.add("Del sistema urinario");
-		cirus.add("Dental");
-		cirus.add("Estenosis traqueal");
-		cirus.add("Ortopédica");
-		cirus.add("Partos y cesaria");
-		cirus.add("Tiroidectomía (por tumores)");
-		cirus.add("De tumor");
-		
-		/*for(int i=0;i<cirus.size();i++){
-			tiposCir tc = new tiposCir();
-			tc.setCirugias(cirus.get(i));
-			tiposcirus.add(tc);
-		}*/
-
-		return cirus;	
-	}
-	
 	/**
 	 * Metodo que llama a la funcion getAllUsuariosE, de esta clase, la cual se comunica con la base de datos cargando
 	 * los datos de los usuarios del sistema.

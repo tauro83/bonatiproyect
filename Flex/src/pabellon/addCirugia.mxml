@@ -84,47 +84,41 @@
 		    			if(this.fechaC.text==""){
 		    				this.labelMessage.text=Properties.getMensaje("Advertencia", "34");
 		    			}
+		    			
 		    			else{
-		    				if(this.diagC.text==""){
-		    					this.labelMessage.text=Properties.getMensaje("Advertencia", "43");
+		    				if(this.cirugsAdds.length==0){
+		    					this.labelMessage.text=Properties.getMensaje("Advertencia", "42");
 		    				}
 		    				else{
-		    					if(this.cirugsAdds.length==0){
-		    						this.labelMessage.text=Properties.getMensaje("Advertencia", "42");
+		    					this.labelMessage.text="";
+		    					var newCirugia:Cirugia = new Cirugia();
+		    					
+		    					newCirugia.ayudante = this.ayudantesC.text;
+		    					
+		    					newCirugia.veterinario= this.veterinariosC.text;
+		    					newCirugia.costo = this.costoC.costoBruto;
+		    					newCirugia.fecha = this.fechaC.text;
+		    					newCirugia.diagnostico = this.diagC.text;
+		    					var i:int;
+		    					var largo:int = this.cirugsAdds.length;
+		    					newCirugia.tiposCirugias = new ArrayCollection();
+		    					for(i=0;i<largo;i++){
+		    						newCirugia.tiposCirugias.addItem(cirugsAdds.pop());
 		    					}
-		    					else{
-		    						this.labelMessage.text="";
-		    						var newCirugia:Cirugia = new Cirugia();
-		    						//if(this.ayudantesC.text!=""){
-		    							newCirugia.ayudante = this.ayudantesC.text;
-		    						/*}
-		    						else{
-		    							newCirugia.ayudante="";
-		    						}*/
-		    						newCirugia.veterinario= this.veterinariosC.text;
-		    						newCirugia.costo = this.costoC.costoBruto;
-		    						newCirugia.fecha = this.fechaC.text;
-		    						newCirugia.diagnostico = this.diagC.text;
-		    						var i:int;
-		    						var largo:int = this.cirugsAdds.length;
-		    						newCirugia.tiposCirugias = new ArrayCollection();
-		    						for(i=0;i<largo;i++){
-		    							newCirugia.tiposCirugias.addItem(cirugsAdds.pop());
-		    						}
-		    						
-		    						newCirugia.clienteRut = this.clienteRut.concat(this.clienteRut2);;
-		    						newCirugia.clienteRut2 = this.clienteRut2;
-		    						newCirugia.mascotaNombre = this.nombreMascota;
-		    						
-		    						var newAddServ:AddCirugiaService = new AddCirugiaService();
-		    						newAddServ.addCirugia(newCirugia);
-		    						this.setVisible(false,false);
-		    						Application.application.addCirug.iniciarPanel1();
-		    						Application.application.addCirug.labelMessage.text=Properties.getMensaje("Informacion", "41");
-		    						Application.application.addCirug.setVisible(true,false);
-		    					}
+		    					
+		    					newCirugia.clienteRut = this.clienteRut.concat(this.clienteRut2);;
+		    					newCirugia.clienteRut2 = this.clienteRut2;
+		    					newCirugia.mascotaNombre = this.nombreMascota;
+		    					
+		    					var newAddServ:AddCirugiaService = new AddCirugiaService();
+		    					newAddServ.addCirugia(newCirugia);
+		    					this.setVisible(false,false);
+		    					Application.application.addCirug.iniciarPanel1();
+		    					Application.application.addCirug.labelMessage.text=Properties.getMensaje("Informacion", "41");
+		    					Application.application.addCirug.setVisible(true,false);
 		    				}
 		    			}
+		    			
 		    		}
 		    	}
 		    			    	
