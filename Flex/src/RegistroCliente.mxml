@@ -38,6 +38,8 @@
         private var vApellido:Boolean;
         private var vEmail:Boolean;
         private var vEmail2:Boolean;
+        private var tele:Text;
+        private var celu:Text;
         
         [Bindable]
         private var c:String;
@@ -80,32 +82,52 @@
 									
 				}
 				
-				if(telefono.text!="" && telefono2.text=="" || telefono.text=="" && telefono2.text!=""){
+				if(telefono.text!="75" && telefono2.text=="" || telefono.text=="" && telefono2.text!=""){
 					te="2";
+					//Alert.show("te=2");
 				}
+				if(telefono.text=="75" && telefono2.text==""){
+					//tele.text=telefono.text;
+					//telefono.text="";
+					te="1";
+					//Alert.show("te=1");
+				}
+				
 				if(telefono.text=="" && telefono2.text==""){
 					//telefono.text="0";
 					//telefono2.text="0";
 					te="1";
+					//Alert.show("te=1");
 				}
 
 				
 				if(telefono.text!="" && telefono2.text!=""){
 					te="1";
+					//Alert.show("te=1");
 				}
 				
-				if(celular.text!="" && celular2.text=="" || celular.text=="" && celular2.text!=""){
+				if(celular.text!="09" && celular2.text=="" || celular.text=="" && celular2.text!=""){
 					ce="2";
+					//Alert.show("ce=2");
+				}
+				
+				if(celular.text=="09" && celular2.text==""){
+					//celu.text=celular.text;
+					//celular.text="";
+					ce="1";
+					//Alert.show("ce=1");
 				}
 				
 				if(celular.text=="" && celular2.text==""){
 					//celular.text="0";
 					//celular2.text="0";
 					ce="1";
+					//Alert.show("ce=1");
 				}
 				
 				if(celular.text!="" && celular2.text!=""){
 					ce="1";
+					//Alert.show("ce=1");
 				}
 				
 				if(vNombre==true){
@@ -161,8 +183,15 @@
 							cl.apellido2 = apellido2.text;
 							cl.rut =  rut.text;
 							cl.rut2 =  rut2.text;
+							if(telefono.text=="75" && telefono2.text==""){
+								telefono.text="";
+							}
 							cl.telefono = telefono.text;
 							cl.telefono2 = telefono2.text;
+							
+							if(celular.text=="09" && celular2.text==""){
+								celular.text="";
+							}
 							cl.celular = celular.text;
 							cl.celular2 = celular2.text;
 							cl.direccion = direccion.text;
@@ -208,8 +237,16 @@
 						cl.apellido2 = apellido2.text;
 						cl.rut =  rut.text;
 						cl.rut2 =  rut2.text;
+						if(telefono.text=="75" && telefono2.text==""){
+								telefono.text="";
+						}
+						
+						if(celular.text=="09" && celular2.text==""){
+								celular.text="";
+						}
 						cl.telefono = telefono.text;
 						cl.telefono2 = telefono2.text;
+						
 						cl.celular = celular.text;
 						cl.celular2 = celular2.text;
 						cl.direccion = direccion.text;
@@ -242,12 +279,14 @@
 				    
 				    else{
 				    	labelMessage.text = Properties.getMensaje("Error", "25");
+				    	//telefono.text=tele.text;
 				    }
 				    
 				    }
 				    
 				    else{
 				    	labelMessage.text = Properties.getMensaje("Error", "24");
+				    	//celular.text=celu.text;
 				    }
 				    
 				    }
@@ -520,9 +559,16 @@
 				apellido2.text="";
 				rut.text="";
 				rut2.text="";
-				telefono.text="";
+				
+				if(telefono.text=="75" || telefono.text=="" ||  telefono.text!=""){
+					telefono.text="75";
+				}
 				telefono2.text="";
-				celular.text="";
+				
+				if(celular.text=="09" || celular.text=="" ||  celular.text!=""){
+					celular.text="09";
+				}
+			
 				celular2.text="";
 				direccion.text="";
 				email.text = "";
@@ -1040,14 +1086,14 @@
 	
 	<!-- Telefono -->
 	<mx:Label x="24" y="158" text="Teléfono fijo:" width="97"/>
-	<mx:TextInput restrict="0-9" x="143" y="158" width="40" id="telefono" maxChars="3"/>
+	<mx:TextInput  restrict="0-9" x="143" y="158" width="40" id="telefono" maxChars="3" text="75" editable="true"/>
 	<mx:Label x="306" y="110" text="-" textAlign="center"/>
 	<mx:TextInput restrict="0-9" x="208" y="158" width="136" id="telefono2"  maxChars="7"/>
 	
 		
     <!-- Celular -->
 	<mx:Label x="412" y="160" text="Celular:" width="97"/>
-	<mx:TextInput restrict="0-9" x="523" y="158" width="40" id="celular" maxChars="2" editable="true" visible="true"/>
+	<mx:TextInput restrict="0-9" x="523" y="158" width="40" id="celular" maxChars="2" editable="true" visible="true" text="09"/>
 	<mx:Label x="187" y="160" text="-" textAlign="center"/>
 	<mx:TextInput restrict="0-9" x="582" y="158" width="142" id="celular2" maxChars="8"/>
 	
