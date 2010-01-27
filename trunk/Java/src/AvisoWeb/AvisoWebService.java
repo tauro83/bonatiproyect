@@ -85,7 +85,23 @@ public class AvisoWebService {
 		return result;
     }
 
-	
+	public int registrar(AvisoWeb aviso)
+    {
+		int result = 0;
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			AvisoWebServiceBD personDB= new AvisoWebServiceBD(connection);
+			result = personDB.registrar(aviso);		
+			
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
+    }
 	
 	/**
 	 * Trata de obtener todos los avisos registrados en la base de datos
