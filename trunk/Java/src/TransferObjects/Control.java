@@ -18,6 +18,7 @@ public class Control {
 	private String servicio;
 	private String costo;
 	private String responsable;
+	private String motivo;
 	
 	public void setCliente(String s){
 		this.cliente=s;
@@ -42,6 +43,12 @@ public class Control {
 	}
 	public void setResponsable(String s){
 		this.responsable=s;
+	}
+	public void setMotivo(String s){
+		this.motivo=s;
+	}
+	public String getMotivo(){
+		return this.motivo;
 	}
 	public String getCliente(){
 		return this.cliente;

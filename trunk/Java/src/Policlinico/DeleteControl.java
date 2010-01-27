@@ -28,12 +28,12 @@ public class DeleteControl {
 	 * @param responsable persona que encargada del control
 	 * @return variable entera que determina si la eliminacion fue correcta o no
 	 */
-	public int deleteControl(String hora, Date fecha, String responsable){
+	public int deleteControl(String hora, Date fecha, String responsable, String motivo){
 		int result=0;
     	try{
     		connection=DBConnectionManager.getConnection();
     		DeleteControlBD object= new DeleteControlBD(connection);
-			result	= object.deleteControl(hora,fecha,responsable);
+			result	= object.deleteControl(hora,fecha,responsable, motivo);
 			connection.close();
 		} 
     	catch (SQLException e){
