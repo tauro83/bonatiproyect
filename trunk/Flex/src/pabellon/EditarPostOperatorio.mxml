@@ -1,9 +1,9 @@
-<mx:Panel activate="getAllDatos()" xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Atención Post-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
+<mx:Panel show="getAllDatos()" activate="getAllDatos()" xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Editar Atención Post-Operatorio" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
 			// FECHA CREACIÓN: 11/10/09
-			// AUTOR: Erwin Díaz
+			// AUTOR: Andres Garrido
 			// Comentarios: Muestra datos de la mascota con sus respectivas atenciones
 			// en post-operatorio
 			//=======================================================================
