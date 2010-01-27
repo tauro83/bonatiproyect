@@ -292,7 +292,7 @@ CREATE TABLE Cargo
 
 CREATE TABLE servicio
 (
-	nombre	CHAR(20) primary key
+	nombre	CHAR(30) primary key
 );
 
 CREATE TABLE vacuna
@@ -361,7 +361,7 @@ CREATE TABLE atencionpostoperatorio
 
 CREATE TABLE serviciopeluq
 (
-  nombre character(20) NOT NULL,
+  nombre character(30) NOT NULL,
   CONSTRAINT pkey_serviciopeluq PRIMARY KEY (nombre)
 );
 
