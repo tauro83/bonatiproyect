@@ -86,8 +86,13 @@
 			private function seleccionarBusqueda(event:Event):void
             {
             	setInvisibleInput();
-            	getAllDatos();
-				switch (comboBox.selectedLabel){
+            	if(select ==0){
+            		getAllDatos();
+				}
+				else if(select ==1){
+            		filtrarNulas();
+				}
+            	switch (comboBox.selectedLabel){
 				case 'Nombre Mascota':		
 					inputNombreMas.setVisible(true,false);
 				break; 

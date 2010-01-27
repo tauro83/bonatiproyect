@@ -17,6 +17,7 @@ public class AvisoWebServiceBD {
 	PreparedStatement selectAll;
 	PreparedStatement selectAllA;
 	PreparedStatement insertreal;
+	PreparedStatement publicar;
 	PreparedStatement insert;
 	PreparedStatement anul;
 	PreparedStatement del;
@@ -46,6 +47,11 @@ public class AvisoWebServiceBD {
 			   "SET telefono0=?, telefono=?, celular=?, asunto=?, descripcion=? "+
 			   "WHERE id = ?;";
 			insertreal = connection.prepareStatement(query);
+
+			query = "UPDATE avisoweb "+
+			   "SET telefono0=?, telefono=?, celular=?, asunto=?, descripcion=?, estado = '0' "+
+			   "WHERE id = ?;";
+			publicar = connection.prepareStatement(query);
 
 			
 			query = "UPDATE avisoweb "+
@@ -139,6 +145,27 @@ public class AvisoWebServiceBD {
 			insertreal.setInt(6, person.id);
 			
 			result=insertreal.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	return result;
+    	
+    }
+	public int pubAvisoWebBD(AvisoWeb person)
+    {
+		int result = 0;
+		try 
+    	{
+			publicar.setString(1, person.telefono0);
+			publicar.setString(2, person.telefono);
+			publicar.setString(3, person.celular);
+			publicar.setString(4, person.asunto);
+			publicar.setString(5, person.descripcion);
+			publicar.setInt(6, person.id);
+			
+			result=publicar.executeUpdate();
 		} 
     	catch (SQLException e) 
     	{
