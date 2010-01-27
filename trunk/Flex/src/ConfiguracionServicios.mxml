@@ -142,6 +142,6 @@
 	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="234.15" click="eliminarNombre(event)" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')" id="eliminar"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="25"  click="registrarNombre(event)" label="Registrar" y="81" icon="@Embed(source='../images/Abajo.png')" id="agregar"/>
-	<mx:TextInput x="25" y="36" width="311.15" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú"  id="especieInput" click="activarRegistrar(event)"/>
+	<mx:TextInput x="25" y="36" width="311.15" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú"  id="especieInput" click="activarRegistrar(event)" maxChars="30"/>
 		
 </mx:Panel>

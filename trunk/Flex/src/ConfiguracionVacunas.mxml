@@ -154,7 +154,7 @@
 	<mx:Label x="414" y="128" text="Caducidad:"/>
 	<mx:Label x="25" y="10" text="Vacunas" width="152" fontWeight="bold"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" enabled="false" width="102" height="23" x="234.15" click="eliminarNombre(event)" id="eliminar" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')"/>
-	<mx:TextInput x="25" y="36" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú"  width="311.15" id="especieInput" editable="false"/>
+	<mx:TextInput x="25" y="36" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú"  width="311.15" id="especieInput" editable="false" maxChars="30"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 	<mx:Label x="693" y="128" text="Meses" width="41"/>
