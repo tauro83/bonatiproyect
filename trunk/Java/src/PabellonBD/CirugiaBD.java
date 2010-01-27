@@ -75,11 +75,14 @@ public class CirugiaBD {
 	    	Cirugia ciru;
 	    	Cliente clie;
 	    	Mascota masc;
+	    	List ruts = new ArrayList();
+	    	List names = new ArrayList();
 	    	try 
 	    	{
 	    		ResultSet result = selectAllCirugias.executeQuery();
 	    		while(result.next())
 	    		{  
+	    			String rut=null, name=null;
 	    			ciru = new Cirugia();
 	    			clie = new Cliente();
 	    			masc = new Mascota();
@@ -87,7 +90,9 @@ public class CirugiaBD {
 		    		ResultSet mascota; 
 	    			
 		    		ciru.setClienteRut(result.getString(1).trim());
+		    		rut = ciru.getClienteRut();
 		    		ciru.setMascotaNombre(result.getString(2).trim());
+		    		name = ciru.getMascotaNombre();
 	    			
 	    			selectAllMascotas.setString(2, ciru.getClienteRut());
 	    			selectAllMascotas.setString(1, ciru.getMascotaNombre());
@@ -107,8 +112,11 @@ public class CirugiaBD {
 	    				clie.setApellido(cliente.getString(2).trim());
 	    				ciru.setClienteApellido(clie.getApellido());
 	    			}
-
-	    			cirugias.add(ciru);	
+	    			if(!ruts.contains(rut) || !names.contains(name) ){
+	    				cirugias.add(ciru);	
+	    			}
+	    			names.add(name);
+	    			ruts.add(rut);
 	    		}
 			} 
 	    	catch (SQLException e) 
