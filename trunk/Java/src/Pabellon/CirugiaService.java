@@ -24,12 +24,12 @@ public class CirugiaService
 	 * @return Lista con todos las cirguias registrados
 	 * @author  "Esteban Cruz"
 	 */
+	Connection connection;
 	public List getAllCirugias()
     {
 		List cirugias = new ArrayList();
-    	try 
-		{
-			Connection connection=DBConnectionManager.getConnection();
+    	try{
+			connection=DBConnectionManager.getConnection();
 			CirugiaBD cirugiaBD= new CirugiaBD(connection);
 			cirugias = cirugiaBD.getAllCirugias();	
 			connection.close();
@@ -50,9 +50,7 @@ public class CirugiaService
 	public List getAllCirugiasU(String rut, String nombre)
     {
 		List cirugias = new ArrayList();
-    	try 
-		{
-			Connection connection=DBConnectionManager.getConnection();
+    	try{	
 			CirugiaBD cirugiaBD= new CirugiaBD(connection);
 			cirugias = cirugiaBD.getAllCirugiasU(rut, nombre);
 			connection.close();
@@ -76,7 +74,7 @@ public class CirugiaService
 		int result = 0;
     	try 
 		{
-			Connection connection=DBConnectionManager.getConnection();
+			connection=DBConnectionManager.getConnection();
 			CirugiaBD cirugiaBD= new CirugiaBD(connection);
 			result = cirugiaBD.anularCirugia(nombre, fecha, hora);
 			connection.close();
@@ -100,7 +98,7 @@ public class CirugiaService
 		int result = 0;
     	try 
 		{
-			Connection connection=DBConnectionManager.getConnection();
+			connection=DBConnectionManager.getConnection();
 			CirugiaBD cirugiaBD= new CirugiaBD(connection);
 			result = cirugiaBD.eliminarCirugia(nombre, fecha, hora);
 			connection.close();
