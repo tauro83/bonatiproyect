@@ -30,19 +30,16 @@
 				if(seleccionado == 0){
 					verActivas.enabled = false;
 					verNulas.enabled = true;
-					verTodas.enabled = true;
 					select =0;
 				}
 				if(seleccionado == 1){
 					verActivas.enabled = true;
 					verNulas.enabled = false;
-					verTodas.enabled = true;
 					select = 1;
 				}
 				if(seleccionado == 2){
 					verActivas.enabled = true;
 					verNulas.enabled = true;
-					verTodas.enabled = false;
 					select = 2;
 				}
 			}
