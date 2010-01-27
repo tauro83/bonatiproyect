@@ -161,8 +161,8 @@ public class GetFichasBD {
     	
     	 
     	String queryAlojamiento = "SELECT servicio, hora, fechaingreso, costo, responsable, cliente, mascota, "+
-    								"canil, fechasalida, comentario, diasestadia, eliminado "+
-    								" FROM atencionalojamiento WHERE cliente='"+ rut.trim()+"' AND mascota='" +nombre.trim() +"'";	    	
+    								"canil, fechasalida, comentario, diasestadia, eliminado, estado "+
+    								" FROM atencionalojamiento WHERE cliente='"+ rut.trim()+"' AND mascota='" +nombre.trim() +"' AND estado='2'";	    	
     	try 
     	{
     		selectAll = connection.prepareStatement(queryAlojamiento);
@@ -172,7 +172,7 @@ public class GetFichasBD {
     			at = new Atencion();
     			at.setClienteRut(result.getString(6));
     			at.setMascotaNombre(result.getString(7));
-    			at.setServicio("Alojamiento");
+    			at.setServicio("Hotelería ingreso");
     			at.setHora(result.getString(2));
     			at.setSfecha(""+result.getString(3));
     			at.setCosto("$"+result.getString(4));
@@ -187,11 +187,40 @@ public class GetFichasBD {
 			e.printStackTrace();
 		}
     	
+    	// Retiro de hoteleria
+    	String queryAlojamientoRetiro = "SELECT servicio, hora, fechaingreso, costo, responsable, cliente, mascota, "+
+		"canil, fechasalida, comentario, diasestadia, eliminado, estado "+
+		" FROM atencionalojamiento WHERE cliente='"+ rut.trim()+"' AND mascota='" +nombre.trim() +"' AND estado='2'";	    	
+		try 
+		{
+		selectAll = connection.prepareStatement(queryAlojamientoRetiro);
+		ResultSet result = selectAll.executeQuery();
+		while(result.next())
+		{
+			at = new Atencion();
+			at.setClienteRut(result.getString(6));
+			at.setMascotaNombre(result.getString(7));
+			at.setServicio("Hotelería Retirada");
+			at.setHora("");
+			at.setSfecha(""+result.getString(9));
+			at.setCosto("$"+result.getString(4));
+			if(result.getString(4)==null){
+				at.setCosto("");
+			}
+			atenciones.add(at);
+		}
+		} 
+		catch (SQLException e) 
+		{
+		e.printStackTrace();
+		}
+    	
+    	
     	
     	
 		String queryPostoperatorio = "SELECT medicamentos, alimentos, indicaciones, servicio, estado,hora, fecha,"+ 
 	       	"costo, nombremascota, rut, apellido, nombrecliente FROM atencionpostoperatorio "+
-	       	"WHERE rut='"+ rut.trim()+"' AND nombremascota='" +nombre.trim() +"' AND estado='0'" ;	
+	       	"WHERE rut='"+ rut.trim()+"' AND nombremascota='" +nombre.trim() +"' AND estado='2'" ;	
 
 		try 
 		{
