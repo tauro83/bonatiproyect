@@ -7,6 +7,7 @@
 			// Muestra los datos de todas las fichas del sistema
 			//=======================================================================
 			import transferObjects.Mascota;
+			import services.AddMascotaService;
 			import mx.controls.List;
 			import mx.events.ListEvent; 			
 			import mx.controls.Alert;
@@ -32,28 +33,9 @@
 			 * */
 			public function getAllFichas():void
 			{				
-				listFichas = new ListarFichasService();
-				listFichas.getMascotas();	
-				listFichas.addEventListener(ResultEvent.RESULT,getAllMascotasR);
-				
-				
-							
-			}
-			
-			
-			public function filtrarPorRut():void
-			{
-				var rut:String = busqueda.rutClienteInput.text+busqueda.rutClienteDVInput.text;
-				
-				for(var i:int = 0;i<mascotas.length;i++){
-					m = mascotas.getItemAt(i) as Mascota;
-					labelMessage.text ="c"+ rut + "arreglo:"+m.rutCliente;
-					if(m.rutCliente == rut){						
-						mascotasFiltradas.addItem(mascotas.getItemAt(i));
-					}
-				}
-								
-				mascotas = mascotasFiltradas;
+				var addMascotaService:AddMascotaService = new AddMascotaService();
+				addMascotaService.addEventListener(ResultEvent.RESULT,getAllMascotasR);
+				addMascotaService.getMascotas(busqueda.rutClienteInput.text+busqueda.rutClienteDVInput.text);
 			}
 			
 			/** 
@@ -63,18 +45,7 @@
 			 * */                   
             public function getAllMascotasR(event:ResultEvent):void
             {
-				//mascotas = event.result as ArrayCollection;	
-				mascotas= new ArrayCollection();
-				var lista:ArrayCollection = event.result as ArrayCollection;
-				var i:int;
-				
-				for(i=0;i<lista.length;i++){
-					var masc:Mascota = lista.getItemAt(i) as Mascota;
-					var rut:String = busqueda.rutClienteInput.text+busqueda.rutClienteDVInput.text;
-					//Alert.show(" "+rut+"  "+masc.rutCliente);
-					if(masc.estado && masc.rutCliente==rut)
-						mascotas.addItem(masc);
-				}
+				mascotas = event.result as ArrayCollection;	
             }
            
             /**
@@ -114,20 +85,19 @@
             }
             
 		]]> 
-  	</mx:Script>	
-	
+  	</mx:Script>	  	
 	<mx:DataGrid x="25" y="71" focusIn="getAllFichas()" width="709" height="272" id="fichas" dataProvider="{mascotas}" itemClick="viewFicha(event)">
 		<mx:columns>			
-			<mx:DataGridColumn headerText="Nombre mascota" 	dataField="nombre"/>
-			<mx:DataGridColumn headerText="Rut cliente"   		dataField="rutCliente"/>
-			<mx:DataGridColumn headerText="Raza" visible="true"   dataField="raza"/>
-			<mx:DataGridColumn headerText="Raza" visible="false"    dataField="sexo"/>
-			<mx:DataGridColumn headerText="Raza" visible="false"   dataField="fechaNacimiento"/>
+			<mx:DataGridColumn headerText="Nombre mascota" dataField="nombre"/>
+			<mx:DataGridColumn headerText="Rut cliente"  dataField="rutCliente"/>
+			<mx:DataGridColumn headerText="Raza" dataField="raza"/>
+			<mx:DataGridColumn headerText="Fecha nacimiento" dataField="fechaNacimiento"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="sexo"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="522" y="353" label="Visualizar" id="botonVerficha"  click="viewFicha(event)" width="102"/>
 	<mx:Button x="632" y="353" label="Volver"  toolTip="Cancela la operación" width="102" click="cancelarBuscar()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center"/>
-	<ns1:BuscadorNombreRut x="25"  id="busqueda"  y="22">
+	<ns1:BuscadorNombreRut x="25" keyFocusChange="getAllFichas()" mouseFocusChange="getAllFichas()" id="busqueda"  y="22">
 	</ns1:BuscadorNombreRut>
 </mx:Panel>
