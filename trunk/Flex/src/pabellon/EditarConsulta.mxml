@@ -166,7 +166,7 @@
 				this.consultas=new ArrayCollection();
 				this.consultas2=new ArrayCollection();
 				this.dg.doubleClickEnabled=true;
-				//this.labelMessage.text="";
+				this.nombreRutIn.getAllClientes();
 				this.nombreRutIn.rutClienteInput.text="";
 				this.nombreRutIn.rutClienteDVInput.text="";
 				this.nombreRutIn.inputClienteNombre.text="";

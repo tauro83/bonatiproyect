@@ -356,6 +356,7 @@
 				peluquerias = new ArrayCollection();
 				cliente2 = new ArrayCollection();
 				clientes = new ArrayCollection();
+				this.nombreRutIn.getAllClientes();
 				nombreRutIn.inputClienteNombre.typedText = "";
 				nombreRutIn.inputClienteNombre.text = "";
 				this.edita = true;
