@@ -188,6 +188,8 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
             	bitacoraList.setVisible(false,false);
             	confServCat.setVisible(false,false);
             	confcateprod.setVisible(false,false);
+            	anuladosVerPost.setVisible(false,false);
+            	
             	
             	<!--Autor: Jimmy Muñoz{-->
             	AdEditarUsuar3.setVisible(false,false);
@@ -617,6 +619,8 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
 	</ns1:ConfigServCat>
 	<ns1:Configcategprod x="241" y="134" id="confcateprod" visible="false" borderColor="#15AD8F">
 	</ns1:Configcategprod>
+	<ns1:AnuladosVerPost x="241" y="134" id="anuladosVerPost" visible="false" borderColor="#15AD8F">
+	</ns1:AnuladosVerPost>
 	
 	
 	
