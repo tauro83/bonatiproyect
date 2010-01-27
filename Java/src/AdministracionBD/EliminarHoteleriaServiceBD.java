@@ -14,7 +14,8 @@ public class EliminarHoteleriaServiceBD {
 		this.connection = connection;
 		
 		String query = "UPDATE atencionAlojamiento "+
-		"SET estado='2' WHERE fechaIngreso=? AND fechaSalida=? AND canil=?;";
+		"SET estado='2', fechaSalida=? " +
+		"WHERE fechaIngreso=? AND fechaSalida=? AND canil=?;";
 
 		retirar = connection.prepareStatement(query);
 		
@@ -22,10 +23,14 @@ public class EliminarHoteleriaServiceBD {
 
 	public int eliminarHoteleria(Date fechaIngreso, Date fechaSalida, int canil){
 		int x=0;
+		java.util.Date today = new java.util.Date();
+		Date d = new Date(today.getTime());
+		System.out.println(d.toString());
 		try{
-			retirar.setDate(1, fechaIngreso);
-			retirar.setDate(2, fechaSalida);
-			retirar.setInt(3, canil);
+			retirar.setDate(1, d);
+			retirar.setDate(2, fechaIngreso);
+			retirar.setDate(3, fechaSalida);
+			retirar.setInt(4, canil);
 			x= retirar.executeUpdate();
     		
 		} 
