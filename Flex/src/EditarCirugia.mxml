@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Nuevo Diagnóstico" x="241" y="133" initialize="iniciarPanel()" xmlns:ns1="util.*">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Observaciones" x="241" y="133" initialize="iniciarPanel()" xmlns:ns1="util.*">
 	<mx:Script>
 		<![CDATA[
 			//=======================================================================
@@ -386,7 +386,7 @@
 	
 	<!-- Botones -->
 	
-	<mx:Button label="Diagnosticar" height="23" width="102" x="511" y="331" cornerRadius="6" visible="false" id="editar" click="editarCirugiaB()"/>
+	<mx:Button label="Visualizar" height="23" width="102" x="511" y="331" cornerRadius="6" visible="false" id="editar" click="editarCirugiaB()"/>
 
 	<!-- Datos de Busqueda -->
 	
@@ -419,14 +419,14 @@
 		<mx:TextInput x="133.5" y="33.95" width="138.75" editable="false" height="20" id="mascNomC" enabled="false"/>
 		<mx:Button x="561.5" y="314" label="Guardar" visible="true" id="registrar" click="guardarDiagnostico()"/>
 		<mx:Button x="641.5" y="314" label="Cancelar" width="84" id="cancelar" visible="true" click="volver(1)"/>
-		<mx:Label x="362" y="83.85" text="Diagnóstico:" width="81.9"/>
+		<mx:Label x="362" y="83.85" text="Observación:" width="81.9"/>
 		<mx:Label x="324.95" y="10" text="Cliente:" width="109" fontWeight="bold"/>
 		<mx:Label x="362" y="33.95" text="Rut:" width="71.95"/>
 		<mx:TextInput x="459.6" y="31.95" width="113.35" editable="false" height="20" id="edicionRutClienteInput"/>
 		<mx:Label x="575.95" y="33.95" text="-" width="12.25"/>
 		<mx:TextInput x="588.2" y="31.95" width="19.5" id="edicionRutClienteDVInput" restrict="K k 0-9" editable="false"/>
 		<mx:Label x="10" y="61.85" text="Cirugía:" width="110" fontWeight="bold"/>
-		<mx:Label x="10" y="164" text="Diagnósticos:" width="110" fontWeight="bold"/>
+		<mx:Label x="10" y="164" text="Observaciones:" width="110" fontWeight="bold"/>
 		<mx:Label x="24.55" y="84.85" text="Cirugía:" width="63.4" height="17.931034"/>
 		<mx:ComboBox x="133" y="82.85" width="158.25" id="cirugiasBox" dataProvider="{listaCirugias}"></mx:ComboBox>
 		<mx:TextArea x="459.45" y="82.85" width="265.55" height="89.95" id="diagC"/>
@@ -438,7 +438,7 @@
 				<mx:DataGridColumn headerText="Fecha" dataField="nuevaFecha" width="80"/>
 				<mx:DataGridColumn headerText="Hora" dataField="nuevaHora" width="70"/>
 				<mx:DataGridColumn headerText="Cirugía" dataField="tipoCir" width="150"/>
-				<mx:DataGridColumn headerText="Diagnóstico" dataField="diagnostico"/>
+				<mx:DataGridColumn headerText="Observación" dataField="diagnostico"/>
 			</mx:columns>
 		</mx:DataGrid>
 	</mx:Canvas>
