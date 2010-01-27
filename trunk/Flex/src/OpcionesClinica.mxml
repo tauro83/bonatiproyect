@@ -177,6 +177,11 @@
 				this.visible = true;
 				Application.application.purgControl.visible = true;
 			}
+			public function verBitacoraControl():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.bitacoraControl.visible = true;
+			}
 			public function verEditarConsulta():void{
 			
 			    Application.application.setInvisible();
@@ -247,6 +252,7 @@
 					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="24" y="10" label="Registrar" textAlign="left" click="verRegistrarControl()" id="bRegControl"/>
 					<mx:LinkButton x="24" y="40" label="Editar" textAlign="left" click="verEditarControl()" id="bEditContr"/>
 					<mx:LinkButton x="24" y="70" label="Anular" textAlign="left" click="verAnularControl()" id="bAnuControl"/>
+					<mx:LinkButton x="24" y="100" label="Bitácora" textAlign="left" click="verBitacoraControl()" id="bAnuControl0"/>
 				</mx:Canvas>
 			</mx:Accordion>
 		</mx:Canvas>

@@ -64,11 +64,24 @@
 			 */
 			public function eliminarAtencion():void{
 				if(Tabla.selectedItem!=null){
-					var control:Control = controles.getItemAt(Tabla.selectedIndex) as Control;
-					var deleteControl:DeleteControl = new DeleteControl();
-					deleteControl.addEventListener(ResultEvent.RESULT,deleteControlResult);
-					deleteControl.deleteControl(control.hora, control.fecha, control.responsable);
-				}
+					if(comboboxMotivo.selectedIndex!=0){
+						var motivoS:String;
+						 if(comboboxMotivo.selectedLabel=='Otros'){
+                        	motivoS=Application.application.login2.usuarioActivo+" "+motivo.text;
+                        }
+                        
+                        else{
+                        	motivoS=Application.application.login2.usuarioActivo+"  "+comboboxMotivo.text;
+                        }
+						var control:Control = controles.getItemAt(Tabla.selectedIndex) as Control;
+						var deleteControl:DeleteControl = new DeleteControl();
+						deleteControl.addEventListener(ResultEvent.RESULT,deleteControlResult);
+						deleteControl.deleteControl(control.hora, control.fecha, control.responsable, motivoS);
+					}
+           			else{
+           				mens.text = "Debe seleccionar un motivo para anular el Control";
+           			}
+	           	}
 				else{
 					mens.text=Properties.getMensaje("Advertencia", "14");
 				}
@@ -151,6 +164,15 @@
 						break;
 				}
 			}
+			private function seleccionarMotivo (event:Event):void{   
+            	if(comboboxMotivo.selectedLabel=='Otros'){
+					motivo.visible=true;
+				}
+				else{
+					motivo.visible=false;
+					motivo.text="";
+				}
+           	}
 		]]>
 	</mx:Script>
 	
@@ -189,8 +211,15 @@
 	<mx:Button x="647" y="338" label="Cancelar" id="cancelar" width="102" height="23" click="cancelando()" cornerRadius="6" toolTip="Regresa al panel anterior"/>
 	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
 	<mx:Text x="313" y="12" id="textFiltrar" text="Filtrar por"/>
-	
-
-
+	<mx:TextInput x="229" y="338" width="300" id="motivo" toolTip="Ingrese el motivo por el cual desea anular el control" visible="false"/>
+	<mx:Text x="10" y="340" text="Motivo" fontWeight="bold"/>
+	<mx:ComboBox x="61" y="338" id="comboboxMotivo" change="seleccionarMotivo(event)">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccionar-"/>
+			<mx:Object label="Registro incorrecto"/>
+			<mx:Object label="Registro indeseado "/>
+			<mx:Object label="Otros"/> 
+		</mx:ArrayCollection>
+	</mx:ComboBox>
 	
 </mx:Panel>

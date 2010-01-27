@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel show="getAllDatos()" xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15ad8f" title="Bitacora Registro De Peluquería">
+<mx:Script>
+		<![CDATA[
+			import services.anularPreoperatorio;
+			import mx.formatters.DateFormatter;				
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+            import mx.core.Application;
+			import transferObjects.Control;
+			
+			/**
+			* Esta variable se encarga de obtener desde la base datos los datos asociado 
+			* a un registro de peluqueria de todas las mascota que alguna vez se han 
+			* realizado una atención.
+			*/
+			[Bindable]
+			private var controles:ArrayCollection;
+			private function getAllDatos():void{
+				var getAll:GetAllControles = new GetAllControles();
+				getAll.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+				getAll.getAllControlesAnu();
+			}	
+			/**
+			 * Oyente para la funcion getAllDatos()
+			 * el resultado del evento lo interpreta como una lista de datos
+			 * en donde cada elemento corresponde a un Control de la clinica
+			 * luego se guarda cada uno de estos daos
+			 */
+		    private function getAllDatosResult(event:ResultEvent):void
+			{
+				controles = new ArrayCollection;
+				var lista:ArrayCollection = event.result as ArrayCollection;
+				var i:int;
+				
+				for(i=0;i<lista.length;i++){
+					
+					var control:Control = lista.getItemAt(i) as Control;
+					control.dateToString();
+					controles.addItem(control);
+				}
+			}
+		
+         	
+            
+            private function actionVolver():void
+            {
+            	this.setVisible(false,false);
+				Application.application.panelClinicaPrincipal.setVisible(true,false);
+            	
+            }
+           	
+           	private function doLabel(item:Object, column:DataGridColumn):String {
+				var dateFormatted:DateFormatter = new DateFormatter();
+				dateFormatted.formatString = "DD/MM/YYYY";
+				var rawDate:Date = new Date(item[column.dataField]);
+				return dateFormatted.format(rawDate) as String;
+			}
+		]]>
+	</mx:Script>	
+	
+	
+	
+	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
+	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
+	<mx:DataGrid x="24" y="27" width="710" height="318" id="tablaVacunaciones" dataProvider="{controles}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Mascota" dataField="mascota" width="80"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" width="100"/>
+			<mx:DataGridColumn headerText="Fecha" dataField="fecha" width="70" labelFunction="doLabel"/>
+			<mx:DataGridColumn headerText="Hora" dataField="hora" width="70"/>
+			<mx:DataGridColumn headerText="Costo($)" dataField="costo" width="70"/>
+			<mx:DataGridColumn headerText="Responsable" dataField="responsable" width="85"/>
+			<mx:DataGridColumn headerText="Motivo" dataField="motivo"/>
+	     </mx:columns>
+	</mx:DataGrid>
+	
+</mx:Panel>

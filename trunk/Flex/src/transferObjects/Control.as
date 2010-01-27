@@ -29,8 +29,9 @@ package transferObjects
 		//Servicio al que esta asociado el control que por defecto es "POLICLINICO"
 		public var servicio:String;
 		
-		public var fechas:String
+		public var fechas:String;
 		
+		public var motivo:String;
 		//toma la fecha en formato date, la pasa a string y luego la guarda en 'fechas'
 		public function dateToString():void{
 			var dateFormatted:DateFormatter = new DateFormatter();
