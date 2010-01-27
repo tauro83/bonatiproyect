@@ -294,7 +294,7 @@
 
 	<fc:AutoComplete id="input" dataProvider="{controles}" labelField="{atrib}" close="Seleccionar(event)" x="59" y="10" width="246" />
 	
-	<mx:DataGrid x="10" y="52" width="739" id="Tabla" enabled="true" height="278" dataProvider="{controles}" itemDoubleClick="editarAtencion()">
+	<mx:DataGrid x="10" y="52" width="739" id="Tabla" enabled="true" height="278" dataProvider="{controles}" doubleClickEnabled="true" itemDoubleClick="editarAtencion()">
 		<mx:toolTip>Controles agendados en la veterinaria</mx:toolTip>
 		<mx:columns>
 			<mx:DataGridColumn headerText="Mascota" dataField="mascota" width="70"/>
