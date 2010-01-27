@@ -42,14 +42,13 @@
 			 * */
 			private function registrar():void
 			{					
-				if((telefono0.text.length>1 && telefono.text.length>5) || celular0.text.length>1 && celular.text.length>5 ){
+				if((telefono0.text.length>1 && telefono.text.length>5) || celular.text.length>5 ){
 					
 					mens.text = Properties.getMensaje("Informacion", "33");			 
 					aviso			  	= new AvisoWeb();
 					aviso.id			= this.idAviso;
 					aviso.telefono0		= this.telefono0.text.toString();
 					aviso.telefono		= this.telefono.text.toString();
-					aviso.celular0		= this.celular0.text.toString();
 					aviso.celular		= this.celular.text.toString();
 					aviso.asunto		= this.asunto.text.toString();
 					aviso.descripcion	= this.descripcion.text.toString();
@@ -118,7 +117,6 @@
 				apaterno.text 		= "";
 				telefono0.text 		= "";
 				telefono.text 		= "";
-				celular0.text 		= "";
 				celular.text 		= "";
 				asunto.text 		= "";
 				descripcion.text 	= "";
@@ -152,11 +150,10 @@
 		]]>
 	</mx:Script> 
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="120" height="25" x="464" label="Editar" click="registrar()" y="366" id="regCatalogo" enabled="true" toolTip="Registrar aviso"/>
-	<mx:TextInput x="186" y="117" id="telefono"  restrict="0-9" enabled="true"  maxChars="20" width="153" toolTip="Número de teléfono"/>
+	<mx:TextInput x="186" y="117" id="telefono"  restrict="0-9" enabled="true"  maxChars="20" width="105" toolTip="Número de teléfono"/>
 	<mx:TextInput x="138" y="117" id="telefono0"  restrict="0-9" enabled="true"  maxChars="4" width="31" toolTip="Código de área"/>
 	<mx:Label x="26" y="119" text="Teléfono:"  textAlign="left"/>
-	<mx:TextInput x="186" y="158" id="celular"  restrict="0-9" enabled="true"  maxChars="20" width="153" toolTip="Número de celular"/>
-	<mx:TextInput x="138" y="158" id="celular0"  restrict="0-9" enabled="true"  maxChars="4" width="31" toolTip="Código de celular "/>
+	<mx:TextInput x="138" y="158" id="celular"  restrict="0-9" enabled="true"  maxChars="20" width="153" toolTip="Número de celular"/>
 	<mx:Label x="26" y="158" text="Celular:"  textAlign="left"/>
 	<mx:Label x="26" y="36" text="Nombre:" width="69" />
 	<mx:Label x="26" y="77" text="Apellido Paterno:" width="104" />
@@ -170,5 +167,5 @@
 	<mx:TextArea x="138" y="265" height="79" width="576" toolTip="Descripción del aviso" id="descripcion"/>
 	<mx:TextInput x="138" y="34" id="nomb" editable="false" width="201"/>
 	<mx:TextInput x="138" y="75" id="apaterno" editable="false" width="201"/>
-	<mx:ComboBox x="135" y="225" width="204" id="asunto" dataProvider="{asuntos}"></mx:ComboBox>
+	<mx:TextInput x="138" y="223" width="201" id="asunto"/>
 </mx:Panel>
