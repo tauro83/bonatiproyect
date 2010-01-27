@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Desactivar Aviso" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Eliminar Aviso" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
 		//=======================================================================
@@ -196,7 +196,7 @@
 	</mx:DataGrid>
 	<mx:CheckBox x="25" y="46" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
 	<mx:Label x="45" y="46" text="Seleccionar todo"/>
-	<mx:Button label="Desactivar" height="23" width="102" x="522" y="353" click="removeTaskRecord()" cornerRadius="6"/>
+	<mx:Button label="Eliminar" height="23" width="102" x="522" y="353" click="removeTaskRecord()" cornerRadius="6"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="632" y="353" label="Cancelar" width="102" height="23" click="cancelarAction()" cornerRadius="6"/>
 	
