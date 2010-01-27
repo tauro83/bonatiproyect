@@ -6,7 +6,7 @@
 			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="10" label="Registrar" textAlign="left" id="linkRegPel" click="{muestrarReg()}"/>
 			<mx:LinkButton x="10" y="100" label="Anular" click="verAnularPeluqueria()" textAlign="left" id="bAnuAtePel"/>
 			<mx:LinkButton x="10" y="130" label="Eliminar" click="verEliminarPeluqueria()" textAlign="left" id="bDesAtePel"/>
-			<mx:LinkButton x="10" y="70" label="Reactivar" click="verDeseliminarPeluqueria()" textAlign="left" id="bActAtePel"/>
+			<mx:LinkButton x="10" y="70" label="Restaurar" click="verDeseliminarPeluqueria()" textAlign="left" id="bActAtePel"/>
 			<mx:LinkButton x="10" y="40" label="Editar" textAlign="left" id="editRegPel" click="{editPel()}"/>
 			<mx:LinkButton x="10" y="160" label="Bitacora" click="verAnuladosPeluqueria()" textAlign="left" id="Peluanul2"/>
 		</mx:Canvas>
