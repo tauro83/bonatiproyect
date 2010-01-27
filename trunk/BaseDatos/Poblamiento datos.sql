@@ -1,4 +1,3 @@
-
 INSERT INTO cargo (nombre) VALUES ('Peluquero');
 INSERT INTO cargo (nombre) VALUES ('Veterinario');
 INSERT INTO cargo (nombre) VALUES ('Secretaria');
@@ -13,7 +12,6 @@ VALUES ('162989243', '96496051', NULL, 'Camilo', 'Verdugo', 'Gunther', 'camilo.v
 INSERT INTO mascota (rut, nombre, fechanacimiento, claseanimal, raza, sexo, estado, imagen)
 VALUES ('162989243', 'larry', '13/01/2010', 'Perro', 'Mestizo', 'Macho', true, NULL);
 
-INSERT INTO especie (nombre) VALUES ('Ave');
 INSERT INTO especie (nombre) VALUES ('Gato');
 INSERT INTO especie (nombre) VALUES ('Perro');
 
@@ -33,8 +31,21 @@ INSERT INTO serviciopeluq (nombre) VALUES ('Baño');
 INSERT INTO usuario (nombre, apaterno, amaterno, usuario, cargo, contrasena, servicio, pregistrar, peditar, peliminar, ppurgar, estado, id)
 VALUES ('nombre', 'apellido', 'apellido', 'admin', 'Veterinario', 'admin', 'Peluquería', true, true, true, true, true, 1);
 
-INSERT INTO usuario(nombre, apaterno, amaterno, usuario, cargo, contrasena, servicio, pregistrar, peditar, peliminar, ppurgar, estado)
-    VALUES ('Juanito', 'Juanito', 'Juanito', 'juan', 'Veterinario', 'juan', 'petshop','true', 'true', 'true', 'true', 'true');
-
 INSERT INTO vacuna (nombre, precio, caducidad, descripcion) VALUES ('Octuple', 22000, 2, 'Descripcion');
 
+INSERT INTO producto(
+            nombre, precio, categoria, codigo, descripcion, estado, stock)
+    VALUES ('PEDIGRI', '4500', '', '00000003332', '', '0', '3');
+
+
+INSERT INTO avisoweb(nombre, apaterno, telefono0, telefono, celular0,
+celular, asunto, descripcion, estado)
+VALUES ('Gonzalo','Cáceres','72','342123','0','85562311','Vendo Cachorros','Vendo lindos cachorros pastor alemán','0');
+
+INSERT INTO avisoweb(nombre, apaterno, telefono0, telefono, celular0,
+celular, asunto, descripcion, estado)
+VALUES ('Javier','Sarabia','75','234432','0','94436576','Compro cachorros poodle','Si alguien tiene cachorros poodle para la venta','0');
+
+INSERT INTO avisoweb(nombre, apaterno, telefono0, telefono, celular0,
+celular, asunto, descripcion, estado)
+VALUES ('Constanza','Maldonado','75','443212','0','83324321','Regalo cachorros','Tiene tres meses de edad, cocker','0');
