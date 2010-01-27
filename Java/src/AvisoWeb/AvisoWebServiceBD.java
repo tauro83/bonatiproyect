@@ -147,6 +147,29 @@ public class AvisoWebServiceBD {
     	return result;
     	
     }
+	public int registrar(AvisoWeb person)
+    {
+		int result = 0;
+		try 
+    	{
+			insert.setString(1, person.nombre);
+			insert.setString(2, person.apaterno);
+			insert.setString(3, person.telefono0);
+			insert.setString(4, person.telefono);
+			insert.setString(5, "0");
+			insert.setString(6, person.celular);
+			insert.setString(7, person.asunto);
+			insert.setString(8, person.descripcion);
+						
+			result=insert.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	return result;
+    	
+    }
 	
 	
 	/**
