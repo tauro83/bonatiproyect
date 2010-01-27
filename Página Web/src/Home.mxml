@@ -43,7 +43,7 @@
 				//avisoWebService = new RegistroAvisoWebService();
 				var avisoWebService:AvisoWebService = new AvisoWebService();
 				avisoWebService.addEventListener(ResultEvent.RESULT,registroAvisoResultado);																					
-				avisoWebService.upAvisoWeb(aviso);				
+				avisoWebService.registrar(aviso);				
 			}
 			}
 			
@@ -56,7 +56,8 @@
 			 
 			private function registroAvisoResultado(event:ResultEvent):void
 			{
-			var result = event.result as int;
+			var result:int;	
+			result = event.result as int;
 			
 			 if(result > 0 ){
 			 		this.currentState = 'Avisos';
