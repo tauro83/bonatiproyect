@@ -40,6 +40,14 @@
 				
 			</mx:Canvas>
 		</mx:Canvas>
+		<mx:Canvas label="Aviso Web" width="100%" height="100%">
+			<mx:Canvas label="Bitácora" width="100%" height="100%">
+				<mx:Canvas label="Ficha" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
+					<mx:LinkButton x="10" y="10" label="Editar" textAlign="left" height="17" click="webEdit()"/>
+					
+				</mx:Canvas>
+			</mx:Canvas>
+		</mx:Canvas>
 	</mx:Accordion>
 	 <mx:Script>
         <![CDATA[   
@@ -212,6 +220,35 @@
          	Application.application.confCirugias.visible = true;
          	
          	
+         }
+          private function webDesactivar():void
+         {
+         	Application.application.setInvisible();
+         	Application.application.eliminarweb.iniciarPanel();  
+         	this.visible = true;
+         	Application.application.eliminarweb.visible = true;
+         }  
+         
+         private function webActivar():void
+         {
+         	Application.application.setInvisible(); 
+         	this.visible = true;
+         	Application.application.actWebaviso.visible = true;
+         } 
+         
+         private function webAnular():void
+         {
+         	Application.application.setInvisible(); 
+         	this.visible = true;
+         	Application.application.anuWebaviso.visible = true;
+         } 
+         
+         private function webEdit():void
+          {
+         	Application.application.setInvisible();
+         	Application.application.editarAvisoList.getAllAvisos();
+         	this.visible = true;
+            Application.application.editarAvisoList.setVisible(true,false);
          }
          
 	 	]]>

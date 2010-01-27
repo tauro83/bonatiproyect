@@ -38,7 +38,6 @@
 					newAviso.apaterno = Tabla.selectedItem.apaterno;
 					newAviso.telefono0 = Tabla.selectedItem.telefono0;
 					newAviso.telefono = Tabla.selectedItem.telefono;
-					newAviso.celular0 = Tabla.selectedItem.celular0;
 					newAviso.celular = Tabla.selectedItem.celular;
 					newAviso.asunto = Tabla.selectedItem.asunto;
 					newAviso.descripcion = Tabla.selectedItem.descripcion;
@@ -48,11 +47,10 @@
 					Application.application.editarAviso.apaterno.text = newAviso.apaterno;
 					Application.application.editarAviso.telefono0.text = newAviso.telefono0;
 					Application.application.editarAviso.telefono.text = newAviso.telefono;
-					Application.application.editarAviso.celular0.text = newAviso.celular0;
 					Application.application.editarAviso.celular.text = newAviso.celular;
 					Application.application.editarAviso.descripcion.text = newAviso.descripcion;
-					Application.application.editarAviso.getAsuntos();
-					Application.application.editarAviso.asunto.selectedItem = newAviso.asunto;
+					//Application.application.editarAviso.getAsuntos();
+					Application.application.editarAviso.asunto.text = newAviso.asunto;
 					
 					Application.application.regCatalogo.setVisible(false, false);
 					Application.application.editarAviso.setVisible(true, false);

@@ -16,6 +16,7 @@ public class AvisoWebServiceBD {
 	
 	PreparedStatement selectAll;
 	PreparedStatement selectAllA;
+	PreparedStatement insertreal;
 	PreparedStatement insert;
 	PreparedStatement anul;
 	PreparedStatement del;
@@ -39,11 +40,13 @@ public class AvisoWebServiceBD {
 			
 			query = "INSERT INTO avisoweb (nombre,apaterno,telefono0,telefono,celular0,celular,asunto,descripcion) "+
 			"VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-			
-//			query = "UPDATE avisoweb "+
-//			   "SET telefono0=?, telefono=?, celular0=?, celular=?, asunto=?, descripcion=? "+
-//			   "WHERE id = ?;";
 			insert = connection.prepareStatement(query);
+			
+			query = "UPDATE avisoweb "+
+			   "SET telefono0=?, telefono=?, celular=?, asunto=?, descripcion=? "+
+			   "WHERE id = ?;";
+			insertreal = connection.prepareStatement(query);
+
 			
 			query = "UPDATE avisoweb "+
 			   "SET estado = 2 " +
@@ -128,15 +131,14 @@ public class AvisoWebServiceBD {
 		int result = 0;
 		try 
     	{
-			insert.setString(1, person.nombre);
-			insert.setString(2, person.apaterno);
-			insert.setString(3, person.telefono0);
-			insert.setString(4, person.telefono);
-			insert.setString(5, "0");
-			insert.setString(6, person.celular);
-			insert.setString(7, person.asunto);
-			insert.setString(8, person.descripcion);
-			result=insert.executeUpdate();
+			insertreal.setString(1, person.telefono0);
+			insertreal.setString(2, person.telefono);
+			insertreal.setString(3, person.celular);
+			insertreal.setString(4, person.asunto);
+			insertreal.setString(5, person.descripcion);
+			insertreal.setInt(6, person.id);
+			
+			result=insertreal.executeUpdate();
 		} 
     	catch (SQLException e) 
     	{
