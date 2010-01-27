@@ -146,7 +146,7 @@ public class GetFichasBD {
 				at = new Atencion();
 				at.setClienteRut(result.getString(1));
 				at.setMascotaNombre(result.getString(2));
-				at.setServicio("Peluqueria");
+				at.setServicio("Peluquería");
 				at.setHora(result.getString(3));
 				at.setSfecha(""+result.getString(5));
 				
@@ -200,7 +200,7 @@ public class GetFichasBD {
 			at = new Atencion();
 			at.setClienteRut(result.getString(6));
 			at.setMascotaNombre(result.getString(7));
-			at.setServicio("Hotelería Retirada");
+			at.setServicio("Hotelería retiro");
 			at.setHora("");
 			at.setSfecha(""+result.getString(9));
 			at.setCosto("$"+result.getString(4));
@@ -229,13 +229,13 @@ public class GetFichasBD {
 			while(result.next())
 			{
 				at = new Atencion();
-				at.setClienteRut(result.getString(9));
-				at.setMascotaNombre(result.getString(8));
-				at.setServicio("PostOperatorio");
-				at.setHora(result.getString(5));
-				at.setSfecha(""+result.getString(6));
-				at.setCosto("$"+result.getString(7));
-				if(result.getString(7)==null){
+				at.setClienteRut(result.getString(10));
+				at.setMascotaNombre(result.getString(9));
+				at.setServicio("Post-Operatorio");
+				at.setHora(result.getString(6));
+				at.setSfecha(""+result.getString(7));
+				at.setCosto("$"+result.getString(8));
+				if(result.getString(8)==null){
 					at.setCosto("");
 				}
 				atenciones.add(at);
@@ -258,7 +258,7 @@ public class GetFichasBD {
 				at = new Atencion();
 				at.setClienteRut(result.getString(2));
 				at.setMascotaNombre(result.getString(3));
-				at.setServicio("Vacunacion");
+				at.setServicio("Vacunación");
 				at.setHora(result.getString(4));
 				at.setSfecha(""+result.getString(6));
 				at.setCosto("$"+result.getString(7));
@@ -314,7 +314,7 @@ public class GetFichasBD {
 				at = new Atencion();
 				at.setClienteRut(result.getString(1));
 				at.setMascotaNombre(result.getString(2));
-				at.setServicio("Cirugia");
+				at.setServicio("Cirugía");
 				at.setHora(""+result.getString(3));
 				at.setSfecha(""+result.getString(6));
 				at.setCosto("$"+result.getString(7));
@@ -372,7 +372,7 @@ public class GetFichasBD {
 				at = new Atencion();
 				at.setClienteRut(result.getString(1));
 				at.setMascotaNombre(result.getString(2));
-				at.setServicio("Preoperatorio");
+				at.setServicio("Pre-Operatorio");
 				at.setHora(""+result.getString(7));
 				at.setSfecha(""+result.getString(6));
 				at.setCosto("");
