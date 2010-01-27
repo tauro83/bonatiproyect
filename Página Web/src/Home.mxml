@@ -126,17 +126,22 @@
 	<mx:states>
 		<mx:State name="QuienesSomos">
 			<mx:SetProperty target="{text1}" name="text">
-				<mx:value><![CDATA[Clinica Bonati, llevamos 150 años atendiendo las cagas
- de mascotas de estos weones 
+				<mx:value><![CDATA[Clinica Bonati, llevamos años realizando
+ el mejor servicio para su bienestar y el
+ de sus queridas mascotas.
+	 Nos esforzamos cada dia para mejorar
+ nuestro servicio, siendo lideres en la región
+ para el cuidado y mentención de su mascota.
 
-y cobrando mas caro ke la xuxa.
 
-Ademas de cagarle la vida a 10 weones]]></mx:value>
+]]></mx:value>
 			</mx:SetProperty>
-			<mx:SetProperty target="{text1}" name="x" value="18.5"/>
-			<mx:SetProperty target="{text1}" name="y" value="190"/>
-			<mx:SetStyle target="{text1}" name="fontSize" value="27"/>
+			<mx:SetProperty target="{text1}" name="x" value="128"/>
+			<mx:SetProperty target="{text1}" name="y" value="128"/>
+			<mx:SetStyle target="{text1}" name="fontSize" value="23"/>
 			<mx:SetProperty target="{text1}" name="height" value="261"/>
+			<mx:SetStyle target="{text1}" name="textDecoration" value="normal"/>
+			<mx:SetStyle target="{text1}" name="textAlign" value="left"/>
 		</mx:State>
 		<mx:State name="Info">
 			<mx:SetProperty target="{text1}" name="text" value="Información"/>
