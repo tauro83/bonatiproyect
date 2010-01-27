@@ -23,7 +23,8 @@ public class DeleteControlBD {
 	 * @param conn Conexion creada a partir de DBConnectionManager
 	 */
 	public DeleteControlBD(Connection conn) throws SQLException {
-		String query = "delete from atencioncontrol " +
+		String query = "update atencioncontrol " +
+				"SET estado='2', motivo=?" +
 				"where hora=? and fecha=? and responsable=?;";
 		delete = conn.prepareStatement(query);
 	}
@@ -36,12 +37,13 @@ public class DeleteControlBD {
 	 * @param responsable persona que encargada del control
 	 * @return variable entera que determina si la eliminacion fue correcta o no
 	 */
-	public int deleteControl(String hora, Date fecha, String responsable) {
+	public int deleteControl(String hora, Date fecha, String responsable, String motivo) {
 		int x=0;
 		try{
-			delete.setString(1, hora);
-			delete.setDate(2, fecha);
-			delete.setString(3, responsable);
+			delete.setString(1, motivo);
+			delete.setString(2, hora);
+			delete.setDate(3, fecha);
+			delete.setString(4, responsable);
 			x= delete.executeUpdate();
     		
 		} 

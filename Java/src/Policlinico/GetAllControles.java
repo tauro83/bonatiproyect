@@ -41,4 +41,17 @@ public class GetAllControles {
 		return Atenciones;
 	}
 
+	public List getAllControlesAnu(){		
+		List Atenciones=new ArrayList();
+    	try{
+    		connection=DBConnectionManager.getConnection();
+    		GetAllControlesBD object= new GetAllControlesBD(connection);
+			Atenciones	= object.getAllControlesAnu();
+			connection.close();
+		} 
+    	catch (SQLException e){
+			e.printStackTrace();
+		}
+		return Atenciones;
+	}
 }
