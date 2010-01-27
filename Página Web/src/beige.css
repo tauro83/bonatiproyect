@@ -175,7 +175,7 @@ DataGrid
 	selectionColor: #E8F51A;
 	rollOverColor: #E8F51A;
 }
-ComboBox
+.ComboBox
 {
 	borderColor: #1387D8;
 	fillAlphas: 1.0, 1.0;
