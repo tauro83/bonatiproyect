@@ -11,6 +11,7 @@
 				botVolver.visible = true;
 				linkOpciones.visible = false;
 				opcMod.visible = false;
+				rut1.visible=false;
 			}
 		
 			private function volver2():void
@@ -33,6 +34,7 @@
 				botVolver.visible = true;
 				linkOpciones.visible = false;
 				opcMod.visible = true;
+				rut1.visible=false;
 			}
 			
 			private function rutm():void
