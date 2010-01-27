@@ -441,6 +441,11 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
            	purgarCliente.setVisible(true,false);
            	AdmOpciones1.setVisible(true,false);
            }
+           
+           private function verAgenda():void{
+           	Application.application.agenda2.iniciarAgenda();
+           
+           }
             
         ]]>
 
@@ -635,7 +640,7 @@ fontWeight="bold"/>
 click="mostrarBusqueda()" id="botonBusqueda"/>
 	<mx:Button enabled="false" x="170" y="104" label="Agenda" width="171" height="30" cornerRadius="4" 
 
-id="botonAgenda" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
+id="botonAgenda" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12" click="verAgenda()"/>
 	<mx:Button enabled="false" x="340" y="104" label="Clínica" width="171" height="30" cornerRadius="4" 
 
 id="botonClinica" color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize="12"/>
