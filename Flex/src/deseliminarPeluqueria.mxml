@@ -78,7 +78,7 @@
 			*/
            	private function deleteRow():void 
            	{
-			    Alert.show("¿Está seguro que desea reactivar el o los registro(s) de peluquería(s)? ","Confirme reactivar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			    Alert.show("¿Está seguro que desea restaurar el o los registro(s) de peluquería(s)? ","Confirme restaurar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
        
 			}
 			
@@ -105,7 +105,7 @@
                         i=-1;
                     }   
                 }
-                barraMsj.text="Registro(s) de peluquería reactivado"; 
+                barraMsj.text="Registro(s) de peluquería restaurado"; 
                 todo.selected=false;             
             }
 			
@@ -163,7 +163,7 @@
 		]]>
 	</mx:Script>	
 	
-	<mx:DataGrid x="25" y="36" width="709" height="309" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion el o los registro(s) de peluquería(s) que desea reactivar">
+	<mx:DataGrid x="25" y="36" width="709" height="309" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion el o los registro(s) de peluquería(s) que desea restaurar">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
 			 	<mx:itemRenderer>
