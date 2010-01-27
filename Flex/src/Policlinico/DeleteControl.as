@@ -32,8 +32,8 @@ package Policlinico{
 		//función que se comunica con la capa 2 para eliminar un control
 		//datos la hora, fecha y responsable, de manera de poder identificarlo
 		//de manera única
-		public function deleteControl(hora:String, fecha:Date, responsable:String):void{
-			this.getOperation("deleteControl").send(hora,fecha,responsable);
+		public function deleteControl(hora:String, fecha:Date, responsable:String, motivo:String):void{
+			this.getOperation("deleteControl").send(hora,fecha,responsable,motivo);
 		}
 		
 		

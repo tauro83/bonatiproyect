@@ -35,7 +35,9 @@ package Policlinico{
 		public function getAllControles():void{
 			this.getOperation("getAllControles").send();
 		}
-		
+		public function getAllControlesAnu():void{
+			this.getOperation("getAllControlesAnu").send();
+		}
 
 	}
 }
