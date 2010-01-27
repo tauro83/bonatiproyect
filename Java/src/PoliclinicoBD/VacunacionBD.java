@@ -42,7 +42,7 @@ public class VacunacionBD {
 					"WHERE estado = 0;";
 			selectAllVacunaciones = connection.prepareStatement(query);
 			
-			queryCliente = "SELECT nombre, apaterno "+
+			queryCliente = "SELECT nombre, apaterno, rut "+
 							"FROM clientepresencial "+
 							"WHERE rut = ? ;";
 			selectAllClientes = connection.prepareStatement(queryCliente);
@@ -71,6 +71,8 @@ public class VacunacionBD {
 	 public List getAllVacunaciones()
 	    {	
 	    	List vacunaciones = new ArrayList();
+	    	List ruts = new ArrayList();
+	    	List names = new ArrayList();
 	    	Vacunacion vacu;
 	    	Cliente clie;
 	    	Mascota masc;
@@ -79,6 +81,7 @@ public class VacunacionBD {
 	    		ResultSet result = selectAllVacunaciones.executeQuery();
 	    		while(result.next())
 	    		{  
+	    			String rut=null, name=null;
 	    			vacu = new Vacunacion();
 	    			clie = new Cliente();
 	    			masc = new Mascota();
@@ -86,7 +89,9 @@ public class VacunacionBD {
 		    		ResultSet mascota; 
 	    			
 	    			vacu.setClienteRut(result.getString(1).trim());
+	    			rut = vacu.getClienteRut();
 	    			vacu.setMascotaNombre(result.getString(2).trim());
+	    			name = vacu.getMascotaNombre();
 	    			
 	    			selectAllMascotas.setString(2, vacu.getClienteRut());
 	    			selectAllMascotas.setString(1, vacu.getMascotaNombre());
@@ -106,9 +111,13 @@ public class VacunacionBD {
 	    				clie.setApellido(cliente.getString(2).trim());
 	    				vacu.setClienteApellido(clie.getApellido());
 	    			}
-	    			
-	    			vacunaciones.add(vacu);	
+	    			if(!ruts.contains(rut) || !names.contains(name) ){
+	    				vacunaciones.add(vacu);	
+	    			}
+	    			names.add(name);
+	    			ruts.add(rut);
 	    		}
+	    		
 			} 
 	    	catch (SQLException e) 
 	    	{
