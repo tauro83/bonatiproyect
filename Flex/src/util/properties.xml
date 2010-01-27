@@ -87,6 +87,7 @@
 				<mensaje key="47">Ingrese el responsable de la consulta</mensaje>
 				<mensaje key="48">Ingrese la anamnesis de la consulta</mensaje>	
 				<mensaje key="49">Ingrese la comuna</mensaje>	
+				<mensaje key="50">Ingrese el costo de la consulta</mensaje>	
 			</mensajes>
 		</tipoMensaje>
 		<tipoMensaje name="Pregunta">
