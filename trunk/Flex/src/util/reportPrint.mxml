@@ -107,6 +107,6 @@
 	
 	<ns1:Preview id="printPreview" left="5" right="10" top="5" bottom="10">
 	</ns1:Preview>
-	<mx:LinkButton x="950" y="10" label="X" width="40" height="22" id="closeP" click="cerrar()"/>
+	<mx:LinkButton x="897" y="10" label="X" width="45" height="25" id="closeP" click="cerrar()"/>
 	
 </mx:Application>
