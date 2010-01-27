@@ -2,9 +2,7 @@ package util
 {
 	public class ReportDP
 	{
-		public var text:String;
-		 
-		public var logo:Class;	
+		public var text:String;	
 					
 		public function ReportDP(text:String)
 		{
