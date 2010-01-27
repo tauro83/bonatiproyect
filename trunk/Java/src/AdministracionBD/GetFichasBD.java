@@ -135,55 +135,7 @@ public class GetFichasBD {
 			e.printStackTrace();
 		}
     	    	
-    	
     	    	
-//    	String queryBanio = "	SELECT rutcliente, nombremascota, servicio, hora, fecha, costo, comentario "+
-//    	  							" FROM atencionbanio WHERE rutcliente='"+ rut.trim()+"' AND nombremascota='" +nombre.trim() +"'";	 
-//    	try 
-//    	{
-//    		selectAll = connection.prepareStatement(queryBanio);
-//			ResultSet result = selectAll.executeQuery();
-//    		while(result.next())
-//    		{
-//    			at = new Atencion();
-//    			at.setClienteRut(result.getString(1));
-//    			at.setMascotaNombre(result.getString(2));
-//    			at.setServicio(result.getString(3));
-//    			at.setHora(result.getString(4));
-//    			at.setSfecha(""+result.getString(5));
-//    			at.setCosto("$"+result.getString(6));
-//    			atenciones.add(at);
-//    		}
-//		} 
-//    	catch (SQLException e) 
-//    	{
-//			e.printStackTrace();
-//		}
-    	
-//    	String querypedicure = "SELECT rutcliente, nombremascota, servicio, hora, fecha, costo, descripcion, "+
-//    	"nombre  FROM atencionpedicure WHERE rutcliente='"+ rut.trim()+"' AND nombremascota='" +nombre.trim() +"'";	 
-//    	
-//		try 
-//		{
-//			selectAll = connection.prepareStatement(querypedicure);
-//			ResultSet result = selectAll.executeQuery();
-//			while(result.next())
-//			{
-//				at = new Atencion();
-//				at.setClienteRut(result.getString(1));
-//				at.setMascotaNombre(result.getString(2));
-//				at.setServicio(result.getString(3));
-//				at.setHora(result.getString(4));
-//				at.setSfecha(""+result.getString(5));
-//				at.setCosto("$"+result.getString(6));
-//				atenciones.add(at);
-//			}
-//		} 
-//		catch (SQLException e) 
-//		{
-//			e.printStackTrace();
-//		}
-    	
     	String queryPeluqueria= "SELECT clienterut, mascotanombre, hora, responsable, fecha, estado, servicio FROM atencionpeluqueria  WHERE clienterut='"+ rut.trim()+"' AND mascotanombre='" +nombre.trim() +"'";	    	
 		try 
 		{
