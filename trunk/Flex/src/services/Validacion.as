@@ -38,7 +38,7 @@ package services
 		 * */
 		public static function longitudMinima(palabra:String):Boolean
 		{
-			if(palabra.length>4)
+			if(palabra.length>2)
 			{
 				return true;
 			}
