@@ -19,10 +19,33 @@
             import mx.rpc.events.ResultEvent;
 			import mx.rpc.events.FaultEvent;
 			import mx.core.Application;
+			public var select:int = 0;
+			
 			
 			[Bindable]
 			private var atenciones:ArrayCollection;
 			
+			public function verSelect(seleccionado:int):void
+			{
+				if(seleccionado == 0){
+					verActivas.enabled = false;
+					verNulas.enabled = true;
+					verTodas.enabled = true;
+					select =0;
+				}
+				if(seleccionado == 1){
+					verActivas.enabled = true;
+					verNulas.enabled = false;
+					verTodas.enabled = true;
+					select = 1;
+				}
+				if(seleccionado == 2){
+					verActivas.enabled = true;
+					verNulas.enabled = true;
+					verTodas.enabled = false;
+					select = 2;
+				}
+			}
 			/**
 			 * Obtiene los datos de las atenciones que están 
 			 * registradas en la base de datos
@@ -30,9 +53,10 @@
 			 */
 			public function getAllDatos():void
 			{
+				verSelect(0);
 				var visualizarPostoperatorio:PostOperatorioService = new PostOperatorioService();
 				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
-				visualizarPostoperatorio.getAllPostOperatorioAnul();
+				visualizarPostoperatorio.getAllPostOperatorio();
 			}	
 			/**
 			 * Obtiene el evento del resultado de la consulta
@@ -44,6 +68,22 @@
 				atenciones = event.result as ArrayCollection;
 			}
 			
+			public function filtrarNulas():void
+			{
+				verSelect(1);
+				var visualizarPostoperatorio:PostOperatorioService = new PostOperatorioService();
+				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,filtrarNulasResult);
+				visualizarPostoperatorio.getAllPostOperatorioAnul();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function filtrarNulasResult(event:ResultEvent):void
+			{
+				Tabla.doubleClickEnabled=true;
+				atenciones = event.result as ArrayCollection;
+			}
 			/**
 			 * Se muestran los distintos tipos de búsqueda
 			 * que el usuario puede hacer al momento
@@ -121,6 +161,8 @@
 			{
 				if(Tabla.selectedItem){					
 					var newPurgarPost:anulPost = Application.application.AnulPostD;
+					var anuladosVerPost:AnuladosVerPost = Application.application.anuladosVerPost;
+					
 					var newMascota:PostOperatorio = new PostOperatorio();
 					newMascota.nombreMascota = Tabla.selectedItem.nombreMascota;
 					newMascota.raza = Tabla.selectedItem.raza;
@@ -131,16 +173,28 @@
 					
 					
 					this.setVisible(false,false);
-					newPurgarPost.resetVars();
-					newPurgarPost.nomMascota.text = newMascota.nombreMascota;
-					newPurgarPost.razaMascota.text = newMascota.raza;
-					newPurgarPost.sexoMascota.text = newMascota.sexo;
-					newPurgarPost.nombre.text = newMascota.nombreCliente;
-					newPurgarPost.apellidoPaterno.text = newMascota.apellido;
-					newPurgarPost.clienterut.text = newMascota.clienterut;
-					newPurgarPost.getAllDatos();
-					newPurgarPost.setVisible(true,false);
-
+					if(select ==0){
+						newPurgarPost.resetVars();
+						newPurgarPost.nomMascota.text = newMascota.nombreMascota;
+						newPurgarPost.razaMascota.text = newMascota.raza;
+						newPurgarPost.sexoMascota.text = newMascota.sexo;
+						newPurgarPost.nombre.text = newMascota.nombreCliente;
+						newPurgarPost.apellidoPaterno.text = newMascota.apellido;
+						newPurgarPost.clienterut.text = newMascota.clienterut;
+						newPurgarPost.getAllDatos();
+						newPurgarPost.setVisible(true,false);
+					}
+					else if(select ==1){
+						anuladosVerPost.resetVars();
+						anuladosVerPost.nomMascota.text = newMascota.nombreMascota;
+						anuladosVerPost.razaMascota.text = newMascota.raza;
+						anuladosVerPost.sexoMascota.text = newMascota.sexo;
+						anuladosVerPost.nombre.text = newMascota.nombreCliente;
+						anuladosVerPost.apellidoPaterno.text = newMascota.apellido;
+						anuladosVerPost.clienterut.text = newMascota.clienterut;
+						anuladosVerPost.getAllDatos();
+						anuladosVerPost.setVisible(true,false);
+					}
 				}
 
 			}
@@ -157,6 +211,9 @@
 			
 		]]>
 	</mx:Script>
+	<mx:Label x="10" y="353" text="Ver:" id="label7"/>
+	<mx:LinkButton x="94" y="350" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
+	<mx:LinkButton x="46" y="350" label="Activas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllDatos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
 	
 	
 	

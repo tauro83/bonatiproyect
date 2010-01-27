@@ -45,7 +45,7 @@ public class PostOperatorioBD {
 			"FROM mascota, clientepresencial, atencionpostoperatorio " +
 			"WHERE clientepresencial.rut = atencionpostoperatorio.rut and " +
 			"mascota.rut = atencionpostoperatorio.rut and mascota.nombre = atencionpostoperatorio.nombremascota and " +
-			"atencionpostoperatorio.estado = '0';";
+			"atencionpostoperatorio.estado = '2';";
 	
 			selectAllElim = connection.prepareStatement(query);
 			
@@ -59,7 +59,7 @@ public class PostOperatorioBD {
 			
 			query = "SELECT atencionpostoperatorio.indicaciones, atencionpostoperatorio.hora, atencionpostoperatorio.fecha " +
 					"FROM atencionpostoperatorio " +
-					"WHERE atencionpostoperatorio.nombremascota = ? and atencionpostoperatorio.rut = ? and atencionpostoperatorio.estado = 0;";
+					"WHERE atencionpostoperatorio.nombremascota = ? and atencionpostoperatorio.rut = ? and atencionpostoperatorio.estado = 2;";
 			
 			selectAllPostoperatorio2 = connection.prepareStatement(query);
 			
@@ -351,7 +351,8 @@ public class PostOperatorioBD {
 		    			postOperatorio.nombreCliente = result.getString(4).trim();
 		    			postOperatorio.apellido = result.getString(5).trim();
 		    			postOperatorio.clienterut = result.getString(6).trim();
-		    			postOperatorios.add(postOperatorio);
+		    			if(!isInList(postOperatorios,postOperatorio))
+		    				postOperatorios.add(postOperatorio);
 		    			
 		    		}
 				} 
