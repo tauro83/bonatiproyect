@@ -37,11 +37,6 @@
 					verNulas.enabled = false;
 					select = 1;
 				}
-				if(seleccionado == 2){
-					verActivas.enabled = true;
-					verNulas.enabled = true;
-					select = 2;
-				}
 			}
 			/**
 			 * Obtiene los datos de las atenciones que están 
@@ -210,7 +205,7 @@
 	</mx:Script>
 	<mx:Label x="10" y="353" text="Ver:" id="label7"/>
 	<mx:LinkButton x="94" y="350" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
-	<mx:LinkButton x="46" y="350" label="Activas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllDatos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+	<mx:LinkButton x="46" y="350" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllDatos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
 	
 	
 	
