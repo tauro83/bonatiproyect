@@ -22,6 +22,7 @@
 			import mx.managers.PopUpManager;
             import mx.containers.TitleWindow;
             import mx.controls.Alert;
+			import transferObjects.ProductoImprimir; 
 			 
 			[Bindable]
 			private var productos:ArrayCollection;
@@ -200,23 +201,42 @@
            	{
            			
            			var re:reportPrint = reportPrint(PopUpManager.createPopUp( this, reportPrint , true));
-           			re.cargarDat(this.productos);
+           			var prodcusImprimir:ArrayCollection = campos(productos);
+           			re.cargarDat(prodcusImprimir);
 
 	        }
+	        public function campos(lista:ArrayCollection):ArrayCollection{
+        		var i:int;
+        		var array:ArrayCollection = new ArrayCollection();        		
+        		var product:Producto = new Producto();
+        	
+        		for(i=0;i<lista.length;i++){
+        			product =  lista.getItemAt(i,0) as Producto;
+        			var productillo:ProductoImprimir = new ProductoImprimir();
+        			productillo._Código			=   product.codigo;
+        			productillo._Nombre          =   product.nombre;
+        			productillo.Departamento       =   product.categoria;        			
+        			productillo.Precio          =   product.precio;
+        			productillo.Descripción     =   product.descripcion;
+        			productillo.Stock		=	product.cantidad;
+        			array.addItem(productillo);  
+        		}
+        		return array;
+			}
 			     
 	 	]]>
     </mx:Script>
 	
 	<!-- Botón Visualizar -->
-	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarProductos(event)}" toolTip="Visualiza el producto seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="522" y="353" label="Visualizar" click="{visualizarProductos(event)}" toolTip="Visualiza el producto seleccionado" width="102" height="23" cornerRadius="6"/>
 	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
-	<mx:Text x="10" y="10" id="textFiltrar" text="Filtrar por"/>
+	<mx:Text x="25" y="10" id="textFiltrar" text="Filtrar por"/>
 	
 	<!-- Botón Cancelar -->
-	<mx:Button x="647" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()" />
+	<mx:Button x="632" y="353" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()" />
 	
 	<!-- Opciones de busqueda -->
-	<mx:ComboBox x="76" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
+	<mx:ComboBox x="100" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Nombre Producto"/>
@@ -228,12 +248,12 @@
 	</mx:ComboBox>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid x="10" y="62" width="739" height="280" id="tablaProductos" dataProvider="{productos}" doubleClickEnabled="true" itemDoubleClick="visualizarProductos(event)" >
+	<mx:DataGrid x="25" y="62" width="709" height="280" id="tablaProductos" dataProvider="{productos}" doubleClickEnabled="true" itemDoubleClick="visualizarProductos(event)" >
 		<mx:columns>		
 			<mx:DataGridColumn headerText="Nombre" dataField="nombre" id="nombre" draggable="false"/>
 			<mx:DataGridColumn headerText="Categoría" dataField="categoria" id="categoria" draggable="false"/>
-			<mx:DataGridColumn headerText="Codigo Barra" dataField="codigo" id="codigo" draggable="false"/>
-			<mx:DataGridColumn headerText="Descripcion" dataField="descripcion" id="descripcion" draggable="false"/>
+			<mx:DataGridColumn headerText="Código Barra" dataField="codigo" id="codigo" draggable="false"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" id="descripcion" draggable="false"/>
 			<mx:DataGridColumn headerText="Precio" dataField="precio" id="precio" draggable="false"/>
 			
 		</mx:columns>
@@ -242,20 +262,20 @@
 	<!-- AutoComplete -->
 	
 	<!-- Nombre Del Producto -->
-	<fc:AutoComplete id="inputNombreProducto" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productos}"  labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda" />
+	<fc:AutoComplete id="inputNombreProducto" close="Seleccionar(event)"  x="584" y="8" width="150" dataProvider="{productos}"  labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda" />
 	
 	<!-- Precio -->
-	<fc:AutoComplete id="inputPrecio" close="Seleccionar(event)" x="599" y="8" width="150" dataProvider="{productos}" labelField="precio" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputPrecio" close="Seleccionar(event)" x="584" y="8" width="150" dataProvider="{productos}" labelField="precio" visible="false" toolTip="ingrese texto para búsqueda"/>
 	
 	<!-- Categoria -->
-	<fc:AutoComplete id="inputCategoria" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productos}" labelField="categoria" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputCategoria" close="Seleccionar(event)"  x="584" y="8" width="150" dataProvider="{productos}" labelField="categoria" visible="false" toolTip="ingrese texto para búsqueda"/>
 	
 	<!-- Codigo de Barra -->
-	<fc:AutoComplete id="inputCodigoBarra" close="Seleccionar(event)"  x="599" y="8" width="150" dataProvider="{productos}" labelField="codigo" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputCodigoBarra" close="Seleccionar(event)"  x="584" y="8" width="150" dataProvider="{productos}" labelField="codigo" visible="false" toolTip="ingrese texto para búsqueda"/>
 	
 	<!-- Descripcion -->
-	<fc:AutoComplete id="inputDescripcion" x="599" close="Seleccionar(event)" y="8" width="150" dataProvider="{productos}" labelField="descripcion" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="inputDescripcion" x="584" close="Seleccionar(event)" y="8" width="150" dataProvider="{productos}" labelField="descripcion" visible="false" toolTip="ingrese texto para búsqueda"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
-	<mx:Button x="413" y="351" label="Imprimir" width="102" height="23" id="impriButtonPr" click="{imprime()}"/>
+	<mx:Button x="412" y="353" label="Imprimir" width="102" height="23" id="impriButtonPr" click="{imprime()}"/>
 	
 </mx:Panel>
