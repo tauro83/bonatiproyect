@@ -357,8 +357,8 @@
 				cliente2 = new ArrayCollection();
 				clientes = new ArrayCollection();
 				this.nombreRutIn.getAllClientes();
-				nombreRutIn.inputClienteNombre.typedText = "";
-				nombreRutIn.inputClienteNombre.text = "";
+				this.nombreRutIn.inputClienteNombre.text = "";
+				this.nombreRutIn.inputClienteNombre.typedText = "";
 				this.edita = true;
 				this.mascotas=new ArrayCollection();
 				this.mascotas2=new ArrayCollection();
@@ -366,7 +366,7 @@
 				this.labelMessage.text="";
 				this.nombreRutIn.rutClienteInput.text="";
 				this.nombreRutIn.rutClienteDVInput.text="";
-				this.nombreRutIn.inputClienteNombre.text="";
+				
 				this.getTiposVeterinarios();
 				this.getAllCatalogo();
 				this.getResp();
