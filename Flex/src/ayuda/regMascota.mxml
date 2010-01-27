@@ -43,6 +43,6 @@
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:Image   id="opcMod" visible="false" x="72" y="85">
-		<mx:source>../images/ayuda/subMenuUsuario.png</mx:source>
+		<mx:source>../images/ayuda/MenuMascota.png</mx:source>
 	</mx:Image>	
 </mx:Canvas>
