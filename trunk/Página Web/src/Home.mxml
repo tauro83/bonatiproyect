@@ -3,9 +3,28 @@
 	
 	<mx:Script>
 		<![CDATA[
+		
+		 //=======================================================================
+		// FECHA CREACIÓN:  27/01/2010
+		// AUTOR: Victor Silva
+		// …. Clase que corresponde a la opcion "Inicio" en el menú principal, 
+		// Esta conformada de diferentes estados enumerados de la siguiente forma:
+		//
+		// 1-Bienvenida : Bienvenida a la pagina, donde se muestra el nombre 
+		//   y direccion de esta.
+		// 2-QuienesSomos : Es una pequeña introduccion a la organizacion y el
+		//	 proposito de esta
+		// 3-Info: Este espacio esta destinado a informacion que la organizacion considere
+		//   relevante que sus clientes sepan, pueden ser desde avisos hasta consejos.
+		// 4-Avisos: Muestra los avisos que los clientes de la pagina han publicado en esta
+		// 5-AvisoVer: Estado basado en "Avisos" que muestra en detalle la informacion de
+		//	 un aviso especifico
+		// 6-NuevoAviso: Estado basado en "AvisoVer" que realiza un la peticion o registro de 
+		//   un nuevo aviso  
+		//=======================================================================
+		
+		
 			import TransferObjects.AvisoWeb;
-			
-			
 			import mx.controls.Alert;
    			import mx.rpc.events.ResultEvent;
 			import mx.events.CloseEvent;
