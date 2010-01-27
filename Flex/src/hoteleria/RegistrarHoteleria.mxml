@@ -324,6 +324,7 @@
 				<mx:Button x="504" y="358" id="ver" label="Ver" width="65" visible="false" click="{verDetalle()}" />
 			</mx:AddChild>
 			<mx:SetProperty target="{Tabla}" name="enabled" value="true"/>
+			<mx:SetStyle target="{labelMessage}" name="fontWeight" value="bold"/>
 		</mx:State>
 		<mx:State name="RegistroHoteleria">
 			<mx:RemoveChild target="{label1}"/>
