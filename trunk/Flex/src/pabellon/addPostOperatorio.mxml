@@ -47,7 +47,8 @@
 			}
 			
 			private function registrar():void
-			{					
+			{		
+			  			
 					//this.mens.text 				= Properties.getMensaje("Informacion", "33");			 
 					postope			  		= new PostOperatorio();
 					postope.shora			= this.hora.selectedLabel.toString();
@@ -65,9 +66,10 @@
 				
 						
 			}
-			
+		
+		
 			/**
-		 	 * 	@author  Erwin Díaz
+		 	 * 	@author  Cristian Bravo
 			 *  retorna el resultado de la accion que se realizo:Registro.		
 			 * */
 			private function registroPostResultado(event:ResultEvent):void
@@ -75,14 +77,14 @@
 				var message:int= event.result as int;	
 				var msj:String = "";
 				if(message==1){
-					msj = Properties.getMensaje("Advertencia", "30");
+					//msj = Properties.getMensaje("Advertencia", "30");
 				 	Application.application.regPostOp1.labelMessage.text = "PostOperatorio fue registrado exitosamente";
 					resetVars(); 		
 				 	cancelando();		
     		 	}
-				else{ 
+				//else{ 
 					//msj = Properties.getMensaje("Error", "19");				
-				}		
+				//}		
 				mens.text = msj;
 					
 			}

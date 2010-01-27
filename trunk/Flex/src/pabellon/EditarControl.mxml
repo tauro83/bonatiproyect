@@ -55,6 +55,10 @@
 			<mx:AddChild position="lastChild">
 				<mx:Button x="530" y="339" label="Guardar" width="99" click="guardar()"/>
 			</mx:AddChild>
+			<mx:RemoveChild target="{button1}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Button x="637" y="339" label="Cancelar" width="99" id="button2" click="volver()"/>
+			</mx:AddChild>
 		</mx:State>
 	</mx:states>
 	<mx:Script>
@@ -138,8 +142,7 @@
 					
 					
 					
-					
-					
+				
 					
 					
 					/*var control:Control = controles.getItemAt(Tabla.selectedIndex) as Control;
@@ -147,11 +150,14 @@
 					deleteControl.addEventListener(ResultEvent.RESULT,deleteControlResult);
 					deleteControl.deleteControl(control.hora, control.fecha, control.responsable);*/
 				}
-				else{
-					mens.text=Properties.getMensaje("Advertencia", "14");
-				}
-				
+				else
+				  this.visible = false;
+            		Application.application.editarControl.visible = true;
+            		  
+			        mens.text="Seleccione un control para editar";
 			}
+				
+
 			/**
 			 * Oyente para la funcion eliminarAtencion()
 			 * toma el resultado de la ejecucion del borrado en la base de datos
@@ -163,7 +169,7 @@
 				var result:int = event.result as int ;
 				if(result!=0)
 				{
-				   mens.text=Properties.getMensaje("Informacion", "42");
+				  mens.text=Properties.getMensaje("Informacion", "42");
 				   getAllDatos();
 				}
 				else
@@ -267,11 +273,25 @@
 				}
 			}
 			
-				public function volver():void{
+				public function volver1():void{
 			
 				
 			        this.visible = false;
             		Application.application.panelClinicaPrincipal.visible = true;
+            		  
+			        mens.text="Usted ha cancelado la operación";
+			    
+			    
+			}
+			
+			public function volver():void{
+			
+				
+			        this.visible = false;
+            		Application.application.editarControl.visible = true;
+            		  
+			        mens.text="Usted ha cancelado la operación";
+			    
 			    
 			}
 		]]>
@@ -309,7 +329,8 @@
 	</mx:DataGrid>
 	<mx:Button label="Editar" id="eliminar" height="23" width="102" x="537" y="338" click="editarAtencion()" cornerRadius="6" toolTip="Anula el control seleccionado" enabled="true"/>
 	<mx:Label x="169" y="372" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
-	<mx:Button x="647" y="339" label="Cancelar" id="button1" click="volver()" width="102"/>
+	<mx:Button x="647" y="339" label="Cancelar" id="button1" click="volver1()" width="102"/>
+	
 	<mx:Text x="10" y="12" text="Buscar" id="textBuscar"/>
 	<mx:Text x="313" y="12" id="textFiltrar" text="Filtrar por"/>
 	
