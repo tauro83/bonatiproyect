@@ -259,7 +259,7 @@
     </mx:Script>
 	
 	
-	<mx:TextInput x="163" y="41" width="160" id="nombre" maxChars="20"/>
+	<mx:TextInput x="163" y="41" width="160" id="nombre" maxChars="20" enabled="false"/>
 	
 	
 	
