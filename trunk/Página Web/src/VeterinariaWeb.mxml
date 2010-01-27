@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns="*">
 
-
 <mx:Script>
     <![CDATA[
+    
+     //=======================================================================
+	// FECHA CREACIÓN:  27/01/2010
+	// AUTOR: Victor Silva
+	// …. Clase principal de la aplicación, que contiene una applicationControlBar,
+	//el cual tiene un dataprovider con un viewStack de clases canvas
+	//=======================================================================
         import mx.collections.IViewCursor;
         import mx.collections.ArrayCollection;
         import mx.rpc.events.ResultEvent;
@@ -40,7 +46,6 @@
         
          private function completeHandler(event:StyleEvent):void
         {
-            image.source = acb.getStyle("storeLogo");
             super.initialized = true;
         }
 
@@ -51,17 +56,14 @@
        
 	<mx:VBox width="990" paddingLeft="0" paddingRight="0" horizontalCenter="0" top="12">
 	    
-	    <mx:ApplicationControlBar id="acb" width="100%" styleName="storeControlBar">
-	        <mx:Image id="image" 
-	                  click="toggleTheme()"
-	                  toolTip="Change Theme"/>
-	                
-	        <mx:ToggleButtonBar
-	            height="100%"
-	            dataProvider="{Componentes}"/>
+	    <mx:ApplicationControlBar id="acb" width="100%" styleName="storeControlBar">       
+	        
+	        <mx:ToggleButtonBar height="100%" dataProvider="{Componentes}"/>
 	            
 	    </mx:ApplicationControlBar>
+	    
 	    <mx:ViewStack id="Componentes" width="100%" height="550" creationPolicy="all">
+	    
 	        <Home id="home" label="Inicio" enabled="true"/>
 	        <Peluqueria id="productos" label="Peluquería" width="1004" enabled="true"/>
 	        <Servicios id="proveedores" label="Servicios web"    enabled="true"/>
@@ -71,7 +73,8 @@
 	    </mx:ViewStack>
 	
 	</mx:VBox>
-	<mx:Style source="beige.css"/>
-	<mx:Style source="main.css"/>
+	
+	<mx:Style source="beige.css"/> <!--Estilo de fondo--> 
+	<mx:Style source="main.css"/>  <!--Estilo de font-->
 	
 </mx:Application>
