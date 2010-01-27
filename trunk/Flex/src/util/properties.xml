@@ -21,7 +21,7 @@
 				<mensaje key="17">El nombre no puede ser modificado</mensaje>
 				<mensaje key="18">El nombre de usuario ha sido previamente registrado</mensaje>	
 				<mensaje key="19">Error al editar el aviso</mensaje>
-				<mensaje key="20">Diagnostico no registrado</mensaje>	
+				<mensaje key="20">Observaci&#243;n no registrada</mensaje>	
 				<mensaje key="21">Actual Control no registrado</mensaje>
 				<mensaje key="22">Pr&#243;ximo Control no registrado</mensaje>	
 				<mensaje key="23">No se puede eliminar la vacuna, otros registros la utilizan</mensaje>
@@ -68,7 +68,7 @@
 				<mensaje key="28">Ingrese una fecha inicio anterior a la actual</mensaje>				
 				<mensaje key="29">Ingrese una fecha de inicio, anterior a la fecha de t&#233;rmino</mensaje>
 				<mensaje key="30">Ingrese al menos un n&#250mero de tel&#233;fono</mensaje>
-				<mensaje key="31">Ingrese un nuevo diagn&#243;stico</mensaje>
+				<mensaje key="31">Ingrese una nueva observaci&#243;n</mensaje>
 				<mensaje key="32">Seleccione una Mascota para registrar Control</mensaje>
 				<mensaje key="33">Seleccione el nombre de un Veterinario para la atenci&#243;n</mensaje>				
 				<mensaje key="34">Seleccione una fecha para la atenci&#243;n</mensaje>
@@ -136,7 +136,7 @@
 				<mensaje key="31">Se ha registrado la Especie exitosamente</mensaje>							
 				<mensaje key="32">Se ha eliminado la Especie exitosamente</mensaje>
 				<mensaje key="33">Se ha editado el Aviso exitosamente</mensaje>
-				<mensaje key="34">Se ha registrado diagnostico exitosamente</mensaje>
+				<mensaje key="34">Se ha registrado observaci&#243;n exitosamente</mensaje>
 				<mensaje key="35">Se ha registrado Actual Control exitosamente</mensaje>
 				<mensaje key="36">Se ha registrado pr&#243;ximo Control exitosamente</mensaje>
 				<mensaje key="37">Se ha registrado Consulta exitosamente</mensaje>
