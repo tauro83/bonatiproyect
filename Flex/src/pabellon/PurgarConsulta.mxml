@@ -130,7 +130,7 @@
             		else
             			anul.enabled=false;
             if(consultas[dg.selectedIndex].estado==0)
-            	labelMessage.text = 'Consulta activa';
+            	labelMessage.text = 'Consulta válida';
             	else 
             	labelMessage.text = 'Consulta nula';
             }
@@ -206,7 +206,7 @@
 				consultas = event.result as ArrayCollection;
 				dg.dataProvider = consultas;
 				if(verActivas.enabled == false && clienteRutName.rutClienteInput.text != '')
-				labelMessage.text = 'Todas las consultas activas del cliente: ' + clienteRutName.inputClienteNombre.text;
+				labelMessage.text = 'Todas las consultas válidas del cliente: ' + clienteRutName.inputClienteNombre.text;
 			}
 			
 			/**
@@ -253,10 +253,10 @@
 					/*En este caso se cargan todas las consultas activas de la BD*/
 					purgar.addEventListener(ResultEvent.RESULT,TodasActivasResult);
 					purgar.cargarTodasActivas();
-					labelMessage.text = 'Todas las consultas activas del sistema ';	
+					labelMessage.text = 'Todas las consultas válidas del sistema ';	
 				}else{ /*Se cargar consultas activas del cliente seleccionado*/
 				{cargarActivasCliente()};
-				labelMessage.text = 'Todas las consultas activas del cliente: ' + clienteRutName.inputClienteNombre.text;
+				labelMessage.text = 'Todas las consultas válidas del cliente: ' + clienteRutName.inputClienteNombre.text;
 				}
 				verActivas.enabled=false;
 				verTodas.enabled  =true;
@@ -354,7 +354,7 @@
 				if(consultas[dg.selectedIndex].estado==0){
 					anul.enabled=true;
 					consultas[dg.selectedIndex].sel = true;
-					labelMessage.text = 'Consulta activa';
+					labelMessage.text = 'Consulta válida';
 				}
 				else{ anul.enabled=false;
 					labelMessage.text = 'Consulta nula';
@@ -485,6 +485,6 @@
 	<mx:Label x="10" y="352" text="Ver:" id="label7"/>
 	<mx:LinkButton x="46" y="350" label="Todas" width="53" fontWeight="normal" id="verTodas" click="{filtrarTodas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas de este, sino verá todas las consultas del sistema" />
 	<mx:LinkButton x="140" y="350" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
-	<mx:LinkButton x="92" y="350" label="Activas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{filtrarActivas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+	<mx:LinkButton x="92" y="350" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{filtrarActivas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas válidas de este, sino verá todas las consultas válidas del sistema"/>
 	
 </mx:Panel>
