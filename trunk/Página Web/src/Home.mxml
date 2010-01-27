@@ -67,17 +67,30 @@
 			public function IniciarRegistro():void{
 				
 				
-				/* this.nomb.text = ' ';
-				this.apaterno.text = ' ';
-				this.celular.text = ' ';
-				this.telefono.text = ' ';
-				this.telefono0.text = ' ';
-				this.descripcion.text = ' ';
-				/* this.asunto1.text = ' ';  */ 
+				/* this.nomb.editable = true;
+				this.apaterno.editable = true;
+				this.celular.editable = true;
+				this.telefono.editable = true;
+				this.telefono0.editable = true;
+				this.descripcion.editable = true;
+				this.asunto1.editable = true;  */
 				this.currentState = 'NuevaEntrada';
 				
 			}
-			
+				public function IniciarVista():void{
+				
+				if(dg.selectedItem.asunto != null){
+					/* this.nomb.editable = false;
+					this.apaterno.editable = false;
+					this.celular.editable = false;
+					this.telefono.editable = false;
+					this.telefono0.editable = false;
+					this.descripcion.editable = false;
+					this.asunto1.editable = false;  */
+					this.currentState = 'AvisoVer';
+				}
+				
+			}
 			
 				/**
 		 	 * Metodo que recibe el panel EditUsuario (editarAviso), para almacenarlo, 
@@ -86,6 +99,8 @@
 			 * */
 			public function getAllAvisos():void
 			{
+				mensaje.text = '';
+				
 				var avisoWebService:AvisoWebService = new AvisoWebService();
 				avisoWebService.addEventListener(ResultEvent.RESULT,getAllAvisosResult);
 				avisoWebService.getAllAvisoWeb();
@@ -99,7 +114,7 @@
 			private function getAllAvisosResult(event:ResultEvent):void
 			{
 				avisos = event.result as ArrayCollection;	
-							
+				
 								
 			}
 			
@@ -140,13 +155,14 @@ Ademas de cagarle la vida a 10 weones]]></mx:value>
 			</mx:AddChild>
 			<mx:SetProperty target="{text1}" name="x" value="105"/>
 			<mx:SetProperty target="{text1}" name="y" value="230"/>
+			<mx:SetProperty target="{text1}" name="text" value="Bienvenido a Clinica Bonati"/>
 		</mx:State>
 		<mx:State name="Avisos">
 			<mx:SetProperty target="{text1}" name="text" value="Avisos Web"/>
 			<mx:SetProperty target="{text1}" name="x" value="277.5"/>
 			<mx:SetProperty target="{text1}" name="y" value="31"/>
 			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:DataGrid x="88.5" y="141" height="292" width="575" alpha="0.0" styleName="dataAvisos" dataProvider="{avisos}" fontWeight="bold" fontSize="11" id="dg" doubleClickEnabled="true" doubleClick="currentState =  'AvisoVer'">
+				<mx:DataGrid x="88.5" y="141" height="292" width="575" alpha="0.0" styleName="dataAvisos" dataProvider="{avisos}" fontWeight="bold" fontSize="11" id="dg" doubleClickEnabled="true" doubleClick="IniciarVista()">
 					<mx:columns>
 						<mx:DataGridColumn headerText="" dataField="asunto"/>
 						<mx:DataGridColumn headerText="" dataField="nombre"/>
@@ -236,6 +252,11 @@ Ademas de cagarle la vida a 10 weones]]></mx:value>
 			<mx:AddChild relativeTo="{linkbutton1}" position="before" target="{spacer1}"/>
 			<mx:SetProperty target="{nomb}" name="editable" value="true"/>
 			<mx:SetProperty target="{apaterno}" name="editable" value="true"/>
+			<mx:SetProperty target="{descripcion}" name="editable" value="true"/>
+			<mx:SetProperty target="{asunto1}" name="editable" value="true"/>
+			<mx:SetProperty target="{celular}" name="editable" value="true"/>
+			<mx:SetProperty target="{telefono}" name="editable" value="true"/>
+			<mx:SetProperty target="{telefono0}" name="editable" value="true"/>
 		</mx:State>
 	</mx:states>
 
