@@ -421,6 +421,7 @@ CREATE TABLE atencionalojamiento
   diasEstadia int,
   eliminado boolean,
   estado integer DEFAULT '0',
+  motivo text,
   CONSTRAINT atencionalojamiento_pkey PRIMARY KEY (fechaIngreso, fechaSalida, canil),
   CONSTRAINT atencionalojamiento_mascota_fkey FOREIGN KEY (cliente, mascota)
       REFERENCES mascota (rut, nombre) MATCH FULL
