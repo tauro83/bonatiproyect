@@ -64,6 +64,7 @@
      			canilIntput.text = "";
      			costoIntput.costo.text = "";
      			costoIntput.costo.editable = true;
+     			regist.visible = true;
      			labelMessage.text = 'Listado mascotas alojadas en Hotelería';
      			
      			if(Tabla.selectedItem.rut != null)
