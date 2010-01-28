@@ -59,9 +59,8 @@ public class AvisoWebServiceBD {
 			   "WHERE id = ?;";
 			anul= connection.prepareStatement(query);
 			
-			query = "UPDATE avisoweb "+
-			   "SET estado = 1 " +
-			   "WHERE id = ?;";
+			query = "DELETE FROM avisoweb "+
+			  	"WHERE id = ?;";
 			del= connection.prepareStatement(query);
 		} 
 		catch (SQLException e) 

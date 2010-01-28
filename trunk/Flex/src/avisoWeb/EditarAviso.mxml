@@ -42,24 +42,24 @@
 			 * */
 			private function registrar():void
 			{					
-				if((telefono0.text.length>1 && telefono.text.length>5) || celular.text.length>5 ){
-					
-					mens.text = Properties.getMensaje("Informacion", "33");			 
-					aviso			  	= new AvisoWeb();
-					aviso.id			= this.idAviso;
-					aviso.telefono0		= this.telefono0.text.toString();
-					aviso.telefono		= this.telefono.text.toString();
-					aviso.celular		= this.celular.text.toString();
-					aviso.asunto		= this.asunto.text.toString();
-					aviso.descripcion	= this.descripcion.text.toString();
-					
-					avisoWebService = new AvisoWebService();
-					avisoWebService.addEventListener(ResultEvent.RESULT,registroAvisoResultado);																					
-					avisoWebService.upAvisoWeb(aviso);		
-				}
-				else{
-					mens.text = Properties.getMensaje("Advertencia", "30");
-				}
+				mens.text = Properties.getMensaje("Informacion", "33");			 
+				aviso			  	= new AvisoWeb();
+				aviso.id			= this.idAviso;
+				aviso.telefono0		= this.telefono0.text.toString();
+				aviso.telefono		= this.telefono.text.toString();
+				aviso.celular		= this.celular.text.toString();
+				aviso.asunto		= this.asunto.text.toString();
+				aviso.descripcion	= this.descripcion.text.toString();
+				if(telefono0.text.length<1) 
+					aviso.telefono0 = " ";
+			 	if(telefono.text.length<1) 
+					aviso.telefono = " ";
+			 	if(celular.text.length<1) 
+					aviso.celular = " ";
+		 		avisoWebService = new AvisoWebService();
+				avisoWebService.addEventListener(ResultEvent.RESULT,registroAvisoResultado);																					
+				avisoWebService.upAvisoWeb(aviso);		
+			
 						
 			}
 			
@@ -91,24 +91,23 @@
 			 * */
 			private function publicarAviso():void
 			{					
-				if((telefono0.text.length>1 && telefono.text.length>5) || celular.text.length>5 ){
-					
-					mens.text = Properties.getMensaje("Informacion", "33");			 
-					aviso			  	= new AvisoWeb();
-					aviso.id			= this.idAviso;
-					aviso.telefono0		= this.telefono0.text.toString();
-					aviso.telefono		= this.telefono.text.toString();
-					aviso.celular		= this.celular.text.toString();
-					aviso.asunto		= this.asunto.text.toString();
-					aviso.descripcion	= this.descripcion.text.toString();
-					
-					avisoWebService = new AvisoWebService();
-					avisoWebService.addEventListener(ResultEvent.RESULT,publicarAvisoResultado);																					
-					avisoWebService.pubAvisoWeb(aviso);		
-				}
-				else{
-					mens.text = Properties.getMensaje("Advertencia", "30");
-				}
+				mens.text = Properties.getMensaje("Informacion", "33");			 
+				aviso			  	= new AvisoWeb();
+				aviso.id			= this.idAviso;
+				aviso.telefono0		= this.telefono0.text.toString();
+				aviso.telefono		= this.telefono.text.toString();
+				aviso.celular		= this.celular.text.toString();
+				aviso.asunto		= this.asunto.text.toString();
+				aviso.descripcion	= this.descripcion.text.toString();
+				if(telefono0.text.length<1) 
+					aviso.telefono0 = " ";
+			 	if(telefono.text.length<1) 
+					aviso.telefono = " ";
+			 	if(celular.text.length<1) 
+					aviso.celular = " ";
+		 		avisoWebService = new AvisoWebService();
+				avisoWebService.addEventListener(ResultEvent.RESULT,publicarAvisoResultado);																					
+				avisoWebService.pubAvisoWeb(aviso);		
 						
 			}
 			
