@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" x="0" y="134" width="240" height="466" layout="absolute" title="Opciones del módulo" borderColor="#15AD8F">
 	<mx:Style source="css/AccordionStyle.css"/>
 	<mx:Script>
@@ -24,6 +24,11 @@
 				this.visible = true;
 				Application.application.eliminarHoteleria.visible=true;
 			}
+			public function verRetiradosHotel():void{
+				Application.application.setInvisible();
+				this.visible = true;
+				Application.application.retiradosHoteleria.visible=true;
+			}
 		]]>
 	</mx:Script>
 	
@@ -33,6 +38,7 @@
 			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="10" label="Registrar" click="verRegistrarHotel()"  id="bRegHot"/>
 			<mx:LinkButton x="10" y="40" label="Editar" click="verEditarHotel()" id="bEditHot"/>
 			<mx:LinkButton x="10" y="70" label="Retirar" click="verEliminarHotel()" id="bEliHot"/>
+			<mx:LinkButton x="10" y="100" label="Listar Retirados" click="verRetiradosHotel()" id="bEliHot0"/>
 		</mx:Canvas>
 	</mx:Accordion>
 		

@@ -225,6 +225,7 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
             	panelHoteleria.setVisible(false, false);
             	eliminarHoteleria.setVisible(false, false);
             	bitacoraControl.setVisible(false,false);
+            	retiradosHoteleria.setVisible(false, false);
 
             	<!--Autor: Andres G.}-->
             	
@@ -538,6 +539,8 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
 	</ns1:PanelHoteleria>
 	<ns4:BitacoraControl x="241" y="134" id="bitacoraControl" visible="false">
 	</ns4:BitacoraControl>
+	<ns5:RetiradosHoteleria x="241" y="134" id="retiradosHoteleria" visible="false">
+	</ns5:RetiradosHoteleria>
 	<!--Autor: andres}-->
 
 	<!--Autor: nicolas}-->
