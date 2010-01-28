@@ -46,7 +46,7 @@
 			{
 				var visualizarPostoperatorio:anularPeluqueria = new anularPeluqueria();
 				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
-				visualizarPostoperatorio.getAllVacunacionesR(this.nomMascota.text.toString(),this.rutCliente.text.toString());
+				visualizarPostoperatorio.getAllPeluqueriaR(this.nomMascota.text.toString(),this.rutCliente.text.toString());
 			}	
 			
 			private function getAllDatosResult(event:ResultEvent):void

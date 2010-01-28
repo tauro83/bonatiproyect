@@ -48,11 +48,11 @@
 			* panel seran mostrados solamente el costo, descripción, servicio, hora, fecha,
 			* responsable y nombre del catalogo.
 			*/
-			public function getAllVacunacionesU(nombreMascota:String):void
+			public function getAllPeluqueriaU(nombreMascota:String):void
 		    {
 		   		var vacunacionService:anularPeluqueria = new anularPeluqueria();
 		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
-				vacunacionService.getAllVacunacionesU(nombreMascota);
+				vacunacionService.getAllPeluqueriaU(nombreMascota);
 		    }
 		   
            /**
@@ -130,7 +130,7 @@
 			*/
 			public function setDatos(vacu:anuPeluqueria):void
 			{
-				getAllVacunacionesU(vacu.nombreMascota);
+				getAllPeluqueriaU(vacu.nombreMascota);
          		cNom.text=vacu.nombreCliente;
          		cRut.text=vacu.rutCliente;
          		cApP.text=vacu.apellido;
