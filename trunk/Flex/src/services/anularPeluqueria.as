@@ -100,9 +100,17 @@ package services
 			this.getOperation("getAllVacunacionesV").send();
 		}
 		
-		public function getAllVacunacionesR(nombreMascota:String):void
+		public function getAllVacunacionesR(nombreMascota:String, clienterut:String):void
 		{
-			this.getOperation("getAllVacunacionesR").send(nombreMascota);
+			this.getOperation("getAllVacunacionesR").send(nombreMascota,clienterut);
+		}
+		public function getAllPostOperatorioAnul():void{
+			
+			this.getOperation("getAllPostOperatorioAnul").send();
+		}
+		public function getAllPostNull(nombreMascota:String, clienterut:String):void
+		{
+			this.getOperation("getAllPostNull").send(nombreMascota,clienterut);
 		}
 	}
 }
