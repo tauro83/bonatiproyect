@@ -32,6 +32,12 @@
 			import mx.collections.ArrayCollection;
 			import services.RegistroAvisoWebService;
 			import services.AvisoWebService;
+			import services.Validaremail;
+			
+			
+			private var vEmail:Boolean;
+        	private var vEmail2:Boolean;
+        	private var e:Validaremail=new Validaremail;
 			
 			[Bindable]
 			private var avisos:ArrayCollection;
@@ -46,17 +52,18 @@
 			private function registrar():void
 			{					
 			 
-			if(nomb.text == '' || apaterno.text == '' || celular.text == '' || asunto1.text == '' || descripcion.text == ''){
+			if(nomb.text == '' || apaterno.text == '' || email.text == '' || asunto1.text == '' || descripcion.text == ''){
 				mensaje.text = 'No ha llenado todos los campos necesarios';
 			} else{
 			 var aviso:AvisoWeb = new AvisoWeb();
 				
-				aviso.nombre = nomb.text;
-				aviso.apaterno = apaterno.text;
+				aviso.nombre    = nomb.text;
+				aviso.apaterno  = apaterno.text;
 				aviso.telefono0 = telefono0.text;
-				aviso.telefono = telefono.text;
-				aviso.celular =  celular.text;
-				aviso.asunto = asunto1.text;
+				aviso.telefono  = telefono.text;
+				aviso.celular   =  celular.text;
+				aviso.email      =  email.text 
+				aviso.asunto    = asunto1.text;
 				aviso.descripcion = descripcion.text;
 				
 				//avisoWebService = new RegistroAvisoWebService();
@@ -66,6 +73,31 @@
 			}
 			}
 			
+			private function validar():void{
+				
+				email.addEventListener(KeyboardEvent.KEY_UP,validarEmail);
+			}
+			
+			     private function validarEmail(event:Event):void{
+            	
+            	var em:Boolean;
+            	
+            	em= e.isEmail(email.text);
+            	
+            	if(em==true)
+				{
+					
+					vEmail		= true;
+				}
+				else
+				{
+					
+					vEmail		= false;
+					mensaje.text = "Correo inválido";
+					//limpiarEmail();
+					
+				}
+            }
 			
 			/**
 			 *  retorna el resultado de la accion que se realizo:Registro.
@@ -209,79 +241,90 @@
 			<mx:RemoveChild target="{dg}"/>
 			<mx:RemoveChild target="{label4}"/>
 			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:TextInput x="203" y="207" id="telefono"  restrict="0-9" enabled="true"  maxChars="20" width="153" toolTip="Número de teléfono" text="{avisos.getItemAt(dg.selectedIndex).telefono}" editable="false"/>
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:TextInput x="155" y="207" id="telefono0"  restrict="0-9" enabled="true"  maxChars="4" width="31" toolTip="Código de área" text="{avisos.getItemAt(dg.selectedIndex).telefono0}" editable="false"/>
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:Label x="43" y="209" text="Teléfono:"  textAlign="left"/>
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:TextInput x="155" y="246" id="celular"  restrict="0-9" enabled="true"  maxChars="20" width="153" toolTip="Número de celular" text="{avisos.getItemAt(dg.selectedIndex).celular}" editable="false"/>
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:Label x="43" y="248" text="Celular:"  textAlign="left"/>
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:Label x="43" y="126" text="Nombre:" width="69" />
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:Label x="43" y="167" text="Apellido Paterno:" width="104" />
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:Label x="43" y="356" text="Descripción:"/>
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:Label x="43" y="315" text="Asunto:"/>
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:Label x="43" y="100" text="Cliente" fontWeight="bold"/>
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:Label x="43" y="289" text="Aviso" fontWeight="bold"/>
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
 				<mx:Button x="484" y="456" width="120" label="Volver" id="cancelarCatalogo" height="25" cornerRadius="6" toolTip="Cancelar la edición de aviso" click="{currentState='Avisos', getAllAvisos()}">
 				</mx:Button>
 			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:TextArea x="155" y="355" height="79" width="371" toolTip="Descripción del aviso" id="descripcion" text="{avisos.getItemAt(dg.selectedIndex).descripcion}" editable="false" backgroundColor="#F3F779"/>
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:TextInput x="155" y="124" id="nomb" editable="false" width="201" text="{avisos.getItemAt(dg.selectedIndex).nombre}"/>
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:TextInput x="155" y="165" id="apaterno" editable="false" width="201" text="{avisos.getItemAt(dg.selectedIndex).apaterno}"/>
-			</mx:AddChild>
-			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
-				<mx:TextInput x="155" y="313" text="{avisos.getItemAt(dg.selectedIndex).asunto}" id="asunto1" editable="false" backgroundColor="#F3F779"/>
-			</mx:AddChild>
 			<mx:RemoveChild target="{button1}"/>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:TextInput x="185" y="170" id="telefono"  restrict="0-9" enabled="true"  maxChars="20" width="105" toolTip="Número de teléfono" text="{avisos.getItemAt(dg.selectedIndex).telefono}" editable="false"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:TextInput x="138" y="170" id="telefono0"  restrict="0-9" enabled="true"  maxChars="4" width="39" toolTip="Código de área" text="{avisos.getItemAt(dg.selectedIndex).telefono0}" editable="false"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="62" y="172" text="Teléfono:"  textAlign="left" id="label10"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:FormItem id="formitem4" x="62" y="198" label="Celular   :">
+					<mx:TextInput x="155" y="246" id="celular"  restrict="0-9" enabled="true"  maxChars="20" width="153" toolTip="Número de celular" text="{avisos.getItemAt(dg.selectedIndex).celular}" editable="false"/>
+				</mx:FormItem>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="62" y="90" text="Cliente" fontWeight="bold" id="label12"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="62" y="279" text="Aviso" fontWeight="bold" id="label13"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:FormItem id="formitem5" x="66" y="362" label="Descripción">
+					<mx:Label text="Label" visible="false"/>
+					<mx:TextArea height="64" width="371" toolTip="Descripción del aviso" id="descripcion" text="{avisos.getItemAt(dg.selectedIndex).descripcion}" editable="false" backgroundColor="#F3F779"/>
+				</mx:FormItem>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:FormItem id="formitem1" x="62" y="112" label="Nombre  :">
+					<mx:TextInput x="155" y="124" id="nomb" editable="false" width="201" text="{avisos.getItemAt(dg.selectedIndex).nombre}"/>
+				</mx:FormItem>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:FormItem id="formitem2" x="62" y="142" width="276" label="Apellido  :">	
+					<mx:TextInput x="155" y="165" id="apaterno" editable="false" width="200" text="{avisos.getItemAt(dg.selectedIndex).apaterno}"/>
+				</mx:FormItem>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:FormItem id="formitem3" x="66" y="305" label="Asunto  :">
+					<mx:TextInput x="155" y="313" text="{avisos.getItemAt(dg.selectedIndex).asunto}" id="asunto1" editable="false" backgroundColor="#F3F779"/>
+				</mx:FormItem>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:FormItem x="61" y="234" label="Email      :" required="false" width="289" id="formitem6">
+					<mx:TextInput x="109" y="244" width="203" id="email" text="{avisos.getItemAt(dg.selectedIndex).email}" editable="false"/>
+				</mx:FormItem>
+			</mx:AddChild>
 		</mx:State>
 		<mx:State name="NuevaEntrada" basedOn="AvisoVer">
-			<mx:SetProperty target="{nomb}" name="text"/>
-			<mx:SetProperty target="{apaterno}" name="text"/>
-			<mx:SetProperty target="{telefono}" name="text"/>
-			<mx:SetProperty target="{telefono0}" name="text"/>
-			<mx:SetProperty target="{celular}" name="text"/>
-			<mx:SetProperty target="{asunto1}" name="text"/>
-			<mx:SetProperty target="{descripcion}" name="text"/>
-			<mx:SetProperty target="{telefono}" name="width" value="79"/>
-			<mx:SetProperty target="{celular}" name="width" value="127"/>
-			<mx:SetProperty target="{telefono0}" name="width" value="24"/>
 			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
 				<mx:Button x="356" y="456" label="Registrar" width="120" height="25" click="{registrar()}"/>
 			</mx:AddChild>
 			<mx:RemoveChild target="{spacer1}"/>
 			<mx:AddChild relativeTo="{linkbutton1}" position="before" target="{spacer1}"/>
-			<mx:SetProperty target="{nomb}" name="editable" value="true"/>
-			<mx:SetProperty target="{apaterno}" name="editable" value="true"/>
-			<mx:SetProperty target="{descripcion}" name="editable" value="true"/>
-			<mx:SetProperty target="{asunto1}" name="editable" value="true"/>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="55" y="460" text="*" color="#CC1212" fontSize="15" width="20" height="18"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{canvas1}" position="lastChild">
+				<mx:Label x="67" y="460" text="Campos obligatorios"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{nomb}" name="text"/>
+			<mx:SetProperty target="{apaterno}" name="text"/>
+			<mx:SetProperty target="{telefono}" name="text"/>
+			<mx:SetProperty target="{telefono0}" name="text"/>
+			<mx:SetProperty target="{celular}" name="text"/>
+			<mx:SetProperty target="{email}" name="text"/>
+			<mx:SetProperty target="{asunto1}" name="text"/>
+			<mx:SetProperty target="{descripcion}" name="text"/>
+			<mx:SetProperty target="{formitem1}" name="required" value="true"/>
+			<mx:SetProperty target="{formitem2}" name="required" value="true"/>
+			<mx:SetProperty target="{formitem6}" name="required" value="true"/>
+			<mx:SetProperty target="{formitem3}" name="required" value="true"/>
+			<mx:SetProperty target="{formitem5}" name="required" value="true"/>
 			<mx:SetProperty target="{celular}" name="editable" value="true"/>
 			<mx:SetProperty target="{telefono}" name="editable" value="true"/>
+			<mx:SetProperty target="{nomb}" name="editable" value="true"/>
+			<mx:SetProperty target="{apaterno}" name="editable" value="true"/>
 			<mx:SetProperty target="{telefono0}" name="editable" value="true"/>
+			<mx:SetProperty target="{email}" name="editable" value="true"/>
+			<mx:SetProperty target="{asunto1}" name="editable" value="true"/>
+			<mx:SetProperty target="{descripcion}" name="editable" value="true"/>
 		</mx:State>
 	</mx:states>
 
