@@ -32,12 +32,20 @@
 				if(seleccionado == 0){
 					verActivas.enabled = false;
 					verNulas.enabled = true;
+					verTodos.enabled = true;
 					select =0;
 				}
 				if(seleccionado == 1){
 					verActivas.enabled = true;
 					verNulas.enabled = false;
+					verTodos.enabled = true;
 					select = 1;
+				}
+				if(seleccionado == 2){
+					verActivas.enabled = true;
+					verNulas.enabled = true;
+					verTodos.enabled = false;
+					select = 2;
 				}
 			}
 			private function getAllDatos():void{
@@ -67,6 +75,28 @@
 				var getAll:GetAllControles = new GetAllControles();
 				getAll.addEventListener(ResultEvent.RESULT,getAllDatosResult);
 				getAll.getAllControlesAnu();
+			}
+			private function filtrarTodos():void{
+				verSelect(2);
+				eliminar.setVisible(false);
+				var getAll:GetAllControles = new GetAllControles();
+				getAll.addEventListener(ResultEvent.RESULT,getAllTodosResult);
+				controles = new ArrayCollection;
+				getAll.getAllControlesAnu();
+				getAll.getAllControles();
+			}
+			private function getAllTodosResult(event:ResultEvent):void{
+				
+				var lista:ArrayCollection = event.result as ArrayCollection;
+				var i:int;
+				
+				for(i=0;i<lista.length;i++){
+					
+					var control:Control = lista.getItemAt(i) as Control;
+					control.dateToString();
+					controles.addItem(control);
+				}
+				atrib='mascota';
 			}
 			/**
 			 * Es llamada al hacer doble click en el datagrid o al presionar el 
@@ -229,7 +259,8 @@
 		</mx:ArrayCollection>
 	</mx:ComboBox>
 	<mx:Label x="10" y="314" text="Ver:" id="label7"/>
-	<mx:LinkButton x="96" y="312" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
-	<mx:LinkButton x="46" y="312" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllDatos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+	<mx:LinkButton x="169" y="314" label="Nulos" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
+	<mx:LinkButton x="61" y="314" label="Todos" width="58" fontWeight="normal" id="verTodos" click="{filtrarTodos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
+	<mx:LinkButton x="115" y="314" label="Válidos" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllDatos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
 	
 </mx:Panel>

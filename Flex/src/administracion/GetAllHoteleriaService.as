@@ -32,6 +32,9 @@ package administracion{
 		public function getAllHoteleria():void{
 			this.getOperation("getAllHoteleria").send();
 		}
+		public function getRetiradosHoteleria():void{
+			this.getOperation("getRetiradosHoteleria").send();
+		}
 		
 	}
 }
