@@ -113,6 +113,11 @@ package services
 		{
 			this.getOperation("getAllPostNull").send(nombreMascota,clienterut);
 		}
+		public function getTodas():void
+		{
+			this.getOperation("getTodas").send();
+		}
+		
 	}
 }
 
