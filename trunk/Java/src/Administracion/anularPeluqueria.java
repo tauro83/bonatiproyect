@@ -24,14 +24,14 @@ public class anularPeluqueria {
 	 * en la base de datos del sistema.
 	 * @return Lista con todos los registros de peluquería.
 	 */
-	public List getAllVacunaciones()
+	public List getAllPeluqueria()
     {
 		List vacunaciones = new ArrayList();
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
-			vacunaciones = vacunacionBD.getAllVacunaciones();	
+			vacunaciones = vacunacionBD.getAllPeluqueria();	
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -48,7 +48,7 @@ public class anularPeluqueria {
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			anularPeluqueriaBD personDB= new anularPeluqueriaBD(connection);
-			persons= personDB.getAllVacunacionesV1();		
+			persons= personDB.getAllPeluqueriaV1();		
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -63,14 +63,14 @@ public class anularPeluqueria {
 	 * en la base de datos de un cliente determinado.
 	 * @return Lista con todos los registros de peluquería.
 	 */
-	public List getAllVacunacionesU(String rut)
+	public List getAllPeluqueriaU(String rut)
     {
 		List vacunaciones = new ArrayList();
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
-			vacunaciones = vacunacionBD.getAllVacunacionesU(rut);
+			vacunaciones = vacunacionBD.getAllPeluqueriaU(rut);
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -88,14 +88,14 @@ public class anularPeluqueria {
 	 * @return Lista con todos los registros de peluquería.
 	 */
 	
-	public List getAllVacunacionesA()
+	public List getAllPeluqueriaA()
     {
 		List vacunaciones = new ArrayList();
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
-			vacunaciones = vacunacionBD.getAllVacunacionesA();
+			vacunaciones = vacunacionBD.getAllPeluqueriaA();
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -105,14 +105,14 @@ public class anularPeluqueria {
 		return vacunaciones;
     }
 	
-	public List getAllVacunacionesV()
+	public List getAllPeluqueriaV()
     {
 		List vacunaciones = new ArrayList();
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
-			vacunaciones = vacunacionBD.getAllVacunacionesV();
+			vacunaciones = vacunacionBD.getAllPeluqueriaV();
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -122,13 +122,13 @@ public class anularPeluqueria {
 		return vacunaciones;
     }
 	
-	public List getAllVacunacionesR(String nombreMascota, String clienterut) {
+	public List getAllPeluqueriaR(String nombreMascota, String clienterut) {
     	List persons=new ArrayList();
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			anularPeluqueriaBD personDB= new anularPeluqueriaBD(connection);
-			persons= personDB.getAllVacunacionesR2(nombreMascota,clienterut);		
+			persons= personDB.getAllPeluqueriaR2(nombreMascota,clienterut);		
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -207,5 +207,22 @@ public class anularPeluqueria {
 			e.printStackTrace();
 		}
     	return result;
+    }
+	
+	public List getTodas()
+    {
+		List vacunaciones = new ArrayList();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
+			vacunaciones = vacunacionBD.getTodas();	
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return vacunaciones;
     }
 }
