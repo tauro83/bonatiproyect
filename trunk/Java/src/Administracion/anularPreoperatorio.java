@@ -25,6 +25,25 @@ public class anularPreoperatorio {
 	 * en la base de datos del sistema.
 	 * @return Lista con todos los registros de peluquería.
 	 */
+	
+	public List getTodas()
+    {
+		List vacunaciones = new ArrayList();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			anularPreoperatorioBD vacunacionBD= new anularPreoperatorioBD(connection);
+			vacunaciones = vacunacionBD.getTodas();	
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return vacunaciones;
+    }
+	
+	
 	public List getAllVacunaciones()
     {
 		List vacunaciones = new ArrayList();
