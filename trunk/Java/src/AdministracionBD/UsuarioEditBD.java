@@ -131,8 +131,8 @@ public class UsuarioEditBD
     			person.setCargo(result.getString(5).trim());
     			person.setContrasena(result.getString(6).trim());
     			person.setServicio(result.getString(7).trim());
-    			person.setPermisoEditar(result.getBoolean(8));
  			    person.setPermisoRegistrar(result.getBoolean(8));
+ 			    person.setPermisoEditar(result.getBoolean(9));
     			person.setPermisoEliminar(result.getBoolean(10));
     			person.setPermisoPurgar(result.getBoolean(11));
 
