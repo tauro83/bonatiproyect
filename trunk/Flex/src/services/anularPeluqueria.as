@@ -99,5 +99,10 @@ package services
 		{
 			this.getOperation("getAllVacunacionesV").send();
 		}
+		
+		public function getAllVacunacionesR(nombreMascota:String):void
+		{
+			this.getOperation("getAllVacunacionesR").send(nombreMascota);
+		}
 	}
 }
