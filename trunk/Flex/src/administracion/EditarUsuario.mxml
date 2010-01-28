@@ -66,6 +66,13 @@
 					newRegUsuar.peli.selected = newUsuario.permisoEliminar;
 					newRegUsuar.ppur.selected = newUsuario.permisoPurgar;
 					
+					//editando raul
+					if(newUsuario.permisoRegistrar == true && newUsuario.permisoEditar == true && newUsuario.permisoEliminar == true && newUsuario.permisoPurgar == true){
+					   
+					   newRegUsuar.ptod.selected = true;
+					
+					}
+					
 					
 					newRegUsuar.usua.text =newUsuario.usuario;
 					newRegUsuar.rcon.text = newRegUsuar.cont.text = newUsuario.contrasena;
@@ -262,7 +269,7 @@
 			<mx:DataGridColumn headerText="Permiso Purgar" dataField="permisoPurgar" visible="false"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Button label="Editar" height="23" width="102" x="522" y="353" click="editarUser(event)" cornerRadius="6"/>
+	<mx:Button label="Editar" height="23" width="102" x="522" y="353" click="{editarUser(event)}" cornerRadius="6"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="632" y="353" label="Cancelar" width="102" height="23" click="cancelando()" cornerRadius="6"/>
 	
