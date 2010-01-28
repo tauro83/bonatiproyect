@@ -85,7 +85,99 @@ public class anularPeluqueriaBD {
 	 * panel.
 	 * @return Lista con todos los registros de peluquería.
 	 */
-	 public List getAllVacunaciones()
+	
+	public List getTodas()
+    {
+		 List vacunaciones = new ArrayList();
+	    	anuPeluqueria vacu;
+	    	try 
+	    	{
+	    		ResultSet result = selectAllVacunaciones.executeQuery();
+	    		
+	    		while(result.next())
+	    		{  
+	    			
+	    			ResultSet result1 = setCliente.executeQuery();
+	    			ResultSet result2 = setMascota.executeQuery();
+	    			
+	    			vacu = new anuPeluqueria();
+	    			vacu.setRutCliente(result.getString(1).trim());	
+	    			vacu.setNombreMascota(result.getString(2).trim());
+	    			vacu.setServicio(result.getString(3).trim());
+	    			vacu.setHora(result.getString(4).trim());
+	    			vacu.setFecha(result.getString(5).trim());
+	    			vacu.setDescripcion(result.getString(6).trim());
+	    			vacu.setEstado(result.getInt(7));
+	    			vacu.setResponsable(result.getString(8).trim());
+	    			vacu.setNombreCatalogo(result.getString(9).trim());
+	    			
+	    			
+	    			String rut2 = vacu.getNombreMascota().trim();
+	    			String rut3=vacu.getRutCliente().trim();
+	    			int h=0;
+	    			int estado1=vacu.getEstado();
+	    			
+	    			while(result1.next() && h==0)
+		    		{ 
+	    			//System.out.println("ar" + " "+result1);
+	    			
+	    			vacu.setRutCliente(result1.getString(3).trim()); 
+	    			String rut4=vacu.getRutCliente().trim();
+	    			//System.out.println(rut4);
+	    			if(rut3.equals(rut4)){
+	    				    //System.out.println("Hola"+rut3);
+	    					vacu.setRutCliente(rut3);
+	    					vacu.setNombreCliente(result1.getString(1).trim());
+	    					vacu.setApellido(result1.getString(2).trim());
+	    					h=1;
+	    					
+	    				}
+		    		}
+	    			
+	    			int g=0;
+	    			while(result2.next() && g==0 )
+		    		{ 
+	    			//System.out.println("ar" + " "+result1);
+	    			
+	    			vacu.setNombreMascota(result2.getString(1).trim()); 
+	    			vacu.setRutCliente(result2.getString(4).trim()); 
+	    			//System.out.println(rut4);
+	    			String rut4=vacu.getNombreMascota().trim();
+	    			String rut5=vacu.getRutCliente().trim();
+	    			if(rut2.equals(rut4) && rut3.equals(rut5) ){
+	    				    //System.out.println("Hola"+rut3);
+	    					vacu.setRutCliente(rut3);
+	    					vacu.setRaza(result2.getString(2).trim());
+	    					vacu.setSexo(result2.getString(3).trim());
+	    					g=1;
+	    					
+	    				}
+		    		}
+	    			
+	    			//Verifica que no se repitan los clientes
+	    			int bandera = 0;
+	    			for(int i=0;i<vacunaciones.size();i++){
+	    				if(rut2.equals(((anuPeluqueria) vacunaciones.get(i)).getNombreMascota()))
+	    				{
+	    					bandera=1;
+	    				}
+	    			}
+	    			if(bandera==0)
+	    			{
+	    				vacunaciones.add(vacu);
+	    			}
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return vacunaciones;
+    }
+	
+	
+	
+	 public List getAllPeluqueria()
 	    {	
 		 List vacunaciones = new ArrayList();
 	    	anuPeluqueria vacu;
@@ -116,7 +208,7 @@ public class anularPeluqueriaBD {
 	    			int h=0;
 	    			int estado1=vacu.getEstado();
 	    			
-	    			while(result1.next() && h==0 && estado1==0)
+	    			while(result1.next() && h==0)
 		    		{ 
 	    			//System.out.println("ar" + " "+result1);
 	    			
@@ -176,7 +268,7 @@ public class anularPeluqueriaBD {
 	 
 	
 	 
-	 public List  getAllVacunacionesR2(String nombreMascota, String clienterut)
+	 public List  getAllPeluqueriaR2(String nombreMascota, String clienterut)
 	    {	
 	    	List postOperatorios = new ArrayList ();
 	    	anuPeluqueria postOperatorio;
@@ -212,7 +304,7 @@ public class anularPeluqueriaBD {
 	* seran mostrados en el segundo panel.
 	* @return Lista con todos los registros de peluquería.
 	*/
-	 public List getAllVacunacionesU(String nombreMascota)
+	 public List getAllPeluqueriaU(String nombreMascota)
 	 {
 		 	List vacunaciones = new ArrayList();
 		 	anuPeluqueria vacu;
@@ -266,7 +358,7 @@ public class anularPeluqueriaBD {
 	* que posean estado 1.
 	* @return Lista con todos los registros de peluquería.
 	*/
-	 public List getAllVacunacionesA()
+	 public List getAllPeluqueriaA()
 	 {
 		 	List vacunaciones = new ArrayList();
 		 	anuPeluqueria vacu;
@@ -393,7 +485,7 @@ public class anularPeluqueriaBD {
 		 return result; 
 	 }
 	 
-	 public List getAllVacunacionesV()
+	 public List getAllPeluqueriaV()
 	 {
 		 	List vacunaciones = new ArrayList();
 		 	anuPeluqueria vacu;
@@ -479,7 +571,7 @@ public class anularPeluqueriaBD {
 	 }
 	 
 	 
-	 public List getAllVacunacionesR(String nombreMascota)
+	 public List getAllPeluqueriaR(String nombreMascota)
 	 {
 		 List vacunaciones = new ArrayList();
 		 	anuPeluqueria vacu;
@@ -525,7 +617,7 @@ public class anularPeluqueriaBD {
 	    	return vacunaciones;
 	 }
 	 
-	 public List getAllVacunacionesV1()
+	 public List getAllPeluqueriaV1()
 	 {
 		 	List vacunaciones = new ArrayList();
 		 	anuPeluqueria vacu;
