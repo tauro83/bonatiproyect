@@ -26,23 +26,26 @@
 			private var controles:ArrayCollection;
 			[Bindable]
 			private var atrib:String="";
+			public var select:int = 0;
 			
-			/**
-			 * Obtiene los datos de las atenciones que están 
-			 * registradas en la base de datos
-			 * 
-			 */
+			public function verSelect(seleccionado:int):void{
+				if(seleccionado == 0){
+					verActivas.enabled = false;
+					verNulas.enabled = true;
+					select =0;
+				}
+				if(seleccionado == 1){
+					verActivas.enabled = true;
+					verNulas.enabled = false;
+					select = 1;
+				}
+			}
 			private function getAllDatos():void{
+				verSelect(0);
 				var getAll:GetAllControles = new GetAllControles();
 				getAll.addEventListener(ResultEvent.RESULT,getAllDatosResult);
 				getAll.getAllControles();
-			}	
-			/**
-			 * Oyente para la funcion getAllDatos()
-			 * el resultado del evento lo interpreta como una lista de datos
-			 * en donde cada elemento corresponde a un Control de la clinica
-			 * luego se guarda cada uno de estos daos
-			 */
+			}
 		    private function getAllDatosResult(event:ResultEvent):void
 			{
 				controles = new ArrayCollection;
@@ -65,6 +68,7 @@
 			public function eliminarAtencion():void{
 				if(Tabla.selectedItem!=null){
 					if(comboboxMotivo.selectedIndex!=0){
+						
 						var motivoS:String;
 						 if(comboboxMotivo.selectedLabel=='Otros'){
                         	motivoS=Application.application.login2.usuarioActivo+" "+motivo.text;
@@ -104,11 +108,12 @@
 				else
 				   mens.text=Properties.getMensaje("Error", "29");
 			}
-			/**
-			 * Al cancelar la operación se muestra un panel que solo tiene el 
-			 * mensaje "seleccione una opcion del menú"
-			 * 
-			 */
+			private function filtrarNulas():void{
+				verSelect(1);
+				var getAll:GetAllControles = new GetAllControles();
+				getAll.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+				getAll.getAllControlesAnu();
+			}
 			private function cancelando():void
 			{
 				this.setVisible(false,false);
@@ -193,7 +198,7 @@
 
 	<fc:AutoComplete id="input" dataProvider="{controles}" labelField="{atrib}" close="Seleccionar(event)" x="59" y="10" width="246" />
 	
-	<mx:DataGrid x="10" y="52" width="739" id="Tabla" enabled="true" height="278" dataProvider="{controles}" itemDoubleClick="eliminarAtencion()">
+	<mx:DataGrid x="10" y="52" width="739" id="Tabla" enabled="true" height="252" dataProvider="{controles}" itemDoubleClick="eliminarAtencion()">
 		<mx:toolTip>Controles agendados en la veterinaria</mx:toolTip>
 		<mx:columns>
 			<mx:DataGridColumn headerText="Mascota" dataField="mascota" width="70"/>
@@ -221,5 +226,8 @@
 			<mx:Object label="Otros"/> 
 		</mx:ArrayCollection>
 	</mx:ComboBox>
+	<mx:Label x="10" y="314" text="Ver:" id="label7"/>
+	<mx:LinkButton x="96" y="312" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
+	<mx:LinkButton x="46" y="312" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllDatos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
 	
 </mx:Panel>
