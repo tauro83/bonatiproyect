@@ -17,15 +17,19 @@ import TransferObjects.Alojamiento;
 public class GetAllHoteleriaService {
 	Connection connection;
 	PreparedStatement selectAll;
+	PreparedStatement selectRetirados;
 	public GetAllHoteleriaService(){
 		//creamos una nueva conexion y preparamos la sentencia para
 		//luego ser llamada
 		try{    		
 			connection=DBConnectionManager.getConnection();
 			String query = "SELECT *" +
-					"FROM atencionalojamiento " +
-					"WHERE estado=0";
+			"FROM atencionalojamiento " +
+			"WHERE estado=0";
 			selectAll = connection.prepareStatement(query);
+			query = "SELECT *" +
+			"FROM atencionalojamiento";
+			selectRetirados = connection.prepareStatement(query);
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -65,7 +69,41 @@ public class GetAllHoteleriaService {
 		} 
     	catch (SQLException e) 
     	{
-			System.out.println("Error en GetAllPostOperatorio, detalle: "+e.getMessage());
+			System.out.println("Error en GetAllHoteleriaService, detalle: "+e.getMessage());
+		}
+    	
+    	return lista;
+		
+	}
+	public List getRetiradosHoteleria(){
+		List lista=new ArrayList();
+    	Alojamiento hotel;		
+    	try{
+			ResultSet result = selectRetirados.executeQuery();
+    		while(result.next())
+    		{
+    			
+    			hotel = new Alojamiento();
+    			hotel.setServicio(result.getString(1));
+    			hotel.setHora(result.getString(2));
+    			hotel.setFechaIngreso(result.getDate(3));
+    			hotel.setCosto(result.getString(4));
+    			hotel.setResponsable(result.getString(5));
+    			hotel.setCliente(result.getString(6));
+    			hotel.setMascota(result.getString(7));
+    			hotel.setCanil(result.getInt(8));
+    			hotel.setFechaSalida(result.getDate(9));
+    			hotel.setComentario(result.getString(10));
+    			hotel.setDiasEstadia(result.getInt(11));
+    			hotel.setEliminado(result.getBoolean(12));
+    			lista.add(hotel);
+    			
+    		}
+    		connection.close();
+		} 
+    	catch (SQLException e) 
+    	{
+			System.out.println("Error en GetAllHoteleriaService, detalle: "+e.getMessage());
 		}
     	
     	return lista;
