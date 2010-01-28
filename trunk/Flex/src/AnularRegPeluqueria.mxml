@@ -52,15 +52,15 @@
 			
             private function seleccionarBusqueda (event:Event):void
             {   
-            	inputNombreCliente.setVisible(false,false);
-				inputApellidoPaterno.setVisible(false,false);
-				inputRutCliente.setVisible(false,false);
-				inputNombreMascota.setVisible(false,false);
-				inputNombreMascota.setVisible(false,false);
-				inputRaza.setVisible(false,false);
-				inputSexo.setVisible(false,false);
-				textBuscar.setVisible(true, false);
-				getAllVacunaciones();
+            	limpiarTodo();
+				
+            	if(select ==0){
+            		getAllVacunaciones();
+				}
+				else if(select ==1){
+            		filtrarNulas();
+				}			
+				
 				
             	switch (combobox.selectedLabel)
 				{
@@ -144,6 +144,7 @@
 			*/
 			public function getAllVacunaciones():void
 		    {
+		    	verSelect(0);
 		   		var vacunacionService:anularPeluqueria = new anularPeluqueria();
 		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
 				vacunacionService.getAllVacunaciones();
@@ -199,7 +200,7 @@
 						anuladosVerPost.nombre.text = newMascota.nombreCliente;
 						anuladosVerPost.apellidoPaterno.text = newMascota.apellido;
 						anuladosVerPost.rutCliente.text = newMascota.rutCliente;
-						anuladosVerPost.getAllVacunacionesR(this.rutCliente.toString());
+						anuladosVerPost.getAllDatos();
 						anuladosVerPost.setVisible(true,false);
 					}
 				}
@@ -225,6 +226,7 @@
 			* */
 		    public function Seleccionar(event:Event):void
 			{
+				
 			    if(inputNombreCliente.selectedIndex==0)
 			    {
 			    	inputNombreCliente.text=inputNombreCliente.selectedLabel;
@@ -256,7 +258,7 @@
 				verSelect(1);
 				var visualizarPostoperatorio:anularPeluqueria = new anularPeluqueria();
 				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,filtrarNulasResult);
-				visualizarPostoperatorio.getAllVacunacionesR(this.rutCliente.toString());
+				visualizarPostoperatorio.getAllPostOperatorioAnul();
 			}	
 			/**
 			 * Obtiene el evento del resultado de la consulta
