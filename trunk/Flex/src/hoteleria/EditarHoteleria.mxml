@@ -43,6 +43,7 @@
          	private function editarHoteleria():void{         		
          		currentState="EditarHoteleria";
          		labelMessage.text = "";
+         		costoDiario.text = "";
          		
          		var rutCliente:String = Tabla.selectedItem.cliente.split(" ", 1).pop();
          		var largo:int = rutCliente.length;
@@ -62,7 +63,7 @@
          		numeroCanil.text = Tabla.selectedItem.canil;
          		cuadroComentario.text = Tabla.selectedItem.comentario;
          		
-				costoInput.costo.text = Tabla.selectedItem.costo.split(" ",1).pop();
+				costoInput.text = Tabla.selectedItem.costo.split(" ",1).pop();
 				costoInput.formatear();
          		
          		
@@ -222,6 +223,9 @@
 						}
 					}
 				}
+				else{
+					calcularCosto();
+				}
 			}
 			/**
 			 * @author  Sebastian Arancibia
@@ -286,6 +290,30 @@
 			   	
 			}
 			
+			private function calcularCosto():void{
+				
+				//costoDiario.text = costoDiario.costoBruto;
+				
+				var resultingDate:Date = new Date();
+				var timeOffset:uint;
+
+				var numHours:uint;
+				var numDays:uint;
+
+				timeOffset = fecha0.selectedDate.getTime() - fecha.selectedDate.getTime();
+
+				// 1 minute is 60,000 milliseconds
+
+				numHours = Math.floor(timeOffset / 60 / 60000);
+				numDays = Math.floor(numHours / 24);
+				
+				costoInput.text =parseInt(costoDiario.costoBruto) * numDays + "";
+				costoInput.formatear();
+				
+			
+			}
+			
+			
 				   
          ]]>
        
@@ -308,7 +336,7 @@
 				<mx:Label x="22" y="218" text="Caníl:" width="73" height="22" id="label0"/>
 			</mx:AddChild>
 			<mx:AddChild relativeTo="{label0}" position="before">
-				<mx:Label x="342.25" y="155" text="Comentario:" width="93" height="22" id="label6"/>
+				<mx:Label x="345" y="155" text="Comentario:" width="93" height="22" id="label6"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:TextArea x="429" y="154" width="296" height="113" id="cuadroComentario"/>
@@ -318,14 +346,20 @@
 			</mx:AddChild>
 			<mx:RemoveChild target="{registrar}"/>
 			<mx:AddChild relativeTo="{label3}" position="before">
-				<mx:Label x="22" y="248" text="Costo:" width="61" height="22" id="label2"/>
+				<mx:Label x="22" y="299" text="Costo/día:" width="73" height="22" id="label2"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<ns2:Precio x="91" y="248" id="costoInput">
-				</ns2:Precio>
+				<ns2:Precio2 x="429" y="299" id="costoInput" editable="false" enabled="false">
+				</ns2:Precio2>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<ns2:Caniles x="91" y="216" id="numeroCanil"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{label3}" position="before">
+				<mx:Label x="345" y="299" text="Costo Total:" width="83" height="22" id="label7"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<ns2:Precio2 x="91" y="297" id="costoDiario" focusOut="calcularCosto()"/>
 			</mx:AddChild>
 		</mx:State>
 	</mx:states>
