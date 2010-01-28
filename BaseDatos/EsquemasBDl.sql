@@ -102,6 +102,7 @@ CREATE TABLE bitacora
   cliente character(20),
   mascota character(20),
   servicio character(20),
+  estado boolean DEFAULT 'true',
   CONSTRAINT pk_bitacora PRIMARY KEY (usuario, accion, fechaaccion, horaaccion)
 ) ;
 
