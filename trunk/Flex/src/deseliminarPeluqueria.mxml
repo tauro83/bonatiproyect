@@ -42,11 +42,11 @@
 			* panel seran mostrados solamente el costo, descripción, servicio, hora, fecha,
 			* responsable y nombre del catalogo.
 			*/
-			public function getAllVacunacionesA():void
+			public function getAllPeluqueriaA():void
 		    {
 		   		var vacunacionService:anularPeluqueria = new anularPeluqueria();
 		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
-				vacunacionService.getAllVacunacionesA();
+				vacunacionService.getAllPeluqueriaA();
 		    }
 		   
 	         /**
@@ -126,7 +126,7 @@
 			*/
 			public function setDatos(vacu:anuPeluqueria):void
 			{
-				getAllVacunacionesA();
+				getAllPeluqueriaA();
          	}
          	
 			/**
