@@ -155,10 +155,18 @@
 			{
 				usuarios = event.result as ArrayCollection;	
 				usuarios2 = new ArrayCollection();
-				responsableSeleccionado = usuarios.getItemAt(0).usuario.split(" ",1).pop();
+				responsableSeleccionado = Application.application.usuarioActual.usuario.split(" ",1).pop();
+				usuarios2.addItem({label:Application.application.usuarioActual.nombre.split(" ",1).pop()+" "+Application.application.usuarioActual.apellidoPaterno.split(" ",1).pop(), usuario:Application.application.usuarioActual.usuario.split(" ",1).pop()});
+				
+				
 				for(var i:int = 0; i<usuarios.length; i++){
-					usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
-				}					
+					if(usuarios.getItemAt(i).nombre.split(" ",1).pop() != responsableSeleccionado){
+						usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
+					}
+					//if(usuarios.getItemAt(i).usuario.split(" ",1).pop() == Application.application.userX.text){}
+				
+				}
+								
 			}
 			 
 			       
