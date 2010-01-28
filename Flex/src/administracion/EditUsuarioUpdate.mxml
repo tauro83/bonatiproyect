@@ -188,7 +188,7 @@
 		 	 * 	Realiza la opcion de elegir todos los privilegios tras seleccionar la opcion todos	
 		 	 * @author  "Jimmy Muñoz"	
 			 * */
-			private function todosLosPrivilegios():void
+			private function todosLosPrivilegios(event:Event):void
 			{
 				if(ptod.selected == true)
 				{
