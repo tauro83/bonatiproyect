@@ -42,6 +42,7 @@
 			}
 			private function getAllDatos():void{
 				verSelect(0);
+				eliminar.setVisible(true);
 				var getAll:GetAllControles = new GetAllControles();
 				getAll.addEventListener(ResultEvent.RESULT,getAllDatosResult);
 				getAll.getAllControles();
@@ -59,6 +60,13 @@
 					controles.addItem(control);
 				}
 				atrib='mascota';
+			}
+			private function filtrarNulas():void{
+				verSelect(1);
+				eliminar.setVisible(false);
+				var getAll:GetAllControles = new GetAllControles();
+				getAll.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+				getAll.getAllControlesAnu();
 			}
 			/**
 			 * Es llamada al hacer doble click en el datagrid o al presionar el 
@@ -107,12 +115,6 @@
 				}
 				else
 				   mens.text=Properties.getMensaje("Error", "29");
-			}
-			private function filtrarNulas():void{
-				verSelect(1);
-				var getAll:GetAllControles = new GetAllControles();
-				getAll.addEventListener(ResultEvent.RESULT,getAllDatosResult);
-				getAll.getAllControlesAnu();
 			}
 			private function cancelando():void
 			{
