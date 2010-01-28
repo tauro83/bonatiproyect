@@ -156,4 +156,37 @@ public class anularPreoperatorio {
 		}
     	return result;
     }
+	
+	public List getAllPostOperatorioAnul()
+    {
+    	List persons=new ArrayList();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			anularPreoperatorioBD personDB= new anularPreoperatorioBD(connection);
+			persons= personDB.getAllVacunacionesV2();		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return persons;
+    }
+	
+	public List getAllVacunacionesR(String nombreMascota, String clienterut) {
+    	List persons=new ArrayList();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			anularPreoperatorioBD personDB= new anularPreoperatorioBD(connection);
+			persons= personDB.getAllVacunacionesR2(nombreMascota,clienterut);		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return persons;
+    }
 }
