@@ -436,4 +436,51 @@ public class anularPeluqueriaBD {
 			}
 	    	return vacunaciones;
 	 }
+	 
+	 
+	 public List getAllVacunacionesR(String nombreMascota)
+	 {
+		 List vacunaciones = new ArrayList();
+		 	anuPeluqueria vacu;
+		 	
+	    	try 
+	    	{
+	    		/**
+	    		 * Inicializa la consulta sql de la tabla de peluquería.
+	    		 */
+	    		ResultSet result = selectAllVacunaciones.executeQuery();
+	    		while(result.next())
+	    		{  
+	    			vacu = new anuPeluqueria();
+	    			
+	    			vacu.setRutCliente(result.getString(1).trim());
+	    			vacu.setNombreMascota(result.getString(2).trim());
+	    			vacu.setServicio(result.getString(3).trim());
+	    			vacu.setHora(result.getString(4).trim());
+	    			vacu.setFecha(result.getString(5).trim());
+	    			vacu.setDescripcion(result.getString(6).trim());
+	    			vacu.setEstado(result.getInt(7));
+	    			vacu.setResponsable(result.getString(8).trim());
+	    			vacu.setNombreCatalogo(result.getString(9).trim());
+	    			
+	    			String rut2 = vacu.getNombreMascota().trim();
+	    			int estado2 = vacu.getEstado();
+	    			
+	    			/**
+	    			 * Esta condicción se encarga de buscar todos los registro de peluquería 
+	    			 * que posean estado 0 y posean el mismo nombre.
+	    			 */
+	    			if(rut2.equals(nombreMascota) && estado2==2)
+	    			{
+	    				
+	    				vacunaciones.add(vacu);
+	    			}
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return vacunaciones;
+	 }
 }
