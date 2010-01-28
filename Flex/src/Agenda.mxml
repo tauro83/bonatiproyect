@@ -647,17 +647,17 @@
         <mx:Label x="10" y="254" text="Servicio:"/>
         <mx:ComboBox id="servicioInput" x="10" y="280" width="182" close="{asignarAgenda(event)};" dataProvider="{servicios}" labelField="nombre">
 		</mx:ComboBox>
-        <mx:Button id="agendar" x="674" y="311" label="Agendar" visible="false" click="{seleccionarCita(event)}"/>
-        <mx:Button id="eliminar" x="674" y="311" label="Eliminar" visible="false" click="{deleteCita(event)}" width="75"/>
+        <mx:Button id="agendar" x="564" y="312" label="Agendar" visible="false" click="{seleccionarCita(event)}"/>
+        <mx:Button id="eliminar" x="481" y="312" label="Eliminar" visible="false" click="{deleteCita(event)}" width="75"/>
         <mx:Button id="bloquear" x="200" y="311" label="Bloquear Día" click="bloquearDia()" visible="false"/>
-        <mx:Button id="desbloquear" x="200" y="311" label="Desbloquear Día" click="desbloquearDia()" visible="false"/>
+        <mx:Button id="desbloquear" x="200" y="312" label="Desbloquear Día" click="desbloquearDia()" visible="false"/>
         <mx:Text x="200" y="10" text="Fecha:" fontWeight="bold" visible="false"/>
         <mx:Label id="fechaOutput" x="248" y="10" visible="false"/>
         <mx:Label id="fechaBloqueadoOutput" x="200" y="14" visible="true"/>
         <mx:Text x="437" y="10" text="Servicio:" fontWeight="bold" visible="false"/>
         <mx:Label id="servicioOutput" x="491" y="10" visible="false"/>
         <mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-        <mx:Button x="581" y="311" label="Editar" id="editar" visible="false" click="{seleccionarCita(event)}" width="75"/>
-        <mx:Button x="200" y="311" label="Imprimir" width="102" height="23" id="impriButtonPr" click="{imprime()}"/>
+        <mx:Button x="398" y="312" label="Editar" id="editar" visible="false" click="{seleccionarCita(event)}" width="75"/>
+        <mx:Button x="647" y="311" label="Imprimir" width="102" height="23" id="impriButtonPr" click="{imprime()}"/>
         <mx:Button x="310" y="312" label="Bloquear" id="bloq" visible="false" click="bloquearHora()"/>
 </mx:Panel>
