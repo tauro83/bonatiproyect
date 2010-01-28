@@ -106,7 +106,7 @@
 			    this.setVisible(false,false);
 			    //Application.application.regPostOp1.resetvars();
 				Application.application.regPostOp1.setVisible(true,false);
-				Application.application.regPostOp1.labelMessage.text = "Usted ha cancelado la operación";
+				//Application.application.regPostOp1.labelMessage.text = "Usted ha cancelado la operación";
 			}
 			[Bindable]
             public var horas:ArrayCollection = new ArrayCollection(
