@@ -27,6 +27,7 @@ package TransferObjects
 		public var telefono:String;
 		public var celular:String;
 		public var celular0:String;
+		public var email:String;
 		public var asunto:String;
 		public var descripcion:String;
 	}
