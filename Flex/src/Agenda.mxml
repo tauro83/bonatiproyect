@@ -31,6 +31,9 @@
 			import mx.controls.Alert;
 			import services.configuracionServices;	
 			
+			import services.citaServices;
+			import transferObjects.Cita;
+			
 			import util.reportPrint;
 			import mx.managers.PopUpManager;
             import mx.containers.TitleWindow;
@@ -90,6 +93,12 @@
             [Bindable]
             public var servicios:ArrayCollection = new ArrayCollection(); 
                  
+                 
+            private var ct:citaServices = new citaServices();
+			private var c1:Cita;
+			
+			
+			
              /**
 			 * Funcion para asignar agenda dependiendo de la fecha seleccionada
 			 * @param even evento para asignar agenda
@@ -163,6 +172,51 @@
 				citas = event.result as ArrayCollection;
             	llenarAgendaDia(citas);   
 			}
+			
+			private function bloquearHora():void
+			{								 
+					
+					c1					= new Cita();
+					c1.cliente 			= "00";
+					c1.mascota      	= "No Disponible";
+					
+					if(calendario.selectedDate != null){
+						c1.fecha        	= calendario.selectedDate.getDate() + "/" + (calendario.selectedDate.getMonth()+1) + "/" +calendario.selectedDate.getFullYear();
+					}
+					else{
+						var newDate:Date = new Date();
+						c1.fecha        	= newDate.getDate() + "/" + (newDate.getMonth()+1) + "/" +newDate.getFullYear();
+					}
+					c1.hora			    = agendaDia.selectedItem.hora;
+					c1.servicio			= "No Disponible";
+	        				
+					c1.usuario	= usuarioInput.selectedItem.usuario;
+					
+					ct.addCita(c1);				
+					ct.addEventListener(ResultEvent.RESULT,registroCitaResultado);	
+																									
+				}			
+			
+			/**
+		 	 * 	@author  "Victor Silva"
+			 * 	@Fecha  03 Octubre
+			 *  @Descripcion retorna el resultado de la accion que se realizo:Registro.		
+			 * */
+			private function registroCitaResultado(event:ResultEvent):void
+			{
+				var message:String= event.result as String;	
+				var msj:String = "";
+				if(message=="1"){
+					labelMessage.text = "Hora bloqueada"; 	
+					iniciarAgenda();
+    		 	}
+				else{
+					labelMessage.text = "La hora no pudo ser bloqueada"; 				
+				}		
+			}		
+			
+			
+			
 			/**
 			 * Funcion que llena la tabla con las citas
 			 * 
@@ -299,7 +353,7 @@
             		//Alert.show(nombre);
             		var apellido:String = usuarios.getItemAt(i).apellidoPaterno.split(" ",1);
             		datosUsuarios.addItem({usuario:usuarios.getItemAt(i).usuario.split(" ",1), nombre:nombre, apellido:apellido});
-            		responsables.addItem({label:(nombre + " " + apellido)});
+            		responsables.addItem({label:(nombre + " " + apellido), usuario:usuarios.getItemAt(i).usuario.split(" ",1)});
             	}
             	usuarioInput.dataProvider = responsables;
 			}  
@@ -336,6 +390,8 @@
 			 */ 
             public function iniciarAgenda():void{
             	var fechaActual:Date = new Date();
+            	
+            	//calendario.selectedDate = new Date();
             	getAllUsuarios();
 			
             	cargarServicios();
@@ -452,17 +508,21 @@
 					eliminar.visible = false;
 					editar.visible = false;
 					
+					bloq.visible = true;
+					
 				}
 				else{
 					if(selectedRow.mascota != null){
 						labelMessage.text = "";
 						agendar.visible = false;
+						bloq.visible = false;
 						eliminar.visible = true;
 						editar.visible = true;
 					}
 					else{
 						labelMessage.text = Properties.getMensaje("Advertencia", "13");
 						agendar.visible = false;
+						bloq.visible = false;
 						eliminar.visible = false;
 						editar.visible = false;
 					}
@@ -538,6 +598,7 @@
 
 	        }
 
+
 			////////////////////////////////////TERMINA ELIMINAR CITA///////////////////////
 			///////////////////////////////////////////////////////////////////////////////
 			////////////////////////////////////////////////////////////////////////////////
@@ -598,4 +659,5 @@
         <mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
         <mx:Button x="581" y="311" label="Editar" id="editar" visible="false" click="{seleccionarCita(event)}" width="75"/>
         <mx:Button x="200" y="311" label="Imprimir" width="102" height="23" id="impriButtonPr" click="{imprime()}"/>
+        <mx:Button x="310" y="312" label="Bloquear" id="bloq" visible="false" click="bloquearHora()"/>
 </mx:Panel>
