@@ -52,7 +52,7 @@
 			
             private function seleccionarBusqueda (event:Event):void
             {   
-            	limpiarTodo();
+            	//limpiarTodo();
 				
             	if(select ==0){
             		getAllVacunaciones();
