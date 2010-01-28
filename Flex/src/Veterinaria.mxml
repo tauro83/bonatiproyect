@@ -289,6 +289,7 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
 			AnuladoPelu.setVisible(false,false);
 		     AnuladoPost.setVisible(false,false);
 		     Anulados3.setVisible(false,false);
+		Anulados4.setVisible(false,false);
 		 	<!--Autor: }Nicolas -->
 			
 		 		
@@ -750,6 +751,8 @@ color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize
 	</ns1:EditarProducto2>
 	<ns1:Anulados x="241" y="134" id="Anulados3" visible="false" borderColor="#15AD8F">
 	</ns1:Anulados>
+	<ns1:Anulados1 x="241" y="134" id="Anulados4" visible="false" borderColor="#15AD8F">
+	</ns1:Anulados1>
 	<!--Autor: }nicolas-->
 	
 	<!--Autor: Cristian Bravo{ -->
