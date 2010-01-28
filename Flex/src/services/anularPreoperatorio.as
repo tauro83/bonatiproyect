@@ -50,6 +50,11 @@ package services
 			
 		}
 		
+		public function getAllVacunacionesR(nombreMascota:String, clienterut:String):void
+		{
+			this.getOperation("getAllVacunacionesR").send(nombreMascota,clienterut);
+		}
+		
 		/**
 		* Este metoso envia el estado de un registro de peluquería y si este se encuentra en 0 
 		* es cambiado 1.
@@ -98,6 +103,15 @@ package services
 		public function getAllVacunacionesV():void
 		{
 			this.getOperation("getAllVacunacionesV").send();
+		}
+		
+		public function getAllPostOperatorioAnul():void{
+			
+			this.getOperation("getAllPostOperatorioAnul").send();
+		}
+		public function getAllPostNull(nombreMascota:String, clienterut:String):void
+		{
+			this.getOperation("getAllPostNull").send(nombreMascota,clienterut);
 		}
 	}
 }
