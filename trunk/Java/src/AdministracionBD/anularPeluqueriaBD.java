@@ -536,11 +536,13 @@ public class anularPeluqueriaBD {
 	    		 * Inicializa la consulta sql de la tabla de peluquería.
 	    		 */
 	    		ResultSet result = selectAllVacunaciones.executeQuery();
-	    		ResultSet result1 = setCliente.executeQuery();
-    			ResultSet result2 = setMascota.executeQuery();
+	    		
 	    		
 	    		while(result.next())
 	    		{  
+	    			ResultSet result1 = setCliente.executeQuery();
+	    			ResultSet result2 = setMascota.executeQuery();
+	    			
 	    			if(!result.getString(10).trim().equals("0")){
 	    				
 	    			
