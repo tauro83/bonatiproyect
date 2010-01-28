@@ -33,13 +33,25 @@
 				if(seleccionado == 0){
 					verActivas.enabled = false;
 					verNulas.enabled = true;
+					verTodas.enabled=true;
+					vi.enabled = true;
 					select =0;
 				}
 				if(seleccionado == 1){
 					verActivas.enabled = true;
 					verNulas.enabled = false;
+					verTodas.enabled=true;
+					vi.enabled = true;
 					select = 1;
 				}
+				if(seleccionado == 2){
+					verActivas.enabled = true;
+					verNulas.enabled = true;
+					verTodas.enabled=false;
+					vi.enabled = false;
+					select = 2;
+				}
+				
 			}
             /**
 			* Se hace visible el input correspondiente a la opción
@@ -54,7 +66,9 @@
 				else if(select ==1){
             		filtrarNulas();
 				}	
-				
+				else if(select ==2){
+            		getTodas();
+				}
 				
             	switch (combobox.selectedLabel)
 				{
@@ -110,6 +124,20 @@
             * el usuario se salga del panel, se dejan sin información los 
             * datagrid, textInput y ComboBox. 
             */
+            
+            public function getTodas():void{ 
+		    	verSelect(2);
+		    	var vacunacionService:anularPreoperatorio = new anularPreoperatorio();
+		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllTodas);
+				vacunacionService.getTodas();
+		    }
+		    
+		    public function getAllTodas(event:ResultEvent):void
+		    {
+		   		tablaVacunaciones.doubleClickEnabled=true;
+		   		vacunaicones = event.result as ArrayCollection;
+		    }
+		   
             
             public function limpiarTodo():void{
             	inputSexo.setVisible(false,false);
@@ -255,11 +283,12 @@
 			
 	 	]]>
     </mx:Script>
-	<mx:Label x="13" y="352" text="Ver:" id="label7"/>
-	<mx:LinkButton x="94" y="350" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
-	<mx:LinkButton x="46" y="350" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllVacunaciones()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+	<mx:Label x="14" y="352" text="Ver:" id="label7"/>
+	<mx:LinkButton x="154" y="350" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
+	<mx:LinkButton x="106" y="350" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllVacunaciones()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+	<mx:LinkButton x="50" y="350" label="Todas" width="60" fontWeight="normal" enabled="true" id="verTodas" click="{getTodas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
 	<!-- Botón Visualizar -->
-	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Button x="523" y="350" label="Visualizar" id="vi" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
 	
 	<mx:Text x="10" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
 	<mx:Text x="382" y="36" text="Mascota" fontWeight="bold"/>
