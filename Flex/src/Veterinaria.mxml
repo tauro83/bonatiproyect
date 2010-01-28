@@ -748,8 +748,8 @@ color="#FFFFFF" fillAlphas="[1.0, 1.0]" fillColors="[#0202CB, #0202CB]" fontSize
 	</ns1:EditarProducto>
 	<ns1:EditarProducto2 x="241" y="134" id="editProducto2" visible="false" borderColor="#15AD8F">
 	</ns1:EditarProducto2>
-	<ns1:AnuladosPost x="241" y="134" id="AnuladoPost" visible="false" borderColor="#15AD8F">
-	</ns1:AnuladosPost>
+	<ns1:Anulados x="241" y="134" id="Anulados3" visible="false" borderColor="#15AD8F">
+	</ns1:Anulados>
 	<!--Autor: }nicolas-->
 	
 	<!--Autor: Cristian Bravo{ -->
