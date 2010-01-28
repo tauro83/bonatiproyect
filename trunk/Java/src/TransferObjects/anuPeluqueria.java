@@ -8,20 +8,20 @@
 package TransferObjects;
 
 public class anuPeluqueria {
-	 private String rutCliente;
-	 private String nombreCliente;
-	 private String apellido;
-	 private String nombreMascota;
-	 private String raza;
-	 private String sexo;
-	 private String servicio;
-	 private String hora;
-	 private String fecha;
-	 private String descripcion;
-	 private String costo;
-	 private int estado;
-	 private String responsable;
-	 private String nombreCatalogo;
+	public String rutCliente;
+	public String nombreCliente;
+	public String apellido;
+	public String nombreMascota;
+	public String raza;
+	public String sexo;
+	public String servicio;
+	public String hora;
+	public String fecha;
+	public String descripcion;
+	public String costo;
+	public int estado;
+	public String responsable;
+	public String nombreCatalogo;
 	 public String motivo;
 	 public String fechaA;
 	 public String usuarioA;
