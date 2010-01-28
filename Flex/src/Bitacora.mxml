@@ -26,6 +26,16 @@
 			bitacoras.refresh();
 			
 		}
+		private function respaldar():void{
+			var bitacoraCitaService:BitacoraCitaService = new BitacoraCitaService();
+			bitacoraCitaService.addEventListener(ResultEvent.RESULT,respaldarBitacoraResult);
+			bitacoraCitaService.respaldarBitacora();
+		
+		}
+		private function respaldarBitacoraResult(event:ResultEvent):void{
+			//bitacoras = event.result as ArrayCollection;
+			//bitacoras.refresh();
+		}
 		
 		
 		 ]]>
@@ -43,5 +53,6 @@
 			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
 		</mx:columns>
 	</mx:DataGrid>
+	<mx:Button x="642" y="367" label="Respaldar" click="respaldar()"/>
 	
 </mx:Panel>

@@ -51,6 +51,11 @@ package services
 		private function faultHandler(event:FaultEvent):void{
 			Alert.show("Error en BitacoraCitaService, Detalle: "+event.fault.message);
 		}
+		
+		public function respaldarBitacora():void{
+			this.getOperation("respaldarBitacora").send();
+		}
+		
 		/**
 		 * Metodo que solicita a la capa 2 los datos de todos las mascotas
 		 * @author  Sebastian Arancibia
