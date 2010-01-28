@@ -225,6 +225,8 @@
 				}
 				else{
 					calcularCosto();
+					fecha.selectableRange = {rangeEnd: fecha0.selectedDate};
+					fecha0.selectableRange = {rangeStart: fecha.selectedDate};
 				}
 			}
 			/**
