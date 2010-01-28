@@ -193,6 +193,7 @@
             			Application.application.anularPel2.limpiarTodo();
 					}
 					else if(select ==1){
+						this.setVisible(false,false); 
 						anuladosVerPost.resetVars();
 						anuladosVerPost.nomMascota.text = newMascota.nombreMascota;
 						anuladosVerPost.razaMascota.text = newMascota.raza;
