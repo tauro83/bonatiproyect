@@ -41,7 +41,7 @@
 				inputRaza.setVisible(false,false);
 				inputSexo.setVisible(false,false);
 				textBuscar.setVisible(true, false);
-				getAllVacunaciones();
+				getAllPeluqueria();
             	switch (combobox.selectedLabel)
 				{
 			    
@@ -117,11 +117,11 @@
 			* de la mascota,raza y sexo, y en el panel siguiente serán mostrados los
 			* de un registro de peluquería.
 			*/
-			public function getAllVacunaciones():void
+			public function getAllPeluqueria():void
 		    {
 		   		var vacunacionService:anularPeluqueria = new anularPeluqueria();
 		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
-				vacunacionService.getAllVacunaciones();
+				vacunacionService.getAllPeluqueria();
 		    }
 		   
 		    /**
