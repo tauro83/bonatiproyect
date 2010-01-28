@@ -258,6 +258,7 @@ create table atencioncontrol(
 	servicio character (20),
 	costo character(7),
         motivo text DEFAULT 0,
+		 estado integer DEFAULT '0',
 	CONSTRAINT atencioncontrol_pkey PRIMARY KEY (hora, fecha, responsable),
 	CONSTRAINT atencioncontrol_usuario_fkey FOREIGN KEY (responsable)
 		REFERENCES usuario (usuario) MATCH FULL
