@@ -15,6 +15,7 @@ import java.util.List;
 
 import AdministracionBD.anularPeluqueriaBD;
 import Bd.DBConnectionManager;
+import PabellonBD.PostOperatorioBD;
 import TransferObjects.anuPeluqueria;
 
 public class anularPeluqueria {
@@ -40,6 +41,23 @@ public class anularPeluqueria {
 		return vacunaciones;
     }
 	
+	public List getAllPostOperatorioAnul()
+    {
+    	List persons=new ArrayList();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			anularPeluqueriaBD personDB= new anularPeluqueriaBD(connection);
+			persons= personDB.getAllVacunacionesV1();		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return persons;
+    }
+	
 	/**
 	 * Este metodo obteniene todos los registros de peluquería que se encuentran
 	 * en la base de datos de un cliente determinado.
@@ -61,6 +79,8 @@ public class anularPeluqueria {
 		}
 		return vacunaciones;
     }
+	
+	
 	
 	/**
 	 * Este metodo obteniene todos los registros de peluquería que se encuentran
@@ -102,24 +122,23 @@ public class anularPeluqueria {
 		return vacunaciones;
     }
 	
-	
-	public List getAllVacunacionesR(String rut)
-    {
-		List vacunaciones = new ArrayList();
+	public List getAllVacunacionesR(String nombreMascota, String clienterut) {
+    	List persons=new ArrayList();
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
-			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
-			vacunaciones = vacunacionBD.getAllVacunacionesR(rut);
+			anularPeluqueriaBD personDB= new anularPeluqueriaBD(connection);
+			persons= personDB.getAllVacunacionesR2(nombreMascota,clienterut);		
 			connection.close();
 		} 
     	catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
-		return vacunaciones;
+		return persons;
     }
 	
+
 	/**
 	 * Anula todos los registros de peluquería solicitados por el usuario
 	 * de la base de datos.
