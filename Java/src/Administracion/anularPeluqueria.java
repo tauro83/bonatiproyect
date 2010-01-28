@@ -102,6 +102,24 @@ public class anularPeluqueria {
 		return vacunaciones;
     }
 	
+	
+	public List getAllVacunacionesR(String rut)
+    {
+		List vacunaciones = new ArrayList();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			anularPeluqueriaBD vacunacionBD= new anularPeluqueriaBD(connection);
+			vacunaciones = vacunacionBD.getAllVacunacionesR(rut);
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return vacunaciones;
+    }
+	
 	/**
 	 * Anula todos los registros de peluquería solicitados por el usuario
 	 * de la base de datos.
