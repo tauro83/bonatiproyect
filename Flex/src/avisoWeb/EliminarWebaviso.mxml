@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Eliminar Aviso" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15AD8F" title="Purgar Aviso" x="241" y="133" xmlns:fc="http://www.adobe.com/2006/fc">
 	<mx:Script>
 		<![CDATA[
 		//=======================================================================
@@ -96,7 +96,7 @@
             * elimina una fila dentro de la tabla
             */
            	private function deleteRow():void {
-			 Alert.show("Está seguro que desea desactivar Aviso ","Confirme desactivar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+			 Alert.show("Está seguro que desea Purgar Aviso ","Confirme Purgar ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
 			}
 			/**
 			 * es la funcion que es llamada desde el mensaje de confirmación de la tarea
@@ -124,10 +124,10 @@
 			{
 				var result:int = event.result as int ;
 				if(nroSelec>1){
-					labelMessage.text = "Avisos desactivados con éxito";
+					labelMessage.text = "Avisos purgados exitosamente";
 				}
 				else
-					labelMessage.text = "Aviso desactivado con éxito";
+					labelMessage.text = "Aviso purgado exitosamente";
 				getAllAvisos();
 			}
 			
@@ -147,7 +147,6 @@
                         allRows = avisos.length;
                         Tabla.dataProvider = avisos;
                         i=-1;
-                        getAllAvisos();
                     }   
                 }              
             }
@@ -170,14 +169,12 @@
             }
 		]]>
 	</mx:Script>
-	<mx:Label x="25" y="12" text="Buscar"/>
-	<mx:Text x="241" y="12" id="textFiltrar" text="Filtrar por"/>
 	
 	<!-- AutoComplete -->
-	<fc:AutoComplete id="idA" x="70" y="10" width="150" dataProvider="{avisos}" labelField="id" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="nombre" x="70" y="10" width="150" dataProvider="{avisos}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="apellido" x="70" y="10" width="150" dataProvider="{avisos}" labelField="apaterno" visible="false" toolTip="ingrese texto para búsqueda"/>
-	<fc:AutoComplete id="asunto" x="70" y="10" width="150" dataProvider="{avisos}" labelField="asunto" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="idA" x="584" y="8" width="150" dataProvider="{avisos}" labelField="id" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="nombre" x="584" y="8" width="150" dataProvider="{avisos}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="apellido" x="584" y="8" width="150" dataProvider="{avisos}" labelField="apaterno" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<fc:AutoComplete id="asunto" x="584" y="8" width="150" dataProvider="{avisos}" labelField="asunto" visible="false" toolTip="ingrese texto para búsqueda"/>
 	
 	<mx:DataGrid x="25" y="72" width="709" height="263" id="Tabla" enabled="true" dataProvider="{avisos}" itemDoubleClick="removeTaskRecord()">
 		<mx:columns>
@@ -196,12 +193,12 @@
 	</mx:DataGrid>
 	<mx:CheckBox x="25" y="46" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
 	<mx:Label x="45" y="46" text="Seleccionar todo"/>
-	<mx:Button label="Eliminar" height="23" width="102" x="522" y="353" click="removeTaskRecord()" cornerRadius="6"/>
+	<mx:Button label="Purgar" height="23" width="102" x="522" y="353" click="deleteRow()" cornerRadius="6"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
 	<mx:Button x="632" y="353" label="Cancelar" width="102" height="23" click="cancelarAction()" cornerRadius="6"/>
 	
 	<!-- Opciones de busqueda -->
-	<mx:ComboBox x="307" y="10" width="150" id="combobox" change="seleccionarBusqueda(event)" toolTip="Seleccione un parámetro de búsqueda">
+	<mx:ComboBox x="91" y="8" width="150" id="combobox" change="seleccionarBusqueda(event)" toolTip="Seleccione un parámetro de búsqueda">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccione-"/>
 			<mx:Object label="ID"/>
@@ -211,6 +208,8 @@
 			
 		</mx:ArrayCollection>
 	</mx:ComboBox>
+	<mx:Text x="25" y="10" id="textFiltrar" text="Filtrar por"/>
+	<mx:Label x="518" y="8" text="Buscar"/>
 
 
 	

@@ -233,8 +233,8 @@
 		</mx:ArrayCollection>
 	</mx:ComboBox>
 	<mx:Label x="10" y="360" text="Ver:" id="label7"/>
-	<mx:LinkButton x="136" y="357" label="No publicados" width="105" fontWeight="normal" id="verNulas" click="{getAvisosNotpub()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
-	<mx:LinkButton x="46" y="357" label="Publicados" width="82" fontWeight="normal" enabled="true" id="verActivas" click="{getAllAvisos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+	<mx:LinkButton x="136" y="357" label="No publicados" width="105" fontWeight="normal" id="verNulas" click="{getAvisosNotpub()}" toolTip="Seleccione tipo de vista"/>
+	<mx:LinkButton x="46" y="357" label="Publicados" width="82" fontWeight="normal" enabled="true" id="verActivas" click="{getAllAvisos()}" toolTip="Seleccione tipo de vista"/>
 
 	
 </mx:Panel>
