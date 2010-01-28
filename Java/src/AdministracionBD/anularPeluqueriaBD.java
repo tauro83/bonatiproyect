@@ -17,6 +17,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import Bd.DBConnectionManager;
+import PabellonBD.PostOperatorioBD;
+import TransferObjects.PostOperatorio;
 import TransferObjects.anuPeluqueria;
 import TransferObjects.anuPreoperatorio;
 
@@ -26,6 +29,7 @@ public class anularPeluqueriaBD {
 	PreparedStatement setEstado1;
 	PreparedStatement setCliente;
 	PreparedStatement setMascota;
+	PreparedStatement selectAllPostoperatorio2;
 	/**
 	 * Se declaran las consultas hacia la base de datos
 	 * @param connection Conexión obtenida con la base de datos
@@ -56,6 +60,12 @@ public class anularPeluqueriaBD {
 					"SET estado = ?, motivo = ?  " + 
 					"WHERE estado = ? AND mascotanombre= ? AND hora= ? AND nombre= ? ;";
 			setEstado = connection.prepareStatement(query);
+			
+			query = "SELECT serviciospeluqueria.responsable, serviciospeluqueria.nombre, serviciospeluqueria.descripcion " +
+			"FROM serviciospeluqueria " +
+			"WHERE serviciospeluqueria.mascotanombre = ? and serviciospeluqueria.clienterut = ? and serviciospeluqueria.estado = 2;";
+	
+	        selectAllPostoperatorio2 = connection.prepareStatement(query);
 			
 			query = "UPDATE serviciospeluqueria " +
 			"SET estado = ? " + 
@@ -164,6 +174,37 @@ public class anularPeluqueriaBD {
 	    	return vacunaciones;
 	    }
 	 
+	
+	 
+	 public List  getAllVacunacionesR2(String nombreMascota, String clienterut)
+	    {	
+	    	List postOperatorios = new ArrayList ();
+	    	anuPeluqueria postOperatorio;
+	    	try 
+	    	{
+	    		ResultSet result;
+	    		
+	    		selectAllPostoperatorio2.setString(1, nombreMascota);
+	    		selectAllPostoperatorio2.setString(2, clienterut);
+	    		
+	    		result = selectAllPostoperatorio2.executeQuery();
+				
+	    		while(result.next())
+	    		{  
+	    			postOperatorio = new anuPeluqueria();
+	    			postOperatorio.responsable = result.getString(1).trim();
+	    			postOperatorio.nombreCatalogo = result.getString(2).trim();
+	    			postOperatorio.descripcion = result.getString(3).trim();
+	    			postOperatorios.add(postOperatorio);
+	    			
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return postOperatorios;
+	    }
 	/**
 	* Este metodo obteniene todos los registros de peluquería que se encuentran
 	* en la base de datos del sistema, este metodo se encarga de filtrar por el costo,
@@ -475,6 +516,102 @@ public class anularPeluqueriaBD {
 	    				
 	    				vacunaciones.add(vacu);
 	    			}
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return vacunaciones;
+	 }
+	 
+	 public List getAllVacunacionesV1()
+	 {
+		 	List vacunaciones = new ArrayList();
+		 	anuPeluqueria vacu;
+		 	
+	    	try 
+	    	{
+	    		/**
+	    		 * Inicializa la consulta sql de la tabla de peluquería.
+	    		 */
+	    		ResultSet result = selectAllVacunaciones.executeQuery();
+	    		ResultSet result1 = setCliente.executeQuery();
+    			ResultSet result2 = setMascota.executeQuery();
+	    		
+	    		while(result.next())
+	    		{  
+	    			if(!result.getString(10).trim().equals("0")){
+	    				
+	    			
+	    			vacu = new anuPeluqueria();
+	    			
+	    			vacu.setRutCliente(result.getString(1).trim());
+	    			vacu.setNombreMascota(result.getString(2).trim());
+	    			vacu.setServicio(result.getString(3).trim());
+	    			vacu.setHora(result.getString(4).trim());
+	    			vacu.setFecha(result.getString(5).trim());
+	    			vacu.setDescripcion(result.getString(6).trim());
+	    			vacu.setEstado(result.getInt(7));
+	    			vacu.setResponsable(result.getString(8).trim());
+	    			vacu.setNombreCatalogo(result.getString(9).trim());
+	    			
+	    			String rut2 = vacu.getNombreMascota().trim();
+	    			String rut3=vacu.getRutCliente().trim();
+	    			int h=0;
+	    			int estado1=vacu.getEstado();
+	    			
+	    			while(result1.next() && h==0 && estado1==2)
+		    		{ 
+	    			//System.out.println("ar" + " "+result1);
+	    			
+	    			vacu.setRutCliente(result1.getString(3).trim()); 
+	    			String rut4=vacu.getRutCliente().trim();
+	    			//System.out.println(rut4);
+	    			if(rut3.equals(rut4)){
+	    				    //System.out.println("Hola"+rut3);
+	    					vacu.setRutCliente(rut3);
+	    					vacu.setNombreCliente(result1.getString(1).trim());
+	    					vacu.setApellido(result1.getString(2).trim());
+	    					h=1;
+	    					
+	    				}
+		    		}
+	    			
+	    			int g=0;
+	    			
+	    			while(result2.next() && g==0 && estado1==2)
+		    		{ 
+	    			//System.out.println("ar" + " "+result1);
+	    			
+	    			vacu.setNombreMascota(result2.getString(1).trim()); 
+	    			vacu.setRutCliente(result2.getString(4).trim()); 
+	    			//System.out.println(rut4);
+	    			String rut4=vacu.getNombreMascota().trim();
+	    			String rut5=vacu.getRutCliente().trim();
+	    			if(rut2.equals(rut4) && rut3.equals(rut5) ){
+	    				    //System.out.println("Hola"+rut3);
+	    					vacu.setRutCliente(rut3);
+	    					vacu.setRaza(result2.getString(2).trim());
+	    					vacu.setSexo(result2.getString(3).trim());
+	    					g=1;
+	    					
+	    				}
+		    		}
+	    			
+	    			//Verifica que no se repitan los clientes
+	    			int bandera = 0;
+	    			for(int i=0;i<vacunaciones.size();i++){
+	    				if(rut2.equals(((anuPeluqueria) vacunaciones.get(i)).getNombreMascota()))
+	    				{
+	    					bandera=1;
+	    				}
+	    			}
+	    			if(bandera==0 && estado1==2)
+	    			{
+	    				vacunaciones.add(vacu);
+	    			}
+	    		}
 	    		}
 			} 
 	    	catch (SQLException e) 
