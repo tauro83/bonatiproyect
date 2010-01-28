@@ -223,23 +223,23 @@
 	</mx:Script>
 		
 	
-	<mx:DataGrid x="25" y="127.25" width="311.15" id="especiesGrid" itemClick="setNombre(event)" dataProvider="{especies}" height="200">
+	<mx:DataGrid x="25" y="128" width="152" id="especiesGrid" itemClick="setNombre(event)" dataProvider="{especies}" height="248">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Especies Registradas" dataField="nombre"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="25" y="10" text="Especie " width="152" fontWeight="bold"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="234.15" click="eliminarNombre(event)" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')" id="eliminar"/>
-	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="25"  click="registrarNombre(event)" label="Registrar" y="81" icon="@Embed(source='../images/Abajo.png')" id="agregar"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="25" click="eliminarNombre(event)" label="Eliminar" y="97" icon="@Embed(source='../images/Arriba.png')" id="eliminar"/>
+	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="25"  click="registrarNombre(event)" label="Registrar" y="66" icon="@Embed(source='../images/Abajo.png')" id="agregar"/>
 	<mx:TextInput x="25" y="36" width="152" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú"  id="especieInput" click="activarRegistrar(event)" maxChars="20"/>
-	<mx:DataGrid x="422.8" y="127.25" width="311.15" id="razasGrid" itemClick="aEliminar()" dataProvider="{razas}" height="200">
+	<mx:DataGrid x="422.8" y="128" width="152" id="razasGrid" itemClick="aEliminar()" dataProvider="{razas}" height="248">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Razas Registradas" dataField="nombre"/>
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="422.8" y="10" text="Raza" width="152" fontWeight="bold" id="razaLabel"/>
-	<mx:Button enabled="false" xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="631.95" click="eliminarRaza()" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')" id="eliminar0"/>
-	<mx:Button enabled="false" xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="422.8"  click="registrarRaza()" label="Registrar" y="81" icon="@Embed(source='../images/Abajo.png')" id="agregar0"/>
+	<mx:Button enabled="false" xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="422.8" click="eliminarRaza()" label="Eliminar" y="97" icon="@Embed(source='../images/Arriba.png')" id="eliminar0"/>
+	<mx:Button enabled="false" xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="422.8"  click="registrarRaza()" label="Registrar" y="66" icon="@Embed(source='../images/Abajo.png')" id="agregar0"/>
 	<mx:TextInput editable="false" x="422.8" y="36" width="152" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú"  id="razaInput" click="activarRegistrar(event)" focusIn="aRegistrar()" maxChars="20"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
