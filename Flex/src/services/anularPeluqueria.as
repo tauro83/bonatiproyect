@@ -72,37 +72,37 @@ package services
 		* Este metodo se encar de obtener todos los registro de peluquería que se encuentran al 
 		* interior de la base de datos. 
 		*/ 
-		public function getAllVacunaciones():void
+		public function getAllPeluqueria():void
 		{
-			this.getOperation("getAllVacunaciones").send();
+			this.getOperation("getAllPeluqueria").send();
 		}
 		
 		/**
 		* Este metodo se encar de obtener todos los registro de peluquería que se encuentran al 
 		* interior de la base de datos. 
 		*/ 
-		public function getAllVacunacionesU(nombreMascota:String):void
+		public function getAllPeluqueriaU(nombreMascota:String):void
 		{
-			this.getOperation("getAllVacunacionesU").send(nombreMascota);
+			this.getOperation("getAllPeluqueriaU").send(nombreMascota);
 		}
 		
 		/**
 		* Este metodo se encar de obtener todos los registro de peluquería que se encuentran al 
 		* interior de la base de datos. 
 		*/ 
-		public function getAllVacunacionesA():void
+		public function getAllPeluqueriaA():void
 		{
-			this.getOperation("getAllVacunacionesA").send();
+			this.getOperation("getAllPeluqueriaA").send();
 		}
 		
-		public function getAllVacunacionesV():void
+		public function getAllPeluqueriaV():void
 		{
-			this.getOperation("getAllVacunacionesV").send();
+			this.getOperation("getAllPeluqueriaV").send();
 		}
 		
-		public function getAllVacunacionesR(nombreMascota:String, clienterut:String):void
+		public function getAllPeluqueriaR(nombreMascota:String, clienterut:String):void
 		{
-			this.getOperation("getAllVacunacionesR").send(nombreMascota,clienterut);
+			this.getOperation("getAllPeluqueriaR").send(nombreMascota,clienterut);
 		}
 		public function getAllPostOperatorioAnul():void{
 			
@@ -111,6 +111,11 @@ package services
 		public function getAllPostNull(nombreMascota:String, clienterut:String):void
 		{
 			this.getOperation("getAllPostNull").send(nombreMascota,clienterut);
+		}
+		
+		public function getTodas():void
+		{
+			this.getOperation("getTodas").send();
 		}
 	}
 }
