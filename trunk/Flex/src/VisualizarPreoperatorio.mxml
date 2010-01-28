@@ -25,8 +25,22 @@
 			 
 			[Bindable]
 			private var vacunaicones:ArrayCollection;
+			
+			public var select:int = 0;
 
-
+			public function verSelect(seleccionado:int):void
+			{
+				if(seleccionado == 0){
+					verActivas.enabled = false;
+					verNulas.enabled = true;
+					select =0;
+				}
+				if(seleccionado == 1){
+					verActivas.enabled = true;
+					verNulas.enabled = false;
+					select = 1;
+				}
+			}
             /**
 			* Se hace visible el input correspondiente a la opción
 			* elegida en el combobox, las cuales pueden ser por el nombre del cliente,
@@ -34,15 +48,14 @@
 			*/
 			private function seleccionarBusqueda(event:Event):void
             {   
-            	inputNombreCliente.setVisible(false,false);
-				inputApellidoPaterno.setVisible(false,false);
-				inputRutCliente.setVisible(false,false);
-				inputNombreMascota.setVisible(false,false);
-				inputNombreMascota.setVisible(false,false);
-				inputRaza.setVisible(false,false);
-				inputSexo.setVisible(false,false);
-				textBuscar.setVisible(true, false);
-				getAllVacunaciones();
+            	if(select ==0){
+            		getAllVacunaciones();
+				}
+				else if(select ==1){
+            		filtrarNulas();
+				}	
+				
+				
             	switch (combobox.selectedLabel)
 				{
 			    
@@ -119,6 +132,7 @@
 			*/
 			public function getAllVacunaciones():void
 		    {
+		    	verSelect(0);
 		   		var vacunacionService:anularPreoperatorio = new anularPreoperatorio();
 		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
 				vacunacionService.getAllVacunaciones();
@@ -146,13 +160,41 @@
 		    public function visualizarVacunaciones(event:Event):void
             {
             	if(tablaVacunaciones.selectedItem){
-            		this.setVisible(false,false);            	 	
-            		Application.application.anularPre2.setDatos(tablaVacunaciones.selectedItem as anuPreoperatorio);
-            		Application.application.anularPre2.setVisible(true,false);
-            		Application.application.anularPre2.limpiarTodo();
-            		Application.application.anularPre2.comboboxMotivo.selectedItem='-Seleccionar-';
-            		Application.application.anularPre2.motivo.visible=false;
-					Application.application.anularPre2.motivo.text="";
+            				
+					var newPurgarPost:PurgarPreOperatorio = Application.application.anularPre2;
+					var anuladosVerPost:Anulados1 = Application.application.Anulados4;
+					
+					var newMascota:anuPreoperatorio = new anuPreoperatorio();
+					newMascota.nombreMascota = tablaVacunaciones.selectedItem.nombreMascota;
+					newMascota.raza = tablaVacunaciones.selectedItem.raza;
+					newMascota.sexo = tablaVacunaciones.selectedItem.sexo;
+					newMascota.nombreCliente = tablaVacunaciones.selectedItem.nombreCliente;
+					newMascota.apellido = tablaVacunaciones.selectedItem.apellido;
+					newMascota.rutCliente = tablaVacunaciones.selectedItem.rutCliente;
+					
+					
+				
+					if(select ==0){
+						this.setVisible(false,false);           	 	
+            			Application.application.anularPre2.setDatos(tablaVacunaciones.selectedItem as anuPreoperatorio);
+            			Application.application.anularPre2.setVisible(true,false);
+            			Application.application.anularPre2.limpiarTodo();
+            			Application.application.anularPre2.comboboxMotivo.selectedItem='-Seleccionar-';
+            		   Application.application.anularPre2.motivo.visible=false;
+            			Application.application.anularPre2.motivo.text="";
+					}
+					else if(select ==1){
+						this.setVisible(false,false); 
+						anuladosVerPost.resetVars();
+						anuladosVerPost.nomMascota.text = newMascota.nombreMascota;
+						anuladosVerPost.razaMascota.text = newMascota.raza;
+						anuladosVerPost.sexoMascota.text = newMascota.sexo;
+						anuladosVerPost.nombre.text = newMascota.nombreCliente;
+						anuladosVerPost.apellidoPaterno.text = newMascota.apellido;
+						anuladosVerPost.rutCliente.text = newMascota.rutCliente;
+						anuladosVerPost.getAllDatos();
+						anuladosVerPost.setVisible(true,false);
+					}
             	}
             }
             
@@ -193,9 +235,29 @@
 			    	inputSexo.text==inputSexo.selectedLabel;
 			    }
 			}
+			
+			public function filtrarNulas():void
+			{
+				verSelect(1);
+				var visualizarPostoperatorio:anularPreoperatorio = new anularPreoperatorio();
+				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,filtrarNulasResult);
+				visualizarPostoperatorio.getAllPostOperatorioAnul();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function filtrarNulasResult(event:ResultEvent):void
+			{
+				tablaVacunaciones.doubleClickEnabled=true;
+				vacunaicones = event.result as ArrayCollection;
+			}
+			
 	 	]]>
     </mx:Script>
-	
+	<mx:Label x="13" y="352" text="Ver:" id="label7"/>
+	<mx:LinkButton x="94" y="350" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
+	<mx:LinkButton x="46" y="350" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllVacunaciones()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
 	<!-- Botón Visualizar -->
 	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
 	
