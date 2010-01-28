@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TextInput xmlns:mx="http://www.adobe.com/2006/mxml" maxChars="8" restrict="0-9" focusOut="formatear()" focusIn="this.text = new String()">
+	<mx:Script>
+		<![CDATA[
+		   /**
+			*   @author  "Sebastian Arancibia"
+			* 	@Fecha  02 Noviembre
+			* Metodo que formatea el costo de la atencion
+			*/
+		   public var costoBruto:String;
+
+			/**
+		 	 * 	@author  "Sebastian Arancibia"
+			 * 	@Fecha  2 de Noviembre de 2009
+			 *  Funcion que dado un string de numeros y un separado retorna un valor formateado se utiliza
+			 *  comunmente el peso chileno por ejemplo: (100000, .) el retorno es 100.000
+			 * 	
+			 * */
+			public function makeNumberFormat (value : Object, separator : String):String{
+				var str : Array = value.toString ().split ("");
+				var i : Number = 0;
+				var count : Number = 0
+				var tmpArray : Array = []
+				var back : String = ""
+				str.reverse ();
+				while (str [i])
+				{
+					if ((count % 4) == 0)
+					{
+						tmpArray.push (separator)
+					} else
+					{
+						tmpArray.push (str [i])
+						i ++
+					}
+					count ++
+				}
+				tmpArray.reverse ();
+				i = 0;
+				while (tmpArray [i])
+				{
+					back += tmpArray [i];
+					i ++
+				}
+				return back.substr (0, back.length - 1);
+			}  
+
+		   public function formatear():void
+		   {
+		   		costoBruto = this.text;
+		   		this.text = "$"+makeNumberFormat(costoBruto, ".");
+		   }
+		]]>
+	</mx:Script>
+</mx:TextInput>
