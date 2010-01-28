@@ -53,8 +53,7 @@ public class BitacoraCitaBD
 
 			ocultar = connection.prepareStatement(query);
 			
-			query = "DELETE FROM bitacora " +
-					"WHERE fechaaccion = ?;";
+			query = "DELETE FROM bitacora WHERE estado = 'FALSE';";
 			
 			eliminar = connection.prepareStatement(query);
 			
@@ -130,19 +129,15 @@ public class BitacoraCitaBD
     			
     			if(Integer.parseInt(actualfech) - Integer.parseInt(fech) > 20000){// 2 Anios 
     				ocultar.setString(1, bitacora.fechaAccion);
-        			int resultado = ocultar.executeUpdate();
+        			ocultar.executeUpdate();
         	
     			}
-    			
+    		
     			//Funcion para eliminar pero no funciona
-    			/*if(Integer.parseInt(actualfech) - Integer.parseInt(fech) > 50000){// 5 Anios 
-    				
-    				eliminar.setString(1, bitacora.fechaAccion);
-    				eliminar.executeQuery();
-        			int resultado2 = eliminar.executeUpdate();
-        			
-        	
-    			}*/
+    			if(Integer.parseInt(actualfech) - Integer.parseInt(fech) > 20000){// 5 Anios 
+    				eliminar.executeUpdate();
+
+    			}
     		
 
     		}
