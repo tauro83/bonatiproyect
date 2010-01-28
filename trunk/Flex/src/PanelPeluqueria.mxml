@@ -142,7 +142,7 @@
 			Application.application.setInvisible();
 			this.visible = true;
                   Application.application.AnuladoPelu.visible = true;
-			Application.application.AnuladoPelu.getAllVacunacionesV();
+			Application.application.AnuladoPelu.getAllPeluqueriaV();
 			Application.application.AnuladoPelu.actionVolver();
 	 }
 
