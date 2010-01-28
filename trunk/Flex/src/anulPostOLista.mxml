@@ -24,18 +24,27 @@
 			
 			[Bindable]
 			private var atenciones:ArrayCollection;
+			private var atencionesNot:ArrayCollection;
 			
 			public function verSelect(seleccionado:int):void
 			{
 				if(seleccionado == 0){
 					verActivas.enabled = false;
 					verNulas.enabled = true;
+					verTodas.enabled = true;
 					select =0;
 				}
 				if(seleccionado == 1){
 					verActivas.enabled = true;
 					verNulas.enabled = false;
+					verTodas.enabled = true;
 					select = 1;
+				}
+				if(seleccionado == 2){
+					verActivas.enabled = true;
+					verNulas.enabled = true;
+					verTodas.enabled = false;
+					select = 2;
 				}
 			}
 			/**
@@ -45,6 +54,8 @@
 			 */
 			public function getAllDatos():void
 			{
+				Tabla.visible = true;
+				Tabla0.visible = false;
 				verSelect(0);
 				var visualizarPostoperatorio:PostOperatorioService = new PostOperatorioService();
 				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
@@ -58,10 +69,13 @@
 			{
 				Tabla.doubleClickEnabled=true;
 				atenciones = event.result as ArrayCollection;
+				atencionesNot = atenciones;
 			}
 			
 			public function filtrarNulas():void
 			{
+				Tabla.visible = true;
+				Tabla0.visible = false;
 				verSelect(1);
 				var visualizarPostoperatorio:PostOperatorioService = new PostOperatorioService();
 				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,filtrarNulasResult);
@@ -76,6 +90,27 @@
 				Tabla.doubleClickEnabled=true;
 				atenciones = event.result as ArrayCollection;
 			}
+			
+			public function verTodo():void
+			{
+				verSelect(2);
+				Tabla.visible = false;
+				Tabla0.visible = true;
+				var visualizarPostoperatorio:PostOperatorioService = new PostOperatorioService();
+				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,verTodoResult);
+				visualizarPostoperatorio.getAllPost();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function verTodoResult(event:ResultEvent):void
+			{
+				Tabla0.doubleClickEnabled=true;
+				atenciones = event.result as ArrayCollection;
+				atencionesNot = atenciones;
+			}
+			
 			/**
 			 * Se muestran los distintos tipos de búsqueda
 			 * que el usuario puede hacer al momento
@@ -91,6 +126,9 @@
 				}
 				else if(select ==1){
             		filtrarNulas();
+				}
+				else if(select ==2){
+            		verTodo();
 				}
             	switch (comboBox.selectedLabel){
 				case 'Nombre Mascota':		
@@ -148,6 +186,51 @@
             	Tabla.dataProvider = atenciones;
             	
             }
+            public function editarTodaAtencion():void
+			{
+				if(Tabla0.selectedItem){
+				
+					var newPurgarPost:anulPost = Application.application.AnulPostD;
+					var anuladosVerPost:AnuladosVerPost = Application.application.anuladosVerPost;
+					var newMascota:PostOperatorio = new PostOperatorio();
+					var nula:String = "4";
+					var val:String = "6";
+					
+					newMascota.nombreMascota = Tabla0.selectedItem.nombreMascota;
+					newMascota.raza = Tabla0.selectedItem.raza;
+					newMascota.sexo = Tabla0.selectedItem.sexo;
+					newMascota.nombreCliente = Tabla0.selectedItem.nombreCliente;
+					newMascota.apellido = Tabla0.selectedItem.apellido;
+					newMascota.clienterut = Tabla0.selectedItem.clienterut;
+					this.setVisible(false,false);
+					if(nula.localeCompare(Tabla0.selectedItem.alimentos.length.toString())){
+						newPurgarPost.resetVars();
+						newPurgarPost.nomMascota.text = newMascota.nombreMascota;
+						newPurgarPost.razaMascota.text = newMascota.raza;
+						newPurgarPost.sexoMascota.text = newMascota.sexo;
+						newPurgarPost.nombre.text = newMascota.nombreCliente;
+						newPurgarPost.apellidoPaterno.text = newMascota.apellido;
+						newPurgarPost.clienterut.text = newMascota.clienterut;
+						newPurgarPost.getAllDatos();
+						anuladosVerPost.setVisible(false,false);
+						newPurgarPost.setVisible(true,false);
+					}
+					else if(val.localeCompare(Tabla0.selectedItem.alimentos.length.toString())){
+						anuladosVerPost.resetVars();
+						anuladosVerPost.nomMascota.text = newMascota.nombreMascota;
+						anuladosVerPost.razaMascota.text = newMascota.raza;
+						anuladosVerPost.sexoMascota.text = newMascota.sexo;
+						anuladosVerPost.nombre.text = newMascota.nombreCliente;
+						anuladosVerPost.apellidoPaterno.text = newMascota.apellido;
+						anuladosVerPost.clienterut.text = newMascota.clienterut;
+						anuladosVerPost.getAllDatos();
+						newPurgarPost.setVisible(false,false);
+						anuladosVerPost.setVisible(true,false);
+					}
+				}
+			}
+						
+					
 			/**
 			 * Es llamada al hacer doble click en el data grid o al presionar el 
 			 * botón visualizar, esta función llega al panel PurgarPostOperatorio de manera interna
@@ -192,6 +275,7 @@
 						anuladosVerPost.getAllDatos();
 						anuladosVerPost.setVisible(true,false);
 					}
+					
 				}
 
 			}
@@ -209,8 +293,9 @@
 		]]>
 	</mx:Script>
 	<mx:Label x="10" y="353" text="Ver:" id="label7"/>
-	<mx:LinkButton x="94" y="350" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
-	<mx:LinkButton x="46" y="350" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllDatos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+	<mx:LinkButton x="137" y="351" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
+	<mx:LinkButton x="82" y="351" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllDatos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+	<mx:LinkButton x="30" y="351" label="Todas" width="60" fontWeight="normal" enabled="true" id="verTodas" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema" click="verTodo()"/>
 	
 	
 	
@@ -250,6 +335,18 @@
 			
 			
 	     </mx:columns>
+	</mx:DataGrid>
+	<mx:DataGrid x="30" y="62" width="719" id="Tabla0" enabled="true" height="280" dataProvider="{atenciones}" itemDoubleClick="editarTodaAtencion()">
+		<mx:toolTip>Muestra las mascotas registradas en el sistema</mx:toolTip>
+		<mx:columns>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota"/>
+			<mx:DataGridColumn headerText="Raza" dataField="raza" width="100"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="sexo" width="100"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="nombreCliente"/>
+			<mx:DataGridColumn headerText="Apellido Paterno" dataField="apellido"/>
+			<mx:DataGridColumn headerText="Rut" dataField="clienterut"/>
+			<mx:DataGridColumn headerText="Estado" dataField="alimentos"/>
+			</mx:columns>
 	</mx:DataGrid>
 	<mx:Button label="Visualizar" id="visualizar" height="23" width="102" x="523" y="350" click="editarAtencion()" cornerRadius="6" toolTip="Visualizar mascota seleccionada"/>
 	<mx:Label x="25" y="36" text="Mascota" fontWeight="bold"/>

@@ -22,6 +22,7 @@ public class PostOperatorioBD {
 	
 	PreparedStatement selectAllPostoperatorio;
 	PreparedStatement selectAllElim;
+	PreparedStatement selectAll;
 	PreparedStatement selectAllPostoperatorio2;
 	PreparedStatement selectAllPostNull;
 	PreparedStatement elimReg;
@@ -56,6 +57,14 @@ public class PostOperatorioBD {
 			"mascota.rut = atencionpostoperatorio.rut and mascota.nombre = atencionpostoperatorio.nombremascota and " +
 			"atencionpostoperatorio.estado = '0';";
 			selectAllPostoperatorio = connection.prepareStatement(query);
+			
+			query = "SELECT mascota.nombre, mascota.raza, mascota.sexo, " +
+			"clientepresencial.nombre, clientepresencial.apaterno, clientepresencial.rut, atencionpostoperatorio.estado " +
+			"FROM mascota, clientepresencial, atencionpostoperatorio " +
+			"WHERE clientepresencial.rut = atencionpostoperatorio.rut and " +
+			"mascota.rut = atencionpostoperatorio.rut and mascota.nombre = atencionpostoperatorio.nombremascota ;";
+			selectAll = connection.prepareStatement(query);
+			
 			
 			query = "SELECT atencionpostoperatorio.indicaciones, atencionpostoperatorio.hora, atencionpostoperatorio.fecha " +
 					"FROM atencionpostoperatorio " +
@@ -102,7 +111,37 @@ public class PostOperatorioBD {
 		}
 	}
 	
-	
+	 public List  getAllPost()
+	    {	
+	    	List  postOperatorios = new ArrayList();
+	    	PostOperatorio postOperatorio;
+	    	try 
+	    	{
+	    		ResultSet result = selectAll.executeQuery();
+	    		while(result.next())
+	    		{  
+	    			postOperatorio = new PostOperatorio();
+	    			postOperatorio.nombreMascota = result.getString(1).trim();
+	    			postOperatorio.raza = result.getString(2).trim();
+	    			postOperatorio.sexo = result.getString(3).trim();
+	    			postOperatorio.nombreCliente = result.getString(4).trim();
+	    			postOperatorio.apellido = result.getString(5).trim();
+	    			postOperatorio.clienterut = result.getString(6).trim();
+	    			
+	    			if(result.getInt(7)==0)
+	    				postOperatorio.alimentos = "Válida";
+	    			else if(result.getInt(7)==2)
+	    				postOperatorio.alimentos = "Nula";
+	    			postOperatorios.add(postOperatorio);
+	    			
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return postOperatorios;
+	    }
 	
 	public int AddPostOpeBD(PostOperatorio pos)
     {

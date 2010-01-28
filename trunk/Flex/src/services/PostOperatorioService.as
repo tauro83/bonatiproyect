@@ -74,6 +74,10 @@ package services
 		{
 			this.getOperation("getAllPostNull").send(nombreMascota,clienterut);
 		}
+		public function getAllPost():void
+		{
+			this.getOperation("getAllPost").send();
+		}
 		/**
 		 * Se obtienen todas los registros de post-operatorio que están registrados en la base de datos
 		 */ 

@@ -104,6 +104,22 @@ public class PostOperatorioService{
 		}
 		return persons;
     }
+	public List getAllPost()
+    {
+    	List persons=new ArrayList();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			PostOperatorioBD personDB= new PostOperatorioBD(connection);
+			persons= personDB.getAllPost();		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return persons;
+    }
 	
 	/**
 	 * Trata de obtener todos los usuarios registrados en la base de datos
