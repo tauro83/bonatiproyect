@@ -144,7 +144,8 @@
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Label x="414" y="10" text="Registrar" width="154" fontWeight="bold"/>
-	<mx:TextInput x="518" y="36" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú"  width="216" id="nomb" maxChars="20"/>
+	<mx:TextInput x="518" y="36" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú"  width="152" id="nomb" maxChars="20"/>
+	<mx:TextInput x="25" y="36" width="152" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú"  id="especieInput0" click="activarRegistrar(event)" maxChars="20"/>
 	<ns1:Precio x="518" y="66" width="161" id="prec" />
 	<mx:TextInput x="518" y="96"  width="216" id="desc" maxChars="40"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" click="registrarNombre(event)"  label="Registrar" y="128" id="agregar"/>
@@ -153,7 +154,6 @@
 	<mx:Label x="414" y="96" text="Descripción:"/>
 	<mx:Label x="25" y="10" text="Cirugía" width="152" fontWeight="bold"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" enabled="false" width="102" height="23" x="234.15" click="eliminarNombre(event)" id="eliminar" label="Eliminar" y="81" icon="@Embed(source='../images/Arriba.png')"/>
-	<mx:TextInput x="25" y="36" restrict="A-Z a-z ñ Ñ Á É Í Ó Ú á é í ó ú"  width="311.15" id="especieInput" editable="false"/>
 	<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="102" height="23" x="632" label="Volver" y="353" click="cancelarVisulizar()"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="ltexto" fontWeight="bold" textAlign="center"/>
 	
