@@ -75,6 +75,98 @@ public class anularPreoperatorioBD {
 	 * panel.
 	 * @return Lista con todos los registros de peluquería.
 	 */
+	
+	public List getTodas()
+    {
+		 List vacunaciones = new ArrayList();
+	    	anuPreoperatorio vacu;
+	    	try 
+	    	{
+	    		ResultSet result = selectAllVacunaciones.executeQuery();
+	    		
+	    		while(result.next())
+	    		{  
+	    			
+	    			ResultSet result1 = setCliente.executeQuery();
+	    			ResultSet result2 = setMascota.executeQuery();
+	    			
+	    			vacu = new anuPreoperatorio();
+	    			vacu.setRutCliente(result.getString(1).trim());	
+	    			vacu.setNombreMascota(result.getString(2).trim());
+	    			vacu.setHora(result.getString(3).trim());
+	    			vacu.setFecha(result.getString(4).trim());
+	    			vacu.setSintomas(result.getString(5).trim());
+	    			vacu.setEstado(result.getInt(6));
+	    			vacu.setResponsable(result.getString(7).trim());
+	    			vacu.setObservaciones(result.getString(8).trim());
+	    			vacu.setMotivo(result.getString(9).trim());
+	    			
+	    			
+	    			String rut2 = vacu.getNombreMascota().trim();
+	    			String rut3=vacu.getRutCliente().trim();
+	    			int h=0;
+	    			int estado1=vacu.getEstado();
+	    			
+	    			while(result1.next() && h==0)
+		    		{ 
+	    			//System.out.println("ar" + " "+result1);
+	    			
+	    			vacu.setRutCliente(result1.getString(3).trim()); 
+	    			String rut4=vacu.getRutCliente().trim();
+	    			//System.out.println(rut4);
+	    			if(rut3.equals(rut4)){
+	    				    //System.out.println("Hola"+rut3);
+	    					vacu.setRutCliente(rut3);
+	    					vacu.setNombreCliente(result1.getString(1).trim());
+	    					vacu.setApellido(result1.getString(2).trim());
+	    					h=1;
+	    					
+	    				}
+		    		}
+	    			
+	    			int g=0;
+	    			while(result2.next() && g==0 )
+		    		{ 
+	    			//System.out.println("ar" + " "+result1);
+	    			
+	    			vacu.setNombreMascota(result2.getString(1).trim()); 
+	    			vacu.setRutCliente(result2.getString(4).trim()); 
+	    			//System.out.println(rut4);
+	    			String rut4=vacu.getNombreMascota().trim();
+	    			String rut5=vacu.getRutCliente().trim();
+	    			if(rut2.equals(rut4) && rut3.equals(rut5) ){
+	    				    //System.out.println("Hola"+rut3);
+	    					vacu.setRutCliente(rut3);
+	    					vacu.setRaza(result2.getString(2).trim());
+	    					vacu.setSexo(result2.getString(3).trim());
+	    					g=1;
+	    					
+	    				}
+		    		}
+	    			
+	    			//Verifica que no se repitan los clientes
+	    			int bandera = 0;
+	    			for(int i=0;i<vacunaciones.size();i++){
+	    				if(rut2.equals(((anuPreoperatorio) vacunaciones.get(i)).getNombreMascota()))
+	    				{
+	    					bandera=1;
+	    				}
+	    			}
+	    			if(bandera==0)
+	    			{
+	    				vacunaciones.add(vacu);
+	    			}
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return vacunaciones;
+    }
+	
+	
+	
 	 public List getAllVacunaciones()
 	    {	
 		 List vacunaciones = new ArrayList();
