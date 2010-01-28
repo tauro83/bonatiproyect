@@ -24,6 +24,7 @@ public class anularPreoperatorioBD {
 	PreparedStatement setEstado;
 	PreparedStatement setCliente;
 	PreparedStatement setMascota;
+	PreparedStatement selectAllPostoperatorio2;
 	/**
 	 * Se declaran las consultas hacia la base de datos
 	 * @param connection Conexión obtenida con la base de datos
@@ -39,6 +40,12 @@ public class anularPreoperatorioBD {
 					"hora, fecha, sintomas, estado, responsable, observaciones, motivo " +
 					"FROM preoperatorio;";
 			selectAllVacunaciones = connection.prepareStatement(query);
+			
+			query = "SELECT preoperatorio.responsable, preoperatorio.sintomas, preoperatorio.observaciones " +
+			"FROM preoperatorio " +
+			"WHERE preoperatorio.nombre = ? and preoperatorio.rut = ? and preoperatorio.estado = 2;";
+	
+	        selectAllPostoperatorio2 = connection.prepareStatement(query);
 			
 			query = "SELECT nombre, aPaterno, rut " +
 			"FROM clientepresencial;";
@@ -164,6 +171,39 @@ public class anularPreoperatorioBD {
 	* seran mostrados en el segundo panel.
 	* @return Lista con todos los registros de peluquería.
 	*/
+	 
+	 public List  getAllVacunacionesR2(String nombreMascota, String clienterut)
+	    {	
+	    	List postOperatorios = new ArrayList ();
+	    	anuPreoperatorio postOperatorio;
+	    	try 
+	    	{
+	    		ResultSet result;
+	    		
+	    		selectAllPostoperatorio2.setString(1, nombreMascota);
+	    		selectAllPostoperatorio2.setString(2, clienterut);
+	    		
+	    		result = selectAllPostoperatorio2.executeQuery();
+				
+	    		while(result.next())
+	    		{  
+	    			postOperatorio = new anuPreoperatorio();
+	    			postOperatorio.responsable = result.getString(1).trim();
+	    			postOperatorio.sintomas= result.getString(2).trim();
+	    			postOperatorio.observaciones = result.getString(3).trim();
+	    			postOperatorios.add(postOperatorio);
+	    			
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return postOperatorios;
+	    }
+	 
+	 
+	 
 	 public List getAllVacunacionesU(String nombreMascota)
 	 {
 		 	List vacunaciones = new ArrayList();
@@ -381,5 +421,103 @@ public class anularPreoperatorioBD {
 			e.printStackTrace();
 		 }
 		 return result; 
+	 }
+	 
+	 public List getAllVacunacionesV2()
+	 {
+		 	List vacunaciones = new ArrayList();
+		 	anuPreoperatorio vacu;
+		 	
+	    	try 
+	    	{
+	    		/**
+	    		 * Inicializa la consulta sql de la tabla de peluquería.
+	    		 */
+	    		ResultSet result = selectAllVacunaciones.executeQuery();
+	    		
+	    		
+	    		while(result.next())
+	    		{  
+	    			ResultSet result1 = setCliente.executeQuery();
+	    			ResultSet result2 = setMascota.executeQuery();
+	    			
+	    			if(!result.getString(9).trim().equals("0")){
+	    				
+	    			
+	    			vacu = new anuPreoperatorio();
+	    			
+	    			vacu.setRutCliente(result.getString(1).trim());
+	    			vacu.setNombreMascota(result.getString(2).trim());	    			
+	    			vacu.setHora(result.getString(3).trim());
+	    			vacu.setFecha(result.getString(4).trim());
+	    			vacu.setSintomas(result.getString(5).trim());
+	    			vacu.setEstado(result.getInt(6));
+	    			vacu.setResponsable(result.getString(7).trim());	    			
+	    			vacu.setObservaciones(result.getString(8).trim());
+	    			vacu.setMotivo(result.getString(9).trim());
+	    			
+	    			String rut2 = vacu.getNombreMascota().trim();
+	    			String rut3=vacu.getRutCliente().trim();
+	    			int h=0;
+	    			int estado1=vacu.getEstado();
+	    			
+	    			while(result1.next() && h==0 && estado1==2)
+		    		{ 
+	    			//System.out.println("ar" + " "+result1);
+	    			
+	    			vacu.setRutCliente(result1.getString(3).trim()); 
+	    			String rut4=vacu.getRutCliente().trim();
+	    			//System.out.println(rut4);
+	    			if(rut3.equals(rut4)){
+	    				    //System.out.println("Hola"+rut3);
+	    					vacu.setRutCliente(rut3);
+	    					vacu.setNombreCliente(result1.getString(1).trim());
+	    					vacu.setApellido(result1.getString(2).trim());
+	    					h=1;
+	    					
+	    				}
+		    		}
+	    			
+	    			int g=0;
+	    			
+	    			while(result2.next() && g==0 && estado1==2)
+		    		{ 
+	    			//System.out.println("ar" + " "+result1);
+	    			
+	    			vacu.setNombreMascota(result2.getString(1).trim()); 
+	    			vacu.setRutCliente(result2.getString(4).trim()); 
+	    			//System.out.println(rut4);
+	    			String rut4=vacu.getNombreMascota().trim();
+	    			String rut5=vacu.getRutCliente().trim();
+	    			if(rut2.equals(rut4) && rut3.equals(rut5) ){
+	    				    //System.out.println("Hola"+rut3);
+	    					vacu.setRutCliente(rut3);
+	    					vacu.setRaza(result2.getString(2).trim());
+	    					vacu.setSexo(result2.getString(3).trim());
+	    					g=1;
+	    					
+	    				}
+		    		}
+	    			
+	    			//Verifica que no se repitan los clientes
+	    			int bandera = 0;
+	    			for(int i=0;i<vacunaciones.size();i++){
+	    				if(rut2.equals(((anuPreoperatorio) vacunaciones.get(i)).getNombreMascota()))
+	    				{
+	    					bandera=1;
+	    				}
+	    			}
+	    			if(bandera==0 && estado1==2)
+	    			{
+	    				vacunaciones.add(vacu);
+	    			}
+	    		}
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return vacunaciones;
 	 }
 }
