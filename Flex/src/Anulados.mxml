@@ -33,27 +33,29 @@
 			{
 				var result:int = event.result as int ;
 				ltexto.text = "Atención Anulada con éxito";
-				//getAllVacunacionesR(rutCliente);
+				getAllDatos();
 			}
 
 			/**
 			 * Obtiene todos los datos desde la base de datos
 			 * Se accedde mediante reomoteobject
 			 */
-			public function getAllVacunacionesR(nombreMascota:String):void
+			 
+			 
+		   public function getAllDatos():void
 			{
 				var visualizarPostoperatorio:anularPeluqueria = new anularPeluqueria();
 				visualizarPostoperatorio.addEventListener(ResultEvent.RESULT,getAllDatosResult);
-				visualizarPostoperatorio.getAllVacunacionesR(rutCliente.toString());
+				visualizarPostoperatorio.getAllVacunacionesR(this.nomMascota.text.toString(),this.rutCliente.text.toString());
 			}	
-			/**
-			 * Obtiene la lista con los objetos desde la base de datos
-			 */
-		    private function getAllDatosResult(event:ResultEvent):void
+			
+			private function getAllDatosResult(event:ResultEvent):void
 			{
 				tablaAtenciones.doubleClickEnabled=true;
 				atenciones = event.result as ArrayCollection;
-			}
+			}	
+			
+		    
 
  			
  			/**
