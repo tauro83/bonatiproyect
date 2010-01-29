@@ -162,6 +162,7 @@
 			public function getAllPeluqueria():void
 		    {
 		    	verSelect(0);
+		    	tablaVacunaciones.doubleClickEnabled=false;
 		   		var vacunacionService:anularPeluqueria = new anularPeluqueria();
 		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
 				vacunacionService.getAllPeluqueria();
