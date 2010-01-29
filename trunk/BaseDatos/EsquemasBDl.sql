@@ -41,6 +41,7 @@ drop table productovendido cascade;
 drop table categproducto cascade;
 drop table estadisticasclinica cascade;
 drop table bitacorapost cascade;
+drop table catpeluqueria cascade;
 
 CREATE TABLE usuario
 (
