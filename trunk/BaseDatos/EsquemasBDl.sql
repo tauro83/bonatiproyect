@@ -41,7 +41,7 @@ drop table productovendido cascade;
 drop table categproducto cascade;
 drop table estadisticasclinica cascade;
 drop table bitacorapost cascade;
-drop table catpeluqueria cascade;
+drop table if exists "Files";
 
 CREATE TABLE usuario
 (
@@ -374,7 +374,8 @@ CREATE TABLE catpeluqueria
   nombre character(20) NOT NULL,
   precio integer,
   descripcion text,
-  estado integer DEFAULT '0',
+  imagen text,
+  estado integer DEFAULT 0,
   CONSTRAINT catpeluqueria_pkey PRIMARY KEY (servicio, nombre)
 );
 
