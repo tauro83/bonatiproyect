@@ -10,8 +10,10 @@ package services{
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
+	
+	import transferObjects.Cita;
+	
 	import util.host;
-	import transferObjects.DiaAgenda;
 
 	/**
 	 * Clase Declara el canal, y los servicios a los cuales se estan enviando los datos.
@@ -49,6 +51,9 @@ package services{
 		 **/
 		public function getDiaAgenda(fecha:String):void{
 			this.getOperation("getDiaAgenda").send(fecha);
+		}
+		public function bloquear(b:Cita):void{
+			this.getOperation("bloquear").send(b);
 		}
 		
 	}

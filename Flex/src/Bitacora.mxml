@@ -7,6 +7,8 @@
 		import mx.rpc.events.ResultEvent;
 		import transferObjects.BitacoraCita;
 		import services.BitacoraCitaService;
+		import mx.controls.Alert;
+		import mx.events.CloseEvent;
 		
 		 [Bindable] 
 		 public var bitacoras:ArrayCollection = new ArrayCollection();
@@ -26,21 +28,37 @@
 			bitacoras.refresh();
 			
 		}
-		private function respaldar():void{
-			var bitacoraCitaService:BitacoraCitaService = new BitacoraCitaService();
-			bitacoraCitaService.addEventListener(ResultEvent.RESULT,respaldarBitacoraResult);
-			bitacoraCitaService.respaldarBitacora();
+		private function consultarRespaldar():void{
+			Alert.yesLabel = "Sí";
+			Alert.cancelLabel = "Cancelar";
+			Alert.show("¿Está seguro que desea extraer los registros de la bitácora? ","Confirme", Alert.YES | Alert.NO, this, respaldar, null, Alert.NO);
+			//respaldar();
+		}
+		private function respaldar(evt:CloseEvent):void{
+			if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)){
+					return;	
+				} 
+			else{
+				var bitacoraCitaService:BitacoraCitaService = new BitacoraCitaService();
+				bitacoraCitaService.addEventListener(ResultEvent.RESULT,respaldarBitacoraResult);
+				bitacoraCitaService.respaldarBitacora();
+			  	}
 		
 		}
 		private function respaldarBitacoraResult(event:ResultEvent):void{
 			//bitacoras = event.result as ArrayCollection;
 			//bitacoras.refresh();
+			var resultado:int = event.result as int;
+			labelMessage.text = "Se ha extraído la bitácora exitosamente"
+			
+			this.getAllBitacoras();
 		}
 		
 		
 		 ]]>
  	</mx:Script>	
-	<mx:DataGrid id="bs" x="33" y="14" width="692" height="345" dataProvider="{bitacoras}" selectable="false">
+	<mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
+	<mx:DataGrid id="bs" x="33" y="14" width="692" height="345" dataProvider="{bitacoras}" selectable="false" toolTip="Historial de acciones realidas en Agenda">
 		<mx:columns>
 			<mx:DataGridColumn headerText="Usuario" dataField="usuario"/>
 			<mx:DataGridColumn headerText="Acción" dataField="accion"/>
@@ -53,6 +71,6 @@
 			<mx:DataGridColumn headerText="Servicio" dataField="servicio"/>
 		</mx:columns>
 	</mx:DataGrid>
-	<mx:Button x="642" y="367" label="Respaldar" click="respaldar()"/>
+	<mx:Button x="656" y="367" label="Extraer" click="consultarRespaldar()" toolTip="Esta acción extrae los registros de la bitácora y son respaldados en el directorio C:/RespaldoBD/BitacoraAgenda/ del servidor, posterior a esto los registros no serán visibles en la tabla."/>
 	
 </mx:Panel>

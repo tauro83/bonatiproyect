@@ -62,6 +62,8 @@
 			[Bindable]
 			private var responsableSeleccionado:String;
 			[Bindable]
+			private var responsableSeleccionado0:String;
+			[Bindable]
 			private var horasLibres:ArrayCollection;
 			private var c1:Cita;
 			
@@ -150,17 +152,75 @@
 			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
 			 * del datagrid, para mostrar los datos de los usuarios que existen en el sistema.	 		
 			 * */
+			var ss:String="";
+			public function definirResponsable(s:String):void{
+				var personService:UsuarioEditService = new UsuarioEditService();
+				personService.addEventListener(ResultEvent.RESULT,definirUsuarioResult);
+				personService.getAllUsuariosE();
+				
+				ss = s;
+			
+				
+				
+
+			}
+			
+			public function filtrarMedicos(lista:ArrayCollection):ArrayCollection{
+				var u:Usuario = null;
+				var retorno:ArrayCollection = new ArrayCollection();
+				for (var i:int = 0; i < lista.length; i++){
+					u = lista.getItemAt(i) as Usuario;
+					//Alert.show(u.cargo.split(" ",1) +"| |"+ u.servicio.split(" ",1) +"|");
+					
+					var ca:String = u.cargo.split(" ",1).pop();
+					var se:String = u.servicio.split(" ",1).pop();
+					
+					if( (ca == "Veterinario" || ca == "Veterinaria" ||
+						se == "Pabellón" 	|| se == "Pabellon" ||
+						se == "Clínica" 	|| se == "Clinica" ||
+						se == "Cirugía" 	|| se == "Cirugia" ||
+						se == "Policlínico" || se == "Policlinico") &&
+						ca != "Ayudante"){
+						
+						retorno.addItem(u);
+						//Alert.show("siii");
+						}
+					//Alert.show("siii2");
+				}
+				//Alert.show("siii3");
+				return retorno;
+			
+			}
+			
+			//cargo.equals("Veterinario")||servuser.equals("Pabellon")|| servuser.equals("Clinica") ||servuser.equals("Clínica") ||servuser.equals("Pabellón")|| servuser.equals("Policlinico I") ||servuser.equals("Policlínico I")||servuser.equals("Policlinico II") ||servuser.equals("Policlínico II")|| cargo.equals("Veterinario")||cargo.equals("Veterinaria")
+			private function definirUsuarioResult(event:ResultEvent):void
+			{
+				var us:ArrayCollection = usuarios2;
+				for(var i:int = 0; i<us.length; i++){
+					if(us.getItemAt(i).usuario == ss){
+						responsable.selectedIndex = i;
+						responsable0.selectedIndex = i;
+						responsableSeleccionado = us.getItemAt(i).usuario;
+						responsableSeleccionado0 = us.getItemAt(i).usuario;
+					}				
+				}
+			}
+			
 			 
 			private function getAllUsuariosEResult(event:ResultEvent):void
 			{
-				usuarios = event.result as ArrayCollection;	
+				usuarios = filtrarMedicos(event.result as ArrayCollection);	
 				usuarios2 = new ArrayCollection();
-				responsableSeleccionado = Application.application.usuarioActual.usuario.split(" ",1).pop();
-				usuarios2.addItem({label:Application.application.usuarioActual.nombre.split(" ",1).pop()+" "+Application.application.usuarioActual.apellidoPaterno.split(" ",1).pop(), usuario:Application.application.usuarioActual.usuario.split(" ",1).pop()});
+				
+				responsableSeleccionado = usuarios.getItemAt(0).usuario.split(" ",1).pop()
+				responsableSeleccionado0 = usuarios.getItemAt(0).usuario.split(" ",1).pop()
+				usuarios2.addItem({label:usuarios.getItemAt(0).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(0).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(0).usuario.split(" ",1).pop()});
+				//responsableSeleccionado = Application.application.usuarioActual.usuario.split(" ",1).pop();
+				//usuarios2.addItem({label:Application.application.usuarioActual.nombre.split(" ",1).pop()+" "+Application.application.usuarioActual.apellidoPaterno.split(" ",1).pop(), usuario:Application.application.usuarioActual.usuario.split(" ",1).pop()});
 				
 				
-				for(var i:int = 0; i<usuarios.length; i++){
-					if(usuarios.getItemAt(i).nombre.split(" ",1).pop() != responsableSeleccionado){
+				for(var i:int = 1; i<usuarios.length; i++){
+					if(usuarios.getItemAt(i).nombre.split(" ",1).pop()){
 						usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
 					}
 					//if(usuarios.getItemAt(i).usuario.split(" ",1).pop() == Application.application.userX.text){}
@@ -302,6 +362,10 @@
 				//funcion que dado un responsable se consultan las horas disponisbles de este
 				consultarHoras();		
 			}
+			public function asignarResponsable0(event:Event):void{
+				var itemSeleccionado:Object = event.currentTarget.selectedItem;
+				responsableSeleccionado0 = itemSeleccionado.usuario;	
+			}
 			
 			/**
 		 	 * 	@author  "Sebastian Arancibia"
@@ -334,7 +398,7 @@
 					
 					cc.mascota = nombreMascota.text;
 					cc.fecha = new Date();
-					cc.responsable = responsableSeleccionado;
+					cc.responsable = responsableSeleccionado0;
 					cc.costo = costoFinal;
 					cc.descripcion = descripcion.text;
 					cc.servicio = "Policlínico"
@@ -539,7 +603,7 @@
 				<mx:Label x="345" y="150" text="Próximo Control:" fontWeight="bold" id="label10"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:Label x="24" y="186" text="Descripción:" width="84" id="label8"/>
+				<mx:Label x="24" y="230" text="Descripción:" width="84" id="label8"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:Label x="345" y="229" text="Fecha:" width="52" id="label9"/>
@@ -551,13 +615,13 @@
 				<mx:Label x="345" y="184" text="Responsable:" width="97" id="label12"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:TextArea x="96" y="185" width="195" height="62" id="descripcion"/>
+				<mx:TextArea x="111" y="230" width="195" height="62" id="descripcion"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:DateField id="fechaProximoControl" x="434" y="229" width="158" formatString="DD/MM/YYYY" change="consultarHoras()"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
-				<mx:CheckBox id="altaMedicaBox" x="96" y="310" label="Próximo control" change="altaMedica()" selected="true"/>
+				<mx:CheckBox id="altaMedicaBox" x="111" y="355" label="Próximo control" change="altaMedica()" selected="true"/>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">
 				<mx:ComboBox id="responsable" x="432" y="182" dataProvider="{usuarios2}" close="asignarResponsable(event)"></mx:ComboBox>
@@ -583,13 +647,19 @@
 			<mx:RemoveChild target="{button1}"/>
 			<mx:RemoveChild target="{registrarNuevoControl}"/>
 			<mx:AddChild position="lastChild">
-				<mx:TextInput x="96" y="269" width="100" id="costo" maxChars="8" restrict="0-9" focusOut="formatear()" focusIn="costo.text = new String()"/>
+				<mx:TextInput x="111" y="314" width="100" id="costo" maxChars="8" restrict="0-9" focusOut="formatear()" focusIn="costo.text = new String()"/>
 			</mx:AddChild>
 			<mx:AddChild relativeTo="{label9}" position="before">
-				<mx:Label x="24" y="271" text="Costo:" width="49" id="label15"/>
+				<mx:Label x="24" y="315" text="Costo:" width="49" id="label15"/>
 			</mx:AddChild>
 			<mx:RemoveChild target="{label5}"/>
 			<mx:SetProperty target="{labelMessage}" name="width" value="724"/>
+			<mx:AddChild relativeTo="{registrar}" position="before">
+				<mx:Label x="24" y="186" text="Responsable:" width="97" id="label3"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{registrar}" position="before">
+				<mx:ComboBox id="responsable0" x="111" y="184" dataProvider="{usuarios2}" close="asignarResponsable0(event)"></mx:ComboBox>
+			</mx:AddChild>
 		</mx:State>
 	</mx:states>
 	<mx:Label x="24" y="10" text="Cliente" fontWeight="bold" id="label1"/>

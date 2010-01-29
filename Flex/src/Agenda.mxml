@@ -176,7 +176,7 @@
 			private function bloquearHora():void
 			{								 
 					
-					c1					= new Cita();
+					/*c1					= new Cita();
 					c1.cliente 			= "00";
 					c1.mascota      	= "No Disponible";
 					
@@ -193,9 +193,42 @@
 					c1.usuario	= usuarioInput.selectedItem.usuario;
 					
 					ct.addCita(c1);				
-					ct.addEventListener(ResultEvent.RESULT,registroCitaResultado);	
+					ct.addEventListener(ResultEvent.RESULT,registroCitaResultado);
+					*/
+					
+					var c:Cita = new Cita();
+					c.cliente = "000000000";
+					c.mascota = "No Disponible";
+					c.servicio = "No Disponible";
+					
+					c.hora = agendaDia.selectedItem.hora;
+					c.usuario = usuarioInput.selectedItem.usuario;
+					
+					//Alert.show("1");
+					if(calendario.selectedDate != null) 
+						c.fecha = calendario.selectedDate.getDate() + "/" + (calendario.selectedDate.getMonth()+1) + "/" +calendario.selectedDate.getFullYear();
+					else{
+						var newDate:Date = new Date();
+						c.fecha = newDate.getDate() + "/" + (newDate.getMonth()+1) + "/" +newDate.getFullYear();
+					}
+					
+					var diaAgenda:DiaAgendaServices = new DiaAgendaServices();
+					diaAgenda.addEventListener(ResultEvent.RESULT,bloquearResult);
+					diaAgenda.bloquear(c);
 																									
-				}			
+				}
+			private function bloquearResult(event:ResultEvent):void
+			{
+				var message:String= event.result as String;	
+				var msj:String = "";
+				if(message=="1"){
+					labelMessage.text = "Hora bloqueada"; 	
+					iniciarAgenda();
+    		 	}
+				else{
+					labelMessage.text = "La hora no pudo ser bloqueada"; 				
+				}
+			}		
 			
 			/**
 		 	 * 	@author  "Victor Silva"
@@ -391,6 +424,12 @@
             public function iniciarAgenda():void{
             	var fechaActual:Date = new Date();
             	
+            	regControl.visible = false;
+            	editar.visible = false;
+            	agendar.visible = false;
+            	eliminar.visible = false;
+            	bloq.visible = false;
+            	
             	//calendario.selectedDate = new Date();
             	getAllUsuarios();
 			
@@ -449,7 +488,6 @@
 			
 			public function seleccionarCita(event:Event):void
 			{
-
 				if((servicioInput.text == "Todos" || usuarioInput.text == "Todos") && agendaDia.selectedItem.mascota == null){
 					labelMessage.text = Properties.getMensaje("Advertencia", "13");
 				}
@@ -503,6 +541,14 @@
 			 */ 
 			public function consultarAccion(event:Event):void{
 				var selectedRow:Object = event.currentTarget.selectedItem;
+				
+				if(selectedRow.mascota != null && selectedRow.servicio == "Policlínico"){
+					regControl.visible = true;
+				}
+				else{
+					regControl.visible = false;
+				}
+				
 				if(selectedRow.mascota == null && (servicioInput.text != "Todos" || usuarioInput.text != "Todos")){
 					agendar.visible = true;
 					eliminar.visible = false;
@@ -597,6 +643,39 @@
            			re.cargarDat(citas);
 
 	        }
+	        private function registrarControl():void{
+	        	Application.application.setInvisible();
+            	Application.application.registroControl.setVisible(true, false);
+                Application.application.opcionesClinica1.setVisible(true,false);
+	        	
+	        	//Application.application.registroControl.iniciarPanel();
+	        	Application.application.registroControl.currentState = "NuevoControl";
+	        	//Application.application.registroControl.getAllUsuarios();
+	        	
+	        	//Application.application.registroControl.buscadorCliente.rutClienteInput.text = "12";
+	        	
+	        	//Alert.show(agendaDia.selectedItem.cliente);
+	        	var largo:int = agendaDia.selectedItem.cliente.length;
+	        	Application.application.registroControl.buscadorCliente.rutClienteInput.text = agendaDia.selectedItem.cliente.substring(0,largo-1);
+				Application.application.registroControl.buscadorCliente.rutClienteDVInput.text = agendaDia.selectedItem.cliente.charAt(largo-1);
+			
+				
+				Application.application.registroControl.buscadorCliente.llenarApellido();
+				
+				Application.application.registroControl.buscadorCliente.rutClienteInput.editable = false;
+				Application.application.registroControl.buscadorCliente.rutClienteDVInput.editable = false;
+				
+				Application.application.registroControl.nombreMascota.text = agendaDia.selectedItem.mascota;
+				//Alert.show(agendaDia.selectedItem.usuario);
+				Application.application.registroControl.definirResponsable(agendaDia.selectedItem.usuario);
+				
+				
+				
+				
+				
+	        	
+	        	//Alert.show(agendaDia.selectedItem.servicio);
+	        }
 
 
 			////////////////////////////////////TERMINA ELIMINAR CITA///////////////////////
@@ -647,8 +726,8 @@
         <mx:Label x="10" y="254" text="Servicio:"/>
         <mx:ComboBox id="servicioInput" x="10" y="280" width="182" close="{asignarAgenda(event)};" dataProvider="{servicios}" labelField="nombre">
 		</mx:ComboBox>
-        <mx:Button id="agendar" x="564" y="312" label="Agendar" visible="false" click="{seleccionarCita(event)}"/>
-        <mx:Button id="eliminar" x="481" y="312" label="Eliminar" visible="false" click="{deleteCita(event)}" width="75"/>
+        <mx:Button id="agendar" x="564" y="312" label="Agendar" visible="false" click="{seleccionarCita(event)}" toolTip="Debe seleccionar Servicio y Responsable para Agendar"/>
+        <mx:Button id="eliminar" x="564" y="312" label="Eliminar" visible="false" click="{deleteCita(event)}" width="75"/>
         <mx:Button id="bloquear" x="200" y="311" label="Bloquear Día" click="bloquearDia()" visible="false"/>
         <mx:Button id="desbloquear" x="200" y="312" label="Desbloquear Día" click="desbloquearDia()" visible="false"/>
         <mx:Text x="200" y="10" text="Fecha:" fontWeight="bold" visible="false"/>
@@ -657,7 +736,8 @@
         <mx:Text x="437" y="10" text="Servicio:" fontWeight="bold" visible="false"/>
         <mx:Label id="servicioOutput" x="491" y="10" visible="false"/>
         <mx:Label x="176" y="399" width="407" height="17" id="labelMessage" textAlign="center" fontWeight="bold"/>
-        <mx:Button x="398" y="312" label="Editar" id="editar" visible="false" click="{seleccionarCita(event)}" width="75"/>
+        <mx:Button x="481" y="312" label="Editar" id="editar" visible="false" click="{seleccionarCita(event)}" width="75"/>
         <mx:Button x="647" y="311" label="Imprimir" width="102" height="23" id="impriButtonPr" click="{imprime()}"/>
-        <mx:Button x="310" y="312" label="Bloquear" id="bloq" visible="false" click="bloquearHora()"/>
+        <mx:Button x="479" y="312" label="Bloquear" id="bloq" visible="false" click="bloquearHora()"/>
+        <mx:Button x="355" y="312" label="Registar Control" visible="false" id="regControl" click="registrarControl()"/>
 </mx:Panel>
