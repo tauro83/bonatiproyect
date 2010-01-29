@@ -601,3 +601,13 @@ CREATE TABLE horasBloqueadas
   responsable character(20) NOT NULL,
   CONSTRAINT pk_horasBloqueadas PRIMARY KEY (fecha, hora, servicio, responsable)
 );
+
+CREATE TABLE "Files"
+(
+  "FileId" serial NOT NULL,
+  filename character varying,
+  size integer,
+  bytes bytea NOT NULL,
+  mimetype character varying,
+  CONSTRAINT files_pkey PRIMARY KEY ("FileId")
+);
