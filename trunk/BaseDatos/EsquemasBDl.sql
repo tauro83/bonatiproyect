@@ -590,3 +590,14 @@ CREATE TABLE bitacorapost
   hora character(20) NOT NULL,
   CONSTRAINT bitacorapost_pkey PRIMARY KEY (clienterut, fechaa, nombremascota, hora)
 );
+
+CREATE TABLE horasBloqueadas
+(
+  rutcliente character(9),
+  nombremascota character(20),
+  fecha character(10) NOT NULL,
+  hora character(5) NOT NULL,
+  servicio character(30) NOT NULL,
+  responsable character(20) NOT NULL,
+  CONSTRAINT pk_horasBloqueadas PRIMARY KEY (fecha, hora, servicio, responsable)
+);
