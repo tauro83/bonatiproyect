@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Anular Registro Peluquería" xmlns:fc="http://www.adobe.com/2006/fc" borderColor="#15AD8F">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Anular Registro Peluquería" xmlns:fc="http://www.adobe.com/2006/fc" borderColor="#15AD8F" xmlns:ns1="util.*">
 		 <mx:Script>
         <![CDATA[
         	import services.anularPreoperatorio;
@@ -16,9 +16,12 @@
          	import mx.collections.ArrayCollection;
             import mx.rpc.events.ResultEvent;
             import mx.core.Application;
+            import mx.controls.Alert;
 			import services.anularPeluqueria;
+			import mx.events.CloseEvent;
 			public var select:int = 0;
-			
+			[Bindable]
+			private var atrib:String="";
 			/**
 			 * Esta variable se encarga de obtener desde la base datos los datos asociado 
 			 * a un registro de peluqueria de todas las mascota que alguna vez se han 
@@ -48,7 +51,7 @@
 					verActivas.enabled = true;
 					verNulas.enabled = false;
 					verTodas.enabled=true;
-					vi.enabled = true;
+					vi.enabled = false;
 					select = 1;
 				}
 				if(seleccionado == 2){
@@ -62,7 +65,7 @@
 			}
 			
 			
-            private function seleccionarBusqueda (event:Event):void
+            /*private function seleccionarBusqueda (event:Event):void
             {   
             	//limpiarTodo();
 				
@@ -82,7 +85,7 @@
 			    /**
 			    * El usuario Selecciona la opcion Nombre del Cliente
 			    */
-				case 'Nombre cliente':		
+				/*case 'Nombre cliente':		
 					inputNombreCliente.setVisible(true,false);
 					inputNombreCliente.selectedItem=false;
 					
@@ -91,7 +94,7 @@
 			    /**
 			    * El usuario Selecciona la opcion Apellido del Cliente
 			    */
-				case 'Apellido paterno':
+				/*case 'Apellido paterno':
 					inputApellidoPaterno.setVisible(true,false);
 					inputApellidoPaterno.selectedItem=false;
 				break;
@@ -99,7 +102,7 @@
 			    /**
 			    * El usuario Selecciona la opcion Rut del Cliente
 			    */				
-				case 'Rut cliente':
+				/*case 'Rut cliente':
 					inputRutCliente.setVisible(true,false);
 					inputRutCliente.selectedItem=false;
 				break;
@@ -107,7 +110,7 @@
 			    /**
 			    * El usuario Selecciona la opcion Nombre de la Mascota
 			    */
-				case 'Nombre mascota':
+				/*case 'Nombre mascota':
 					inputNombreMascota.setVisible(true,false);
 					inputNombreMascota.selectedItem=false;
 				break;
@@ -115,19 +118,19 @@
 			    /**
 			    * El usuario Selecciona la opcion Raza de la Mascota
 			    */
-				case 'Raza':
+				/*case 'Raza':
 					inputRaza.setVisible(true,false);
 					inputRaza.selectedItem=false;
 				break;
 			    /**
 			    * El usuario Selecciona la opcion Sexo de la Mascota
 			    */				
-				case 'Sexo':
+				/*case 'Sexo':
 					inputSexo.setVisible(true,false);
 					inputSexo.selectedItem=false;
 				break;
 				}
-            }
+            }*/
             
             /**
             * Este metodo se encarga de dejar limpia la pantalla una vez que
@@ -142,7 +145,7 @@
             	inputRutCliente.setVisible(false,false);
             	inputApellidoPaterno.setVisible(false,false);
             	inputNombreCliente.setVisible(false,false);
-            	combobox.selectedItem="-Seleccionar-";
+            	//combobox.selectedItem="-Seleccionar-";
             	textBuscar.setVisible(false,false);
             	this.vacunaicones = new ArrayCollection();
             	
@@ -166,6 +169,7 @@
 		    
 		    public function getTodas():void{
 		    	verSelect(2);
+		    	tablaVacunaciones.doubleClickEnabled=false;
 		    	var vacunacionService:anularPeluqueria = new anularPeluqueria();
 		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllTodas);
 				vacunacionService.getTodas();
@@ -228,7 +232,7 @@
 						anuladosVerPost.nombre.text = newMascota.nombreCliente;
 						anuladosVerPost.apellidoPaterno.text = newMascota.apellido;
 						anuladosVerPost.rutCliente.text = newMascota.rutCliente;
-						anuladosVerPost.getAllDatos();
+						//anuladosVerPost.getAllDatos();
 						anuladosVerPost.setVisible(true,false);
 					}
 				}
@@ -294,49 +298,170 @@
 			 */
 		    private function filtrarNulasResult(event:ResultEvent):void
 			{
-				tablaVacunaciones.doubleClickEnabled=true;
+				tablaVacunaciones.doubleClickEnabled=false;
 				vacunaicones = event.result as ArrayCollection;
 			}
+					
+			public function setAtrib():void{				
+				switch(comboBox.selectedItem.label){
+					case 'Rut Cliente':
+						atrib='rutCliente';
+						break;
+					case 'Nombre Mascota':
+						atrib='nombreMascota';
+						break;
+					case 'Descripción':
+						atrib='descripcion';
+						
+						break;					
+					case 'Servicio':
+						atrib='servicio';
+						break;
+					case 'Responsable':
+						atrib='responsable';
+						break;
+					case 'Nombre Cátalogo':
+						atrib='nombreCatalogo';
+						break;
+				}
+			}
+			
+			public function anular(estado:int,nombreMascota:String,hora:String,nombreCatalogo:String,motivo:String):void
+			{
+				var vacunacionService:anularPeluqueria = new anularPeluqueria();
+				vacunacionService.anular(estado,nombreMascota,hora,nombreCatalogo,motivo);
+				
+			}
+
+            /**
+			* Este metodo se encarga de mostrar un pop-up que señala la acción 
+			* anular un registro de peluquería que están seleccionadas
+			* en el grid, pero el usuario debera ingresar el motivo por el cual se 
+			* esta realizando la anulación.
+			*/
+           	private function deleteRow():void 
+           	{
+			if(comboboxMotivo.selectedLabel=='Otros'){
+           			if(motivo.text!=""){
+           				Alert.show("¿Está seguro que desea anular el o los  registro(s) de peluquería(s)? ","Confirme anulaci�n ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+           			}
+           			else{
+           				Alert.show("Debe ingresar un motivo para anular el o los  registro(s) de peluquer�a(s)?","Campo incompleto");
+           			}
+           		}
+           		if(comboboxMotivo.selectedIndex==1 || comboboxMotivo.selectedIndex==2){
+         			Alert.show("¿Está seguro que desea el o los  registro(s) de peluquería(s)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+         		}
+         		if(comboboxMotivo.selectedIndex==0){
+         			Alert.show("Debe seleccionar un motivo para anular el o los  registro(s) de peluquería(s)? ","Campo incompleto");
+         		}
+			}
+			
+			private function selectAll():void{
+                var allRows:int = vacunaicones.length;
+                for (var i:int = 0; i < allRows; i++){
+                    if (todo.selected)
+                        vacunaicones[i].sel = true;
+                    else
+                        vacunaicones[i].sel = false;
+                }
+                tablaVacunaciones.dataProvider = vacunaicones;
+            }
+            
+            private function delRowHandler(evt:CloseEvent):void {
+			    if ((evt.detail == Alert.NO) || (evt.detail == Alert.CANCEL)) return;
+			  removeTaskRecord();
+			}
+			
+			/**
+			* Este metodo se encarga de anular todo los registro de peluquería seleccionado
+			* por el usuario, los cuales pueden ser uno o mas, para la eliminación de un 
+			* registro de peluquería se debera enviar la hora que definira como identificador
+			* unico.
+			*/
+			private function removeTaskRecord():void
+            {
+                var allRows:int = vacunaicones.length;
+                var vacu:anuPeluqueria= new anuPeluqueria();
+                
+                for (var i:int = 0; i < allRows; i++){
+                    if (vacunaicones[i].sel)
+                	{
+                		
+                        vacu = vacunaicones[i] as anuPeluqueria;
+                        
+                        if(comboboxMotivo.selectedLabel=='Otros'){
+                        	vacu.motivo=Application.application.login2.usuarioActivo+" "+motivo.text;
+                        }
+                        
+                        else{
+                        	vacu.motivo=Application.application.login2.usuarioActivo+"  "+comboboxMotivo.text;
+                        }
+                        
+                        anular(vacu.estado,vacu.nombreMascota,vacu.hora,vacu.nombreCatalogo,vacu.motivo);
+                       
+                       vacunaicones.removeItemAt(i);
+                        allRows = vacunaicones.length;
+                        tablaVacunaciones.dataProvider = vacunaicones;
+                        i=-1;
+                        
+                    }   
+                }
+                motivo.text="";
+                barraMsj.text="Registro(s) de peluquería(s) anulados";              
+            }
+			
+			/**
+			* Una vez seleccionado SÍ o NO en el mensaje
+			* se llama a la función que anula por si el usuario esta seguro
+			* si desea anular el registro de la peluquería. 
+			*/
+			
+		    private function seleccionarMotivo (event:Event):void
+            {   
+            	if(comboboxMotivo.selectedLabel=='Otros')
+				{
+					motivo.visible=true;
+				}
+				else
+				{
+					motivo.visible=false;
+					motivo.text="";
+				}
+           	}
             
 	 	]]>
     </mx:Script>
-    <mx:Label x="13" y="352" text="Ver:" id="label7"/>
-	<mx:LinkButton x="145" y="350" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
-	<mx:LinkButton x="97" y="350" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllPeluqueria()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
-	<mx:LinkButton x="46" y="350" label="Todas" width="60" fontWeight="normal" enabled="true" id="verTodas" click="{getTodas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+    <mx:Label x="10" y="297" text="Ver:" id="label7"/>
+	<mx:LinkButton x="145" y="295" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
+	<mx:LinkButton x="97" y="295" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllPeluqueria()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+	<mx:LinkButton x="46" y="295" label="Todas" width="60" fontWeight="normal" enabled="true" id="verTodas" click="{getTodas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
 	<!-- Botón Visualizar -->
-	<mx:Button x="523" id="vi" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el registro de peluquería seleccionado" width="102" height="23" cornerRadius="6"/>
-	
-	<mx:Text x="10" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
-	<mx:Text x="382" y="36" text="Mascota" fontWeight="bold"/>
+	<mx:Button x="522" y="352" label="Anular" id="vi" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula el o los  registro(s) de peluquería(s) seleccionada(s)"/>
 	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
-	<mx:Text x="10" y="10" id="textFiltrar" text="Filtrar por"/>
 	
 	<!-- Botón Cancelar -->
 	<mx:Button x="647" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()"/>
 	
 	<!-- Opciones de busqueda -->
-	<mx:ComboBox x="76" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
-		<mx:ArrayCollection>
-			<mx:Object label="-Seleccionar-"/>
-			<mx:Object label="Nombre cliente"/>
-			<mx:Object label="Apellido paterno"/>
-			<mx:Object label="Rut cliente"/> 
-			<mx:Object label="Nombre mascota"/> 
-			<mx:Object label="Raza"/> 
-			<mx:Object label="Sexo"/>
-		</mx:ArrayCollection>
-	</mx:ComboBox>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid x="10" y="62" width="739" height="280" id="tablaVacunaciones" dataProvider="{vacunaicones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
-		<mx:columns>		
-			<mx:DataGridColumn headerText="Nombre" dataField="nombreCliente" id="nombreCliente" draggable="false"/>
-			<mx:DataGridColumn headerText="Apellido paterno" dataField="apellido" id="apellido" draggable="false"/>
-			<mx:DataGridColumn headerText="Rut" dataField="rutCliente" id="rutCliente" draggable="false"/>
-			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota" id="nombreMascota" draggable="false"/>
-			<mx:DataGridColumn headerText="Raza" dataField="raza" id="raza" draggable="false"/>
-			<mx:DataGridColumn headerText="Sexo" dataField="sexo" id="sexo" draggable="false"/>
+	<mx:DataGrid x="10" y="66" width="739" height="221" id="tablaVacunaciones" dataProvider="{vacunaicones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
+		<mx:columns>	
+		<mx:DataGridColumn width="30" headerText="" dataField="checkbox" id="checkbox" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>	
+			
+			<mx:DataGridColumn width="150" headerText="Rut" dataField="rutCliente" id="rutCliente" draggable="false"/>
+			<mx:DataGridColumn width="150" headerText="Nombre" dataField="nombreMascota" id="nombreMascota" draggable="false"/>
+			<mx:DataGridColumn width="250" headerText="Descripción" dataField="descripcion" id="descripcion" draggable="false"/>
+			<mx:DataGridColumn width="90" headerText="Servicio" dataField="servicio" id="servicio" draggable="false"/>
+			<mx:DataGridColumn width="120" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
+			<mx:DataGridColumn width="130" headerText="Nombre Catalogo" dataField="nombreCatalogo" id="nombreCatalogo" draggable="false"/>	
 		</mx:columns>
 	</mx:DataGrid>
 	
@@ -358,5 +483,33 @@
 	<fc:AutoComplete id="inputRaza" x="599" close="Seleccionar(event)" y="8" width="150" dataProvider="{vacunaicones}" labelField="raza" visible="false" toolTip="ingrese texto para búsqueda"/>
 	
 	<!-- Sexo De La Mascota -->
+	
 	<fc:AutoComplete id="inputSexo" x="599" close="Seleccionar(event)" y="8" width="150" dataProvider="{vacunaicones}" labelField="sexo" visible="false" toolTip="ingrese texto para búsqueda"/>
+	<mx:CheckBox x="11" y="40" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
+	<mx:Label x="33" y="40" text="Seleccionar todo" id="label1"/>
+	
+	<mx:ComboBox x="379" y="10" width="169" id="comboBox" click="setAtrib()" change="setAtrib()" >
+		<mx:ArrayCollection>
+			<mx:Object label="Nombre Mascota"/> 
+			<mx:Object label="Rut Cliente"/>
+			<mx:Object label="Descipción"/> 
+			<mx:Object label="Nombre Cátalogo"/> 
+			<mx:Object label="Servicio"/> 
+			<mx:Object label="Responsable"/> 
+		</mx:ArrayCollection>
+	</mx:ComboBox>
+	<fc:AutoComplete id="input" dataProvider="{vacunaicones}" labelField="{atrib}" close="Seleccionar(event)" x="59" y="10" width="246" />
+	<mx:Text x="10" y="12" text="Buscar" id="textBuscar0"/>
+	<mx:Text x="313" y="12" id="textFiltrar" text="Filtrar por"/>
+	<mx:TextInput x="260" y="320" width="474" id="motivo" toolTip="Ingrese el motivo por el cual desea anular el o los  registro(s) de peluquería(s)" visible="false"/>
+	<mx:Text x="25" y="322" text="Motivo" fontWeight="bold"/>
+	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
+	<mx:ComboBox x="76" y="320" id="comboboxMotivo" change="seleccionarMotivo(event)">
+		<mx:ArrayCollection>
+			<mx:Object label="-Seleccionar-"/>
+			<mx:Object label="Registro incorrecto"/>
+			<mx:Object label="Registro indeseado "/>
+			<mx:Object label="Otros"/> 
+		</mx:ArrayCollection>
+	</mx:ComboBox>
 </mx:Panel>
