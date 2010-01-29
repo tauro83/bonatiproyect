@@ -45,6 +45,8 @@
 					verNulas.enabled = true;
 					verTodas.enabled=true;
 					vi.enabled = true;
+					
+					
 					select =0;
 				}
 				if(seleccionado == 1){
@@ -52,6 +54,7 @@
 					verNulas.enabled = false;
 					verTodas.enabled=true;
 					vi.enabled = false;
+					barraMsj.text="";
 					select = 1;
 				}
 				if(seleccionado == 2){
@@ -59,6 +62,7 @@
 					verNulas.enabled = true;
 					verTodas.enabled=false;
 					vi.enabled = false;
+					barraMsj.text="";
 					select = 2;
 				}
 				
@@ -347,7 +351,7 @@
            				Alert.show("¿Está seguro que desea anular el o los  registro(s) de peluquería(s)? ","Confirme anulaci�n ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
            			}
            			else{
-           				Alert.show("Debe ingresar un motivo para anular el o los  registro(s) de peluquer�a(s)?","Campo incompleto");
+           				Alert.show("Debe ingresar un motivo para anular el o los  registro(s) de peluquería(s)?","Campo incompleto");
            			}
            		}
            		if(comboboxMotivo.selectedIndex==1 || comboboxMotivo.selectedIndex==2){
