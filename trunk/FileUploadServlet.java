@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.DBConnectionManager;
+import Bd.DBConnectionManager;
 import dao.postgres.FileDB;
 
 import TransferObjects.File;
