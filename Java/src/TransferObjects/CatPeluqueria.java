@@ -16,6 +16,7 @@ public class CatPeluqueria {
 	public String nombre;
 	public String precio;
 	public String descripcion;
+	public String imagen;
 
 	/**
 	 * 
