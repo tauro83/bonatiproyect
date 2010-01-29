@@ -14,6 +14,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import java.io.BufferedReader; 
+import java.io.BufferedWriter; 
+import java.io.File;
+import java.io.FileWriter; 
+import java.io.IOException; 
+import java.io.PrintWriter; 
+import java.io.StringReader; 
+
 import TransferObjects.Mascota;
 import Agenda.BitacoraCita;
 /**
@@ -24,7 +32,7 @@ import Agenda.BitacoraCita;
 public class BitacoraCitaBD
 {
 
-	PreparedStatement selectAll, insert, eliminar, ocultar;
+	PreparedStatement selectAll, insert, eliminar, ocultar, eliminarAll;
 	Connection conn;
 	
 	
@@ -57,6 +65,10 @@ public class BitacoraCitaBD
 			
 			eliminar = connection.prepareStatement(query);
 			
+			query = "truncate bitacora;";
+			
+			eliminarAll = connection.prepareStatement(query);
+			
 		} 
 		catch (SQLException e) 
 		{
@@ -69,6 +81,7 @@ public class BitacoraCitaBD
 	 */
     public List getBitacoraCitaBD()
     {
+    		
     	List bitacoras=new ArrayList();
     	BitacoraCita bitacora;
     	try 
@@ -127,7 +140,7 @@ public class BitacoraCitaBD
     			}
     			
     			
-    			if(Integer.parseInt(actualfech) - Integer.parseInt(fech) > 20000){// 2 Anios 
+    			/*if(Integer.parseInt(actualfech) - Integer.parseInt(fech) > 20000){// 2 Anios 
     				ocultar.setString(1, bitacora.fechaAccion);
         			ocultar.executeUpdate();
         	
@@ -137,7 +150,7 @@ public class BitacoraCitaBD
     			if(Integer.parseInt(actualfech) - Integer.parseInt(fech) > 20000){// 5 Anios 
     				eliminar.executeUpdate();
 
-    			}
+    			}*/
     		
 
     		}
@@ -147,6 +160,8 @@ public class BitacoraCitaBD
 			e.printStackTrace();
 		}
     	return bitacoras;
+    	
+    	
     }
 	/**
 	 * Ingresa a una nueva BitacoraCita a la base de datos
@@ -176,4 +191,90 @@ public class BitacoraCitaBD
     	
     	return result;
     }
+        
+	public int respaldarBitacora(){
+    	BitacoraCita b;
+    	int resultado = 0;
+
+    	try 
+    	{
+			Calendar c = Calendar.getInstance();
+    		int dia = c.get(Calendar.DATE);
+    		int mes = c.get(Calendar.MONTH);
+    		int ano = c.get(Calendar.YEAR);
+    		
+    		int hora = c.get(Calendar.HOUR_OF_DAY);
+    		int min = c.get(Calendar.MINUTE);
+    		int seg = c.get(Calendar.SECOND);
+    		
+    		
+    		String actualfech = "";
+    		
+    		actualfech += (ano + "");
+			
+    		if(mes < 10){
+				actualfech += "0";
+			}
+			actualfech += (mes+1);
+			
+			if(dia < 10){
+				actualfech += "0";
+			}
+			actualfech += dia;
+
+	    	String d = "c:/RespaldoBD/BitacoraAgenda";
+	    	String sFichero = d + "/"+ actualfech+" "+hora+min+seg+ ".txt";
+	    	
+	    	File directorio = new File(d);
+	    	if (directorio.mkdirs()) 
+	    		System.out.println("Se ha creado directorio");
+
+			
+			ResultSet result = selectAll.executeQuery();
+			
+			try{
+				BufferedWriter bw = new BufferedWriter(new FileWriter(sFichero));
+				bw.write(" FechaAccion - Hora Accion - Usuario - Accion - FechaCita - HoraCita - Cliente - Mascota - Servicio\n\n");
+		    	while(result.next()){
+		    			b= new BitacoraCita();
+		    			
+		    			b.usuario = result.getString(1).trim();
+		    			b.accion = result.getString(2).trim();
+		    			b.fechaAccion = result.getString(3).trim();
+		    			b.horaAccion = result.getString(4).trim();
+		    			b.fechaCita = result.getString(5).trim();
+		    			b.horaCita = result.getString(6).trim();
+		    			b.cliente = result.getString(7).trim();
+		    			b.mascota = result.getString(8).trim();
+		    			b.servicio = result.getString(9).trim();
+
+		    	    	bw.write(b.fechaAccion 	+ " - " + 
+		    					b.horaAccion 	+ " - " +
+		    					b.usuario 	 	+ " - " +
+		    					b.accion 	    + " - " +
+		    					b.fechaCita	 	+ " - " +
+		    					b.horaCita	 	+ " - " +
+		    					b.cliente		+ " - " +
+		    					b.mascota		+ " - " +
+		    					b.servicio	    +
+		    					"\n");
+		    		}
+				  bw.close();
+				  
+				  
+	    		eliminarAll.executeQuery();
+	    			
+	    		resultado = eliminarAll.executeUpdate();
+				  
+			} catch (IOException ioe){
+			ioe.printStackTrace();
+			}
+    	}
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	
+    	return resultado;
+    } 	
 }

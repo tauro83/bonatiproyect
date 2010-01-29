@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import TransferObjects.Cita;
 import Agenda.DiaAgenda;
 import Administracion.*;
 /**
@@ -23,7 +25,7 @@ import Administracion.*;
 public class DiaAgendaDB
 {
 
-	PreparedStatement selectAll;
+	PreparedStatement selectAll, bloquear, selectBloqueados;
 	Connection conn;
 	
 	/**
@@ -41,6 +43,16 @@ public class DiaAgendaDB
 			query = "SELECT fecha, rutcliente, nombremascota, hora, servicio, responsable "+
 					"FROM cita;";
 			selectAll = connection.prepareStatement(query);
+			
+			query = "INSERT INTO horasbloqueadas (rutcliente,nombremascota,fecha,hora,servicio,responsable) "+
+					"VALUES (?, ?, ?, ?,?,? );";			
+			bloquear = connection.prepareStatement(query);
+			
+			query = "SELECT fecha, rutcliente, nombremascota, hora, servicio, responsable "+
+			"FROM horasbloqueadas;";
+			selectBloqueados = connection.prepareStatement(query);
+			
+
 		} 
 		catch (SQLException e) 
 		{
@@ -78,6 +90,24 @@ public class DiaAgendaDB
 	    			citas.add(cita);
     			}
     		}
+    		result = selectBloqueados.executeQuery();
+    		while(result.next())
+    		{
+    			cita= new DiaAgenda();
+    			//Selecciona solamente los que pertenecen a la fecha indicada
+    			if(fecha.equals(result.getString(1).trim())){
+	    			cita = new DiaAgenda();
+	    			cita.setFecha((result.getString(1).trim()));
+    				cita.setCliente(result.getString(2).trim());
+	    			cita.setMascota((result.getString(3).trim()));
+	    			cita.setHora((result.getString(4).trim()));
+	    			cita.setServicio((result.getString(5).trim()));
+	    			cita.setResponsable((result.getString(6).trim()));
+	    			cita.nombreCliente = "No Disponible";
+
+	    			citas.add(cita);
+    			}
+    		}
 		} 
     	catch (SQLException e) 
     	{
@@ -85,4 +115,35 @@ public class DiaAgendaDB
 		}
     	return citas;
     }
+    public String bloquear(Cita c) throws SQLException
+	{
+		String result = null;			
+		
+		
+		bloquear.setString(1, c.cliente.trim());
+		bloquear.setString(2, c.mascota);
+		bloquear.setString(3, c.fecha);
+		bloquear.setString(4, c.hora);
+		bloquear.setString(5, c.servicio);
+		bloquear.setString(6, c.usuario);
+		
+		try 
+    	{
+			result=""+bloquear.executeUpdate();
+		} 
+    	catch (SQLException e) 
+    	{
+			e.printStackTrace();
+			result = " "+e.toString(); 
+			
+		}
+    	
+    	if(result.length()==1){
+    		return "1";
+    		
+    	}
+    	else {
+    		return   "0";  	
+		}
+	}
 }

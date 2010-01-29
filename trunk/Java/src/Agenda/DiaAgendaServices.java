@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Bd.DBConnectionManager;
+import AdministracionBD.AddCitaBD;
 import AgendaBD.DiaAgendaDB;
 import Agenda.DiaAgenda;
+import TransferObjects.Cita;
 /**
  * @langversion Java
  * @author Sebastian Arancibia
@@ -42,4 +44,9 @@ public class DiaAgendaServices
     	//retorna citas
 		return citas;
     }
+	public static String bloquear(Cita c) throws SQLException {
+		Connection connection = DBConnectionManager.getConnection();
+		DiaAgendaDB acbd = new DiaAgendaDB(connection);
+		return acbd.bloquear(c);
+	}
 }

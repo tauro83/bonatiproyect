@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class DeleteCitaServiceBD {
-	PreparedStatement deleteCita;
+	PreparedStatement deleteCita, elimBloqueados;
 	Connection connection;
 	
 	/**
@@ -26,6 +26,10 @@ public class DeleteCitaServiceBD {
 			"WHERE fecha = ? AND hora = ? AND servicio = ? AND responsable = ?;";
 			
 			deleteCita = connection.prepareStatement(query);
+			
+			query = "DELETE FROM horasBloqueadas " +
+			"WHERE fecha = ? AND hora = ? AND servicio = ? AND responsable = ?;";
+			elimBloqueados = connection.prepareStatement(query);
 
 			
 			
@@ -48,14 +52,26 @@ public class DeleteCitaServiceBD {
 		int result=0;
     	try 
     	{
-    		deleteCita.setString(1, fecha);
-    		deleteCita.setString(2, hora);
-    		deleteCita.setString(3, servicio);
-    		deleteCita.setString(4, responsable);
-    		
-			deleteCita.executeQuery();
-			
-			result= deleteCita.executeUpdate();
+    		if(servicio.equals("No Disponible")){
+    			elimBloqueados.setString(1, fecha);
+    			elimBloqueados.setString(2, hora);
+    			elimBloqueados.setString(3, servicio);
+    			elimBloqueados.setString(4, responsable);
+    			
+    			elimBloqueados.executeQuery();
+    			
+    			result = elimBloqueados.executeUpdate();
+    		}
+    		else{
+	    		deleteCita.setString(1, fecha);
+	    		deleteCita.setString(2, hora);
+	    		deleteCita.setString(3, servicio);
+	    		deleteCita.setString(4, responsable);
+	    		
+				deleteCita.executeQuery();
+				
+				result= deleteCita.executeUpdate();
+    		}
 		} 
     	catch (SQLException e) 
     	{

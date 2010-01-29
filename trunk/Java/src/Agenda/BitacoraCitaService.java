@@ -58,4 +58,17 @@ public class BitacoraCitaService{
 			e.printStackTrace();
 		}
     }
+    public void respaldarBitacora(){
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			BitacoraCitaBD bitacoraCitaBD= new BitacoraCitaBD(connection);
+			bitacoraCitaBD.respaldarBitacora();		
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+    }
 }
