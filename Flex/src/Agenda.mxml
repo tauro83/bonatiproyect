@@ -297,7 +297,7 @@
 	                		}
                 		}
                 		else{
-                			if(usuarioInput.text == "Todos" && citass.getItemAt(i).servicio == servicioInput.text){
+                			if(usuarioInput.text == "Todos" || citass.getItemAt(i).servicio == servicioInput.text || usuarioInput.text == citass.getItemAt(i).usuario){
 	                			item = citass.getItemAt(i);
 	
 	        					for(k=0; k< datosUsuarios.length; k++){
