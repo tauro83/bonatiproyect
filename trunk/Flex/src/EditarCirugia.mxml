@@ -266,8 +266,36 @@
 			 * Funcion que captura todos los usuarios del sistema
 			 * 
 			 */ 
+			 import transferObjects.Usuario;
+			 public function filtrarMedicos(lista:ArrayCollection):ArrayCollection{
+				var u:Usuario = null;
+				var retorno:ArrayCollection = new ArrayCollection();
+				for (var i:int = 0; i < lista.length; i++){
+					u = lista.getItemAt(i) as Usuario;
+					//Alert.show(u.cargo.split(" ",1) +"| |"+ u.servicio.split(" ",1) +"|");
+					
+					var ca:String = u.cargo.split(" ",1).pop();
+					var se:String = u.servicio.split(" ",1).pop();
+					
+					if( (ca == "Veterinario" || ca == "Veterinaria" ||
+						se == "Pabellón" 	|| se == "Pabellon" ||
+						se == "Clínica" 	|| se == "Clinica" ||
+						se == "Cirugía" 	|| se == "Cirugia" ||
+						se == "Policlínico" || se == "Policlinico") &&
+						ca != "Ayudante"){
+						
+						retorno.addItem(u);
+						//Alert.show("siii");
+						}
+					//Alert.show("siii2");
+				}
+				//Alert.show("siii3");
+				return retorno;
+			
+			}
+			 
 			private function getAllUsuariosEResult(event:ResultEvent):void{
-				usuarios = event.result as ArrayCollection;
+				usuarios = filtrarMedicos(event.result as ArrayCollection);
 				var responsables:ArrayCollection;
 				responsables = new ArrayCollection();
 				datosUsuarios = new ArrayCollection();
