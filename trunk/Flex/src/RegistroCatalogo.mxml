@@ -1,4 +1,4 @@
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registrar Catálogo" borderColor="#15AD8F"  initialize="init()" xmlns:ns1="peluqueria.*" xmlns:ns2="util.*">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" title="Registrar Catálogo" borderColor="#15AD8F"  initialize="init()" xmlns:ns1="peluqueria.*" xmlns:ns2="util.*" xmlns:ns3="components.*">
 	<mx:Script>
 		<![CDATA[
 		
@@ -22,7 +22,8 @@
 			import transferObjects.CatPeluqueria;
 			import mx.core.Application;
 			import services.Mensajes;
-			import mx.collections.ArrayCollection;   
+			import mx.collections.ArrayCollection;
+			   
 			
 			[Bindable]private var cargos:ArrayCollection;
 			private var confs:configuracionServices= new configuracionServices();
@@ -33,20 +34,32 @@
 			private var regCat:CatPeluqueriaService;
 			private var cat:CatPeluqueria;
 			
-			
-			/***pertenecientes a la carga de una imagen***/
+/*****************************************/
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import components.ItemRenderer;
 			import events.FileUploaderEvent;
-			private var alrt:Alert;
-            private var fileRef:FileReference;
-           
-			/*********************************************/
+			import mx.controls.Image;
+			[Bindable]
+			private var files:ArrayCollection=new ArrayCollection();
+			private function uploadedHandler(event:FileUploaderEvent):void
+			{
+				files.removeAll();
+				var object:Object=new Object();
+				object.fileId=event.fileIdUploaded;	
+				files.addItem(object);
+			}
 
-			/**
-		 	 * 	@author  Erwin Díaz
-			 *  Método que crea una instancia del transferObject catalogo,
-			 *  posterior a la validacion de datos  y lo envia a usuarioServices		 		
-			 * */
+			private function ver():void
+			{
+				Alert.show(tex.text);
+			}
+
+
+/*****************************************/			
 			
+			
+						
 			/** 
 			 *  Obtiene los tipos de servicio de peluquería desde el actionScript
 		 	 * 	@author  Erwin Díaz
@@ -71,7 +84,7 @@
 			
 			private function registrar():void
 			{					
-				mens.text = "Está registrando";			 
+				mens.text = "Está registrando Catálogo";			 
 				if(vNombre==true)
 				{
 					if(precio.costoBruto == ""){
@@ -83,6 +96,8 @@
 						cat.nombre			= nomb.text;
 						cat.precio	  		= precio.costoBruto;											
 						cat.descripcion		= descripcion.text;
+						cat.imagen			= tex.text;
+						
 						regCat = new CatPeluqueriaService();
 						regCat.addEventListener(ResultEvent.RESULT,registroCatResultado);
 						regCat.regCatalogo(cat);				
@@ -90,7 +105,7 @@
 				}
 				else
 				{
-					mens.text = Mensajes.getMensajeError(0);
+					mens.text = Mensajes.getMensajeError(1);
 				}			
 			}
 			/**
@@ -119,7 +134,9 @@
 			 * */
 			public function resetVars():void
 			{	
-				cargarDatos();			
+				cargarDatos();
+				uploader.deshabilitar();
+				files.removeAll();			
 				nomb.text 		= "";
 				mens.text		= "";
 				precio.costo.text		= "";
@@ -139,6 +156,7 @@
 					vNombre		= true;
 					trace("Válido");
 					mens.text = "";
+					activarBoton();
 				}
 				else
 				{
@@ -166,11 +184,13 @@
             */
             private function activarBoton():void
             {
-            	if(tipo.selectedLabel != '--Seleccione--'){
+            	if(tipo.selectedIndex != 0 && Validacion.longitudMinima(nomb.text)){
             		regCatalogo.enabled=true;
+            		uploader.habilitar();
             	}
             	else 
             		regCatalogo.enabled=false;
+            		//uploader.deshabilitar();
             }
             /**
 			 * Al cancelar la operación se muestra un panel que solo tiene el 
@@ -191,14 +211,19 @@
 	<mx:Label x="24" y="118" text="Precio:"  textAlign="left"/>
 	<mx:Label x="24" y="79" text="Servicio:" textAlign="left"/>
 	<mx:Label x="24" y="40" text="Nombre:" width="69" />
+	<mx:Label x="468" y="42" text="Imagen" width="57" />
 	<mx:Label x="24" y="166" text="Descripción:"/>
 	<mx:Label x="176" y="399" width="407" height="17" id="mens" fontWeight="bold" textAlign="center"/>
 	
-	<mx:ComboBox x="116" y="79" width="163" id="tipo" dataProvider="{cargos}"  labelField="nombre" close="{activarBoton()}" toolTip="Seleccione un tipo de registro para continuar"/>
+	<mx:Text x="33" y="243" text="n" width="0" id="tex"/>
 	
+	<mx:ComboBox x="116" y="79" width="163" id="tipo" dataProvider="{cargos}"  labelField="nombre" close="{activarBoton()}" toolTip="Seleccione un tipo de registro para continuar"/>
 	<mx:Button x="615" y="353" width="120" label="Cancelar" id="cancelarCatalogo" click="cancelando()" height="25" cornerRadius="6" toolTip="Cancelar el registro de catálogo">
 	</mx:Button>
-	<mx:TextArea x="116" y="166" height="155" width="619" toolTip="Descripción del servicio" id="descripcion"/>
+	<mx:TextArea x="116" y="166" height="123" width="251" toolTip="Descripción del servicio" id="descripcion"/>
 	<ns2:Precio x="116" y="118" id="precio">
 	</ns2:Precio>
+	<mx:TileList x="468" y="72" width="211" height="163" dataProvider="{files}" itemRenderer="components.ItemRenderer" ></mx:TileList>
+	<ns3:FileUploader x="452" y="243" uploaded="uploadedHandler(event)" width="243" id="uploader">
+	</ns3:FileUploader>
 </mx:Panel>

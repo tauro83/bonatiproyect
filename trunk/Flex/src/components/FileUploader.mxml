@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas initialize="{init()}" xmlns:mx="http://www.adobe.com/2006/mxml" width="244" height="42">
+<mx:Metadata>
+	[Event(name="uploaded",type="events.FileUploaderEvent")]
+</mx:Metadata>
+<mx:Script>
+		<![CDATA[
+			import events.FileUploaderEvent;
+			import mx.controls.Alert;
+			import mx.core.Application;
+			import util.host;
+	
+		
+			private var fileRef:FileReference = new FileReference();
+			var imagesFilter:FileFilter = new FileFilter("Imagenes", "*.jpg;*.gif;*.png;*.bmp");
+			private function init():void
+			{
+				fileRef.addEventListener(Event.SELECT, selectHandler);
+				fileRef.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, completeHandler);
+				fileRef.addEventListener(ProgressEvent.PROGRESS, progressHandler);
+				fileRef.addEventListener(HTTPStatusEvent.HTTP_STATUS,statusHandler);
+				fileRef.addEventListener(IOErrorEvent.IO_ERROR,errorHandler);	
+			}			
+			private function errorHandler(event:IOErrorEvent):void
+			{
+				Alert.show(event.text,"Error subiendo archivo");
+			}			
+			private function statusHandler(event:HTTPStatusEvent):void
+			{				
+				Alert.show(event.status.toString(),"Error subiendo archivo");
+			}
+			private function uploadFile():void
+			{
+				try
+				{
+				    var success:Boolean = fileRef.browse([imagesFilter]);
+				}
+				catch (error:Error)
+				{
+				    trace("Unable to browse for files.");
+				}
+			}
+			private function selectHandler(event:Event):void
+			{
+			    var request:URLRequest = new URLRequest(host.getServlet())
+			    request.method=URLRequestMethod.POST;
+			    try
+			    {
+			        fileRef.upload(request);
+			        Application.application.regCatalogo.mens.text = "Adjuntando imagen";
+			    
+			    }
+			    catch (error:Error)
+			    {
+			        trace("Unable to upload file.");
+			    }
+			}
+			private function completeHandler(event:DataEvent):void
+			{
+				dispatchEvent(new FileUploaderEvent(FileUploaderEvent.UPLOADED,event.text.split(";")[0]));
+				var len:int= event.text.toString().length-1;
+				//Alert.show("Archivo subido exitosamente. \nRespuesta servidor:"+event.text.toString());
+				Application.application.regCatalogo.mens.text = "";
+			    
+				Application.application.regCatalogo.tex.text = event.text.toString().substr(0,len);
+			    trace("uploaded");
+			}
+			private function progressHandler(event:ProgressEvent):void
+			{
+				bar.visible = true;
+				bar.setProgress(event.bytesLoaded , event.bytesTotal);;
+				bar.label=((int)((event.bytesLoaded/event.bytesTotal)*100)).toString()+"%";
+			    trace("uploadeded"+event.bytesLoaded+" "+event.bytesTotal);
+			}
+			public function habilitar():void
+			{
+				examinar.enabled = true;
+			}
+			public function deshabilitar():void
+			{
+				examinar.enabled = false;
+				bar.visible = false;
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:Button x="123" y="10" label="Cargar Imagen" click="{uploadFile()}" cornerRadius="6" width="111" height="23" enabled="false" id="examinar"/>
+	<mx:ProgressBar id="bar"  themeColor="#EE1122" minimum="0" visible="false" maximum="100"
+             color="0x323232"    label="Progreso 0%" direction="right" mode="manual" width="99" x="16" y="10"/>
+            	
+</mx:Canvas>

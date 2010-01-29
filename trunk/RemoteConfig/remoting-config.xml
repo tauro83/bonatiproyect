@@ -10,6 +10,11 @@
         <channel ref="my-amf"/>
     </default-channels>    
     
+		<destination id="FileUploadServlet">
+            <properties>
+              <source>servlets.FileUploadServlet</source>
+            </properties>
+        </destination>
     	<destination id="AddUsuario">
             <properties>
               <source>Administracion.AddUsuario</source>

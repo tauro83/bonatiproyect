@@ -28,8 +28,8 @@ public class AddCatalogoBD{
 		try 
 		{
 			String query="";			
-			query = "INSERT INTO catpeluqueria (servicio, nombre, precio, descripcion) "+
-			"VALUES (?, ?, ?, ?);";			
+			query = "INSERT INTO catpeluqueria (servicio, nombre, precio, descripcion, imagen) "+
+			"VALUES (?, ?, ?, ?, ?);";			
 			insert = connection.prepareStatement(query);
 		}
 		catch (SQLException e) 
@@ -53,6 +53,8 @@ public class AddCatalogoBD{
 			int aux = Integer.parseInt(person.precio);
 			insert.setInt(3, aux);
 			insert.setString(4, person.descripcion.trim());
+			insert.setString(5, person.imagen.trim());
+			
 			result=""+insert.executeUpdate();
 		} 
     	catch (SQLException e) 
