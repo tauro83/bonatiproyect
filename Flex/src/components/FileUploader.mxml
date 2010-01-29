@@ -67,7 +67,7 @@
 			}
 			private function progressHandler(event:ProgressEvent):void
 			{
-				bar.visible = true;
+				//bar.visible = true;
 				bar.setProgress(event.bytesLoaded , event.bytesTotal);;
 				bar.label=((int)((event.bytesLoaded/event.bytesTotal)*100)).toString()+"%";
 			    trace("uploadeded"+event.bytesLoaded+" "+event.bytesTotal);
