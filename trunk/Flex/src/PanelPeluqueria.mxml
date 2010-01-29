@@ -60,6 +60,7 @@
          {
          	Application.application.setInvisible();
          	Application.application.anularPel.limpiarTodo();
+		Application.application.anularPel.setAtrib();
          	this.visible = true;
          	Application.application.anularPel.visible = true;
          }
