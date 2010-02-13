@@ -236,7 +236,7 @@ public class anularPeluqueriaBD {
 	    			 * Esta condicción se encarga de buscar todos los registro de peluquería 
 	    			 * que posean estado 0 y posean el mismo nombre.
 	    			 */
-	    			if(rut2.equals(nombreMascota) && estado2==0)
+	    			if(estado2==0)
 	    			{
 	    				
 	    				vacunaciones.add(vacu);
@@ -503,7 +503,7 @@ public class anularPeluqueriaBD {
 	    			 * Esta condicción se encarga de buscar todos los registro de peluquería 
 	    			 * que posean estado 0 y posean el mismo nombre.
 	    			 */
-	    			if(rut2.equals(nombreMascota) && estado2==2)
+	    			if(estado2==2)
 	    			{
 	    				
 	    				vacunaciones.add(vacu);
