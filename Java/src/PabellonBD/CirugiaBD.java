@@ -132,9 +132,9 @@ public class CirugiaBD {
 	  * @return Lista con todas las cirugias registradas
 	  * @author  "Esteban Cruz"
 	  */
-	 public List getAllCirugiasU(String rut, String nombre)
+	 public ArrayList<Cirugia> getAllCirugiasU(String rut, String nombre)
 	 {
-		 	List cirugias = new ArrayList();
+		 	ArrayList <Cirugia> cirugias = new ArrayList();
 		 	Cirugia ciru;
 	    	try 
 	    	{
