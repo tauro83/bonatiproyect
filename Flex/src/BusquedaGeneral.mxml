@@ -658,7 +658,7 @@
 		</mx:columns>
 	</mx:DataGrid>
 	
-	<!-- Producto: combobox y grid -->
+	<!-- Producto: combobox y grid ???-->
 	<mx:ComboBox x="254" y="24" id="comboboxProducto" width="150" visible="false" change="seleccionarProducto(event)">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccionar-"/>
