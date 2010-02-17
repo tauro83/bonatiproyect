@@ -145,17 +145,10 @@ public class anularPreoperatorioBD {
 		    		}
 	    			
 	    			//Verifica que no se repitan los clientes
-	    			int bandera = 0;
-	    			for(int i=0;i<vacunaciones.size();i++){
-	    				if(rut2.equals(((anuPreoperatorio) vacunaciones.get(i)).getNombreMascota()))
-	    				{
-	    					bandera=1;
-	    				}
-	    			}
-	    			if(bandera==0)
-	    			{
-	    				vacunaciones.add(vacu);
-	    			}
+	    			
+	    			
+	    			vacunaciones.add(vacu);
+	    			
 	    		}
 			} 
 	    	catch (SQLException e) 
@@ -243,7 +236,7 @@ public class anularPreoperatorioBD {
 	    					bandera=1;
 	    				}
 	    			}
-	    			if(bandera==0 && estado1==0)
+	    			if(estado1==0)
 	    			{
 	    				vacunaciones.add(vacu);
 	    			}
@@ -328,7 +321,7 @@ public class anularPreoperatorioBD {
 	    			 * Esta condicción se encarga de buscar todos los registro de peluquería 
 	    			 * que posean estado 0 y posean el mismo nombre.
 	    			 */
-	    			if(rut2.equals(nombreMascota) && estado2==0)
+	    			if(estado2==0)
 	    			{
 	    				
 	    				vacunaciones.add(vacu);
@@ -591,18 +584,8 @@ public class anularPreoperatorioBD {
 	    				}
 		    		}
 	    			
-	    			//Verifica que no se repitan los clientes
-	    			int bandera = 0;
-	    			for(int i=0;i<vacunaciones.size();i++){
-	    				if(rut2.equals(((anuPreoperatorio) vacunaciones.get(i)).getNombreMascota()))
-	    				{
-	    					bandera=1;
-	    				}
-	    			}
-	    			if(bandera==0 && estado1==2)
-	    			{
 	    				vacunaciones.add(vacu);
-	    			}
+	    
 	    		}
 	    		}
 			} 
