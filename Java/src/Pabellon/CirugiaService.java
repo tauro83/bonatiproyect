@@ -51,6 +51,7 @@ public class CirugiaService
     {
 		List cirugias = new ArrayList();
     	try{	
+    		Connection connection=DBConnectionManager.getConnection();
 			CirugiaBD cirugiaBD= new CirugiaBD(connection);
 			cirugias = cirugiaBD.getAllCirugiasU(rut, nombre);
 			connection.close();
