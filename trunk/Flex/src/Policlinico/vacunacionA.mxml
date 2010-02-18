@@ -9,19 +9,140 @@
 		// de realizar una busqueda, luego se selecciona 
 		//=======================================================================
 		
-			import mx.collections.ArrayCollection;
-            import mx.rpc.events.ResultEvent;
-            import mx.core.Application;
-			
-			import transferObjects.Vacunacion;
 			import services.VacunacionService;
+			import transferObjects.Vacunacion;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Mascota2;
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.core.Application;
+			public var select:int = 0;	
 			
 			[Bindable]
-			private var vacunaicones:ArrayCollection;
+			private var vacunaciones:ArrayCollection;
+			
+			/**
+			 * Obtiene los datos de las cirugias que están 
+			 * registradas en la base de datos
+			 */
+			public function getAllDatos():void
+			{
+				tablaVacunaciones.visible = true;
+				tablaVacunaciones2.visible = false;
+				verSelect(0);
+				var visualizarVacunacion:VacunacionService = new VacunacionService();
+				visualizarVacunacion.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+				visualizarVacunacion.getAllVacunaciones();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function getAllDatosResult(event:ResultEvent):void
+			{
+				vacunaciones = event.result as ArrayCollection;
+			}
+			
+			public function filtrarNulas():void
+			{
+				tablaVacunaciones.visible = true;
+				tablaVacunaciones2.visible = false;
+				verSelect(1);
+				var visualizarVacunacion:VacunacionService = new VacunacionService();
+				visualizarVacunacion.addEventListener(ResultEvent.RESULT,filtrarNulasResult);
+				visualizarVacunacion.getAllVacunacionesAnul();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function filtrarNulasResult(event:ResultEvent):void
+			{
+				vacunaciones = event.result as ArrayCollection;
+			}
+			
+			public function verTodo():void
+			{
+				verSelect(2);
+				tablaVacunaciones.visible = false;
+				tablaVacunaciones2.visible = true;
+				var visualizarVacunacion:VacunacionService = new VacunacionService();
+				visualizarVacunacion.addEventListener(ResultEvent.RESULT,verTodoResult);
+				visualizarVacunacion.getAllVacunacionesTodo();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function verTodoResult(event:ResultEvent):void
+			{
+				vacunaciones = event.result as ArrayCollection;
+			}
+			
+			/**
+			 * Se muestran los distintos tipos de búsqueda
+			 * que el usuario puede hacer al momento
+			 * de buscar una consulta, se pueden seleccionar
+			 * distintos parámetro que coinciden con los datos
+			 * del datagrid
+			 */
+			private function seleccionarBusqueda(event:Event):void
+            {
+            	setInvisibleInput();
+            	if(select ==0){
+            		getAllDatos();
+				}
+				else if(select ==1){
+            		filtrarNulas();
+				}
+				else if(select ==2){
+            		verTodo();
+				}
+            	switch (combobox.selectedLabel)
+				{
+				case 'Nombre cliente':		
+					inputNombreCliente.setVisible(true,false);
+				break; 
+				case 'Apellido paterno':
+					inputApellidoPaterno.setVisible(true,false);
+				break;
+				case 'Rut cliente':
+					inputRutCliente.setVisible(true,false);
+				break;
+				case 'Nombre mascota':
+					inputNombreMascota.setVisible(true,false);
+				break;
+				case 'Raza':
+					inputRaza.setVisible(true,false);
+				break;
+				case 'Sexo':
+					inputSexo.setVisible(true,false);
+				break;
+				}
+            }
+			
+			/**
+			 * Este método hace invisible los demás text imputs
+			 * esto es necesario ya que se tiene distintos
+			 * campos de búsqueda y es necesario contar con uno
+			 * para cada tipo
+			 */
+			 private function setInvisibleInput ():void
+            {
+            	inputNombreMascota.setVisible(false,false);
+            	inputRaza.setVisible(false,false);
+            	inputSexo.setVisible(false,false);
+            	inputRutCliente.setVisible(false,false);
+            	inputNombreCliente.setVisible(false,false);
+            	inputApellidoPaterno.setVisible(false,false);
+            }
 			
 			/**
 			 * Reinicia los elementos del componente
-			 * @author  "Esteban Cruz"
 			 */
 			public function iniciar():void
 			{
@@ -50,89 +171,47 @@
 			private function volver():void
             {
             	this.setVisible(false,false);
-            	Application.application.policlinicoIni.setVisible(true,false);
+            	Application.application.pabellonIni.setVisible(true,false);
             }
-            
-            /**
-			 * Se hace visible el input correspondiente a la opción
-			 * elegida en el combobox
-			 * @author  "Esteban Cruz"
-			 */
-            private function seleccionarBusqueda (event:Event):void
-            {   
-            	inputNombreCliente.setVisible(false,false);
-				inputApellidoPaterno.setVisible(false,false);
-				inputRutCliente.setVisible(false,false);
-				inputNombreMascota.setVisible(false,false);
-				inputNombreMascota.setVisible(false,false);
-				inputRaza.setVisible(false,false);
-				inputSexo.setVisible(false,false);
-				textBuscar.setVisible(true, false);
-				getAllVacunaciones();
-            	switch (combobox.selectedLabel)
-				{
-				case 'Nombre cliente':		
-					inputNombreCliente.setVisible(true,false);
-				break; 
-				case 'Apellido paterno':
-					inputApellidoPaterno.setVisible(true,false);
-				break;
-				case 'Rut cliente':
-					inputRutCliente.setVisible(true,false);
-				break;
-				case 'Nombre mascota':
-					inputNombreMascota.setVisible(true,false);
-				break;
-				case 'Raza':
-					inputRaza.setVisible(true,false);
-				break;
-				case 'Sexo':
-					inputSexo.setVisible(true,false);
-				break;
-				}
-            }
-            
-			/**
-			 * Se obtienen todas las vacunaciones que están registradas en 
-			 * la base de datos para ser mostrados dentro del datagrid
-			 * @author  "Esteban Cruz"
-			 */
-			public function getAllVacunaciones():void
-		    {
-		   		var vacunacionService:VacunacionService = new VacunacionService();
-		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
-				vacunacionService.getAllVacunaciones();
-		    }
-		   
-		    /**
-			 * Una vez obtenidas todas las vacunaciones que están registradas 
-			 * en la base de datos, son mostrados dentro del datagrid
-			 * @author  "Esteban Cruz"
-			 */
-		    public function getAllVacunacionesResult(event:ResultEvent):void
-		    {
-		   		vacunaicones = event.result as ArrayCollection;
-		    }
-		    
+    
 		    /**
 			 * Una vez seleccionado un cliente, se procede a visualizar
 			 * la siguiente ventana (componente), con los datos 
 			 * correspondientes al cliente seleccionado
-			 * @author  "Esteban Cruz"
 			 */
 		    public function visualizarVacunaciones(event:Event):void
             {
-            	if(tablaVacunaciones.selectedItem){
-            		this.setVisible(false,false);            	 	
+            	this.setVisible(false,false);  
+            	if(select==0){           	 	
             		Application.application.vacunacionA2.setDatos(tablaVacunaciones.selectedItem as Vacunacion);
             		Application.application.vacunacionA2.setVisible(true,false);
             	}
+            	if(select==1){    
+            		Application.application.anuladosVerVacunacion.setVisible(true,false);
+					Application.application.anuladosVerVacunacion.setDatos(tablaVacunaciones.selectedItem as Vacunacion);
+            	}
+            }
+            public function visualizarVacunaciones2(event:Event):void
+            {
+            	var nula:String = "4";
+				var val:String = "6";
+				this.setVisible(false,false);  
+            	if(select==2){
+            		if(val.localeCompare(tablaVacunaciones2.selectedItem.estado.length.toString())){  
+            			Application.application.anuladosVerVacunacion.setVisible(true,false);
+						Application.application.anuladosVerVacunacion.setDatos(tablaVacunaciones2.selectedItem as Vacunacion);
+            		}
+            		if(nula.localeCompare(tablaVacunaciones2.selectedItem.estado.length.toString())){
+            			Application.application.vacunacionA2.setVisible(true,false);
+            			Application.application.vacunacionA2.setDatos(tablaVacunaciones2.selectedItem as Vacunacion);
+            		}
+            	}
             }
             
-            /**
+            
+             /**
 			 * Cumplen la finalidad de poder seleccionar correctamente
 			 * cualquier elemento desde el input
-			 * @author  "Esteban Cruz"
 			 */
             public function closeInputSexo(event:Event):void
 			{
@@ -159,19 +238,53 @@
 				inputApellidoPaterno.text=inputApellidoPaterno.selectedLabel;
 			}
 			
+			public function verSelect(seleccionado:int):void
+			{
+				if(seleccionado == 0){
+					botonV.visible=true;
+					botonV2.visible=false;
+					verActivas.enabled = false;
+					verNulas.enabled = true;
+					verTodas.enabled=true;
+					select =0;
+				}
+				if(seleccionado == 1){
+					botonV.visible=true;
+					botonV2.visible=false;
+					verActivas.enabled = true;
+					verNulas.enabled = false;
+					verTodas.enabled=true;
+					select = 1;
+				}
+				if(seleccionado == 2){
+					botonV2.visible=true;
+					botonV.visible=false;
+					verActivas.enabled = true;
+					verNulas.enabled = true;
+					verTodas.enabled=false;
+					select = 2;
+				}
+			}
+			
 		]]>
 	</mx:Script>
+	<!-- Vistas -->
+	<mx:Label x="25" y="353" text="Ver:" id="label7"/>
+	<mx:LinkButton x="160" y="351" label="Nulas" width="58" fontWeight="normal" enabled="true" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
+	<mx:LinkButton x="112" y="351" label="Válidas" width="60" fontWeight="normal" enabled="false" id="verActivas" click="{getAllDatos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+	<mx:LinkButton x="61" y="351" label="Todas" width="60" fontWeight="normal" enabled="true" id="verTodas" click="{verTodo()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
 	
 	<!-- Elementos -->
-	<mx:Button x="523" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
-	<mx:Text x="10" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
-	<mx:Text x="382" y="36" text="Mascota" fontWeight="bold"/>
-	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
-	<mx:Text x="10" y="10" id="textFiltrar" text="Filtrar por"/>
-	<mx:Button x="647" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()"/>
+	<mx:Button id="botonV" x="522" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Button id="botonV2" visible="false" x="522" y="350" label="Visualizar" click="{visualizarVacunaciones2(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Text x="25" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
+	<mx:Text x="352" y="36" text="Mascota" fontWeight="bold"/>
+	<mx:Text x="535" y="10" text="Buscar" id="textBuscar" visible="false"/>
+	<mx:Text x="25" y="10" id="textFiltrar" text="Filtrar por"/>
+	<mx:Button x="632" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()"/>
 	
 	<!-- Opciones de busqueda -->
-	<mx:ComboBox x="76" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
+	<mx:ComboBox x="91" y="8" width="150" change="seleccionarBusqueda(event)" id="combobox">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Nombre cliente"/>
@@ -184,23 +297,36 @@
 	</mx:ComboBox>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid x="10" y="62" width="739" height="280" id="tablaVacunaciones" dataProvider="{vacunaicones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
+	<mx:DataGrid visible="false" x="25" y="62" width="709" height="280" id="tablaVacunaciones" dataProvider="{vacunaciones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
 		<mx:columns>		
 			<mx:DataGridColumn headerText="Nombre" dataField="clienteNombre" draggable="false"/>
 			<mx:DataGridColumn headerText="Apellido paterno" dataField="clienteApellido" draggable="false"/>
 			<mx:DataGridColumn headerText="Rut" dataField="clienteRut" draggable="false"/>
 			<mx:DataGridColumn headerText="Nombre" dataField="mascotaNombre" draggable="false"/>
-			<mx:DataGridColumn headerText="Raza" dataField="mascotaRaza" id="raza" draggable="false"/>
-			<mx:DataGridColumn headerText="Sexo" dataField="mascotaSexo" id="sexo" draggable="false"/>
+			<mx:DataGridColumn headerText="Raza" dataField="mascotaRaza" draggable="false"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="mascotaSexo" draggable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- Tabla con datos y estado -->
+	<mx:DataGrid x="25" y="62" width="709" height="280" id="tablaVacunaciones2" dataProvider="{vacunaciones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones2(event)" >
+		<mx:columns>		
+			<mx:DataGridColumn headerText="Nombre" dataField="clienteNombre" draggable="false"/>
+			<mx:DataGridColumn headerText="Apellido paterno" dataField="clienteApellido" draggable="false"/>
+			<mx:DataGridColumn headerText="Rut" dataField="clienteRut" draggable="false"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="mascotaNombre" draggable="false"/>
+			<mx:DataGridColumn headerText="Raza" dataField="mascotaRaza" draggable="false"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="mascotaSexo" draggable="false"/>
+			<mx:DataGridColumn width="50" headerText="Estado" dataField="estado" draggable="false"/>
 		</mx:columns>
 	</mx:DataGrid>
 	
 	<!-- AutoComplete -->
-	<fc:AutoComplete id="inputNombreCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="clienteNombre" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputNombreC(event)"/>
-	<fc:AutoComplete id="inputApellidoPaterno" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="clienteApellido" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputApellido(event)"/>
-	<fc:AutoComplete id="inputRutCliente" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="clienteRut" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputRut(event)"/>
-	<fc:AutoComplete id="inputNombreMascota" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="mascotaNombre" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputNombreM(event)"/>
-	<fc:AutoComplete id="inputRaza" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="mascotaRaza" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputRaza(event)"/>
-	<fc:AutoComplete id="inputSexo" x="599" y="8" width="150" dataProvider="{vacunaicones}" labelField="mascotaSexo" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputSexo(event)"/>
+	<fc:AutoComplete id="inputNombreCliente" x="584" y="8" width="150" dataProvider="{vacunaciones}" labelField="clienteNombre" visible="true" toolTip="ingrese texto para búsqueda" close="closeInputNombreC(event)"/>
+	<fc:AutoComplete id="inputApellidoPaterno" x="584" y="8" width="150" dataProvider="{vacunaciones}" labelField="clienteApellido" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputApellido(event)"/>
+	<fc:AutoComplete id="inputRutCliente" x="584" y="8" width="150" dataProvider="{vacunaciones}" labelField="clienteRut" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputRut(event)"/>
+	<fc:AutoComplete id="inputNombreMascota" x="584" y="8" width="150" dataProvider="{vacunaciones}" labelField="mascotaNombre" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputNombreM(event)"/>
+	<fc:AutoComplete id="inputRaza" x="584" y="8" width="150" dataProvider="{vacunaciones}" labelField="mascotaRaza" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputRaza(event)"/>
+	<fc:AutoComplete id="inputSexo" x="584" y="8" width="150" dataProvider="{vacunaciones}" labelField="mascotaSexo" visible="false" toolTip="ingrese texto para búsqueda" close="closeInputSexo(event)"/>
 	
 </mx:Panel>

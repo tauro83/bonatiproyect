@@ -207,7 +207,7 @@
 	<mx:Label x="405" y="36" text="Nombre:" width="63.4" height="17.931034"/>
 	<mx:Label x="25" y="62" text="Apellido Paterno:" width="103"/>
 	<mx:Label x="405" y="61.9" text="Raza:" width="78"/>
-	<mx:Text x="25" y="124" text="Vacunaciones&#xa;" fontWeight="bold" height="20"/>
+	<mx:Text x="25" y="124" text="Cirugías&#xa;" fontWeight="bold" height="20"/>
 	<mx:Text x="136" y="62" id="cApP" width="150"/>
 	<mx:Text x="136" y="35" id="cNom" width="150"/>
 	<mx:Text x="136" y="87.95" id="cRut" width="150"/>

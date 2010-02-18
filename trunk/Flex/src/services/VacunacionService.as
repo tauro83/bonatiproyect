@@ -67,6 +67,16 @@ package services
 			this.getOperation("getAllVacunaciones").send();
 		}
 		
+		public function getAllVacunacionesAnul():void
+		{
+			this.getOperation("getAllVacunacionesAnul").send();
+		}
+
+		public function getAllVacunacionesTodo():void
+		{
+			this.getOperation("getAllVacunacionesTodo").send();
+		}
+		
 		/**
 		 * Se obtienen todas las vacunaciones que están registradas en la base de datos
 		 * @author  "Esteban Cruz"
@@ -74,6 +84,11 @@ package services
 		public function getAllVacunacionesU(rut:String, nombre:String):void
 		{
 			this.getOperation("getAllVacunacionesU").send(rut, nombre);
+		}
+		
+		public function getAllVacunacionesU2(rut:String, nombre:String):void
+		{
+			this.getOperation("getAllVacunacionesU2").send(rut, nombre);
 		}
 	}
 }

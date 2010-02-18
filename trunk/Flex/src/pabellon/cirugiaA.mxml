@@ -9,19 +9,140 @@
 		// de realizar una busqueda, luego se selecciona 
 		//=======================================================================
 		
-			import mx.collections.ArrayCollection;
-            import mx.rpc.events.ResultEvent;
-            import mx.core.Application;
-			
-			import transferObjects.Cirugia;
 			import services.CirugiaService;
+			import transferObjects.Cirugia;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import transferObjects.Mascota2;
+			import flash.events.MouseEvent;
+            import mx.events.FlexEvent;
+            import mx.rpc.events.ResultEvent;
+			import mx.rpc.events.FaultEvent;
+			import mx.core.Application;
+			public var select:int = 0;	
 			
 			[Bindable]
 			private var cirugias:ArrayCollection;
 			
 			/**
+			 * Obtiene los datos de las cirugias que están 
+			 * registradas en la base de datos
+			 */
+			public function getAllDatos():void
+			{
+				tablaCirugias.visible = true;
+				tablaCirugias2.visible = false;
+				verSelect(0);
+				var visualizarCirugia:CirugiaService = new CirugiaService();
+				visualizarCirugia.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+				visualizarCirugia.getAllCirugias();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function getAllDatosResult(event:ResultEvent):void
+			{
+				cirugias = event.result as ArrayCollection;
+			}
+			
+			public function filtrarNulas():void
+			{
+				tablaCirugias.visible = true;
+				tablaCirugias2.visible = false;
+				verSelect(1);
+				var visualizarCirugia:CirugiaService = new CirugiaService();
+				visualizarCirugia.addEventListener(ResultEvent.RESULT,filtrarNulasResult);
+				visualizarCirugia.getAllCirugiasAnul();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function filtrarNulasResult(event:ResultEvent):void
+			{
+				cirugias = event.result as ArrayCollection;
+			}
+			
+			public function verTodo():void
+			{
+				verSelect(2);
+				tablaCirugias.visible = false;
+				tablaCirugias2.visible = true;
+				var visualizarCirugia:CirugiaService = new CirugiaService();
+				visualizarCirugia.addEventListener(ResultEvent.RESULT,verTodoResult);
+				visualizarCirugia.getAllCirugiasTodo();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function verTodoResult(event:ResultEvent):void
+			{
+				cirugias = event.result as ArrayCollection;
+			}
+			
+			/**
+			 * Se muestran los distintos tipos de búsqueda
+			 * que el usuario puede hacer al momento
+			 * de buscar una consulta, se pueden seleccionar
+			 * distintos parámetro que coinciden con los datos
+			 * del datagrid
+			 */
+			private function seleccionarBusqueda(event:Event):void
+            {
+            	setInvisibleInput();
+            	if(select ==0){
+            		getAllDatos();
+				}
+				else if(select ==1){
+            		filtrarNulas();
+				}
+				else if(select ==2){
+            		verTodo();
+				}
+            	switch (combobox.selectedLabel)
+				{
+				case 'Nombre cliente':		
+					inputNombreCliente.setVisible(true,false);
+				break; 
+				case 'Apellido paterno':
+					inputApellidoPaterno.setVisible(true,false);
+				break;
+				case 'Rut cliente':
+					inputRutCliente.setVisible(true,false);
+				break;
+				case 'Nombre mascota':
+					inputNombreMascota.setVisible(true,false);
+				break;
+				case 'Raza':
+					inputRaza.setVisible(true,false);
+				break;
+				case 'Sexo':
+					inputSexo.setVisible(true,false);
+				break;
+				}
+            }
+			
+			/**
+			 * Este método hace invisible los demás text imputs
+			 * esto es necesario ya que se tiene distintos
+			 * campos de búsqueda y es necesario contar con uno
+			 * para cada tipo
+			 */
+			 private function setInvisibleInput ():void
+            {
+            	inputNombreMascota.setVisible(false,false);
+            	inputRaza.setVisible(false,false);
+            	inputSexo.setVisible(false,false);
+            	inputRutCliente.setVisible(false,false);
+            	inputNombreCliente.setVisible(false,false);
+            	inputApellidoPaterno.setVisible(false,false);
+            }
+			
+			/**
 			 * Reinicia los elementos del componente
-			 * @author  "Esteban Cruz"
 			 */
 			public function iniciar():void
 			{
@@ -52,88 +173,45 @@
             	this.setVisible(false,false);
             	Application.application.pabellonIni.setVisible(true,false);
             }
-            
-            /**
-			 * Se hace visible el input correspondiente a la opción
-			 * elegida en el combobox
-			 * @author  "Esteban Cruz"
-			 */
-            private function seleccionarBusqueda (event:Event):void
-            {   
-            	inputNombreCliente.setVisible(false,false);
-				inputApellidoPaterno.setVisible(false,false);
-				inputRutCliente.setVisible(false,false);
-				inputNombreMascota.setVisible(false,false);
-				inputNombreMascota.setVisible(false,false);
-				inputRaza.setVisible(false,false);
-				inputSexo.setVisible(false,false);
-				textBuscar.setVisible(true, false);
-				getAllCirugias();
-            	switch (combobox.selectedLabel)
-				{
-				case 'Nombre cliente':		
-					inputNombreCliente.setVisible(true,false);
-				break; 
-				case 'Apellido paterno':
-					inputApellidoPaterno.setVisible(true,false);
-				break;
-				case 'Rut cliente':
-					inputRutCliente.setVisible(true,false);
-				break;
-				case 'Nombre mascota':
-					inputNombreMascota.setVisible(true,false);
-				break;
-				case 'Raza':
-					inputRaza.setVisible(true,false);
-				break;
-				case 'Sexo':
-					inputSexo.setVisible(true,false);
-				break;
-				}
-            }
-            
-            
-			/**
-			 * Se obtienen todas las cirugias que están registradas en 
-			 * la base de datos para ser mostrados dentro del datagrid
-			 * @author  "Esteban Cruz"
-			 */
-			public function getAllCirugias():void
-		    {
-		   		var cirugiaService:CirugiaService = new CirugiaService();
-		   		cirugiaService.addEventListener(ResultEvent.RESULT,getAllCirugiasResult);
-				cirugiaService.getAllCirugias();
-		    }
-		   
-		    /**
-			 * Una vez obtenidas todas las cirugias que están registradas 
-			 * en la base de datos, son mostrados dentro del datagrid
-			 * @author  "Esteban Cruz"
-			 */
-		    public function getAllCirugiasResult(event:ResultEvent):void
-		    {
-		   		cirugias = event.result as ArrayCollection;
-		    }
-		    
+    
 		    /**
 			 * Una vez seleccionado un cliente, se procede a visualizar
 			 * la siguiente ventana (componente), con los datos 
 			 * correspondientes al cliente seleccionado
-			 * @author  "Esteban Cruz"
 			 */
 		    public function visualizarCirugias(event:Event):void
             {
-            	if(tablaCirugias.selectedItem){
-            		this.setVisible(false,false);            	 	
+            	this.setVisible(false,false);  
+            	if(select==0){           	 	
             		Application.application.cirugiaA2.setDatos(tablaCirugias.selectedItem as Cirugia);
             		Application.application.cirugiaA2.setVisible(true,false);
             	}
+            	if(select==1){    
+            		Application.application.anuladosVerCirugia.setVisible(true,false);
+					Application.application.anuladosVerCirugia.setDatos(tablaCirugias.selectedItem as Cirugia);
+            	}
             }
+            public function visualizarCirugias2(event:Event):void
+            {
+            	var nula:String = "4";
+				var val:String = "6";
+				this.setVisible(false,false);  
+            	if(select==2){
+            		if(val.localeCompare(tablaCirugias2.selectedItem.estado.length.toString())){  
+            			Application.application.anuladosVerCirugia.setVisible(true,false);
+						Application.application.anuladosVerCirugia.setDatos(tablaCirugias2.selectedItem as Cirugia);
+            		}
+            		if(nula.localeCompare(tablaCirugias2.selectedItem.estado.length.toString())){
+            			Application.application.cirugiaA2.setVisible(true,false);
+            			Application.application.cirugiaA2.setDatos(tablaCirugias2.selectedItem as Cirugia);
+            		}
+            	}
+            }
+            
             
              /**
 			 * Cumplen la finalidad de poder seleccionar correctamente
 			 * cualquier elemento desde el input
-			 * @author  "Esteban Cruz"
 			 */
             public function closeInputSexo(event:Event):void
 			{
@@ -160,13 +238,47 @@
 				inputApellidoPaterno.text=inputApellidoPaterno.selectedLabel;
 			}
 			
+			public function verSelect(seleccionado:int):void
+			{
+				if(seleccionado == 0){
+					botonV.visible=true;
+					botonV2.visible=false;
+					verActivas.enabled = false;
+					verNulas.enabled = true;
+					verTodas.enabled=true;
+					select =0;
+				}
+				if(seleccionado == 1){
+					botonV.visible=true;
+					botonV2.visible=false;
+					verActivas.enabled = true;
+					verNulas.enabled = false;
+					verTodas.enabled=true;
+					select = 1;
+				}
+				if(seleccionado == 2){
+					botonV2.visible=true;
+					botonV.visible=false;
+					verActivas.enabled = true;
+					verNulas.enabled = true;
+					verTodas.enabled=false;
+					select = 2;
+				}
+			}
+			
 		]]>
 	</mx:Script>
+	<!-- Vistas -->
+	<mx:Label x="25" y="353" text="Ver:" id="label7"/>
+	<mx:LinkButton x="160" y="351" label="Nulas" width="58" fontWeight="normal" enabled="true" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
+	<mx:LinkButton x="112" y="351" label="Válidas" width="60" fontWeight="normal" enabled="false" id="verActivas" click="{getAllDatos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+	<mx:LinkButton x="61" y="351" label="Todas" width="60" fontWeight="normal" enabled="true" id="verTodas" click="{verTodo()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
 	
 	<!-- Elementos -->
-	<mx:Button x="522" y="350" label="Visualizar" click="{visualizarCirugias(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Button id="botonV" x="522" y="350" label="Visualizar" click="{visualizarCirugias(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Button id="botonV2" visible="false" x="522" y="350" label="Visualizar" click="{visualizarCirugias2(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
 	<mx:Text x="25" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
-	<mx:Text x="394" y="36" text="Mascota" fontWeight="bold"/>
+	<mx:Text x="353" y="36" text="Mascota" fontWeight="bold"/>
 	<mx:Text x="535" y="10" text="Buscar" id="textBuscar" visible="false"/>
 	<mx:Text x="25" y="10" id="textFiltrar" text="Filtrar por"/>
 	<mx:Button x="632" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()"/>
@@ -185,7 +297,7 @@
 	</mx:ComboBox>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid x="25" y="62" width="709" height="280" id="tablaCirugias" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="visualizarCirugias(event)" >
+	<mx:DataGrid visible="false" x="25" y="62" width="709" height="280" id="tablaCirugias" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="visualizarCirugias(event)" >
 		<mx:columns>		
 			<mx:DataGridColumn headerText="Nombre" dataField="clienteNombre" draggable="false"/>
 			<mx:DataGridColumn headerText="Apellido paterno" dataField="clienteApellido" draggable="false"/>
@@ -193,6 +305,19 @@
 			<mx:DataGridColumn headerText="Nombre" dataField="mascotaNombre" draggable="false"/>
 			<mx:DataGridColumn headerText="Raza" dataField="mascotaRaza" draggable="false"/>
 			<mx:DataGridColumn headerText="Sexo" dataField="mascotaSexo" draggable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- Tabla con datos y estado -->
+	<mx:DataGrid x="25" y="62" width="709" height="280" id="tablaCirugias2" dataProvider="{cirugias}" doubleClickEnabled="true" itemDoubleClick="visualizarCirugias2(event)" >
+		<mx:columns>		
+			<mx:DataGridColumn headerText="Nombre" dataField="clienteNombre" draggable="false"/>
+			<mx:DataGridColumn headerText="Apellido paterno" dataField="clienteApellido" draggable="false"/>
+			<mx:DataGridColumn headerText="Rut" dataField="clienteRut" draggable="false"/>
+			<mx:DataGridColumn headerText="Nombre" dataField="mascotaNombre" draggable="false"/>
+			<mx:DataGridColumn headerText="Raza" dataField="mascotaRaza" draggable="false"/>
+			<mx:DataGridColumn headerText="Sexo" dataField="mascotaSexo" draggable="false"/>
+			<mx:DataGridColumn width="50" headerText="Estado" dataField="estado" draggable="false"/>
 		</mx:columns>
 	</mx:DataGrid>
 	

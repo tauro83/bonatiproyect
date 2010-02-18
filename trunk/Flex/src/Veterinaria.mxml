@@ -245,6 +245,8 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
          		vacunacionA2.setVisible(false,false);
          		vacunacionE.setVisible(false,false);
          		vacunacionE2.setVisible(false,false);
+         		anuladosVerVacunacion.setVisible(false,false);
+         		anuladosVerCirugia.setVisible(false,false);
          		<!--Autor: }Esteban -->   
          		
          		<!--Autor: Sebastian{ -->
@@ -582,6 +584,10 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
 	</ns3:cirugiaA>
 	<ns3:cirugiaA2 x="240" y="133" visible="false" id="cirugiaA2">
 	</ns3:cirugiaA2>
+	<ns3:AnuladosVerCirugia x="240" y="133" visible="false" id="anuladosVerCirugia">
+	</ns3:AnuladosVerCirugia>
+	<ns4:AnuladosVerVacunacion x="240" y="133" visible="false" id="anuladosVerVacunacion">
+	</ns4:AnuladosVerVacunacion>
 	<ns3:cirugiaE x="240" y="133" visible="false" id="cirugiaE">
 	</ns3:cirugiaE>
 	<ns3:cirugiaE2 x="240" y="133" visible="false" id="cirugiaE2">
