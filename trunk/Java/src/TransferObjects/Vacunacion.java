@@ -18,6 +18,7 @@ public class Vacunacion {
 	private String veterinario;
 	private String descripcion;
 	private String servicio;
+	private String estado;
 	private List tiposVacunas;
 	
 	public String getFechaS() {
@@ -109,5 +110,11 @@ public class Vacunacion {
 	}
 	public List getTiposVacunas() {
 		return tiposVacunas;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public String getEstado() {
+		return estado;
 	}
 }

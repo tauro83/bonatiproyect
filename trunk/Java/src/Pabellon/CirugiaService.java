@@ -24,12 +24,11 @@ public class CirugiaService
 	 * @return Lista con todos las cirguias registrados
 	 * @author  "Esteban Cruz"
 	 */
-	Connection connection;
 	public List getAllCirugias()
     {
 		List cirugias = new ArrayList();
     	try{
-			connection=DBConnectionManager.getConnection();
+    		Connection connection=DBConnectionManager.getConnection();
 			CirugiaBD cirugiaBD= new CirugiaBD(connection);
 			cirugias = cirugiaBD.getAllCirugias();	
 			connection.close();
@@ -41,6 +40,37 @@ public class CirugiaService
 		return cirugias;
     }
 	
+	public List getAllCirugiasAnul()
+    {
+		List cirugias = new ArrayList();
+    	try{
+    		Connection connection=DBConnectionManager.getConnection();
+			CirugiaBD cirugiaBD= new CirugiaBD(connection);
+			cirugias = cirugiaBD.getAllCirugiasAnul();	
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return cirugias;
+    }
+	
+    public List getAllCirugiasTodo()
+    {
+		List cirugias = new ArrayList();
+    	try{
+    		Connection connection=DBConnectionManager.getConnection();
+			CirugiaBD cirugiaBD= new CirugiaBD(connection);
+			cirugias = cirugiaBD.getAllCirugiasTodo();	
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return cirugias;
+    }
 	/**
 	 * Trata de obtener todos las vacunaciones registrados en la base de datos
 	 * de un cliente determinado
@@ -63,6 +93,22 @@ public class CirugiaService
 		return cirugias;
     }
 	
+	public List getAllCirugiasU2(String rut, String nombre)
+    {
+		List cirugias = new ArrayList();
+    	try{	
+    		Connection connection=DBConnectionManager.getConnection();
+			CirugiaBD cirugiaBD= new CirugiaBD(connection);
+			cirugias = cirugiaBD.getAllCirugiasU2(rut, nombre);
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return cirugias;
+    }
+	
 	/**
 	 * Anula todas las vacunaciones solicitadas por el usuario
 	 * de la base de datos
@@ -75,7 +121,7 @@ public class CirugiaService
 		int result = 0;
     	try 
 		{
-			connection=DBConnectionManager.getConnection();
+    		Connection connection=DBConnectionManager.getConnection();
 			CirugiaBD cirugiaBD= new CirugiaBD(connection);
 			result = cirugiaBD.anularCirugia(nombre, fecha, hora);
 			connection.close();
@@ -99,7 +145,7 @@ public class CirugiaService
 		int result = 0;
     	try 
 		{
-			connection=DBConnectionManager.getConnection();
+    		Connection connection=DBConnectionManager.getConnection();
 			CirugiaBD cirugiaBD= new CirugiaBD(connection);
 			result = cirugiaBD.eliminarCirugia(nombre, fecha, hora);
 			connection.close();

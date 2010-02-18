@@ -21,6 +21,8 @@ import TransferObjects.Mascota;
 
 public class CirugiaBD {
 	
+	PreparedStatement selectAllCirugiasTodo;
+	PreparedStatement selectAllCirugiasAnul;
 	PreparedStatement selectAllCirugias;
 	PreparedStatement selectAllClientes;
 	PreparedStatement selectAllMascotas;
@@ -45,6 +47,18 @@ public class CirugiaBD {
 					"FROM cirugia " +
 					"WHERE estado = 0;";
 			selectAllCirugias = connection.prepareStatement(query);
+			
+			query = "SELECT clienterut, mascotanombre, hora, " +
+					"ayudante, responsable, servicio, estado, fecha " +
+					"FROM cirugia " +
+					"WHERE estado = 2;";
+			selectAllCirugiasAnul = connection.prepareStatement(query);
+			
+			query = "SELECT clienterut, mascotanombre, hora, " +
+					"ayudante, responsable, servicio, estado, fecha " +
+					"FROM cirugia " +
+					"WHERE estado != 1;";
+			selectAllCirugiasTodo = connection.prepareStatement(query);
 			
 			queryCliente = "SELECT nombre, apaterno "+
 							"FROM clientepresencial "+
@@ -126,6 +140,134 @@ public class CirugiaBD {
 	    	return cirugias;
 	    }
 	 
+	 public List getAllCirugiasAnul()
+	    {	
+	    	List cirugias = new ArrayList();
+	    	Cirugia ciru;
+	    	Cliente clie;
+	    	Mascota masc;
+	    	List ruts = new ArrayList();
+	    	List names = new ArrayList();
+	    	try 
+	    	{
+	    		ResultSet result = selectAllCirugiasAnul.executeQuery();
+	    		while(result.next())
+	    		{  
+	    			String rut=null, name=null;
+	    			ciru = new Cirugia();
+	    			clie = new Cliente();
+	    			masc = new Mascota();
+	    			ResultSet cliente; 
+		    		ResultSet mascota; 
+	    			
+		    		ciru.setClienteRut(result.getString(1).trim());
+		    		rut = ciru.getClienteRut();
+		    		ciru.setMascotaNombre(result.getString(2).trim());
+		    		name = ciru.getMascotaNombre();
+	    			
+	    			selectAllMascotas.setString(2, ciru.getClienteRut());
+	    			selectAllMascotas.setString(1, ciru.getMascotaNombre());
+	    			mascota = selectAllMascotas.executeQuery();
+	    			while(mascota.next()){
+	    				masc.setRaza(mascota.getString(1).trim());
+	    				ciru.setMascotaRaza(masc.getRaza());
+	    				masc.setSexo(mascota.getString(2).trim());
+	    				ciru.setMascotaSexo(masc.getSexo());
+	    			}
+	    			
+	    			selectAllClientes.setString(1, ciru.getClienteRut());
+	    			cliente = selectAllClientes.executeQuery();
+	    			while(cliente.next()){
+	    				clie.setNombre(cliente.getString(1).trim());
+	    				ciru.setClienteNombre(clie.getNombre());
+	    				clie.setApellido(cliente.getString(2).trim());
+	    				ciru.setClienteApellido(clie.getApellido());
+	    			}
+	    			if(!ruts.contains(rut) || !names.contains(name) ){
+	    				cirugias.add(ciru);	
+	    			}
+	    			names.add(name);
+	    			ruts.add(rut);
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return cirugias;
+	    }
+	 
+	 public List getAllCirugiasTodo()
+	    {	
+	    	List cirugias = new ArrayList();
+	    	Cirugia ciru;
+	    	Cliente clie;
+	    	Mascota masc;
+	    	List ruts = new ArrayList();
+	    	List names = new ArrayList();
+	    	List estados = new ArrayList();
+	    	try 
+	    	{
+	    		ResultSet result = selectAllCirugiasTodo.executeQuery();
+	    		while(result.next())
+	    		{  
+	    			String rut=null, name=null;
+	    			ciru = new Cirugia();
+	    			clie = new Cliente();
+	    			masc = new Mascota();
+	    			ResultSet cliente; 
+		    		ResultSet mascota; 
+	    			
+		    		ciru.setClienteRut(result.getString(1).trim());
+		    		rut = ciru.getClienteRut();
+		    		ciru.setMascotaNombre(result.getString(2).trim());
+		    		name = ciru.getMascotaNombre();
+	    			
+	    			selectAllMascotas.setString(2, ciru.getClienteRut());
+	    			selectAllMascotas.setString(1, ciru.getMascotaNombre());
+	    			mascota = selectAllMascotas.executeQuery();
+	    			while(mascota.next()){
+	    				masc.setRaza(mascota.getString(1).trim());
+	    				ciru.setMascotaRaza(masc.getRaza());
+	    				masc.setSexo(mascota.getString(2).trim());
+	    				ciru.setMascotaSexo(masc.getSexo());
+	    			}
+	    			
+	    			selectAllClientes.setString(1, ciru.getClienteRut());
+	    			cliente = selectAllClientes.executeQuery();
+	    			while(cliente.next()){
+	    				clie.setNombre(cliente.getString(1).trim());
+	    				ciru.setClienteNombre(clie.getNombre());
+	    				clie.setApellido(cliente.getString(2).trim());
+	    				ciru.setClienteApellido(clie.getApellido());
+	    			}
+	    			
+	    			ciru.setEstado(result.getString(7).trim());
+	    			String estado = ciru.getEstado();
+	    			
+	    			if(!ruts.contains(rut) || !names.contains(name) || !estados.contains(estado) ){
+	    				cirugias.add(ciru);
+	    				names.add(name);
+		    			ruts.add(rut);
+		    			estados.add(estado);
+	    			}
+	    			
+	    			if(ciru.getEstado().compareTo("0")==0){
+	    				ciru.setEstado("Válido");
+	    			}
+	    			if(ciru.getEstado().compareTo("2")==0){
+	    				ciru.setEstado("Nulo");
+	    			}
+	    			
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return cirugias;
+	    }
+	 
 	 /**
 	  * Trata de obtener todos las cirugias registrados en la base de datos
 	  * de un cliente determinado
@@ -139,6 +281,41 @@ public class CirugiaBD {
 	    	try 
 	    	{
 	    		ResultSet result = selectAllCirugias.executeQuery();
+	    		while(result.next())
+	    		{  
+	    			ciru = new Cirugia();
+	    			
+	    			ciru.setClienteRut(result.getString(1).trim());
+	    			ciru.setMascotaNombre(result.getString(2).trim());
+	    			ciru.setHora(result.getString(3).trim());
+	    			ciru.setAyudante(result.getString(4).trim());
+	    			ciru.setVeterinario(result.getString(5).trim());
+	    			ciru.setServicio(result.getString(6).trim());
+	    			ciru.setFecha(result.getString(8).trim());
+
+	    			String rut2 = ciru.getClienteRut();
+	    			String nombre2 = ciru.getMascotaNombre();
+	    			
+	    			if(rut2.equals(rut) && nombre2.equals(nombre))
+	    			{
+	    				cirugias.add(ciru);
+	    			}
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return cirugias;
+	 }
+	 
+	 public ArrayList<Cirugia> getAllCirugiasU2(String rut, String nombre)
+	 {
+		 	ArrayList <Cirugia> cirugias = new ArrayList();
+		 	Cirugia ciru;
+	    	try 
+	    	{
+	    		ResultSet result = selectAllCirugiasAnul.executeQuery();
 	    		while(result.next())
 	    		{  
 	    			ciru = new Cirugia();

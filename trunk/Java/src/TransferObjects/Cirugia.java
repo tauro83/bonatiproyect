@@ -22,6 +22,7 @@ public class Cirugia {
 	private String ayudante;
 	private String tipoCir;
 	private String diagnostico;
+	private String estado;
 	private List tiposCirugias;
 	
 	public String getMascotaRaza() {
@@ -125,6 +126,12 @@ public class Cirugia {
 	}
 	public String getNuevaHora() {
 		return nuevaHora;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public String getEstado() {
+		return estado;
 	}
 	
 }
