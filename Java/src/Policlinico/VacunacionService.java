@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Bd.DBConnectionManager;
+import PabellonBD.CirugiaBD;
 import PoliclinicoBD.VacunacionBD;
 import TransferObjects.Vacunacion;
 
@@ -41,6 +42,38 @@ public class VacunacionService
 		return vacunaciones;
     }
 	
+	public List getAllVacunacionesAnul()
+    {
+		List vacunaciones = new ArrayList();
+    	try{
+    		Connection connection=DBConnectionManager.getConnection();
+    		VacunacionBD vacunacionBD= new VacunacionBD(connection);
+			vacunaciones = vacunacionBD.getAllVacunacionesAnul();	
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return vacunaciones;
+    }
+	
+    public List getAllVacunacionesTodo()
+    {
+		List vacunaciones = new ArrayList();
+    	try{
+    		Connection connection=DBConnectionManager.getConnection();
+    		VacunacionBD vacunacionBD= new VacunacionBD(connection);
+			vacunaciones = vacunacionBD.getAllVacunacionesTodo();	
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return vacunaciones;
+    }
+	
 	/**
 	 * Trata de obtener todos las vacunaciones registrados en la base de datos
 	 * de un cliente determinado
@@ -55,6 +88,22 @@ public class VacunacionService
 			Connection connection=DBConnectionManager.getConnection();
 			VacunacionBD vacunacionBD= new VacunacionBD(connection);
 			vacunaciones = vacunacionBD.getAllVacunacionesU(rut, nombre);
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return vacunaciones;
+    }
+	
+	public List getAllVacunacionesU2(String rut, String nombre)
+    {
+		List vacunaciones = new ArrayList();
+    	try{	
+    		Connection connection=DBConnectionManager.getConnection();
+    		VacunacionBD vacunacionBD= new VacunacionBD(connection);
+    		vacunaciones = vacunacionBD.getAllVacunacionesU2(rut, nombre);
 			connection.close();
 		} 
     	catch (SQLException e) 

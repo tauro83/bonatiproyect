@@ -20,6 +20,8 @@ import TransferObjects.Mascota;
 
 public class VacunacionBD {
 	
+	PreparedStatement selectAllVacunacionesTodo;
+	PreparedStatement selectAllVacunacionesAnul;
 	PreparedStatement selectAllVacunaciones;
 	PreparedStatement selectAllClientes;
 	PreparedStatement selectAllMascotas;
@@ -35,6 +37,24 @@ public class VacunacionBD {
 		try 
 		{
 			String query="", queryCliente="", queryMascota="";
+			
+			query = "SELECT clienterut, mascotanombre, hora, " +
+					"descripcion, responsable, servicio, estado, fecha " +
+					"FROM vacunacion " +
+					"WHERE estado = 0;";
+			selectAllVacunaciones = connection.prepareStatement(query);
+			
+			query = "SELECT clienterut, mascotanombre, hora, " +
+					"descripcion, responsable, servicio, estado, fecha " +
+					"FROM vacunacion " +
+					"WHERE estado = 2;";
+			selectAllVacunacionesAnul = connection.prepareStatement(query);
+			
+			query = "SELECT clienterut, mascotanombre, hora, " +
+					"descripcion, responsable, servicio, estado, fecha " +
+					"FROM vacunacion " +
+					"WHERE estado != 1;";
+			selectAllVacunacionesTodo = connection.prepareStatement(query);
 			
 			query = "SELECT clienterut, mascotanombre, hora, " +
 					"descripcion, responsable, servicio, estado, fecha " +
@@ -126,6 +146,135 @@ public class VacunacionBD {
 	    	return vacunaciones;
 	    }
 	 
+	 public List getAllVacunacionesAnul()
+	    {	
+	    	List vacunaciones = new ArrayList();
+	    	List ruts = new ArrayList();
+	    	List names = new ArrayList();
+	    	Vacunacion vacu;
+	    	Cliente clie;
+	    	Mascota masc;
+	    	try 
+	    	{
+	    		ResultSet result = selectAllVacunacionesAnul.executeQuery();
+	    		while(result.next())
+	    		{  
+	    			String rut=null, name=null;
+	    			vacu = new Vacunacion();
+	    			clie = new Cliente();
+	    			masc = new Mascota();
+	    			ResultSet cliente; 
+		    		ResultSet mascota; 
+	    			
+	    			vacu.setClienteRut(result.getString(1).trim());
+	    			rut = vacu.getClienteRut();
+	    			vacu.setMascotaNombre(result.getString(2).trim());
+	    			name = vacu.getMascotaNombre();
+	    			
+	    			selectAllMascotas.setString(2, vacu.getClienteRut());
+	    			selectAllMascotas.setString(1, vacu.getMascotaNombre());
+	    			mascota = selectAllMascotas.executeQuery();
+	    			while(mascota.next()){
+	    				masc.setRaza(mascota.getString(1).trim());
+	    				vacu.setMascotaRaza(masc.getRaza());
+	    				masc.setSexo(mascota.getString(2).trim());
+	    				vacu.setMascotaSexo(masc.getSexo());
+	    			}
+	    			
+	    			selectAllClientes.setString(1, vacu.getClienteRut());
+	    			cliente = selectAllClientes.executeQuery();
+	    			while(cliente.next()){
+	    				clie.setNombre(cliente.getString(1).trim());
+	    				vacu.setClienteNombre(clie.getNombre());
+	    				clie.setApellido(cliente.getString(2).trim());
+	    				vacu.setClienteApellido(clie.getApellido());
+	    			}
+	    			if(!ruts.contains(rut) || !names.contains(name) ){
+	    				vacunaciones.add(vacu);	
+	    			}
+	    			names.add(name);
+	    			ruts.add(rut);
+	    		}
+	    		
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return vacunaciones;
+	    }
+	 
+	 public List getAllVacunacionesTodo()
+	    {	
+	    	List vacunaciones = new ArrayList();
+	    	List ruts = new ArrayList();
+	    	List names = new ArrayList();
+	    	List estados = new ArrayList();
+	    	Vacunacion vacu;
+	    	Cliente clie;
+	    	Mascota masc;
+	    	try 
+	    	{
+	    		ResultSet result = selectAllVacunacionesTodo.executeQuery();
+	    		while(result.next())
+	    		{  
+	    			String rut=null, name=null;
+	    			vacu = new Vacunacion();
+	    			clie = new Cliente();
+	    			masc = new Mascota();
+	    			ResultSet cliente; 
+		    		ResultSet mascota; 
+	    			
+	    			vacu.setClienteRut(result.getString(1).trim());
+	    			rut = vacu.getClienteRut();
+	    			vacu.setMascotaNombre(result.getString(2).trim());
+	    			name = vacu.getMascotaNombre();
+	    			
+	    			selectAllMascotas.setString(2, vacu.getClienteRut());
+	    			selectAllMascotas.setString(1, vacu.getMascotaNombre());
+	    			mascota = selectAllMascotas.executeQuery();
+	    			while(mascota.next()){
+	    				masc.setRaza(mascota.getString(1).trim());
+	    				vacu.setMascotaRaza(masc.getRaza());
+	    				masc.setSexo(mascota.getString(2).trim());
+	    				vacu.setMascotaSexo(masc.getSexo());
+	    			}
+	    			
+	    			selectAllClientes.setString(1, vacu.getClienteRut());
+	    			cliente = selectAllClientes.executeQuery();
+	    			while(cliente.next()){
+	    				clie.setNombre(cliente.getString(1).trim());
+	    				vacu.setClienteNombre(clie.getNombre());
+	    				clie.setApellido(cliente.getString(2).trim());
+	    				vacu.setClienteApellido(clie.getApellido());
+	    			}
+	    			
+	    			vacu.setEstado(result.getString(7).trim());
+	    			String estado = vacu.getEstado();
+	    			
+	    			if(!ruts.contains(rut) || !names.contains(name) || !estados.contains(estado)){
+	    				vacunaciones.add(vacu);	
+	    				names.add(name);
+		    			ruts.add(rut);
+		    			estados.add(estado);
+	    			}
+	    			
+	    			if(vacu.getEstado().compareTo("0")==0){
+	    				vacu.setEstado("Válido");
+	    			}
+	    			if(vacu.getEstado().compareTo("2")==0){
+	    				vacu.setEstado("Nulo");
+	    			}
+	    		}
+	    		
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return vacunaciones;
+	    }
+	 
 	 /**
 	  * Trata de obtener todos las vacunaciones registrados en la base de datos
 	  * de un cliente determinado
@@ -139,6 +288,41 @@ public class VacunacionBD {
 	    	try 
 	    	{
 	    		ResultSet result = selectAllVacunaciones.executeQuery();
+	    		while(result.next())
+	    		{  
+	    			vacu = new Vacunacion();
+	    			
+	    			vacu.setClienteRut(result.getString(1).trim());
+	    			vacu.setMascotaNombre(result.getString(2).trim());
+	    			vacu.setHora(result.getString(3).trim());
+	    			vacu.setDescripcion(result.getString(4).trim());
+	    			vacu.setVeterinario(result.getString(5).trim());
+	    			vacu.setServicio(result.getString(6).trim());
+	    			vacu.setFechaS(result.getString(8).trim());
+
+	    			String rut2 = vacu.getClienteRut();
+	    			String nombre2 = vacu.getMascotaNombre();
+	    			
+	    			if(rut2.equals(rut) && nombre2.equals(nombre))
+	    			{
+	    				vacunaciones.add(vacu);
+	    			}
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return vacunaciones;
+	 }
+	 
+	 public List getAllVacunacionesU2(String rut, String nombre)
+	 {
+		 	List vacunaciones = new ArrayList();
+		 	Vacunacion vacu;
+	    	try 
+	    	{
+	    		ResultSet result = selectAllVacunacionesAnul.executeQuery();
 	    		while(result.next())
 	    		{  
 	    			vacu = new Vacunacion();
