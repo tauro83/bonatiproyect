@@ -115,6 +115,7 @@
 			}
 			public function anularCirugia():void{
 				Application.application.setInvisible();
+				Application.application.cirugiaA.getAllDatos();
 				Application.application.cirugiaA.iniciar();
 				this.visible = true;
 				Application.application.cirugiaA.visible = true;	
@@ -145,8 +146,9 @@
 				Application.application.addVacuna1.visible = true;
 			}
 			
-			public function anularVacunaciones():void{
+			public function anularVacunaciones():void{				
 				Application.application.setInvisible();
+				Application.application.vacunacionA.getAllDatos();		
 				Application.application.vacunacionA.iniciar();
 				this.visible = true;
 				Application.application.vacunacionA.visible = true;	

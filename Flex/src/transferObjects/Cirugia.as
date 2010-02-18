@@ -5,7 +5,6 @@
 package transferObjects
 {
 	import mx.collections.ArrayCollection;
-	import mx.controls.List;
 	import mx.controls.CheckBox;
 	
 	[Bindable]
@@ -30,5 +29,6 @@ package transferObjects
 		public var mascotaRaza:String;
 		public var mascotaSexo:String;
 		public var servicio:String;
+		public var estado:String;
 	}
 }

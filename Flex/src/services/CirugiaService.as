@@ -67,6 +67,16 @@ package services
 			this.getOperation("getAllCirugias").send();
 		}
 		
+		public function getAllCirugiasAnul():void
+		{
+			this.getOperation("getAllCirugiasAnul").send();
+		}
+
+		public function getAllCirugiasTodo():void
+		{
+			this.getOperation("getAllCirugiasTodo").send();
+		}
+		
 		/**
 		 * Se obtienen todas las cirugias que están registradas en la base de datos
 		 * @author  "Esteban Cruz"
@@ -74,6 +84,11 @@ package services
 		public function getAllCirugiasU(rut:String, nombre:String):void
 		{
 			this.getOperation("getAllCirugiasU").send(rut, nombre);
+		}
+		
+		public function getAllCirugiasU2(rut:String, nombre:String):void
+		{
+			this.getOperation("getAllCirugiasU2").send(rut, nombre);
 		}
 	}
 }
