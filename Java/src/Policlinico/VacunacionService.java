@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Bd.DBConnectionManager;
+import PabellonBD.CirugiaBD;
 import PoliclinicoBD.VacunacionBD;
 
 
@@ -118,14 +119,14 @@ public class VacunacionService
 	 * @return 1 si ha anulado correctamente y 0 de lo contrario
 	 * @author  "Esteban Cruz"
 	 */
-	public int anular(String nombre, String fecha, String hora)
+	public int anular(String nombre, String fecha, String hora, String motivo)
     {
 		int result = 0;
     	try 
 		{
 			Connection connection=DBConnectionManager.getConnection();
 			VacunacionBD vacunacionBD= new VacunacionBD(connection);
-			result = vacunacionBD.anular(nombre, fecha, hora);
+			result = vacunacionBD.anular(nombre, fecha, hora, motivo);
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -157,5 +158,38 @@ public class VacunacionService
 			e.printStackTrace();
 		}
     	return result;
+    }
+	
+	public List getAllDatos()
+    {
+		List vacunaciones = new ArrayList();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			VacunacionBD vacunacionBD= new VacunacionBD(connection);
+			vacunaciones = vacunacionBD.getAllDatos();	
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return vacunaciones;
+    }
+	
+	public int regBit(String nombre, String rut, String id, String motivo)
+    {
+		int result=0;
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			VacunacionBD vacunacionBD= new VacunacionBD(connection);
+			result= vacunacionBD.regBit(nombre, rut, id, motivo);
+			connection.close();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
     }
 }

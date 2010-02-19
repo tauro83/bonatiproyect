@@ -24,6 +24,9 @@ public class Cirugia {
 	private String diagnostico;
 	private String estado;
 	private List tiposCirugias;
+	public String motivo;
+	public String fechaA;
+	public String usuarioA;
 	
 	public String getMascotaRaza() {
 		return mascotaRaza;
@@ -133,5 +136,22 @@ public class Cirugia {
 	public String getEstado() {
 		return estado;
 	}
-	
+	public String getMotivo() {
+		return motivo;
+	}
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
+	public String getFechaA() {
+		return fechaA;
+	}
+	public void setFechaA(String fechaA) {
+		this.fechaA = fechaA;
+	}
+	public String getUsuarioA() {
+		return usuarioA;
+	}
+	public void setUsuarioA(String usuarioA) {
+		this.usuarioA = usuarioA;
+	}
 }

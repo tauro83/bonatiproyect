@@ -216,7 +216,10 @@ public class BusquedaBD
     			
     			producto.setNombre(result.getString(1).trim());
     			producto.setPrecio(result.getString(2).trim());
-    			producto.setCategoria(result.getString(3).trim());
+    			producto.setCategoria(result.getString(3));
+    			if(producto.getCategoria()==null){
+    				producto.setCategoria(" ");
+    			}
     			producto.setCodigo(result.getString(4).trim());
     			
     			productos.add(producto);
