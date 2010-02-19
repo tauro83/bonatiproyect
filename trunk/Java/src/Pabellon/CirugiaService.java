@@ -14,6 +14,7 @@ import java.util.List;
 
 import Bd.DBConnectionManager;
 import PabellonBD.CirugiaBD;
+import PeluqueriaBD.AECatPeluqueriaBD;
 
 
 public class CirugiaService 
@@ -76,13 +77,13 @@ public class CirugiaService
 	 * @return Lista con todos las vacunaciones registrados
 	 * @author  "Esteban Cruz"
 	 */
-	public List getAllCirugiasUEC(String rut, String nombre)
+    public List getAllCirugiasU(String rut, String nombre)
     {
 		List cirugias = new ArrayList();
     	try{	
     		Connection connection=DBConnectionManager.getConnection();
 			CirugiaBD cirugiaBD= new CirugiaBD(connection);
-			cirugias = cirugiaBD.getAllCirugiasUEC(rut, nombre);
+			cirugias = cirugiaBD.getAllCirugiasU(rut, nombre);
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -115,14 +116,14 @@ public class CirugiaService
 	 * @return 1 si ha anulado correctamente y 0 de lo contrario
 	 * @author  "Esteban Cruz"
 	 */
-	public int anularCirugia(String nombre, String fecha, String hora)
+	public int anularCirugia(String nombre, String fecha, String hora, String motivo)
     {
 		int result = 0;
     	try 
 		{
     		Connection connection=DBConnectionManager.getConnection();
 			CirugiaBD cirugiaBD= new CirugiaBD(connection);
-			result = cirugiaBD.anularCirugia(nombre, fecha, hora);
+			result = cirugiaBD.anularCirugia(nombre, fecha, hora, motivo);
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -154,5 +155,38 @@ public class CirugiaService
 			e.printStackTrace();
 		}
     	return result;
+    }
+	
+	public List getAllDatos()
+    {
+		List cirugias = new ArrayList();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			CirugiaBD cirugiaBD= new CirugiaBD(connection);
+			cirugias = cirugiaBD.getAllDatos();	
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return cirugias;
+    }
+	
+	public int regBit(String nombre, String rut, String id, String motivo)
+    {
+		int result=0;
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			CirugiaBD cirugiaBD= new CirugiaBD(connection);
+			result= cirugiaBD.regBit(nombre, rut, id, motivo);
+			connection.close();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
     }
 }

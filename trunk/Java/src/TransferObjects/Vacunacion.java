@@ -20,6 +20,9 @@ public class Vacunacion {
 	private String servicio;
 	private String estado;
 	private List tiposVacunas;
+	public String motivo;
+	public String fechaA;
+	public String usuarioA;
 	
 	public String getFechaS() {
 		return fechaS;
@@ -116,5 +119,23 @@ public class Vacunacion {
 	}
 	public String getEstado() {
 		return estado;
+	}
+	public String getMotivo() {
+		return motivo;
+	}
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
+	}
+	public String getFechaA() {
+		return fechaA;
+	}
+	public void setFechaA(String fechaA) {
+		this.fechaA = fechaA;
+	}
+	public String getUsuarioA() {
+		return usuarioA;
+	}
+	public void setUsuarioA(String usuarioA) {
+		this.usuarioA = usuarioA;
 	}
 }

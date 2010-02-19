@@ -8,17 +8,25 @@
 package PeluqueriaBD;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import TransferObjects.CatPeluqueria;
+import TransferObjects.PostOperatorio;
 
 public class AECatPeluqueriaBD {
 	
+	PreparedStatement bitacora;
 	PreparedStatement selectAllCatalogos;
+	PreparedStatement selectAllCatalogosAnul;
+	PreparedStatement selectAllCatalogosTodo;
+	PreparedStatement selectAllDatos;
 	PreparedStatement setEstado;
 	
 	/**
@@ -31,14 +39,31 @@ public class AECatPeluqueriaBD {
 		try 
 		{
 			String query="";
+			query = "INSERT INTO bitacoracatpel(nombre, servicio, fechaA, usuarioA, motivo, hora) "+
+			   		"VALUES (?,?,?,?,?,?);";
+			bitacora = connection.prepareStatement(query);
+			
+			query = "SELECT nombre, servicio, fechaA, usuarioA, motivo, hora " +
+					"FROM bitacoracatpel;";
+			selectAllDatos = connection.prepareStatement(query);
 			
 			query = "SELECT nombre, servicio, precio, descripcion, estado " +
 					"FROM catpeluqueria " +
 					"WHERE estado = 0;";
 			selectAllCatalogos = connection.prepareStatement(query);
 			
+			query = "SELECT nombre, servicio, precio, descripcion, estado " +
+					"FROM catpeluqueria " +
+					"WHERE estado = 2;";
+			selectAllCatalogosAnul = connection.prepareStatement(query);
+			
+			query = "SELECT nombre, servicio, precio, descripcion, estado " +
+					"FROM catpeluqueria " +
+					"WHERE estado != 1;";
+			selectAllCatalogosTodo = connection.prepareStatement(query);
+			
 			query = "UPDATE catpeluqueria " +
-					"SET estado = ? " + 
+					"SET estado = ?, motivo = ? " + 
 					"WHERE nombre = ? AND servicio = ?;";
 			setEstado = connection.prepareStatement(query);
 		}
@@ -79,6 +104,68 @@ public class AECatPeluqueriaBD {
 	    	return catalogos;
 	    }
 	 
+	 public List getAllCatalogosAnul()
+	    {	
+	    	List catalogos = new ArrayList();
+	    	CatPeluqueria cata;
+	    	try 
+	    	{
+	    		ResultSet result = selectAllCatalogosAnul.executeQuery();
+	    		while(result.next())
+	    		{  
+	    			cata = new CatPeluqueria();
+	    			
+	    			cata.setNombre(result.getString(1).trim());
+	    			cata.setServicio(result.getString(2).trim());
+	    			cata.setPrecio(result.getString(3).trim());
+	    			cata.setDescripcion(result.getString(4).trim());
+	    				
+	    			catalogos.add(cata);
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return catalogos;
+	    }
+	 
+	 public List getAllCatalogosTodo()
+	    {	
+	    	List catalogos = new ArrayList();
+	    	CatPeluqueria cata;
+	    	try 
+	    	{
+	    		ResultSet result = selectAllCatalogosTodo.executeQuery();
+	    		while(result.next())
+	    		{  
+	    			cata = new CatPeluqueria();
+	    			
+	    			cata.setNombre(result.getString(1).trim());
+	    			cata.setServicio(result.getString(2).trim());
+	    			cata.setPrecio(result.getString(3).trim());
+	    			cata.setDescripcion(result.getString(4).trim());
+	    			
+	    			cata.setEstado(result.getString(5).trim());
+	    			String estado = cata.getEstado();
+	    			
+	    			if(cata.getEstado().compareTo("0")==0){
+	    				cata.setEstado("Válido");
+	    			}
+	    			if(cata.getEstado().compareTo("2")==0){
+	    				cata.setEstado("Nulo");
+	    			}
+	    			
+	    			catalogos.add(cata);
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return catalogos;
+	    }
+	 
 	 /**
 	  * Anula todos los catalogos solicitados por el usuario
 	  * de la base de datos
@@ -91,8 +178,9 @@ public class AECatPeluqueriaBD {
 		 int result = 0;
 		 try {
 			setEstado.setInt(1, 2);
-			setEstado.setString(2, cata.getNombre());
-			setEstado.setString(3, cata.getServicio());
+			setEstado.setString(2, cata.getMotivo());
+			setEstado.setString(3, cata.getNombre());
+			setEstado.setString(4, cata.getServicio());
 			result = setEstado.executeUpdate();
 		 } 
 		 catch (SQLException e) {
@@ -122,4 +210,119 @@ public class AECatPeluqueriaBD {
 		 }
 		 return result; 
 	 }
+	 
+	 public int regBit(String nombre, String servicio, String motivo)
+	    {
+	    	int result=0;
+	    	try 
+	    	{
+	    		Calendar c = Calendar.getInstance();
+				int year = c.get(Calendar.YEAR)-1900;
+				int month = c.get(Calendar.MONTH);
+				int day = c.get(Calendar.DAY_OF_MONTH);
+				Date date = new Date(year,month, day);
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				String fecha2 = formatter.format(date); 
+				int hora2 = c.get(Calendar.HOUR_OF_DAY);
+	    		int minutos = c.get(Calendar.MINUTE);
+	    		int segundos = c.get(Calendar.SECOND);
+	    		
+	    		String h2 = "";
+	    		String horastring, minstring, secstring;
+	    		horastring = hora2+"";
+	    		minstring = minutos+"";
+	    		secstring = segundos+"";
+	    		
+	    		if (hora2<10){
+	    			horastring = "0"+hora2;
+	    		}
+	    		if(minutos<10){
+	    			minstring = "0"+minutos;
+	    		}
+	    		if(segundos<10){
+	    			secstring = "0"+segundos;
+	    		}
+	    		
+	    		h2 =horastring+":"+minstring+":"+secstring;
+	    		
+	    		int i=0;
+	    		String v = motivo;
+	    		String h = v.substring(i,i+1);
+				String palabra="";
+				int bandera=2;
+				while(!h.equals(" ") && bandera!=1 && i<v.length()){
+					palabra=palabra+h;
+					if(i+1<v.length() && i<v.length()){
+						i++;
+	    				h=v.substring(i,i+1);
+	    				bandera=0;
+					}
+					else{
+						bandera=1;
+					}
+				}
+				
+				if(bandera==2){
+					palabra=palabra+h;
+				}
+				String usuarioAA= palabra;
+				
+				h = v.substring(i,i+1);
+				palabra="";
+				
+				while(i<v.length() && i+1<v.length()){
+					palabra=palabra+h;
+					i++;
+					h=v.substring(i,i+1);
+				}
+				h=v.substring(i,i+1);
+				palabra=palabra+h;
+				String motivoAA = palabra;
+				
+	   		
+				bitacora.setString(1, nombre);
+	    		bitacora.setString(2, servicio);    		
+	    		bitacora.setString(3, fecha2);
+	    		bitacora.setString(4, usuarioAA);
+	    		bitacora.setString(5, motivoAA);
+	    		bitacora.setString(6, h2);
+	    		bitacora.executeQuery();
+
+	       		
+	    		result= bitacora.executeUpdate();
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return result;
+	    }
+	 
+	 public List getAllDatos()
+	    {	
+	    	List catalogos = new ArrayList();
+	    	CatPeluqueria cata;
+	    	try 
+	    	{
+	    		ResultSet result = selectAllDatos.executeQuery();
+	    		while(result.next())
+	    		{  
+	    			cata = new CatPeluqueria();
+	    			
+	    			cata.setNombre(result.getString(1).trim());
+	    			cata.setServicio(result.getString(2).trim());
+	    			cata.setFechaA(result.getString(3).trim());
+	    			cata.setUsuarioA(result.getString(4).trim());
+	    			cata.setMotivo(result.getString(5).trim());
+	    			cata.setHora(result.getString(6).trim());
+	    				
+	    			catalogos.add(cata);
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return catalogos;
+	    }
 }

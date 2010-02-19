@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Bd.DBConnectionManager;
+import PabellonBD.PostOperatorioBD;
 import PeluqueriaBD.AECatPeluqueriaBD;
 
 import TransferObjects.CatPeluqueria;
@@ -33,6 +34,40 @@ public class AECatPeluqueriaService
 			Connection connection=DBConnectionManager.getConnection();
 			AECatPeluqueriaBD catPeluqueraBD= new AECatPeluqueriaBD(connection);
 			catalogos = catPeluqueraBD.getAllCatalogos();	
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return catalogos;
+    }
+	
+	public List getAllCatalogosAnul()
+    {
+		List catalogos = new ArrayList();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			AECatPeluqueriaBD catPeluqueraBD= new AECatPeluqueriaBD(connection);
+			catalogos = catPeluqueraBD.getAllCatalogosAnul();	
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return catalogos;
+    }
+	
+	public List getAllCatalogosTodo()
+    {
+		List catalogos = new ArrayList();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			AECatPeluqueriaBD catPeluqueraBD= new AECatPeluqueriaBD(connection);
+			catalogos = catPeluqueraBD.getAllCatalogosTodo();	
 			connection.close();
 		} 
     	catch (SQLException e) 
@@ -88,5 +123,38 @@ public class AECatPeluqueriaService
 			e.printStackTrace();
 		}
     	return result;
+    }
+	
+	public int regBit(String nombre, String servicio, String motivo)
+    {
+		int result=0;
+		try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			AECatPeluqueriaBD catPeluqueraBD= new AECatPeluqueriaBD(connection);
+			result= catPeluqueraBD.regBit(nombre, servicio, motivo);
+			connection.close();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return result;
+    }
+	
+	public List getAllDatos()
+    {
+		List catalogos = new ArrayList();
+    	try 
+		{
+			Connection connection=DBConnectionManager.getConnection();
+			AECatPeluqueriaBD catPeluqueraBD= new AECatPeluqueriaBD(connection);
+			catalogos = catPeluqueraBD.getAllDatos();	
+			connection.close();
+		} 
+    	catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return catalogos;
     }
 }

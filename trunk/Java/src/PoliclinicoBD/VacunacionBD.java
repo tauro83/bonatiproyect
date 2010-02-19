@@ -8,18 +8,24 @@
 package PoliclinicoBD;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import TransferObjects.CatPeluqueria;
 import TransferObjects.Vacunacion;
 import TransferObjects.Cliente;
 import TransferObjects.Mascota;
 
 public class VacunacionBD {
 	
+	PreparedStatement selectAllDatos;
+	PreparedStatement bitacora;
 	PreparedStatement selectAllVacunacionesTodo;
 	PreparedStatement selectAllVacunacionesAnul;
 	PreparedStatement selectAllVacunaciones;
@@ -37,6 +43,15 @@ public class VacunacionBD {
 		try 
 		{
 			String query="", queryCliente="", queryMascota="";
+			
+			query = "INSERT INTO bitacoravac(nombre, rut, horai, fechaA, usuarioA, motivo, hora) " +
+					"VALUES (?,?,?,?,?,?,?);";
+			bitacora = connection.prepareStatement(query);
+
+			query = "SELECT nombre, rut, fechaA, usuarioA, motivo, hora " +
+					"FROM bitacoravac;";
+			selectAllDatos = connection.prepareStatement(query);
+	
 			
 			query = "SELECT clienterut, mascotanombre, hora, " +
 					"descripcion, responsable, servicio, estado, fecha " +
@@ -73,7 +88,7 @@ public class VacunacionBD {
 			selectAllMascotas = connection.prepareStatement(queryMascota);
 			
 			query = "UPDATE vacunacion " +
-					"SET estado = ? " + 
+					"SET estado = ?, motivo = ? " + 
 					"WHERE mascotanombre=? and fecha=? and hora=? ;";
 			setEstado = connection.prepareStatement(query);
 		}
@@ -358,14 +373,16 @@ public class VacunacionBD {
 	  * @return 1 si ha anulado correctamente y 0 de lo contrario
 	  * @author  "Esteban Cruz"
 	  */
-	 public int anular(String nombre, String fecha, String hora)
+	 public int anular(String nombre, String fecha, String hora, String motivo)
 	 {
 		 int result = 0;
 		 try {
+			 System.out.println("MOTIVO=== "+motivo);
 			setEstado.setInt(1, 2);
-			setEstado.setString(2, nombre);
-			setEstado.setString(3, fecha);
-			setEstado.setString(4, hora);
+			setEstado.setString(2, motivo);
+			setEstado.setString(3, nombre);
+			setEstado.setString(4, fecha);
+			setEstado.setString(5, hora);
 			result = setEstado.executeUpdate();
 		 } 
 		 catch (SQLException e) {
@@ -396,4 +413,118 @@ public class VacunacionBD {
 		 }
 		 return result; 
 	 }
+	 
+	 public int regBit(String nombre, String rut, String id, String motivo)
+	    {
+	    	int result=0;
+	    	try 
+	    	{
+	    		Calendar c = Calendar.getInstance();
+				int year = c.get(Calendar.YEAR)-1900;
+				int month = c.get(Calendar.MONTH);
+				int day = c.get(Calendar.DAY_OF_MONTH);
+				Date date = new Date(year,month, day);
+				SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				String fecha2 = formatter.format(date); 
+				int hora2 = c.get(Calendar.HOUR_OF_DAY);
+	    		int minutos = c.get(Calendar.MINUTE);
+	    		int segundos = c.get(Calendar.SECOND);
+	    		
+	    		String h2 = "";
+	    		String horastring, minstring, secstring;
+	    		horastring = hora2+"";
+	    		minstring = minutos+"";
+	    		secstring = segundos+"";
+	    		
+	    		if (hora2<10){
+	    			horastring = "0"+hora2;
+	    		}
+	    		if(minutos<10){
+	    			minstring = "0"+minutos;
+	    		}
+	    		if(segundos<10){
+	    			secstring = "0"+segundos;
+	    		}
+	    		
+	    		h2 =horastring+":"+minstring+":"+secstring;
+	    		
+	    		int i=0;
+	    		String v = motivo;
+	    		String h = v.substring(i,i+1);
+				String palabra="";
+				int bandera=2;
+				while(!h.equals(" ") && bandera!=1 && i<v.length()){
+					palabra=palabra+h;
+					if(i+1<v.length() && i<v.length()){
+						i++;
+	    				h=v.substring(i,i+1);
+	    				bandera=0;
+					}
+					else{
+						bandera=1;
+					}
+				}
+				
+				if(bandera==2){
+					palabra=palabra+h;
+				}
+				String usuarioAA= palabra;
+				
+				h = v.substring(i,i+1);
+				palabra="";
+				
+				while(i<v.length() && i+1<v.length()){
+					palabra=palabra+h;
+					i++;
+					h=v.substring(i,i+1);
+				}
+				h=v.substring(i,i+1);
+				palabra=palabra+h;
+				String motivoAA = palabra;
+				
+				bitacora.setString(1, nombre);
+	    		bitacora.setString(2, rut);    		
+	    		bitacora.setString(3, id);
+	    		bitacora.setString(4, fecha2);
+	    		bitacora.setString(5, usuarioAA);
+	    		bitacora.setString(6, motivoAA);
+	    		bitacora.setString(7, h2);
+	    		bitacora.executeQuery();
+	       		
+	    		result= bitacora.executeUpdate();
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return result;
+	    }
+	 
+	 public List getAllDatos()
+	    {	
+	    	List vacunaciones = new ArrayList();
+	    	Vacunacion vacu;
+	    	try 
+	    	{
+	    		ResultSet result = selectAllDatos.executeQuery();
+	    		while(result.next())
+	    		{  
+	    			vacu = new Vacunacion();
+	    			
+	    			vacu.setMascotaNombre(result.getString(1).trim());
+	    			vacu.setClienteRut(result.getString(2).trim());
+	    			vacu.setFechaA(result.getString(3).trim());
+	    			vacu.setUsuarioA(result.getString(4).trim());
+	    			vacu.setMotivo(result.getString(5).trim());
+	    			vacu.setHora(result.getString(6).trim());
+	    				
+	    			vacunaciones.add(vacu);
+	    		}
+			} 
+	    	catch (SQLException e) 
+	    	{
+				e.printStackTrace();
+			}
+	    	return vacunaciones;
+	    }
 }
