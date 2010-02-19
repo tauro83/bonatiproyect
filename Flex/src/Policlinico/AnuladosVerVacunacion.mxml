@@ -1,0 +1,110 @@
+<!--@Author Erwin Díaz-->
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml"  layout="absolute"  width="779" height="466" title="Vacunaciones Anuladas " borderColor="#15AD8F" >
+	<mx:Script>
+		<![CDATA[
+			import transferObjects.Vacunacion;
+			import services.VacunacionService;
+			//=======================================================================
+			// FECHA: CREACIÓN: 17 Febrero
+			// AUTOR: Esteban Cruz
+			// Comentarios: Muestra datos de la mascota con sus respectivas atenciones
+			// en cirugía
+			//=======================================================================
+		
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+            import mx.core.Application;
+			
+			import transferObjects.Cirugia;
+			import services.CirugiaService;
+			[Bindable]
+			private var vacunaciones:ArrayCollection;
+			
+			
+			/**
+			 * Evento del boton "Volver", el cual redirige la página
+			 * a anterior (listado de clientes con cirugias acitadas)
+			 * @author  "Esteban Cruz"
+			 */
+			public function actionVolver():void
+			{
+            	this.setVisible(false,false);
+            	Application.application.vacunacionA.setVisible(true,false);
+			}
+			
+			/**
+			 * Se obtienen todas las cirugias que están registradas en 
+			 * la base de datos para ser mostrados dentro del datagrid
+			 * @author  "Esteban Cruz"
+			 */
+			public function getAllVacunacionesU(rut:String, nombre:String):void
+		    {
+		   		var vacunacionService:VacunacionService = new VacunacionService();
+		   		vacunacionService.addEventListener(ResultEvent.RESULT,getAllVacunacionesResult);
+				vacunacionService.getAllVacunacionesU2(rut, nombre);
+		    }
+		   
+		    /**
+			 * Una vez obtenidas todas las cirugias que están registradas 
+			 * en la base de datos, son mostrados dentro del datagrid
+			 * @author  "Esteban Cruz"
+			 */
+		    public function getAllVacunacionesResult(event:ResultEvent):void
+		    {
+		   		vacunaciones = event.result as ArrayCollection;
+		    }
+			
+			/**
+			 * Se toma el objeto cliente con sus respectivos 
+			 * datos, y se insertan en los campos correspondientes
+			 * Cliente y Mascota
+			 * @author  "Esteban Cruz"
+			 */
+			public function setDatos(vacu:Vacunacion):void
+			{
+				getAllVacunacionesU(vacu.clienteRut, vacu.mascotaNombre);
+         		cNom.text=vacu.clienteNombre;
+         		cRut.text=vacu.clienteRut;
+         		cApP.text=vacu.clienteApellido;
+         		mNom.text=vacu.mascotaNombre;
+         		mRaz.text=vacu.mascotaRaza;
+         		mSex.text=vacu.mascotaSexo;
+         	}
+            
+		]]>
+	</mx:Script>
+	
+	<!-- Tabla con datos -->
+	<mx:DataGrid x="25" y="152" width="709" height="193" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) cirugia(s) que desea anular">
+		<mx:columns>	
+			<mx:DataGridColumn width="150" headerText="Veterinario" dataField="veterinario" draggable="false"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" draggable="false"/>
+			<mx:DataGridColumn width="100" headerText="Hora" dataField="hora" draggable="false"/>
+			<mx:DataGridColumn width="100" headerText="Fecha" dataField="fechaS" draggable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
+	
+	<!-- Elementos -->
+	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
+	<mx:Label x="25" y="35" text="Nombre:" width="78"/>
+	<mx:Label x="25" y="10" text="Cliente" width="97" fontWeight="bold"/>
+	<mx:Label x="405" y="10" text="Mascota" width="98" fontWeight="bold"/>
+	<mx:Label x="25" y="87.95" text="Rut:" width="78"/>
+	<mx:Label x="405" y="87.95" text="Sexo:" width="78"/>
+	<mx:Label x="405" y="36" text="Nombre:" width="63.4" height="17.931034"/>
+	<mx:Label x="25" y="62" text="Apellido Paterno:" width="103"/>
+	<mx:Label x="405" y="61.9" text="Raza:" width="78"/>
+	<mx:Text x="25" y="124" text="Vacunaciones" fontWeight="bold" height="20"/>
+	<mx:Text x="136" y="62" id="cApP" width="150"/>
+	<mx:Text x="136" y="35" id="cNom" width="150"/>
+	<mx:Text x="136" y="87.95" id="cRut" width="150"/>
+	<mx:Text x="478.4" y="36" id="mNom" width="150"/>
+	<mx:Text x="478.4" y="61.9" id="mRaz" width="150"/>
+	<mx:Text x="478.4" y="87.95" id="mSex" width="150"/>
+	<mx:TextInput x="244" y="320" width="490" id="motivo" visible="false" toolTip="Ingrese el motivo por el cual desea anular la(s) cirugia(s)"/>
+	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
+	
+</mx:Panel>
