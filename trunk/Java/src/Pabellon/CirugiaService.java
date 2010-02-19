@@ -14,7 +14,6 @@ import java.util.List;
 
 import Bd.DBConnectionManager;
 import PabellonBD.CirugiaBD;
-import TransferObjects.Cirugia;;
 
 
 public class CirugiaService 
@@ -77,13 +76,13 @@ public class CirugiaService
 	 * @return Lista con todos las vacunaciones registrados
 	 * @author  "Esteban Cruz"
 	 */
-	public List getAllCirugiasU(String rut, String nombre)
+	public List getAllCirugiasUEC(String rut, String nombre)
     {
 		List cirugias = new ArrayList();
     	try{	
     		Connection connection=DBConnectionManager.getConnection();
 			CirugiaBD cirugiaBD= new CirugiaBD(connection);
-			cirugias = cirugiaBD.getAllCirugiasU(rut, nombre);
+			cirugias = cirugiaBD.getAllCirugiasUEC(rut, nombre);
 			connection.close();
 		} 
     	catch (SQLException e) 
