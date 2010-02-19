@@ -13,9 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Bd.DBConnectionManager;
-import PabellonBD.CirugiaBD;
 import PoliclinicoBD.VacunacionBD;
-import TransferObjects.Vacunacion;
 
 
 public class VacunacionService 
