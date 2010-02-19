@@ -42,11 +42,11 @@
 			 * la base de datos para ser mostrados dentro del datagrid
 			 * @author  "Esteban Cruz"
 			 */
-			public function getAllCirugiasUEC(rut:String, nombre:String):void
+			public function getAllCirugiasU(rut:String, nombre:String):void
 		    {
 		   		var cirugiaService:CirugiaService = new CirugiaService();
 		   		cirugiaService.addEventListener(ResultEvent.RESULT,getAllCirugiasResult);
-				cirugiaService.getAllCirugiasUEC(rut, nombre);
+				cirugiaService.getAllCirugiasU(rut, nombre);
 		    }
 		   
 		    /**
@@ -64,10 +64,10 @@
 			 * grid, desde la base de datos
 			 * @author  "Esteban Cruz"
 			 */
-			public function anularCirugia(nombre:String, fecha:String, hora:String):void
+			public function anularCirugia(nombre:String, fecha:String, hora:String, motivo:String):void
 			{
 				var cirugiaService:CirugiaService = new CirugiaService();
-				cirugiaService.anularCirugia(nombre, fecha, hora);
+				cirugiaService.anularCirugia(nombre, fecha, hora, motivo);
 			}
 
             /**
@@ -102,12 +102,23 @@
             {
                 var allRows:int = cirugias.length;
                 var ciru:Cirugia = new Cirugia();
+                var motiv:String = "";
+	            if(comboboxMotivo.selectedLabel=='Otros'){
+	                motiv = motivo.text;
+	            }
+	            else{
+	            	motiv = comboboxMotivo.text;
+	            }
                 
                 for (var i:int = 0; i < allRows; i++){
                     if (cirugias[i].sel)
                 	{
                         ciru = cirugias[i] as Cirugia;
-                        anularCirugia(ciru.mascotaNombre,ciru.fecha,ciru.hora);
+                        anularCirugia(ciru.mascotaNombre,ciru.fecha,ciru.hora,motiv);
+                        
+                        var elimItem:CirugiaService = new CirugiaService();
+                        elimItem.regBit(ciru.mascotaNombre,ciru.clienteRut,ciru.hora,
+                        Application.application.login2.usuarioActivo+" "+motiv);
                         
                         cirugias.removeItemAt(i);
                         allRows = cirugias.length;
@@ -137,7 +148,7 @@
 			 */
 			public function setDatos(ciru:Cirugia):void
 			{
-				getAllCirugiasUEC(ciru.clienteRut, ciru.mascotaNombre);
+				getAllCirugiasU(ciru.clienteRut, ciru.mascotaNombre);
          		cNom.text=ciru.clienteNombre;
          		cRut.text=ciru.clienteRut;
          		cApP.text=ciru.clienteApellido;
@@ -186,7 +197,7 @@
                             <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
                         </mx:Component>
              	</mx:itemRenderer>
-            </mx:DataGridColumn>		
+            </mx:DataGridColumn>
 			<mx:DataGridColumn width="180" headerText="Veterinario" dataField="veterinario" draggable="false"/>
 			<mx:DataGridColumn width="181" headerText="Ayudante" dataField="ayudante" draggable="false"/>
 			<mx:DataGridColumn width="140" headerText="Servicio" dataField="servicio" draggable="false"/>

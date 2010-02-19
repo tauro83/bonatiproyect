@@ -278,7 +278,10 @@
 			 * */
 			private function guardarCambios():void
 			{
-				
+				Application.application.login2.permisos();
+				Application.application.AdmOpciones1.visible=false;
+				Application.application.AdmOpciones1.visible=true;
+				Application.application.login2.permisos();
 				Application.application.AdEditarUsuar2.insertUsuarioE();
 				
 			}

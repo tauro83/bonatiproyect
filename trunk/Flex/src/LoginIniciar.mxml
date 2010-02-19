@@ -122,11 +122,11 @@
 					Application.application.opcionesClinica1.PreOlink.enabled=false;
 				}
 				if(result.permisoEditar==true){
-					Application.application.opcionesClinica1.bEditPreO.enabled=true;
+					Application.application.opcionesClinica1.EdirPreOlink.enabled=true;
 				}else{
-					Application.application.opcionesClinica1.bEditPreO.enabled=false;
+					Application.application.opcionesClinica1.EdirPreOlink.enabled=false;
 				}
-				if(result.permisoEliminar==true){
+				if(result.permisoPurgar==true){
 					Application.application.opcionesClinica1.bEliPreO.enabled=true;
 				}else{
 					Application.application.opcionesClinica1.bEliPreO.enabled=false;
@@ -146,7 +146,7 @@
 				}else{
 					Application.application.opcionesClinica1.cirugiaLink0.enabled=false;
 				}
-				if(result.permisoEliminar==true){
+				if(result.permisoPurgar==true){
 					Application.application.opcionesClinica1.cirugiaLink1.enabled=true;
 				}else{
 					Application.application.opcionesClinica1.cirugiaLink1.enabled=false;
@@ -166,7 +166,7 @@
 				}else{
 					Application.application.opcionesClinica1.editarPostO.enabled=false;
 				}
-				if(result.permisoEliminar==true){
+				if(result.permisoPurgar==true){
 					Application.application.opcionesClinica1.anulPost.enabled=true;
 				}else{
 					Application.application.opcionesClinica1.anulPost.enabled=false;
@@ -181,7 +181,7 @@
 				}else{
 					Application.application.opcionesClinica1.linkRegVac.enabled=false;
 				}
-				if(result.permisoEliminar==true){
+				if(result.permisoPurgar==true){
 					Application.application.opcionesClinica1.anularVacunacion.enabled=true;
 				}else{
 					Application.application.opcionesClinica1.anularVacunacion.enabled=false;
@@ -201,6 +201,11 @@
 				}else{
 					Application.application.opcionesClinica1.botEditCon.enabled=false;
 				}
+				if(result.permisoPurgar==true){
+					Application.application.opcionesClinica1.anuConsulta.enabled=true;
+				}else{
+					Application.application.opcionesClinica1.anuConsulta.enabled=false;
+				}
 			}
 			//permiso -opciones control
 			public function permisoRegistrarRCont(event:ResultEvent):void
@@ -216,7 +221,7 @@
 				}else{
 					Application.application.opcionesClinica1.bEditContr.enabled=false;
 				}
-				if(result.permisoEliminar==true){
+				if(result.permisoPurgar==true){
 					Application.application.opcionesClinica1.bAnuControl.enabled=true;
 				}else{
 					Application.application.opcionesClinica1.bAnuControl.enabled=false;
@@ -236,7 +241,7 @@
 				}else{
 					Application.application.opcionesPetshop.bEditPag.enabled=false;
 				}
-				if(result.permisoEliminar==true){
+				if(result.permisoPurgar==true){
 					Application.application.opcionesPetshop.bAnuPag.enabled=true;
 				}else{
 					Application.application.opcionesPetshop.bAnuPag.enabled=false;
@@ -261,11 +266,11 @@
 				}else{
 					Application.application.opcionesPetshop.bEliProd.enabled=false;
 				}
-				if(result.permisoPurgar==true){
+				/*if(result.permisoPurgar==true){
 					Application.application.opcionesPetshop.bPurgProd.enabled=true;
 				}else{
 					Application.application.opcionesPetshop.bPurgProd.enabled=false;
-				}
+				}*/
 			}
 			//permiso -opciones hoteleria
 			public function permisoRHot(event:ResultEvent):void
@@ -306,13 +311,13 @@
 				}else{
 					Application.application.panelPeluqueria.bAnuAtePel.enabled=false;
 				}
-				if(result.permisoPurgar==true){
+				/*if(result.permisoPurgar==true){
 					Application.application.panelPeluqueria.bActAtePel.enabled=true;
 					Application.application.panelPeluqueria.bDesAtePel.enabled=true;
 				}else{
 					Application.application.panelPeluqueria.bActAtePel.enabled=false;
 					Application.application.panelPeluqueria.bDesAtePel.enabled=false;
-				}
+				}*/
 			}
 			//permiso -opciones cat. peluqueria
 			public function permisoRCatPel(event:ResultEvent):void
@@ -338,7 +343,7 @@
 			public function permisoRWebAvi(event:ResultEvent):void
 			{
 				var result:Usuario = event.result as Usuario ;
-				if(result.permisoRegistrar==true){
+				/*if(result.permisoRegistrar==true){
 					Application.application.panelPeluqueria.regAvisoWeb.enabled=true;
 				}else{
 					Application.application.panelPeluqueria.regAvisoWeb.enabled=false;
@@ -359,7 +364,7 @@
 				}else{
 					Application.application.panelPeluqueria.eliminarweb.enabled=false;
 					Application.application.panelPeluqueria.activar.enabled=false;
-				}
+				}*/
 			}
 			//permiso -opciones adm. cliente
 			public function permisoRCli(event:ResultEvent):void

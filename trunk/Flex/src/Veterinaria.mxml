@@ -245,6 +245,9 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
          		vacunacionE2.setVisible(false,false);
          		anuladosVerVacunacion.setVisible(false,false);
          		anuladosVerCirugia.setVisible(false,false);
+         		bitCatPel.setVisible(false,false);
+         		bitCir.setVisible(false,false);
+         		bitVac.setVisible(false,false);
          		<!--Autor: }Esteban -->   
          		
          		<!--Autor: Sebastian{ -->
@@ -566,6 +569,12 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
 	</ns1:PeluqueriaIni>
 	<peluqueria:AnuCatalogo x="240" y="133" visible="false" id="AnuCatalogo">
 	</peluqueria:AnuCatalogo>
+	<peluqueria:BitCatPel x="240" y="133" visible="false" id="bitCatPel">
+	</peluqueria:BitCatPel>
+	<ns3:BitCir x="240" y="133" visible="false" id="bitCir">
+	</ns3:BitCir>
+	<ns4:BitVac x="240" y="133" visible="false" id="bitVac">
+	</ns4:BitVac>
 	<peluqueria:EliCatalogo x="240" y="133" visible="false" id="EliCatalogo">
 	</peluqueria:EliCatalogo>
 	<ns4:Policlinico x="240" y="133" visible="false" id="policlinicoIni">

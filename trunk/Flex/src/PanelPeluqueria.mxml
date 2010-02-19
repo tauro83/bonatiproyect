@@ -12,6 +12,7 @@
 			<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="10" y="10" label="Registrar" click="{regcatalogo()}" textAlign="left" id="regCatalogo"/>
 			<mx:LinkButton x="10" y="40" label="Editar" textAlign="left" click="EditCatalogo()" id="ediCatalogo"/>
 			<mx:LinkButton x="10" y="70" label="Anular" click="anularCatalogo()" id="bAnuCatPel"/>
+			<mx:LinkButton x="10" y="100" label="Bitacora" click="verBitCatPel()" textAlign="left" id="Peluanul0"/>
 			<!--<mx:LinkButton x="50" y="100" label="Eliminar" click="eliminarCatalogo()"/>-->
 		</mx:Canvas>
 		<mx:Canvas label="Estadísticas" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
@@ -75,6 +76,8 @@
          private function anularCatalogo():void
          {
          	Application.application.setInvisible();
+         	Application.application.AnuCatalogo.iniciar();
+         	Application.application.AnuCatalogo.getAllDatos();
          	Application.application.panelPeluqueria.setVisible(true,false);
             Application.application.AnuCatalogo.setVisible(true,false);
          }
@@ -146,6 +149,14 @@
 			Application.application.AnuladoPelu.getAllPeluqueriaV();
 			Application.application.AnuladoPelu.actionVolver();
 	 }
+	 
+	 	private function verBitCatPel():void{
+			Application.application.setInvisible();
+			this.visible = true;
+            Application.application.bitCatPel.visible = true;
+			Application.application.bitCatPel.getAllDatos();
+			Application.application.bitCatPel.actionVolver();
+	 	}
 
          
 	 	]]>
