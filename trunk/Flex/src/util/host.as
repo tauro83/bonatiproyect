@@ -15,8 +15,4 @@ package util{
 			return s2;
 		}
 	}
-	
-	
-	
-	
 }

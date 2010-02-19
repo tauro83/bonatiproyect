@@ -42,11 +42,11 @@
 			 * la base de datos para ser mostrados dentro del datagrid
 			 * @author  "Esteban Cruz"
 			 */
-			public function getAllCirugiasU(rut:String, nombre:String):void
+			public function getAllCirugiasUEC(rut:String, nombre:String):void
 		    {
 		   		var cirugiaService:CirugiaService = new CirugiaService();
 		   		cirugiaService.addEventListener(ResultEvent.RESULT,getAllCirugiasResult);
-				cirugiaService.getAllCirugiasU(rut, nombre);
+				cirugiaService.getAllCirugiasUEC(rut, nombre);
 		    }
 		   
 		    /**
@@ -137,7 +137,7 @@
 			 */
 			public function setDatos(ciru:Cirugia):void
 			{
-				getAllCirugiasU(ciru.clienteRut, ciru.mascotaNombre);
+				getAllCirugiasUEC(ciru.clienteRut, ciru.mascotaNombre);
          		cNom.text=ciru.clienteNombre;
          		cRut.text=ciru.clienteRut;
          		cApP.text=ciru.clienteApellido;

@@ -81,9 +81,9 @@ package services
 		 * Se obtienen todas las cirugias que están registradas en la base de datos
 		 * @author  "Esteban Cruz"
 		 */ 
-		public function getAllCirugiasU(rut:String, nombre:String):void
+		public function getAllCirugiasUEC(rut:String, nombre:String):void
 		{
-			this.getOperation("getAllCirugiasU").send(rut, nombre);
+			this.getOperation("getAllCirugiasUEC").send(rut, nombre);
 		}
 		
 		public function getAllCirugiasU2(rut:String, nombre:String):void
