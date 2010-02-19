@@ -12,6 +12,7 @@ package services
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
+	
 	import util.host;
 	/**
 	 * Clase encargada de realizar la conexión entre la capa
@@ -43,9 +44,9 @@ package services
 		 * Se anula una vacunación, cambiandole el estado a 2
 		 * @author  "Esteban Cruz"
 		 */ 
-		public function anular(nombre:String, fecha:String, hora:String):void
+		public function anular(nombre:String, fecha:String, hora:String, motivo:String):void
 		{
-			this.getOperation("anular").send(nombre, fecha, hora);
+			this.getOperation("anular").send(nombre, fecha, hora, motivo);
 			
 		}
 		
@@ -58,6 +59,10 @@ package services
 			this.getOperation("eliminar").send(nombre, fecha, hora);
 		}
 		
+		public function regBit(nombre:String, rut:String, id:String, motivo:String):void{
+			this.getOperation("regBit").send(nombre, rut, id, motivo);
+		}
+		
 		/**
 		 * Se obtienen todas las vacunaciones que están registradas en la base de datos
 		 * @author  "Esteban Cruz"
@@ -65,6 +70,11 @@ package services
 		public function getAllVacunaciones():void
 		{
 			this.getOperation("getAllVacunaciones").send();
+		}
+		
+		public function getAllDatos():void
+		{
+			this.getOperation("getAllDatos").send();
 		}
 		
 		public function getAllVacunacionesAnul():void

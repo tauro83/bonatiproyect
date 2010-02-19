@@ -93,6 +93,7 @@
 			private function seleccionarBusqueda(event:Event):void
             {
             	setInvisibleInput();
+            	textBuscar.visible=true;
             	if(select ==0){
             		getAllDatos();
 				}
@@ -161,6 +162,7 @@
             	inputRaza.visible=false;
             	inputSexo.visible=false;
             	inputApellidoPaterno.visible=false;
+            	Application.application.cirugiaA2.barraMsj.text="";
 			}
 			
 			/**
@@ -183,8 +185,8 @@
             {
             	this.setVisible(false,false);  
             	if(select==0){           	 	
-            		Application.application.cirugiaA2.setDatos(tablaCirugias.selectedItem as Cirugia);
             		Application.application.cirugiaA2.setVisible(true,false);
+            		Application.application.cirugiaA2.setDatos(tablaCirugias.selectedItem as Cirugia);
             	}
             	if(select==1){    
             		Application.application.anuladosVerCirugia.setVisible(true,false);
@@ -278,7 +280,7 @@
 	<mx:Button id="botonV" x="522" y="350" label="Visualizar" click="{visualizarCirugias(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
 	<mx:Button id="botonV2" visible="false" x="522" y="350" label="Visualizar" click="{visualizarCirugias2(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
 	<mx:Text x="25" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
-	<mx:Text x="353" y="36" text="Mascota" fontWeight="bold"/>
+	<mx:Text x="379" y="36" text="Mascota" fontWeight="bold"/>
 	<mx:Text x="535" y="10" text="Buscar" id="textBuscar" visible="false"/>
 	<mx:Text x="25" y="10" id="textFiltrar" text="Filtrar por"/>
 	<mx:Button x="632" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()"/>

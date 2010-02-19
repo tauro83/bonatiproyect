@@ -11,8 +11,9 @@ package services
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
-	import util.host;
 	import mx.rpc.remoting.mxml.RemoteObject;
+	
+	import util.host;
 	/**
 	 * Clase encargada de realizar la conexión entre la capa
 	 * lógica y la interfaz gráfica
@@ -43,9 +44,9 @@ package services
 		 * Se anula una cirugia, cambiandole el estado a 2
 		 * @author  "Esteban Cruz"
 		 */ 
-		public function anularCirugia(nombre:String, fecha:String, hora:String):void
+		public function anularCirugia(nombre:String, fecha:String, hora:String, motivo:String):void
 		{
-			this.getOperation("anularCirugia").send(nombre, fecha, hora);
+			this.getOperation("anularCirugia").send(nombre, fecha, hora, motivo);
 			
 		}
 		
@@ -58,6 +59,10 @@ package services
 			this.getOperation("eliminarCirugia").send(nombre, fecha, hora);
 		}
 		
+		public function regBit(nombre:String, rut:String, id:String, motivo:String):void{
+			this.getOperation("regBit").send(nombre, rut, id, motivo);
+		}
+		
 		/**
 		 * Se obtienen todas las cirugias que están registradas en la base de datos
 		 * @author  "Esteban Cruz"
@@ -65,6 +70,11 @@ package services
 		public function getAllCirugias():void
 		{
 			this.getOperation("getAllCirugias").send();
+		}
+		
+		public function getAllDatos():void
+		{
+			this.getOperation("getAllDatos").send();
 		}
 		
 		public function getAllCirugiasAnul():void
@@ -81,9 +91,9 @@ package services
 		 * Se obtienen todas las cirugias que están registradas en la base de datos
 		 * @author  "Esteban Cruz"
 		 */ 
-		public function getAllCirugiasUEC(rut:String, nombre:String):void
+		public function getAllCirugiasU(rut:String, nombre:String):void
 		{
-			this.getOperation("getAllCirugiasUEC").send(rut, nombre);
+			this.getOperation("getAllCirugiasU").send(rut, nombre);
 		}
 		
 		public function getAllCirugiasU2(rut:String, nombre:String):void

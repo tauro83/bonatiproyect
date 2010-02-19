@@ -64,10 +64,10 @@
 			 * grid, desde la base de datos
 			 * @author  "Esteban Cruz"
 			 */
-			public function anular(nombre:String, fecha:String, hora:String):void
+			public function anular(nombre:String, fecha:String, hora:String, motivo:String):void
 			{
 				var vacunacionService:VacunacionService = new VacunacionService();
-				vacunacionService.anular(nombre, fecha, hora);
+				vacunacionService.anular(nombre, fecha, hora, motivo);
 			}
 
             /**
@@ -102,12 +102,23 @@
             {
                 var allRows:int = vacunaciones.length;
                 var vacu:Vacunacion = new Vacunacion();
+                var motiv:String = "";
+	            if(comboboxMotivo.selectedLabel=='Otros'){
+	                motiv = motivo.text;
+	            }
+	            else{
+	            	motiv = comboboxMotivo.text;
+	            }
                 
                 for (var i:int = 0; i < allRows; i++){
                     if (vacunaciones[i].sel)
                 	{
                         vacu = vacunaciones[i] as Vacunacion;
-                        anular(vacu.mascotaNombre,vacu.fechaS,vacu.hora);
+                        anular(vacu.mascotaNombre,vacu.fechaS,vacu.hora,motiv);
+                        
+                         var elimItem:VacunacionService = new VacunacionService();
+                        elimItem.regBit(vacu.mascotaNombre,vacu.clienteRut,vacu.hora,
+                        Application.application.login2.usuarioActivo+" "+motiv);
                         
                         vacunaciones.removeItemAt(i);
                         allRows = vacunaciones.length;

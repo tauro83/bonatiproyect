@@ -19,9 +19,26 @@
 			
 			import transferObjects.CatPeluqueria;
 			import services.CatalogoService; 
+			public var select:int = 0;	
 			[Bindable]
 			private var catalogos:ArrayCollection;
 			
+			
+			/**
+			 * Reinicia los elementos del componente
+			 */
+			public function iniciar():void
+			{
+				combobox.selectedIndex=0;
+				comboboxMotivo.selectedIndex=0;
+				motivo.text="";
+				motivo.visible=false;
+				tablaCatalogos.dataProvider=null;
+				textBuscar.visible=false;
+				inputServicio.dataProvider=null;
+            	inputNombre.dataProvider=null;
+            	barraMsj.text="";
+			}
 			
 			/**
 			 * Evento del boton "Volver", la cual redirige la página
@@ -36,39 +53,135 @@
             	comboboxMotivo.selectedIndex=0;
             	barraMsj.text="";
 			}
+			public function verSelect(seleccionado:int):void
+			{
+				barraMsj.text="";
+				if(seleccionado == 0){
+					todo.visible=true;
+					sall.visible=true;
+					boton.enabled=true;
+					verActivas.enabled = false;
+					verNulas.enabled = true;
+					verTodas.enabled=true;
+					select =0;
+				}
+				if(seleccionado == 1){
+					sall.visible=true;
+					todo.visible=true;
+					boton.enabled=false;
+					verActivas.enabled = true;
+					verNulas.enabled = false;
+					verTodas.enabled=true;
+					select = 1;
+				}
+				if(seleccionado == 2){
+					todo.visible=false;
+					sall.visible=false;
+					boton.enabled=false;
+					verActivas.enabled = true;
+					verNulas.enabled = true;
+					verTodas.enabled=false;
+					select = 2;
+				}
+			}
+			
+			public function getAllDatos():void
+			{
+				tablaCatalogos.visible = true;
+				tablaCatalogos2.visible = false;
+				verSelect(0);
+				var visualizarCatalogo:CatalogoService = new CatalogoService();
+				visualizarCatalogo.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+				visualizarCatalogo.getAllCatalogos();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function getAllDatosResult(event:ResultEvent):void
+			{
+				catalogos = event.result as ArrayCollection;
+			}
+			
+			public function filtrarNulas():void
+			{
+				tablaCatalogos.visible = true;
+				tablaCatalogos2.visible = false;
+				verSelect(1);
+				var visualizarCatalogo:CatalogoService = new CatalogoService();
+				visualizarCatalogo.addEventListener(ResultEvent.RESULT,filtrarNulasResult);
+				visualizarCatalogo.getAllCatalogosAnul();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function filtrarNulasResult(event:ResultEvent):void
+			{
+				catalogos = event.result as ArrayCollection;
+			}
+			
+			public function verTodo():void
+			{
+				verSelect(2);
+				tablaCatalogos.visible = false;
+				tablaCatalogos2.visible = true;
+				var visualizarCatalogo:CatalogoService = new CatalogoService();
+				visualizarCatalogo.addEventListener(ResultEvent.RESULT,verTodoResult);
+				visualizarCatalogo.getAllCatalogosTodo();
+			}	
+			/**
+			 * Obtiene el evento del resultado de la consulta
+			 * hacia la base de datos
+			 */
+		    private function verTodoResult(event:ResultEvent):void
+			{
+				catalogos = event.result as ArrayCollection;
+			}
 			
 			/**
-			 * Se obtienen todos los catalogos que están registrados en 
-			 * la base de datos para ser mostrados dentro del datagrid
-			 * @author "Esteban Cruz"
+			 * Se muestran los distintos tipos de búsqueda
+			 * que el usuario puede hacer al momento
+			 * de buscar una consulta, se pueden seleccionar
+			 * distintos parámetro que coinciden con los datos
+			 * del datagrid
 			 */
-			public function getAllCatalogos():void
-		    {
-		   		var catalogoService:CatalogoService = new CatalogoService();
-		   		catalogoService.addEventListener(ResultEvent.RESULT,getAllCatalogosResult);
-				catalogoService.getAllCatalogos();
-		    }
-		   
-		    /**
-			 * Una vez obtenidos todos los catalogos que están registrados 
-			 * en la base de datos, son mostrados dentro del datagrid
-			 * @author "Esteban Cruz"
-			 */
-		    public function getAllCatalogosResult(event:ResultEvent):void
-		    {
-		   		catalogos = event.result as ArrayCollection;
-		    }
+			private function seleccionarBusqueda(event:Event):void
+            {
+            	inputServicio.setVisible(false,false);
+            	inputNombre.setVisible(false,false);
+				textBuscar.setVisible(true, false);
+            	if(select ==0){
+            		getAllDatos();
+				}
+				else if(select ==1){
+            		filtrarNulas();
+				}
+				else if(select ==2){
+            		verTodo();
+				}
+            	switch (combobox.selectedLabel)
+				{
+				case 'Servicio':		
+					inputServicio.setVisible(true,false);
+				break; 
+				case 'Nombre':
+					inputNombre.setVisible(true,false);
+				break;
+				}
+            }
 			
 			/**
 			 * Se anulan los catalogos que están seleccionados en el
 			 * grid, desde la base de datos
 			 * @author "Esteban Cruz"
 			 */
-			public function anular(nombre:String, servicio:String):void
+			public function anular(nombre:String, servicio:String, motivo:String):void
 			{
 				var cata:CatPeluqueria = new CatPeluqueria();
 				cata.nombre=nombre;
 				cata.servicio=servicio;
+				cata.motivo=motivo;
 				
 				var catalogoService:CatalogoService = new CatalogoService();
 				catalogoService.anular(cata);
@@ -106,12 +219,23 @@
             {
                 var allRows:int = catalogos.length;
                 var cata:CatPeluqueria = new CatPeluqueria();
+                var motiv:String = "";
+	            if(comboboxMotivo.selectedLabel=='Otros'){
+	                motiv = motivo.text;
+	            }
+	            else{
+	            	motiv = comboboxMotivo.text;
+	            }
                 
                 for (var i:int = 0; i < allRows; i++){
                     if (catalogos[i].sel)
                 	{
                         cata = catalogos[i] as CatPeluqueria;
-                        anular(cata.nombre, cata.servicio);
+                        anular(cata.nombre, cata.servicio, motiv);
+                        
+                        var elimItem:CatalogoService = new CatalogoService();
+                        elimItem.regBit(cata.nombre,cata.servicio,
+                        Application.application.login2.usuarioActivo+" "+motiv);
                         
                         catalogos.removeItemAt(i);
                         allRows = catalogos.length;
@@ -149,27 +273,6 @@
                 tablaCatalogos.dataProvider = catalogos;
             }
             
-            /**
-			 * Se selecciona un tipo de filtro de búsqueda
-			 * @author "Esteban Cruz"
-			 */
-            private function seleccionarBusqueda (event:Event):void
-            {
-            	inputServicio.setVisible(false,false);
-            	inputNombre.setVisible(false,false);
-				textBuscar.setVisible(true, false);
-				getAllCatalogos();
-            	switch (combobox.selectedLabel)
-				{
-				case 'Nombre':		
-					inputNombre.setVisible(true,false);
-				break; 
-				case 'Servicio':
-					inputServicio.setVisible(true,false);
-				break;
-				}
-            } 
-            
             private function seleccionarMotivo (event:Event):void
             {   
             	if(comboboxMotivo.selectedLabel=='Otros')
@@ -182,12 +285,22 @@
 					motivo.text="";
 				}
            	}
-           	
+
 		]]>
 	</mx:Script>
+	<!-- Tabla con datos y estado -->
+	<mx:DataGrid visible="false" x="25" y="36" width="709" height="250" id="tablaCatalogos2" dataProvider="{catalogos}" toolTip="Seleccione los catálogos que desea anular">
+		<mx:columns>		
+			<mx:DataGridColumn width="100" headerText="Nombre" dataField="nombre" draggable="false"/>
+			<mx:DataGridColumn width="100" headerText="Servicio" dataField="servicio" draggable="false"/>
+			<mx:DataGridColumn width="80" headerText="Precio" dataField="precio" draggable="false"/>
+			<mx:DataGridColumn headerText="Descripción" dataField="descripcion" draggable="false"/>
+			<mx:DataGridColumn width="50" headerText="Estado" dataField="estado" draggable="false"/>
+		</mx:columns>
+	</mx:DataGrid>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid x="25" y="88" width="709" height="224" id="tablaCatalogos" dataProvider="{catalogos}" toolTip="Seleccione los catálogos que desea anular">
+	<mx:DataGrid visible="true" x="25" y="62" width="709" height="224" id="tablaCatalogos" dataProvider="{catalogos}" toolTip="Seleccione los catálogos que desea anular">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
 			 	<mx:itemRenderer>
@@ -203,12 +316,12 @@
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:CheckBox x="25" y="36" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
-	<mx:Label x="47" y="36" text="Seleccionar todo"/>
+	<mx:Label id="sall" x="47" y="36" text="Seleccionar todo"/>
 	
 	<!-- Elementos -->
 	<mx:Text x="535" y="10" text="Buscar" id="textBuscar" visible="false"/>
 	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
-	<mx:Button x="522" y="354" label="Anular" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula los catalogos seleccionados"/>
+	<mx:Button id="boton" x="522" y="354" label="Anular" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula los catalogos seleccionados"/>
 	<mx:TextInput visible="false" x="244" y="320" width="490" id="motivo" toolTip="Ingrese el motivo por el cual desea anular los catalogos"/>
 	<mx:Text x="25" y="322" text="Motivo" fontWeight="bold"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
@@ -234,5 +347,8 @@
    <!-- AutoComplete -->
    <fc:AutoComplete id="inputNombre" x="584" y="8" width="150" dataProvider="{catalogos}" labelField="nombre" visible="false" toolTip="ingrese texto para búsqueda"/>
    <fc:AutoComplete id="inputServicio" x="584" y="8" width="150" dataProvider="{catalogos}" labelField="servicio" visible="false" toolTip="ingrese texto para búsqueda"/>
-   <mx:Text x="25" y="62" text="Catálogo" fontWeight="bold"/>
+   <mx:Label x="25" y="296" text="Ver:" id="label7"/>
+   <mx:LinkButton x="160" y="294" label="Nulas" width="58" fontWeight="normal" enabled="true" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
+   <mx:LinkButton x="112" y="294" label="Válidas" width="60" fontWeight="normal" enabled="false" id="verActivas" click="{getAllDatos()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+   <mx:LinkButton x="61" y="294" label="Todas" width="60" fontWeight="normal" enabled="true" id="verTodas" click="{verTodo()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
 </mx:Panel>

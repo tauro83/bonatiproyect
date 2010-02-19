@@ -12,7 +12,9 @@ package services
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
+	
 	import transferObjects.CatPeluqueria;
+	
 	import util.host;
 	
 	/**
@@ -59,6 +61,10 @@ package services
 			this.getOperation("eliminar").send(cata);
 		}
 		
+		public function regBit(nombre:String, servicio:String, motivo:String):void{
+			this.getOperation("regBit").send(nombre, servicio, motivo);
+		}
+		
 		/**
 		 * Se obtienen todos los catalogos que están registradas en la base de datos
 		 * @autor "Esteban Cruz"
@@ -66,6 +72,21 @@ package services
 		public function getAllCatalogos():void
 		{
 			this.getOperation("getAllCatalogos").send();
+		}
+		
+		public function getAllCatalogosAnul():void
+		{
+			this.getOperation("getAllCatalogosAnul").send();
+		}
+
+		public function getAllCatalogosTodo():void
+		{
+			this.getOperation("getAllCatalogosTodo").send();
+		}
+		
+		public function getAllDatos():void
+		{
+			this.getOperation("getAllDatos").send();
 		}
 	}
 }

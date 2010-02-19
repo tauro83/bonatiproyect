@@ -93,6 +93,7 @@
 			private function seleccionarBusqueda(event:Event):void
             {
             	setInvisibleInput();
+            	textBuscar.visible=true;
             	if(select ==0){
             		getAllDatos();
 				}
@@ -161,6 +162,7 @@
             	inputRaza.visible=false;
             	inputSexo.visible=false;
             	inputApellidoPaterno.visible=false;
+            	Application.application.vacunacionA2.barraMsj.text="";
 			}
 			
 			/**
@@ -278,7 +280,7 @@
 	<mx:Button id="botonV" x="522" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
 	<mx:Button id="botonV2" visible="false" x="522" y="350" label="Visualizar" click="{visualizarVacunaciones2(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
 	<mx:Text x="25" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
-	<mx:Text x="352" y="36" text="Mascota" fontWeight="bold"/>
+	<mx:Text x="377" y="36" text="Mascota" fontWeight="bold"/>
 	<mx:Text x="535" y="10" text="Buscar" id="textBuscar" visible="false"/>
 	<mx:Text x="25" y="10" id="textFiltrar" text="Filtrar por"/>
 	<mx:Button x="632" y="351" label="Volver" width="102" cornerRadius="6" id="idCancelar" click="volver()"/>

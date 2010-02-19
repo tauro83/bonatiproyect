@@ -114,6 +114,9 @@
 				Application.application.PurgarPostOperatorio1.visible = true;	
 			}
 			public function anularCirugia():void{
+				Application.application.cirugiaA2.comboboxMotivo.selectedIndex=0;
+				Application.application.cirugiaA2.motivo.visible=false;
+				Application.application.cirugiaA2.motivo.text=" ";	
 				Application.application.setInvisible();
 				Application.application.cirugiaA.getAllDatos();
 				Application.application.cirugiaA.iniciar();
@@ -146,7 +149,10 @@
 				Application.application.addVacuna1.visible = true;
 			}
 			
-			public function anularVacunaciones():void{				
+			public function anularVacunaciones():void{		
+				Application.application.vacunacionA2.comboboxMotivo.selectedIndex=0;
+				Application.application.vacunacionA2.motivo.visible=false;		
+				Application.application.vacunacionA2.motivo.text=" ";		
 				Application.application.setInvisible();
 				Application.application.vacunacionA.getAllDatos();		
 				Application.application.vacunacionA.iniciar();
@@ -210,6 +216,22 @@
 				Application.application.AnuladoPost.getAllVacunacionesV();
 				Application.application.AnuladoPost.actionVolver();
 			}
+			
+			private function verBitCir():void{
+				Application.application.setInvisible();
+				this.visible = true;
+            	Application.application.bitCir.visible = true;
+				Application.application.bitCir.getAllDatos();
+				Application.application.bitCir.actionVolver();
+	 		}
+	 		
+	 		private function verBitVac():void{
+				Application.application.setInvisible();
+				this.visible = true;
+            	Application.application.bitVac.visible = true;
+				Application.application.bitVac.getAllDatos();
+				Application.application.bitVac.actionVolver();
+	 		}
 		]]>
 	</mx:Script>
 	
@@ -228,6 +250,7 @@
 					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="21" y="10" label="Registrar" width="100%" textAlign="left" id="cirugiaLink" click="verRegistrarCirugia()"/>
 					<mx:LinkButton x="21" y="40" label="Observaciones" width="100%" textAlign="left" id="cirugiaLink0" click="verEditarCirugia()"/>
 					<mx:LinkButton x="21" y="70" label="Anular" width="100%" textAlign="left" id="cirugiaLink1" click="anularCirugia()"/>
+					<mx:LinkButton x="21" y="100" label="Bitacora" click="verBitCir()" id="reanulado1"/>
 					<!--<mx:LinkButton x="50" y="70" label="Eliminar" width="100%" textAlign="left" id="cirugiaLink2" click="eliminarCirugia()"/>-->
 				</mx:Canvas>
 				<mx:Canvas label="      Post-Operatorio" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
@@ -243,12 +266,13 @@
 				<mx:Canvas label="      Vacunación" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="28" y="10" label="Registrar" id="linkRegVac" textAlign="left" click="verRegistrarVac()"/>
 					<mx:LinkButton x="28" y="40" label="Anular" id="anularVacunacion" click="anularVacunaciones()"/>
+					<mx:LinkButton x="28" y="70" label="Bitacora" click="verBitVac()" id="reanulado2"/>
 					<!--<mx:LinkButton x="50" y="130" label="Eliminar Vacunación" id="eliminarVacunacion0" click="eliminarVacunaciones()"/>-->
 				</mx:Canvas>
 				<mx:Canvas label="      Consulta" width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="24" y="10" label="Registrar" textAlign="left" click="verRegistrarConsulta()" id="bRegCon"/>
 					<mx:LinkButton x="24" y="40" label="Editar" textAlign="left" click="verEditarConsulta()" id="botEditCon"/>
-					<mx:LinkButton x="24" y="70" label="Anular" textAlign="left" click="{verPurgarConsulta()}"/>
+					<mx:LinkButton x="24" y="70" label="Anular" textAlign="left" click="{verPurgarConsulta()}" id="anuConsulta"/>
 				</mx:Canvas>
 				<mx:Canvas label="      Control"  width="100%" height="100%" borderColor="#FFFFFF" themeColor="#FFFFFF" backgroundColor="#FFFFFF">
 					<mx:LinkButton creationComplete="Application.application.login2.permisos()" x="24" y="10" label="Registrar" textAlign="left" click="verRegistrarControl()" id="bRegControl"/>

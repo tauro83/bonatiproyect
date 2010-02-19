@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15ad8f" title="Bitacora Catálogos Peluquería">
+<mx:Script>
+		<![CDATA[
+			import services.anularPreoperatorio;
+        	 //=======================================================================
+			// FECHA CREACIÓN: 16/11/09
+			// AUTOR: Esteban Cruz
+			// Panel en el cual se muestran el Costo , Descripción, Servicio, hora,
+			// Fecha, Responsable y Nombre de catalogo, que representa un registro de 
+			// Peluquería realizado por una mascota.
+			//=======================================================================
+				
+			import mx.controls.Alert;
+			import mx.collections.ArrayCollection;
+            import mx.controls.CheckBox;    
+            import mx.events.CloseEvent;
+            import mx.rpc.events.ResultEvent;
+            import mx.core.Application;
+			
+			import services.CatalogoService;
+			import transferObjects.CatPeluqueria;
+			
+			/**
+			* Esta variable se encarga de obtener desde la base datos los datos asociado 
+			* a un registro de peluqueria de todas las mascota que alguna vez se han 
+			* realizado una atención.
+			*/
+			[Bindable]
+			private var catalogos:ArrayCollection;
+			
+           /**
+			* Se obtienen todos los registro de peluquería que se encuentran registrados en 
+			* la base de datos, que serán mostrados por el datagrid en el panel, en este
+			* panel seran mostrados solamente el costo, descripción, servicio, hora, fecha,
+			* responsable y nombre del catalogo.
+			*/
+			public function getAllDatos():void
+		    {
+		   		var service:CatalogoService = new CatalogoService ();
+		   		service.addEventListener(ResultEvent.RESULT,getAllDatosResult);
+				service.getAllDatos();
+		    }
+		   
+	         /**
+			* Se obtienen todos los registro de peluquería que se encuentran registrados en 
+			* la base de datos, que serán mostrados por el datagrid en el panel, en este
+			* panel seran mostrados solamente el costo, descripción, servicio, hora, fecha,
+			* responsable y nombre del catalogo.
+			*/
+		    public function getAllDatosResult(event:ResultEvent):void
+		    {
+		   		catalogos = event.result as ArrayCollection;
+		    }
+         	   
+         	/**
+			* Evento del boton "Volver", el cual redirige  a la página
+			* anterior (en donde se muestra un listado de todo los clientes y mascotas
+			* que poseen un registro en la peluquería).
+			*/   
+            private function actionVolver():void
+            {
+            	this.setVisible(false,false);
+            	Application.application.peluqueriaIni.setVisible(true,false);
+            }
+           	
+		]]>
+	</mx:Script>	
+	
+	
+	
+	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
+	<mx:DataGrid x="10" y="27" width="724" height="318" id="tabla" dataProvider="{catalogos}">
+		<mx:columns>	
+			<mx:DataGridColumn width="110" headerText="Nombre" dataField="nombre" id="rutCliente" draggable="false"/>	
+			<mx:DataGridColumn width="110" headerText="Servicio" dataField="servicio" id="nombreMascota" draggable="false"/>			
+			<mx:DataGridColumn width="150" headerText="Fecha" dataField="fechaA" id="fechaA" draggable="false"/>
+			<mx:DataGridColumn width="150" headerText="Hora" dataField="hora" id="hora" draggable="false"/>
+			<mx:DataGridColumn width="150" headerText="Usuario" dataField="usuarioA" id="usuarioA" draggable="false"/>
+			<mx:DataGridColumn width="250" headerText="Motivo" dataField="motivo" id="motivo" draggable="false"/>		
+		</mx:columns>
+	</mx:DataGrid>
+</mx:Panel>

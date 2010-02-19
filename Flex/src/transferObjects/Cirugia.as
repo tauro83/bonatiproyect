@@ -30,5 +30,8 @@ package transferObjects
 		public var mascotaSexo:String;
 		public var servicio:String;
 		public var estado:String;
+		public var usuarioA:String;
+		public var fechaA:String;
+		public var motivo:String;
 	}
 }
