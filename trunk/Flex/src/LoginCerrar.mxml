@@ -51,7 +51,7 @@
    			
 	]]>
 </mx:Script>
-	<mx:Button x="523" y="302" label="Cerrar" width="102" height="23" id="botonCerrarSesion" cornerRadius="6" click="cerrar()"/>
+	<mx:Button focusEnabled="true" x="523" y="302" label="Cerrar" width="102" height="23" id="botonCerrarSesion" cornerRadius="6" click="cerrar()"/>
 	<mx:Button x="647" y="302" label="Cancelar" width="102" height="23" id="botonCancelar" cornerRadius="6" click="cancelar()"/>
 	<mx:Image x="0" y="0" source="../images/gatogris.jpg" height="426" width="455"/>
 	<mx:Label x="463" y="78" text="¿Cerrar sesión?" fontSize="25" fontWeight="bold"/>
