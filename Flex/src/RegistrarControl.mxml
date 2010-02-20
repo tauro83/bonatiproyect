@@ -32,6 +32,7 @@
 			private var cliente2:ArrayCollection;
 			
 			public var clienteBD:Cliente;
+			[Bindable]public var ss:String = "";
 			
 			
 			
@@ -152,7 +153,8 @@
 			 * es recibido en este metodo y almacenado en un ArrayCollection, el cual sera el dataProvider 
 			 * del datagrid, para mostrar los datos de los usuarios que existen en el sistema.	 		
 			 * */
-			var ss:String="";
+//			public var ss:String = "";
+			//var str:String = "";
 			public function definirResponsable(s:String):void{
 				var personService:UsuarioEditService = new UsuarioEditService();
 				personService.addEventListener(ResultEvent.RESULT,definirUsuarioResult);
