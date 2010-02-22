@@ -63,9 +63,10 @@
             	
             	var em:Boolean;
             	
-            	em= e.isEmail(email.text);
+            	em=e.isEmail(email.text);
             	
-            	if(em==true)
+            	
+            	if(em==true || email.text=="")
 				{
 					
 					vEmail		= true;
