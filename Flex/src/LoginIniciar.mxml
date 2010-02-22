@@ -497,8 +497,7 @@
             		Application.application.botonAyuda.enabled=true;
             		Application.application.botonLogin.enabled=true;
             		Application.application.botonLogin.label="Cerrar Sesión";
-            		usuarioActivo = nombre.text;   
-            		limpiarPass();    	
+            		usuarioActivo = nombre.text;    	
 				}
 				else
 				{
