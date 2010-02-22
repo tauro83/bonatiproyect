@@ -149,6 +149,7 @@
             	inputRutCliente.setVisible(false,false);
             	inputApellidoPaterno.setVisible(false,false);
             	inputNombreCliente.setVisible(false,false);
+            	//input.setVisible(false,false);
             	//combobox.selectedItem="-Seleccionar-";
             	textBuscar.setVisible(false,false);
             	this.vacunaicones = new ArrayCollection();
@@ -267,26 +268,32 @@
 			    if(inputNombreCliente.selectedIndex==0)
 			    {
 			    	inputNombreCliente.text=inputNombreCliente.selectedLabel;
+			    	input.text=input.selectedLabel;
 			    }
 			    if(inputApellidoPaterno.selectedIndex==0)
 			    {
 			    	inputApellidoPaterno.text==inputApellidoPaterno.selectedLabel;
+			    	input.text=input.selectedLabel;
 			    }
 			    if(inputRutCliente.selectedIndex==0)
 			    {
 			    	inputRutCliente.text=inputRutCliente.selectedLabel;
+			    	input.text=input.selectedLabel;
 			    }
 			    if(inputNombreMascota.selectedIndex==0)
 			    {
 			    	inputNombreMascota.text==inputNombreMascota.selectedLabel;
+			    	input.text=input.selectedLabel;
 			    }
 			    if(inputRaza.selectedIndex==0)
 			    {
 			    	inputRaza.text=inputRaza.selectedLabel;
+			    	input.text=input.selectedLabel;
 			    }
 			    if(inputSexo.selectedIndex==0)
 			    {
 			    	inputSexo.text==inputSexo.selectedLabel;
+			    	input.text=input.selectedLabel;
 			    }
 			}
 			
@@ -493,8 +500,9 @@
 	<mx:CheckBox x="11" y="40" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
 	<mx:Label x="33" y="40" text="Seleccionar todo" id="label1"/>
 	
-	<mx:ComboBox x="379" y="10" width="169" id="comboBox" click="setAtrib()" change="setAtrib()" >
+	<mx:ComboBox x="76" y="10" width="169" id="comboBox" click="setAtrib()" change="setAtrib()" >
 		<mx:ArrayCollection>
+		    <mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Nombre Mascota"/> 
 			<mx:Object label="Rut Cliente"/>
 			<mx:Object label="Descipción"/> 
@@ -503,13 +511,12 @@
 			<mx:Object label="Responsable"/> 
 		</mx:ArrayCollection>
 	</mx:ComboBox>
-	<fc:AutoComplete id="input" dataProvider="{vacunaicones}" labelField="{atrib}" close="Seleccionar(event)" x="59" y="10" width="246" />
-	<mx:Text x="10" y="12" text="Buscar" id="textBuscar0"/>
-	<mx:Text x="313" y="12" id="textFiltrar" text="Filtrar por"/>
-	<mx:TextInput x="260" y="320" width="474" id="motivo" toolTip="Ingrese el motivo por el cual desea anular el o los  registro(s) de peluquería(s)" visible="false"/>
-	<mx:Text x="25" y="322" text="Motivo" fontWeight="bold"/>
+	<fc:AutoComplete id="input" dataProvider="{vacunaicones}" labelField="{atrib}" close="Seleccionar(event)" x="578" y="10" width="171"/> 
+	<mx:Text x="10" y="12" id="textFiltrar" text="Filtrar por"/>
+	<mx:TextInput x="260" y="323" width="474" id="motivo" toolTip="Ingrese el motivo por el cual desea anular el o los  registro(s) de peluquería(s)" visible="false"/>
+	<mx:Text x="10" y="325" text="Motivo" fontWeight="bold"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
-	<mx:ComboBox x="76" y="320" id="comboboxMotivo" change="seleccionarMotivo(event)">
+	<mx:ComboBox x="61" y="323" id="comboboxMotivo" change="seleccionarMotivo(event)">
 		<mx:ArrayCollection>
 			<mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Registro incorrecto"/>
