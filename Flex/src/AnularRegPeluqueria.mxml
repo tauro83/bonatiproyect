@@ -143,17 +143,11 @@
             */
             
             public function limpiarTodo():void{
-            	inputSexo.setVisible(false,false);
-            	inputRaza.setVisible(false,false);
-            	inputNombreMascota.setVisible(false,false);
-            	inputRutCliente.setVisible(false,false);
-            	inputApellidoPaterno.setVisible(false,false);
-            	inputNombreCliente.setVisible(false,false);
-            	//input.setVisible(false,false);
-            	//combobox.selectedItem="-Seleccionar-";
-            	textBuscar.setVisible(false,false);
-            	this.vacunaicones = new ArrayCollection();
-            	
+            	comboBox.selectedIndex=0;
+            	input.setVisible(false,false);
+            	comboboxMotivo.selectedItem="-Seleccionar-";
+            	//motivo.setVisible(false,false);
+            	this.vacunaicones = new ArrayCollection();          	
           
             }
             
@@ -258,42 +252,42 @@
             }
             
             /**
-			*  Corrige error de seleccionar el primero elemento del autocomplete
+			*  Corrige error de seleccionar el primero elemento del autocompletereu
 			*  Del textInput del Nombre Del Cliente, apellido, rut, nombre mascota,
 			*  Raza y Sexo.
 			* */
 		    public function Seleccionar(event:Event):void
 			{
-				
+				input.setVisible(true,true);
 			    if(inputNombreCliente.selectedIndex==0)
 			    {
 			    	inputNombreCliente.text=inputNombreCliente.selectedLabel;
-			    	input.text=input.selectedLabel;
+			    	input.setVisible(true,true);
 			    }
 			    if(inputApellidoPaterno.selectedIndex==0)
 			    {
 			    	inputApellidoPaterno.text==inputApellidoPaterno.selectedLabel;
-			    	input.text=input.selectedLabel;
+			    	input.setVisible(true,true);
 			    }
 			    if(inputRutCliente.selectedIndex==0)
 			    {
 			    	inputRutCliente.text=inputRutCliente.selectedLabel;
-			    	input.text=input.selectedLabel;
+			    	input.setVisible(true,true);
 			    }
 			    if(inputNombreMascota.selectedIndex==0)
 			    {
 			    	inputNombreMascota.text==inputNombreMascota.selectedLabel;
-			    	input.text=input.selectedLabel;
+			    	input.setVisible(true,true);
 			    }
 			    if(inputRaza.selectedIndex==0)
 			    {
 			    	inputRaza.text=inputRaza.selectedLabel;
-			    	input.text=input.selectedLabel;
+			    	input.setVisible(true,true);
 			    }
 			    if(inputSexo.selectedIndex==0)
 			    {
 			    	inputSexo.text==inputSexo.selectedLabel;
-			    	input.text=input.selectedLabel;
+			    	input.setVisible(true,false);
 			    }
 			}
 			
@@ -313,27 +307,37 @@
 				tablaVacunaciones.doubleClickEnabled=false;
 				vacunaicones = event.result as ArrayCollection;
 			}
-					
+			
+			
+			
 			public function setAtrib():void{				
 				switch(comboBox.selectedItem.label){
+					case '-Seleccionar-':
+						input.setVisible(false,false);
+						break;					
 					case 'Rut Cliente':
 						atrib='rutCliente';
+						input.setVisible(true,false);
 						break;
 					case 'Nombre Mascota':
 						atrib='nombreMascota';
+						input.setVisible(true,false);
 						break;
 					case 'Descripción':
 						atrib='descripcion';
-						
+						input.setVisible(true,false);						
 						break;					
 					case 'Servicio':
 						atrib='servicio';
+						input.setVisible(true,false);
 						break;
 					case 'Responsable':
 						atrib='responsable';
+						input.setVisible(true,false);
 						break;
 					case 'Nombre Cátalogo':
 						atrib='nombreCatalogo';
+						input.setVisible(true,false);
 						break;
 				}
 			}
@@ -445,9 +449,9 @@
 	 	]]>
     </mx:Script>
     <mx:Label x="10" y="297" text="Ver:" id="label7"/>
-	<mx:LinkButton x="145" y="295" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
-	<mx:LinkButton x="97" y="295" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllPeluqueria()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
-	<mx:LinkButton x="46" y="295" label="Todas" width="60" fontWeight="normal" enabled="true" id="verTodas" click="{getTodas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+	<mx:LinkButton x="145" y="295" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione este tipo de vista, verá todos los  registros de peluquerías nulas del sistema"/>
+	<mx:LinkButton x="97" y="295" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllPeluqueria()}" toolTip="Seleccione este tipo de vista, verá todos los  registros de peluquerías activas del sistema"/>
+	<mx:LinkButton x="46" y="295" label="Todas" width="60" fontWeight="normal" enabled="true" id="verTodas" click="{getTodas()}" toolTip="Seleccione este tipo de vista, verá todos los  registros de peluquerías activas o nulas del sistema"/>
 	<!-- Botón Visualizar -->
 	<mx:Button x="522" y="352" label="Anular" id="vi" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula el o los  registro(s) de peluquería(s) seleccionada(s)"/>
 	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
@@ -468,12 +472,12 @@
              	</mx:itemRenderer>
             </mx:DataGridColumn>	
 			
-			<mx:DataGridColumn width="150" headerText="Rut" dataField="rutCliente" id="rutCliente" draggable="false"/>
+			<mx:DataGridColumn width="140" headerText="Rut" dataField="rutCliente" id="rutCliente" draggable="false"/>
 			<mx:DataGridColumn width="150" headerText="Nombre" dataField="nombreMascota" id="nombreMascota" draggable="false"/>
 			<mx:DataGridColumn width="250" headerText="Descripción" dataField="descripcion" id="descripcion" draggable="false"/>
 			<mx:DataGridColumn width="90" headerText="Servicio" dataField="servicio" id="servicio" draggable="false"/>
 			<mx:DataGridColumn width="120" headerText="Responsable" dataField="responsable" id="responsable" draggable="false"/>
-			<mx:DataGridColumn width="130" headerText="Nombre Catalogo" dataField="nombreCatalogo" id="nombreCatalogo" draggable="false"/>	
+			<mx:DataGridColumn width="160" headerText="Nombre Catalogo" dataField="nombreCatalogo" id="nombreCatalogo" draggable="false"/>	
 		</mx:columns>
 	</mx:DataGrid>
 	
@@ -505,7 +509,7 @@
 		    <mx:Object label="-Seleccionar-"/>
 			<mx:Object label="Nombre Mascota"/> 
 			<mx:Object label="Rut Cliente"/>
-			<mx:Object label="Descipción"/> 
+			<mx:Object label="Descripción"/> 
 			<mx:Object label="Nombre Cátalogo"/> 
 			<mx:Object label="Servicio"/> 
 			<mx:Object label="Responsable"/> 
