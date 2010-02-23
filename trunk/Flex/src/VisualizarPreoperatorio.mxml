@@ -148,6 +148,8 @@
             	inputApellidoPaterno.setVisible(false,false);
             	inputNombreCliente.setVisible(false,false);
             	combobox.selectedItem="-Seleccionar-";
+            	comboboxMotivo.selectedItem="-Seleccionar-";
+            	motivo.setVisible(false,false);
             	textBuscar.setVisible(false,false);
             	this.vacunaicones = new ArrayCollection();
             }
@@ -378,9 +380,9 @@
 	 	]]>
     </mx:Script>
 	<mx:Label x="10" y="292" text="Ver:" id="label7"/>
-	<mx:LinkButton x="150" y="290" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá las consultas nulas de este, sino verá todas las consultas nulas del sistema"/>
-	<mx:LinkButton x="102" y="290" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllVacunaciones()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
-	<mx:LinkButton x="46" y="290" label="Todas" width="60" fontWeight="normal" enabled="true" id="verTodas" click="{getTodas()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
+	<mx:LinkButton x="150" y="290" label="Nulas" width="58" fontWeight="normal" id="verNulas" click="{filtrarNulas()}" toolTip="Seleccione tipo de vista, verá los registros de preoperatorios nulos del sistema"/>
+	<mx:LinkButton x="102" y="290" label="Válidas" width="60" fontWeight="normal" enabled="true" id="verActivas" click="{getAllVacunaciones()}" toolTip="Seleccione tipo de vista, verá los registros de preoperatorios activos del sistema"/>
+	<mx:LinkButton x="46" y="290" label="Todas" width="60" fontWeight="normal" enabled="true" id="verTodas" click="{getTodas()}" toolTip="Seleccione tipo de vista, verá los registros de preoperatorios activos y nulos del sistema"/>
 	<!-- Botón Visualizar -->
 	<mx:Button x="523" y="350" label="Anular" id="vi" click="{deleteRow()}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
 	
