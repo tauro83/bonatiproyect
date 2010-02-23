@@ -5,7 +5,7 @@ creationComplete="manejadorCreationComplete (event);" height="600" width="1020" 
 
 xmlns:ns3="pabellon.*" xmlns:ns4="Policlinico.*" xmlns:configuracion="configuracion.*" xmlns:ns5="hoteleria.*" 
 
-xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xmlns:ns8="modbitacora.*"> 
+xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xmlns:ns8="modbitacora.*" applicationComplete="teclado()"> 
 
     <mx:Script>
         <![CDATA[
@@ -32,6 +32,37 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
 			
             import mx.managers.PopUpManager;
             import mx.containers.TitleWindow;
+            
+            private function teclado():void{
+            	stage.addEventListener(KeyboardEvent.KEY_DOWN, tecladoHandler);
+            }
+            private function tecladoHandler(event:KeyboardEvent):void{
+               	if(event.charCode==27 && cirugiaA.visible==true){
+               		cirugiaA.volver();
+               	}
+               	if(event.charCode==27 && cirugiaA2.visible==true){
+               		cirugiaA2.actionVolver();
+               	}
+               	if(event.charCode==27 && vacunacionA.visible==true){
+               		vacunacionA.volver();
+                }
+                if(event.charCode==27 && vacunacionA2.visible==true){
+               		vacunacionA2.actionVolver();
+                }
+                if(event.charCode==27 && AnuCatalogo.visible==true){
+               		AnuCatalogo.actionVolver();
+                }
+                if(event.charCode==27 && login3.visible==true){
+               		login3.cancelar();
+                }
+                if(event.charCode==13 && login3.visible==true){
+               		login3.cerrar();
+                }
+                if(event.charCode==13 && login2.visible==true){
+               		login2.existLogin();
+                }
+            }
+            
             private function showWindow():void {
                 var login:Ayuda=Ayuda(PopUpManager.createPopUp( this, Ayuda , true));
 

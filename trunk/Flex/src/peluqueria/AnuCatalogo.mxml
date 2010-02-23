@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:fc="http://www.adobe.com/2006/fc" layout="absolute" width="779" height="466" borderColor="#15ad8f" title="Anular Catálogo">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:fc="http://www.adobe.com/2006/fc" click="key()" layout="absolute" width="779" height="466" borderColor="#15ad8f" title="Anular Catálogo">
 	<mx:Script>
 		<![CDATA[
 		//=======================================================================
@@ -24,6 +24,27 @@
 			private var catalogos:ArrayCollection;
 			
 			
+			private function key():void
+			{
+				Application.application.AnuCatalogo.addEventListener(KeyboardEvent.KEY_DOWN,checkKey);
+			}
+ 			private function checkKey(event:KeyboardEvent):void
+            {
+               if(event.charCode==13 && boton.visible==true){
+               		deleteRow();
+               }
+            }
+			
+			public function revisar():void
+			{
+				var allRows:int = catalogos.length;
+            	for (var i:int = 0; i < allRows; i++){
+            		if(catalogos[i].estado=="Nulo"){
+            			catalogos[i].sel=false;
+            		}
+            	}
+			}
+			
 			/**
 			 * Reinicia los elementos del componente
 			 */
@@ -31,13 +52,12 @@
 			{
 				combobox.selectedIndex=0;
 				comboboxMotivo.selectedIndex=0;
-				motivo.text="";
-				motivo.visible=false;
 				tablaCatalogos.dataProvider=null;
 				textBuscar.visible=false;
 				inputServicio.dataProvider=null;
             	inputNombre.dataProvider=null;
-            	barraMsj.text="";
+            	inputServicio.visible=false;
+            	inputNombre.visible=false;
 			}
 			
 			/**
@@ -55,19 +75,29 @@
 			}
 			public function verSelect(seleccionado:int):void
 			{
+				todo.selected=false;
+            	motivo.visible=false;
+				motivo.text="";
+				textMotivo.enabled=true;
+				comboboxMotivo.enabled=true;
 				barraMsj.text="";
-				if(seleccionado == 0){
-					todo.visible=true;
-					sall.visible=true;
-					boton.enabled=true;
+				comboboxMotivo.selectedIndex=0;
+				if(seleccionado == 0){	
+					checkbox.visible=true;
+					todo.enabled=true;
+					textTodo.enabled=true;
+					boton.enabled=false;
 					verActivas.enabled = false;
 					verNulas.enabled = true;
 					verTodas.enabled=true;
 					select =0;
 				}
 				if(seleccionado == 1){
-					sall.visible=true;
-					todo.visible=true;
+					textMotivo.enabled=false;
+					comboboxMotivo.enabled=false;
+					checkbox.visible=false;
+					todo.enabled=false;
+					textTodo.enabled=false;
 					boton.enabled=false;
 					verActivas.enabled = true;
 					verNulas.enabled = false;
@@ -75,8 +105,9 @@
 					select = 1;
 				}
 				if(seleccionado == 2){
-					todo.visible=false;
-					sall.visible=false;
+					checkbox.visible=true;
+					todo.enabled=true;
+					textTodo.enabled=true;
 					boton.enabled=false;
 					verActivas.enabled = true;
 					verNulas.enabled = true;
@@ -217,31 +248,52 @@
 			 */
 			private function removeTaskRecord():void
             {
-                var allRows:int = catalogos.length;
+            	var allRows:int = catalogos.length;
                 var cata:CatPeluqueria = new CatPeluqueria();
                 var motiv:String = "";
+                
 	            if(comboboxMotivo.selectedLabel=='Otros'){
 	                motiv = motivo.text;
 	            }
 	            else{
 	            	motiv = comboboxMotivo.text;
 	            }
-                
-                for (var i:int = 0; i < allRows; i++){
-                    if (catalogos[i].sel)
-                	{
-                        cata = catalogos[i] as CatPeluqueria;
-                        anular(cata.nombre, cata.servicio, motiv);
+	            
+                if(tablaCatalogos.visible==true){
+                	for (var i:int = 0; i < allRows; i++){
+                    	if (catalogos[i].sel)
+                		{
+                        	cata = catalogos[i] as CatPeluqueria;
+                        	anular(cata.nombre, cata.servicio, motiv);
                         
-                        var elimItem:CatalogoService = new CatalogoService();
-                        elimItem.regBit(cata.nombre,cata.servicio,
-                        Application.application.login2.usuarioActivo+" "+motiv);
+                        	var elimItem:CatalogoService = new CatalogoService();
+                        	elimItem.regBit(cata.nombre,cata.servicio,
+                        	Application.application.login2.usuarioActivo+" "+motiv);
                         
-                        catalogos.removeItemAt(i);
-                        allRows = catalogos.length;
-                        tablaCatalogos.dataProvider = catalogos;
-                        i=-1;
-                    }   
+                        	catalogos.removeItemAt(i);
+                        	allRows = catalogos.length;
+                        	tablaCatalogos.dataProvider = catalogos;
+                        	i=-1;
+                    	}   
+                	}
+                }
+                if(tablaCatalogos2.visible==true){
+                	for (var i:int= 0; i < allRows; i++){
+                    	if (catalogos[i].sel)
+                		{
+                       	 	cata = catalogos[i] as CatPeluqueria;
+                        	anular(cata.nombre, cata.servicio, motiv);
+                        
+                        	var elimItem:CatalogoService = new CatalogoService();
+                        	elimItem.regBit(cata.nombre,cata.servicio,
+                        	Application.application.login2.usuarioActivo+" "+motiv);
+                        
+                        	catalogos.removeItemAt(i);
+                        	allRows = catalogos.length;
+                        	tablaCatalogos2.dataProvider = catalogos;
+                        	i=-1;
+                    	}   
+                	}
                 }
                 motivo.text="";
                 barraMsj.text="Catálogos anulados";              
@@ -264,14 +316,44 @@
 			 */
          	private function selectAll():void{
                 var allRows:int = catalogos.length;
-                for (var i:int = 0; i < allRows; i++){
-                    if (todo.selected)
-                        catalogos[i].sel = true;
-                    else
-                        catalogos[i].sel = false;
+                var bandera:int=1;
+                if(verTodas.enabled==false){
+                	for (var i:int = 0; i < allRows; i++){
+                    	if (todo.selected && catalogos[i].estado=="Válido"){
+                        	catalogos[i].sel = true;
+                        	if(verNulas.enabled==true){
+                        		boton.enabled=true;
+                        		bandera=0;
+                        	}
+                    	}
+                    	else{
+                        	catalogos[i].sel = false;
+                        	if(bandera!=0){
+                        		boton.enabled=false;
+                        	}
+                    	}
+                	}
+                	tablaCatalogos.dataProvider = catalogos;
                 }
-                tablaCatalogos.dataProvider = catalogos;
-            }
+                if(verActivas.enabled==false){
+                	for (var i:int = 0; i < allRows; i++){
+                    	if (todo.selected){
+                        	catalogos[i].sel = true;
+                        	if(verNulas.enabled==true){
+                        		boton.enabled=true;
+                        		bandera=0;
+                        	}
+                    	}
+                    	else{
+                        	catalogos[i].sel = false;
+                        	if(bandera!=0){
+                        		boton.enabled=false;
+                        	}
+                    	}
+                	}
+                	tablaCatalogos2.dataProvider = catalogos;
+                }
+            }       
             
             private function seleccionarMotivo (event:Event):void
             {   
@@ -284,13 +366,37 @@
 					motivo.visible=false;
 					motivo.text="";
 				}
-           	}
-
+           	}   
+           	
+           	private function Activar():void{
+            	var allRows:int = catalogos.length;
+            	var seleccion:Boolean=false;
+            	revisar();
+            	for (var i:int = 0; i < allRows; i++){
+            		if(catalogos[i].sel){
+            			seleccion=true;
+            		}
+            	}
+            	if(seleccion==true){
+            		boton.enabled=true;
+            	}
+            	else{
+            		boton.enabled=false;
+            	}
+            }
+           	
 		]]>
 	</mx:Script>
 	<!-- Tabla con datos y estado -->
-	<mx:DataGrid visible="false" x="25" y="36" width="709" height="250" id="tablaCatalogos2" dataProvider="{catalogos}" toolTip="Seleccione los catálogos que desea anular">
-		<mx:columns>		
+	<mx:DataGrid click="Activar()" visible="false" x="25" y="62" width="709" height="224" id="tablaCatalogos2" dataProvider="{catalogos}" toolTip="Seleccione los catálogos que desea anular">
+		<mx:columns>
+			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="box" draggable="false">
+			 	<mx:itemRenderer>
+                        <mx:Component>
+                            <mx:CheckBox click="data.sel=!data.sel"  selected="{data.sel}"/>            
+                        </mx:Component>
+             	</mx:itemRenderer>
+            </mx:DataGridColumn>		
 			<mx:DataGridColumn width="100" headerText="Nombre" dataField="nombre" draggable="false"/>
 			<mx:DataGridColumn width="100" headerText="Servicio" dataField="servicio" draggable="false"/>
 			<mx:DataGridColumn width="80" headerText="Precio" dataField="precio" draggable="false"/>
@@ -300,7 +406,7 @@
 	</mx:DataGrid>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid visible="true" x="25" y="62" width="709" height="224" id="tablaCatalogos" dataProvider="{catalogos}" toolTip="Seleccione los catálogos que desea anular">
+	<mx:DataGrid click="Activar()" x="25" y="62" width="709" height="224" id="tablaCatalogos" dataProvider="{catalogos}" toolTip="Seleccione los catálogos que desea anular">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
 			 	<mx:itemRenderer>
@@ -316,14 +422,14 @@
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:CheckBox x="25" y="36" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
-	<mx:Label id="sall" x="47" y="36" text="Seleccionar todo"/>
+	<mx:Label x="47" y="36" text="Seleccionar todo" id="textTodo"/>
 	
 	<!-- Elementos -->
 	<mx:Text x="535" y="10" text="Buscar" id="textBuscar" visible="false"/>
 	<mx:Button x="632" y="353" label="Volver" id="volver" toolTip="Vuelve al panel anterior" width="102" height="23" cornerRadius="6" click="actionVolver()"/>
-	<mx:Button id="boton" x="522" y="354" label="Anular" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula los catalogos seleccionados"/>
+	<mx:Button enabled="false" id="boton" x="522" y="354" label="Anular" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula los catalogos seleccionados"/>
 	<mx:TextInput visible="false" x="244" y="320" width="490" id="motivo" toolTip="Ingrese el motivo por el cual desea anular los catalogos"/>
-	<mx:Text x="25" y="322" text="Motivo" fontWeight="bold"/>
+	<mx:Text x="25" y="322" text="Motivo" fontWeight="bold" id="textMotivo"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
 	<mx:Text x="25" y="10" id="textFiltrar" text="Filtrar por"/>
 	

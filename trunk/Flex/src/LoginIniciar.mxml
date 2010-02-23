@@ -39,7 +39,7 @@
                }
             }
 			 
-			private function existLogin():void
+			public function existLogin():void
 			{
 				var usuario:Usuario = new Usuario();
 				usuario.contrasena=pass.text;
