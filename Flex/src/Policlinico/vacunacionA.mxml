@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc" title="Anular Vacunación">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" click="key()" layout="absolute" width="779" height="466" borderColor="#15ad8f" xmlns:fc="http://www.adobe.com/2006/fc" title="Anular Vacunación">
 	<mx:Script>
 		<![CDATA[
 		//=======================================================================
@@ -24,6 +24,20 @@
 			
 			[Bindable]
 			private var vacunaciones:ArrayCollection;
+			
+			private function key():void
+			{
+				Application.application.vacunacionA.addEventListener(KeyboardEvent.KEY_DOWN,checkKey);
+			}
+ 			private function checkKey(event:KeyboardEvent):void
+            {
+            	if(event.charCode==13 && tablaVacunaciones2.selectedItem!=null && botonV2.visible==true){
+               		visualizarVacunaciones2(event);
+                }
+                if(event.charCode==13 && tablaVacunaciones.selectedItem!=null && botonV.visible==true){
+               		visualizarVacunaciones(event);
+                }
+            }
 			
 			/**
 			 * Obtiene los datos de las cirugias que están 
@@ -170,7 +184,7 @@
 			 * a la estipulada por defecto
 			 * @author  "Esteban Cruz"
 			 */
-			private function volver():void
+			public function volver():void
             {
             	this.setVisible(false,false);
             	Application.application.pabellonIni.setVisible(true,false);
@@ -242,6 +256,8 @@
 			
 			public function verSelect(seleccionado:int):void
 			{
+				botonV.enabled=false;	
+				botonV2.enabled=false;	
 				if(seleccionado == 0){
 					botonV.visible=true;
 					botonV2.visible=false;
@@ -268,6 +284,19 @@
 				}
 			}
 			
+			private function ActivarV():void{
+				if(tablaVacunaciones2.visible==true){
+					if(tablaVacunaciones2.selectedItem!=null){
+						botonV2.enabled=true;	
+					}
+				}
+				if(tablaVacunaciones.visible==true){
+					if(tablaVacunaciones.selectedItem!=null){
+						botonV.enabled=true;	
+					}
+				}
+			}
+			
 		]]>
 	</mx:Script>
 	<!-- Vistas -->
@@ -277,8 +306,8 @@
 	<mx:LinkButton x="61" y="351" label="Todas" width="60" fontWeight="normal" enabled="true" id="verTodas" click="{verTodo()}" toolTip="Seleccione tipo de vista, si ha ingresado un rut verá todas las consultas activas de este, sino verá todas las consultas activas del sistema"/>
 	
 	<!-- Elementos -->
-	<mx:Button id="botonV" x="522" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
-	<mx:Button id="botonV2" visible="false" x="522" y="350" label="Visualizar" click="{visualizarVacunaciones2(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Button enabled="false" id="botonV" x="522" y="350" label="Visualizar" click="{visualizarVacunaciones(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
+	<mx:Button enabled="false" id="botonV2" visible="false" x="522" y="350" label="Visualizar" click="{visualizarVacunaciones2(event)}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
 	<mx:Text x="25" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
 	<mx:Text x="377" y="36" text="Mascota" fontWeight="bold"/>
 	<mx:Text x="535" y="10" text="Buscar" id="textBuscar" visible="false"/>
@@ -299,7 +328,7 @@
 	</mx:ComboBox>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid visible="false" x="25" y="62" width="709" height="280" id="tablaVacunaciones" dataProvider="{vacunaciones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
+	<mx:DataGrid click="ActivarV()" visible="false" x="25" y="62" width="709" height="280" id="tablaVacunaciones" dataProvider="{vacunaciones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
 		<mx:columns>		
 			<mx:DataGridColumn headerText="Nombre" dataField="clienteNombre" draggable="false"/>
 			<mx:DataGridColumn headerText="Apellido paterno" dataField="clienteApellido" draggable="false"/>
@@ -311,7 +340,7 @@
 	</mx:DataGrid>
 	
 	<!-- Tabla con datos y estado -->
-	<mx:DataGrid x="25" y="62" width="709" height="280" id="tablaVacunaciones2" dataProvider="{vacunaciones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones2(event)" >
+	<mx:DataGrid click="ActivarV()" x="25" y="62" width="709" height="280" id="tablaVacunaciones2" dataProvider="{vacunaciones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones2(event)" >
 		<mx:columns>		
 			<mx:DataGridColumn headerText="Nombre" dataField="clienteNombre" draggable="false"/>
 			<mx:DataGridColumn headerText="Apellido paterno" dataField="clienteApellido" draggable="false"/>

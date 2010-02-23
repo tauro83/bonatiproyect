@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="779" height="466" borderColor="#15ad8f" title="Anular Vacunación">
+<mx:Panel xmlns:mx="http://www.adobe.com/2006/mxml" click="key()" layout="absolute" width="779" height="466" borderColor="#15ad8f" title="Anular Vacunación">
 	<mx:Script>
 		<![CDATA[
 		//=======================================================================
@@ -21,6 +21,16 @@
 			[Bindable]
 			private var vacunaciones:ArrayCollection;
 			
+			private function key():void
+			{
+				Application.application.vacunacionA2.addEventListener(KeyboardEvent.KEY_DOWN,checkKey);
+			}
+ 			private function checkKey(event:KeyboardEvent):void
+            {
+               if(event.charCode==13 && boton.enabled==true){
+               		deleteRow();
+               }
+            }
 			
 			/**
 			 * Evento del boton "Volver", el cual redirige la página
@@ -31,7 +41,6 @@
 			{
             	Application.application.vacunacionA2.setVisible(false,false);
             	Application.application.vacunacionA.setVisible(true,false);
-            	Application.application.vacunacionA.getAllVacunaciones();
             	motivo.text="";
             	comboboxMotivo.selectedIndex=0;
             	barraMsj.text="";
@@ -103,6 +112,8 @@
                 var allRows:int = vacunaciones.length;
                 var vacu:Vacunacion = new Vacunacion();
                 var motiv:String = "";
+                boton.enabled=false;
+                
 	            if(comboboxMotivo.selectedLabel=='Otros'){
 	                motiv = motivo.text;
 	            }
@@ -164,13 +175,38 @@
 			 */
          	private function selectAll():void{
                 var allRows:int = vacunaciones.length;
+                var bandera:int=1;
                 for (var i:int = 0; i < allRows; i++){
-                    if (todo.selected)
+                    if (todo.selected){
                         vacunaciones[i].sel = true;
-                    else
+                        boton.enabled=true;
+                        bandera=0;
+                    }
+                    else{
                         vacunaciones[i].sel = false;
+                        if(bandera!=0){
+                        	boton.enabled=false;
+                        }
+                    }
                 }
                 tablaVacunaciones.dataProvider = vacunaciones;
+            }
+            
+            private function Activar():void{
+            	var allRows:int = vacunaciones.length;
+            	var seleccion:Boolean=false;
+
+            	for (var i:int = 0; i < allRows; i++){
+            		if(vacunaciones[i].sel){
+            			seleccion=true;
+            		}
+            	}
+            	if(seleccion==true){
+            		boton.enabled=true;
+            	}
+            	else{
+            		boton.enabled=false;
+            	}
             }
             
             private function seleccionarMotivo (event:Event):void
@@ -190,7 +226,7 @@
 	</mx:Script>
 	
 	<!-- Tabla con datos -->
-	<mx:DataGrid x="25" y="178" width="709" height="134" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
+	<mx:DataGrid click="Activar()" x="25" y="178" width="709" height="134" id="tablaVacunaciones" dataProvider="{vacunaciones}" toolTip="Seleccion la(s) vacunacion(es) que desea anular">
 		<mx:columns>
 			<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
 			 	<mx:itemRenderer>
@@ -226,7 +262,7 @@
 	<mx:Text x="478.4" y="36" id="mNom" width="150"/>
 	<mx:Text x="478.4" y="61.9" id="mRaz" width="150"/>
 	<mx:Text x="478.4" y="87.95" id="mSex" width="150"/>
-	<mx:Button x="522" y="354" label="Anular" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula la(s) vacunacion(es) seleccionada(s)"/>
+	<mx:Button enabled="false" x="522" y="354" label="Anular" click="{deleteRow()}" cornerRadius="6" width="102" toolTip="Anula la(s) vacunacion(es) seleccionada(s)" id="boton"/>
 	<mx:TextInput visible="false" x="244" y="320" width="490" id="motivo" toolTip="Ingrese el motivo por el cual desea anular la(s) vacunacion(es)"/>
 	<mx:Text x="25" y="322" text="Motivo" fontWeight="bold"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>

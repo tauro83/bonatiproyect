@@ -16,7 +16,7 @@
 		*  al panel de "iniciar sesion"
 		*  @author  "Esteban Cruz"
 		**/
-		private function cerrar():void
+		public function cerrar():void
 		{
 			Application.application.setInvisible();
             Application.application.panelOpciones.setVisible(true,false);
@@ -42,7 +42,7 @@
 		*  vuelve al panel de agenda 
 		*  @author  "Esteban Cruz"
 		**/
-   		private function cancelar():void
+   		public function cancelar():void
    		{
    			Application.application.setInvisible();
             Application.application.agenda2.setVisible(true,false);
