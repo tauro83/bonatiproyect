@@ -146,6 +146,7 @@
             	comboBox.selectedIndex=0;
             	input.setVisible(false,false);
             	comboboxMotivo.selectedItem="-Seleccionar-";
+            	motivo.setVisible(false,false);
             	//motivo.setVisible(false,false);
             	this.vacunaicones = new ArrayCollection();          	
           
