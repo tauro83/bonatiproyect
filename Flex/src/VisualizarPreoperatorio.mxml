@@ -35,7 +35,21 @@
 					verActivas.enabled = false;
 					verNulas.enabled = true;
 					verTodas.enabled=true;
+					comboboxMotivo.visible=true;
+					ih.visible=true;
 					vi.enabled = true;
+					combobox.enabled=true;
+					checkbox.visible=true;
+					todo.visible=true;
+					label1.visible=true;					
+					inputSexo.setVisible(false,false);
+            		inputRaza.setVisible(false,false);
+            		inputNombreMascota.setVisible(false,false);
+            		inputRutCliente.setVisible(false,false);
+            		inputApellidoPaterno.setVisible(false,false);
+            		inputNombreCliente.setVisible(false,false);
+            		//combobox.selectedIndex=0;
+            		
 					select =0;
 				}
 				if(seleccionado == 1){
@@ -43,13 +57,47 @@
 					verNulas.enabled = false;
 					verTodas.enabled=true;
 					vi.enabled = false;
+					combobox.enabled=true;
+					comboboxMotivo.visible=false;
+					ih.visible=false;
+					checkbox.visible=false;
+					todo.visible=false;
+					//combobox.selectedItem=0;
+					comboboxMotivo.selectedIndex=0;
+					inputSexo.setVisible(false,false);
+            		inputRaza.setVisible(false,false);
+            		inputNombreMascota.setVisible(false,false);
+            		inputRutCliente.setVisible(false,false);
+            		inputApellidoPaterno.setVisible(false,false);
+            		inputNombreCliente.setVisible(false,false);
+					label1.visible=false;
+					//combobox.selectedIndex=0;
+					barraMsj.text="";
+					motivo.setVisible(false,false);
 					select = 1;
 				}
 				if(seleccionado == 2){
 					verActivas.enabled = true;
 					verNulas.enabled = true;
 					verTodas.enabled=false;
+					combobox.enabled=true;
 					vi.enabled = false;
+					//combobox.selectedItem=0;
+					comboboxMotivo.visible=false;
+					checkbox.visible=false;
+					todo.visible=false;
+					label1.visible=false;
+					ih.visible=false;
+					inputSexo.setVisible(false,false);
+            		inputRaza.setVisible(false,false);
+            		inputNombreMascota.setVisible(false,false);
+            		inputRutCliente.setVisible(false,false);
+            		inputApellidoPaterno.setVisible(false,false);
+            		inputNombreCliente.setVisible(false,false);
+            		motivo.setVisible(false,false);
+            		comboboxMotivo.selectedIndex=0;
+            		//combobox.selectedIndex=0;
+					barraMsj.text="";
 					select = 2;
 				}
 				
@@ -147,10 +195,20 @@
             	inputRutCliente.setVisible(false,false);
             	inputApellidoPaterno.setVisible(false,false);
             	inputNombreCliente.setVisible(false,false);
-            	combobox.selectedItem="-Seleccionar-";
-            	comboboxMotivo.selectedItem="-Seleccionar-";
+            	combobox.selectedItem=0;
+            	combobox.enabled=false;
+            	//comboboxMotivo.selectedItem="-Seleccionar-";
             	motivo.setVisible(false,false);
             	textBuscar.setVisible(false,false);
+            	verActivas.enabled = true;
+				verNulas.enabled = true;
+				verTodas.enabled=true;
+				comboboxMotivo.visible=false;
+				ih.visible=false;
+				todo.visible=false;
+				label1.visible=false
+				checkbox.visible=true;
+				vi.enabled=false;
             	this.vacunaicones = new ArrayCollection();
             }
             
@@ -241,30 +299,30 @@
             
             public function seleccionar(event:Event):void
 			{
-			    if(inputNombreCliente.selectedIndex==0)
-			    {
+			   		if(inputNombreCliente.selectedIndex==0)
+			    	{
 			    	inputNombreCliente.text=inputNombreCliente.selectedLabel;
-			    }
-			    if(inputApellidoPaterno.selectedIndex==0)
-			    {
-			    	inputApellidoPaterno.text==inputApellidoPaterno.selectedLabel;
-			    }
-			    if(inputRutCliente.selectedIndex==0)
-			    {
-			    	inputRutCliente.text=inputRutCliente.selectedLabel;
-			    }
-			    if(inputNombreMascota.selectedIndex==0)
-			    {
-			    	inputNombreMascota.text==inputNombreMascota.selectedLabel;
-			    }
-			    if(inputRaza.selectedIndex==0)
-			    {
-			    	inputRaza.text=inputRaza.selectedLabel;
-			    }
-			    if(inputSexo.selectedIndex==0)
-			    {
-			    	inputSexo.text==inputSexo.selectedLabel;
-			    }
+			  		}
+				    if(inputApellidoPaterno.selectedIndex==0)
+				    {
+				    	inputApellidoPaterno.text==inputApellidoPaterno.selectedLabel;
+				    }
+				    if(inputRutCliente.selectedIndex==0)
+				    {
+				    	inputRutCliente.text=inputRutCliente.selectedLabel;
+				    }
+				    if(inputNombreMascota.selectedIndex==0)
+				    {
+				    	inputNombreMascota.text==inputNombreMascota.selectedLabel;
+				    }
+				    if(inputRaza.selectedIndex==0)
+				    {
+				    	inputRaza.text=inputRaza.selectedLabel;
+				    }
+				    if(inputSexo.selectedIndex==0)
+				    {
+				    	inputSexo.text==inputSexo.selectedLabel;
+				    }
 			}
 			
 			public function filtrarNulas():void
@@ -385,9 +443,6 @@
 	<mx:LinkButton x="46" y="290" label="Todas" width="60" fontWeight="normal" enabled="true" id="verTodas" click="{getTodas()}" toolTip="Seleccione tipo de vista, verá los registros de preoperatorios activos y nulos del sistema"/>
 	<!-- Botón Visualizar -->
 	<mx:Button x="523" y="350" label="Anular" id="vi" click="{deleteRow()}" toolTip="Visualiza el cliente seleccionado" width="102" height="23" cornerRadius="6"/>
-	
-	<mx:Text x="10" y="36" text="Cliente&#xd;&#xa;" fontWeight="bold" height="19"/>
-	<mx:Text x="382" y="36" text="Mascota" fontWeight="bold"/>
 	<mx:Text x="550" y="10" text="Buscar" id="textBuscar" visible="false"/>
 	<mx:Text x="10" y="10" id="textFiltrar" text="Filtrar por"/>
 	
@@ -407,8 +462,12 @@
 		</mx:ArrayCollection>
 	</mx:ComboBox>
 	
+	<mx:CheckBox x="11" y="48" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
+	<mx:Label x="32" y="49" text="Seleccionar todo" id="label1"/>
+	
+	
 	<!-- Tabla con datos -->
-	<mx:DataGrid x="10" y="62" width="739" height="212" id="tablaVacunaciones" dataProvider="{vacunaicones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
+	<mx:DataGrid x="10" y="72" width="739" height="202" id="tablaVacunaciones" dataProvider="{vacunaicones}" doubleClickEnabled="true" itemDoubleClick="visualizarVacunaciones(event)" >
 		<mx:columns>		
 		<mx:DataGridColumn width="20" headerText="" dataField="checkbox" id="checkbox" draggable="false">
 			 	<mx:itemRenderer>
@@ -418,16 +477,16 @@
              	</mx:itemRenderer>
             </mx:DataGridColumn>	
 		
-			<mx:DataGridColumn headerText="Nombre" dataField="nombreCliente" id="nombreCliente" draggable="false"/>
+			<mx:DataGridColumn headerText="Nombre Cliente" dataField="nombreCliente" id="nombreCliente" draggable="false"/>
 			<mx:DataGridColumn headerText="Apellido paterno" dataField="apellido" id="apellido" draggable="false"/>
 			<mx:DataGridColumn headerText="Rut" dataField="rutCliente" id="rutCliente" draggable="false"/>
-			<mx:DataGridColumn headerText="Nombre" dataField="nombreMascota" id="nombreMascota" draggable="false"/>
+			<mx:DataGridColumn headerText="Nombre Mascota" dataField="nombreMascota" id="nombreMascota" draggable="false"/>
 			<mx:DataGridColumn headerText="Raza" dataField="raza" id="raza" draggable="false"/>
 			<mx:DataGridColumn headerText="Sexo" dataField="sexo" id="sexo" draggable="false"/>
 		</mx:columns>
 	</mx:DataGrid>
 	
-		<mx:Text x="10" y="320" text="Motivo" fontWeight="bold"/>
+		<mx:Text x="10" y="320" id="ih" text="Motivo" fontWeight="bold"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
 	<mx:ComboBox x="61" y="318" id="comboboxMotivo" change="seleccionarMotivo(event)">
 		<mx:ArrayCollection>
@@ -439,8 +498,6 @@
 	</mx:ComboBox>
 	
 	<mx:TextInput x="260" y="320" width="474" id="motivo" toolTip="Ingrese el motivo por el cual desea anular el o los  registro(s) de peluquería(s)" visible="false"/>
-	
-	<mx:CheckBox x="11" y="65" id="todo" click="{selectAll()}" toolTip="Selecciona o deselecciona todo"/>
 	<!-- AutoComplete -->
 	
 	<!-- Nombre Del Cliente -->
