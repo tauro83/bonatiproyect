@@ -44,9 +44,15 @@
 					verActivas.enabled = false;
 					verNulas.enabled = true;
 					verTodas.enabled=true;
+					comboboxMotivo.visible=true;
+					ih.visible=true;
 					vi.enabled = true;
-					
-					
+					comboBox.enabled=true;
+					checkbox.visible=true;
+					todo.visible=true;
+					label1.visible=true;
+					comboBox.selectedItem=0;
+					input.visible=false;
 					select =0;
 				}
 				if(seleccionado == 1){
@@ -54,6 +60,14 @@
 					verNulas.enabled = false;
 					verTodas.enabled=true;
 					vi.enabled = false;
+					comboBox.enabled=true;
+					comboboxMotivo.visible=false;
+					ih.visible=false;
+					checkbox.visible=false;
+					todo.visible=false;
+					comboBox.selectedItem=0;
+					input.visible=false;
+					label1.visible=false;
 					barraMsj.text="";
 					select = 1;
 				}
@@ -61,7 +75,15 @@
 					verActivas.enabled = true;
 					verNulas.enabled = true;
 					verTodas.enabled=false;
+					comboBox.enabled=true;
 					vi.enabled = false;
+					comboBox.selectedItem=0;
+					comboboxMotivo.visible=false;
+					checkbox.visible=false;
+					todo.visible=false;
+					label1.visible=false;
+					ih.visible=false;
+					input.visible=false;
 					barraMsj.text="";
 					select = 2;
 				}
@@ -147,6 +169,15 @@
             	input.setVisible(false,false);
             	comboboxMotivo.selectedItem="-Seleccionar-";
             	motivo.setVisible(false,false);
+            	verActivas.enabled = true;
+				verNulas.enabled = true;
+				verTodas.enabled=true;
+				comboboxMotivo.visible=false;
+				ih.visible=false;
+				todo.visible=false;
+				label1.visible=false
+				checkbox.visible=true;
+				vi.enabled=false;
             	//motivo.setVisible(false,false);
             	this.vacunaicones = new ArrayCollection();          	
           
@@ -312,7 +343,10 @@
 			
 			
 			public function setAtrib():void{				
-				switch(comboBox.selectedItem.label){
+				
+				if(verActivas.enabled == false ||  verNulas.enabled == false  || verTodas.enabled==false){
+					comboBox.enabled=true;
+					switch(comboBox.selectedItem.label){
 					case '-Seleccionar-':
 						input.setVisible(false,false);
 						break;					
@@ -341,6 +375,12 @@
 						input.setVisible(true,false);
 						break;
 				}
+				}
+				else{
+					comboBox.enabled=false;
+				}
+				
+				
 			}
 			
 			public function anular(estado:int,nombreMascota:String,hora:String,nombreCatalogo:String,motivo:String):void
@@ -360,7 +400,7 @@
            	{
 			if(comboboxMotivo.selectedLabel=='Otros'){
            			if(motivo.text!=""){
-           				Alert.show("¿Está seguro que desea anular el o los  registro(s) de peluquería(s)? ","Confirme anulaci�n ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
+           				Alert.show("¿Está seguro que desea anular el o los  registro(s) de peluquería(s)? ","Confirme anulación ", Alert.YES | Alert.NO, this, delRowHandler, null, Alert.NO);
            			}
            			else{
            				Alert.show("Debe ingresar un motivo para anular el o los  registro(s) de peluquería(s)?","Campo incompleto");
@@ -519,7 +559,7 @@
 	<fc:AutoComplete id="input" dataProvider="{vacunaicones}" labelField="{atrib}" close="Seleccionar(event)" x="578" y="10" width="171"/> 
 	<mx:Text x="10" y="12" id="textFiltrar" text="Filtrar por"/>
 	<mx:TextInput x="260" y="323" width="474" id="motivo" toolTip="Ingrese el motivo por el cual desea anular el o los  registro(s) de peluquería(s)" visible="false"/>
-	<mx:Text x="10" y="325" text="Motivo" fontWeight="bold"/>
+	<mx:Text x="10" y="325" id="ih" text="Motivo" fontWeight="bold"/>
 	<mx:Label width="407" height="17" id="barraMsj" textAlign="center" fontWeight="bold" x="176" y="399"/>
 	<mx:ComboBox x="61" y="323" id="comboboxMotivo" change="seleccionarMotivo(event)">
 		<mx:ArrayCollection>
