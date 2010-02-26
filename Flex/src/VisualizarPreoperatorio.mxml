@@ -45,7 +45,7 @@
 					inputSexo.setVisible(false,false);
             		inputRaza.setVisible(false,false);
             		inputNombreMascota.setVisible(false,false);
-            		inputRutCliente.setVisible(false,false);
+            		inputRutCliente.setVisible(false,false); 
             		inputApellidoPaterno.setVisible(false,false);
             		inputNombreCliente.setVisible(false,false);
             		//combobox.selectedIndex=0;
@@ -62,8 +62,6 @@
 					ih.visible=false;
 					checkbox.visible=false;
 					todo.visible=false;
-					//combobox.selectedItem=0;
-					comboboxMotivo.selectedIndex=0;
 					inputSexo.setVisible(false,false);
             		inputRaza.setVisible(false,false);
             		inputNombreMascota.setVisible(false,false);
@@ -111,6 +109,7 @@
             {   
             	if(select ==0){
             		getAllVacunaciones();
+
 				}
 				else if(select ==1){
             		filtrarNulas();
@@ -127,7 +126,7 @@
 			    */
 				case 'Nombre cliente':		
 					inputNombreCliente.setVisible(true,false);
-					inputNombreCliente.selectedItem=false;
+					
 				break; 
 				
 			    /**
@@ -135,7 +134,7 @@
 			    */
 				case 'Apellido paterno':
 					inputApellidoPaterno.setVisible(true,false);
-					inputApellidoPaterno.selectedItem=false;
+					
 				break;
 				
 			    /**
@@ -143,7 +142,7 @@
 			    */	
 				case 'Rut cliente':
 					inputRutCliente.setVisible(true,false);
-					inputRutCliente.selectedItem=false;
+					
 				break;
 				
 			    /**
@@ -151,7 +150,7 @@
 			    */
 				case 'Nombre mascota':
 					inputNombreMascota.setVisible(true,false);
-					inputNombreMascota.selectedItem=false;
+					
 				break;
 				
 			    /**
@@ -159,11 +158,11 @@
 			    */
 				case 'Raza':
 					inputRaza.setVisible(true,false);
-					inputRaza.selectedItem=false;
+					
 				break;
 				case 'Sexo':
 					inputSexo.setVisible(true,false);
-					inputSexo.selectedItem=false;
+					
 				break;
 				}
             }
