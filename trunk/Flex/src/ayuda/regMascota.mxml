@@ -10,14 +10,15 @@
 
 				barra.visible = true;
 				botVolver.visible = true;
-
+				linkBarraPrincipal.visible=false;
 				opcMod.visible = false;
+				barraAdm.visible=true;
 			}
 			
 			private function verOpcMod():void
 			{
 				textAyuda.visible = false;
-
+				linkBarraPrincipal.visible=false;
 				barra.visible = false;
 				botVolver.visible = true;
 
@@ -30,19 +31,22 @@
 
 				opcMod.visible = false;
 				botVolver.visible = false;
-
+				linkBarraPrincipal.visible=true;
 				barra.visible = false;
+				barraAdm.visible=false;
 			}
 			
 		]]>
 	</mx:Script>
-	<mx:LinkButton x="121.5" y="36" label="   barra principal" color="#0000FF" click="verBarra()" id="linkBarraPrincipal"/>
 	<mx:Text x="10" y="10" text="Registrar Mascota&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la                      opción Administración&#xa;&#xa;&#x9;2. Ir al menú y seleccionar Mascota&#xa;&#xa;&#x9;3. En el submenu seleccionar Registrar&#xa;&#xa;&#x9;4. Ingresar Rut del cliente, y aparecerá la lista de &#xa;&#x9;    mascotas&#xa;&#xa;&#x9;5. Llenar datos de la mascota, la opción raza es &#xa;&#x9;    dependiente de la opción especie, por ende si no&#xa;&#x9;    se ha seleccionado no se podrá acceder a raza&#xa;&#xa;&#x9;6. Presionar botón registrar" width="355" height="332" id="textAyuda"/>
-	<mx:Image   id="barra" visible="false" x="94" y="137">
+	<mx:Image   id="barra" visible="false" x="102" y="192">
 		<mx:source>../images/ayuda/Administracion.png</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:Image   id="opcMod" visible="false" x="72" y="85">
 		<mx:source>../images/ayuda/MenuMascota.png</mx:source>
 	</mx:Image>	
+	<mx:Image x="10" y="84" width="355" height="47" source="../images/ayuda/barraAdm.JPG" id="barraAdm" visible="false"/>
+		<mx:LinkButton x="121.5" y="36" label="   barra principal" color="#0000FF" click="verBarra()" id="linkBarraPrincipal" enabled="true"/>
+
 </mx:Canvas>

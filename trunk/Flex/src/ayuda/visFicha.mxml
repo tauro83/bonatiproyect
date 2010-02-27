@@ -20,6 +20,7 @@
 				botVolver.visible = true;
 				linkOpciones.visible = false;
 				opcMod.visible = false;
+				barraAdm.visible=true;
 			}
 			/** 
 			 *  Metodo que despliega el texto de ayuda
@@ -47,13 +48,14 @@
 				botVolver.visible = false;
 				linkOpciones.visible = true;
 				barra.visible = false;
+				barraAdm.visible=false;
 			}
 			
 		]]>
 	</mx:Script>
 	<mx:Text x="10" y="10" text="Visualizar ficha&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la opción &#xa;&#xa;&#x9;2. Ir a              y seleccionar Ficha&#xa;&#xa;&#x9;3. Seleccionar Visualizar&#xa;&#xa;&#x9;4. Seleccionar una mascota desde la tabla&#xa;&#x9;&#xa;&#x9;5. Presionar el  botón Visualizar&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
 	<mx:LinkButton x="179" y="36" label="Administración" id="linkBarraPrincipal" click="verBarra()" color="blue" width="106"/>
-	<mx:Image x="91" y="128"  id="barra" visible="false">
+	<mx:Image x="102" y="187"  id="barra" visible="false">
 		<mx:source>../images/ayuda/Administracion.png</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
@@ -61,4 +63,5 @@
 	<mx:Image x="78.5" y="128"  id="opcMod" visible="false">
 		<mx:source>../images/ayuda/subMenuFicha.png</mx:source>
 	</mx:Image>
+	<mx:Image x="10" y="95" width="355" height="51" source="../images/ayuda/barraAdm.JPG" id="barraAdm" visible="false"/>
 </mx:Canvas>

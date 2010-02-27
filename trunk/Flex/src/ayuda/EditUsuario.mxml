@@ -14,6 +14,7 @@
 				opcMod.visible = false;
 				selUsuario.visible = false;
 				selUsr.visible = false;
+				barraAdm.visible=true;
 			}
 			
 			private function verOpcMod():void
@@ -49,6 +50,7 @@
 				barra.visible = false;
 				selUsuario.visible = false;
 				selUsr.visible = true;
+				barraAdm.visible=false;
 			}
 			
 		]]>
@@ -59,8 +61,9 @@
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:LinkButton x="59" y="78" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
 	<mx:LinkButton x="31" y="132" label="Seleccionar" color="blue" id="selUsr" click="verSelec()"/>
-	<mx:Image x="90" y="170" width="171" height="31" id="barra" visible="false" source="../images/ayuda/Administracion.PNG"/>
-	<mx:Image x="90" y="10" width="185" height="332" source="../images/ayuda/menuUsuario.png" id="opcMod" visible="false"/>
-	<mx:Image x="10" y="10" source="../images/ayuda/selUsuario2.JPG" id="selUsuario" visible="false"/>
+	<mx:Image x="92" y="191" width="171" height="31" id="barra" visible="false" source="../images/ayuda/Administracion.PNG" scaleContent="false"/>
+	<mx:Image x="95" y="108" width="185" height="241" source="../images/ayuda/menuUsuario.png" id="opcMod" visible="false" scaleContent="false"/>
+	<mx:Image x="10" y="66" source="../images/ayuda/selUsuario2.JPG" id="selUsuario" visible="false" width="355" height="280" scaleContent="false"/>
+	<mx:Image x="10" y="108" width="355" height="48" source="../images/ayuda/barraAdm.JPG" id="barraAdm" visible="false"/>
 	
 </mx:Canvas>

@@ -8,19 +8,20 @@
 			{
 				textAyuda.visible = false;
 				linkBarraPrincipal.visible = false;
-				barra.visible = true;
+				barraPel.visible = true;
 				botVolver.visible = true;
 				linkOpciones.visible = false;
 				opcMod.visible = false;
 				selMascotaVacuna.visible = false;
 				selUsr.visible = false;
+				barraPelu.visible=true;
 			}
 			
 			private function verOpcMod():void
 			{
 				textAyuda.visible = false;
 				linkBarraPrincipal.visible = false;
-				barra.visible = false;
+				barraPel.visible = false;
 				botVolver.visible = true;
 				linkOpciones.visible = false;
 				opcMod.visible = true;
@@ -31,7 +32,7 @@
 			{
 				textAyuda.visible = false;
 				linkBarraPrincipal.visible = false;
-				barra.visible = false;
+				barraPel.visible = false;
 				botVolver.visible = true;
 				linkOpciones.visible = false;
 				opcMod.visible = false;
@@ -46,9 +47,10 @@
 				opcMod.visible = false;
 				botVolver.visible = false;
 				linkOpciones.visible = true;
-				barra.visible = false;
+				barraPel.visible = false;
 				selMascotaVacuna.visible = false;
 				selUsr.visible = true;
+				barraPelu.visible=false;
 			}
 			
 		]]>
@@ -59,9 +61,10 @@
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:LinkButton x="56" y="64" label="opciones del módulo" id="linkOpciones" color="blue" click="verOpcMod()"/>
 	<mx:LinkButton x="30" y="232" label="Seleccionar" color="blue" id="selUsr" click="verSelec()"/>
-	<mx:Image x="20" y="170" width="355" height="43" source="../images/ayuda/Peluqueria.PNG" id="barra" visible="false"/>
-	<mx:Image x="95" y="30" width="185" height="332" source="../images/ayuda/MenuPeluqueria.jpg" id="opcMod" visible="false"/>
-	<mx:Image x="10" y="10" width="350" height="332" source="../images/ayuda/selMascotaPol2.JPG" id="selMascotaVacuna" visible="false"/>
+	<mx:Image x="85" y="181" width="231" height="43" source="../images/ayuda/Peluqueria.PNG" id="barraPel" visible="false" scaleContent="false"/>
+	<mx:Image x="95" y="66" width="185" height="214" source="../images/ayuda/MenuPeluqueria.jpg" id="opcMod" visible="false" scaleContent="false"/>
+	<mx:Image x="10" y="10" width="350" height="332" source="../images/ayuda/selMascotaPol2.JPG" id="selMascotaVacuna" visible="false" scaleContent="false"/>
+	<mx:Image x="10" y="94" width="355" height="54" id="barraPelu" source="../images/ayuda/barraPel.JPG" visible="false"/>
 	
 </mx:Canvas>
 
