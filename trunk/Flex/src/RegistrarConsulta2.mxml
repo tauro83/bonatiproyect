@@ -22,7 +22,8 @@
 			import mx.rpc.events.ResultEvent;
 		    import mx.core.Application;		
 		    import mx.events.ValidationResultEvent;    
-		    import administracion.UsuarioEditService;        
+		    import administracion.UsuarioEditService;
+		    import transferObjects.Usuario;        
             private var vResult:ValidationResultEvent;	
             
             [Bindable]
@@ -214,14 +215,43 @@
 				
 			}
 			
+			public function filtrarMedicos(lista:ArrayCollection):ArrayCollection{
+				var u:Usuario = null;
+				var retorno:ArrayCollection = new ArrayCollection();
+				for (var i:int = 0; i < lista.length; i++){
+					u = lista.getItemAt(i) as Usuario;
+					//Alert.show(u.cargo.split(" ",1) +"| |"+ u.servicio.split(" ",1) +"|");
+					
+					var ca:String = u.cargo.split(" ",1).pop();
+					var se:String = u.servicio.split(" ",1).pop();
+					
+					if( (ca == "Veterinario" || ca == "Veterinaria" ||
+						se == "Pabellón" 	|| se == "Pabellon" ||
+						se == "Clínica" 	|| se == "Clinica" ||
+						se == "Cirugía" 	|| se == "Cirugia" ||
+						se == "Policlínico" || se == "Policlinico") &&
+						ca != "Ayudante"){
+						
+						retorno.addItem(u);
+						//Alert.show("siii");
+						}
+					//Alert.show("siii2");
+				}
+				//Alert.show("siii3");
+				return retorno;
+			
+			}
+			
 			private function getAllUsuariosEResult(event:ResultEvent):void
 			{
-				usuarios = event.result as ArrayCollection;	
+				usuarios = filtrarMedicos(event.result as ArrayCollection);	
 				usuarios2 = new ArrayCollection();
 				responsableSeleccionado = usuarios.getItemAt(0).usuario.split(" ",1).pop();
 				//usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ","").pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" "," ").pop(), usuario:usuarios.getItemAt(i).usuario.split(" "," ").pop()});
 				for(var i:int = 0; i<usuarios.length; i++){
-					usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
+					if(usuarios.getItemAt(i).nombre.split(" ",1).pop()){
+						usuarios2.addItem({label:usuarios.getItemAt(i).nombre.split(" ",1).pop()+" "+usuarios.getItemAt(i).apellidoPaterno.split(" ",1).pop(), usuario:usuarios.getItemAt(i).usuario.split(" ",1).pop()});
+					}
 				}					
 			}
 			
