@@ -14,6 +14,7 @@
 				linkBarraPrincipal.visible = false;
 				linkOpciones.visible = false;
 				opcMod.visible = false;
+				barraAge.visible=true;
 			}
 			
 			private function verOpcMod():void
@@ -35,6 +36,7 @@
 				botVolver.visible = false;
 				linkOpciones.visible = true;
 				barra.visible = false;
+				barraAge.visible=false;
 			}
 			
 		]]>
@@ -42,7 +44,8 @@
 	<mx:Text x="8" y="3" text="Ver Agenda&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la                       la opción Agenda.&#xa;&#xa;&#x9;2. Ir a                                 seleccionar Horario.&#xa;&#xa;&#x9;3. Para ver:&#xa;&#xa;&#x9;&#x9;a. Seleccionar un responsable o ver todos.&#xa;&#x9;&#x9;b. Seleccionar un servicio o ver todos.&#xa;&#xa;&#x9;4. Para registrar nueva cita:&#xa;&#x9;&#xa;&#x9;&#x9;a. Seleccionar un servicio.&#xa;&#x9;&#x9;b. Hacer doble click sobre una hora libre o un click y &#xa;&#x9;&#x9;    luego presionar el botón agendar.&#xa;&#xa;&#x9;5. Para editar cita:&#xa;&#xa;&#x9;&#x9;a. Hacer doble click sobre una hora ocupada o &#xa;&#x9;&#x9;    un click y luego presionar el botón editar.&#xa;&#xa;     6. Para editar cita:&#xa;&#xa;&#x9;&#x9;a. Hacer doble click sobre una hora ocupada o &#xa;&#x9;&#x9;    un click y luego presionar el botón eliminar" width="357" height="366" id="textAyuda"/>
 	<mx:LinkButton x="60" y="57" label="opciones del módulo" id="linkOpciones" color="blue" click="verOpcMod()"/>
 	<mx:LinkButton x="127" y="29" label="barra principal" id="linkBarraPrincipal" click="verBarra()" color="blue" width="109"/>
-	<mx:Image x="20" y="170" width="355" height="43" source="../images/ayuda/Agenda.jpg" id="barra" visible="false"/>
+	<mx:Image x="106" y="173" width="226" height="43" source="../images/ayuda/Agenda.jpg" id="barra" visible="false" scaleContent="false"/>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
-	<mx:Image x="95" y="30" width="185" height="332" source="../images/ayuda/menuAgenda.jpg" id="opcMod" visible="false"/>	
+	<mx:Image x="95" y="87" width="185" height="129" source="../images/ayuda/menuAgenda.jpg" id="opcMod" visible="false" scaleContent="false"/>	
+	<mx:Image visible="false" x="10" y="87" width="355" height="39" source="../images/ayuda/barraAge.JPG" id="barraAge"/>
 </mx:Canvas>

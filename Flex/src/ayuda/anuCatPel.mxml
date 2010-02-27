@@ -12,6 +12,7 @@
 				botVolver.visible = true;
 				linkOpciones.visible = false;
 				opcMod.visible = false;
+				barraPel.visible=true;
 			}
 			
 			private function verOpcMod():void
@@ -32,17 +33,19 @@
 				botVolver.visible = false;
 				linkOpciones.visible = true;
 				barra.visible = false;
+				barraPel.visible=false;
 			}
 			
 		]]>
 	</mx:Script>
 	<mx:Text x="10" y="10" text="Anular Catálogo Peluquería&#xa;&#x9;&#xa;&#x9;1. Seleccionar en la                        la opción Peluquería.&#xa;&#xa;&#x9;2. Ir a                                y seleccionar Catálogo.&#xa;&#xa;&#x9;3. Seleccionar Anular .&#xa;&#xa;&#x9;4. Seleccionar un parámetro por el cual se desea filtrar.&#xa;&#xa;&#x9;5. Ingresar una búsqueda.&#xa;&#xa;&#x9;6. Seleccionar el o los catálogo(s) de Peluquería(s)&#xa;&#x9;  que se desean anular.&#xa;&#xa;&#x9;7. Ingresar el motivo por el cual se desea anular.&#xa;&#xa;&#x9;8. Presionar el botón Anular.&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda"/>
 	<mx:LinkButton x="130" y="36" label="barra principal" id="linkBarraPrincipal" click="verBarra()" color="blue" width="108"/>
-	<mx:Image x="10" y="170" width="355" height="43" id="barra" visible="false">
+	<mx:Image x="87" y="171" width="267" height="43" id="barra" visible="false" scaleContent="false">
 		<mx:source>../images/ayuda/Peluqueria.PNG</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
 	<mx:LinkButton x="60" y="64" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
-	<mx:Image x="95" y="30" width="185" height="332" source="../images/ayuda/menuCatalogo.jpg" id="opcMod" visible="false"/>
+	<mx:Image x="95" y="94" width="185" height="214" source="../images/ayuda/menuCatalogo.jpg" id="opcMod" visible="false" scaleContent="false"/>
+	<mx:Image x="10" y="94" width="355" height="46" source="../images/ayuda/barraPel.JPG" id="barraPel" visible="false"/>
 	
 </mx:Canvas>

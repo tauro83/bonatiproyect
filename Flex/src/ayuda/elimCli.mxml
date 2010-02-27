@@ -11,6 +11,7 @@
 				botVolver.visible = true;
 				linkOpciones.visible = false;
 				opcMod.visible = false;
+				barraAdm.visible=true;
 			}
 		
 			private function volver2():void
@@ -21,6 +22,7 @@
 				botVolver.visible = false;
 				linkOpciones.visible = true;
 				barra.visible = false;
+				barraAdm.visible=false;
 			}
 			
 			private function verOpcMod():void
@@ -40,11 +42,12 @@
 	<mx:Text x="10" y="10" text="Eliminar Cliente&#xa;&#xa;&#x9;1. Seleccionar en                        la opción Administración.&#xa;&#xa;&#x9;2. Ir a                                    y seleccionar Cliente.&#xa;&#xa;&#x9;3. Seleccionar Eliminar Cliente.&#xa;&#xa;&#x9;4. Buscar el cliente que desea eliminar.&#xa;&#xa;&#x9;5. Presionar eliminar." width="355" height="352" id="textAyuda"/>
 	<mx:LinkButton x="121.5" y="36" label="barra principal" color="#0000FF" click="verBarra()" id="linkBarraPrincipal"/>
 	<mx:LinkButton x="74" y="64" label="opciones del módulo" color="#0000FF" id="linkOpciones" click="verOpcMod()"/>
-		<mx:Image x="95" y="10" width="185" height="332" id="opcMod" visible="false">
-		<mx:source>../images/ayuda/menuCliente.png</mx:source>
+		<mx:Image x="95" y="94" width="185" height="244" id="opcMod" visible="false" scaleContent="false">
+		<mx:source>../images/ayuda/menuCliente.JPG</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
-	<mx:Image x="10" y="170" width="355" height="43" id="barra" visible="false">
+	<mx:Image x="89" y="185" width="228" height="43" id="barra" visible="false" scaleContent="false">
 		<mx:source>../images/ayuda/Administracion.PNG</mx:source>
 	</mx:Image>
+	<mx:Image x="10" y="94" width="355" height="46" source="../images/ayuda/barraAdm.JPG" id="barraAdm" visible="false"/>
 </mx:Canvas>

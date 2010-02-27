@@ -14,6 +14,7 @@
 				opcMod.visible = false;
 				selUsuario.visible = false;
 				selUsr.visible = false;
+				barraAdm.visible=true;
 			}
 			
 			private function verOpcMod():void
@@ -49,19 +50,21 @@
 				barra.visible = false;
 				selUsuario.visible = false;
 				selUsr.visible = true;
+				barraAdm.visible=false;
 			}
 			
 		]]>
 	</mx:Script>
-	<mx:Image x="10" y="170" width="355" height="43" id="barra" visible="false">
+	<mx:Image x="96" y="206" width="234" height="43" id="barra" visible="false" scaleContent="false">
 		<mx:source>../images/ayuda/Administracion.png</mx:source>
 	</mx:Image>
 	<mx:Button x="263" y="350" label="Volver" id="botVolver" width="102" click="volver2()" visible="false"/>
-	<mx:Image x="95" y="10" width="185" height="332" source="../images/ayuda/menuUsuario.png" id="opcMod" visible="false"/>
-	<mx:Image x="95" y="10" width="185" height="332" source="../images/ayuda/selUsuario.JPG" id="selUsuario" visible="false"/>
+	<mx:Image x="95" y="94" width="185" height="259" source="../images/ayuda/menuUsuario.png" id="opcMod" visible="false" scaleContent="false"/>
+	<mx:Image x="95" y="94" width="185" height="257" source="../images/ayuda/selUsuario.JPG" id="selUsuario" visible="false" scaleContent="false"/>
 	<mx:Text x="10" y="10" text="Purgar Usuario&#xa;&#x9;&#xa;&#x9;1. Seleccionar en                        la opción Adminisrtación.&#xa;&#xa;&#x9;2. Ir a                                .&#xa;&#xa;&#x9;3.                   uno o mas usuarios.&#xa;&#xa;&#x9;4. Seleccionar Purgar.&#xa;&#xa;&#x9;5. Seleccionar uno o mas usuarios que desea Purgar.&#xa;&#xa;&#x9;6. Confirmar purgar los usuarios seleccionados.&#xa;&#xa;&#x9;7. Los usuarios quedan purgados dentro del sistema.&#xa;&#xa;&#x9;" width="355" height="332" id="textAyuda0"/>
 	<mx:LinkButton x="118" y="36" label="barra principal" id="linkBarraPrincipal" click="verBarra()" color="blue" width="108"/>
 	<mx:LinkButton x="60" y="64" label="opciones del módulo" color="blue" id="linkOpciones" click="verOpcMod()"/>
 	<mx:LinkButton x="32" y="92" label="Seleccionar" color="blue" id="selUsr" click="verSelec()"/>
+	<mx:Image x="10" y="92" width="355" height="46" source="../images/ayuda/barraAdm.JPG" id="barraAdm" visible="false"/>
 	
 </mx:Canvas>
