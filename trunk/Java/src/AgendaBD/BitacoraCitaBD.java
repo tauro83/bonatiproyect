@@ -192,7 +192,7 @@ public class BitacoraCitaBD
     	return result;
     }
         
-	public int respaldarBitacora(){
+	public int respaldarBitacora(int anos){
     	BitacoraCita b;
     	int resultado = 0;
 
@@ -247,24 +247,55 @@ public class BitacoraCitaBD
 		    			b.cliente = result.getString(7).trim();
 		    			b.mascota = result.getString(8).trim();
 		    			b.servicio = result.getString(9).trim();
+		    			
+		    			
+		    			
+		    			String [] datos = b.fechaAccion.split("/");
+		    			String fech = "";
+		    			
+		    			for(int i = datos.length-1; i >= 0; i--){
+		    				//System.out.print(datos[i]);
+		    				
+		    				if(i<=1 && Integer.parseInt(datos[i]) < 10){
+		    					fech += "0" + datos[i];
+		    				}
+		    				else{
+		    					fech += datos[i];
+		    				}
+		    			}
+		    			
+		    			
+		    			if(Integer.parseInt(actualfech) - Integer.parseInt(fech) > (anos * 10000)){// 2 Anios 
+		    				ocultar.setString(1, b.fechaAccion);
+		        			ocultar.executeUpdate();
+		        	
+		    			}
+		    		
+		    			//Funcion para eliminar pero no funciona
+		    			if(Integer.parseInt(actualfech) - Integer.parseInt(fech) > (anos * 10000)){// 5 Anios 
+		    				eliminar.executeUpdate();
+		    				resultado = eliminar.executeUpdate();
+		    				
+			    	    	bw.write(b.fechaAccion 	+ " - " + 
+			    					b.horaAccion 	+ " - " +
+			    					b.usuario 	 	+ " - " +
+			    					b.accion 	    + " - " +
+			    					b.fechaCita	 	+ " - " +
+			    					b.horaCita	 	+ " - " +
+			    					b.cliente		+ " - " +
+			    					b.mascota		+ " - " +
+			    					b.servicio	    +
+			    					"\n");
 
-		    	    	bw.write(b.fechaAccion 	+ " - " + 
-		    					b.horaAccion 	+ " - " +
-		    					b.usuario 	 	+ " - " +
-		    					b.accion 	    + " - " +
-		    					b.fechaCita	 	+ " - " +
-		    					b.horaCita	 	+ " - " +
-		    					b.cliente		+ " - " +
-		    					b.mascota		+ " - " +
-		    					b.servicio	    +
-		    					"\n");
+		    			}
+		    			
 		    		}
 				  bw.close();
 				  
 				  
-	    		eliminarAll.executeQuery();
+	    		//eliminarAll.executeQuery();
 	    			
-	    		resultado = eliminarAll.executeUpdate();
+	    		//resultado = eliminarAll.executeUpdate();
 				  
 			} catch (IOException ioe){
 			ioe.printStackTrace();
