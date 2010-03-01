@@ -12,8 +12,10 @@ package services
 	import mx.messaging.channels.AMFChannel;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	import util.host;
+	
 	import transferObjects.BitacoraCita;
+	
+	import util.host;
 
 	/**
 	 * Clase Declara el canal, y los servicios a los cuales se estan enviando los datos.
@@ -52,8 +54,8 @@ package services
 			Alert.show("Error en BitacoraCitaService, Detalle: "+event.fault.message);
 		}
 		
-		public function respaldarBitacora():void{
-			this.getOperation("respaldarBitacora").send();
+		public function respaldarBitacora(anos:int):void{
+			this.getOperation("respaldarBitacora").send(anos);
 		}
 		
 		/**
