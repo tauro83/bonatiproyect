@@ -24,6 +24,7 @@
 		* @param event Evento
 		*/
 		private function getAllBitacoraCitaResult(event:ResultEvent):void{
+			anos.value = 2;
 			bitacoras = event.result as ArrayCollection;
 			bitacoras.refresh();
 			
@@ -41,7 +42,7 @@
 			else{
 				var bitacoraCitaService:BitacoraCitaService = new BitacoraCitaService();
 				bitacoraCitaService.addEventListener(ResultEvent.RESULT,respaldarBitacoraResult);
-				bitacoraCitaService.respaldarBitacora();
+				bitacoraCitaService.respaldarBitacora(anos.value);
 			  	}
 		
 		}
@@ -72,5 +73,8 @@
 		</mx:columns>
 	</mx:DataGrid>
 	<mx:Button x="656" y="367" label="Extraer" click="consultarRespaldar()" toolTip="Esta acción extrae los registros de la bitácora y son respaldados en el directorio C:/RespaldoBD/BitacoraAgenda/ del servidor, posterior a esto los registros no serán visibles en la tabla."/>
+	<mx:Label x="439" y="369" text="Conservar últimos"/>
+	<mx:Label x="607" y="369" text="años." width="41"/>
+	<mx:NumericStepper x="553" y="367" width="52" id="anos"/>
 	
 </mx:Panel>
