@@ -86,6 +86,9 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
                 if(event.keyCode==54 && event.shiftKey==true && botonHotel.enabled==true){
                 	hotelclimanejadorClick(event);
                 }
+                if(event.charCode==27 && event.shiftKey==true && botonLogin.label=="Cerrar Sesión"){
+                	linkLogin(event);
+                }
             }
             
             private function showWindow():void {
