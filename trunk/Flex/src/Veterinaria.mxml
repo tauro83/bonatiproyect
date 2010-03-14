@@ -61,7 +61,7 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
                 if(event.charCode==13 && login2.visible==true){
                		login2.existLogin();
                 }
-                if(event.keyCode==65 && event.shiftKey==true){
+                /*if(event.keyCode==65 && event.shiftKey==true){
                 	showWindow();
                 }
                 if(event.keyCode==66 && event.shiftKey==true && botonBusqueda.enabled==true){
@@ -85,7 +85,7 @@ xmlns:peluqueria="peluqueria.*" xmlns:ns6="avisoWeb.*" xmlns:ns7="petshop.*" xml
                 }
                 if(event.keyCode==54 && event.shiftKey==true && botonHotel.enabled==true){
                 	hotelclimanejadorClick(event);
-                }
+                }*/
                 if(event.charCode==27 && event.shiftKey==true && botonLogin.label=="Cerrar Sesión"){
                 	linkLogin(event);
                 }

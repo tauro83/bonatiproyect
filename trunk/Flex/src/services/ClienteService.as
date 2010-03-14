@@ -54,5 +54,10 @@ package services
 		
 		}
 		
+		public function consultarCli(user:Cliente):void
+		{
+			this.getOperation("ConsultarCli").send(user);
+		}
+		
 	}
 }
