@@ -47,7 +47,8 @@ public class ConfigurarBD {
 		/**Consulta a la base de datos, Selecciona todas las mascotas registradas en la base de datos*/
 		query = "SELECT nombre " +
 				"FROM raza " +
-				"WHERE especie = ?;";
+				"WHERE especie = ?" +
+				"ORDER BY nombre;";
 		selectRazas = connection.prepareStatement(query);
 
     	try{
