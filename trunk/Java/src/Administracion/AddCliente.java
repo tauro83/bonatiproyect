@@ -29,5 +29,12 @@ public class AddCliente {
 		connection.close();
 		return retorno;
 	}
+	public int consultarCli(Cliente c) throws SQLException{
+		Connection connection=DBConnectionManager.getConnection();
+		AddClienteBD acbd = new AddClienteBD(connection);			
+		int result = acbd.consultarCli(c);
+		connection.close();
+		return result;
+	}
 
 }

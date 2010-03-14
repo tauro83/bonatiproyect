@@ -11,6 +11,7 @@ package AdministracionBD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
@@ -23,7 +24,6 @@ import TransferObjects.Cliente;
 public class AddClienteBD {
 
 	Connection connection;
-	
 	/**
 	 * Constructor de la conexion
 	 * @param connection es el enlace a la BD
@@ -33,6 +33,37 @@ public class AddClienteBD {
 	{
 		this.connection = connection;
 	}
+	
+	public int consultarCli(Cliente c) throws SQLException{
+		
+		int result = 0;
+		ResultSet cliente; 
+		PreparedStatement select;
+		String query="";
+		query = "SELECT rut "+
+				"FROM clientepresencial "+
+				"WHERE rut = ? ;";
+		select = connection.prepareStatement(query);
+		select.setString(1, c.rut+c.rut2);
+		try 
+    	{
+			int val=0;
+			cliente = select.executeQuery();
+			while(cliente.next())
+	    	{
+				val++;
+	    	}
+			if(val<2){
+				result=1;
+			}
+    	}
+		catch (SQLException e) 
+    	{
+			e.printStackTrace();
+		}
+    	return result;
+	}
+	
 	
 	/**
 	 * Registra el Cliente en la BD, con sus respectivos datos.
