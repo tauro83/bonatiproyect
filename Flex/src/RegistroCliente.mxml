@@ -34,6 +34,7 @@
         private var v:Validacion=new Validacion();
         private var e:Validaremail=new Validaremail;
 		public	var cl:Cliente;
+		public var clte:Cliente;
 		private var vNombre:Boolean;
         private var vApellido:Boolean;
         private var vEmail:Boolean;
@@ -230,7 +231,7 @@
 				    }
 								
 			       if(email.text=="" && email2.text=="" && region.text!=" " && comunas.text!=" " || email.text=="" && email2.text=="" && region.text==" " && comunas.text==" "){
-				    	if(email.text=="" && email2.text=="" && region.text!=" " && comunas.text!=" " || email.text=="" && email2.text=="" && region.text==" " && comunas.text==" "){
+				    	if(email.text=="" && email2.text=="" && region.text!=" " && comunas.text!=" " || email.text=="" && email2.text=="" && region.text==" " && comunas.text==" "){   
 				    	cl=new Cliente();
 						cl.nombre = nombre.text;
 						cl.apellido = apellido.text;
@@ -345,12 +346,34 @@
     		 		
     		 	}
     		 	
-				if(message=="0"){
-					
-					msj= Properties.getMensaje("Error", "7");
+    		 	labelMessage.text=msj;
 				
+				if(message=="0"){
+					clte=new Cliente();
+					clte.rut=rut.text;
+					clte.rut2=rut2.text;
+					w.consultarCli(clte);
+					w.addEventListener(ResultEvent.RESULT,consultarCliResult);
+					
+					//msj= Properties.getMensaje("Error", "7"); /*******/
+					
 				}		
-					labelMessage.text=msj;
+					//labelMessage.text=msj; /*******/
+			}
+			
+			private function consultarCliResult(event:ResultEvent):void
+			{
+				var val:int= event.result as int;	
+				var msj:String = "";
+				//Alert.show("RESULT: "+val);
+				if(val==1){
+					msj = "Cliente ya registrado "+val;					
+    		 	}
+    		 	if(val==0){
+    		 		msj = Properties.getMensaje("Informacion", "3");
+				 	limpiarTodo(); 					
+    		 	}
+    		 	labelMessage.text=msj;
 			}
 
 			/** 
@@ -573,8 +596,8 @@
 				direccion.text="";
 				email.text = "";
 				email2.text = "";	
-				region.selectedItem="";	
-				this.comunas.setVisible(false,false);	
+				//region.selectedItem="";	
+				//this.comunas.setVisible(false,false);	
 				labelMessage.text ="";
 				Check.selection=null;
 				valor=0;
@@ -806,7 +829,8 @@
 					comunas1.addItem({label:"Teno"});
 					comunas1.addItem({label:"Vichuquén"});	
 					comunas1.addItem({label:"Villa Alegre"});
-					comunas1.addItem({label:"Yerbas Buenas"});					
+					comunas1.addItem({label:"Yerbas Buenas"});	
+					comunas.selectedIndex=5;				
 				}
 
 				else if(ComboBox(event.target).text.localeCompare("Del Bío Bío") == 0){
@@ -1059,8 +1083,7 @@
         		regiones.addItem({label:"De los Ríos"});
         		regiones.addItem({label:"De Arica y Parinacota"});
         		region.dataProvider = regiones;	
-
-        			
+        		region.selectedIndex=7;
 			}
 		
 		]]>
@@ -1103,12 +1126,12 @@
 	
 	<!-- Regiones -->	
 	<mx:Label x="24" y="260" text="Región:" width="112"/>
-	<mx:ComboBox x="144" y="258" width="201" id="region"  visible="true" close="selComunas(event);">	
+	<mx:ComboBox x="144" y="258" width="201" id="region"  visible="true" close="selComunas(event);" creationComplete="selComunas(event);">	
 	</mx:ComboBox>	
 	
 	<!-- Comunas -->
 	<mx:Label x="412" y="260" text="Comuna:" width="112"/>
-	<mx:ComboBox x="523" y="258" width="201" id="comunas" visible="false">	
+	<mx:ComboBox x="523" y="258" width="201" id="comunas">	
 	</mx:ComboBox>	
 	
 	<mx:Label x="25" y="314" text="E-Mail:" width="97"/>

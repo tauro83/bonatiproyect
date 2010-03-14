@@ -1,12 +1,12 @@
 package services
 {
-	import mx.controls.Alert;
 	import mx.messaging.ChannelSet;
 	import mx.messaging.channels.AMFChannel;
-	import mx.rpc.events.FaultEvent;
 	import mx.rpc.remoting.mxml.RemoteObject;
-	import util.host;
+	
 	import transferObjects.Cliente;
+	
+	import util.host;
 
 	public class ClienteService extends RemoteObject
 	{
@@ -28,6 +28,10 @@ package services
 		
 		}
 		
+		public function consultarCli(user:Cliente):void
+		{
+			this.getOperation("ConsultarCli").send(user);
+		}
 	}
 }
 

@@ -103,18 +103,16 @@
 			public function carga(mascotilla:Mascota):void
 			{       //asigno el cliente entregado desde panel EditarCliente
 			
-			
-				 
 					nombre.text = mascotilla.nombre.split(" ", 1).pop();
 					nombreAntiguo = nombre.text;
 				    clienteAuxEditado = mascotilla;
 				    fechaNacimiento.text = mascotilla.fechaNacimiento;
 				    
-				    selClaseAnimal(null);
+				    //selClaseAnimal(null);
+
+				    claseAnimalInput.text = mascotilla.claseAnimal;
 				    
-				    claseAnimalInput.text   = mascotilla.claseAnimal;
-				    
-				    selRazas(null);
+				    //selRazas(null);
 				    razaInput.text	= mascotilla.raza;
 				    sexoInput.text= mascotilla.sexo;
 				    rutClienteObjeto = mascotilla.rutCliente;
